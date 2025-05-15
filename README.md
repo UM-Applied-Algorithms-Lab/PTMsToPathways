@@ -2,6 +2,8 @@ This is the supporting package for the projects in the papers listed below.
 
 Please feel free to reach out with errors, critiques, or questions.
 
+## THE WEBSITE UPDATES AUTOMATICALLY
+
 ## Installation
 
 Before proceeding, ensure you have R installed. You will also need the devtools package, which can be installed with:
