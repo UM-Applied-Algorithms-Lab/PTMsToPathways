@@ -60,7 +60,7 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
 <span>  <span class="va">eu_allptms_tsne</span>,</span>
 <span>  <span class="va">sp_allptms_tsne</span>,</span>
 <span>  <span class="va">sed_allptms_tsne</span>,</span>
-<span>  <span class="va">ptmtable_df</span>,</span>
+<span>  <span class="va">ptmtable.df</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="st">"plots"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -81,7 +81,7 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
 <dd><p>A matrix containing combined t-SNE coordinates.</p></dd>
 
 
-<dt id="arg-ptmtable-df">ptmtable_df<a class="anchor" aria-label="anchor" href="#arg-ptmtable-df"></a></dt>
+<dt id="arg-ptmtable-df">ptmtable.df<a class="anchor" aria-label="anchor" href="#arg-ptmtable-df"></a></dt>
 <dd><p>A data frame containing input data for cluster analysis.</p></dd>
 
 
@@ -96,8 +96,655 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">eu_allptms_tsne</span>, <span class="va">sp_allptms_tsne</span>, <span class="va">sed_allptms_tsne</span>, <span class="va">ptmtable_df</span>, <span class="st">"output"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'eu_allptms_tsne' not found</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">eu_allptms_tsne</span>, <span class="va">sp_allptms_tsne</span>, <span class="va">sed_allptms_tsne</span>, <span class="va">ptmtable.df</span>, <span class="st">"output"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Connectivity of distance matrix with threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data are disconnected: 5 groups</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups sizes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4  5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 10 35 15  7 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  5  groups </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> species scores not available</span>
+<span class="r-plt img"><img src="FindCommonCluster-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Connectivity of distance matrix with threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data are disconnected: 93 groups</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups sizes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  1  1  1  1  1  1  1  1  2  1  1  1  1  1  1  1  1  1  1  1  2  1  1  1  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  2 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  1  1  1  1  1  2  1  2  1  1  1  1  1  1  2  1  1  1  1  1  1  1  1  1  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  1  2  1  1  1  1  1  1  1  1  1  1  1  1 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  93  groups </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> species scores not available</span>
+<span class="r-plt img"><img src="FindCommonCluster-2.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Connectivity of distance matrix with threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data are disconnected: 4 groups</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups sizes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 14 30 15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4  groups </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> species scores not available</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Saved plot: Euclidean_tSNE_Cluster_Sizes.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Saved plot: Spearman_tSNE_Cluster_Sizes.png"</span>
+<span class="r-plt img"><img src="FindCommonCluster-3.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Saved plot: Combined_tSNE_Cluster_Sizes.png"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $eu_allptms_list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          5     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         12     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         13     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         15     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         17     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         18     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         19     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         20     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        21     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        22     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        23     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        24     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        31     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        34     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        43     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        45     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        46     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        48     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        49     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        50     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        52     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        53     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        57     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        70     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        72     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        74     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        75     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29        77     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30        82     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        96     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32        97     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33        98     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          2     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          4     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         44     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         61     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         64     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         76     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         85     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         86     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         87     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        92     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          3     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          6     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          7     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4          8     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         11     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         14     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         16     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         26     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         30     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        32     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        33     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        37     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        39     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        42     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        51     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        58     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        62     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        66     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        67     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        68     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        69     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        71     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        73     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        78     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        79     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        80     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        83     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        84     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29        88     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30        89     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        90     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32        91     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33        93     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34        94     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35        99     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          9     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         25     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         27     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         28     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         35     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         36     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         38     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         40     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         41     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        47     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        54     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        55     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        63     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        65     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        81     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        29     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3        56     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4        59     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5        60     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6        95     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7       100     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sp_allptms_list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         2     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         3     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         4     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         5     5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`6`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         6     6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`7`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         7     7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         8     8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`9`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         9     9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`10`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        10    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        95    10</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`11`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        11    11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`12`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        12    12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`13`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        13    13</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`14`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        14    14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`15`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        15    15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`16`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        16    16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`17`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        17    17</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`18`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        18    18</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`19`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        19    19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`20`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        20    20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`21`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        21    21</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`22`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        22    22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        98    22</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`23`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        23    23</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`24`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        24    24</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`25`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        25    25</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`26`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        26    26</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`27`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        27    27</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`28`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        28    28</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`29`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        29    29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`30`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        30    30</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`31`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        31    31</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`32`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        32    32</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`33`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        33    33</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`34`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        34    34</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`35`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        35    35</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`36`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        36    36</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`37`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        37    37</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`38`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        38    38</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`39`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        39    39</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`40`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        40    40</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`41`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        41    41</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`42`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        42    42</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`43`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        43    43</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`44`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        44    44</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`45`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        45    45</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`46`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        46    46</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`47`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        47    47</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`48`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        48    48</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`49`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        49    49</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`50`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        50    50</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`51`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        51    51</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`52`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        52    52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        74    52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`53`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        53    53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`54`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        54    54</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`55`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        55    55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`56`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        56    56</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`57`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        57    57</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`58`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        58    58</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`59`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        59    59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2       100    59</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`60`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        60    60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`61`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        61    61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        87    61</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`62`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        62    62</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`63`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        63    63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`64`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        64    64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`65`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        65    65</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`66`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        66    66</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`67`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        67    67</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`68`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        68    68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        69    68</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`69`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        70    69</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`70`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        71    70</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`71`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        72    71</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`72`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        73    72</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`73`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        75    73</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`74`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        76    74</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`75`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        77    75</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`76`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        78    76</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`77`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        79    77</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`78`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        80    78</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`79`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        81    79</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`80`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        82    80</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`81`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        83    81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2        84    81</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`82`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        85    82</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`83`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        86    83</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`84`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        88    84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`85`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        89    85</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`86`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        90    86</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`87`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        91    87</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`88`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        92    88</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`89`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        93    89</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`90`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        94    90</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`91`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        96    91</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`92`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        97    92</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`93`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1        99    93</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $sed_allptms_list</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          1     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          5     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          8     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         12     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         13     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         15     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         17     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         18     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         19     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        20     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        21     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        22     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        23     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        24     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        31     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        32     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        34     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        39     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        43     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        45     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        46     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        48     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        49     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        50     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        52     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        53     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        57     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        62     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29        66     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30        70     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31        72     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32        73     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33        74     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34        75     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35        77     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36        80     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37        82     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 38        90     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 39        96     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 40        97     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41        98     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          2     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          4     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         44     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         51     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         61     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         64     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         71     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         76     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         85     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        86     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        87     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        91     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        92     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        99     2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          3     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2          6     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3          7     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         10     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         11     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         14     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         16     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         26     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         29     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        30     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        33     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        37     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        42     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        56     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        58     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        59     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        60     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        67     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        68     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20        69     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21        78     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22        79     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23        83     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24        84     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25        88     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26        89     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27        93     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28        94     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29        95     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30       100     3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    Gene.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1          9     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         25     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         27     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         28     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         35     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         36     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         38     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         40     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         41     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        47     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        54     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        55     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        63     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        65     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        81     4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 </code></pre></div>
     </div>
   </div>

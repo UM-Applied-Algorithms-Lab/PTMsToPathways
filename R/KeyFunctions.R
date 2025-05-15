@@ -461,7 +461,7 @@ CorrelationNetwork <- function(bind_result) {
 #' @export
 #'
 #' @examples
-#' zero.to.NA(data.frame(a = c(0, 1), b = c(2, 0)))
+#' zero.to.NA.func(data.frame(a = c(0, 1), b = c(2, 0)))
 zero.to.NA.func <- function(df) {
   cf <- df
   zer0 <- which(cf==0, arr.ind = TRUE)

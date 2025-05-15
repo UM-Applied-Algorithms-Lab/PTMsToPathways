@@ -8,7 +8,7 @@ FindCommonCluster(
   eu_allptms_tsne,
   sp_allptms_tsne,
   sed_allptms_tsne,
-  ptmtable_df,
+  ptmtable.df,
   output_dir = "plots"
 )
 }
@@ -19,7 +19,7 @@ FindCommonCluster(
 
 \item{sed_allptms_tsne}{A matrix containing combined t-SNE coordinates.}
 
-\item{ptmtable_df}{A data frame containing input data for cluster analysis.}
+\item{ptmtable.df}{A data frame containing input data for cluster analysis.}
 
 \item{output_dir}{The directory where output plots are saved. Defaults to "plots".}
 }
@@ -31,5 +31,5 @@ This function identifies and analyzes clusters using Spearman, Euclidean, and co
 t-SNE data, generates cluster size histograms, and saves the plots.
 }
 \examples{
-FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable_df, "output")
+FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable.df, "output")
 }

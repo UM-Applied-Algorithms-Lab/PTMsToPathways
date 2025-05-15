@@ -56,14 +56,14 @@ and visualizes the clusters.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">tsnedata</span>, <span class="va">toolong</span>, <span class="va">tbl.sc</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">sed_allptms_tsne</span>, <span class="va">toolong</span>, <span class="va">tbl.sc</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-tsnedata">tsnedata<a class="anchor" aria-label="anchor" href="#arg-tsnedata"></a></dt>
+<dl><dt id="arg-sed-allptms-tsne">sed_allptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sed-allptms-tsne"></a></dt>
 <dd><p>A matrix containing t-SNE coordinates.</p></dd>
 
 
@@ -82,8 +82,17 @@ and visualizes the clusters.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">tsnedata</span>, <span class="fl">3.5</span>, <span class="va">tbl.sc</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'tsnedata' not found</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">sed_allptms_tsne</span>, <span class="fl">3.5</span>, <span class="va">tbl.sc</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Connectivity of distance matrix with threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Data are disconnected: 4 groups</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Groups sizes</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1  2  3  4 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 41 14 30 15 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> threshold dissimilarity 3.5 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  4  groups </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> species scores not available</span>
+<span class="r-plt img"><img src="MakeClusterList-1.png" alt="" width="700" height="433"></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'tbl.sc' not found</span>
 </code></pre></div>
     </div>
   </div>

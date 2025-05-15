@@ -4,10 +4,10 @@
 \alias{MakeClusterList}
 \title{Creates a list of cluster groupings based on t-SNE data}
 \usage{
-MakeClusterList(tsnedata, toolong, tbl.sc)
+MakeClusterList(sed_allptms_tsne, toolong, tbl.sc)
 }
 \arguments{
-\item{tsnedata}{A matrix containing t-SNE coordinates.}
+\item{sed_allptms_tsne}{A matrix containing t-SNE coordinates.}
 
 \item{toolong}{A numeric threshold for cluster separation.}
 
@@ -21,5 +21,5 @@ This function groups t-SNE data points into clusters using a specified threshold
 and visualizes the clusters.
 }
 \examples{
-MakeClusterList(tsnedata, 3.5, tbl.sc)
+MakeClusterList(sed_allptms_tsne, 3.5, tbl.sc)
 }
