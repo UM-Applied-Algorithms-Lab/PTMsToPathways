@@ -141,29 +141,29 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
 #' This function groups t-SNE data points into clusters using a specified threshold
 #' and visualizes the clusters.
 #'
-#' @param tsnedata A matrix containing t-SNE coordinates.
+#' @param sed_allptms_tsne A matrix containing t-SNE coordinates.
 #' @param toolong A numeric threshold for cluster separation.
 #' @param tbl.sc A data frame associated with the t-SNE data.
 #' @return A list of clusters grouped by proximity.
 #' @export
 #'
 #' @examples
-#' MakeClusterList(tsnedata, 3.5, tbl.sc)
-MakeClusterList <- function(tsnedata, toolong, tbl.sc)	{ # Run for all three not just one
+#' MakeClusterList(sed_allptms_tsne, 3.5, tbl.sc)
+MakeClusterList <- function(sed_allptms_tsne, toolong, tbl.sc)	{ # Run for all three not just one
     toolong = 3.5
-    tsne.span2 <- vegan::spantree(stats::dist(tsnedata), toolong=toolong)
-    tsnedata.disc2 <-  vegan::distconnected(stats::dist(tsnedata), toolong = toolong, trace = TRUE)  # test
-    cat ("threshold dissimilarity", toolong, "\n", max(tsnedata.disc2), " groups","\n")
-    vegan::ordiplot(tsnedata)
-    #lines(tsne.span2, tsnedata)
-    vegan::ordihull(tsnedata, tsnedata.disc2, col="red", lwd=2)
+    tsne.span2 <- vegan::spantree(stats::dist(sed_allptms_tsne), toolong=toolong)
+    sed_allptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_allptms_tsne), toolong = toolong, trace = TRUE)  # test
+    cat ("threshold dissimilarity", toolong, "\n", max(sed_allptms_tsne.disc2), " groups","\n")
+    vegan::ordiplot(sed_allptms_tsne)
+    #lines(tsne.span2, sed_allptms_tsne)
+    vegan::ordihull(sed_allptms_tsne, sed_allptms_tsne.disc2, col="red", lwd=2)
     # Find groups
-    tsnedata.span2.df <- data.frame(rownames(tbl.sc))
-    names(tsnedata.span2.df) <- "Gene.Name"
-    tsnedata.span2.df$group <- tsnedata.disc2
+    sed_allptms_tsne.span2.df <- data.frame(rownames(tbl.sc))
+    names(sed_allptms_tsne.span2.df) <- "Gene.Name"
+    sed_allptms_tsne.span2.df$group <- sed_allptms_tsne.disc2
     #check doesn't like group but it's a column name
-    tsnedata.span2.list <- plyr::dlply(tsnedata.span2.df, plyr::.(group))  # GROUP LIST  !
-    return(tsnedata.span2.list)
+    sed_allptms_tsne.span2.list <- plyr::dlply(sed_allptms_tsne.span2.df, plyr::.(group))  # GROUP LIST  !
+    return(sed_allptms_tsne.span2.list)
 }
 
 #' Finds correlations between clusters from multiple distance metrics
@@ -174,15 +174,15 @@ MakeClusterList <- function(tsnedata, toolong, tbl.sc)	{ # Run for all three not
 #' @param eu_allptms_tsne A matrix containing Euclidean t-SNE coordinates.
 #' @param sp_allptms_tsne A matrix containing Spearman t-SNE coordinates.
 #' @param sed_allptms_tsne A matrix containing combined t-SNE coordinates.
-#' @param ptmtable_df A data frame containing input data for cluster analysis.
+#' @param ptmtable.df A data frame containing input data for cluster analysis.
 #' @param output_dir The directory where output plots are saved. Defaults to "plots".
 #' @return A list containing cluster groupings for each distance metric.
 #' @export
 #'
 #' @examples
-#' FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable_df, "output")
+#' FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable.df, "output")
 
-FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable_df, output_dir = "plots") {
+FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable.df, output_dir = "plots") {
     if (!exists("MakeClusterList")) {
         stop("The function 'MakeClusterList' is not defined.")
     }
@@ -193,9 +193,9 @@ FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne
     }
 
     # Create cluster lists (To be changed) #
-    eu_allptms_list <- MakeClusterList(eu_allptms_tsne, 3.8, ptmtable_df)
-    sp_allptms_list <- MakeClusterList(sp_allptms_tsne, 3.8, ptmtable_df)  # sp.groups
-    sed_allptms_list <- MakeClusterList(sed_allptms_tsne, 3.0, ptmtable_df)  # sed.groups
+    eu_allptms_list <- MakeClusterList(eu_allptms_tsne, 3.8, ptmtable.df)
+    sp_allptms_list <- MakeClusterList(sp_allptms_tsne, 3.8, ptmtable.df)  # sp.groups
+    sed_allptms_list <- MakeClusterList(sed_allptms_tsne, 3.0, ptmtable.df)  # sed.groups
 
     # Calculate cluster sizes #
     spsizes_allptms <- sapply(sp_allptms_list, function(x) dim(x)[1])

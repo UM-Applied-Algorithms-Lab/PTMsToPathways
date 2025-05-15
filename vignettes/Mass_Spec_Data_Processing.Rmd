@@ -1,6 +1,6 @@
 ---
 title: "Mass Spectrometry Pre-Processing Guide"
-author: "Nagashree A, McKayl Bailey"
+author: "Nagashree A, McKayl Bailey, Grant Smith, Madison Moffett"
 output: 
   html_document:
     toc: true
@@ -84,11 +84,11 @@ print(combined_data)
 
 ```
 
-The CombinedPar function is designed to analyze your data by calculating two types of distances (Spearman Dissimilarity and Euclidean Distance) simultaneously. By utilizing separate CPU cores, this function helps reduce processing time, making your analysis more efficient. Here, allptmtable.df is your data frame containing the mass spectrometry data, while allptmtable refers to the labels or additional information relevant to your data. The result, combined_data, contains the processed output that will be used in the next steps. Printing the result helps you verify that the function has run correctly.
+The CombinedPar function is designed to analyze your data by calculating two types of distances (Spearman Dissimilarity and Euclidean Distance) simultaneously. By utilizing separate CPU cores, this function helps reduce processing time, making your analysis more efficient. Here, ptmtable.df is your data frame containing the mass spectrometry data, while ptmtable refers to the labels or additional information relevant to your data. The result, combined_data, contains the processed output that will be used in the next steps. Printing the result helps you verify that the function has run correctly.
 
 #### Step 2: MakeClusterList
 ```{r eval=FALSE}
-cluster_list <- MakeClusterList(combined_data, tble.sc = ptmtable.df)
+cluster_list <- MakeClusterList(combined_data, tble.sc = ptmtable)
 print("Cluster list:")
 print(tsnedata.span2.list)
 ```
