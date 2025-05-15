@@ -184,7 +184,7 @@ least four CPU cores and 16 GB of memory (RAM).</p>
 t-SNE<a class="anchor" aria-label="anchor" href="#step-1-combinedpar-function-to-calculate-combined-distances-and-t-sne"></a>
 </h5>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">combined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CombinedPar.html">CombinedPar</a></span><span class="op">(</span><span class="va">allptmtable.df</span>, <span class="va">allptmtable</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">combined_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CombinedPar.html">CombinedPar</a></span><span class="op">(</span><span class="va">ptmtable.df</span>, <span class="va">ptmtable</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Combined data:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">combined_data</span><span class="op">)</span></span></code></pre></div>
 <p>The CombinedPar function is designed to analyze your data by
@@ -201,9 +201,9 @@ you verify that the function has run correctly.</p>
 <h5 id="step-2-makeclusterlist">Step 2: MakeClusterList<a class="anchor" aria-label="anchor" href="#step-2-makeclusterlist"></a>
 </h5>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cluster_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">combined_data</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">cluster_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">combined_data</span>, tble.sc <span class="op">=</span> <span class="va">ptmtable.df</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Cluster list:"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cluster_list</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tsnedata.span2.list</span><span class="op">)</span></span></code></pre></div>
 <p>After obtaining the combined data from the previous step, the
 MakeClusterList function is employed to identify clusters within your
 dataset. Clustering is an important step in data analysis, allowing you
@@ -218,9 +218,9 @@ this can affect subsequent analyses.</p>
 <h5 id="step-3-findcommoncluster">Step 3: FindCommonCluster<a class="anchor" aria-label="anchor" href="#step-3-findcommoncluster"></a>
 </h5>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">common_clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FindCommonCluster.html">FindCommonCluster</a></span><span class="op">(</span><span class="va">cluster_list</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">common_clusters</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/FindCommonCluster.html">FindCommonCluster</a></span><span class="op">(</span><span class="fu"><a href="../reference/EuclideanDistance.html">EuclideanDistance</a></span><span class="op">(</span><span class="va">ptmtable.df</span><span class="op">)</span>, <span class="fu"><a href="../reference/SpearmanDissimilarity.html">SpearmanDissimilarity</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span>, <span class="va">combined_data</span>, <span class="va">ptmtable.df</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Common clusters:"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">common_clusters</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>eu_allptms_list <span class="op">=</span> <span class="va">eu_allptms_list</span>, sp_allptms_list <span class="op">=</span> <span class="va">sp_allptms_list</span>, sed_allptms_list <span class="op">=</span> <span class="va">sed_allptms_list</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>This step uses the output from the MakeClusterList function to find
 common clusters among your data. The FindCommonCluster function analyzes
 the cluster list and generates a visual graph that represents the
@@ -232,9 +232,11 @@ biological similarities.</p>
 <h5 id="step-4-generateandconstructallptmsnetwork">Step 4: GenerateAndConstructAllptmsNetwork<a class="anchor" aria-label="anchor" href="#step-4-generateandconstructallptmsnetwork"></a>
 </h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">allptms_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GenerateAndConstructAllptmsNetwork.html">GenerateAndConstructAllptmsNetwork</a></span><span class="op">(</span><span class="va">common_clusters</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">allptms_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GenerateAndConstructAllptmsNetwork.html">GenerateAndConstructAllptmsNetwork</a></span><span class="op">(</span><span class="va">eu.allptms.list</span>, <span class="va">sp.allptms.list</span>, <span class="va">sed.allptms.list</span>, <span class="va">ptmtable.df</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, output_dir <span class="op">=</span> <span class="st">"plots"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"All PTMs network:"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">allptms_network</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">element</span><span class="op">$</span><span class="va">Gene.Name</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">" "</span>, fixed <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>NOTE: the input of allptms_network is the output of the
+FindCommonCluster function not bound in the list.</p>
 <p>In this step, the GenerateAndConstructAllptmsNetwork function takes
 the common clusters you identified in the previous step to create a
 network of Post-Translational Modifications (PTMs). PTMs are chemical
@@ -248,9 +250,9 @@ the dots between different protein modifications.</p>
 <h5 id="step-5-bindmatrices">Step 5: BindMatrices<a class="anchor" aria-label="anchor" href="#step-5-bindmatrices"></a>
 </h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bound_matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BindMatrices.html">BindMatrices</a></span><span class="op">(</span><span class="va">allptms_network</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">bound_matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BindMatrices.html">BindMatrices</a></span><span class="op">(</span><span class="va">cluster_list</span>, <span class="va">correlation_matrix</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Bound matrices:"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">bound_matrices</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>adj_matrix <span class="op">=</span> <span class="va">adj_matrix_ordered</span>, cccn_matrix <span class="op">=</span> <span class="va">cccn_matrix</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>The BindMatrices function aligns the adjacency matrix (which
 represents the relationships between different entities) with the
 correlation matrix (which indicates how closely related different
@@ -264,7 +266,7 @@ analyzed.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">correlation_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CorrelationNetwork.html">CorrelationNetwork</a></span><span class="op">(</span><span class="va">bound_matrices</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Correlation network:"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">correlation_network</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/graph_from_adjacency_matrix.html" class="external-link">graph_from_adjacency_matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">cccn_matrix0</span><span class="op">)</span>, mode <span class="op">=</span> <span class="st">"lower"</span>, diag <span class="op">=</span> <span class="cn">FALSE</span>, weighted <span class="op">=</span> <span class="st">"Weight"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, the CorrelationNetwork function takes the bound matrices and
 transforms them into an igraph object. This object represents a network
 where nodes correspond to genes or proteins, and edges represent
@@ -276,7 +278,7 @@ your dataset, offering insights into their functional relationships.</p>
 <h5 id="step-7-purge-zeros">Step 7: Purge Zeros<a class="anchor" aria-label="anchor" href="#step-7-purge-zeros"></a>
 </h5>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">zero_na_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/zero.to.NA.html">zero.to.NA</a></span><span class="op">(</span><span class="va">correlation_network</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">zero_na_data</span> <span class="op">&lt;-</span> <span class="fu">zero.to.NA.func</span><span class="op">(</span><span class="va">correlation_network</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Data with zeroes replaced by NA:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">zero_na_data</span><span class="op">)</span></span></code></pre></div>
 <p>This function, which is smaller than most of ours, is just turning
@@ -289,7 +291,7 @@ on these missing numbers to not affect our workflow.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">processed_data_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_ptms_data.html">process_ptms_data</a></span><span class="op">(</span><span class="va">eu.sp.sed.allptms</span>, <span class="va">sed.allptms.peps</span>, <span class="va">cccn_matrix</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Processed PTM data:"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">processed_data_path</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">allptms_gene_cccn_edges</span><span class="op">)</span></span></code></pre></div>
 <p>Once again we run this function in the same manner as the others.
 This function has more steps than most of the others. It creates an
 adjacency matrix based on the Euclidean, Spearman, and combined data
