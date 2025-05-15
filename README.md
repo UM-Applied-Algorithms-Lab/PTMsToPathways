@@ -4,15 +4,15 @@ Please feel free to reach out with errors, critiques, or questions.
 
 ## Installation
 
-Before proceeding, ensure you have R and RStudio installed. You will also need the devtools package, which can be installed with:
-
-TODO: can we remove language around R studio? Does it really have to be R studio?
+Before proceeding, ensure you have R installed. You will also need the devtools package, which can be installed with:
 
 ```
 install.packages("devtools")
 ```
 
-Additionally, please check that you have R version 4.4, and STRINGdb installed before moving forward.
+TODO: understand STRINGdb and figure out how to improve this
+
+Additionally, please check that you have R version 4.5, and STRINGdb installed before moving forward.
 
 One option for installing stringdb is using conda:
 
@@ -20,10 +20,17 @@ One option for installing stringdb is using conda:
 conda install bioconda::bioconductor-stringdb
 ```
 
-Once these are both installed, you can install this package directly from GitHub using:
+Once these are installed, you can install this package directly from GitHub using:
 
 ```
 devtools::install_github("UM-Applied-Algorithms-Lab/CCCN_CFN_Tools")
+```
+
+In order to run the some functions of the package, you will also need to install and load the doParallel package:
+
+```
+install.packages("doParallel")
+library(doParallel)
 ```
 
 ## Usage
@@ -40,13 +47,25 @@ You can then use the available functions as described in the package documentati
 
 If you wish to modify or contribute to the package, clone the repository locally using:
 
-git clone https://github.com/KaylBing/CCCN_CFN_Tools.git
+```
+git clone https://github.com/UM-Applied-Algorithms-Lab/CCCN_CFN_Tools.git
+```
 
-Then, in R, navigate to the package directory and use devtools to load the package for development:
+Then, in R, navigate to the package directory. You will need to use devtools to load the package for development, so ensure you have that installed and libraried:
 
-devtools::load_all()
+```
+install.packages("devtools")
+library(devtools)
+```
+
+You may then load the package for development:
+
+```
+load_all()
+```
 
 To check for issues before committing changes, run:
 
-devtools::check()
-
+```
+check()
+```

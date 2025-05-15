@@ -55,14 +55,17 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Before proceeding, ensure you have R and RStudio installed. You will also need the devtools package, which can be installed with:</p>
-<p>TODO: can we remove language around R studio? Does it really have to be R studio?</p>
+<p>Before proceeding, ensure you have R installed. You will also need the devtools package, which can be installed with:</p>
 <pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span></code></pre>
-<p>Additionally, please check that you have R version 4.4, and STRINGdb installed before moving forward.</p>
+<p>TODO: understand STRINGdb and figure out how to improve this</p>
+<p>Additionally, please check that you have R version 4.5, and STRINGdb installed before moving forward.</p>
 <p>One option for installing stringdb is using conda:</p>
 <pre><code>conda install bioconda::bioconductor-stringdb</code></pre>
-<p>Once these are both installed, you can install this package directly from GitHub using:</p>
+<p>Once these are installed, you can install this package directly from GitHub using:</p>
 <pre><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"UM-Applied-Algorithms-Lab/CCCN_CFN_Tools"</span><span class="op">)</span></span></code></pre>
+<p>In order to run the some functions of the package, you will also need to install and load the doParallel package:</p>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"doParallel"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/RevolutionAnalytics/doparallel" class="external-link">doParallel</a></span><span class="op">)</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -75,17 +78,21 @@
 <h2 id="development--contribution">Development &amp; Contribution<a class="anchor" aria-label="anchor" href="#development--contribution"></a>
 </h2>
 <p>If you wish to modify or contribute to the package, clone the repository locally using:</p>
-<p>git clone <a href="https://github.com/KaylBing/CCCN_CFN_Tools.git" class="external-link uri">https://github.com/KaylBing/CCCN_CFN_Tools.git</a></p>
-<p>Then, in R, navigate to the package directory and use devtools to load the package for development:</p>
-<p>devtools::load_all()</p>
+<pre><code>git clone https://github.com/UM-Applied-Algorithms-Lab/CCCN_CFN_Tools.git</code></pre>
+<p>Then, in R, navigate to the package directory. You will need to use devtools to load the package for development, so ensure you have that installed and libraried:</p>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://devtools.r-lib.org/" class="external-link">devtools</a></span><span class="op">)</span></span></code></pre>
+<p>You may then load the package for development:</p>
+<pre><code><span><span class="fu"><a href="https://devtools.r-lib.org/reference/load_all.html" class="external-link">load_all</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 <p>To check for issues before committing changes, run:</p>
-<p>devtools::check()</p>
+<pre><code><span><span class="fu"><a href="https://devtools.r-lib.org/reference/check.html" class="external-link">check</a></span><span class="op">(</span><span class="op">)</span></span></code></pre>
 </div>
 
   </main><aside class="col-md-3"><div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>`use_mit_license()`, `use_gpl3_license()` or friends to pick a license</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 
@@ -100,7 +107,10 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Mckayl Bailey <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/YOUR-ORCID-ID" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a>  </li>
+<li>Mckayl Bailey <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Mark Grimes <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Grant Smith <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Madison Moffett <br><small class="roles"> Author, maintainer </small>   </li>
 </ul>
 </div>
 
@@ -111,7 +121,7 @@
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Mckayl Bailey.</p>
+  <p>Developed by Mckayl Bailey, Mark Grimes, Grant Smith, Madison Moffett.</p>
 </div>
 
 <div class="pkgdown-footer-right">

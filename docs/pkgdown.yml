@@ -3,4 +3,7 @@ pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
   Mass_Spec_Data_Processing: Mass_Spec_Data_Processing.html
-last_built: 2025-05-15T19:12Z
+last_built: 2025-05-15T19:46Z
+urls:
+  reference: https://um-applied-algorithms-lab.github.io/CCCN_CFN_Tools/reference
+  article: https://um-applied-algorithms-lab.github.io/CCCN_CFN_Tools/articles
