@@ -31,3 +31,4 @@ VignetteBuilder: knitr
 Depends: 
     R (>= 3.5)
 LazyData: true
+URL: https://um-applied-algorithms-lab.github.io/CCCN_CFN_Tools/
