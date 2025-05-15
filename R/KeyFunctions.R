@@ -462,7 +462,7 @@ CorrelationNetwork <- function(bind_result) {
 #'
 #' @examples
 #' zero.to.NA(data.frame(a = c(0, 1), b = c(2, 0)))
-zero.to.NA <- function(df) {
+zero.to.NA.func <- function(df) {
   cf <- df
   zer0 <- which(cf==0, arr.ind = TRUE)
   cfNA <- as.matrix(cf)
@@ -519,7 +519,7 @@ process_ptms_data <- function(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_c
   allptms_gene_cccn$Gene_Name <- sapply(rownames(allptms_gene_cccn), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])
 
   allptms_gene_cccn[lower.tri(allptms_gene_cccn)] <- NA
-  
+
   #check doesn't like Gene_Name but it's a column name
   allptms_gene_cccn2 <- plyr::ddply(allptms_gene_cccn, plyr::.(Gene_Name), plyr::numcolwise(function(x) sum(x, na.rm = TRUE)), .progress = "tk")
 
@@ -527,7 +527,7 @@ process_ptms_data <- function(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_c
   allptms_gene_cccn2 <- allptms_gene_cccn2[, 2:ncol(allptms_gene_cccn2)]
   allptms_gene_cccn2 <- data.frame(t(allptms_gene_cccn2))
   allptms_gene_cccn2$Gene <- sapply(rownames(allptms_gene_cccn2), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])
-  
+
   #check doesn't like Gene but it's a column name
   allptms_gene_cccn3 <- plyr::ddply(allptms_gene_cccn2, plyr::.(Gene), plyr::numcolwise(function(x) sum(x, na.rm = TRUE)), .progress = "tk")
 
@@ -535,7 +535,7 @@ process_ptms_data <- function(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_c
   rownames(allptms_gene_cccn3) <- allptms_gene_cccn3$Gene
 
   allptms_gene_cccn0 <- allptms_gene_cccn3[, 2:ncol(allptms_gene_cccn3)]
-  allptms_gene_cccn_na <- zero_to_NA_func(allptms_gene_cccn0)
+  allptms_gene_cccn_na <- zero.to.NA.func(allptms_gene_cccn0)
 
   allptms_gene_cccn_g <- igraph::graph.adjacency(as.matrix(allptms_gene_cccn0), mode = "lower", diag = FALSE, weighted = "Weight")
 
