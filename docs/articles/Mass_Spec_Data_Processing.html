@@ -222,13 +222,16 @@ verify that the function has run correctly.</p>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">tsnedata.span2.list</span><span class="op">)</span></span></code></pre></div>
 <p>After obtaining the combined data from the previous step, the
 MakeClusterList function is employed to identify clusters within your
-dataset. Clustering is an important step in data analysis, allowing you
-to group similar observations (in this case, genes) based on their
-characteristics. This helps in understanding relationships in the data.
-The output, cluster_list, will show which genes are grouped together,
-enabling you to see how they relate to each other visually in the next
-steps. Important Note: Avoid altering the output files’ data types, as
-this can affect subsequent analyses.</p>
+dataset. This must be run three times: with the combined data from Step
+1, the result from just the SpearmanDissimilarity function, and the
+result from the Euclidean Distance function. Clustering is an important
+step in data analysis, allowing you to group similar observations (in
+this case, genes) based on their characteristics. This helps in
+understanding relationships in the data. The output, cluster_list, will
+show which genes are grouped together, enabling you to see how they
+relate to each other visually in the next steps. Important Note: Avoid
+altering the output files’ data types, as this can affect subsequent
+analyses.</p>
 </div>
 <div class="section level5">
 <h5 id="step-3-findcommoncluster">Step 3: FindCommonCluster<a class="anchor" aria-label="anchor" href="#step-3-findcommoncluster"></a>
