@@ -111,9 +111,7 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
     })
 
     # Run SpearmanDissimilarity and EuclideanDistance in parallel #
-    # Check doesn't like %dopar% and i, also doesn't like foreach::%dopar% -- TODO: figure out. #TEST - We can just make our own operator!
-    `%dopar%` <- foreach::`%dopar%`
-
+    # Check doesn't like %dopar% and i, also doesn't like foreach::%dopar% -- TODO: figure out. 
     results <- foreach::foreach(i = 1:2, .combine = 'list', .packages = c("Rtsne")) %dopar% {
         if (i == 1) {
             return(SpearmanDissimilarity(ptmtable))
