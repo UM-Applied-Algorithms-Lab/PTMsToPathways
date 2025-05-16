@@ -32,7 +32,7 @@ SpearmanDissimilarity <- function(ptmtable) {
     print("Filtering missing values...")
 
     # Make sure the dissimilarity matrix is numeric and suitable for t-SNE #
-    dissimilarity.ptmtable <- as.matrix(dissimilarity.ptmtable)
+    dissimilarity.ptmtable <- as.matrix(dissimilarity.ptmtable) #is there a good reason to have this line?
 
     # Run t-SNE #
     tsne_results <- Rtsne::Rtsne(dissimilarity.ptmtable, dims = 3, perplexity = 15, theta = 0.25, max_iter = 5000, check_duplicates = FALSE, pca = FALSE)
@@ -111,7 +111,9 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
     })
 
     # Run SpearmanDissimilarity and EuclideanDistance in parallel #
-    # Check doesn't like %dopar% and i, also doesn't like foreach::%dopar% -- TODO: figure out.
+    # Check doesn't like %dopar% and i, also doesn't like foreach::%dopar% -- TODO: figure out. #TEST - We can just make our own operator!
+    `%dopar%` <- foreach::`%dopar%`
+
     results <- foreach::foreach(i = 1:2, .combine = 'list', .packages = c("Rtsne")) %dopar% {
         if (i == 1) {
             return(SpearmanDissimilarity(ptmtable))
@@ -148,9 +150,8 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
 #' @export
 #'
 #' @examples
-#' MakeClusterList(sed_allptms_tsne, 3.5, tbl.sc)
-MakeClusterList <- function(sed_allptms_tsne, toolong, tbl.sc)	{ # Run for all three not just one
-    toolong = 3.5
+#' MakeClusterList(sed_allptms_tsne, tbl.sc, toolong =  3.5)
+MakeClusterList <- function(sed_allptms_tsne, tbl.sc, toolong = 3.5)	{ # Run for all three not just one
     tsne.span2 <- vegan::spantree(stats::dist(sed_allptms_tsne), toolong=toolong)
     sed_allptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_allptms_tsne), toolong = toolong, trace = TRUE)  # test
     cat ("threshold dissimilarity", toolong, "\n", max(sed_allptms_tsne.disc2), " groups","\n")
