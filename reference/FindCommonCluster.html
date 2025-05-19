@@ -56,33 +56,19 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FindCommonCluster</span><span class="op">(</span></span>
-<span>  <span class="va">eu_ptms_tsne</span>,</span>
-<span>  <span class="va">sp_ptms_tsne</span>,</span>
-<span>  <span class="va">sed_ptms_tsne</span>,</span>
-<span>  <span class="va">ptmtable</span>,</span>
-<span>  output_dir <span class="op">=</span> <span class="st">"plots"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">ptmtable</span>, toolong <span class="op">=</span> <span class="fl">3.5</span>, output_dir <span class="op">=</span> <span class="st">"plots"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-eu-ptms-tsne">eu_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-eu-ptms-tsne"></a></dt>
-<dd><p>A matrix containing Euclidean t-SNE coordinates.</p></dd>
-
-
-<dt id="arg-sp-ptms-tsne">sp_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sp-ptms-tsne"></a></dt>
-<dd><p>A matrix containing Spearman t-SNE coordinates.</p></dd>
-
-
-<dt id="arg-sed-ptms-tsne">sed_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sed-ptms-tsne"></a></dt>
-<dd><p>A matrix containing combined t-SNE coordinates.</p></dd>
-
-
-<dt id="arg-ptmtable">ptmtable<a class="anchor" aria-label="anchor" href="#arg-ptmtable"></a></dt>
+<dl><dt id="arg-ptmtable">ptmtable<a class="anchor" aria-label="anchor" href="#arg-ptmtable"></a></dt>
 <dd><p>A data frame containing input data for cluster analysis.</p></dd>
+
+
+<dt id="arg-toolong">toolong<a class="anchor" aria-label="anchor" href="#arg-toolong"></a></dt>
+<dd><p>A numeric threshold for cluster separation, defaults to 3.5.</p></dd>
 
 
 <dt id="arg-output-dir">output_dir<a class="anchor" aria-label="anchor" href="#arg-output-dir"></a></dt>
@@ -96,8 +82,20 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">eu_ptms_tsne</span>, <span class="va">sp_ptms_tsne</span>, <span class="va">sed_ptms_tsne</span>, <span class="va">ptmtable</span>, <span class="st">"output"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MakeClusterList(eu_ptms_tsne, 3.8, ptmtable):</span> unused argument (ptmtable)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">ptmtable</span>, toolong <span class="op">=</span> <span class="fl">3.5</span>, <span class="st">"output"</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Converting Data Types..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Calculating Spearman Correlation..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Calculating Spearman Dissimilarity..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Filtering missing values..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Mapping Data Points..."</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>NAs introduced by coercion</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Converting Data Types..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Finding maximum distance..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Filtering missing values..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Normalizing distances..."</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Mapping Data Points..."</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in clustercreate(euclidean_result):</span> object 'sed_ptms_tsne' not found</span>
 </code></pre></div>
     </div>
   </div>
