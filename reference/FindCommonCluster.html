@@ -57,10 +57,10 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">FindCommonCluster</span><span class="op">(</span></span>
-<span>  <span class="va">eu_allptms_tsne</span>,</span>
-<span>  <span class="va">sp_allptms_tsne</span>,</span>
-<span>  <span class="va">sed_allptms_tsne</span>,</span>
-<span>  <span class="va">ptmtable.df</span>,</span>
+<span>  <span class="va">eu_ptms_tsne</span>,</span>
+<span>  <span class="va">sp_ptms_tsne</span>,</span>
+<span>  <span class="va">sed_ptms_tsne</span>,</span>
+<span>  <span class="va">ptmtable</span>,</span>
 <span>  output_dir <span class="op">=</span> <span class="st">"plots"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -69,19 +69,19 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-eu-allptms-tsne">eu_allptms_tsne<a class="anchor" aria-label="anchor" href="#arg-eu-allptms-tsne"></a></dt>
+<dl><dt id="arg-eu-ptms-tsne">eu_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-eu-ptms-tsne"></a></dt>
 <dd><p>A matrix containing Euclidean t-SNE coordinates.</p></dd>
 
 
-<dt id="arg-sp-allptms-tsne">sp_allptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sp-allptms-tsne"></a></dt>
+<dt id="arg-sp-ptms-tsne">sp_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sp-ptms-tsne"></a></dt>
 <dd><p>A matrix containing Spearman t-SNE coordinates.</p></dd>
 
 
-<dt id="arg-sed-allptms-tsne">sed_allptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sed-allptms-tsne"></a></dt>
+<dt id="arg-sed-ptms-tsne">sed_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sed-ptms-tsne"></a></dt>
 <dd><p>A matrix containing combined t-SNE coordinates.</p></dd>
 
 
-<dt id="arg-ptmtable-df">ptmtable.df<a class="anchor" aria-label="anchor" href="#arg-ptmtable-df"></a></dt>
+<dt id="arg-ptmtable">ptmtable<a class="anchor" aria-label="anchor" href="#arg-ptmtable"></a></dt>
 <dd><p>A data frame containing input data for cluster analysis.</p></dd>
 
 
@@ -96,8 +96,8 @@ t-SNE data, generates cluster size histograms, and saves the plots.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">eu_allptms_tsne</span>, <span class="va">sp_allptms_tsne</span>, <span class="va">sed_allptms_tsne</span>, <span class="va">ptmtable.df</span>, <span class="st">"output"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in vegan::spantree(stats::dist(sed_allptms_tsne), toolong = toolong):</span> 'list' object cannot be coerced to type 'double'</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">FindCommonCluster</span><span class="op">(</span><span class="va">eu_ptms_tsne</span>, <span class="va">sp_ptms_tsne</span>, <span class="va">sed_ptms_tsne</span>, <span class="va">ptmtable</span>, <span class="st">"output"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MakeClusterList(eu_ptms_tsne, 3.8, ptmtable):</span> unused argument (ptmtable)</span>
 </code></pre></div>
     </div>
   </div>

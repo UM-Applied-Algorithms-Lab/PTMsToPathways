@@ -56,18 +56,14 @@ Euclidean distance, combines them, and performs t-SNE.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CombinedPar</span><span class="op">(</span><span class="va">ptmtable.df</span>, <span class="va">ptmtable</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">CombinedPar</span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-ptmtable-df">ptmtable.df<a class="anchor" aria-label="anchor" href="#arg-ptmtable-df"></a></dt>
-<dd><p>A data frame containing numeric data.</p></dd>
-
-
-<dt id="arg-ptmtable">ptmtable<a class="anchor" aria-label="anchor" href="#arg-ptmtable"></a></dt>
+<dl><dt id="arg-ptmtable">ptmtable<a class="anchor" aria-label="anchor" href="#arg-ptmtable"></a></dt>
 <dd><p>A dataset for post-translational modifications.</p></dd>
 
 </dl></div>
@@ -78,8 +74,8 @@ Euclidean distance, combines them, and performs t-SNE.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">CombinedPar</span><span class="op">(</span><span class="va">ptmtable.df</span>, <span class="va">ptmtable</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in foreach::foreach(i = 1:2, .combine = "list", .packages = c("Rtsne")) %dopar%     {        if (i == 1) {            return(SpearmanDissimilarity(ptmtable))        }        else {            return(EuclideanDistance(ptmtable.df))        }    }:</span> could not find function "%dopar%"</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">CombinedPar</span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in foreach::foreach(i = 1:2, .combine = "list", .packages = c("Rtsne")) %dopar%     {        if (i == 1) {            return(SpearmanDissimilarity(ptmtable))        }        else {            return(EuclideanDistance(ptmtable))        }    }:</span> could not find function "%dopar%"</span>
 </code></pre></div>
     </div>
   </div>

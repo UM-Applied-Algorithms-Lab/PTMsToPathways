@@ -56,19 +56,19 @@ and visualizes the clusters.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">sed_allptms_tsne</span>, <span class="va">toolong</span>, <span class="va">tbl.sc</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">ptmtable</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
 
 
-<dl><dt id="arg-sed-allptms-tsne">sed_allptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sed-allptms-tsne"></a></dt>
-<dd><p>A matrix containing t-SNE coordinates.</p></dd>
-
-
-<dt id="arg-toolong">toolong<a class="anchor" aria-label="anchor" href="#arg-toolong"></a></dt>
+<dl><dt id="arg-toolong">toolong<a class="anchor" aria-label="anchor" href="#arg-toolong"></a></dt>
 <dd><p>A numeric threshold for cluster separation.</p></dd>
+
+
+<dt id="arg-sed-ptms-tsne">sed_ptms_tsne<a class="anchor" aria-label="anchor" href="#arg-sed-ptms-tsne"></a></dt>
+<dd><p>A matrix containing t-SNE coordinates.</p></dd>
 
 
 <dt id="arg-tbl-sc">tbl.sc<a class="anchor" aria-label="anchor" href="#arg-tbl-sc"></a></dt>
@@ -82,8 +82,8 @@ and visualizes the clusters.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">sed_allptms_tsne</span>, <span class="fl">3.5</span>, <span class="va">tbl.sc</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'tbl.sc' not found</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">sed_ptms_tsne</span>, <span class="va">tbl.sc</span>, toolong <span class="op">=</span>  <span class="fl">3.5</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MakeClusterList(sed_ptms_tsne, tbl.sc, toolong = 3.5):</span> unused argument (tbl.sc)</span>
 </code></pre></div>
     </div>
   </div>
