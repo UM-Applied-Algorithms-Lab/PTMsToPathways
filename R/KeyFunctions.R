@@ -111,7 +111,7 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
     })
 
     # Run SpearmanDissimilarity and EuclideanDistance in parallel #
-    # Check doesn't like %dopar% and i, also doesn't like foreach::%dopar% -- TODO: figure out. 
+    # Check doesn't like %dopar% and i, also doesn't like foreach::%dopar% -- TODO: figure out.
     results <- foreach::foreach(i = 1:2, .combine = 'list', .packages = c("Rtsne")) %dopar% {
         if (i == 1) {
             return(SpearmanDissimilarity(ptmtable))
@@ -149,7 +149,24 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
 #'
 #' @examples
 #' MakeClusterList(sed_allptms_tsne, tbl.sc, toolong =  3.5)
-MakeClusterList <- function(sed_allptms_tsne, tbl.sc, toolong = 3.5)	{ # Run for all three not just one
+MakeClusterList <- function(ptmtable.df, ptmtable, toolong = 3.5)	{ # Run for all three not just one
+
+  #find spearman
+  spearman_result = SpearmanDissimilarity(ptmtable)
+  #find euclidean
+  euclidean_result = EuclideanDistance(ptmtable.df)
+
+
+  #find average
+  #this is copy and pasted straight from combinedpar so we don't have to run the calculations again
+  #no need for its own functino I suppose because it's only three lines of code
+  combined_distance <- (spearman_result + euclidean_result) / 2
+  # Perform t-SNE on the combined distances #
+  tsne_result <- Rtsne::Rtsne(as.matrix(combined_distance), dims = 3, perplexity = 15, theta = 0.25, check_duplicates = FALSE, pca = FALSE)
+  sed_result <- tsne_result$Y
+
+
+  clustercreate <- function(result, table.sc = ptmtable){
     tsne.span2 <- vegan::spantree(stats::dist(sed_allptms_tsne), toolong=toolong)
     sed_allptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_allptms_tsne), toolong = toolong, trace = TRUE)  # test
     cat ("threshold dissimilarity", toolong, "\n", max(sed_allptms_tsne.disc2), " groups","\n")
@@ -163,6 +180,12 @@ MakeClusterList <- function(sed_allptms_tsne, tbl.sc, toolong = 3.5)	{ # Run for
     #check doesn't like group but it's a column name
     sed_allptms_tsne.span2.list <- plyr::dlply(sed_allptms_tsne.span2.df, plyr::.(group))  # GROUP LIST  !
     return(sed_allptms_tsne.span2.list)
+  }
+
+  assign("eu_ptms_list", clustercreate(euclidean_result), envir = .GlobalEnv)
+  assign("sp_ptms_list", clustercreate(spearman_result), envir = .GlobalEnv)
+  assign("sed_ptms_list", clustercreate(sed_result), envir = .GlobalEnv)
+
 }
 
 #' Finds correlations between clusters from multiple distance metrics
