@@ -74,14 +74,14 @@ EuclideanDistance <- function(ptmtable) {
     # Parameters: dims = 3 (3D output), perplexity = 15, theta = 0.25 (speed/accuracy trade-off) #
     # max_iter = 5000 (number of iterations), check_duplicates = FALSE (treat rows as unique) #
     # pca = FALSE (no initial PCA) #
-    eu.allptms.tsne.list <- Rtsne::Rtsne(as.matrix(ptmtable.dist.1), dims = 3, perplexity = 15, theta = 0.25, max_iter = 5000, check_duplicates = FALSE, pca = FALSE)
+    eu.ptms.tsne.list <- Rtsne::Rtsne(as.matrix(ptmtable.dist.1), dims = 3, perplexity = 15, theta = 0.25, max_iter = 5000, check_duplicates = FALSE, pca = FALSE)
 
     # Extract the t-SNE results from the output list #
-    eu.allptms.tsne <- eu.allptms.tsne.list$Y
+    eu.ptms.tsne <- eu.ptms.tsne.list$Y
     print("Mapping Data Points...")
 
     # Return the t-SNE results #
-    return(eu.allptms.tsne)
+    return(eu.ptms.tsne)
 }
 
 #' Combines Spearman dissimilarity and Euclidean distance in parallel
@@ -141,14 +141,14 @@ CombinedPar <- function(ptmtable) {
 #' This function groups t-SNE data points into clusters using a specified threshold
 #' and visualizes the clusters.
 #'
-#' @param sed_allptms_tsne A matrix containing t-SNE coordinates.
+#' @param sed_ptms_tsne A matrix containing t-SNE coordinates.
 #' @param toolong A numeric threshold for cluster separation.
 #' @param tbl.sc A data frame associated with the t-SNE data.
 #' @return A list of clusters grouped by proximity.
 #' @export
 #'
 #' @examples
-#' MakeClusterList(sed_allptms_tsne, tbl.sc, toolong =  3.5)
+#' MakeClusterList(sed_ptms_tsne, tbl.sc, toolong =  3.5)
 MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not just one
 
   #find spearman
@@ -167,19 +167,19 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
 
 
   clustercreate <- function(result, table.sc = ptmtable){
-    tsne.span2 <- vegan::spantree(stats::dist(sed_allptms_tsne), toolong=toolong)
-    sed_allptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_allptms_tsne), toolong = toolong, trace = TRUE)  # test
-    cat ("threshold dissimilarity", toolong, "\n", max(sed_allptms_tsne.disc2), " groups","\n")
-    vegan::ordiplot(sed_allptms_tsne)
-    #lines(tsne.span2, sed_allptms_tsne)
-    vegan::ordihull(sed_allptms_tsne, sed_allptms_tsne.disc2, col="red", lwd=2)
+    tsne.span2 <- vegan::spantree(stats::dist(sed_ptms_tsne), toolong=toolong)
+    sed_ptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_ptms_tsne), toolong = toolong, trace = TRUE)  # test
+    cat ("threshold dissimilarity", toolong, "\n", max(sed_ptms_tsne.disc2), " groups","\n")
+    vegan::ordiplot(sed_ptms_tsne)
+    #lines(tsne.span2, sed_ptms_tsne)
+    vegan::ordihull(sed_ptms_tsne, sed_ptms_tsne.disc2, col="red", lwd=2)
     # Find groups
-    sed_allptms_tsne.span2.df <- data.frame(rownames(tbl.sc))
-    names(sed_allptms_tsne.span2.df) <- "Gene.Name"
-    sed_allptms_tsne.span2.df$group <- sed_allptms_tsne.disc2
+    sed_ptms_tsne.span2.df <- data.frame(rownames(tbl.sc))
+    names(sed_ptms_tsne.span2.df) <- "Gene.Name"
+    sed_ptms_tsne.span2.df$group <- sed_ptms_tsne.disc2
     #check doesn't like group but it's a column name
-    sed_allptms_tsne.span2.list <- plyr::dlply(sed_allptms_tsne.span2.df, plyr::.(group))  # GROUP LIST  !
-    return(sed_allptms_tsne.span2.list)
+    sed_ptms_tsne.span2.list <- plyr::dlply(sed_ptms_tsne.span2.df, plyr::.(group))  # GROUP LIST  !
+    return(sed_ptms_tsne.span2.list)
   }
 
   assign("eu_ptms_list", clustercreate(euclidean_result), envir = .GlobalEnv)
@@ -193,18 +193,18 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
 #' This function identifies and analyzes clusters using Spearman, Euclidean, and combined
 #' t-SNE data, generates cluster size histograms, and saves the plots.
 #'
-#' @param eu_allptms_tsne A matrix containing Euclidean t-SNE coordinates.
-#' @param sp_allptms_tsne A matrix containing Spearman t-SNE coordinates.
-#' @param sed_allptms_tsne A matrix containing combined t-SNE coordinates.
+#' @param eu_ptms_tsne A matrix containing Euclidean t-SNE coordinates.
+#' @param sp_ptms_tsne A matrix containing Spearman t-SNE coordinates.
+#' @param sed_ptms_tsne A matrix containing combined t-SNE coordinates.
 #' @param ptmtable A data frame containing input data for cluster analysis.
 #' @param output_dir The directory where output plots are saved. Defaults to "plots".
 #' @return A list containing cluster groupings for each distance metric.
 #' @export
 #'
 #' @examples
-#' FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable, "output")
+#' FindCommonCluster(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtable, "output")
 
-FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable, output_dir = "plots") {
+FindCommonCluster <- function(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtable, output_dir = "plots") {
     if (!exists("MakeClusterList")) {
         stop("The function 'MakeClusterList' is not defined.")
     }
@@ -215,21 +215,21 @@ FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne
     }
 
     # Create cluster lists (To be changed) #
-    eu_allptms_list <- MakeClusterList(eu_allptms_tsne, 3.8, ptmtable)
-    sp_allptms_list <- MakeClusterList(sp_allptms_tsne, 3.8, ptmtable)  # sp.groups
-    sed_allptms_list <- MakeClusterList(sed_allptms_tsne, 3.0, ptmtable)  # sed.groups
+    eu_ptms_list <- MakeClusterList(eu_ptms_tsne, 3.8, ptmtable)
+    sp_ptms_list <- MakeClusterList(sp_ptms_tsne, 3.8, ptmtable)  # sp.groups
+    sed_ptms_list <- MakeClusterList(sed_ptms_tsne, 3.0, ptmtable)  # sed.groups
 
     # Calculate cluster sizes #
-    spsizes_allptms <- sapply(sp_allptms_list, function(x) dim(x)[1])
-    sedsizes_allptms <- sapply(sed_allptms_list, function(x) dim(x)[1])
-    esizes_allptms <- sapply(eu_allptms_list, function(x) dim(x)[1])
+    spsizes_ptms <- sapply(sp_ptms_list, function(x) dim(x)[1])
+    sedsizes_ptms <- sapply(sed_ptms_list, function(x) dim(x)[1])
+    esizes_ptms <- sapply(eu_ptms_list, function(x) dim(x)[1])
 
     # Plot and save histograms #
     plot_names <- c("Euclidean_tSNE_Cluster_Sizes.png",
                     "Spearman_tSNE_Cluster_Sizes.png",
                     "Combined_tSNE_Cluster_Sizes.png")
 
-    plot_data <- list(esizes_allptms, spsizes_allptms, sedsizes_allptms)
+    plot_data <- list(esizes_ptms, spsizes_ptms, sedsizes_ptms)
     plot_colors <- c("yellow", "purple", "brown")
     plot_titles <- c("Euclidean t-SNE Cluster Sizes",
                      "Spearman t-SNE Cluster Sizes",
@@ -244,9 +244,9 @@ FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne
     }
 
     # Return the cluster lists for further use if needed
-    return(list(eu_allptms_list = eu_allptms_list,
-                sp_allptms_list = sp_allptms_list,
-                sed_allptms_list = sed_allptms_list))
+    return(list(eu_ptms_list = eu_ptms_list,
+                sp_ptms_list = sp_ptms_list,
+                sed_ptms_list = sed_ptms_list))
 }
 
 
@@ -274,20 +274,20 @@ list.common <- function(list1, list2, keeplength = 3) {
 #'
 #' This function generates and constructs the PTMs network from given data lists and tables.
 #'
-#' @param eu.allptms.list A list containing all PTMs data for the European dataset.
-#' @param sp.allptms.list A list containing all PTMs data for the SP dataset.
-#' @param sed.allptms.list A list containing all PTMs data for the SED dataset.
+#' @param eu.ptms.list A list containing all PTMs data for the European dataset.
+#' @param sp.ptms.list A list containing all PTMs data for the SP dataset.
+#' @param sed.ptms.list A list containing all PTMs data for the SED dataset.
 #' @param ptmtable A data frame containing all PTMs data.
 #' @param keeplength An integer specifying the minimum length of common elements to keep. Default is 2.
 #' @param output_dir A string specifying the output directory for saving plots. Default is "plots".
 #'
-#' @return A list containing the updated `ptmtable` and data for `eu.sp.sed.allptms`.
+#' @return A list containing the updated `ptmtable` and data for `eu.sp.sed.ptms`.
 #' @export
 #'
 #' @examples
-#' GenerateAndConstructAllptmsNetwork(eu.allptms.list, sp.allptms.list, sed.allptms.list, ptmtable)
+#' GenerateAndConstructptmsNetwork(eu.ptms.list, sp.ptms.list, sed.ptms.list, ptmtable)
 
-GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list, sed.allptms.list,
+GenerateAndConstructptmsNetwork <- function(eu.ptms.list, sp.ptms.list, sed.ptms.list,
                                                ptmtable, keeplength = 2, output_dir = "plots") {
   # Create output directory if it doesn't exist
   if (!dir.exists(output_dir)) {
@@ -310,17 +310,17 @@ GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list,
   outersect <- function(x,y){sort(c(setdiff(x,y), setdiff(y,x)))}
 
   # Convert lists to data frames #
-  eu.allptms.df <- plyr::ldply(eu.allptms.list)[, 2:3]
-  sp.allptms.df <- plyr::ldply(sp.allptms.list)[, 2:3]
-  sed.allptms.df <- plyr::ldply(sed.allptms.list)[, 2:3]
+  eu.ptms.df <- plyr::ldply(eu.ptms.list)[, 2:3]
+  sp.ptms.df <- plyr::ldply(sp.ptms.list)[, 2:3]
+  sed.ptms.df <- plyr::ldply(sed.ptms.list)[, 2:3]
 
   # Make group names unique #
-  eu.allptms.df$group <- paste(eu.allptms.df$group, "e", sep = "")
-  sp.allptms.df$group <- paste(sp.allptms.df$group, "s", sep = "")
-  sed.allptms.df$group <- paste(sed.allptms.df$group, "sed", sep = "")
+  eu.ptms.df$group <- paste(eu.ptms.df$group, "e", sep = "")
+  sp.ptms.df$group <- paste(sp.ptms.df$group, "s", sep = "")
+  sed.ptms.df$group <- paste(sed.ptms.df$group, "sed", sep = "")
 
   # Group everything together #
-  allptmsgroups.df <- rbind(eu.allptms.df, sed.allptms.df, sp.allptms.df)
+  ptmsgroups.df <- rbind(eu.ptms.df, sed.ptms.df, sp.ptms.df)
 
   # Functions to extract gene names and PTMs #
   extract.genes.from.clist <- function(clusterlist.element) {
@@ -334,19 +334,19 @@ GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list,
     return(as.character(element$Gene.Name))
   }
 
-  eu.allptms.genes <- lapply(eu.allptms.list, extract.genes.from.clist)
-  sp.allptms.genes <- lapply(sp.allptms.list, extract.genes.from.clist)
-  sed.allptms.genes <- lapply(sed.allptms.list, extract.genes.from.clist)
+  eu.ptms.genes <- lapply(eu.ptms.list, extract.genes.from.clist)
+  sp.ptms.genes <- lapply(sp.ptms.list, extract.genes.from.clist)
+  sed.ptms.genes <- lapply(sed.ptms.list, extract.genes.from.clist)
 
-  eu.allptms.peps <- lapply(eu.allptms.list, extract.peps.from.clist)
-  sp.allptms.peps <- lapply(sp.allptms.list, extract.peps.from.clist)
-  sed.allptms.peps <- lapply(sed.allptms.list, extract.peps.from.clist)
+  eu.ptms.peps <- lapply(eu.ptms.list, extract.peps.from.clist)
+  sp.ptms.peps <- lapply(sp.ptms.list, extract.peps.from.clist)
+  sed.ptms.peps <- lapply(sed.ptms.list, extract.peps.from.clist)
 
 
-  eu.sp.allptms <- list.common(eu.allptms.peps, sp.allptms.peps, keeplength)
-  eu.sp.allptms.sizes <- sapply(eu.sp.allptms, length)
-  eu.sp.sed.allptms <- list.common(eu.sp.allptms, sed.allptms.peps, keeplength)
-  eu.sp.sed.allptms.sizes <- sapply(eu.sp.sed.allptms, length)
+  eu.sp.ptms <- list.common(eu.ptms.peps, sp.ptms.peps, keeplength)
+  eu.sp.ptms.sizes <- sapply(eu.sp.ptms, length)
+  eu.sp.sed.ptms <- list.common(eu.sp.ptms, sed.ptms.peps, keeplength)
+  eu.sp.sed.ptms.sizes <- sapply(eu.sp.sed.ptms, length)
 
   # Function to generate data frames for heatmaps and evaluations #
   clust.data.from.vec <- function(vec, tbl) {
@@ -367,17 +367,17 @@ GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list,
   }
 
   # Generate data lists for evaluations #
-  eu.sp.sed.allptms.data <- list()
-  for (i in 1:length(eu.sp.sed.allptms)) {
-    if (length(intersect(eu.sp.sed.allptms[[i]], rownames(ptmtable))) == 0) next
-    at <- ptmtable[unlist(eu.sp.sed.allptms[[i]]), ]
+  eu.sp.sed.ptms.data <- list()
+  for (i in 1:length(eu.sp.sed.ptms)) {
+    if (length(intersect(eu.sp.sed.ptms[[i]], rownames(ptmtable))) == 0) next
+    at <- ptmtable[unlist(eu.sp.sed.ptms[[i]]), ]
     if (dim(at)[1] < 2 | dim(at)[2] < 2) next
-    eu.sp.sed.allptms.data[[i]] <- clust.data.from.vec(eu.sp.sed.allptms[[i]], tbl = ptmtable)
+    eu.sp.sed.ptms.data[[i]] <- clust.data.from.vec(eu.sp.sed.ptms[[i]], tbl = ptmtable)
 
     # Save the plot
     plot_file <- file.path(output_dir, paste0("plot_", i, ".png"))
     grDevices::png(plot_file, width = 800, height = 600)
-    plot(eu.sp.sed.allptms.data[[i]])
+    plot(eu.sp.sed.ptms.data[[i]])
     grDevices::dev.off()
 
     print(paste("Saved plot", i, "to", plot_file))
@@ -385,14 +385,14 @@ GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list,
 
   # Trim datasets #
   alltrimmedsamples <- apply(ptmtable, 1, filled)
-  allptms.t <- ptmtable[which(alltrimmedsamples > 2), ]
-  ptmtable <- allptms.t
+  ptms.t <- ptmtable[which(alltrimmedsamples > 2), ]
+  ptmtable <- ptms.t
 
   # Repair bad clusters #
   bad.clusterlist <- list()
   badptms <- unique(outersect(rownames(ptmtable), rownames(ptmtable)))
 
-  return(list(ptmtable = ptmtable, eu.sp.sed.allptms.data = eu.sp.sed.allptms.data))
+  return(list(ptmtable = ptmtable, eu.sp.sed.ptms.data = eu.sp.sed.ptms.data))
 }
 
 #' Create Adjacency Matrix
@@ -497,78 +497,78 @@ zero.to.NA.func <- function(df) {
 #'
 #' This function processes PTMs data, creates correlation networks, and constructs adjacency matrices.
 #'
-#' @param eu.sp.sed.allptms A list of all PTMs.
-#' @param sed.allptms.peps A list of SED PTMs peptides.
+#' @param eu.sp.sed.ptms A list of all PTMs.
+#' @param sed.ptms.peps A list of SED PTMs peptides.
 #' @param AlldataPTMs_cor A correlation matrix for all PTMs.
 #'
 #' @return A data frame containing PTMs gene correlation edges.
 #' @export
 #'
 #' @examples
-#' process_ptms_data(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_cor)
-process_ptms_data <- function(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_cor) {
+#' process_ptms_data(eu.sp.sed.ptms, sed.ptms.peps, AlldataPTMs_cor)
+process_ptms_data <- function(eu.sp.sed.ptms, sed.ptms.peps, AlldataPTMs_cor) {
   # Set variables
-  eu_sp_sed_allptms <- list.common(eu.sp.sed.allptms, sed.allptms.peps, keeplength = 2)
+  eu_sp_sed_ptms <- list.common(eu.sp.sed.ptms, sed.ptms.peps, keeplength = 2)
 
   # Create adjacency matrices
-  allptms_adj <- plyr::rbind.fill.matrix(plyr::llply(eu_sp_sed_allptms, MakeAdjMatrix))
-  rownames(allptms_adj) <- colnames(allptms_adj)
+  ptms_adj <- plyr::rbind.fill.matrix(plyr::llply(eu_sp_sed_ptms, MakeAdjMatrix))
+  rownames(ptms_adj) <- colnames(ptms_adj)
 
   # Order and align matrices
-  allptms_adj_o <- allptms_adj[order(rownames(allptms_adj)), order(colnames(allptms_adj))]
+  ptms_adj_o <- ptms_adj[order(rownames(ptms_adj)), order(colnames(ptms_adj))]
 
-  allptms_cccn_1 <- AlldataPTMs_cor[rownames(AlldataPTMs_cor) %in% rownames(allptms_adj_o), colnames(AlldataPTMs_cor) %in% colnames(allptms_adj_o)]
+  ptms_cccn_1 <- AlldataPTMs_cor[rownames(AlldataPTMs_cor) %in% rownames(ptms_adj_o), colnames(AlldataPTMs_cor) %in% colnames(ptms_adj_o)]
 
   # Check matrices
-  if(length(setdiff(rownames(allptms_adj), rownames(allptms_cccn_1))) != 0) stop("Mismatch in rownames")
-  if(length(intersect(rownames(allptms_adj), rownames(AlldataPTMs_cor))) != nrow(allptms_adj)) stop("Mismatch in intersect rownames")
+  if(length(setdiff(rownames(ptms_adj), rownames(ptms_cccn_1))) != 0) stop("Mismatch in rownames")
+  if(length(intersect(rownames(ptms_adj), rownames(AlldataPTMs_cor))) != nrow(ptms_adj)) stop("Mismatch in intersect rownames")
 
   # Add correlation as edge values in adjacency matrix
-  allptms_cccn <- AlldataPTMs_cor[intersect(rownames(allptms_adj_o), rownames(AlldataPTMs_cor)), intersect(colnames(allptms_adj_o), colnames(AlldataPTMs_cor))]
+  ptms_cccn <- AlldataPTMs_cor[intersect(rownames(ptms_adj_o), rownames(AlldataPTMs_cor)), intersect(colnames(ptms_adj_o), colnames(AlldataPTMs_cor))]
 
   # Replace NA values
-  allptms_NA <- which(is.na(allptms_adj_o), arr.ind = TRUE)
-  allptms_cccn <- replace(allptms_cccn, allptms_NA, NA)
-  if (any(!is.na(diag(allptms_cccn)))) diag(allptms_cccn) <- NA
+  ptms_NA <- which(is.na(ptms_adj_o), arr.ind = TRUE)
+  ptms_cccn <- replace(ptms_cccn, ptms_NA, NA)
+  if (any(!is.na(diag(ptms_cccn)))) diag(ptms_cccn) <- NA
 
   # Make igraph objects
-  allptms_cccn0 <- allptms_cccn
-  allptms_cccn0[is.na(allptms_cccn0)] <- 0
-  allptms_cccn_g <- igraph::graph_from_adjacency_matrix(as.matrix(allptms_cccn0), mode = "lower", diag = FALSE, weighted = "Weight")
+  ptms_cccn0 <- ptms_cccn
+  ptms_cccn0[is.na(ptms_cccn0)] <- 0
+  ptms_cccn_g <- igraph::graph_from_adjacency_matrix(as.matrix(ptms_cccn0), mode = "lower", diag = FALSE, weighted = "Weight")
 
   # Gene CCCN construction
-  allptms_gene_cccn <- data.frame(allptms_cccn, row.names = rownames(allptms_cccn), check.rows = TRUE, check.names = FALSE, fix.empty.names = FALSE)
-  allptms_gene_cccn$Gene_Name <- sapply(rownames(allptms_gene_cccn), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])
+  ptms_gene_cccn <- data.frame(ptms_cccn, row.names = rownames(ptms_cccn), check.rows = TRUE, check.names = FALSE, fix.empty.names = FALSE)
+  ptms_gene_cccn$Gene_Name <- sapply(rownames(ptms_gene_cccn), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])
 
-  allptms_gene_cccn[lower.tri(allptms_gene_cccn)] <- NA
+  ptms_gene_cccn[lower.tri(ptms_gene_cccn)] <- NA
 
   #check doesn't like Gene_Name but it's a column name
-  allptms_gene_cccn2 <- plyr::ddply(allptms_gene_cccn, plyr::.(Gene_Name), plyr::numcolwise(function(x) sum(x, na.rm = TRUE)), .progress = "tk")
+  ptms_gene_cccn2 <- plyr::ddply(ptms_gene_cccn, plyr::.(Gene_Name), plyr::numcolwise(function(x) sum(x, na.rm = TRUE)), .progress = "tk")
 
-  rownames(allptms_gene_cccn2) <- allptms_gene_cccn2$Gene_Name
-  allptms_gene_cccn2 <- allptms_gene_cccn2[, 2:ncol(allptms_gene_cccn2)]
-  allptms_gene_cccn2 <- data.frame(t(allptms_gene_cccn2))
-  allptms_gene_cccn2$Gene <- sapply(rownames(allptms_gene_cccn2), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])
+  rownames(ptms_gene_cccn2) <- ptms_gene_cccn2$Gene_Name
+  ptms_gene_cccn2 <- ptms_gene_cccn2[, 2:ncol(ptms_gene_cccn2)]
+  ptms_gene_cccn2 <- data.frame(t(ptms_gene_cccn2))
+  ptms_gene_cccn2$Gene <- sapply(rownames(ptms_gene_cccn2), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])
 
   #check doesn't like Gene but it's a column name
-  allptms_gene_cccn3 <- plyr::ddply(allptms_gene_cccn2, plyr::.(Gene), plyr::numcolwise(function(x) sum(x, na.rm = TRUE)), .progress = "tk")
+  ptms_gene_cccn3 <- plyr::ddply(ptms_gene_cccn2, plyr::.(Gene), plyr::numcolwise(function(x) sum(x, na.rm = TRUE)), .progress = "tk")
 
-  names(allptms_gene_cccn3)[2:ncol(allptms_gene_cccn3)] <- allptms_gene_cccn3$Gene
-  rownames(allptms_gene_cccn3) <- allptms_gene_cccn3$Gene
+  names(ptms_gene_cccn3)[2:ncol(ptms_gene_cccn3)] <- ptms_gene_cccn3$Gene
+  rownames(ptms_gene_cccn3) <- ptms_gene_cccn3$Gene
 
-  allptms_gene_cccn0 <- allptms_gene_cccn3[, 2:ncol(allptms_gene_cccn3)]
-  allptms_gene_cccn_na <- zero.to.NA.func(allptms_gene_cccn0)
+  ptms_gene_cccn0 <- ptms_gene_cccn3[, 2:ncol(ptms_gene_cccn3)]
+  ptms_gene_cccn_na <- zero.to.NA.func(ptms_gene_cccn0)
 
-  allptms_gene_cccn_g <- igraph::graph.adjacency(as.matrix(allptms_gene_cccn0), mode = "lower", diag = FALSE, weighted = "Weight")
+  ptms_gene_cccn_g <- igraph::graph.adjacency(as.matrix(ptms_gene_cccn0), mode = "lower", diag = FALSE, weighted = "Weight")
 
-  allptms_gene_cccn_edges <- data.frame(igraph::as_edgelist(allptms_gene_cccn_g))
-  names(allptms_gene_cccn_edges) <- c("Gene.1", "Gene.2")
-  allptms_gene_cccn_edges$Weight <- igraph::edge_attr(allptms_gene_cccn_g)[[1]]
-  allptms_gene_cccn_edges$interaction <- "correlation"
-  allptms_gene_cccn_edges$interaction[allptms_gene_cccn_edges$Weight <= -0.5] <- "negative correlation"
-  allptms_gene_cccn_edges$interaction[allptms_gene_cccn_edges$Weight >= 0.5] <- "positive correlation"
+  ptms_gene_cccn_edges <- data.frame(igraph::as_edgelist(ptms_gene_cccn_g))
+  names(ptms_gene_cccn_edges) <- c("Gene.1", "Gene.2")
+  ptms_gene_cccn_edges$Weight <- igraph::edge_attr(ptms_gene_cccn_g)[[1]]
+  ptms_gene_cccn_edges$interaction <- "correlation"
+  ptms_gene_cccn_edges$interaction[ptms_gene_cccn_edges$Weight <= -0.5] <- "negative correlation"
+  ptms_gene_cccn_edges$interaction[ptms_gene_cccn_edges$Weight >= 0.5] <- "positive correlation"
 
-  return(allptms_gene_cccn_edges)
+  return(ptms_gene_cccn_edges)
 }
 
 #' Extract Gene Names from Peptide Vector
