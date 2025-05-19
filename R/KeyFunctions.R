@@ -46,35 +46,35 @@ SpearmanDissimilarity <- function(ptmtable) {
 #' This function computes the Euclidean distance matrix from the input dataset,
 #' normalizes it, and applies t-SNE for dimensionality reduction.
 #'
-#' @param ptmtable.df A data frame containing numeric data for post-translational modifications.
+#' @param ptmtable A data frame containing numeric data for post-translational modifications.
 #' @return A matrix containing t-SNE coordinates (3D).
 #' @export
 #'
 #' @examples
-#' EuclideanDistance(ptmtable.df)
-EuclideanDistance <- function(ptmtable.df) {
+#' EuclideanDistance(ptmtable)
+EuclideanDistance <- function(ptmtable) {
     # Add if statement here to make sure functions are formatted correctly #
     # Convert the dataframe to a distance matrix using Euclidean distance #
-    ptmtable.df.dist = as.matrix(stats::dist(ptmtable.df, method = "euclidean"))
+    ptmtable.dist = as.matrix(stats::dist(ptmtable, method = "euclidean"))
     print("Converting Data Types...")
 
     # Compute the maximum distance in the matrix, excluding NA values #
-    max_dist = max(ptmtable.df.dist, na.rm = TRUE)
+    max_dist = max(ptmtable.dist, na.rm = TRUE)
     print("Finding maximum distance...")
 
     # Replace NA values in the distance matrix with 100 times the maximum distance #
-    ptmtable.df.dist[is.na(ptmtable.df.dist)] <- 100 * max_dist
+    ptmtable.dist[is.na(ptmtable.dist)] <- 100 * max_dist
     print("Filtering missing values...")
 
     # Normalize the distance matrix by scaling it to a range from 0 to 100 #
-    ptmtable.df.dist.1 <- 100 * ptmtable.df.dist / max_dist
+    ptmtable.dist.1 <- 100 * ptmtable.dist / max_dist
     print("Normalizing distances...")
 
     # Apply t-SNE to the distance matrix to reduce dimensions to 3 #
     # Parameters: dims = 3 (3D output), perplexity = 15, theta = 0.25 (speed/accuracy trade-off) #
     # max_iter = 5000 (number of iterations), check_duplicates = FALSE (treat rows as unique) #
     # pca = FALSE (no initial PCA) #
-    eu.allptms.tsne.list <- Rtsne::Rtsne(as.matrix(ptmtable.df.dist.1), dims = 3, perplexity = 15, theta = 0.25, max_iter = 5000, check_duplicates = FALSE, pca = FALSE)
+    eu.allptms.tsne.list <- Rtsne::Rtsne(as.matrix(ptmtable.dist.1), dims = 3, perplexity = 15, theta = 0.25, max_iter = 5000, check_duplicates = FALSE, pca = FALSE)
 
     # Extract the t-SNE results from the output list #
     eu.allptms.tsne <- eu.allptms.tsne.list$Y
@@ -89,21 +89,21 @@ EuclideanDistance <- function(ptmtable.df) {
 #' This function uses parallel computing to calculate both Spearman dissimilarity and
 #' Euclidean distance, combines them, and performs t-SNE.
 #'
-#' @param ptmtable.df A data frame containing numeric data.
+#' @param ptmtable A data frame containing numeric data.
 #' @param ptmtable A dataset for post-translational modifications.
 #' @return A matrix containing t-SNE coordinates (3D).
 #' @export
 #'
 #' @examples
-#' CombinedPar(ptmtable.df, ptmtable)
-CombinedPar <- function(ptmtable.df, ptmtable) {
+#' CombinedPar(ptmtable)
+CombinedPar <- function(ptmtable) {
     # Creates a cluster
     cl <- parallel::makeCluster(2)  # Uses two cores, may increase later #
     # Using makecluster & not parLapply so that this works with Windows machines as well as Unix based ones #
     doParallel::registerDoParallel(cl)
 
     # Export necessary functions and data to each cluster node #
-    parallel::clusterExport(cl, list("SpearmanDissimilarity", "EuclideanDistance", "ptmtable", "ptmtable.df"))
+    parallel::clusterExport(cl, list("SpearmanDissimilarity", "EuclideanDistance", "ptmtable"))
     parallel::clusterEvalQ(cl, {
         library(Rtsne)
         library(parallel)
@@ -116,7 +116,7 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
         if (i == 1) {
             return(SpearmanDissimilarity(ptmtable))
         } else {
-            return(EuclideanDistance(ptmtable.df))
+            return(EuclideanDistance(ptmtable))
         }
     }
 
@@ -149,12 +149,12 @@ CombinedPar <- function(ptmtable.df, ptmtable) {
 #'
 #' @examples
 #' MakeClusterList(sed_allptms_tsne, tbl.sc, toolong =  3.5)
-MakeClusterList <- function(ptmtable.df, ptmtable, toolong = 3.5)	{ # Run for all three not just one
+MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not just one
 
   #find spearman
   spearman_result = SpearmanDissimilarity(ptmtable)
   #find euclidean
-  euclidean_result = EuclideanDistance(ptmtable.df)
+  euclidean_result = EuclideanDistance(ptmtable)
 
 
   #find average
@@ -196,15 +196,15 @@ MakeClusterList <- function(ptmtable.df, ptmtable, toolong = 3.5)	{ # Run for al
 #' @param eu_allptms_tsne A matrix containing Euclidean t-SNE coordinates.
 #' @param sp_allptms_tsne A matrix containing Spearman t-SNE coordinates.
 #' @param sed_allptms_tsne A matrix containing combined t-SNE coordinates.
-#' @param ptmtable.df A data frame containing input data for cluster analysis.
+#' @param ptmtable A data frame containing input data for cluster analysis.
 #' @param output_dir The directory where output plots are saved. Defaults to "plots".
 #' @return A list containing cluster groupings for each distance metric.
 #' @export
 #'
 #' @examples
-#' FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable.df, "output")
+#' FindCommonCluster(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable, "output")
 
-FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable.df, output_dir = "plots") {
+FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne, ptmtable, output_dir = "plots") {
     if (!exists("MakeClusterList")) {
         stop("The function 'MakeClusterList' is not defined.")
     }
@@ -215,9 +215,9 @@ FindCommonCluster <- function(eu_allptms_tsne, sp_allptms_tsne, sed_allptms_tsne
     }
 
     # Create cluster lists (To be changed) #
-    eu_allptms_list <- MakeClusterList(eu_allptms_tsne, 3.8, ptmtable.df)
-    sp_allptms_list <- MakeClusterList(sp_allptms_tsne, 3.8, ptmtable.df)  # sp.groups
-    sed_allptms_list <- MakeClusterList(sed_allptms_tsne, 3.0, ptmtable.df)  # sed.groups
+    eu_allptms_list <- MakeClusterList(eu_allptms_tsne, 3.8, ptmtable)
+    sp_allptms_list <- MakeClusterList(sp_allptms_tsne, 3.8, ptmtable)  # sp.groups
+    sed_allptms_list <- MakeClusterList(sed_allptms_tsne, 3.0, ptmtable)  # sed.groups
 
     # Calculate cluster sizes #
     spsizes_allptms <- sapply(sp_allptms_list, function(x) dim(x)[1])
@@ -277,18 +277,18 @@ list.common <- function(list1, list2, keeplength = 3) {
 #' @param eu.allptms.list A list containing all PTMs data for the European dataset.
 #' @param sp.allptms.list A list containing all PTMs data for the SP dataset.
 #' @param sed.allptms.list A list containing all PTMs data for the SED dataset.
-#' @param ptmtable.df A data frame containing all PTMs data.
+#' @param ptmtable A data frame containing all PTMs data.
 #' @param keeplength An integer specifying the minimum length of common elements to keep. Default is 2.
 #' @param output_dir A string specifying the output directory for saving plots. Default is "plots".
 #'
-#' @return A list containing the updated `ptmtable.df` and data for `eu.sp.sed.allptms`.
+#' @return A list containing the updated `ptmtable` and data for `eu.sp.sed.allptms`.
 #' @export
 #'
 #' @examples
-#' GenerateAndConstructAllptmsNetwork(eu.allptms.list, sp.allptms.list, sed.allptms.list, ptmtable.df)
+#' GenerateAndConstructAllptmsNetwork(eu.allptms.list, sp.allptms.list, sed.allptms.list, ptmtable)
 
 GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list, sed.allptms.list,
-                                               ptmtable.df, keeplength = 2, output_dir = "plots") {
+                                               ptmtable, keeplength = 2, output_dir = "plots") {
   # Create output directory if it doesn't exist
   if (!dir.exists(output_dir)) {
     dir.create(output_dir)
@@ -369,10 +369,10 @@ GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list,
   # Generate data lists for evaluations #
   eu.sp.sed.allptms.data <- list()
   for (i in 1:length(eu.sp.sed.allptms)) {
-    if (length(intersect(eu.sp.sed.allptms[[i]], rownames(ptmtable.df))) == 0) next
-    at <- ptmtable.df[unlist(eu.sp.sed.allptms[[i]]), ]
+    if (length(intersect(eu.sp.sed.allptms[[i]], rownames(ptmtable))) == 0) next
+    at <- ptmtable[unlist(eu.sp.sed.allptms[[i]]), ]
     if (dim(at)[1] < 2 | dim(at)[2] < 2) next
-    eu.sp.sed.allptms.data[[i]] <- clust.data.from.vec(eu.sp.sed.allptms[[i]], tbl = ptmtable.df)
+    eu.sp.sed.allptms.data[[i]] <- clust.data.from.vec(eu.sp.sed.allptms[[i]], tbl = ptmtable)
 
     # Save the plot
     plot_file <- file.path(output_dir, paste0("plot_", i, ".png"))
@@ -384,15 +384,15 @@ GenerateAndConstructAllptmsNetwork <- function(eu.allptms.list, sp.allptms.list,
   }
 
   # Trim datasets #
-  alltrimmedsamples <- apply(ptmtable.df, 1, filled)
-  allptms.t <- ptmtable.df[which(alltrimmedsamples > 2), ]
-  ptmtable.df <- allptms.t
+  alltrimmedsamples <- apply(ptmtable, 1, filled)
+  allptms.t <- ptmtable[which(alltrimmedsamples > 2), ]
+  ptmtable <- allptms.t
 
   # Repair bad clusters #
   bad.clusterlist <- list()
-  badptms <- unique(outersect(rownames(ptmtable.df), rownames(ptmtable.df)))
+  badptms <- unique(outersect(rownames(ptmtable), rownames(ptmtable)))
 
-  return(list(ptmtable.df = ptmtable.df, eu.sp.sed.allptms.data = eu.sp.sed.allptms.data))
+  return(list(ptmtable = ptmtable, eu.sp.sed.allptms.data = eu.sp.sed.allptms.data))
 }
 
 #' Create Adjacency Matrix
