@@ -4,12 +4,12 @@
 \alias{process_ptms_data}
 \title{Process PTMs Data}
 \usage{
-process_ptms_data(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_cor)
+process_ptms_data(eu.sp.sed.ptms, sed.ptms.peps, AlldataPTMs_cor)
 }
 \arguments{
-\item{eu.sp.sed.allptms}{A list of all PTMs.}
+\item{eu.sp.sed.ptms}{A list of all PTMs.}
 
-\item{sed.allptms.peps}{A list of SED PTMs peptides.}
+\item{sed.ptms.peps}{A list of SED PTMs peptides.}
 
 \item{AlldataPTMs_cor}{A correlation matrix for all PTMs.}
 }
@@ -20,5 +20,5 @@ A data frame containing PTMs gene correlation edges.
 This function processes PTMs data, creates correlation networks, and constructs adjacency matrices.
 }
 \examples{
-process_ptms_data(eu.sp.sed.allptms, sed.allptms.peps, AlldataPTMs_cor)
+process_ptms_data(eu.sp.sed.ptms, sed.ptms.peps, AlldataPTMs_cor)
 }

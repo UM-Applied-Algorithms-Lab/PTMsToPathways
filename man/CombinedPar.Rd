@@ -4,11 +4,9 @@
 \alias{CombinedPar}
 \title{Combines Spearman dissimilarity and Euclidean distance in parallel}
 \usage{
-CombinedPar(ptmtable.df, ptmtable)
+CombinedPar(ptmtable)
 }
 \arguments{
-\item{ptmtable.df}{A data frame containing numeric data.}
-
 \item{ptmtable}{A dataset for post-translational modifications.}
 }
 \value{
@@ -19,5 +17,5 @@ This function uses parallel computing to calculate both Spearman dissimilarity a
 Euclidean distance, combines them, and performs t-SNE.
 }
 \examples{
-CombinedPar(ptmtable.df, ptmtable)
+CombinedPar(ptmtable)
 }

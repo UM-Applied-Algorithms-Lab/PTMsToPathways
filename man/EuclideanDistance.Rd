@@ -4,10 +4,10 @@
 \alias{EuclideanDistance}
 \title{Calculates Euclidean distance and performs t-SNE}
 \usage{
-EuclideanDistance(ptmtable.df)
+EuclideanDistance(ptmtable)
 }
 \arguments{
-\item{ptmtable.df}{A data frame containing numeric data for post-translational modifications.}
+\item{ptmtable}{A data frame containing numeric data for post-translational modifications.}
 }
 \value{
 A matrix containing t-SNE coordinates (3D).
@@ -17,5 +17,5 @@ This function computes the Euclidean distance matrix from the input dataset,
 normalizes it, and applies t-SNE for dimensionality reduction.
 }
 \examples{
-EuclideanDistance(ptmtable.df)
+EuclideanDistance(ptmtable)
 }
