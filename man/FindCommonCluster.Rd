@@ -4,22 +4,12 @@
 \alias{FindCommonCluster}
 \title{Finds correlations between clusters from multiple distance metrics}
 \usage{
-FindCommonCluster(
-  eu_ptms_tsne,
-  sp_ptms_tsne,
-  sed_ptms_tsne,
-  ptmtable,
-  output_dir = "plots"
-)
+FindCommonCluster(ptmtable, toolong = 3.5, output_dir = "plots")
 }
 \arguments{
-\item{eu_ptms_tsne}{A matrix containing Euclidean t-SNE coordinates.}
-
-\item{sp_ptms_tsne}{A matrix containing Spearman t-SNE coordinates.}
-
-\item{sed_ptms_tsne}{A matrix containing combined t-SNE coordinates.}
-
 \item{ptmtable}{A data frame containing input data for cluster analysis.}
+
+\item{toolong}{A numeric threshold for cluster separation, defaults to 3.5.}
 
 \item{output_dir}{The directory where output plots are saved. Defaults to "plots".}
 }
@@ -31,5 +21,5 @@ This function identifies and analyzes clusters using Spearman, Euclidean, and co
 t-SNE data, generates cluster size histograms, and saves the plots.
 }
 \examples{
-FindCommonCluster(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtable, "output")
+FindCommonCluster(ptmtable, toolong = 3.5, "output")
 }

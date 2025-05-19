@@ -135,15 +135,14 @@ CombinedPar <- function(ptmtable) {
     return(tsne_coordinates)
 }
 
-#' Creates a list of cluster groupings based on t-SNE data
+#' Populates the global enviroment with cluster groupings based on t-SNE data
 #'
 #' This function groups t-SNE data points into clusters using a specified threshold
 #' and visualizes the clusters.
 #'
 #' @param sed_ptms_tsne A matrix containing t-SNE coordinates.
-#' @param toolong A numeric threshold for cluster separation.
+#' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
 #' @param tbl.sc A data frame associated with the t-SNE data.
-#' @return A list of clusters grouped by proximity.
 #' @export
 #'
 #' @examples
@@ -192,9 +191,9 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
   } #END of nested function
 
   #Assign different analysises to global enviroment
-  assign("eu_ptms_list", clustercreate(euclidean_result), envir = .GlobalEnv)
-  assign("sp_ptms_list", clustercreate(spearman_result), envir = .GlobalEnv)
-  assign("sed_ptms_list", clustercreate(sed_result), envir = .GlobalEnv)
+  assign("eu_ptms_list", clustercreate(euclidean_result), envir = .GlobalEnv) #Matrix containing Euclidean t-SNE coords
+  assign("sp_ptms_list", clustercreate(spearman_result), envir = .GlobalEnv)  #Matrix containing Spearman t-SNE coords
+  assign("sed_ptms_list", clustercreate(sed_result), envir = .GlobalEnv)      #Matrix containing combined t-SNE coords
 }
 
 #' Finds correlations between clusters from multiple distance metrics
@@ -202,18 +201,16 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
 #' This function identifies and analyzes clusters using Spearman, Euclidean, and combined
 #' t-SNE data, generates cluster size histograms, and saves the plots.
 #'
-#' @param eu_ptms_tsne A matrix containing Euclidean t-SNE coordinates.
-#' @param sp_ptms_tsne A matrix containing Spearman t-SNE coordinates.
-#' @param sed_ptms_tsne A matrix containing combined t-SNE coordinates.
 #' @param ptmtable A data frame containing input data for cluster analysis.
+#' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
 #' @param output_dir The directory where output plots are saved. Defaults to "plots".
 #' @return A list containing cluster groupings for each distance metric.
 #' @export
 #'
 #' @examples
-#' FindCommonCluster(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtable, "output")
+#' FindCommonCluster(ptmtable, toolong = 3.5, "output")
 
-FindCommonCluster <- function(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtable, output_dir = "plots") {
+FindCommonCluster <- function(ptmtable, toolong = 3.5, output_dir = "plots") {
     if (!exists("MakeClusterList")) {
         stop("The function 'MakeClusterList' is not defined.")
     }
@@ -223,12 +220,10 @@ FindCommonCluster <- function(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtabl
         dir.create(output_dir)
     }
 
-    # Create cluster lists (To be changed) #
-    eu_ptms_list <- MakeClusterList(eu_ptms_tsne, 3.8, ptmtable)
-    sp_ptms_list <- MakeClusterList(sp_ptms_tsne, 3.8, ptmtable)  # sp.groups
-    sed_ptms_list <- MakeClusterList(sed_ptms_tsne, 3.0, ptmtable)  # sed.groups
+    # Make global variables from MakeClusterList #
+    MakeClusterList(ptmtable, toolong)
 
-    # Calculate cluster sizes #
+    # Calculate cluster sizes using global variables #
     spsizes_ptms <- sapply(sp_ptms_list, function(x) dim(x)[1])
     sedsizes_ptms <- sapply(sed_ptms_list, function(x) dim(x)[1])
     esizes_ptms <- sapply(eu_ptms_list, function(x) dim(x)[1])
@@ -252,7 +247,7 @@ FindCommonCluster <- function(eu_ptms_tsne, sp_ptms_tsne, sed_ptms_tsne, ptmtabl
         print(paste("Saved plot:", plot_names[i]))
     }
 
-    # Return the cluster lists for further use if needed
+    # Return the cluster lists for further use if needed, should also use global variables
     return(list(eu_ptms_list = eu_ptms_list,
                 sp_ptms_list = sp_ptms_list,
                 sed_ptms_list = sed_ptms_list))
