@@ -89,7 +89,6 @@ EuclideanDistance <- function(ptmtable) {
 #' This function uses parallel computing to calculate both Spearman dissimilarity and
 #' Euclidean distance, combines them, and performs t-SNE.
 #'
-#' @param ptmtable A data frame containing numeric data.
 #' @param ptmtable A dataset for post-translational modifications.
 #' @return A matrix containing t-SNE coordinates (3D).
 #' @export
@@ -166,17 +165,17 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
   sed_result <- tsne_result$Y
 
 
-  #Nested function to analyze result 
+  #Nested function to analyze result
   clustercreate <- function(result, table.sc = ptmtable){
 
-    #Compute the minimum spanning tree connecting the points 
+    #Compute the minimum spanning tree connecting the points
     tsne.span2 <- vegan::spantree(stats::dist(sed_ptms_tsne), toolong=toolong)
-    
-    #Find clusters that are connected based on toolong (distance?) 
+
+    #Find clusters that are connected based on toolong (distance?)
     sed_ptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_ptms_tsne), toolong = toolong, trace = TRUE)  # test
     cat ("threshold dissimilarity", toolong, "\n", max(sed_ptms_tsne.disc2), " groups","\n")
 
-    #Create a plot of the clusters using vegan 
+    #Create a plot of the clusters using vegan
     vegan::ordiplot(sed_ptms_tsne)
         #lines(tsne.span2, sed_ptms_tsne) #???
     vegan::ordihull(sed_ptms_tsne, sed_ptms_tsne.disc2, col="red", lwd=2)
@@ -184,15 +183,15 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
     #Format a data frame
     sed_ptms_tsne.span2.df <- data.frame(rownames(tbl.sc))
     names(sed_ptms_tsne.span2.df) <- "Gene.Name"
-    sed_ptms_tsne.span2.df$group <- sed_ptms_tsne.disc2 #Add groups found above to the data frame 
+    sed_ptms_tsne.span2.df$group <- sed_ptms_tsne.disc2 #Add groups found above to the data frame
 
     #Convert data frame into a list of clusters (check doesn't like group but it's a column name)
     sed_ptms_tsne.span2.list <- plyr::dlply(sed_ptms_tsne.span2.df, plyr::.(group))  # GROUP LIST  !
     return(sed_ptms_tsne.span2.list)
-    
+
   } #END of nested function
 
-  #Assign different analysises to global enviroment 
+  #Assign different analysises to global enviroment
   assign("eu_ptms_list", clustercreate(euclidean_result), envir = .GlobalEnv)
   assign("sp_ptms_list", clustercreate(spearman_result), envir = .GlobalEnv)
   assign("sed_ptms_list", clustercreate(sed_result), envir = .GlobalEnv)
