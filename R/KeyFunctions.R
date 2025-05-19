@@ -159,7 +159,7 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
 
   #find average
   #this is copy and pasted straight from combinedpar so we don't have to run the calculations again
-  #no need for its own functino I suppose because it's only three lines of code
+  #no need for its own function I suppose because it's only three lines of code
   combined_distance <- (spearman_result + euclidean_result) / 2
   # Perform t-SNE on the combined distances #
   tsne_result <- Rtsne::Rtsne(as.matrix(combined_distance), dims = 3, perplexity = 15, theta = 0.25, check_duplicates = FALSE, pca = FALSE)
