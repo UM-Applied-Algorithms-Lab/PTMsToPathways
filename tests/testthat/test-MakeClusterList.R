@@ -1,12 +1,14 @@
 #Setup
-set.seed(1)                     #Set the seed (very important)
-load("../../data/ptmtable.rda") #Load Sample data
+if(!exists("eu_ptms_list")){      #Check if global variables are already made as to not run MakeClusterList multiple times
+  set.seed(1)                     #Set the seed (very important)
+  load("../../data/ptmtable.rda") #Load Sample data
 
-sink("noprint")                 #Suppress print statements from function
-MakeClusterList(ptmtable)       #Create sample data - #BUG - writes 'species scores not available' (dont worry about this for now)
-sink()
+  sink("noprint")                 #Suppress print statements from function
+  MakeClusterList(ptmtable)       #Create sample data - #BUG - writes 'species scores not available' (dont worry about this for now)
+  sink()
+}
 
-#Unit Tests for the global variables created by MakeClusterList, tested randomly due to the large amount of data w/   eu_ptms_list[[1]]$Gene.Name[1]
+#Unit Tests for the global variables (lists of dataframes) created by MakeClusterList. Check "Gene" Names.
 #eu_ptms_list
 test_that("Testing eu_ptms_list Cluster 1, Gene 2", {expect_equal(eu_ptms_list[[1]]$Gene.Name[2], "ABCA1 ubi K2023")})
 test_that("Testing eu_ptms_list Cluster 3, Gene 4", {expect_equal(eu_ptms_list[[3]]$Gene.Name[4], "ABCB6 ubi K482")})
@@ -22,5 +24,5 @@ test_that("Testing sp_ptms_list Cluster 8, Gene 1", {expect_equal(sp_ptms_list[[
 test_that("Testing sp_ptms_list Cluster 13, Gene 1", {expect_equal(sp_ptms_list[[13]]$Gene.Name[1], "ABCC1 ubi K290")})
 test_that("Testing sp_ptms_list Cluster 21, Gene 2", {expect_equal(sp_ptms_list[[21]]$Gene.Name[2], "ACKR3 ubi K362")})
 
-
+#Clean Up
 if(file.exists("noprint")) file.remove("noprint") #Clean up file created by sink()
