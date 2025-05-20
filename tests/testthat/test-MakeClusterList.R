@@ -1,12 +1,9 @@
-#FIXME - Species scores not avaliable??
-
-
 #Setup
 set.seed(1)                     #Set the seed (very important)
 load("../../data/ptmtable.rda") #Load Sample data
 
 sink("noprint")                 #Suppress print statements from function
-MakeClusterList(ptmtable)       #Create sample data - #BUG - writes 'species scores not available'
+MakeClusterList(ptmtable)       #Create sample data - #BUG - writes 'species scores not available' (dont worry about this for now)
 sink()
 
 #Unit Tests for the global variables created by MakeClusterList, tested randomly due to the large amount of data w/   eu_ptms_list[[1]]$Gene.Name[1]
