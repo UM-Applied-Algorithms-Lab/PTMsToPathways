@@ -1,7 +1,7 @@
 Package: cccn.cfn.tools
 Title: A package for mass spec data processing
 Version: 0.0.0.9000
-Authors@R:c(
+Authors@R: c(
     person("Mckayl", "Bailey", email = "first.last@example.com", role = c("aut")),
     person("Mark", "Grimes", email = "first.last@example.com", role = c("aut", "cre")),
     person("Grant", "Smith", email = "first.last@example.com", role = c("aut")),
@@ -28,9 +28,11 @@ Imports:
     utils
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 Depends: 
     R (>= 3.5)
 LazyData: true
 URL: https://um-applied-algorithms-lab.github.io/CCCN_CFN_Tools/
+Config/testthat/edition: 3
