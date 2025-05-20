@@ -102,7 +102,7 @@ This step uses the output from the MakeClusterList function to find common clust
 
 ### Step 2: GenerateAndConstructptmsNetwork
 ```{r eval=FALSE}
-ptms_network <- GenerateAndConstructptmsNetwork(eu.ptms.list, sp.ptms.list, sed.ptms.list, ptmtable, keeplength = 2, output_dir = "plots")
+ptms_network <- GenerateAndConstructptmsNetwork(eu_ptms_list, sp_ptms_list, sed_ptms_list, ptmtable, keeplength = 2, output_dir = "plots")
 print("All PTMs network:")
 print(unique(sapply(as.character(element$Gene.Name), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1])))
 ```

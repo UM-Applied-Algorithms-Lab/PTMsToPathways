@@ -5,20 +5,20 @@
 \title{Generate and Construct All PTMs Network}
 \usage{
 GenerateAndConstructptmsNetwork(
-  eu.ptms.list,
-  sp.ptms.list,
-  sed.ptms.list,
+  eu_ptms_list,
+  sp_ptms_list,
+  sed_ptms_list,
   ptmtable,
   keeplength = 2,
   output_dir = "plots"
 )
 }
 \arguments{
-\item{eu.ptms.list}{A list containing all PTMs data for the European dataset.}
+\item{eu_ptms_list}{A list containing all PTMs data for the Euclidean distance calculation.}
 
-\item{sp.ptms.list}{A list containing all PTMs data for the SP dataset.}
+\item{sp_ptms_list}{A list containing all PTMs data for the Spearman dissimilarity calculation.}
 
-\item{sed.ptms.list}{A list containing all PTMs data for the SED dataset.}
+\item{sed_ptms_list}{A list containing all PTMs data for the average of the Euclidean and Spearman distance calculations.}
 
 \item{ptmtable}{A data frame containing all PTMs data.}
 
@@ -33,5 +33,5 @@ A list containing the updated \code{ptmtable} and data for \code{eu.sp.sed.ptms}
 This function generates and constructs the PTMs network from given data lists and tables.
 }
 \examples{
-GenerateAndConstructptmsNetwork(eu.ptms.list, sp.ptms.list, sed.ptms.list, ptmtable)
+GenerateAndConstructptmsNetwork(eu_ptms_list, sp_ptms_list, sed_ptms_list, ptmtable)
 }

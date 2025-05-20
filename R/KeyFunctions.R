@@ -277,9 +277,9 @@ list.common <- function(list1, list2, keeplength = 3) {
 #'
 #' This function generates and constructs the PTMs network from given data lists and tables.
 #'
-#' @param eu.ptms.list A list containing all PTMs data for the European dataset.
-#' @param sp.ptms.list A list containing all PTMs data for the SP dataset.
-#' @param sed.ptms.list A list containing all PTMs data for the SED dataset.
+#' @param eu_ptms_list A list containing all PTMs data for the Euclidean distance calculation.
+#' @param sp_ptms_list A list containing all PTMs data for the Spearman dissimilarity calculation.
+#' @param sed_ptms_list A list containing all PTMs data for the average of the Euclidean and Spearman distance calculations.
 #' @param ptmtable A data frame containing all PTMs data.
 #' @param keeplength An integer specifying the minimum length of common elements to keep. Default is 2.
 #' @param output_dir A string specifying the output directory for saving plots. Default is "plots".
@@ -288,9 +288,9 @@ list.common <- function(list1, list2, keeplength = 3) {
 #' @export
 #'
 #' @examples
-#' GenerateAndConstructptmsNetwork(eu.ptms.list, sp.ptms.list, sed.ptms.list, ptmtable)
+#' GenerateAndConstructptmsNetwork(eu_ptms_list, sp_ptms_list, sed_ptms_list, ptmtable)
 
-GenerateAndConstructptmsNetwork <- function(eu.ptms.list, sp.ptms.list, sed.ptms.list,
+GenerateAndConstructptmsNetwork <- function(eu_ptms_list, sp_ptms_list, sed_ptms_list,
                                                ptmtable, keeplength = 2, output_dir = "plots") {
   # Create output directory if it doesn't exist
   if (!dir.exists(output_dir)) {
@@ -298,12 +298,11 @@ GenerateAndConstructptmsNetwork <- function(eu.ptms.list, sp.ptms.list, sed.ptms
   }
 
   # Mark's Functions #
-  "%w/o%" <- function(x, y) x[!x %in% y] #--  x without y
-  without <- function(x, y) x[!x %in% y] #--  x without y
-  nmissing <- function(x) sum(is.na(x))
-  filled <- function (x) {length(x) - nmissing(x)}
+  without <- function(x, y) x[!x %in% y]            # x without y
+  nmissing <- function(x) sum(is.na(x))             # number of missing entries
+  filled <- function (x) {length(x) - nmissing(x)}  # number of existing entries
   fractNA <- function(df) {
-    result <- nmissing(df)/(dim(df)[1]*dim(df)[2])
+    result <- nmissing(df)/(dim(df)[1]*dim(df)[2])  #fraction of total entries that are missing
     return(result)
   }
   mean.na <- function(x) mean(x, na.rm=TRUE)
@@ -313,18 +312,19 @@ GenerateAndConstructptmsNetwork <- function(eu.ptms.list, sp.ptms.list, sed.ptms
   outersect <- function(x,y){sort(c(setdiff(x,y), setdiff(y,x)))}
 
   # Convert lists to data frames #
-  eu.ptms.df <- plyr::ldply(eu.ptms.list)[, 2:3]
-  sp.ptms.df <- plyr::ldply(sp.ptms.list)[, 2:3]
-  sed.ptms.df <- plyr::ldply(sed.ptms.list)[, 2:3]
+  #(brackets only take the second and third col and ignore the col that just says number in the cluster) #
+  eu.ptms.df <- plyr::ldply(eu_ptms_list)[, 2:3]
+  sp.ptms.df <- plyr::ldply(sp_ptms_list)[, 2:3]
+  sed.ptms.df <- plyr::ldply(sed_ptms_list)[, 2:3]
 
-  # Make group names unique #
+  # Make group names unique by concatenating a key to the group number (e, s, or sed) #
   eu.ptms.df$group <- paste(eu.ptms.df$group, "e", sep = "")
   sp.ptms.df$group <- paste(sp.ptms.df$group, "s", sep = "")
   sed.ptms.df$group <- paste(sed.ptms.df$group, "sed", sep = "")
 
-  # Group everything together #
+  # Group everything together, data frames pasted together with rows of E on top of rows of Sed on top of rows of S #
   ptmsgroups.df <- rbind(eu.ptms.df, sed.ptms.df, sp.ptms.df)
-
+  
   # Functions to extract gene names and PTMs #
   extract.genes.from.clist <- function(clusterlist.element) {
     element <- clusterlist.element[1]
@@ -336,21 +336,28 @@ GenerateAndConstructptmsNetwork <- function(eu.ptms.list, sp.ptms.list, sed.ptms
     element <- clusterlist.element[1]
     return(as.character(element$Gene.Name))
   }
+  
+  eu.ptms.genes <- extract.genes.from.clist(eu.ptms.df)
+  sp.ptms.genes <- extract.genes.from.clist(sp.ptms.df)
+  sed.ptms.genes <- extract.genes.from.clist(sed.ptms.df)
 
-  eu.ptms.genes <- lapply(eu.ptms.list, extract.genes.from.clist)
-  sp.ptms.genes <- lapply(sp.ptms.list, extract.genes.from.clist)
-  sed.ptms.genes <- lapply(sed.ptms.list, extract.genes.from.clist)
+  eu.ptms.peps <- extract.peps.from.clist(eu.ptms.df)
+  sp.ptms.peps <- extract.peps.from.clist(eu.ptms.df)
+  sed.ptms.peps <- extract.peps.from.clist(eu.ptms.df)
 
-  eu.ptms.peps <- lapply(eu.ptms.list, extract.peps.from.clist)
-  sp.ptms.peps <- lapply(sp.ptms.list, extract.peps.from.clist)
-  sed.ptms.peps <- lapply(sed.ptms.list, extract.peps.from.clist)
-
-
+  
+  ################# FAILING HERE #################
+  
+  
   eu.sp.ptms <- list.common(eu.ptms.peps, sp.ptms.peps, keeplength)
   eu.sp.ptms.sizes <- sapply(eu.sp.ptms, length)
   eu.sp.sed.ptms <- list.common(eu.sp.ptms, sed.ptms.peps, keeplength)
   eu.sp.sed.ptms.sizes <- sapply(eu.sp.sed.ptms, length)
 
+  
+  ################# FAILING HERE #################
+  
+  
   # Function to generate data frames for heatmaps and evaluations #
   clust.data.from.vec <- function(vec, tbl) {
     if (class(vec) == "list") {
