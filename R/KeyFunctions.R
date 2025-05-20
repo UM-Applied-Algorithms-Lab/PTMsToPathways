@@ -140,14 +140,13 @@ CombinedPar <- function(ptmtable) {
 #' This function groups t-SNE data points into clusters using a specified threshold
 #' and visualizes the clusters.
 #'
-#' @param sed_ptms_tsne A matrix containing t-SNE coordinates.
+#' @param ptmtable A dataset for post-translational modifications.
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
-#' @param tbl.sc A data frame associated with the t-SNE data.
 #' @export
 #'
 #' @examples
-#' MakeClusterList(sed_ptms_tsne, tbl.sc, toolong =  3.5)
-MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not just one
+#' MakeClusterList(ptmtable, toolong =  3.5)
+MakeClusterList <- function(ptmtable, toolong = 3.5){
 
   #find spearman
   spearman_result = SpearmanDissimilarity(ptmtable)
@@ -165,35 +164,35 @@ MakeClusterList <- function(ptmtable, toolong = 3.5)	{ # Run for all three not j
 
 
   #Nested function to analyze result
-  clustercreate <- function(result, table.sc = ptmtable){
+  clustercreate <- function(result, ptmtable){
 
     #Compute the minimum spanning tree connecting the points
-    tsne.span2 <- vegan::spantree(stats::dist(sed_ptms_tsne), toolong=toolong)
+    tsne.span2 <- vegan::spantree(stats::dist(result), toolong=toolong)
 
     #Find clusters that are connected based on toolong (distance?)
-    sed_ptms_tsne.disc2 <-  vegan::distconnected(stats::dist(sed_ptms_tsne), toolong = toolong, trace = TRUE)  # test
-    cat ("threshold dissimilarity", toolong, "\n", max(sed_ptms_tsne.disc2), " groups","\n")
+    result.disc2 <-  vegan::distconnected(stats::dist(result), toolong = toolong, trace = TRUE)  # test
+    cat ("threshold dissimilarity", toolong, "\n", max(result.disc2), " groups","\n")
 
     #Create a plot of the clusters using vegan
-    vegan::ordiplot(sed_ptms_tsne)
-        #lines(tsne.span2, sed_ptms_tsne) #???
-    vegan::ordihull(sed_ptms_tsne, sed_ptms_tsne.disc2, col="red", lwd=2)
+    vegan::ordiplot(result)
+        #lines(tsne.span2, result) #???
+    vegan::ordihull(result, result.disc2, col="red", lwd=2)
 
     #Format a data frame
-    sed_ptms_tsne.span2.df <- data.frame(rownames(tbl.sc))
-    names(sed_ptms_tsne.span2.df) <- "Gene.Name"
-    sed_ptms_tsne.span2.df$group <- sed_ptms_tsne.disc2 #Add groups found above to the data frame
+    result.span2.df <- data.frame(rownames(ptmtable))
+    names(result.span2.df) <- "Gene.Name"
+    result.span2.df$group <- result.disc2 #Add groups found above to the data frame
 
     #Convert data frame into a list of clusters (check doesn't like group but it's a column name)
-    sed_ptms_tsne.span2.list <- plyr::dlply(sed_ptms_tsne.span2.df, plyr::.(group))  # GROUP LIST  !
-    return(sed_ptms_tsne.span2.list)
+    result.span2.list <- plyr::dlply(result.span2.df, plyr::.(group))  # GROUP LIST  !
+    return(result.span2.list)
 
   } #END of nested function
 
   #Assign different analysises to global enviroment
-  assign("eu_ptms_list", clustercreate(euclidean_result), envir = .GlobalEnv) #Matrix containing Euclidean t-SNE coords
-  assign("sp_ptms_list", clustercreate(spearman_result), envir = .GlobalEnv)  #Matrix containing Spearman t-SNE coords
-  assign("sed_ptms_list", clustercreate(sed_result), envir = .GlobalEnv)      #Matrix containing combined t-SNE coords
+  assign("eu_ptms_list", clustercreate(euclidean_result, ptmtable), envir = .GlobalEnv) #Matrix containing Euclidean t-SNE coords
+  assign("sp_ptms_list", clustercreate(spearman_result, ptmtable), envir = .GlobalEnv)  #Matrix containing Spearman t-SNE coords
+  assign("sed_ptms_list", clustercreate(sed_result, ptmtable), envir = .GlobalEnv)      #Matrix containing combined t-SNE coords
 }
 
 #' Finds correlations between clusters from multiple distance metrics

@@ -7,16 +7,14 @@
 MakeClusterList(ptmtable, toolong = 3.5)
 }
 \arguments{
+\item{ptmtable}{A dataset for post-translational modifications.}
+
 \item{toolong}{A numeric threshold for cluster separation, defaults to 3.5.}
-
-\item{sed_ptms_tsne}{A matrix containing t-SNE coordinates.}
-
-\item{tbl.sc}{A data frame associated with the t-SNE data.}
 }
 \description{
 This function groups t-SNE data points into clusters using a specified threshold
 and visualizes the clusters.
 }
 \examples{
-MakeClusterList(sed_ptms_tsne, tbl.sc, toolong =  3.5)
+MakeClusterList(ptmtable, toolong =  3.5)
 }
