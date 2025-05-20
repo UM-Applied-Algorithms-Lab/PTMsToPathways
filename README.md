@@ -62,3 +62,7 @@ To check for issues before committing changes, run:
 ```
 check()
 ```
+and
+```
+devtools::test()
+```
