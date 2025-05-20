@@ -26,13 +26,6 @@ Once these are installed, you can install this package directly from GitHub usin
 devtools::install_github("UM-Applied-Algorithms-Lab/CCCN_CFN_Tools")
 ```
 
-In order to run the some functions of the package, you will also need to install and load the doParallel package:
-
-```
-install.packages("doParallel")
-library(doParallel)
-```
-
 ## Usage
 
 After installation, load the package in R with:
