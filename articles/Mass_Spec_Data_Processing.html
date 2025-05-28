@@ -102,14 +102,14 @@ genes assigned to a specific cluster with respect to that measure of
 distance.</p>
 </div>
 <div class="section level4">
-<h4 id="find-common-clusters">Find Common Clusters:<a class="anchor" aria-label="anchor" href="#find-common-clusters"></a>
+<h4 id="plot-cluster">Plot Cluster:<a class="anchor" aria-label="anchor" href="#plot-cluster"></a>
 </h4>
 <p>Calls MakeClusterList and then finds the common clusters between the
 clusters of each method of distance calculation. Generates a visual
 representation of this new common clusters set.</p>
 </div>
 <div class="section level4">
-<h4 id="list-common-cluster">List Common Cluster:<a class="anchor" aria-label="anchor" href="#list-common-cluster"></a>
+<h4 id="find-common-clusters">Find Common Clusters:<a class="anchor" aria-label="anchor" href="#find-common-clusters"></a>
 </h4>
 <p>This looks for actual interactions and similarities between the new
 clusters for each of the results. It returns a new list within the given
@@ -135,13 +135,15 @@ chosen data sets by combining them.</p>
 <div class="section level4">
 <h4 id="bind-matricies">Bind Matricies:<a class="anchor" aria-label="anchor" href="#bind-matricies"></a>
 </h4>
-<p>Aligns the adjacency matrix with the correlation matrix. Then sets
-diagonal connections to NA values.</p>
+<p>Orders the adjacency matrix and finds the intersection between the
+adjacency matrix with the correlation matrix. Then sets diagonal of this
+new matrix–cccn_matrix–to NA values.</p>
 </div>
 <div class="section level4">
 <h4 id="correlation-network">Correlation Network:<a class="anchor" aria-label="anchor" href="#correlation-network"></a>
 </h4>
-<p>Turns the matrix created into an igraph object.</p>
+<p>Turns the cccn_matrix created in Bind Matricies into an igraph
+object.</p>
 </div>
 <div class="section level4">
 <h4 id="process-ptm-data">Process PTM Data:<a class="anchor" aria-label="anchor" href="#process-ptm-data"></a>
