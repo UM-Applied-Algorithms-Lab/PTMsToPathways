@@ -6,14 +6,11 @@
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
 <url><loc>/reference/BindMatrices.html</loc></url>
-<url><loc>/reference/CombinedPar.html</loc></url>
 <url><loc>/reference/CorrelationNetwork.html</loc></url>
-<url><loc>/reference/EuclideanDistance.html</loc></url>
 <url><loc>/reference/FindCommonCluster.html</loc></url>
 <url><loc>/reference/GenerateAndConstructptmsNetwork.html</loc></url>
 <url><loc>/reference/MakeAdjMatrix.html</loc></url>
 <url><loc>/reference/MakeClusterList.html</loc></url>
-<url><loc>/reference/SpearmanDissimilarity.html</loc></url>
 <url><loc>/reference/extract.gene.names.html</loc></url>
 <url><loc>/reference/find_ppi_edges.html</loc></url>
 <url><loc>/reference/genepep.edges.3.html</loc></url>
