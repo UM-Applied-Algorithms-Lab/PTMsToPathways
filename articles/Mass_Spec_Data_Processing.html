@@ -232,7 +232,7 @@ the dots between different protein modifications.</p>
 <h4 id="step-3-bindmatrices">Step 3: BindMatrices<a class="anchor" aria-label="anchor" href="#step-3-bindmatrices"></a>
 </h4>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bound_matrices</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BindMatrices.html">BindMatrices</a></span><span class="op">(</span><span class="va">cluster_list</span>, <span class="va">correlation_matrix</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">bound_matrices</span> <span class="op">&lt;-</span> <span class="fu">BindMatrices</span><span class="op">(</span><span class="va">cluster_list</span>, <span class="va">correlation_matrix</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Bound matrices:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">cccn_matrix</span><span class="op">)</span></span></code></pre></div>
 <p>The BindMatrices function aligns the ordered adjacency matrix with
@@ -245,7 +245,7 @@ analyzed.</p>
 <h4 id="step-4-correlationnetwork">Step 4: CorrelationNetwork<a class="anchor" aria-label="anchor" href="#step-4-correlationnetwork"></a>
 </h4>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">correlation_network</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/CorrelationNetwork.html">CorrelationNetwork</a></span><span class="op">(</span><span class="va">cccn_matrix</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">correlation_network</span> <span class="op">&lt;-</span> <span class="fu">CorrelationNetwork</span><span class="op">(</span><span class="va">cccn_matrix</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Correlation network:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, the CorrelationNetwork function takes the cccn_matrix and
@@ -259,7 +259,7 @@ your dataset, offering insights into their functional relationships.</p>
 <h4 id="step-5-process-ptm-data">Step 5: Process PTM Data<a class="anchor" aria-label="anchor" href="#step-5-process-ptm-data"></a>
 </h4>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">processed_data_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_ptms_data.html">process_ptms_data</a></span><span class="op">(</span><span class="va">eu.sp.sed.ptms</span>, <span class="va">sed.ptms.peps</span>, <span class="va">cccn_matrix</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">processed_data_path</span> <span class="op">&lt;-</span> <span class="fu">process_ptms_data</span><span class="op">(</span><span class="va">eu.sp.sed.ptms</span>, <span class="va">sed.ptms.peps</span>, <span class="va">cccn_matrix</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="st">"Processed PTM data:"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ptms_gene_cccn_edges</span><span class="op">)</span></span></code></pre></div>
 <p>Once again we run this function in the same manner as the others.
