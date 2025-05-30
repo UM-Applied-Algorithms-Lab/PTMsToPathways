@@ -193,25 +193,20 @@ between Euclidean Distance and Spearman Dissimilarity.</li>
 <div class="section level5">
 <h5 id="description-1">Description:<a class="anchor" aria-label="anchor" href="#description-1"></a>
 </h5>
-<p>Descrip</p>
+<p>Requires MakeClusterList to be ran first to create global variables
+(Euclidian/Spearman/SED Tsne Matrices). Finds the intersection between
+the Euclidian, Spearman, and SED Tsne matrices and turns it into an
+adjacency matrix. Then uses that matrix to filter relevant data from the
+Spearman correlation matrix and processes the result into an igraph
+object.</p>
 </div>
 <div class="section level5">
 <h5 id="input-1">Input:<a class="anchor" aria-label="anchor" href="#input-1"></a>
 </h5>
-<ul>
-<li>ptmtable
-<ul>
-<li>a data frame with rows of ptms and columns of experimental
-conditions<br>
-</li>
-</ul>
-</li>
-<li>keeplength
-<ul>
-<li>defaults to 3;</li>
-</ul>
-</li>
-</ul>
+<p><strong>Will pull from the global enviroment. Please run
+MakeClusterList first.</strong> - keeplength - defaults to 3; Only saves
+subsets whose size is strictly greater than keeplength. (I.e. [‘AARS’,
+‘ABR’] will be discarded unless keeplength &lt; 2)</p>
 </div>
 <div class="section level5">
 <h5 id="output-1">Output:<a class="anchor" aria-label="anchor" href="#output-1"></a>
@@ -219,9 +214,8 @@ conditions<br>
 <ul>
 <li>cccn_matrix
 <ul>
-<li>dataframe returned by the step 2: Make Correlation Network;
-dataframe of dataframes that represent the common clusters from the
-three distance calculations’ clusters</li>
+<li>igraph object whose edge weights correspond to values in the
+Spearman Correlation Matrix</li>
 </ul>
 </li>
 </ul>
