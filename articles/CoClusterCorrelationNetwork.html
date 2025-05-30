@@ -242,11 +242,10 @@ three distance calculations’ clusters</li>
 <p>Protein-Protein Interaction (or PPI) networks are networks that show
 us how different proteins are known interact with each other. The ppi
 networks STRINGdb and GeneMania are consulted to gather this
-information. Given the ptmtable, this function first converts the
-proteins into genes of interest. It then gathers data from the PPI
-networks and filters them down to only examine the determined genes of
-interest. The data from both databases are then combined and returned.
-The returned database shows how strongly the proteins interact.</p>
+information. It then gathers data from the PPI networks and filters them
+down to only examine the determined genes of interest. The data from
+both databases are then combined and returned. The returned database
+shows how strongly the proteins interact.</p>
 </div>
 <div class="section level5">
 <h5 id="input-2">Input:<a class="anchor" aria-label="anchor" href="#input-2"></a>
@@ -270,14 +269,6 @@ three distance calculations’ clusters</li>
 <ul>
 <li>A dataframe representing how strongly proteins are known to
 interact.</li>
-</ul>
-</li>
-<li>
-<p>cccn_matrix_genes</p>
-<ul>
-<li>dataframe of dataframes that represent the common clusters from the
-three distance calculations’ clusters (has been converted to genes that
-encode the proteins for analysis)</li>
 </ul>
 </li>
 </ul>
@@ -314,12 +305,11 @@ representing how strongly proteins are known to interact.<br>
 </li>
 </ul>
 </li>
-<li>cccn_matrix_genes
+<li>cccn_matrix
 <ul>
-<li>dataframe returned by the step 3: Find PPI Edges; dataframe of
-dataframes that represent the common clusters from the three distance
-calculations’ clusters (has been converted to genes that encode the
-proteins for analysis)</li>
+<li>dataframe returned by the step 2: Make Correlation Network;
+dataframe of dataframes that represent the common clusters from the
+three distance calculations’ clusters</li>
 </ul>
 </li>
 </ul>
