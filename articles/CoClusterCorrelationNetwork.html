@@ -234,11 +234,34 @@ Spearman Correlation Matrix</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-3-retrieve-genemania-edge-file-optional">Step 3: Retrieve GeneMania Edge File (OPTIONAL)<a class="anchor" aria-label="anchor" href="#step-3-retrieve-genemania-edge-file-optional"></a>
+<h3 id="step-2-5-plot-correlation-network-optional">Step 2.5: Plot Correlation Network (OPTIONAL)<a class="anchor" aria-label="anchor" href="#step-2-5-plot-correlation-network-optional"></a>
 </h3>
 <pre><code></code></pre>
 <div class="section level5">
 <h5 id="description-2">Description:<a class="anchor" aria-label="anchor" href="#description-2"></a>
+</h5>
+<p>This is an optional step that allows you to visual the matrix made in
+Step 2. Note that this does not affect any future part of the code and
+is information purely for the sake of the user.</p>
+</div>
+<div class="section level5">
+<h5 id="to-run-save-your-matrix-as-a-variable-with-your-desired-name-and-keeplength-value-">To run: save your matrix as a variable with your desired name and
+keeplength value.<a class="anchor" aria-label="anchor" href="#to-run-save-your-matrix-as-a-variable-with-your-desired-name-and-keeplength-value-"></a>
+</h5>
+<ul>
+<li>name &lt;- MakeCorrelationNetwork(keeplength)</li>
+</ul>
+<p>####Then run this command with your desired name -
+Visualize(name)</p>
+<p>####Estimated run-time unknown</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-3-retrieve-genemania-edge-file-optional">Step 3: Retrieve GeneMania Edge File (OPTIONAL)<a class="anchor" aria-label="anchor" href="#step-3-retrieve-genemania-edge-file-optional"></a>
+</h3>
+<pre><code></code></pre>
+<div class="section level5">
+<h5 id="description-3">Description:<a class="anchor" aria-label="anchor" href="#description-3"></a>
 </h5>
 <p><strong>NOTE:</strong> This step is optional but provides more
 information for filtering data.</p>
@@ -295,7 +318,7 @@ three distance calculations’ clusters</li>
 </h3>
 <pre><code></code></pre>
 <div class="section level5">
-<h5 id="description-3">Description:<a class="anchor" aria-label="anchor" href="#description-3"></a>
+<h5 id="description-4">Description:<a class="anchor" aria-label="anchor" href="#description-4"></a>
 </h5>
 <p>Protein-Protein Interaction (or PPI) networks are networks that show
 us how different proteins are known interact with each other. The ppi
@@ -351,7 +374,7 @@ interact.</li>
 </h3>
 <pre><code></code></pre>
 <div class="section level5">
-<h5 id="description-4">Description:<a class="anchor" aria-label="anchor" href="#description-4"></a>
+<h5 id="description-5">Description:<a class="anchor" aria-label="anchor" href="#description-5"></a>
 </h5>
 <p>The final step in this analysis package filters the
 combined_ppi_network by the cccn_matrix. The purpose of this function is
