@@ -193,6 +193,8 @@ between Euclidean Distance and Spearman Dissimilarity.</li>
 <div class="section level5">
 <h5 id="description-1">Description:<a class="anchor" aria-label="anchor" href="#description-1"></a>
 </h5>
+<p><strong>Note</strong>: Input automatically pulls from the global
+environment the outputs from Step 1.</p>
 <p>Requires MakeClusterList to be ran first to create global variables
 (Euclidian/Spearman/SED Tsne Matrices). Finds the intersection between
 the Euclidian, Spearman, and SED Tsne matrices and turns it into an
@@ -203,10 +205,15 @@ object.</p>
 <div class="section level5">
 <h5 id="input-1">Input:<a class="anchor" aria-label="anchor" href="#input-1"></a>
 </h5>
-<p><strong>Will pull from the global enviroment. Please run
-MakeClusterList first.</strong> - keeplength - defaults to 3; Only saves
-subsets whose size is strictly greater than keeplength. (I.e. [‘AARS’,
-‘ABR’] will be discarded unless keeplength &lt; 2)</p>
+<ul>
+<li>keeplength
+<ul>
+<li>defaults to 3; Only saves subsets whose size is strictly greater
+than keeplength. (I.e. [‘AARS’, ‘ABR’] will be discarded unless
+keeplength &lt; 2)</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="section level5">
 <h5 id="output-1">Output:<a class="anchor" aria-label="anchor" href="#output-1"></a>
@@ -227,19 +234,25 @@ Spearman Correlation Matrix</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-3-find-ppi-edges">Step 3: Find PPI Edges<a class="anchor" aria-label="anchor" href="#step-3-find-ppi-edges"></a>
+<h3 id="step-3-retrieve-genemania-edge-file-optional">Step 3: Retrieve GeneMania Edge File (OPTIONAL)<a class="anchor" aria-label="anchor" href="#step-3-retrieve-genemania-edge-file-optional"></a>
 </h3>
 <pre><code></code></pre>
 <div class="section level5">
 <h5 id="description-2">Description:<a class="anchor" aria-label="anchor" href="#description-2"></a>
 </h5>
-<p>Protein-Protein Interaction (or PPI) networks are networks that show
-us how different proteins are known interact with each other. The ppi
-networks STRINGdb and GeneMania are consulted to gather this
-information. It then gathers data from the PPI networks and filters them
-down to only examine the determined genes of interest. The data from
-both databases are then combined and returned. The returned database
-shows how strongly the proteins interact.</p>
+<p><strong>NOTE:</strong> This step is optional but provides more
+information for filtering data.</p>
+<p>This step requires more effort from the user than any other step but
+the package still attempts to simplify this process. First, the user
+runs make_gm_input in order to produce a text file that has all of the
+gene names in a list. The user then opens the file (which is created in
+their working directory) and copies this entire file (ctrl+A, ctrl+c).
+Finally, the user goes to <a href="https://genemania.org" class="external-link uri">https://genemania.org</a> and pastes the file into the input
+text box. They then click the magnifying glass in order to generate the
+GeneMania information. Finally, press the three dots on the left side of
+the screen and click the file that says “Interactions data”. This will
+save that file. The user then must be sure to move this file into their
+working directory for the rest of the pipeline.</p>
 </div>
 <div class="section level5">
 <h5 id="input-2">Input:<a class="anchor" aria-label="anchor" href="#input-2"></a>
@@ -258,11 +271,15 @@ three distance calculations’ clusters</li>
 <h5 id="output-2">Output:<a class="anchor" aria-label="anchor" href="#output-2"></a>
 </h5>
 <ul>
-<li>
-<p>combined_ppi_network</p>
+<li>gm_nodes.txt
 <ul>
-<li>A dataframe representing how strongly proteins are known to
-interact.</li>
+<li>A text file with the names of all of the genes<br>
+</li>
+</ul>
+</li>
+<li>nodenames
+<ul>
+<li>A dataframe with all of the gene names involved in analysis</li>
 </ul>
 </li>
 </ul>
@@ -274,11 +291,58 @@ interact.</li>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-4-cluster-filtered-network">Step 4: Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-4-cluster-filtered-network"></a>
+<h3 id="step-4-find-ppi-edges">Step 4: Find PPI Edges<a class="anchor" aria-label="anchor" href="#step-4-find-ppi-edges"></a>
 </h3>
 <pre><code></code></pre>
 <div class="section level5">
 <h5 id="description-3">Description:<a class="anchor" aria-label="anchor" href="#description-3"></a>
+</h5>
+<p>Protein-Protein Interaction (or PPI) networks are networks that show
+us how different proteins are known interact with each other. The ppi
+networks STRINGdb and GeneMania are consulted to gather this
+information. It then gathers data from the PPI networks and filters them
+down to only examine the determined genes of interest. The data from
+both databases are then combined and returned. The returned database
+shows how strongly the proteins interact.</p>
+</div>
+<div class="section level5">
+<h5 id="input-3">Input:<a class="anchor" aria-label="anchor" href="#input-3"></a>
+</h5>
+<ul>
+<li>cccn_matrix
+<ul>
+<li>dataframe returned by the step 2: Make Correlation Network;
+dataframe of dataframes that represent the common clusters from the
+three distance calculations’ clusters</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="output-3">Output:<a class="anchor" aria-label="anchor" href="#output-3"></a>
+</h5>
+<ul>
+<li>
+<p>combined_ppi_network</p>
+<ul>
+<li>A dataframe representing how strongly proteins are known to
+interact.</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="estimated-run-time-3">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-3"></a>
+</h5>
+<p>UNKNOWN</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-5-cluster-filtered-network">Step 5: Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-5-cluster-filtered-network"></a>
+</h3>
+<pre><code></code></pre>
+<div class="section level5">
+<h5 id="description-4">Description:<a class="anchor" aria-label="anchor" href="#description-4"></a>
 </h5>
 <p>The final step in this analysis package filters the
 combined_ppi_network by the cccn_matrix. The purpose of this function is
@@ -289,7 +353,7 @@ of proteins that interact with each other as well as respond to stimuli
 via ptms under the same conditions.</p>
 </div>
 <div class="section level5">
-<h5 id="input-3">Input:<a class="anchor" aria-label="anchor" href="#input-3"></a>
+<h5 id="input-4">Input:<a class="anchor" aria-label="anchor" href="#input-4"></a>
 </h5>
 <ul>
 <li>combined_ppi_network
@@ -309,7 +373,7 @@ three distance calculations’ clusters</li>
 </ul>
 </div>
 <div class="section level5">
-<h5 id="output-3">Output:<a class="anchor" aria-label="anchor" href="#output-3"></a>
+<h5 id="output-4">Output:<a class="anchor" aria-label="anchor" href="#output-4"></a>
 </h5>
 <ul>
 <li>cccn_cfn_matrix
@@ -321,7 +385,7 @@ representative in protein form</li>
 </ul>
 </div>
 <div class="section level5">
-<h5 id="estimated-run-time-3">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-3"></a>
+<h5 id="estimated-run-time-4">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-4"></a>
 </h5>
 <p>UNKNOWN</p>
 </div>
