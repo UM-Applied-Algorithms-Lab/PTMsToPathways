@@ -304,10 +304,11 @@ relationships between proteins</li>
 <div class="section level5">
 <h5 id="description-2">Description<a class="anchor" aria-label="anchor" href="#description-2"></a>
 </h5>
-<p><strong>NOTE:</strong> This step is optional but provides
-visualization of the data in Step 2.</p>
-<p>This function plots the correlation network that was found in Step
-2.</p>
+<p><strong>NOTE:</strong> This step is only for those who wish to
+analyze the data found from Step 2 and has no effect on the rest of the
+program.</p>
+<p>This function shows a plot of the correlation network that was found
+in Step 2.</p>
 </div>
 <div class="section level5">
 <h5 id="input-2">Input<a class="anchor" aria-label="anchor" href="#input-2"></a>
@@ -315,25 +316,9 @@ visualization of the data in Step 2.</p>
 <ul>
 <li>correlation_network
 <ul>
-<li>iGraph object of cccn_matrix, a matrix showing strength of
-relationships between proteins</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-2">Output<a class="anchor" aria-label="anchor" href="#output-2"></a>
-</h5>
-<ul>
-<li>gm_nodes.txt
-<ul>
-<li>A text file with the names of all of the genes<br>
-</li>
-</ul>
-</li>
-<li>nodenames
-<ul>
-<li>A dataframe with all of the gene names involved in analysis</li>
+<li>correlation_network, a matrix showing strength of relationships
+between proteins (what MakeClusterList puts in the global
+environment)</li>
 </ul>
 </li>
 </ul>
@@ -383,7 +368,7 @@ the common clusters between the three distance metrics</li>
 </ul>
 </div>
 <div class="section level5">
-<h5 id="output-3">Output<a class="anchor" aria-label="anchor" href="#output-3"></a>
+<h5 id="output-2">Output<a class="anchor" aria-label="anchor" href="#output-2"></a>
 </h5>
 <ul>
 <li>gm_nodes.txt
@@ -447,7 +432,7 @@ Step 3.</li>
 </ul>
 </div>
 <div class="section level5">
-<h5 id="output-4">Output<a class="anchor" aria-label="anchor" href="#output-4"></a>
+<h5 id="output-3">Output<a class="anchor" aria-label="anchor" href="#output-3"></a>
 </h5>
 <ul>
 <li>ppi_network
@@ -502,7 +487,7 @@ the common clusters between the three distance metrics</li>
 </ul>
 </div>
 <div class="section level5">
-<h5 id="output-5">Output<a class="anchor" aria-label="anchor" href="#output-5"></a>
+<h5 id="output-4">Output<a class="anchor" aria-label="anchor" href="#output-4"></a>
 </h5>
 <ul>
 <li>cccn_cfn_matrix
