@@ -51,9 +51,6 @@
 <li>
       <a href="../articles/CoClusterCorrelationNetwork.html">Filtered Cocluster Correlation Network Creation Guide</a>
     </li>
-    <li>
-      <a href="../articles/Mass_Spec_Data_Processing.html">Mass Spectrometry Pre-Processing Guide</a>
-    </li>
   </ul>
 </li>
       </ul>
@@ -226,13 +223,46 @@ discarded unless keeplength &lt; 2)<br>
 </li>
 </ul>
 </li>
-<li>From Global Namespace: ptmtable
+<li>From Global Namespace:
 <ul>
-<li>A data frame with rows of ptms and columns of experimental
-conditions<br>
-</li>
 <li>Should <strong>not</strong> but listed in function call, but user
 must ensure that it is in the gloal environment</li>
+<li>ptmtable
+<ul>
+<li>A data frame with rows of ptms and columns of experimental
+conditions</li>
+</ul>
+</li>
+<li>ptm.correlation.matrix
+<ul>
+<li>A data frame showing the correlation between ptms (as the rows and
+the columns). NAs are placed along the diagonal.<br>
+</li>
+</ul>
+</li>
+<li>eu_ptms_list
+<ul>
+<li>A three-dimensional data frame used to represent ptms in space to
+show relationships between them based on distances. Based on Euclidean
+Distance.<br>
+</li>
+</ul>
+</li>
+<li>sp_ptms_list
+<ul>
+<li>A three-dimensional data frame used to represent ptms in space to
+show relationships between them based on distances. Based on Spearman
+Dissimilarity.<br>
+</li>
+</ul>
+</li>
+<li>sed_ptms_list
+<ul>
+<li>A three-dimensional data frame used to represent ptms in space to
+show relationships between them based on distances. Based on the average
+between Euclidean Distance and Spearman Dissimilarity.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -243,7 +273,8 @@ must ensure that it is in the gloal environment</li>
 <ul>
 <li>cccn_matrix
 <ul>
-<li>A matrix showing strength of relationships between proteins<br>
+<li>A matrix showing strength of relationships between proteins using
+the common clusters between the three distance metrics<br>
 </li>
 </ul>
 </li>
@@ -345,9 +376,8 @@ working directory for the rest of the pipeline.</p>
 <ul>
 <li>cccn_matrix
 <ul>
-<li>Dataframe returned by the step 2: Make Correlation Network;
-dataframe of dataframes that represent the common clusters from the
-three distance calculations’ clusters</li>
+<li>A matrix showing strength of relationships between proteins using
+the common clusters between the three distance metrics</li>
 </ul>
 </li>
 </ul>
@@ -401,9 +431,8 @@ shows how strongly the proteins interact.</p>
 <ul>
 <li>cccn_matrix
 <ul>
-<li>Dataframe returned by the step 2: Make Correlation Network;
-dataframe of dataframes that represent the common clusters from the
-three distance calculations’ clusters<br>
+<li>A matrix showing strength of relationships between proteins using
+the common clusters between the three distance metrics<br>
 </li>
 </ul>
 </li>
@@ -466,9 +495,8 @@ representing how strongly proteins are known to interact.<br>
 </li>
 <li>cccn_matrix
 <ul>
-<li>Dataframe returned by the step 2: Make Correlation Network;
-dataframe of dataframes that represent the common clusters from the
-three distance calculations’ clusters</li>
+<li>A matrix showing strength of relationships between proteins using
+the common clusters between the three distance metrics</li>
 </ul>
 </li>
 </ul>
