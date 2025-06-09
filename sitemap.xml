@@ -8,7 +8,11 @@
 <url><loc>/reference/ClusterFilteredNetwork.html</loc></url>
 <url><loc>/reference/MakeClusterList.html</loc></url>
 <url><loc>/reference/MakeCorrelationNetwork.html</loc></url>
+<url><loc>/reference/ex.ClusterFilteredNetwork.html</loc></url>
+<url><loc>/reference/ex.MakeClusterList.html</loc></url>
 <url><loc>/reference/ex.MakeCorrelationNetwork.html</loc></url>
+<url><loc>/reference/ex.find_ppi_edges.html</loc></url>
+<url><loc>/reference/ex.make_gm_input.html</loc></url>
 <url><loc>/reference/find_ppi_edges.html</loc></url>
 <url><loc>/reference/index.html</loc></url>
 <url><loc>/reference/make_gm_input.html</loc></url>
