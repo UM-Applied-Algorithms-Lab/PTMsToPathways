@@ -124,10 +124,38 @@ processed with a 12th Gen i5 processor and 8GB of RAM.</p>
 <div class="section level5">
 <h5 id="outputs">Outputs<a class="anchor" aria-label="anchor" href="#outputs"></a>
 </h5>
-<p><img src="vig_figs/SED_MCL.png"><br><strong>Figure 1</strong> Example plot produced by the average of
-Spearman Dissimilarity and Euclidean Distance as produced by
-MakeClusterList.</p>
+<p><img src="vig_figs/EU_MCL.png"><br><strong>Figure 1</strong> Example plot produced by MakeClusterList
+calculated using Euclidean Distance.</p>
 <p><img src="vig_figs/ClusterOutput.png"><br><strong>Figure 2</strong> Output of MakeClusterList</p>
+<pre><code><span><span class="co">#&gt; $`1`</span></span>
+<span><span class="co">#&gt;                                             PTM.Name group</span></span>
+<span><span class="co">#&gt; 1                                      AARS ubi K747     1</span></span>
+<span><span class="co">#&gt; 2                                    ANAPC5 ubi K289     1</span></span>
+<span><span class="co">#&gt; 3                                      CUTA ubi K112     1</span></span>
+<span><span class="co">#&gt; 4                                     CYHR1 ubi K349     1</span></span>
+<span><span class="co">#&gt; 5                                      EEF2 ack K498     1</span></span>
+<span><span class="co">#&gt; 6                                       F11R ubi K97     1</span></span>
+<span><span class="co">#&gt; 7                                        GMPS ack K9     1</span></span>
+<span><span class="co">#&gt; 8                                      HERC2 ubi K20     1</span></span>
+<span><span class="co">#&gt; 9                                     KPNB1 ubi K541     1</span></span>
+<span><span class="co">#&gt; 10                                     LASP1 ubi K59     1</span></span>
+<span><span class="co">#&gt; 11                                     LNPEP ubi K32     1</span></span>
+<span><span class="co">#&gt; 12                                    MRPS27 ubi K94     1</span></span>
+<span><span class="co">#&gt; 13                                      NME1 ack K39     1</span></span>
+<span><span class="co">#&gt; 14                                     PCNA ubi K110     1</span></span>
+<span><span class="co">#&gt; 15                                      PKM ack K141     1</span></span>
+<span><span class="co">#&gt; 16                                     PLAU ubi K403     1</span></span>
+<span><span class="co">#&gt; 17                                     PLK1 ubi K492     1</span></span>
+<span><span class="co">#&gt; 18                                   PNPLA2 ubi K435     1</span></span>
+<span><span class="co">#&gt; 19                                    PSMC1 ubi K237     1</span></span>
+<span><span class="co">#&gt; 20                                    RBCK1 ubi K342     1</span></span>
+<span><span class="co">#&gt; 21                                    RPS15A ubi K12     1</span></span>
+<span><span class="co">#&gt; 22                                    TCAF1 ubi K817     1</span></span>
+<span><span class="co">#&gt; 23 TUBB4B ubi K379; TUBB2A ubi K379; TUBB2B ubi K379     1</span></span>
+<span><span class="co">#&gt; 24                                    UIMC1 ubi K245     1</span></span>
+<span><span class="co">#&gt; 25                                     USP5 ubi K318     1</span></span>
+<span><span class="co">#&gt; 26                                    VAMP7 ubi K125     1</span></span>
+<span><span class="co">#&gt; 27                                      VCP ubi K295     1</span></span></code></pre>
 <p><strong>Figure 3</strong> First cluster created by Euclidean
 Distance.</p>
 </div>
@@ -211,7 +239,7 @@ between Euclidean Distance and Spearman Dissimilarity.</li>
 <div class="section level5">
 <h5 id="code-1">Code<a class="anchor" aria-label="anchor" href="#code-1"></a>
 </h5>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span>keeplength <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -245,12 +273,6 @@ discarded unless keeplength &lt; 2)<br>
 <ul>
 <li>Should <strong>not</strong> but listed in function call, but user
 must ensure that it is in the gloal environment<br>
-</li>
-<li>ptmtable
-<ul>
-<li>A data frame with rows of ptms and columns of experimental
-conditions</li>
-</ul>
 </li>
 <li>ptm.correlation.matrix
 <ul>
@@ -316,7 +338,7 @@ relationships between proteins</li>
 <div class="section level5">
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/make_gm_input.html">make_gm_input</a></span><span class="op">(</span><span class="va">cccn_matrix</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -378,7 +400,7 @@ the common clusters between the three distance metrics</li>
 <div class="section level5">
 <h5 id="code-3">Code<a class="anchor" aria-label="anchor" href="#code-3"></a>
 </h5>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/find_ppi_edges.html">find_ppi_edges</a></span><span class="op">(</span><span class="va">cccn_matrix</span>, gmfilepath <span class="op">=</span> <span class="st">"genemania-interactions.txt"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level5">
