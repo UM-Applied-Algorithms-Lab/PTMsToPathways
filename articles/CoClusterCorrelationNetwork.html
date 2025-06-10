@@ -474,26 +474,20 @@ interact.</li>
 <h5 id="description-4">Description<a class="anchor" aria-label="anchor" href="#description-4"></a>
 </h5>
 <p><strong>Note:</strong> This function, like the ones before it, will
-pull required data from the global enviroment. Requires both a
+pull required data from the global environment. Requires both a
 cccn_matrix and a list of PPI edges. Checks all PPI edges to see if
-their edge weight is equal to the weight of the same edge in the matrix.
-If it is not, then it will be removed from the list of PPI edges.</p>
+their edge weight is equal (or under the bounds of the accuracy
+parameter) to the weight of the same edge in the matrix. If it is not,
+then it will be removed from the list of PPI edges.</p>
 </div>
 <div class="section level5">
 <h5 id="input-from-global-namespace">Input (from global namespace)<a class="anchor" aria-label="anchor" href="#input-from-global-namespace"></a>
 </h5>
 <ul>
-<li>ppi_network
+<li>Accuracy
 <ul>
-<li>A dataframe returned by step 3: Find PPI Edges; data frame
-representing how strongly proteins are known to interact.<br>
-</li>
-</ul>
-</li>
-<li>cccn_matrix
-<ul>
-<li>A matrix showing strength of relationships between proteins using
-the common clusters between the three distance metrics</li>
+<li>The maximum difference allowed for a PPI edge to still be “equal” to
+the cccn value</li>
 </ul>
 </li>
 </ul>
