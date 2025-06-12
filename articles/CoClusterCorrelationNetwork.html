@@ -353,8 +353,8 @@ the package still attempts to simplify this process. First, the user
 runs make_db_input in order to produce a text file that has all of the
 gene names separated by new lines. This information can then be put into
 the user’s choice of databases to find more interactions. Suggested
-databases include GeneMANIA–which can be installed on the Cytoscape
-app–and Pathway Commons Network.</p>
+databases include GeneMANIA and Pathway Commons Network–both of which
+can be installed on the Cytoscape App.</p>
 </div>
 <div class="section level5">
 <h5 id="input-2">Input<a class="anchor" aria-label="anchor" href="#input-2"></a>
@@ -411,9 +411,9 @@ us how different proteins are known interact with each other. STRINGdb–a
 database of these PPI networks–is automatically consulted along with any
 other database files that are generated and entered by the user. It then
 gathers data from the PPI networks and filters them down to only examine
-the determined genes of interest. The data from both databases are then
-combined and returned. The returned data frame shows how strongly the
-proteins are known to interact.</p>
+the determined genes of interest. The data from STRINGdb and any
+provided files are then combined and returned. The returned data frame
+shows how strongly the proteins are known to interact.</p>
 </div>
 <div class="section level5">
 <h5 id="input-3">Input<a class="anchor" aria-label="anchor" href="#input-3"></a>
