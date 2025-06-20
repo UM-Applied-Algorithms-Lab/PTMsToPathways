@@ -599,7 +599,28 @@ cor_weight (and GM.raw.weights) is on a scale of 0-1</li>
 <div class="section level5">
 <h5 id="description-5">Description<a class="anchor" aria-label="anchor" href="#description-5"></a>
 </h5>
-<p>The final step in this pipeline is the PathwayCrosstalkNetwork.</p>
+<p>We hypothesized that patterns of PTMs could be used to identify
+relationships among known biological pathways in human cells, which we
+call pathway crosstalk. Therefore, we extended our CCCN/CFN model of
+lung cancer PTM data to investigate relationships among 1657 curated
+pathways from NCATS BioPlanet, which consists of groups of genes
+(proteins) involved in various cellular processes. To model interactions
+among pathways, we constructed a pathway crosstalk network (PCN) where
+pathway-pathway relationships (network edges) are defined by pathway
+genes whose PTMs co-cluster. The edge weight on the interactions between
+pathways (called PTM cluster weight) is defined by the number of each
+pathway’s proteins whose PTMs co-cluster (defined by t-SNE as described
+above), normalized to give less weight to genes found in many pathways
+and genes represented in large clusters (see Methods).</p>
+<p>The PCN is constructed using BioPlanet pathways downloaded from the
+NCATS website (<a href="https://tripod.nih.gov/bioplanet/" class="external-link uri">https://tripod.nih.gov/bioplanet/</a>) as gene sets and
+converted into a list of pathway names whose elements are the genes in
+each pathway. In the PCN, each BioPlanet pathway is represented as a
+node. Pathways are joined by edges weighted according to the PTM Cluster
+Weight (pathway interaction based on co-clustering of PTMs), or Jaccard
+Similarity (pathway interaction based on shared protein members). The
+PCN consists of 645,709 pathway-pathway interactions with non-zero PTM
+cluster weight.</p>
 </div>
 <div class="section level5">
 <h5 id="input-6">Input<a class="anchor" aria-label="anchor" href="#input-6"></a>
@@ -607,8 +628,9 @@ cor_weight (and GM.raw.weights) is on a scale of 0-1</li>
 <ul>
 <li>file
 <ul>
-<li>File path for the pathway data from Bioplanet<br>
-</li>
+<li>File path for the pathway data from Bioplanet (can also take in a
+data frame that is formatted correctly like the one found in the data
+directory, but this is not recommended)</li>
 </ul>
 </li>
 <li>clusterlist
@@ -619,15 +641,15 @@ cor_weight (and GM.raw.weights) is on a scale of 0-1</li>
 </li>
 <li>PCN.jaccard.name
 <ul>
-<li>Desired name for an output of PathwayCrosstalkNetwork; defaults to
-pcn_jaccard_edges<br>
+<li>Desired name for the jaccard similarity matrix created; defaults to
+PCN.jaccardedges<br>
 </li>
 </ul>
 </li>
 <li>PCN.CPE.name
 <ul>
-<li>Desired name for an output of PathwayCrosstalkNetwork; defaults to
-pcn_cpe_edges</li>
+<li>Desired name for the Cluster Pathway Evidence edgelist created;
+defaults to CPE.Edgelist</li>
 </ul>
 </li>
 </ul>
@@ -636,15 +658,19 @@ pcn_cpe_edges</li>
 <h5 id="output-6">Output<a class="anchor" aria-label="anchor" href="#output-6"></a>
 </h5>
 <ul>
-<li>pcn_jaccard_edges (or otherwise named by PCN.jaccard.name)
+<li>PCN.jaccardedges (or otherwise named by PCN.jaccard.name)
 <ul>
-<li>output<br>
-</li>
+<li>A matrix of pathways x pathways with the similarity between two
+pathways as values</li>
 </ul>
 </li>
-<li>pcn_cpe_edges (or otherwise named by PCN.CPE.name)
+<li>CPE.Edgelist (or otherwise named by PCN.CPE.name)
 <ul>
-<li>output</li>
+<li>An edgelist of pathways to pathways, with the weight being the sum?
+of the two pathways Cluster Pathway Evidence score for a specific
+Cluster. More information about the process of Cluster Pathway Evidence
+can be found in <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a>
+</li>
 </ul>
 </li>
 </ul>
