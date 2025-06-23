@@ -164,10 +164,10 @@ through three calculations of distance: Euclidean Distance, Spearman
 Dissimilarity (1 - |Spearman Correlation|), and the average of the two
 of these. These calculations find the ‘distance’ between ptms based upon
 under what conditions they occur. These matricies are then run through
-Tsne in order to put them into a 3-dimensional space. Please note: Tsne
-involves an element of randomness; in order to get the same results,
-set.seed(#) must be called. A correlation table is also produced based
-on the Spearman Correlation table.</p>
+t-SNE in order to put them into a 3-dimensional space. Please note:
+t-SNE involves an element of randomness; in order to get the same
+results, set.seed(#) must be called. A correlation table is also
+produced based on the Spearman Correlation table.</p>
 </div>
 <div class="section level5">
 <h5 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
@@ -188,7 +188,7 @@ ptm.correlation.matrix</li>
 </li>
 <li>list.name
 <ul>
-<li>Desired name for the list of tsne data to be saved as; defaults to
+<li>Desired name for the list of t-SNE data to be saved as; defaults to
 tsne.matrices</li>
 </ul>
 </li>
@@ -242,7 +242,7 @@ produced by MakeCorrelationNetwork</p>
 <h5 id="description-1">Description<a class="anchor" aria-label="anchor" href="#description-1"></a>
 </h5>
 <p>Make Correlation Network first finds the intersection between the
-Euclidian, Spearman, and SED Tsne matrices in order to find the
+Euclidian, Spearman, and SED t-SNE matrices in order to find the
 intersection between the three groups. It then adds the Genes in these
 PTMs to a list of common clusters and turns it into an adjacency matrix.
 This adjacency matrix is used to filter relevant data — clusters — from
@@ -683,7 +683,8 @@ Evidence using common clusters found in Make Correlation Network.</p>
 <ul>
 <li>File path for the pathway data from Bioplanet (can also take in a
 data frame that is formatted correctly like the one found in the data
-directory, but this is not recommended)</li>
+directory, but this is not recommended as formatting must match sample
+data exactly)</li>
 </ul>
 </li>
 <li>clusterlist
