@@ -158,16 +158,29 @@ Distance</p>
 <div class="section level5">
 <h5 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h5>
-<p>Make Cluster List is the first step in the analyzing one’s data. This
-function takes the post-translational modification table and runs it
-through three calculations of distance: Euclidean Distance, Spearman
+<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD Make Cluster List is the first step
+in the analyzing one’s data. This function takes the post-translational
+modification table and runs it through three calculations of distance:
+Euclidean Distance, Spearman Dissimilarity (1 - |Spearman Correlation|),
+and the average of the two of these. These calculations find the
+‘distance’ between ptms based upon under what conditions they occur.
+These matricies are then run through Tsne in order to put them into a
+3-dimensional space. A correlation table is also produced based on the
+Spearman Correlation table. Please note: Tsne involves an element of
+randomness; in order to get the same results, set.seed(#) must be
+called.<br>
+======= Make Cluster List is the first step in the analyzing one’s data.
+This function takes the post-translational modification table and runs
+it through three calculations of distance: Euclidean Distance, Spearman
 Dissimilarity (1 - |Spearman Correlation|), and the average of the two
 of these. These calculations find the ‘distance’ between ptms based upon
 under what conditions they occur. These matricies are then run through
 t-SNE in order to put them into a 3-dimensional space. Please note:
 t-SNE involves an element of randomness; in order to get the same
 results, set.seed(#) must be called. A correlation table is also
-produced based on the Spearman Correlation table.</p>
+produced based on the Spearman Correlation table.<br>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt;
+64fa34fe4dc34332a66d1bace5babc0ab4c9d3d0</p>
 </div>
 <div class="section level5">
 <h5 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
@@ -403,7 +416,7 @@ genes of study<br>
 <div class="section level5">
 <h5 id="estimated-run-time-2">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-2"></a>
 </h5>
-<p>1s</p>
+<p>6mins</p>
 </div>
 </div>
 <div class="section level4">
@@ -508,7 +521,7 @@ genes of study</li>
 <div class="section level5">
 <h5 id="estimated-run-time-4">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-4"></a>
 </h5>
-<p>1min</p>
+<p>10s</p>
 </div>
 </div>
 </div>
@@ -584,7 +597,7 @@ interact</li>
 <div class="section level5">
 <h5 id="estimated-run-time-5">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-5"></a>
 </h5>
-<p>20mins (only using STRINGdb)</p>
+<p>30mins (only using STRINGdband GeneMANIA)</p>
 </div>
 </div>
 <div class="section level3">
