@@ -59,7 +59,7 @@ and visualizes the clusters.</p>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span></span>
 <span>  <span class="va">ptmtable</span>,</span>
 <span>  correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>,</span>
-<span>  list.name <span class="op">=</span> <span class="st">"distance.clusters"</span>,</span>
+<span>  list.name <span class="op">=</span> <span class="st">"clusters.list"</span>,</span>
 <span>  toolong <span class="op">=</span> <span class="fl">3.5</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -69,7 +69,7 @@ and visualizes the clusters.</p>
 
 
 <dl><dt id="arg-ptmtable">ptmtable<a class="anchor" aria-label="anchor" href="#arg-ptmtable"></a></dt>
-<dd><p>A dataset for post-translational modifications.</p></dd>
+<dd><p>A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.</p></dd>
 
 
 <dt id="arg-correlation-matrix-name">correlation.matrix.name<a class="anchor" aria-label="anchor" href="#arg-correlation-matrix-name"></a></dt>
