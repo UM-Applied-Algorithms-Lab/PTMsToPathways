@@ -19,7 +19,7 @@
 <url><loc>/reference/ex.MakeDBInput.html</loc></url>
 <url><loc>/reference/ex.ProcessGMEdgefile.html</loc></url>
 <url><loc>/reference/ex.bioplanet.html</loc></url>
-<url><loc>/reference/ex.cccn_matrix.html</loc></url>
+<url><loc>/reference/ex.cccn.matrix.html</loc></url>
 <url><loc>/reference/ex.common.clusters.html</loc></url>
 <url><loc>/reference/ex.gm.edges.html</loc></url>
 <url><loc>/reference/ex.gm.network.html</loc></url>
@@ -27,7 +27,7 @@
 <url><loc>/reference/ex.gm_edges.html</loc></url>
 <url><loc>/reference/ex.nodenames.html</loc></url>
 <url><loc>/reference/ex.pathways.list.html</loc></url>
-<url><loc>/reference/ex.ppi_network.html</loc></url>
+<url><loc>/reference/ex.ppi.network.html</loc></url>
 <url><loc>/reference/ex.ptm.correlation.matrix.html</loc></url>
 <url><loc>/reference/ex.ptmtable.html</loc></url>
 <url><loc>/reference/ex.tsne.matrices.html</loc></url>
