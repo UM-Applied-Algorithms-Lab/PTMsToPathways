@@ -66,7 +66,7 @@
 
 
 <dl><dt id="arg-file">file<a class="anchor" aria-label="anchor" href="#arg-file"></a></dt>
-<dd><p>Either the name of the bioplanet pathway .csv file OR the name of a dataframe loaded in environment, users should only pass in "yourfilename.csv"</p></dd>
+<dd><p>Either the name of the bioplanet pathway .csv file OR the name of a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users should only pass in "yourfilename.csv"</p></dd>
 
 
 <dt id="arg-clusterlist">clusterlist<a class="anchor" aria-label="anchor" href="#arg-clusterlist"></a></dt>
@@ -81,7 +81,7 @@
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span><span class="va">ex.bioplanet</span>, <span class="va">ex.common.clusters</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PathwayCrosstalkNetwork(ex.bioplanet, ex.common.clusters):</span> No Cluster Pathway Evidence found (Matrix is empty). Please ensure clusters.common and bioplanet have overlap.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> edgelist.csv made in directory: /home/runner/work/CCCN_CFN_Tools/CCCN_CFN_Tools/docs/reference</span>
 </code></pre></div>
     </div>
   </div>
