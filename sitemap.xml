@@ -5,8 +5,8 @@
 <url><loc>/articles/index.html</loc></url>
 <url><loc>/authors.html</loc></url>
 <url><loc>/index.html</loc></url>
+<url><loc>/reference/BuildPPINetwork.html</loc></url>
 <url><loc>/reference/ClusterFilteredNetwork.html</loc></url>
-<url><loc>/reference/FindPPIEdges.html</loc></url>
 <url><loc>/reference/GetSTRINGdb.html</loc></url>
 <url><loc>/reference/MakeClusterList.html</loc></url>
 <url><loc>/reference/MakeCorrelationNetwork.html</loc></url>
