@@ -577,14 +577,13 @@ find_ppi_edges</p>
 <h5 id="description-3">Description<a class="anchor" aria-label="anchor" href="#description-3"></a>
 </h5>
 <p><strong>Note:</strong> Examples take about 5-10 minutes to run.</p>
-<p>Protein-Protein Interaction (or PPI) networks are networks that show
-us how different proteins are known interact with each other. STRINGdb —
-a database of these PPI networks — is automatically consulted along with
-any other database files that are generated and entered by the user. It
-then gathers data from the PPI networks and filters them down to only
-examine the determined genes of interest. The data from STRINGdb and any
-provided files are then combined and returned. The returned data frame
-shows how strongly the proteins are known to interact.</p>
+<p>The purpose of BuildPPINetwork is to combine the data about desired
+protein-protein interactions from each of the provided databases. This
+package explicitly processes STRINGdb and GeneMANIA in Step 3, but the
+user may consult as many databases as desired (the processing for which
+is described in Step 3). BuildPPINetwork combines these databases as
+efficiently as possible while retaining desired edgeweights from each
+database.</p>
 </div>
 <div class="section level5">
 <h5 id="input-5">Input<a class="anchor" aria-label="anchor" href="#input-5"></a>
@@ -635,7 +634,7 @@ networks</li>
 <div class="section level5">
 <h5 id="estimated-run-time-5">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-5"></a>
 </h5>
-<p>30mins (only using STRINGdb and GeneMANIA)</p>
+<p>1hr (only using STRINGdb and GeneMANIA)</p>
 </div>
 </div>
 <div class="section level3">
