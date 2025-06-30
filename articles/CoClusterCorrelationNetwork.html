@@ -308,8 +308,8 @@ common.clusters<br>
 </li>
 <li>cccn.name
 <ul>
-<li>Desired name for the cocluster combined network matrix; defaults to
-cccn.matrix</li>
+<li>Desired name for the cocluster correlation network matrix; defaults
+to cccn.matrix</li>
 </ul>
 </li>
 </ul>
@@ -321,7 +321,8 @@ cccn.matrix</li>
 <li>common.clusters (or otherwise named by common.clusters.name)
 <ul>
 <li>The list of common clusters between all three distance metrics
-(Euclidean, Spearman, and SED)</li>
+(Euclidean, Spearman, and SED)<br>
+</li>
 </ul>
 </li>
 <li>cccn.matrix (or otherwise named by cccn.name)
@@ -421,7 +422,7 @@ the common clusters between the three distance metrics<br>
 <li>string.edges (or otherwise named by STRINGdb.name)
 <ul>
 <li>Data frame of consisting of the network of interactions from the
-genes of study<br>
+genes of study pulled from the STRINGdb database<br>
 </li>
 </ul>
 </li>
@@ -462,7 +463,8 @@ file</p>
 <li>cccn.matrix
 <ul>
 <li>A matrix showing strength of relationships between proteins using
-the common clusters between the three distance metrics<br>
+the common clusters between the three distance metrics (Euclidean,
+Spearman, and Combined (SED))<br>
 </li>
 </ul>
 </li>
@@ -588,31 +590,31 @@ shows how strongly the proteins are known to interact.</p>
 <h5 id="input-5">Input<a class="anchor" aria-label="anchor" href="#input-5"></a>
 </h5>
 <ul>
-<li>cccn_matrix
+<li>string.edges (produced optionally in step 3)
 <ul>
-<li>A matrix showing strength of relationships between proteins using
-the common clusters between the three distance metrics<br>
+<li>Data frame of consisting of the network of interactions from the
+genes of study pulled from the STRINGdb database; defaults to NA<br>
 </li>
 </ul>
 </li>
-<li>db_file_paths (optional pre-step 3)
+<li>gm.network (produced optionally in step 3)
 <ul>
-<li>A vector of paths to the additional ppi network files. This is
-initialized to an empty vector<br>
+<li>GeneMANIA network of protein-protein interactions from the genes of
+study; defaults to NA<br>
 </li>
 </ul>
 </li>
-<li>gm.network (optional pre-step 3)
+<li>db.filepaths (produced optionally in step 3)
 <ul>
-<li>GeneMANIA network produced in optional pre-step 3; defaults to
-NA<br>
+<li>A vector of paths to the additional ppi network files; defaults to
+an empty vector<br>
 </li>
 </ul>
 </li>
 <li>ppi.network.name
 <ul>
-<li>Desired name for the output of FindPPIEdges; defaults to
-ppi.network</li>
+<li>Desired name for the output protein-protein interaction network
+using all entered database input; defaults to ppi.network</li>
 </ul>
 </li>
 </ul>
@@ -623,8 +625,9 @@ ppi.network</li>
 <ul>
 <li>ppi.network (or otherwise named by ppi.network.name)
 <ul>
-<li>A dataframe representing how strongly proteins are known to
-interact</li>
+<li>A dataframe representing how strongly proteins are known to interact
+based on previous research contained within provided database
+networks</li>
 </ul>
 </li>
 </ul>
@@ -753,15 +756,18 @@ data exactly)<br>
 </li>
 <li>common.clusters
 <ul>
-<li>List of common clusters from MakeCorrelationNetwork<br>
+<li>The list of common clusters between all three distance metrics
+(Euclidean, Spearman, and SED) made by MakeCorrelationNetwork<br>
 </li>
 </ul>
 </li>
 <li>edgelist.name
 <ul>
-<li>The desired name of the Pathway to Pathway edgelist file created.
-The PCN file will automatically add ‘.csv’ to the end for you. Intended
-for use in Cytoscape. Defaults to edgelist</li>
+<li>Intended for use in Cytoscape.<br>
+</li>
+<li>The desired name of the Pathway to Pathway edgelist file created
+(‘.csv’ will automatically be added to the end for you); defaults to
+edgelist</li>
 </ul>
 </li>
 </ul>
@@ -772,10 +778,10 @@ for use in Cytoscape. Defaults to edgelist</li>
 <ul>
 <li>edgelist (or otherwise named by edgelist.name)
 <ul>
-<li>An edgelist file that is created in the working directory. It
-contains pathway source-target columns, with edge weights of their
-jaccard similarity and their Cluster-Pathway Evidence score. Info about
-the Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a>
+<li>An edgelist file that is created in the working directory. Contains
+pathway source-target columns, with edge weights of their jaccard
+similarity and their Cluster-Pathway Evidence score. Info about the
+Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a>
 </li>
 </ul>
 </li>

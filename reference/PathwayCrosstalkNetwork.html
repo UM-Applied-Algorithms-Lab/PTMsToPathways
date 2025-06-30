@@ -70,13 +70,17 @@
 
 
 <dt id="arg-clusterlist">clusterlist<a class="anchor" aria-label="anchor" href="#arg-clusterlist"></a></dt>
-<dd><p>The list of coclusters made in MakeCorrelationNetwork</p></dd>
+<dd><p>The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) made in MakeCorrelationNetwork</p></dd>
 
 
-<dt id="arg-edgelist">edgelist<a class="anchor" aria-label="anchor" href="#arg-edgelist"></a></dt>
-<dd><p>The desired name for the edgelist file that PCN will make. Should NOT contain any file extensions like .csv, this step will add that for you. Intended for graphing in Cytoscape.</p></dd>
+<dt id="arg-edgelist-name">edgelist.name<a class="anchor" aria-label="anchor" href="#arg-edgelist-name"></a></dt>
+<dd><p>Intended for use in Cytoscape. The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Cluster-Pathway Evidence score</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
