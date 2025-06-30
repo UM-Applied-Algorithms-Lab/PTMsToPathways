@@ -1,4 +1,4 @@
-"source","target","Jaccard_weight","CPEweight"
+"source","target","Jaccard_weight","PTP_inter_evidence"
 "Interleukin-6 regulation of target genes","Irinotecan pathway",1,0.5
 "Interleukin-6 regulation of target genes","Lipid digestion, mobilization, and transport",0,0.625
 "Interleukin-6 regulation of target genes","S1P/S1P1 pathway",1,0.5
