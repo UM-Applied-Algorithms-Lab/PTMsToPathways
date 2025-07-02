@@ -1,0 +1,10 @@
+"source","target","Jaccard_weight","PTP_inter_evidence"
+"Lipid and lipoprotein metabolism","RXR/VDR pathway",0.0157790927021696,0.25
+"Lipid and lipoprotein metabolism","Selenium pathway",0.0110497237569061,0.25
+"Lipid and lipoprotein metabolism","Vitamin B12 metabolism",0.0207547169811321,0.25
+"RXR/VDR pathway","Selenium pathway",0.0238095238095238,0.25
+"RXR/VDR pathway","Vitamin B12 metabolism",0.0263157894736842,0.25
+"Selenium pathway","Vitamin B12 metabolism",0.534246575342466,0.25
+"Lipid and lipoprotein metabolism","Mitochondrial fatty acid beta-oxidation",0.0427698574338086,0.5
+"Axon guidance","Validated nuclear estrogen receptor alpha network",0,1
+"Axon guidance","ERBB signaling pathway",0.0716112531969309,0.75
