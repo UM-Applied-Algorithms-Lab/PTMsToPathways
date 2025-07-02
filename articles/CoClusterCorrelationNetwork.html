@@ -377,9 +377,9 @@ name.</p>
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">cccn_matrix</span>, STRINGdb.name <span class="op">=</span> <span class="st">"string.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">cccn_matrix</span>, STRINGdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/string-edges.png"><br><strong>Figure 5</strong> First 18 rows of string.edges produced by
+<p><img src="vig_figs/string-edges.png"><br><strong>Figure 5</strong> First 18 rows of stringdb.edges produced by
 GetSTRINGdb</p>
 <p>
  
@@ -404,7 +404,7 @@ the common clusters between the three distance metrics<br>
 </li>
 <li>STRINGdb.name
 <ul>
-<li>Desired name for STRINGdb data; defaults to string.edges<br>
+<li>Desired name for STRINGdb data; defaults to stringdb.edges<br>
 </li>
 </ul>
 </li>
@@ -419,7 +419,7 @@ the common clusters between the three distance metrics<br>
 <h5 id="output-2">Output<a class="anchor" aria-label="anchor" href="#output-2"></a>
 </h5>
 <ul>
-<li>string.edges (or otherwise named by STRINGdb.name)
+<li>stringdb.edges (or otherwise named by STRINGdb.name)
 <ul>
 <li>Data frame of consisting of the network of interactions from the
 genes of study pulled from the STRINGdb database<br>
@@ -589,7 +589,7 @@ database.</p>
 <h5 id="input-5">Input<a class="anchor" aria-label="anchor" href="#input-5"></a>
 </h5>
 <ul>
-<li>string.edges (produced optionally in step 3)
+<li>stringdb.edges (produced optionally in step 3)
 <ul>
 <li>Data frame of consisting of the network of interactions from the
 genes of study pulled from the STRINGdb database; defaults to NA<br>
