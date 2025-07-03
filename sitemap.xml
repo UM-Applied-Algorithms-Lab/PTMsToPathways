@@ -8,6 +8,7 @@
 <url><loc>/reference/BuildPPINetwork.html</loc></url>
 <url><loc>/reference/ClusterFilteredNetwork.html</loc></url>
 <url><loc>/reference/GetSTRINGdb.html</loc></url>
+<url><loc>/reference/GraphCfn.html</loc></url>
 <url><loc>/reference/MakeClusterList.html</loc></url>
 <url><loc>/reference/MakeCorrelationNetwork.html</loc></url>
 <url><loc>/reference/MakeDBInput.html</loc></url>
@@ -23,7 +24,6 @@
 <url><loc>/reference/ex.gm.edges.html</loc></url>
 <url><loc>/reference/ex.gm.network.html</loc></url>
 <url><loc>/reference/ex.gm.nodes.html</loc></url>
-<url><loc>/reference/ex.gm_edges.html</loc></url>
 <url><loc>/reference/ex.nodenames.html</loc></url>
 <url><loc>/reference/ex.pathways.list.html</loc></url>
 <url><loc>/reference/ex.ppi.network.html</loc></url>
