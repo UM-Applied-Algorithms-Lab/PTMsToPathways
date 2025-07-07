@@ -78,8 +78,75 @@ a database input in order to get protein-protein interaction data.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">cccn.cfn.tools</span><span class="fu">:::</span><span class="fu"><a href="ex.MakeDBInput.html">ex.MakeDBInput</a></span><span class="op">(</span><span class="va">ex.nodenames</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1 PKP4 CTTN MYH9 PARD3 TMEM192</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co">#MakeDBInput(ex.nodenames)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="va">ex.nodenames</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>, sep <span class="op">=</span> <span class="st">'\n'</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PARD3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PLEKHA6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATP5PO</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EZR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HSPA1B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PI4K2A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SLC12A4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PSMC1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EEF1A1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RBM4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SF3B2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PTPRH</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SEC16A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTNNA2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FRS2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> OAT</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RBM14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SLC9A1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ACOX1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ACTR5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> LCK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYO18A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NFS1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RPRD2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DNM2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EMC7</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPH2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HSPA9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> OXCT1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PHB2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RMC1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RNASEH2B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SUPT16H</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RASSF8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> APH1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TJP3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ZNF185</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> NSFL1C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PTPRK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPF</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TNK2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> APP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PTTG1IP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SGMS2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM106B</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATG3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ATP6V0D1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MERTK</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SYAP1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTNNAL1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> FKBP4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SLC38A2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SMAGP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PTPN11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ARAP2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> USP15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> DCBLD1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MET</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SPRED1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SCRIB</span>
 </code></pre></div>
     </div>
   </div>
