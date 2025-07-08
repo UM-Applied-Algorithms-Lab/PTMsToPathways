@@ -696,10 +696,7 @@ cfn</li>
 <li>cfn (or otherwise named by cfn.name)
 <ul>
 <li>A version of ppi.network with only the edges that exist in
-cccn.matrix and have non-zero weights<br>
-</li>
-<li>Note that the STRINGdb.combined_score is on a scale of 0-1000 while
-cor_weight (and GM.raw.weights) is on a scale of 0-1</li>
+cccn.matrix and have non-zero weights</li>
 </ul>
 </li>
 </ul>
@@ -791,6 +788,57 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 </div>
 <div class="section level5">
 <h5 id="estimated-run-time-7">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-7"></a>
+</h5>
+<p>UNKNOWN</p>
+</div>
+</div>
+<div class="section level3">
+<h3 id="step-7-graph-cluster-filtered-network">Step 7: Graph Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-7-graph-cluster-filtered-network"></a>
+</h3>
+<div class="section level5">
+<h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
+</h5>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"cccn.cfn.tools"</span><span class="op">)</span></span></code></pre></div>
+<center>
+<p><img src="vig_figs/cytoscape_graph.png"><br><strong>Figure 13</strong> Default cytoscape graph</p>
+</center>
+<p>
+ 
+</p>
+</div>
+<div class="section level5">
+<h5 id="description-6">Description<a class="anchor" aria-label="anchor" href="#description-6"></a>
+</h5>
+<p>This optional function GraphCfn creates a graph using the cluster
+filtered network in the Cytoscape app.</p>
+</div>
+<div class="section level5">
+<h5 id="input-8">Input<a class="anchor" aria-label="anchor" href="#input-8"></a>
+</h5>
+<ul>
+<li>cfn
+<ul>
+<li>A version of ppi.network with only the edges that exist in
+cccn.matrix and have non-zero weights<br>
+</li>
+</ul>
+</li>
+<li>
+</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="output-8">Output<a class="anchor" aria-label="anchor" href="#output-8"></a>
+</h5>
+<ul>
+<li>No actual output or assignment<br>
+</li>
+<li>Creates a graph in the cytoscape interface</li>
+</ul>
+</div>
+<div class="section level5">
+<h5 id="estimated-run-time-8">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-8"></a>
 </h5>
 <p>UNKNOWN</p>
 </div>
