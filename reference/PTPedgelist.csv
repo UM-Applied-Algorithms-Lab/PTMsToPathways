@@ -1,15 +1,15 @@
 "","","jaccard.values","CPE"
 "Axon guidance","Class A GPCRs (rhodopsin-like)","0.00173310225303293",NA
 "Axon guidance","ERBB signaling pathway","0.0716112531969309",NA
-"Axon guidance","Lipid and lipoprotein metabolism","0.001230012300123","0.00460411539438371"
-"Axon guidance","Validated nuclear estrogen receptor alpha network",NA,"0.00120892018779343"
+"Axon guidance","Lipid and lipoprotein metabolism","0.001230012300123","258.666666666667"
+"Axon guidance","Validated nuclear estrogen receptor alpha network",NA,"45"
 "ERBB signaling pathway","Lipid and lipoprotein metabolism","0.0139130434782609",NA
 "ERBB signaling pathway","RXR/VDR pathway","0.00840336134453781",NA
 "ERBB signaling pathway","Validated nuclear estrogen receptor alpha network","0.025974025974026",NA
 "Lipid and lipoprotein metabolism","Mitochondrial fatty acid beta-oxidation","0.0427698574338086",NA
 "Lipid and lipoprotein metabolism","RXR/VDR pathway","0.0157790927021696",NA
 "Lipid and lipoprotein metabolism","Selenium pathway","0.0110497237569061",NA
-"Lipid and lipoprotein metabolism","Validated nuclear estrogen receptor alpha network","0.0128205128205128","0.00107531760435572"
+"Lipid and lipoprotein metabolism","Validated nuclear estrogen receptor alpha network","0.0128205128205128","45"
 "Lipid and lipoprotein metabolism","Vitamin B12 metabolism","0.0207547169811321",NA
 "Mitochondrial fatty acid beta-oxidation","Vitamin B12 metabolism","0.0273972602739726",NA
 "RXR/VDR pathway","Selenium pathway","0.0238095238095238",NA
