@@ -77,69 +77,55 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">ex.cccn.matrix</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>data set ‘ex.cccn.matrix’ not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ex.cccn.matrix</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              CTTN      MYH9  TMEM192    TUBA1B   HNRNPU     PKP4   ABLIM1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN      0.00000 488.90579 40.58773 445.92650 148.4441 772.7315  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9    488.90579   0.00000 37.11857 369.44215 162.6566 425.5982 60.13075</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192  40.58773  37.11857  0.00000  28.44161   0.0000   0.0000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B  445.92650 369.44215 28.44161   0.00000 160.1000 450.8086  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU  148.44408 162.65658  0.00000 160.09997   0.0000 154.9443 35.44544</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4    772.73152 425.59823  0.00000 450.80861 154.9443   0.0000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              MET   ATP5PO   HNRNPF       EZR    HSPA1B   PI4K2A  SLC12A4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN    191.8158 77.39258   0.0000 273.75398   0.00000 61.16893  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9      0.0000 48.17056 116.2412 225.80055 202.66908 38.18129 71.54314</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192   0.0000  0.00000   0.0000   0.00000   0.00000  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B  201.8536 36.24907 109.3635 196.68482 153.75477 40.78247  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU    0.0000 20.92620   0.0000  76.58047  75.23883 20.02497  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4      0.0000 77.00613   0.0000 219.40937   0.00000  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            PSMC1   EEF1A1 RBM4     SF3B2    PTPRH    SEC16A   CTNNA2     FRS2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN      0.0000 365.4669    0 101.99295 51.86657 170.14393 42.57214 61.06023</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9    109.2983 343.3878    0  80.45027  0.00000  74.01985  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192   0.0000   0.0000    0   0.00000  0.00000   0.00000  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B    0.0000 296.0619    0  75.96269  0.00000 108.32859  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU    0.0000 115.8480    0   0.00000  0.00000   0.00000  0.00000 16.37040</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4      0.0000 313.1906    0   0.00000  0.00000 168.63382 47.03571 64.07596</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              OAT     PARD3   PLEKHA6     RBM14   DCBLD1 MERTK   SLC9A1    ACOX1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN    33.15952 221.60329 146.08402 118.55109 79.98677     0  0.00000 27.91667</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9     0.00000   0.00000   0.00000  80.43664 21.18305     0 97.31732  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192  0.00000   0.00000   0.00000   0.00000  0.00000     0  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B   0.00000   0.00000   0.00000  71.52204 41.89051     0  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU   0.00000  57.00701  32.35316   0.00000 22.48581     0  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4    30.61667 230.18715 166.31692 120.17106 95.41067     0  0.00000  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         ACTR5      LCK   MYO18A     NFS1    RPRD2      DNM2      EMC7   HNRNPH2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN     18.2 96.98978 10.91429 10.28571 19.15714 16.515152 34.104762 34.935714</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9      0.0 59.95258  0.00000  0.00000  0.00000  0.000000  0.000000  0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192   0.0  0.00000  0.00000  0.00000  0.00000  0.000000  0.000000  0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B    0.0 56.36686  0.00000  0.00000  0.00000 19.689610  0.000000  0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU    0.0  0.00000  0.00000  0.00000  0.00000  4.768398  9.566667  8.264286</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4      0.0  0.00000  0.00000  0.00000  0.00000  0.000000  0.000000  0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            HSPA9     OXCT1     PHB2 RNASEH2B  SUPT16H RASSF8 APH1A     TJP3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN    84.53292 28.775957 38.63626 58.81905 36.28024      0     0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9    63.23423  0.000000  0.00000  0.00000  0.00000      0     0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192  0.00000  0.000000  0.00000  0.00000  0.00000      0     0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B   0.00000  0.000000  0.00000  0.00000  0.00000      0     0 24.26451</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU  26.23704  6.537546 12.65895 12.87619 27.38186      0     0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4     0.00000  0.000000  0.00000  0.00000  0.00000      0     0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         ZNF185   NSFL1C    PTPRK     WEE1      APP SGMS2 TMEM106B ATG3 ATP6V0D1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN         0 87.98485 78.48416  0.00000  0.00000     0  0.00000    0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9         0 68.35366 54.04004  0.00000 54.90461     0 47.34752    0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192      0  0.00000  0.00000  0.00000  0.00000     0  0.00000    0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B       0 73.31797 57.70539  0.00000  0.00000     0  0.00000    0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU       0  0.00000  0.00000  0.00000  0.00000     0  0.00000    0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4         0  0.00000 91.81048 54.23909  0.00000     0  0.00000    0        0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         SYAP1      TNK2 CTNNAL1    FKBP4  SLC38A2 SMAGP LARP1 ZDHHC5   PRRC2A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN        0 101.52636       0  0.00000  0.00000     0     0      0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9        0   0.00000       0 27.77197 78.90423     0     0      0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192     0   0.00000       0  0.00000  0.00000     0     0      0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B      0  70.70556       0  0.00000  0.00000     0     0      0 16.88136</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU      0  21.42933       0  0.00000  0.00000     0     0      0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4        0  95.37114       0  0.00000 88.88733     0     0      0  0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            PTPN11  PTTG1IP ARAP2 USP15 SPRED1 SCRIB</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN    136.20414 55.31372     0     0      0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9    107.07777 63.74730     0     0      0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192   0.00000  0.00000     0     0      0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B  114.55830  0.00000     0     0      0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU   35.02811 29.72853     0     0      0     0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4    138.73307 51.28979     0     0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         CTTN MYH9 TMEM192 TUBA1B HNRNPU PKP4 ABLIM1 MET ATP5PO HNRNPF EZR</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN       0    0       0      0      0    0      0   0      0      0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9       0    0       0      0      0    0      0   0      0      0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192    0    0       0      0      0    0      0   0      0      0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B     0    0       0      0      0    0      0   0      0      0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU     0    0       0      0      0    0      0   0      0      0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4       0    0       0      0      0    0      0   0      0      0   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         HSPA1B PI4K2A SLC12A4 PSMC1 EEF1A1 RBM4 SF3B2 PTPRH SEC16A CTNNA2 FRS2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN         0      0       0     0      0    0     0     0      0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9         0      0       0     0      0    0     0     0      0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192      0      0       0     0      0    0     0     0      0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B       0      0       0     0      0    0     0     0      0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU       0      0       0     0      0    0     0     0      0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4         0      0       0     0      0    0     0     0      0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         OAT PARD3 PLEKHA6 RBM14 DCBLD1 MERTK SLC9A1 ACOX1 ACTR5 LCK MYO18A NFS1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN      0     0       0     0      0     0      0     0     0   0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9      0     0       0     0      0     0      0     0     0   0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192   0     0       0     0      0     0      0     0     0   0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B    0     0       0     0      0     0      0     0     0   0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU    0     0       0     0      0     0      0     0     0   0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4      0     0       0     0      0     0      0     0     0   0      0    0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         RPRD2 DNM2 EMC7 HNRNPH2 HSPA9 OXCT1 PHB2 RNASEH2B SUPT16H RASSF8 APH1A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN        0    0    0       0     0     0    0        0       0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9        0    0    0       0     0     0    0        0       0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192     0    0    0       0     0     0    0        0       0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B      0    0    0       0     0     0    0        0       0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU      0    0    0       0     0     0    0        0       0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4        0    0    0       0     0     0    0        0       0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         TJP3 ZNF185 NSFL1C PTPRK WEE1 APP SGMS2 TMEM106B ATG3 ATP6V0D1 SYAP1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN       0      0      0     0    0   0     0        0    0        0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9       0      0      0     0    0   0     0        0    0        0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192    0      0      0     0    0   0     0        0    0        0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B     0      0      0     0    0   0     0        0    0        0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU     0      0      0     0    0   0     0        0    0        0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4       0      0      0     0    0   0     0        0    0        0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         TNK2 CTNNAL1 FKBP4 SLC38A2 SMAGP LARP1 ZDHHC5 PRRC2A PTPN11 PTTG1IP</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN       0       0     0       0     0     0      0      0      0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9       0       0     0       0     0     0      0      0      0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192    0       0     0       0     0     0      0      0      0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B     0       0     0       0     0     0      0      0      0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU     0       0     0       0     0     0      0      0      0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4       0       0     0       0     0     0      0      0      0       0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         ARAP2 USP15 SPRED1 SCRIB</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN        0     0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9        0     0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192     0     0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> TUBA1B      0     0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> HNRNPU      0     0      0     0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4        0     0      0     0</span>
 </code></pre></div>
     </div>
   </div>
