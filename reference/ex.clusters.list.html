@@ -80,7 +80,7 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ex.clusters.list</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Euclidean</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                  ABLIM1 p Y357</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                  ABLIM1 p Y373</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                   AGFG1 p Y327</span>
@@ -150,7 +150,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 33     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                       ABLIM1 p Y383     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                       ABLIM1 p Y410     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                       ABLIM1 p Y461     2</span>
@@ -167,7 +167,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                      ZDHHC5 p Y497     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                      ABLIM1 p Y406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                    ATP5PO ack K199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                    HNRNPU ack K343</span>
@@ -189,7 +189,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                  ABLIM1 p Y688     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                ABLIM1 ubi K275     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                EEF1A1 ubi K395     4</span>
@@ -212,7 +212,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20                 SPRED1 p Y211     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                      ABLIM1 ubi K8     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                       ATP5PO p Y35     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                   CTNNA2 ack K913; CTNNA1 ack K866     5</span>
@@ -235,7 +235,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 20                                                     SEC16A p Y489     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`6`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                ACOX1 ack K437     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                 MYH9 ack K651     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ack K821; MYH10 ack K828; MYH11 ack K828; MYH14 ack K845     6</span>
@@ -244,7 +244,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                               SLC9A1 ubi K690     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`7`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                     ACOX1 p Y629     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                     ACTR5 p Y564     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                     ARAP2 p Y334     7</span>
@@ -287,7 +287,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 40                  SUPT16H p Y535     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  APH1A p Y256     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   CTTN p Y215     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 NSFL1C p Y167     8</span>
@@ -298,7 +298,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 ZNF185 p Y408     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`9`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                     APH1A ubi K95     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                     APH1A ubi K96     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                    ATP5PO ack K60     9</span>
@@ -327,7 +327,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26                                                    WEE1 ack K596     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`10`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                APP p T761</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                ATG3 p Y18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                           ATP6V0D1 p Y347</span>
@@ -433,7 +433,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 51    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`11`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                       APP p Y757    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 EEF1A1 ack K146; EEF1A2 ack K146    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                  EEF1A1 ack K392    11</span>
@@ -445,7 +445,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9                 PTTG1IP ubi K169    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`12`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                    APP ubi K751    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                   CTTN ack K107    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                 EEF1A1 ubi K172    12</span>
@@ -462,12 +462,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14                SLC38A2 ubi K59    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`13`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    APP ubi K763    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SLC9A1 ubi K583    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`14`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                        ARAP2 p Y473    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                       CTTN ack K124    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                       CTTN ack K235    14</span>
@@ -528,7 +528,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 58                      ZNF185 p Y581    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`15`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                       ARAP2 p Y77    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                      NSFL1C p Y95    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                       PKP4 p Y369    15</span>
@@ -538,46 +538,46 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7                                      USP15 p Y274    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`16`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1               ATP5PO ack K192    16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2               HSPA1B ack K246    16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ubi K682; MYH10 ubi K689    16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`17`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ATP6V0D1 ubi K343    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     HNRNPU p S271    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     MYH9 ack K355    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`18`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CTTN p S405    18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PTPRK p S856    18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`19`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    CTTN p S417    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 MYH9 ubi K1415    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`20`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN p S447    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 TNK2 p Y284    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`21`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                      CTTN p T440    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA1B ubi K423; HSPA1L ubi K425    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`22`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                CTTN p Y104    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                CTTN p Y199    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 EEF1A1 p Y29; EEF1A2 p Y29    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4               MYH9 p Y1408    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`23`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    CTTN p Y141    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    MYH9 p Y754    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   PARD3 p Y489    23</span>
@@ -586,7 +586,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 RBM14 ack K164    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`24`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      CTTN p Y289    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  HNRNPU ubi K186    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PARD3 p S717    24</span>
@@ -596,17 +596,17 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7      TNK2 p T857    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`25`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      CTTN p Y453    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 TMEM192 ubi K254    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`26`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN ubi K181    26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 CTTN ubi K272    26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`27`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                      CTTN ubi K193    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                      DCBLD1 p S619    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                       EZR ubi K450    27</span>
@@ -624,7 +624,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15 TUBA1B ubi K401; TUBA4A ubi K401; TUBA1C ubi K401    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`28`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 DNM2 p Y231    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                EZR ubi K143    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3            HSPA1B ubi K512; HSPA1L ubi K514    28</span>
@@ -633,25 +633,25 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 TUBA1B p Y312; TUBA4A p Y312; TUBA1C p Y312    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`29`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   EEF1A1 ack K439    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    MYH9 ack K1828    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 RNASEH2B ack K284    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`30`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        EEF1A1 p T142; EEF1A2 p T142    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 LCK p T395; FYN p T421; YES1 p T427    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                       PARD3 p Y1177    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                      PRRC2A ack K35    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`31`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ubi K180    31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    MET ubi K962    31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`32`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                   EEF1A1 ubi K212</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                      EZR ubi K162</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                   HNRNPF ubi K299</span>
@@ -693,7 +693,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 19    32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`33`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   EEF1A1 ubi K273    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                   HNRNPF ubi K167    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   HNRNPU ubi K464    33</span>
@@ -706,21 +706,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 TUBA1B ubi K352; TUBA4A ubi K352    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`34`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ubi K408    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA1B ubi K126    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PKP4 p S281    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  TMEM106B p Y18    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`35`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                   EZR ubi K209    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                   EZR ubi K211    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                 MYH9 ubi K1638    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 TUBA1B ubi K96; TUBA4A ubi K96; TUBA1C ubi K96    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`36`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  EZR ubi K35; MSN ubi K35    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2            HNRNPF ubi K98    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3           HNRNPU ubi K265    36</span>
@@ -735,7 +735,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 12          SLC9A1 ubi K767    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`37`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   FKBP4 ack K354    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      MYH9 ack K8    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PARD3 p S728    37</span>
@@ -744,7 +744,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 PTTG1IP ack K169    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`38`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                      FKBP4 ubi K28    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                    HNRNPF ack K167    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                        MET p Y1365    38</span>
@@ -753,28 +753,28 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                      ZDHHC5 p S529    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`39`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPF ack K98    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA9 ack K159    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     MET p S990    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`40`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPH2 p Y276    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA9 ubi K121    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 SEC16A p Y1380    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`41`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ack K464    41</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   MET ubi K1318    41</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`42`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ubi K352    42</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`43`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  HNRNPU ubi K635    43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  HSPA1B ubi K325    43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  HSPA1B ubi K550    43</span>
@@ -785,48 +785,48 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8 SUPT16H ubi K596    43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`44`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET ubi K1190    44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PDZD11 p Y36    44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`45`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ack K1802    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   MYH9 ack K74    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  MYH9 ubi K856    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    PKP4 p Y443    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`46`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ack K47    46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`47`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ubi K651    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PKP4 p Y275    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 PTPN11 p Y279    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 SLC38A2 p Y41    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`48`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 NSFL1C ubi K124    48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     PSMC1 p Y71    48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PSMC1 ubi K258    48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  SCRIB ubi K105    48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`49`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   PARD3 p S715    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SEC16A p Y1202    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   SF3B2 p Y806    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`50`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  PARD3 p Y1310    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SEC16A p Y1199    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`51`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   PDZD11 p Y7    51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PKP4 p T419    51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PKP4 p Y1143    51</span>
@@ -835,49 +835,49 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 ZNF185 p Y597    51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`52`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PIK3R2 p Y577    52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`53`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PKP4 p T412    53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`54`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    PKP4 p Y482    54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PLEKHA6 p Y415    54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PTPN11 p S580    54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`55`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PLEKHA6 p Y729    55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PTPN11 p Y515    55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`56`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   SCRIB p Y834    56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SCRIB ubi K467    56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  SPRED1 p Y187    56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`57`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SEC16A p Y991    57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $Spearman</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ABLIM1 p Y357     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ABLIM1 p Y373     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 DCBLD1 p Y589     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 DCBLD1 p Y600     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  PKP4 p Y1156     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   ABLIM1 p Y383     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 ABLIM1 ubi K275     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                    APP ubi K763     3</span>
@@ -903,7 +903,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 23                SLC9A1 ubi K625     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   ABLIM1 p Y406     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     CTTN p Y289     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     EZR ack K60     4</span>
@@ -914,24 +914,24 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8   SPRED1 p Y187     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ABLIM1 p Y410     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 MET ubi K1232     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`6`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ABLIM1 p Y461     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HNRNPF p Y266     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`7`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   ABLIM1 p Y688     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PHLDB2 p Y162     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  SEC16A p Y2193     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 SPRED1 ubi K284     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                      ABLIM1 ubi K8     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                    EEF1A1 ack K395     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                     FKBP4 ack K354     8</span>
@@ -945,7 +945,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 11                                                     SEC16A p Y489     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`9`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                           PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                           PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                   ACOX1 ack K437</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA1B ubi K507; HSPA8 ubi K507; HSPA6 ubi K509; HSPA1L ubi K509; HSPA2 ubi K510</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                    MET ack K1248</span>
@@ -959,7 +959,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`10`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   ACOX1 p Y629    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   ACTR5 p Y564    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  CTTN ack K171    10</span>
@@ -971,11 +971,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9 RPRD2 ack K671    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`11`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 AGFG1 p Y327    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`12`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   APH1A p Y256    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    PKP4 p Y224    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   PTPRK p S856    12</span>
@@ -984,7 +984,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6  ZNF185 p Y408    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`13`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                      APH1A ubi K95    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                      CTTN ubi K181    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                      CTTN ubi K193    13</span>
@@ -1004,11 +1004,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17 TUBA1B ubi K401; TUBA4A ubi K401; TUBA1C ubi K401    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`14`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 APH1A ubi K96    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`15`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                APP p T761</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                               CTTN p T401</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                               FRS2 p Y349</span>
@@ -1038,11 +1038,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 13    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`16`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 APP p Y757    16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`17`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                    APP ubi K751    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 EEF1A1 ubi K172    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                 EEF1A1 ubi K439    17</span>
@@ -1059,22 +1059,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14               TMEM192 ubi K254    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`18`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ARAP2 p Y334    18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`19`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ARAP2 p Y473    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  CTTN p S447    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`20`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  ARAP2 p Y77    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 NSFL1C p Y95    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 USP15 p Y274    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`21`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      ATG3 p Y18    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 ATP6V0D1 p Y347    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  HSPA9 ack K159    21</span>
@@ -1085,7 +1085,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 8     SYAP1 p Y60    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`22`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   ATP5PO ack K158    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                      ATP5PO p Y35    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  CTNNA2 ack K913; CTNNA1 ack K866    22</span>
@@ -1098,25 +1098,25 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10                     RBM14 p Y249    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`23`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ATP5PO ack K162    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 EEF1A1 ack K408    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`24`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                    ATP5PO ack K192    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                    HSPA1B ack K246    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                      PIK3R2 p Y460    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 TUBA1B ack K311; TUBA4A ack K311; TUBA1A ack K311; TUBA1C ack K311    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`25`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ATP5PO ack K199    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HNRNPU ack K352    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  MYH9 ack K1387    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`26`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                    ATP5PO ack K60    26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                     CTTN ack K198    26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                     CTTN ubi K230    26</span>
@@ -1146,7 +1146,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27                TUBA1B ubi K370; TUBA4A ubi K370; TUBA1C ubi K370    26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`27`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                              ATP6V0D1 ubi K343</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                EEF1A1 ubi K408</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                    EZR ubi K83</span>
@@ -1202,7 +1202,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 26    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`28`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTNNA2 p Y417; CTNNA1 p Y419    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                HNRNPF p Y210    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                  PKP4 p Y470    28</span>
@@ -1210,11 +1210,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                  TNK2 p Y860    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`29`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTNNAL1 p S538    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`30`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CTNNAL1 p Y534    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  CTNNAL1 p Y536    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3    FKBP4 p Y411    30</span>
@@ -1227,16 +1227,16 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10   USP15 p Y263    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`31`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN ack K107    31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`32`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CTTN ack K124    32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA9 ack K600    32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`33`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                    PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             CTTN ack K161    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  DNM2 p Y125; DNM3 p Y125    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3               EMC7 p S114    33</span>
@@ -1256,7 +1256,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17           SUPT16H p Y535    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`34`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN ack K235    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 CTTN ack K272    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 CTTN ack K309    34</span>
@@ -1264,7 +1264,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5    LCK p Y192    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`35`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   CTTN p S156    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                   CTTN p Y141    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   CTTN p Y154    35</span>
@@ -1305,21 +1305,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 38                  TNK2 p Y859    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`36`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN p S405    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PKP4 p Y369    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`37`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   CTTN p S417    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 CTTN ubi K272    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`38`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN p S418    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`39`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                       CTTN p T440    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                   EEF1A1 ubi K395    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                   HNRNPF ubi K299    39</span>
@@ -1331,41 +1331,41 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9 TUBA1B ack K304; TUBA4A ack K304; TUBA1A ack K304    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`40`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     CTTN p Y104    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 EEF1A1 ack K179    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`41`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN p Y215    41</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`42`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN p Y446    42</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`43`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 DCBLD1 p Y540    43</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`44`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 DCBLD1 p Y578    44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HNRNPU p Y257    44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   MET p Y1230    44</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`45`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                      DNM2 p Y231    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                    PKP4 ubi K518    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 TUBA1B ack K336; TUBA1C ack K336    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                    WEE1 ack K596    45</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`46`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ack K146; EEF1A2 ack K146    46</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`47`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   EEF1A1 ack K255; EEF1A2 ack K255    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                      EEF1A1 p Y177    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 EZR p Y270; MSN p Y270; RDX p Y270    47</span>
@@ -1374,82 +1374,82 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                        PKP4 p Y465    47</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`48`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ack K392    48</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`49`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ack K41; EEF1A2 ack K41    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  MYH9 ack K682; MYH10 ack K689    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                RASSF8 ubi K176    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                 SF3B2 ack K275    49</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`50`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   EEF1A1 ack K439    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     MYH9 ack K882    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PIK3R2 p Y577    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 RNASEH2B ack K284    50</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`51`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ack K44; EEF1A2 ack K44    51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                    PKP4 p Y443    51</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`52`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1     EEF1A1 p T142; EEF1A2 p T142    52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA1B ubi K512; HSPA1L ubi K514    52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   MYH9 ack K1525    52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                   MYH9 ack K1527    52</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`53`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                     PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                     PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 p Y29; EEF1A2 p Y29    53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2            HNRNPU ack K814    53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3             HSPA9 ack K135    53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4               PTPN11 p Y62    53</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`54`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ubi K146; EEF1A2 ubi K146    54</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`55`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ubi K180    55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    MET ubi K962    55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   MYH9 ubi K856    55</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`56`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ubi K212    56</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`57`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1             EEF1A1 ubi K273    57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 MYH9 ubi K82; MYH10 ubi K86    57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3              SCRIB ubi K105    57</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`58`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EZR ack K83    58</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`59`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EZR ubi K143    59</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`60`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                     EZR ubi K162    60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA1B ubi K451; HSPA6 ubi K453; HSPA1L ubi K453    60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                SLC12A4 ubi K1010    60</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`61`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                   PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                   PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EZR ubi K237; MSN ubi K237; RDX ubi K237    61</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`62`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPF ack K167    62</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    LARP1 p Y361    62</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  SEC16A p Y1199    62</span>
@@ -1457,41 +1457,41 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   ZDHHC5 p Y630    62</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`63`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPF ack K98    63</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`64`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPF p Y253    64</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  MERTK p Y929    64</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`65`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   HNRNPF ubi K98    65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  HNRNPH2 ubi K35    65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  HSPA1B ubi K550    65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 SUPT16H ack K904    65</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`66`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPH2 p Y276    66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SEC16A p Y1380    66</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`67`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ack K464    67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PSMC1 ubi K396    67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   SF3B2 ack K10    67</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`68`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU p S271    68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    LCK p Y394    68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ack K651    68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 PARD3 p Y1310    68</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`69`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  HNRNPU p Y260    69</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA9 ack K300    69</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  MYH9 ack K545    69</span>
@@ -1499,38 +1499,38 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5  PTPN11 p Y515    69</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`70`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU p Y473    70</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`71`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ubi K186    71</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 NSFL1C ubi K124    71</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`72`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ubi K265    72</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`73`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ubi K433    73</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`74`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ubi K464    74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  SF3B2 ubi K529    74</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`75`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HSPA1B ack K319; HSPA6 ack K321    75</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`76`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HSPA1B ack K500; HSPA6 ack K502    76</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 NSFL1C ack K172    76</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`77`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1               HSPA1B ubi K325    77</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 MYH9 ubi K186    77</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ubi K576; MYH10 ubi K583    77</span>
@@ -1542,76 +1542,76 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9              SUPT16H ubi K904    77</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`78`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HSPA1B ubi K423; HSPA1L ubi K425    78</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`79`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 LCK p T395; FYN p T421; YES1 p T427    79</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`80`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   MERTK p Y549    80</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PLEKHA6 p S478    80</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`81`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET p S1236    81</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`82`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET p S990    82</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`83`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   MET p Y1003    83</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PSMC1 p Y439    83</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 SLC9A1 p S693    83</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 SLC9A1 p Y683    83</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`84`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   MET p Y1234    84</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 ZNF185 p Y581    84</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`85`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET p Y1349    85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 MET p Y1356    85</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`86`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET ubi K1161    86</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PARD3 p Y933    86</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 SPRED1 p Y294    86</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`87`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET ubi K1259    87</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`88`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MET ubi K1318    88</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`89`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                MYH9 ack K1014    89</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                 MYH9 ack K299    89</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ack K565; MYH10 ack K572    89</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                PSMC1 ack K258    89</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`90`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ack K1538    90</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`91`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                MYH9 ack K1802    91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                  MYH9 ack K74    91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ack K821; MYH10 ack K828; MYH11 ack K828; MYH14 ack K845    91</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`92`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                      MYH9 ack K355</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                  TUBA1B ack K280; TUBA4A ack K280; TUBA1A ack K280</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                  TUBA1B ack K336; TUBA1A ack K336; TUBA1C ack K336</span>
@@ -1623,26 +1623,26 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4    92</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`93`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ack K47    93</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`94`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ubi K651    94</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`95`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                 MYH9 ubi K760    95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 MYH9 ubi K821; MYH10 ubi K828; MYH11 ubi K828; MYH14 ubi K845    95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                               SLC9A1 ubi K690    95</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`96`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ubi K850    96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PSMC1 ubi K91    96</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`97`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  ORAI1 p Y300    97</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PARD3 p S715    97</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PKP4 p Y1132    97</span>
@@ -1650,36 +1650,36 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 SPRED1 p Y292    97</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`98`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  PARD3 p S728    98</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SPRED1 p Y211    98</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`99`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PARD3 p Y1127    99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PKP4 p Y114    99</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`100`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PDZD11 p Y36   100</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`101`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PDZD11 p Y7   101</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 WEE1 p S139   101</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 WEE1 p Y132   101</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`102`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PHB2 p Y248   102</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`103`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PHLDB2 p Y301   103</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  PKP4 p Y1143   103</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`104`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                               PHLDB2 p Y567   104</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                PRRC2A p Y17   104</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                               SCRIB p Y1268   104</span>
@@ -1687,22 +1687,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5                               ZNF185 p Y597   104</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`105`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PIK3R2 p Y464   105</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PSMC1 p Y25   105</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`106`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PIK3R2 p Y505   106</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`107`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    PKP4 p S281   107</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    PKP4 p Y390   107</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 PLEKHA6 p Y415   107</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`108`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                   PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                   PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                             PKP4 p T1174</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                              PKP4 p Y482</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                           PLEKHA6 p Y471</span>
@@ -1716,107 +1716,107 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5   108</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`109`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   PKP4 p T412   109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 ZDHHC5 p S529   109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 ZDHHC5 p Y533   109</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`110`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PKP4 p T419   110</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`111`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PKP4 p Y157   111</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`112`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PKP4 p Y415   112</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`113`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PKP4 p Y425   113</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`114`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PSMC1 ubi K69   114</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`115`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PTPN11 p Y279   115</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SLC38A2 p Y41   115</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`116`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PTPN11 p Y546   116</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`117`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PTPRH p Y1102   117</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`118`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PTPRK p Y858   118</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`119`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  RASSF8 p Y418   119</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   RBM14 p Y226   119</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3   RBM14 p Y648   119</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 SEC16A p Y1291   119</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`120`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 RBM14 ack K164   120</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`121`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SEC16A p Y1202   121</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`122`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SF3B2 p Y806   122</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`123`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SGMS2 p Y56   123</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`124`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SLC12A4 p Y17   124</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`125`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SLC38A2 ubi K33   125</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`126`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SLC38A2 ubi K38   126</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`127`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 SUPT16H ack K674   127</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`128`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 TNK2 p T857   128</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`129`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 TUBA1B ubi K96; TUBA4A ubi K96; TUBA1C ubi K96   129</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`130`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ZDHHC5 p Y497   130</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`131`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ZDHHC5 p Y711; ZDHHC8 p Y761   131</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $SED</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                    PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                             ABLIM1 p Y357</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                              AGFG1 p Y327</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                APP p T761</span>
@@ -1950,12 +1950,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 65     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`2`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 ABLIM1 p Y373     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   MET p Y1003     2</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`3`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                       ABLIM1 p Y383     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                       ABLIM1 p Y410     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                       ABLIM1 p Y461     3</span>
@@ -1972,7 +1972,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                      ZDHHC5 p Y497     3</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`4`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                             PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                      ABLIM1 p Y406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                    ATP5PO ack K199</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                    HNRNPU ack K343</span>
@@ -1994,7 +1994,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9     4</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`5`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                  ABLIM1 p Y688     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                ABLIM1 ubi K275     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                EEF1A1 ubi K395     5</span>
@@ -2025,7 +2025,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 28              SUPT16H ubi K596     5</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`6`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                      ABLIM1 ubi K8     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                       ATP5PO p Y35     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                   CTNNA2 ack K913; CTNNA1 ack K866     6</span>
@@ -2050,7 +2050,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 22                                                     SEC16A p Y489     6</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`7`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                ACOX1 ack K437     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                 MYH9 ack K651     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 MYH9 ack K821; MYH10 ack K828; MYH11 ack K828; MYH14 ack K845     7</span>
@@ -2059,7 +2059,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6                                               SLC9A1 ubi K690     7</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`8`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                     ACOX1 p Y629     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                     ACTR5 p Y564     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                     ARAP2 p Y334     8</span>
@@ -2104,7 +2104,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 42                  SUPT16H p Y535     8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`9`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   APH1A p Y256     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                ATP5PO ack K192     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                    CTTN p Y215     9</span>
@@ -2121,7 +2121,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 14                 ZNF185 p Y408     9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`10`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                     APH1A ubi K95    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                     APH1A ubi K96    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                    ATP5PO ack K60    10</span>
@@ -2154,7 +2154,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 30                                                    WEE1 ack K596    10</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`11`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                       APP p Y757    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 EEF1A1 ack K146; EEF1A2 ack K146    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                  EEF1A1 ack K392    11</span>
@@ -2166,7 +2166,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 9                 PTTG1IP ubi K169    11</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`12`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                    APP ubi K751    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                   CTTN ack K107    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                 EEF1A1 ubi K172    12</span>
@@ -2186,12 +2186,12 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17                SLC38A2 ubi K59    12</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`13`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    APP ubi K763    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SLC9A1 ubi K583    13</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`14`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                        ARAP2 p Y473    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                       CTTN ack K124    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                       CTTN ack K235    14</span>
@@ -2268,7 +2268,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 74                      ZNF185 p Y581    14</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`15`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                        ARAP2 p Y77    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                    HNRNPF ack K167    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                       NSFL1C p Y95    15</span>
@@ -2281,7 +2281,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10                                     ZDHHC5 p S529    15</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`16`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                ATP5PO ack K162</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                    EZR ubi K83</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                HNRNPU ubi K524</span>
@@ -2315,7 +2315,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 15    16</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`17`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                   ATP6V0D1 ubi K343    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                         CTTN p T440    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                       FKBP4 ubi K28    17</span>
@@ -2328,22 +2328,22 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 TUBA1B ack K311; TUBA4A ack K311; TUBA1A ack K311; TUBA1C ack K311    17</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`18`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  CTTN p S405    18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PTPRK p S856    18</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`19`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    CTTN p S417    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 MYH9 ubi K1415    19</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`20`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 CTTN p S447    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 TNK2 p Y284    20</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`21`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      CTTN p Y289    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2  HNRNPU ubi K186    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PARD3 p S717    21</span>
@@ -2353,7 +2353,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 7      TNK2 p T857    21</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`22`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                             PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                      CTTN ubi K181    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                      CTTN ubi K193    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                      CTTN ubi K272    22</span>
@@ -2373,7 +2373,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 17 TUBA1B ubi K401; TUBA4A ubi K401; TUBA1C ubi K401    22</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`23`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                 DNM2 p Y231    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                EZR ubi K143    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3            HSPA1B ubi K512; HSPA1L ubi K514    23</span>
@@ -2382,20 +2382,20 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 TUBA1B p Y312; TUBA4A p Y312; TUBA1C p Y312    23</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`24`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   EEF1A1 ack K439    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2    MYH9 ack K1828    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 RNASEH2B ack K284    24</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`25`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                              PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1        EEF1A1 p T142; EEF1A2 p T142    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 LCK p T395; FYN p T421; YES1 p T427    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                       PARD3 p Y1177    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4                      PRRC2A ack K35    25</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`26`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            PTM.Name</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                                            PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                   EEF1A1 ubi K212</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                      EZR ubi K162</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                          EZR ubi K35; MSN ubi K35</span>
@@ -2463,7 +2463,7 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 32    26</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`27`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                            PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                            PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                   EEF1A1 ubi K273    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                   HNRNPF ubi K167    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3                   HNRNPU ubi K464    27</span>
@@ -2476,14 +2476,14 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 10 TUBA1B ubi K352; TUBA4A ubi K352    27</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`28`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 EEF1A1 ubi K408    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA1B ubi K126    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PKP4 p S281    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  TMEM106B p Y18    28</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`29`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   FKBP4 ack K354    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      MYH9 ack K8    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     PARD3 p S728    29</span>
@@ -2492,43 +2492,43 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 6 PTTG1IP ack K169    29</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`30`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPF ack K98    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA9 ack K159    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3     MET p S990    30</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`31`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPH2 p Y276    31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 HSPA9 ubi K121    31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 SEC16A p Y1380    31</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`32`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 HNRNPU ack K464    32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   MET ubi K1318    32</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`33`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 MYH9 ubi K651    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PKP4 p Y275    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3 PTPN11 p Y279    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4 SLC38A2 p Y41    33</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`34`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 NSFL1C ubi K124    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2     PSMC1 p Y71    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PSMC1 ubi K258    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 4  SCRIB ubi K105    34</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`35`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1  PARD3 p Y1310    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SEC16A p Y1199    35</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`36`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   PDZD11 p Y7    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2   PKP4 p T419    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PKP4 p Y1143    36</span>
@@ -2536,24 +2536,24 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> 5 ZNF185 p Y597    36</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`37`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 PIK3R2 p Y577    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PTPN11 p Y519    37</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`38`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1    PKP4 p Y482    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 PLEKHA6 p Y415    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  PTPN11 p S580    38</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`39`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   SCRIB p Y834    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 SCRIB ubi K467    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 3  SPRED1 p Y187    39</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`40`</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>      PTM.Name group</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>      PTMnames group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1 WEE1 p S139    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2 WEE1 p Y132    40</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
