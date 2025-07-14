@@ -56,7 +56,7 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span></span>
 <span>  file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>,</span>
-<span>  <span class="va">clusterlist</span>,</span>
+<span>  <span class="va">common.clusters</span>,</span>
 <span>  edgelist.name <span class="op">=</span> <span class="st">"PTPedgelist"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -69,7 +69,7 @@
 <dd><p>Either the name of the bioplanet pathway .csv file OR the name of a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"</p></dd>
 
 
-<dt id="arg-clusterlist">clusterlist<a class="anchor" aria-label="anchor" href="#arg-clusterlist"></a></dt>
+<dt id="arg-common-clusters">common.clusters<a class="anchor" aria-label="anchor" href="#arg-common-clusters"></a></dt>
 <dd><p>The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork</p></dd>
 
 
