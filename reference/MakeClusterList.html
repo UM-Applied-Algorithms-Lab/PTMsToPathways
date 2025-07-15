@@ -102,7 +102,7 @@ A correlation table is also produced based on the Spearman Correlation table.</p
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">ex.ptmtable</span>, <span class="st">"ex.ptm.correlation.matrix"</span>, <span class="st">"ex.clusters.list"</span>, <span class="fl">3.5</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in -name.columns:</span> invalid argument to unary operator</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in `[.data.frame`(ptmtable, name.columns):</span> undefined columns selected</span>
 <span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ex.ptm.correlation.matrix</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               ABLIM1 p Y357 ABLIM1 p Y373 ABLIM1 p Y383 ABLIM1 p Y406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1 p Y357            NA     0.8857143     0.6428571          -0.5</span>
