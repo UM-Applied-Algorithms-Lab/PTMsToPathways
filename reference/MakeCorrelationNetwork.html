@@ -65,8 +65,8 @@ cocluster correlation network shows strength of relationships between proteins u
 <span>  <span class="va">ptm.correlation.matrix</span>,</span>
 <span>  keeplength <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  clusters.name <span class="op">=</span> <span class="st">"clusters.common"</span>,</span>
-<span>  filtered.ptm.cor.name <span class="op">=</span> <span class="st">"filtered.ptm.cor"</span>,</span>
-<span>  cccn.name <span class="op">=</span> <span class="st">"cccn.matrix"</span></span>
+<span>  ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>,</span>
+<span>  gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -90,12 +90,12 @@ cocluster correlation network shows strength of relationships between proteins u
 <dd><p>Desired name for the common clusters output; defaults to common.clusters</p></dd>
 
 
-<dt id="arg-filtered-ptm-cor-name">filtered.ptm.cor.name<a class="anchor" aria-label="anchor" href="#arg-filtered-ptm-cor-name"></a></dt>
+<dt id="arg-ptm-cccn-name">ptm.cccn.name<a class="anchor" aria-label="anchor" href="#arg-ptm-cccn-name"></a></dt>
 <dd><p>The PTM correlation matrix filtered by PTMs that cocluster</p></dd>
 
 
-<dt id="arg-cccn-name">cccn.name<a class="anchor" aria-label="anchor" href="#arg-cccn-name"></a></dt>
-<dd><p>Desired name for the cocluster correlation network; defaults to cccn.matrix</p></dd>
+<dt id="arg-gene-cccn-name">gene.cccn.name<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-name"></a></dt>
+<dd><p>Desired name for the cocluster correlation network; defaults to gene.cccn</p></dd>
 
 </dl></div>
     <div id="value">
@@ -106,18 +106,12 @@ cocluster correlation network shows strength of relationships between proteins u
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ex.ptm.cor</span> <span class="op">&lt;-</span> <span class="va">ex.ptm.correlation.matrix</span></span></span>
-<span class="r-in"><span><span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex.clusters.list</span>, <span class="va">ex.ptm.cor</span>, <span class="fl">1</span>, <span class="st">"ex.clusters.common"</span>, <span class="st">"ex.filtered.cor.matrix"</span>, <span class="st">"ex.cccn.matrix"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex.clusters.list</span>, <span class="va">ex.ptm.cor</span>, <span class="fl">1</span>, <span class="st">"ex.clusters.common"</span>, <span class="st">"ex.ptm.cccn"</span>, <span class="st">"ex.gene.cccn"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in FindCommonClusters(clusterlist[[1]], clusterlist[[2]], clusterlist[[3]],     keeplength):</span> No common clusters found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ex.clusters.common</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ex.clusters.common' not found</span>
-<span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ex.cccn.matrix</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>            ABLIM1     PKP4      CTTN      MYH9     PARD3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1    0.00000 114.9396   0.00000  60.13075   0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4    114.93961   0.0000 772.73152 425.59823 230.18715</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> CTTN      0.00000 772.7315   0.00000 488.90579 221.60329</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9     60.13075 425.5982 488.90579   0.00000 109.31835</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PARD3     0.00000 230.1871 221.60329 109.31835   0.00000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> TMEM192   0.00000   0.0000  40.58773  37.11857  10.10406</span>
+<span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ex.gene.cccn</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'ex.gene.cccn' not found</span>
 </code></pre></div>
     </div>
   </div>
