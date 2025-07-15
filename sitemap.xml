@@ -15,12 +15,14 @@
 <url><loc>/reference/MakeDBInput.html</loc></url>
 <url><loc>/reference/PathwayCrosstalkNetwork.html</loc></url>
 <url><loc>/reference/ProcessGMEdgefile.html</loc></url>
+<url><loc>/reference/ex.CPE.matrix.html</loc></url>
 <url><loc>/reference/ex.PTPedgelist.html</loc></url>
 <url><loc>/reference/ex.bioplanet.html</loc></url>
 <url><loc>/reference/ex.cccn.matrix.html</loc></url>
 <url><loc>/reference/ex.cfn.html</loc></url>
 <url><loc>/reference/ex.clusters.list.html</loc></url>
 <url><loc>/reference/ex.common.clusters.html</loc></url>
+<url><loc>/reference/ex.filtered.cor.matrix.html</loc></url>
 <url><loc>/reference/ex.funckey.html</loc></url>
 <url><loc>/reference/ex.gm.edges.html</loc></url>
 <url><loc>/reference/ex.gm.network.html</loc></url>
