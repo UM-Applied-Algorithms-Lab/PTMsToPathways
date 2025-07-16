@@ -422,7 +422,7 @@ name.</p>
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">cccn.matrix</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/string-edges.png"><br><strong>Figure 5</strong> First 18 rows of stringdb.edges produced by
 GetSTRINGdb</p>
@@ -491,7 +491,7 @@ genes of study pulled from the STRINGdb database<br>
 <h5 id="code-3">Code<a class="anchor" aria-label="anchor" href="#code-3"></a>
 </h5>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">cccn.matrix</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/db_nodes-txt.png"></p>
 <p><strong>Figure 7</strong> First 15 lines from the produced text
@@ -690,7 +690,7 @@ networks</li>
 <h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">cccn.matrix</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/cfn.png"><br><strong>Figure 10</strong> First 19 rows of the cfn produced by
 ClusterFilteredNetwork</p>
