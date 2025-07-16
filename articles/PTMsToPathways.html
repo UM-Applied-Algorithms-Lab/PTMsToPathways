@@ -844,13 +844,10 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 <h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
 </h5>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span>,</span>
-<span>                     background.color <span class="op">=</span> <span class="st">'#fcf3cf'</span>, edge.label.color <span class="op">=</span> <span class="st">'#17202a'</span>, edge.line.color <span class="op">=</span> <span class="st">'#abb2b9'</span>, node.border.color <span class="op">=</span> <span class="st">'#145a32'</span>,</span>
-<span>                     node.label.color <span class="op">=</span> <span class="st">'#145a32'</span>, node.fill.color <span class="op">=</span> <span class="st">'#a9dfbf'</span>,</span>
-<span>                     default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">12</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>,</span>
-<span>                     edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>, source.arrow <span class="op">=</span> <span class="st">'NONE'</span>, target.arrow <span class="op">=</span> <span class="st">'NONE'</span>, node.shape <span class="op">=</span> <span class="st">"OCTAGON"</span>,</span>
-<span>                     node.size <span class="op">=</span> <span class="fl">50</span>, edge.width <span class="op">=</span> <span class="fl">2</span>, border.width <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>                     edge.opacity <span class="op">=</span> <span class="fl">175</span>, edge.label.opacity <span class="op">=</span> <span class="fl">255</span>, border.opacity <span class="op">=</span> <span class="fl">255</span>, node.label.opacity <span class="op">=</span> <span class="fl">255</span>, node.fill.opacity <span class="op">=</span> <span class="fl">255</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, <span class="va">ptmtable</span>, funckey <span class="op">=</span> <span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.funckey.html">ex.funckey</a></span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span>,</span>
+<span>         visual.style.name <span class="op">=</span> <span class="st">"PTMsToPathways.style"</span>, background.color <span class="op">=</span> <span class="st">"#949494"</span>, edge.label.color <span class="op">=</span> <span class="st">'#17202a'</span>, node.label.color <span class="op">=</span> <span class="st">'#000000'</span>,</span>
+<span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
+<span>         edge.opacity <span class="op">=</span> <span class="fl">175</span>, edge.label.opacity <span class="op">=</span> <span class="fl">255</span>, border.opacity <span class="op">=</span> <span class="fl">255</span>, node.label.opacity <span class="op">=</span> <span class="fl">255</span>, node.fill.opacity <span class="op">=</span> <span class="fl">255</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/cytoscape_graph.png"><br><strong>Figure 13</strong> Default cytoscape graph</p>
 </center>
@@ -872,6 +869,16 @@ filtered network in the Cytoscape app.</p>
 <ul>
 <li>A version of ppi.network with only the edges that exist in
 cccn.matrix and have non-zero weights<br>
+</li>
+</ul>
+</li>
+<li>ptmtable
+<ul>
+<li>A data frame of post-translational modifications. Formatted with
+numbered rows and the first column containing PTM names. The rest of the
+column names should be drugs (experimental conditions). Values of the
+table are numeric values that represent how much the PTM has reacted to
+the drug or NA if that PTM wasn’t studied under that condition.<br>
 -Network.title<br>
 </li>
 <li>Desired title for the created Cytoscape Network<br>
@@ -896,27 +903,9 @@ network will reside</li>
 </li>
 </ul>
 </li>
-<li>edge.line.color
-<ul>
-<li>Hex code of edge line color of graph; defaults to ‘#abb2b9’<br>
-</li>
-</ul>
-</li>
-<li>node.border.color
-<ul>
-<li>Hex code of node border color of graph; defaults to ‘#145a32’<br>
-</li>
-</ul>
-</li>
 <li>node.label.color
 <ul>
-<li>Hex code of node label color of graph; defaults to ‘#145a32’<br>
-</li>
-</ul>
-</li>
-<li>node.fill.color
-<ul>
-<li>Hex code of node fill color of graph; defaults to ‘#a9dfbf’</li>
+<li>Hex code of node label color of graph; defaults to ‘#145a32’</li>
 </ul>
 </li>
 <li>default.font
@@ -944,67 +933,7 @@ Roman”<br>
 <li>options include: “PARALLEL_LINES”, “MARQUEE_EQUAL”, “DOT”,
 “EQUAL_DASH”, “LONG_DASH”, “CONTIGUOUS_ARROW”, “MARQUEE_DASH”,
 “DASH_DOT”, “BACKWARD_SLASH”, “FORWARD_SLASH”, “VERTICAL_SLASH”,
-“SOLID”, “SEPARATE_ARROW”, “MARQUEE_DASH_DOT”, “ZIGZAG”,
-“SINEWAVE”<br>
-</li>
-</ul>
-</li>
-<li>source.arrow
-<ul>
-<li>Type of arrow coming from the source gene; defaults to “NONE”<br>
-</li>
-<li>options include: “DELTA”, “DIAMOND”, “OPEN_CIRCLE”, “CIRCLE”,
-“OPEN_HALF_CIRCLE”, “CROSS_OPEN_DELTA”, “DELTA_SHORT_1”, “CROSS_DELTA”,
-“OPEN_DELTA”, “OPEN_DIAMOND”, “DIAMOND_SHORT_1”, “DELTA_SHORT_2”,
-“OPEN_SQUARE”, “NONE”, “SQUARE”, “DIAMOND_SHORT_2”, “T”, “HALF_BOTTOM”,
-“HALF_TOP”, “ARROW_SHORT”, “HALF_CIRCLE”<br>
-</li>
-</ul>
-</li>
-<li>target.arrow
-<ul>
-<li>Type of arrow going to the target gene; defaults to “NONE”<br>
-</li>
-<li>options include: “DELTA”, “DIAMOND”, “OPEN_CIRCLE”, “CIRCLE”,
-“OPEN_HALF_CIRCLE”, “CROSS_OPEN_DELTA”, “DELTA_SHORT_1”, “CROSS_DELTA”,
-“OPEN_DELTA”, “OPEN_DIAMOND”, “DIAMOND_SHORT_1”, “DELTA_SHORT_2”,
-“OPEN_SQUARE”, “NONE”, “SQUARE”, “DIAMOND_SHORT_2”, “T”, “HALF_BOTTOM”,
-“HALF_TOP”, “ARROW_SHORT”, “HALF_CIRCLE”<br>
-</li>
-</ul>
-</li>
-<li>node.shape
-<ul>
-<li>Shape of the node; defaults to “OCTAGON”<br>
-</li>
-<li>options include: “RECTANGLE”, “VEE”, “OCTAGON”, “ELLIPSE”,
-“PARALLELOGRAM”, “DIAMOND”, “HEXAGON”, “ROUND_RECTANGLE”,
-“TRIANGLE”</li>
-</ul>
-</li>
-<li>node.size
-<ul>
-<li>Size of the node; defaults to 50<br>
-</li>
-<li>PLEASE NOTE: width and height can be changed independently using
-RCy3 directly
-<ul>
-<li>first run lockNodeDimensions(FALSE) and then setNodeWidthDefault()
-and setNodeHeightDefault()<br>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>edge.width
-<ul>
-<li>Width of the edge line; defaults to 2<br>
-</li>
-</ul>
-</li>
-<li>border.width
-<ul>
-<li>Width of the border of the node; defaults to 1</li>
+“SOLID”, “SEPARATE_ARROW”, “MARQUEE_DASH_DOT”, “ZIGZAG”, “SINEWAVE”</li>
 </ul>
 </li>
 <li>edge.opacity
