@@ -92,20 +92,34 @@ of RAM.</p>
 <h2 id="starting-data">Starting Data<a class="anchor" aria-label="anchor" href="#starting-data"></a>
 </h2>
 <p>Below is an example of the input dataset:</p>
-<pre><code><span><span class="co">#&gt;    Protein Mod Amino Acid H3122SEPTM.C1 H3122SEPTM.C2 H3122SEPTM.C3</span></span>
-<span><span class="co">#&gt; 38    CTTN ack       K107      19.23272      19.85052      19.58630</span></span>
-<span><span class="co">#&gt; 39    CTTN ack       K124      17.50665      19.73125      19.12403</span></span>
-<span><span class="co">#&gt; 40    CTTN ack       K161            NA            NA            NA</span></span>
-<span><span class="co">#&gt; 41    CTTN ack       K171            NA            NA            NA</span></span>
-<span><span class="co">#&gt; 42    CTTN ack       K198      20.53742      20.89560      20.04847</span></span>
-<span><span class="co">#&gt; 43    CTTN ack       K235      20.62203      20.74460      21.06424</span></span>
-<span><span class="co">#&gt; 44    CTTN ack       K272            NA            NA            NA</span></span>
-<span><span class="co">#&gt; 45    CTTN ack       K309      21.52164      21.03127      21.14289</span></span>
-<span><span class="co">#&gt; 46    CTTN ack        K87      19.61967      20.63351      20.49436</span></span>
-<span><span class="co">#&gt; 47    CTTN   p       S156      21.09816      23.48837      22.33529</span></span>
-<span><span class="co">#&gt; 48    CTTN   p       S405            NA            NA            NA</span></span>
-<span><span class="co">#&gt; 49    CTTN   p       S417            NA      18.22809      18.97026</span></span>
-<span><span class="co">#&gt; 50    CTTN   p       S418            NA      18.22809      18.97026</span></span></code></pre>
+<pre><code><span><span class="co">#&gt;               H3122SEPTM.C1 H3122SEPTM.C2 H3122SEPTM.C3 H3122SEPTM.D1</span></span>
+<span><span class="co">#&gt; CTTN ack K107      19.23272      19.85052      19.58630      21.23678</span></span>
+<span><span class="co">#&gt; CTTN ack K124      17.50665      19.73125      19.12403      21.14083</span></span>
+<span><span class="co">#&gt; CTTN ack K161            NA            NA            NA            NA</span></span>
+<span><span class="co">#&gt; CTTN ack K171            NA            NA            NA            NA</span></span>
+<span><span class="co">#&gt; CTTN ack K198      20.53742      20.89560      20.04847      21.37846</span></span>
+<span><span class="co">#&gt; CTTN ack K235      20.62203      20.74460      21.06424      22.02580</span></span>
+<span><span class="co">#&gt; CTTN ack K272            NA            NA            NA      21.44114</span></span>
+<span><span class="co">#&gt; CTTN ack K309      21.52164      21.03127      21.14289      22.49696</span></span>
+<span><span class="co">#&gt; CTTN ack K87       19.61967      20.63351      20.49436      22.14973</span></span>
+<span><span class="co">#&gt; CTTN p S156        21.09816      23.48837      22.33529      23.80410</span></span>
+<span><span class="co">#&gt; CTTN p S405              NA            NA            NA            NA</span></span>
+<span><span class="co">#&gt; CTTN p S417              NA      18.22809      18.97026      17.71552</span></span>
+<span><span class="co">#&gt; CTTN p S418              NA      18.22809      18.97026      17.71552</span></span>
+<span><span class="co">#&gt;               H3122SEPTM.D2 H3122SEPTM.D3</span></span>
+<span><span class="co">#&gt; CTTN ack K107            NA      20.69634</span></span>
+<span><span class="co">#&gt; CTTN ack K124      20.53820            NA</span></span>
+<span><span class="co">#&gt; CTTN ack K161            NA            NA</span></span>
+<span><span class="co">#&gt; CTTN ack K171            NA            NA</span></span>
+<span><span class="co">#&gt; CTTN ack K198      21.90768      21.65988</span></span>
+<span><span class="co">#&gt; CTTN ack K235      21.58311      21.60714</span></span>
+<span><span class="co">#&gt; CTTN ack K272      19.12734      20.70081</span></span>
+<span><span class="co">#&gt; CTTN ack K309      21.85994      21.80000</span></span>
+<span><span class="co">#&gt; CTTN ack K87       21.37257      21.72756</span></span>
+<span><span class="co">#&gt; CTTN p S156              NA      24.00153</span></span>
+<span><span class="co">#&gt; CTTN p S405              NA            NA</span></span>
+<span><span class="co">#&gt; CTTN p S417        18.90392      19.68168</span></span>
+<span><span class="co">#&gt; CTTN p S418        18.90392      19.68168</span></span></code></pre>
 <p>Note that it is very important that the rownames are the names of
 post-translational modifications. All of their respective columns are
 the environmental conditions under which the post-translational
