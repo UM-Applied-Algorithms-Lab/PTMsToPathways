@@ -131,6 +131,56 @@ PTMs are seperated by semicolons. (I.e. “AARS ubi k747; AMBLIL p
 U123”).</p>
 </div>
 <div class="section level2">
+<h2 id="preprocessing-data">Preprocessing Data<a class="anchor" aria-label="anchor" href="#preprocessing-data"></a>
+</h2>
+<p>This package is designed to work with a simple data structure, a data
+frame with PTM names as the row names, environmental conditions as the
+column names, and a numeric value. Thus, provided here are some console
+prompts for an R terminal designed to create a data frame, and modify it
+to fit our structure. If you would like to view an example of the
+correct formatting for our package, please use:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ex.ptmtable</span><span class="op">)</span></span></code></pre></div>
+<div class="section level5">
+<h5 id="importing-the-dataframe">Importing the dataframe<a class="anchor" aria-label="anchor" href="#importing-the-dataframe"></a>
+</h5>
+<p>R supports many file types and can automatically convert them into a
+data frame. For example, read.csv() will take a csv file and convert it
+into a data frame. It is recommended to work .csv specifically as that
+is what is what we mainly used when designing this package.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Pathto/filename.csv"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="turning-ptms-from-columns-into-rownames">Turning PTMs from columns into rownames<a class="anchor" aria-label="anchor" href="#turning-ptms-from-columns-into-rownames"></a>
+</h5>
+<p>If you have one (or multiple) columns that contain parts of PTM
+names. This is a command for concatenating those columns and turning
+them into data frame. The vector “name.columns” is the indices of the
+columns which contain names. For the example below, the strings in
+columns 1, 2, 3, for each row, will be concatenated and then turned into
+a rowname. It is also possible to have name.columns equal a vector like
+c(2, 4, 6), which takes columns 2, 4, and 6.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">name.columns</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">[</span><span class="va">name.columns</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">" "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="replacing-patterns">Replacing Patterns<a class="anchor" aria-label="anchor" href="#replacing-patterns"></a>
+</h5>
+<p>If your list of PTMs possesses symbols that are unnecessary like
+“AARS ~K ubi K747”, this command will remove all strings included in the
+“patterns” vector from your rownames. You can edit it as you like, just
+make sure that any special character such as $ or @ have a “\\” in front
+of them.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">" ~K"</span>, <span class="st">"zzzz"</span>, <span class="st">"/"</span>, <span class="st">"\\$"</span>, <span class="st">"\\@"</span><span class="op">)</span></span>
+<span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="va">patterns</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">patterns</span><span class="op">)</span>, <span class="va">patterns</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="kw">for</span><span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="va">patterns</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span>, <span class="va">x</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="pipeline">Pipeline<a class="anchor" aria-label="anchor" href="#pipeline"></a>
 </h2>
 <div class="section level3">
@@ -139,7 +189,7 @@ U123”).</p>
 <div class="section level5">
 <h5 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h5>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, name.columns <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/EU_MCL.png"><br><strong>Figure 1</strong> Example plot produced by MakeClusterList
@@ -314,7 +364,7 @@ Spearman, and SED distances, found with Rtsne.</li>
 <div class="section level5">
 <h5 id="code-1">Code<a class="anchor" aria-label="anchor" href="#code-1"></a>
 </h5>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">ptm.correlation.matrix</span>, ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>, gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/cccn_matrix.png"><br><strong>Figure 4</strong> First 17 rows and columns of the cccn_matrix
@@ -416,7 +466,7 @@ name.</p>
 <div class="section level5">
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/string-edges.png"><br><strong>Figure 5</strong> First 18 rows of stringdb.edges produced by
@@ -485,7 +535,7 @@ genes of study pulled from the STRINGdb database<br>
 <div class="section level5">
 <h5 id="code-3">Code<a class="anchor" aria-label="anchor" href="#code-3"></a>
 </h5>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/db_nodes-txt.png"></p>
@@ -541,7 +591,7 @@ file.path.name</li>
 <div class="section level5">
 <h5 id="code-4">Code<a class="anchor" aria-label="anchor" href="#code-4"></a>
 </h5>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/gm_network.png"></p>
@@ -603,7 +653,7 @@ genes of study</li>
 <div class="section level5">
 <h5 id="code-5">Code<a class="anchor" aria-label="anchor" href="#code-5"></a>
 </h5>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/BuildPPINetwork.html">BuildPPINetwork</a></span><span class="op">(</span>stringdb.edges <span class="op">=</span> <span class="cn">NA</span>, gm.network <span class="op">=</span> <span class="cn">NA</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"ppi.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/ppi_network.png"><br><strong>Figure 9</strong> First 19 rows of the ppi_network produced by
@@ -684,7 +734,7 @@ networks</li>
 <div class="section level5">
 <h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/cfn.png"><br><strong>Figure 10</strong> First 19 rows of the cfn produced by
@@ -753,7 +803,7 @@ cccn.matrix and have non-zero weights</li>
 <div class="section level5">
 <h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, <span class="va">common.clusters</span>, edgelist.name <span class="op">=</span> <span class="st">"edgelist"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
@@ -838,7 +888,7 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 <div class="section level5">
 <h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
 </h5>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, <span class="va">ptmtable</span>, funckey <span class="op">=</span> <span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.funckey.html">ex.funckey</a></span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span>,</span>
 <span>         visual.style.name <span class="op">=</span> <span class="st">"PTMsToPathways.style"</span>, background.color <span class="op">=</span> <span class="st">"#949494"</span>, edge.label.color <span class="op">=</span> <span class="st">'#17202a'</span>, node.label.color <span class="op">=</span> <span class="st">'#000000'</span>,</span>
 <span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
