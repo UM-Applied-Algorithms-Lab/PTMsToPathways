@@ -105,63 +105,48 @@ of RAM.</p>
 <span><span class="co">#&gt; CTTN p S156        21.09816      23.48837      22.33529      23.80410</span></span>
 <span><span class="co">#&gt; CTTN p S405              NA            NA            NA            NA</span></span>
 <span><span class="co">#&gt; CTTN p S417              NA      18.22809      18.97026      17.71552</span></span>
-<span><span class="co">#&gt; CTTN p S418              NA      18.22809      18.97026      17.71552</span></span>
-<span><span class="co">#&gt;               H3122SEPTM.D2 H3122SEPTM.D3</span></span>
-<span><span class="co">#&gt; CTTN ack K107            NA      20.69634</span></span>
-<span><span class="co">#&gt; CTTN ack K124      20.53820            NA</span></span>
-<span><span class="co">#&gt; CTTN ack K161            NA            NA</span></span>
-<span><span class="co">#&gt; CTTN ack K171            NA            NA</span></span>
-<span><span class="co">#&gt; CTTN ack K198      21.90768      21.65988</span></span>
-<span><span class="co">#&gt; CTTN ack K235      21.58311      21.60714</span></span>
-<span><span class="co">#&gt; CTTN ack K272      19.12734      20.70081</span></span>
-<span><span class="co">#&gt; CTTN ack K309      21.85994      21.80000</span></span>
-<span><span class="co">#&gt; CTTN ack K87       21.37257      21.72756</span></span>
-<span><span class="co">#&gt; CTTN p S156              NA      24.00153</span></span>
-<span><span class="co">#&gt; CTTN p S405              NA            NA</span></span>
-<span><span class="co">#&gt; CTTN p S417        18.90392      19.68168</span></span>
-<span><span class="co">#&gt; CTTN p S418        18.90392      19.68168</span></span></code></pre>
+<span><span class="co">#&gt; CTTN p S418              NA      18.22809      18.97026      17.71552</span></span></code></pre>
 <p>Note that it is very important that the rownames are the names of
 post-translational modifications. All of their respective columns are
 the environmental conditions under which the post-translational
 modifications occurred. NAs – which are importantly not zeroes –
 represent condition-PTM combinations that were not studied while the
-numeric values are data output by the mass spectrometer. We also ask
-that ambigious PTMs, cases where a PTM could be any one of a group of
-PTMs are seperated by semicolons. (I.e. “AARS ubi k747; AMBLIL p
-U123”).</p>
+numeric values are data output by the mass spectrometer. Ambigious PTMs,
+cases where a PTM could be any one of several PTMs, should also be
+separated by semicolons. (I.e. “AARS ubi k747; AMBLIL p U123”).</p>
 </div>
 <div class="section level2">
 <h2 id="preprocessing-data">Preprocessing Data<a class="anchor" aria-label="anchor" href="#preprocessing-data"></a>
 </h2>
 <p>This package is designed to work with a simple data structure, a data
 frame with PTM names as the row names, environmental conditions as the
-column names, and a numeric value. Thus, provided here are some console
-prompts for an R terminal designed to create a data frame, and modify it
-to fit our structure. If you would like to view an example of the
-correct formatting for our package, please use:</p>
+column names, and numeric values (or NAs) as the entries. Thus, provided
+here are some console prompts for an R terminal designed to create a
+data frame, and modify it to fit the structure of this package. To view
+an example of the correct formatting for this package, please use:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ex.ptmtable</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
-<h5 id="importing-the-dataframe">Importing the dataframe<a class="anchor" aria-label="anchor" href="#importing-the-dataframe"></a>
+<h5 id="importing-the-dataframe">Importing the Dataframe<a class="anchor" aria-label="anchor" href="#importing-the-dataframe"></a>
 </h5>
 <p>R supports many file types and can automatically convert them into a
 data frame. For example, read.csv() will take a csv file and convert it
-into a data frame. It is recommended to work .csv specifically as that
-is what is what we mainly used when designing this package.</p>
+into a data frame. The csv file type is recommended for data
+storage.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Pathto/filename.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level5">
-<h5 id="turning-ptms-from-columns-into-rownames">Turning PTMs from columns into rownames<a class="anchor" aria-label="anchor" href="#turning-ptms-from-columns-into-rownames"></a>
+<h5 id="turning-columns-of-ptms-into-rownames">Turning Columns of PTMs into Rownames<a class="anchor" aria-label="anchor" href="#turning-columns-of-ptms-into-rownames"></a>
 </h5>
-<p>If you have one (or multiple) columns that contain parts of PTM
-names. This is a command for concatenating those columns and turning
-them into data frame. The vector “name.columns” is the indices of the
-columns which contain names. For the example below, the strings in
-columns 1, 2, 3, for each row, will be concatenated and then turned into
-a rowname. It is also possible to have name.columns equal a vector like
-c(2, 4, 6), which takes columns 2, 4, and 6.</p>
+<p>If there is/are column(s) that contain parts of PTM names, the
+following command concatenates those columns and converts them into data
+frame. The vector “name.columns” is the indices of the columns which
+contain names. For the example below, the strings in columns 1, 2, and 3
+will be concatenated in each row and then turned into a rowname. It is
+also possible to have name.columns equal a vector like c(2, 4, 6), which
+takes columns 2, 4, and 6.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name.columns</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">[</span><span class="va">name.columns</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">" "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
@@ -169,11 +154,11 @@ c(2, 4, 6), which takes columns 2, 4, and 6.</p>
 <div class="section level5">
 <h5 id="replacing-patterns">Replacing Patterns<a class="anchor" aria-label="anchor" href="#replacing-patterns"></a>
 </h5>
-<p>If your list of PTMs possesses symbols that are unnecessary like
+<p>If the list of PTMs possesses symbols that are unnecessary such as
 “AARS ~K ubi K747”, this command will remove all strings included in the
-“patterns” vector from your rownames. You can edit it as you like, just
-make sure that any special character such as $ or @ have a “\\” in front
-of them.</p>
+“patterns” vector from the rownames. Any pattern can be chosen so long
+as the user ensures that any special character (such as $ or @) have a
+“\\” in front of them.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">" ~K"</span>, <span class="st">"zzzz"</span>, <span class="st">"/"</span>, <span class="st">"\\$"</span>, <span class="st">"\\@"</span><span class="op">)</span></span>
 <span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="va">patterns</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">patterns</span><span class="op">)</span>, <span class="va">patterns</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
@@ -190,24 +175,25 @@ of them.</p>
 <h5 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h5>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, name.columns <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/EU_MCL.png"><br><strong>Figure 1</strong> Example plot produced by MakeClusterList
 calculated using Euclidean Distance. The Euclidean Distance between
 every PTM is calculated and that information is put into a large matrix.
 This matrix is then condensed using t-SNE to get coordinates in
-two-dimensional space, which is what our figure shows. These data points
-– and the PTMs they represent – are put into clusters based on these
-positions. This process is also undergone using Spearman Dissimilarity
-and the average of Euclidean Distance and Spearman Dissimilarity.</p>
+two-dimensional space, which is what the above figure shows. These data
+points – and the PTMs they represent – are put into clusters based on
+these positions. This process is also undergone using Spearman
+Dissimilarity and the average of Euclidean Distance and Spearman
+Dissimilarity.</p>
 <p>
  
 </p>
 <p><img src="vig_figs/MCL-output.png"><br><strong>Figure 2</strong> Output of MakeClusterList. This data is read
 as two rows: the top row represents the cluster number. This number
-isn’t important in and of itself, it just differentiates between the
-different clusters. The second row represents the size, or how many PTMs
-are in that cluster.</p>
+isn’t important in and of itself, but instead differentiates between the
+different clusters. The second row represents the cluster size, or how
+many PTMs are in that cluster.</p>
 <p>
  
 </p>
@@ -278,38 +264,38 @@ under that condition.<br>
 </li>
 </ul>
 </li>
-<li>keeplength
-<ul>
-<li>MakeClusterList only saves subsets whose size is strictly
-<em>greater</em> than keeplength; defaults to 2</li>
-<li>example: [‘AARS’, ‘ABR’] will be discarded unless keeplength &lt;
-2</li>
-</ul>
-</li>
 <li>correlation.matrix.name
 <ul>
 <li>Desired name for the correlation matrix to be saved as; defaults to
-ptm.correlation.matrix<br>
+“ptm.correlation.matrix”<br>
 </li>
 </ul>
 </li>
 <li>clusters.list.name
 <ul>
 <li>Desired name for the lists of clusters to be saved as; defaults to
-clusters.list<br>
+“clusters.list”<br>
 </li>
 </ul>
 </li>
 <li>tsne.coords.name
 <ul>
-<li>Desired name for the lists of tsne coords to be saved as; defaults
-to tsne.coords</li>
+<li>Desired name for the lists of tsne coordinates to be saved as;
+defaults to “all.tsne.coords”</li>
 </ul>
 </li>
 <li>common.clusters.name
 <ul>
 <li>Desired name for the clusters that all 3 methods found in common;
-defaults to common.clusters</li>
+defaults to “common.clusters”</li>
+</ul>
+</li>
+<li>keeplength
+<ul>
+<li>MakeClusterList only saves subsets whose size is strictly
+<em>greater</em> than keeplength; defaults to 2</li>
+<li>example: [‘AARS’, ‘ABR’] will be discarded unless keeplength &lt;
+2</li>
 </ul>
 </li>
 <li>toolong
@@ -367,7 +353,7 @@ Spearman, and SED distances, found with Rtsne.</li>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">ptm.correlation.matrix</span>, ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>, gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/cccn_matrix.png"><br><strong>Figure 4</strong> First 17 rows and columns of the cccn_matrix
+<p><img src="vig_figs/cccn_matrix.png"><br><strong>Figure 4</strong> First 17 rows and columns of the genes.cccn
 produced by MakeCorrelationNetwork. PTMs that cluster together in all
 three distance metrics have entries that represent how strongly they
 correlate, or how alike their responses are under the same environment.
@@ -382,28 +368,27 @@ skewing.</p>
 <div class="section level5">
 <h5 id="description-1">Description<a class="anchor" aria-label="anchor" href="#description-1"></a>
 </h5>
-<p>Make Correlation Network filters a correlation matrix of PTMs by
-specific PTMs. It groups the PTM correlation matrix based on the Genes
-of PTMs. By summing these submatrices, it produces a gene by gene
-cocluster correlation network shows strength of relationships between
-proteins using the common clusters between the three distance
-metrics.</p>
+<p>Make Correlation Network filters the correlation matrix of PTMs by
+specific PTMs that cluster together or have react similarly to the same
+conditions. It groups the PTM correlation matrix based on the Genes of
+PTMs. By summing these submatrices, it produces a gene by gene cocluster
+correlation network shows strength of relationships between proteins
+using the common clusters between the three distance metrics. The PTM
+version is also saved for analysis by the user.</p>
 </div>
 <div class="section level5">
 <h5 id="input-1">Input<a class="anchor" aria-label="anchor" href="#input-1"></a>
 </h5>
 <p>-common.clusters - A character vector of PTMs. It is not required for
-it to be the one made in MakeClusterList. - ptm.correlation.matrix<br>
+it to be the one made in MakeClusterList - ptm.correlation.matrix<br>
 - A data frame showing the correlation between ptms (as the rows and the
 columns). NAs are placed along the diagonal so as to not skew the data
-with self-similarity.<br>
-- clusters.name<br>
-- Desired name for the common clusters output; defaults to
-common.clusters. - ptm.name - Desired name of the PTM correlation matrix
-filtered by specific PTMs from input. - gene.name<br>
-- Desired name for the cocluster correlation network matrix; defaults to
-cccn.matrix.<br>
--</p>
+with self-similarity<br>
+- ptm.cccn.name - Desired name for the PTM cocluster correlation network
+matrix; defaults to ptm.cccn<br>
+- gene.cccn.name<br>
+- Desired name for the gene cocluster correlation network matrix;
+defaults to gene.cccn</p>
 </div>
 <div class="section level5">
 <h5 id="output-1">Output<a class="anchor" aria-label="anchor" href="#output-1"></a>
@@ -411,14 +396,16 @@ cccn.matrix.<br>
 <ul>
 <li>ptm.cccn (or otherwise named by ptm.cccn.name)
 <ul>
-<li>The PTM correlation matrix filtered by specific PTMs from
-input.</li>
+<li>The PTM correlation matrix filtered by specific PTMs that cluster
+together by reacting similarly to the same conditions<br>
+</li>
 </ul>
 </li>
 <li>gene.cccn (or otherwise named by gene.cccn.name)
 <ul>
-<li>A matrix showing strength of relationships between proteins using
-the ptm.cccn.</li>
+<li>A matrix showing strength of correlations between genes using the
+common clusters between the three distance metrics (Euclidean, Spearman,
+and Combined (SED)) and the ptm.cccn</li>
 </ul>
 </li>
 </ul>
@@ -438,9 +425,11 @@ the ptm.cccn.</li>
 <p>PPI (protein-protein interaction) databases are consulted in order to
 filter the clusters by proteins that are known to interact with each
 other as well as how strongly they are known to interact. The standard
-PPI database that is used is STRINGdb, and getting data from this
-database is the first step. This is accomplished with the function
-GetSTRINGdb. Please note, however, that the user may consult any
+recommended PPI database is STRINGdb; getting data from this database is
+the first (optional) step. This is accomplished with the function
+GetSTRINGdb. The function GetSTRINGdb requires the STRINGdb package to
+be downloaded. Code for this is supplied with the code to run the
+function itself. Please note, however, that the user may consult any
 database that they choose. After getting STRINGdb data (or not), the
 user runs MakeDBInput which produces a text file of all of their gene
 names. This information can be copy and pasted into any database that
@@ -453,12 +442,13 @@ ProcessGMEdgefile in order to sort the data.</p>
 that the user chooses, though this package only explicitly supports
 STRINGdb and GeneMANIA. If another database is chosen, its file will
 have to be filtered manually by the user before moving on to step 4. The
-file should have three columns. Column one and two should strictly be
+file should have four columns. Column one and two should strictly be
 labeled “Gene.1” and “Gene.2” in order to integrate with other PPI
-databases. The third column should contain the edgeweight and may be
-named however the user chooses. It is recommended, though, that the
-database is specified as well as the term ‘weight’ in the column
-name.</p>
+databases. Column three should name the interaction type between the two
+proteins (naming of this column is not important). The fourth column
+should contain the edgeweight and may be named however the user chooses.
+It is recommended, though, that the database is specified as well as the
+term ‘weight’ in the column name.</p>
 </div>
 <div class="section level4">
 <h4 id="part-1-get-stringdb-data">Part 1 — Get STRINGdb Data<a class="anchor" aria-label="anchor" href="#part-1-get-stringdb-data"></a>
@@ -467,15 +457,26 @@ name.</p>
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
+<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/string-edges.png"><br><strong>Figure 5</strong> First 18 rows of stringdb.edges produced by
-GetSTRINGdb</p>
+GetSTRINGdb. The first two columns represent the genes that are known to
+interact. The second column is the type of interaction. The GetSTRINGdb
+function limits the interaction types to database, database_transferred
+(database information from other species’ that are homologous to
+humans), experimental, and experimental_transferred (database
+information from other species’ that are homologous to humans). The
+final column is the score associated with this interaction.</p>
 <p>
  
 </p>
 <p><img src="vig_figs/nodenames.png"><br><strong>Figure 6</strong> First 18 rows of nodenames produced by
-GetSTRINGdb</p>
+GetSTRINGdb. Nodenames is a data frame consisting of every gene in
+gene.cccn. This represents all of the genes of the study (that
+cocluster).</p>
 </center>
 <p>
  
@@ -485,10 +486,11 @@ GetSTRINGdb</p>
 <h5 id="input-2">Input<a class="anchor" aria-label="anchor" href="#input-2"></a>
 </h5>
 <ul>
-<li>cccn.matrix
+<li>gene.cccn
 <ul>
-<li>A matrix showing strength of relationships between proteins using
-the common clusters between the three distance metrics<br>
+<li>A matrix showing strength of correlations between genes using the
+common clusters between the three distance metrics (Euclidean, Spearman,
+and Combined (SED)) and the ptm.cccn<br>
 </li>
 </ul>
 </li>
@@ -518,7 +520,7 @@ genes of study pulled from the STRINGdb database<br>
 </li>
 <li>nodenames (or otherwise named by nodenames.name)
 <ul>
-<li>List of gene names</li>
+<li>Data frame of gene names</li>
 </ul>
 </li>
 </ul>
@@ -539,8 +541,10 @@ genes of study pulled from the STRINGdb database<br>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/db_nodes-txt.png"></p>
-<p><strong>Figure 7</strong> First 15 lines from the produced text
-file</p>
+<p><strong>Figure 7</strong> First 15 lines from the produced text file
+named by file.path.name. Lists all of the gene names separated by
+newlines with no other extra characters for clean copy and pasting into
+a database input.</p>
 </center>
 <p>
  
@@ -550,11 +554,11 @@ file</p>
 <h5 id="input-3">Input<a class="anchor" aria-label="anchor" href="#input-3"></a>
 </h5>
 <ul>
-<li>cccn.matrix
+<li>gene.cccn
 <ul>
-<li>A matrix showing strength of relationships between proteins using
-the common clusters between the three distance metrics (Euclidean,
-Spearman, and Combined (SED))<br>
+<li>A matrix showing strength of correlations between genes using the
+common clusters between the three distance metrics (Euclidean, Spearman,
+and Combined (SED)) and the ptm.cccn<br>
 </li>
 </ul>
 </li>
@@ -595,7 +599,11 @@ file.path.name</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/gm_network.png"></p>
-<p><strong>Figure 8</strong> First 44 rows of the GeneMANIA network</p>
+<p><strong>Figure 8</strong> First 44 rows of the GeneMANIA network. The
+first two columns represent the genes that are known to interact. The
+second column is the type of interaction. The ProcessGmEdgefile function
+limits the interaction types to Pathway and Physical Interactions. The
+final column is the score associated with this interaction.</p>
 </center>
 <p>
  
@@ -657,7 +665,12 @@ genes of study</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/BuildPPINetwork.html">BuildPPINetwork</a></span><span class="op">(</span>stringdb.edges <span class="op">=</span> <span class="cn">NA</span>, gm.network <span class="op">=</span> <span class="cn">NA</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"ppi.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/ppi_network.png"><br><strong>Figure 9</strong> First 19 rows of the ppi_network produced by
-find_ppi_edges</p>
+find_ppi_edges. The first two columns represent the two genes that
+interact according to the consulted PPI databases. The third column is
+all of the interaction types concatenated together from each database.
+All subsequent columns (two, in the base case of just using STRINGdb and
+GeneMANIA), show the weights of the interaction from the associated
+database. These have been normalized to all be on a scale of 0-1.</p>
 </center>
 <p>
  
@@ -666,15 +679,14 @@ find_ppi_edges</p>
 <div class="section level5">
 <h5 id="description-3">Description<a class="anchor" aria-label="anchor" href="#description-3"></a>
 </h5>
-<p><strong>Note:</strong> Examples take about 5-10 minutes to run.</p>
 <p>The purpose of BuildPPINetwork is to combine the data about desired
 protein-protein interactions from each of the provided databases. This
 package explicitly processes STRINGdb and GeneMANIA in Step 3, but the
 user may consult as many databases as desired (the processing for which
 is described in Step 3). BuildPPINetwork combines these databases as
 efficiently as possible while retaining desired edgeweights from each
-database. BuildPPINetwork also removes duplicate rows from the data
-frame.</p>
+database. BuildPPINetwork also normalizes the weights on a scale of 0-1
+and removes duplicate rows from the data frame.</p>
 </div>
 <div class="section level5">
 <h5 id="input-5">Input<a class="anchor" aria-label="anchor" href="#input-5"></a>
@@ -738,7 +750,14 @@ networks</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/cfn.png"><br><strong>Figure 10</strong> First 19 rows of the cfn produced by
-ClusterFilteredNetwork</p>
+ClusterFilteredNetwork. The first two columns represent the two genes
+that interact according to the consulted PPI databases. The third column
+is all of the interaction types concatenated together from each
+database. All subsequent columns (two, in the base case of just using
+STRINGdb and GeneMANIA), show the weights of the interaction from the
+associated database. These have been normalized to all be on a scale of
+0-1. Entries (as evident by the skipping row numbers) are limited to
+those that have gene pairings in gene.cccn with nonzero weights.</p>
 </center>
 <p>
  
@@ -748,7 +767,7 @@ ClusterFilteredNetwork</p>
 <h5 id="description-4">Description<a class="anchor" aria-label="anchor" href="#description-4"></a>
 </h5>
 <p>Cluster Filtered Network checks all of the edges in the PPI network
-to see ensure that both of the genes are within our cocluster
+to see ensure that both of the genes are within the cocluster
 correlation network and that its weight is nonzero. If either of these
 conditions are not met, then it will be removed from the list of PPI
 edges. This new, cluster filtered network is then returned.</p>
@@ -757,10 +776,11 @@ edges. This new, cluster filtered network is then returned.</p>
 <h5 id="input-6">Input<a class="anchor" aria-label="anchor" href="#input-6"></a>
 </h5>
 <ul>
-<li>cccn.matrix
+<li>gene.cccn
 <ul>
-<li>A matrix showing strength of relationships between proteins using
-the common clusters between the three distance metrics<br>
+<li>A matrix showing strength of correlations between genes using the
+common clusters between the three distance metrics (Euclidean, Spearman,
+and Combined (SED)) and the ptm.cccn<br>
 </li>
 </ul>
 </li>
@@ -785,8 +805,8 @@ cfn</li>
 <ul>
 <li>cfn (or otherwise named by cfn.name)
 <ul>
-<li>A version of ppi.network with only the edges that exist in
-cccn.matrix and have non-zero weights</li>
+<li>A version of ppi.network with only the edges that exist in gene.cccn
+with have non-zero weights</li>
 </ul>
 </li>
 </ul>
@@ -804,7 +824,7 @@ cccn.matrix and have non-zero weights</li>
 <h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, <span class="va">common.clusters</span>, edgelist.name <span class="op">=</span> <span class="st">"edgelist"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"edgelist"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
 <p><strong>Figure 12</strong> Graph in Cytoscape - Didn’t add cuz not
@@ -817,32 +837,24 @@ good yet Will exist at some point</p>
 <div class="section level5">
 <h5 id="description-5">Description<a class="anchor" aria-label="anchor" href="#description-5"></a>
 </h5>
-<p>Note: This step is directory sensitive. You can check and set your
-directory in R using getwd() and setwd(“yourdirectoryhere”)
-respectively. It needs a path to the bioplanet file and will put an
-edgelist file in your working directory, or getwd(). If you cannot find
-a file, please check your directories first.</p>
-<p>Pathway Crosstalk Network is the final step in the pipeline. It
-requires input of an external database, bioplanet, which consists of
-groups of genes (proteins) involved in various cellular processes. The
-PCN turns this database into a list of pathways and converts those
-pathways into a pathway x pathway edgelist that possesses multiple
-weights, a jaccard similarity and a score derrived from Cluster-Pathway
-Evidence using common clusters found in Make Correlation Network.</p>
+<p><strong>Note:</strong> This step is directory sensitive. The user can
+check and set the working directory in R using getwd() and
+setwd(“yourdirectoryhere”) respectively. It needs a path to the
+bioplanet file and will put an edgelist file in the working directory.
+If the file cannot be found, please check the working directory
+first.</p>
+<p>Pathway Crosstalk Network requires input of an external database,
+bioplanet, that contains of groups of genes (proteins) involved in
+various cellular processes known as pathways. PCN turns this database
+into a list of pathways and converts those pathways into a pathway x
+pathway edgelist that possesses multiple weights, a jaccard similarity,
+and a score. The score is derived from Cluster-Pathway Evidence using
+the common clusters found in Make Correlation Network.</p>
 </div>
 <div class="section level5">
 <h5 id="input-7">Input<a class="anchor" aria-label="anchor" href="#input-7"></a>
 </h5>
 <ul>
-<li>file
-<ul>
-<li>File path for the pathway data from Bioplanet (can also take in a
-data frame that is formatted correctly like the one found in the data
-directory, but this is not recommended as formatting must match sample
-data exactly)<br>
-</li>
-</ul>
-</li>
 <li>common.clusters
 <ul>
 <li>The list of common clusters between all three distance metrics
@@ -850,13 +862,22 @@ data exactly)<br>
 </li>
 </ul>
 </li>
+<li>file
+<ul>
+<li>File path for the pathway data from Bioplanet (can also take in a
+data frame that is formatted correctly like the one found by running
+View(ex.bioplanet) or ?ex.bioplanet, but this is not recommended as
+formatting must match sample data exactly)<br>
+</li>
+</ul>
+</li>
 <li>edgelist.name
 <ul>
-<li>Intended for use in Cytoscape.<br>
-</li>
 <li>The desired name of the Pathway to Pathway edgelist file created
-(‘.csv’ will automatically be added to the end for you); defaults to
-edgelist</li>
+(‘.csv’ will automatically be added to the end); defaults to
+edgelist<br>
+</li>
+<li>Intended for use in Cytoscape</li>
 </ul>
 </li>
 </ul>
@@ -865,7 +886,7 @@ edgelist</li>
 <h5 id="output-7">Output<a class="anchor" aria-label="anchor" href="#output-7"></a>
 </h5>
 <ul>
-<li>edgelist (or otherwise named by edgelist.name)
+<li>edgelist.csv (or otherwise named by edgelist.name)
 <ul>
 <li>An edgelist file that is created in the working directory. Contains
 pathway source-target columns, with edge weights of their jaccard
@@ -894,7 +915,11 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 <span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
 <span>         edge.opacity <span class="op">=</span> <span class="fl">175</span>, edge.label.opacity <span class="op">=</span> <span class="fl">255</span>, border.opacity <span class="op">=</span> <span class="fl">255</span>, node.label.opacity <span class="op">=</span> <span class="fl">255</span>, node.fill.opacity <span class="op">=</span> <span class="fl">255</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/cytoscape_graph.png"><br><strong>Figure 13</strong> Default cytoscape graph</p>
+<p><img src="vig_figs/cytoscape_graph.png"><br><strong>Figure 13</strong> Default cytoscape graph. Nodes represent the
+genes of the study. The score of each node is taken as the minimum value
+of the gene in the ptmtable. Edges are the lines between the nodes and
+they represent relationships. See the key below for a full description
+of each characteristic.</p>
 </center>
 <p>
  
@@ -1025,6 +1050,144 @@ transparent; defaults to 255</li>
 </li>
 <li>Creates a graph in the cytoscape interface</li>
 </ul>
+</div>
+<div class="section level5">
+<h5 id="key">Key<a class="anchor" aria-label="anchor" href="#key"></a>
+</h5>
+<p>The thicker the edge is, the stronger a correlation between these two
+genes. The border and shape of the node represent the type of protein
+this gene is.</p>
+<ul>
+<li>Node Size
+<ul>
+<li>Greater the node size, larger the absolute value of the score<br>
+</li>
+</ul>
+</li>
+<li>Blue Node
+<ul>
+<li>Negative score<br>
+</li>
+</ul>
+</li>
+<li>Yellow Node
+<ul>
+<li>Positive score<br>
+</li>
+</ul>
+</li>
+<li>Green Node
+<ul>
+<li>Approximately zero score</li>
+</ul>
+</li>
+</ul>
+<p>Node Shapes: - “ELLIPSE”<br>
+- unknown - “ROUND_RECTANGLE”<br>
+- receptor tyrosine kinase - “VEE”<br>
+- SH2 protein or - SH2-SH3 protein - “TRIANGLE”<br>
+- SH3 protein - “HEXAGON”<br>
+- tyrosine kinase - “DIAMOND”<br>
+- SRC-family kinase - “OCTAGON”<br>
+- kinase or - phosphatase - “PARALLELOGRAM”<br>
+- transcription factor - “RECTANGLE” - RNA binding protein</p>
+<p>Node Border Colors: - Orange<br>
+- deacetylase<br>
+or<br>
+- acetyltransferase<br>
+- Blue<br>
+- demethylase<br>
+or<br>
+- methyltransferase<br>
+- Royal Purple<br>
+- membrane protein<br>
+- Red<br>
+- kinase<br>
+or<br>
+- tyrosine kinase<br>
+or<br>
+- SRC-family kinase<br>
+- Yellow<br>
+- phosphatase<br>
+or<br>
+- tyrosine phosphatase<br>
+- Lilac - G protein-coupled receptor<br>
+or<br>
+- receptor tyrosine kinase<br>
+- Grey<br>
+- default</p>
+<ul>
+<li>Edge Thickness
+<ul>
+<li>Stronger correlation</li>
+</ul>
+</li>
+</ul>
+<p>Edge Colors: - Red<br>
+- Phosphorylation<br>
+or<br>
+- pp<br>
+or<br>
+- controls-phosphorylation-of<br>
+- Bright Magenta<br>
+- controls-expression-of<br>
+- Dull Magenta<br>
+- controls-transport-of<br>
+- Purple<br>
+- controls-state-change-of<br>
+- Blood Orange<br>
+- Acetylation<br>
+- Lime Green<br>
+- Phystical interactions<br>
+- Green<br>
+- BioPlex<br>
+- Dull Green<br>
+- in-complex-with<br>
+- Seafoam Green<br>
+- experiments<br>
+or<br>
+- experiments_transferred<br>
+- Cyan<br>
+- database<br>
+or<br>
+- database_transferred<br>
+- Teal - Pathway<br>
+or<br>
+- Predicted<br>
+- Dark Turquoise<br>
+- Genetic interactions<br>
+- Yellow-Orange<br>
+- correlation<br>
+- Royal Blue<br>
+- negative correlation<br>
+- Bright Yellow - positive correlation<br>
+- Grey<br>
+- combined_score - Dark Grey<br>
+- merged<br>
+- Light Grey<br>
+- intersect<br>
+- Black<br>
+- peptide<br>
+- Orange<br>
+- homology<br>
+- Dull Orange<br>
+- Shared protein domains - White<br>
+- Default</p>
+<p>Arrow Types:<br>
+- Arrow - Phosphorylation<br>
+or<br>
+- pp<br>
+or<br>
+- controls-phosphorylation-of<br>
+or<br>
+- controls-expression-of<br>
+or<br>
+- controls-transport-of<br>
+or<br>
+- controls-state-change-of<br>
+or<br>
+- Acetylation<br>
+- No Arrow - Default</p>
 </div>
 <div class="section level5">
 <h5 id="estimated-run-time-8">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-8"></a>
