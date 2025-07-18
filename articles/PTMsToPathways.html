@@ -824,7 +824,7 @@ with have non-zero weights</li>
 <h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"edgelist"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"PTPedgelist"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
 <p><strong>Figure 12</strong> Graph in Cytoscape - Didn’t add cuz not
@@ -840,9 +840,9 @@ good yet Will exist at some point</p>
 <p><strong>Note:</strong> This step is directory sensitive. The user can
 check and set the working directory in R using getwd() and
 setwd(“yourdirectoryhere”) respectively. It needs a path to the
-bioplanet file and will put an edgelist file in the working directory.
-If the file cannot be found, please check the working directory
-first.</p>
+bioplanet file and will put an edgelist file in the working directory or
+the otherwise given path. If the file cannot be found, please check the
+working directory first.</p>
 <p>Pathway Crosstalk Network requires input of an external database,
 bioplanet, that contains of groups of genes (proteins) involved in
 various cellular processes known as pathways. PCN turns this database
@@ -877,7 +877,16 @@ formatting must match sample data exactly)<br>
 (‘.csv’ will automatically be added to the end); defaults to
 edgelist<br>
 </li>
-<li>Intended for use in Cytoscape</li>
+<li>Intended for use in Cytoscape<br>
+</li>
+</ul>
+</li>
+<li>createfile
+<ul>
+<li>The path for the .csv file to be created. Defaults to the working
+directory.</li>
+<li>Putting a non-character value (Boolean FALSE) will result in nothing
+being written to a file.</li>
 </ul>
 </li>
 </ul>
