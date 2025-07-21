@@ -122,6 +122,7 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
 
 
   #Nested function to analyze result
+  group <- NULL #Gets rid of check note
   clustercreate <- function(result){
 
     #Compute the minimum spanning tree connecting the points
