@@ -9,7 +9,7 @@ test_that("Unique entries", {
   expect_equal(length(test.ppi.network.123.123[which(test.ppi.network.123.123$Gene.1 == test.name), ]$Gene.2), length(unique(test.ppi.network.123.123[which(test.ppi.network.123.123$Gene.1 == test.name), ]$Gene.2)))
 })
 
-test_that("Correct range of values"{
+test_that("Correct range of values", {
   expect_equal(max(test.ppi.network.123.123$STRINGdb.combined_score, na.rm = TRUE), 1)
   expect_equal(max(test.ppi.network.123.123$GM.weights, na.rm = TRUE), 1)
 })
