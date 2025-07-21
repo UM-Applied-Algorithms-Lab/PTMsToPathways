@@ -4,3 +4,5 @@ testthat("Interactions are correct", {
   expect_equal(length(unique(test.gm.network.123.123$interaction)), 2)
   expect_contains(unique(test.gm.network.123.123$interaction), c("Physical Interactions", "Pathway"))
 })
+
+rm(test.gm.network.123.123)
