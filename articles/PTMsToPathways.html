@@ -61,6 +61,15 @@ Smith</h4>
 
     
     
+<p>This vignette is intended to be a step-by-step guide to walk users
+through the process of using the PTMsToPathways package. It includes an
+example pipeline demonstrating how to run the full analysis along with
+descriptions of each function. this pipeline must be run in order as
+subsequent steps require the data produced in previous steps. Estimated
+run-times are included with each description and are based on a
+preliminary dataset of ~9,000 post-translational modifications and 70
+experimental conditions processed with a 12th Gen i5 processor and 8GB
+of RAM.</p>
 <div class="section level2">
 <h2 id="this-package">This Package<a class="anchor" aria-label="anchor" href="#this-package"></a>
 </h2>
@@ -76,23 +85,16 @@ assigned to the Global Namespace in order to prevent loss of data and
 promote ease of use.</p>
 </div>
 <div class="section level2">
-<h2 id="this-file">This File<a class="anchor" aria-label="anchor" href="#this-file"></a>
-</h2>
-<p>This vignette is intended to be a step-by-step guide to walk users
-through the process of using the PTMsToPathways package. It includes an
-example pipeline demonstrating how to run the full analysis along with
-descriptions of each function. this pipeline must be run in order as
-subsequent steps require the data produced in previous steps. Estimated
-run-times are included with each description and are based on a
-preliminary dataset of ~9,000 post-translational modifications and 70
-experimental conditions processed with a 12th Gen i5 processor and 8GB
-of RAM.</p>
-</div>
-<div class="section level2">
 <h2 id="starting-data">Starting Data<a class="anchor" aria-label="anchor" href="#starting-data"></a>
 </h2>
-<p>Below is an example of the input dataset:</p>
-<pre><code><span><span class="co">#&gt;               H3122SEPTM.C1 H3122SEPTM.C2 H3122SEPTM.C3 H3122SEPTM.D1</span></span>
+<p>This package provides an example data set using 497 ptms and 69
+experimental conditions in the correct format for entry. Below is an
+example of a section of the input dataset:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.ptmtable.html">ex.ptmtable</a></span><span class="op">)</span></span>
+<span><span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.ptmtable.html">ex.ptmtable</a></span><span class="op">[</span><span class="fl">38</span><span class="op">:</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 497  69</span></span>
+<span><span class="co">#&gt;               H3122SEPTM.C1 H3122SEPTM.C2 H3122SEPTM.C3 H3122SEPTM.D1</span></span>
 <span><span class="co">#&gt; CTTN ack K107      19.23272      19.85052      19.58630      21.23678</span></span>
 <span><span class="co">#&gt; CTTN ack K124      17.50665      19.73125      19.12403      21.14083</span></span>
 <span><span class="co">#&gt; CTTN ack K161            NA            NA            NA            NA</span></span>
@@ -105,7 +107,7 @@ of RAM.</p>
 <span><span class="co">#&gt; CTTN p S156        21.09816      23.48837      22.33529      23.80410</span></span>
 <span><span class="co">#&gt; CTTN p S405              NA            NA            NA            NA</span></span>
 <span><span class="co">#&gt; CTTN p S417              NA      18.22809      18.97026      17.71552</span></span>
-<span><span class="co">#&gt; CTTN p S418              NA      18.22809      18.97026      17.71552</span></span></code></pre>
+<span><span class="co">#&gt; CTTN p S418              NA      18.22809      18.97026      17.71552</span></span></code></pre></div>
 <p>Note that it is very important that the rownames are the names of
 post-translational modifications. All of their respective columns are
 the environmental conditions under which the post-translational
@@ -118,14 +120,9 @@ separated by semicolons. (I.e. “AARS ubi k747; AMBLIL p U123”).</p>
 <div class="section level2">
 <h2 id="preprocessing-data">Preprocessing Data<a class="anchor" aria-label="anchor" href="#preprocessing-data"></a>
 </h2>
-<p>This package is designed to work with a simple data structure, a data
-frame with PTM names as the row names, environmental conditions as the
-column names, and numeric values (or NAs) as the entries. Thus, provided
-here are some console prompts for an R terminal designed to create a
-data frame, and modify it to fit the structure of this package. To view
-an example of the correct formatting for this package, please use:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ex.ptmtable</span><span class="op">)</span></span></code></pre></div>
+<p>For data that does not conform to the above structure, the data must
+be converted. The following provides a set of general functions that may
+assist in this process.</p>
 <div class="section level5">
 <h5 id="importing-the-dataframe">Importing the Dataframe<a class="anchor" aria-label="anchor" href="#importing-the-dataframe"></a>
 </h5>
@@ -133,7 +130,7 @@ an example of the correct formatting for this package, please use:</p>
 data frame. For example, read.csv() will take a csv file and convert it
 into a data frame. The csv file type is recommended for data
 storage.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Pathto/filename.csv"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -147,7 +144,7 @@ contain names. For the example below, the strings in columns 1, 2, and 3
 will be concatenated in each row and then turned into a rowname. It is
 also possible to have name.columns equal a vector like c(2, 4, 6), which
 takes columns 2, 4, and 6.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name.columns</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">[</span><span class="va">name.columns</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">" "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -159,7 +156,7 @@ takes columns 2, 4, and 6.</p>
 “patterns” vector from the rownames. Any pattern can be chosen so long
 as the user ensures that any special character (such as $ or @) have a
 “\\” in front of them.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">" ~K"</span>, <span class="st">"zzzz"</span>, <span class="st">"/"</span>, <span class="st">"\\$"</span>, <span class="st">"\\@"</span><span class="op">)</span></span>
 <span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="va">patterns</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">patterns</span><span class="op">)</span>, <span class="va">patterns</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="kw">for</span><span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="va">patterns</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span>, <span class="va">x</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
@@ -174,7 +171,7 @@ as the user ensures that any special character (such as $ or @) have a
 <div class="section level5">
 <h5 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h5>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/EU_MCL.png"><br><strong>Figure 1</strong> Example plot produced by MakeClusterList
@@ -189,46 +186,29 @@ Dissimilarity.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/MCL-output.png"><br><strong>Figure 2</strong> Output of MakeClusterList. This data is read
-as two rows: the top row represents the cluster number. This number
-isn’t important in and of itself, but instead differentiates between the
-different clusters. The second row represents the cluster size, or how
-many PTMs are in that cluster.</p>
+<p><img src="vig_figs/MCL-output.png"><br><strong>Figure 2</strong> Output of MakeClusterList. Automatic print
+statements from the function ordiplot from the package vegan.</p>
 <p>
  
 </p>
-<pre><code><span><span class="co">#&gt; $`1`</span></span>
-<span><span class="co">#&gt;                                             PTM.Name group</span></span>
-<span><span class="co">#&gt; 1                                      AARS ubi K747     1</span></span>
-<span><span class="co">#&gt; 2                                    ANAPC5 ubi K289     1</span></span>
-<span><span class="co">#&gt; 3                                      CUTA ubi K112     1</span></span>
-<span><span class="co">#&gt; 4                                     CYHR1 ubi K349     1</span></span>
-<span><span class="co">#&gt; 5                                      EEF2 ack K498     1</span></span>
-<span><span class="co">#&gt; 6                                       F11R ubi K97     1</span></span>
-<span><span class="co">#&gt; 7                                        GMPS ack K9     1</span></span>
-<span><span class="co">#&gt; 8                                      HERC2 ubi K20     1</span></span>
-<span><span class="co">#&gt; 9                                     KPNB1 ubi K541     1</span></span>
-<span><span class="co">#&gt; 10                                     LASP1 ubi K59     1</span></span>
-<span><span class="co">#&gt; 11                                     LNPEP ubi K32     1</span></span>
-<span><span class="co">#&gt; 12                                    MRPS27 ubi K94     1</span></span>
-<span><span class="co">#&gt; 13                                      NME1 ack K39     1</span></span>
-<span><span class="co">#&gt; 14                                     PCNA ubi K110     1</span></span>
-<span><span class="co">#&gt; 15                                      PKM ack K141     1</span></span>
-<span><span class="co">#&gt; 16                                     PLAU ubi K403     1</span></span>
-<span><span class="co">#&gt; 17                                     PLK1 ubi K492     1</span></span>
-<span><span class="co">#&gt; 18                                   PNPLA2 ubi K435     1</span></span>
-<span><span class="co">#&gt; 19                                    PSMC1 ubi K237     1</span></span>
-<span><span class="co">#&gt; 20                                    RBCK1 ubi K342     1</span></span>
-<span><span class="co">#&gt; 21                                    RPS15A ubi K12     1</span></span>
-<span><span class="co">#&gt; 22                                    TCAF1 ubi K817     1</span></span>
-<span><span class="co">#&gt; 23 TUBB4B ubi K379; TUBB2A ubi K379; TUBB2B ubi K379     1</span></span>
-<span><span class="co">#&gt; 24                                    UIMC1 ubi K245     1</span></span>
-<span><span class="co">#&gt; 25                                     USP5 ubi K318     1</span></span>
-<span><span class="co">#&gt; 26                                    VAMP7 ubi K125     1</span></span>
-<span><span class="co">#&gt; 27                                      VCP ubi K295     1</span></span></code></pre>
-<p><strong>Figure 3</strong> First cluster created by Euclidean
+<p><img src="vig_figs/EU_clusters.png"></p>
+<p><strong>Figure 3</strong> The second cluster created by Euclidean
 Distance. The left column is the name of the PTM in this cluster. The
 right column is the cluster number.</p>
+<p>
+ 
+</p>
+<p><img src="vig_figs/common_clusters.png"><strong>Figure 4</strong>
+The second common cluster. All six of these post-translational
+modifications were clustered together whether distance was calculated by
+Spearman, Euclidean, or the average.</p>
+<p>
+ 
+</p>
+<p><img src="vig_figs/tsne_coords.png"><strong>Figure 5</strong>
+Coordinates of the t-SNE plot produced by Spearman Dissimilarity. Each
+row is a ptm, and each column is its positional location along the x, y,
+and z axes.</p>
 </center>
 <p>
  
@@ -350,16 +330,31 @@ Spearman, and SED distances, found with Rtsne.</li>
 <div class="section level5">
 <h5 id="code-1">Code<a class="anchor" aria-label="anchor" href="#code-1"></a>
 </h5>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">ptm.correlation.matrix</span>, ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>, gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/cccn_matrix.png"><br><strong>Figure 4</strong> First 17 rows and columns of the genes.cccn
-produced by MakeCorrelationNetwork. PTMs that cluster together in all
-three distance metrics have entries that represent how strongly they
-correlate, or how alike their responses are under the same environment.
-PTMs that don’t cluster in all three distance metrics are correlated by
-a 0. Self-correlations are also marked by a 0 to prevent self-similarity
-skewing.</p>
+<p><img src="vig_figs/ptm_cccn.png"><strong>Figure 6</strong> First
+17 rows and columns of the ptm.cccn produced by MakeCorrelationNetwork.
+PTMs that cluster together in all three distance metrics have entries
+that represent how strongly they correlate, or how alike their responses
+are under the same environment. PTMs that don’t cluster in all three
+distance metrics are correlated by an NA. Self-correlations are also
+marked by an NA to prevent self-similarity skewing.</p>
+<p>
+ 
+</p>
+<p><img src="vig_figs/gene_cccn.png"><strong>Figure 7</strong> First
+17 rows and columns of the genes.cccn produced by
+MakeCorrelationNetwork. The ptm.cccn was condensed by combining all of
+the scores between PTMs corresponding to one gene. These new summed
+scores make up the scores of the genes.ccn. Self-correlations are marked
+by an NA to prevent self-similarity skewing.</p>
+<p>
+ 
+</p>
+<p><img src="vig_figs/MakeCorrelationNetwork-1.png"><strong>Figure
+8</strong> Plot produced by MakeCorrelationNetwork. I have no idea what
+I’m looking at.</p>
 </center>
 <p>
  
@@ -456,13 +451,13 @@ term ‘weight’ in the column name.</p>
 <div class="section level5">
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/string-edges.png"><br><strong>Figure 5</strong> First 18 rows of stringdb.edges produced by
+<p><img src="vig_figs/string_edges.png"><br><strong>Figure 9</strong> First 18 rows of stringdb.edges produced by
 GetSTRINGdb. The first two columns represent the genes that are known to
 interact. The second column is the type of interaction. The GetSTRINGdb
 function limits the interaction types to database, database_transferred
@@ -473,7 +468,7 @@ final column is the score associated with this interaction.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/nodenames.png"><br><strong>Figure 6</strong> First 18 rows of nodenames produced by
+<p><img src="vig_figs/nodenames.png"><br><strong>Figure 10</strong> First 18 rows of nodenames produced by
 GetSTRINGdb. Nodenames is a data frame consisting of every gene in
 gene.cccn. This represents all of the genes of the study (that
 cocluster).</p>
@@ -537,11 +532,11 @@ genes of study pulled from the STRINGdb database<br>
 <div class="section level5">
 <h5 id="code-3">Code<a class="anchor" aria-label="anchor" href="#code-3"></a>
 </h5>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/db_nodes-txt.png"></p>
-<p><strong>Figure 7</strong> First 15 lines from the produced text file
+<p><strong>Figure 11</strong> First 15 lines from the produced text file
 named by file.path.name. Lists all of the gene names separated by
 newlines with no other extra characters for clean copy and pasting into
 a database input.</p>
@@ -595,15 +590,28 @@ file.path.name</li>
 <div class="section level5">
 <h5 id="code-4">Code<a class="anchor" aria-label="anchor" href="#code-4"></a>
 </h5>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
+<p><img src="vig_figs/gm_nodetable.png"></p>
+<p><strong>Figure 12</strong> The node table produced by the GeneMANIA
+query.</p>
+<p>
+ 
+</p>
+<p><img src="vig_figs/gm_edgetable.png"></p>
+<p><strong>Figure 13</strong> The edge table produced by the GeneMANIA
+query.</p>
+<p>
+ 
+</p>
 <p><img src="vig_figs/gm_network.png"></p>
-<p><strong>Figure 8</strong> First 44 rows of the GeneMANIA network. The
-first two columns represent the genes that are known to interact. The
-second column is the type of interaction. The ProcessGmEdgefile function
-limits the interaction types to Pathway and Physical Interactions. The
-final column is the score associated with this interaction.</p>
+<p><strong>Figure 14</strong> First 44 rows of the GeneMANIA network.
+The first two columns represent the genes that are known to interact.
+The second column is the type of interaction. The ProcessGmEdgefile
+function limits the interaction types to Pathway and Physical
+Interactions. The final column is the score associated with this
+interaction.</p>
 </center>
 <p>
  
@@ -661,10 +669,10 @@ genes of study</li>
 <div class="section level5">
 <h5 id="code-5">Code<a class="anchor" aria-label="anchor" href="#code-5"></a>
 </h5>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/BuildPPINetwork.html">BuildPPINetwork</a></span><span class="op">(</span>stringdb.edges <span class="op">=</span> <span class="cn">NA</span>, gm.network <span class="op">=</span> <span class="cn">NA</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"ppi.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/ppi_network.png"><br><strong>Figure 9</strong> First 19 rows of the ppi_network produced by
+<p><img src="vig_figs/ppi_network.png"><br><strong>Figure 15</strong> First 19 rows of the ppi_network produced by
 find_ppi_edges. The first two columns represent the two genes that
 interact according to the consulted PPI databases. The third column is
 all of the interaction types concatenated together from each database.
@@ -746,18 +754,15 @@ networks</li>
 <div class="section level5">
 <h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/cfn.png"><br><strong>Figure 10</strong> First 19 rows of the cfn produced by
+<p><img src="vig_figs/cfn.png"><br><strong>Figure 16</strong> First 19 rows of the cfn produced by
 ClusterFilteredNetwork. The first two columns represent the two genes
 that interact according to the consulted PPI databases. The third column
 is all of the interaction types concatenated together from each
-database. All subsequent columns (two, in the base case of just using
-STRINGdb and GeneMANIA), show the weights of the interaction from the
-associated database. These have been normalized to all be on a scale of
-0-1. Entries (as evident by the skipping row numbers) are limited to
-those that have gene pairings in gene.cccn with nonzero weights.</p>
+database. The final column is the sum of the weights from each inputted
+database.</p>
 </center>
 <p>
  
@@ -823,7 +828,7 @@ with have non-zero weights</li>
 <div class="section level5">
 <h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"PTPedgelist"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
@@ -918,7 +923,7 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 <div class="section level5">
 <h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
 </h5>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, <span class="va">ptmtable</span>, funckey <span class="op">=</span> <span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.funckey.html">ex.funckey</a></span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span>,</span>
 <span>         visual.style.name <span class="op">=</span> <span class="st">"PTMsToPathways.style"</span>, background.color <span class="op">=</span> <span class="st">"#949494"</span>, edge.label.color <span class="op">=</span> <span class="st">'#17202a'</span>, node.label.color <span class="op">=</span> <span class="st">'#000000'</span>,</span>
 <span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
