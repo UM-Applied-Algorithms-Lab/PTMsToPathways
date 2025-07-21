@@ -27,19 +27,19 @@ knitr::opts_chunk$set(
 )
 ```
 
+This vignette is intended to be a step-by-step guide to walk users through the process of using the PTMsToPathways package. It includes an example pipeline demonstrating how to run the full analysis along with descriptions of each function. this pipeline must be run in order as subsequent steps require the data produced in previous steps. Estimated run-times are included with each description and are based on a preliminary dataset of \~9,000 post-translational modifications and 70 experimental conditions processed with a 12th Gen i5 processor and 8GB of RAM.  
+
 # This Package  
 The PTMsToPathways package takes mass-spectrometry data of post-translational modifications under different experimental conditions and implicates pathways that are involved. These pathways are generated based on analysis of which ptms cluster together (based on the same environmental conditions) compared to how those proteins are known to interact.
 
 **An important note about this package:** there are no returned outputs from any of the functions. All outputs listed are assigned to the Global Namespace in order to prevent loss of data and promote ease of use.  
 
-# This File  
-This vignette is intended to be a step-by-step guide to walk users through the process of using the PTMsToPathways package. It includes an example pipeline demonstrating how to run the full analysis along with descriptions of each function. this pipeline must be run in order as subsequent steps require the data produced in previous steps. Estimated run-times are included with each description and are based on a preliminary dataset of \~9,000 post-translational modifications and 70 experimental conditions processed with a 12th Gen i5 processor and 8GB of RAM.  
-
 # Starting Data  
 
-Below is an example of the input dataset:  
+This package provides an example data set using 497 ptms and 69 experimental conditions in the correct format for entry. Below is an example of a section of the input dataset:  
 
-```{r eval = TRUE, echo = FALSE}
+```{r eval = TRUE, echo = TRUE}
+dim(PTMsToPathways::ex.ptmtable)
 PTMsToPathways::ex.ptmtable[38:50, 1:4]
 ```
 
@@ -47,11 +47,7 @@ Note that it is very important that the rownames are the names of post-translati
 
 # Preprocessing Data
 
-This package is designed to work with a simple data structure, a data frame with PTM names as the row names, environmental conditions as the column names, and numeric values (or NAs) as the entries. Thus, provided here are some console prompts for an R terminal designed to create a data frame, and modify it to fit the structure of this package. To view an example of the correct formatting for this package, please use:
-
-```{r eval = FALSE}
-View(ex.ptmtable)
-```
+For data that does not conform to the above structure, the data must be converted. The following provides a set of general functions that may assist in this process.
 
 #### Importing the Dataframe
 R supports many file types and can automatically convert them into a data frame. For example, read.csv() will take a csv file and convert it into a data frame. The csv file type is recommended for data storage.
@@ -95,15 +91,23 @@ MakeClusterList(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", cl
 <p>&nbsp;</p>
 
 ![](vig_figs/MCL-output.png)  
-**Figure 2** Output of MakeClusterList. This data is read as two rows: the top row represents the cluster number. This number isn't important in and of itself, but instead differentiates between the different clusters. The second row represents the cluster size, or how many PTMs are in that cluster.  
+**Figure 2** Output of MakeClusterList. Automatic print statements from the function ordiplot from the package vegan.  
 
 <p>&nbsp;</p>
 
-```{r echo = FALSE, eval = TRUE}
-load('vig_figs/eu-clusters.rda')
-head(eu_ptms_list, 1)
-```
-**Figure 3** First cluster created by Euclidean Distance. The left column is the name of the PTM in this cluster. The right column is the cluster number.  
+![](vig_figs/EU_clusters.png)
+
+**Figure 3** The second cluster created by Euclidean Distance. The left column is the name of the PTM in this cluster. The right column is the cluster number.  
+
+<p>&nbsp;</p>
+
+![](vig_figs/common_clusters.png)
+**Figure 4**  The second common cluster. All six of these post-translational modifications were clustered together whether distance was calculated by Spearman, Euclidean, or the average.  
+
+<p>&nbsp;</p>
+
+![](vig_figs/tsne_coords.png)
+**Figure 5** Coordinates of the t-SNE plot produced by Spearman Dissimilarity. Each row is a ptm, and each column is its positional location along the x, y, and z axes.  
 
 </center>
 <p>&nbsp;</p>
@@ -151,8 +155,18 @@ MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = 
 ```
 
 <center>
-![](vig_figs/cccn_matrix.png)  
-**Figure 4** First 17 rows and columns of the genes.cccn produced by MakeCorrelationNetwork. PTMs that cluster together in all three distance metrics have entries that represent how strongly they correlate, or how alike their responses are under the same environment. PTMs that don't cluster in all three distance metrics are correlated by a 0. Self-correlations are also marked by a 0 to prevent self-similarity skewing.  
+![](vig_figs/ptm_cccn.png)
+**Figure 6** First 17 rows and columns of the ptm.cccn produced by MakeCorrelationNetwork. PTMs that cluster together in all three distance metrics have entries that represent how strongly they correlate, or how alike their responses are under the same environment. PTMs that don't cluster in all three distance metrics are correlated by an NA. Self-correlations are also marked by an NA to prevent self-similarity skewing.  
+
+<p>&nbsp;</p>
+
+![](vig_figs/gene_cccn.png)
+**Figure 7** First 17 rows and columns of the genes.cccn produced by MakeCorrelationNetwork. The ptm.cccn was condensed by combining all of the scores between PTMs corresponding to one gene. These new summed scores make up the scores of the genes.ccn. Self-correlations are marked by an NA to prevent self-similarity skewing.  
+
+<p>&nbsp;</p>
+
+![](vig_figs/MakeCorrelationNetwork-1.png)
+**Figure 8** Plot produced by MakeCorrelationNetwork. I have no idea what I'm looking at.  
 
 </center>
 <p>&nbsp;</p>
@@ -200,13 +214,13 @@ GetSTRINGdb(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "noden
 ```
 
 <center>
-![](vig_figs/string-edges.png)  
-**Figure 5** First 18 rows of stringdb.edges produced by GetSTRINGdb. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The GetSTRINGdb function limits the interaction types to database, database_transferred (database information from other species' that are homologous to humans), experimental, and experimental_transferred (database information from other species' that are homologous to humans). The final column is the score associated with this interaction.  
+![](vig_figs/string_edges.png)  
+**Figure 9** First 18 rows of stringdb.edges produced by GetSTRINGdb. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The GetSTRINGdb function limits the interaction types to database, database_transferred (database information from other species' that are homologous to humans), experimental, and experimental_transferred (database information from other species' that are homologous to humans). The final column is the score associated with this interaction.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/nodenames.png)  
-**Figure 6** First 18 rows of nodenames produced by GetSTRINGdb. Nodenames is a data frame consisting of every gene in gene.cccn. This represents all of the genes of the study (that cocluster).  
+**Figure 10** First 18 rows of nodenames produced by GetSTRINGdb. Nodenames is a data frame consisting of every gene in gene.cccn. This represents all of the genes of the study (that cocluster).  
 
 </center>
 <p>&nbsp;</p>
@@ -239,7 +253,7 @@ MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
 <center>
 ![](vig_figs/db_nodes-txt.png)  
 
-**Figure 7** First 15 lines from the produced text file named by file.path.name. Lists all of the gene names separated by newlines with no other extra characters for clean copy and pasting into a database input.  
+**Figure 11** First 15 lines from the produced text file named by file.path.name. Lists all of the gene names separated by newlines with no other extra characters for clean copy and pasting into a database input.  
 
 </center>
 <p>&nbsp;</p>
@@ -267,9 +281,21 @@ ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network
 ```
 
 <center>
+![](vig_figs/gm_nodetable.png)  
+
+**Figure 12** The node table produced by the GeneMANIA query.  
+
+<p>&nbsp;</p>
+
+![](vig_figs/gm_edgetable.png)  
+
+**Figure 13** The edge table produced by the GeneMANIA query.  
+
+<p>&nbsp;</p>
+
 ![](vig_figs/gm_network.png)  
 
-**Figure 8** First 44 rows of the GeneMANIA network. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The ProcessGmEdgefile function limits the interaction types to Pathway and Physical Interactions. The final column is the score associated with this interaction.  
+**Figure 14** First 44 rows of the GeneMANIA network. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The ProcessGmEdgefile function limits the interaction types to Pathway and Physical Interactions. The final column is the score associated with this interaction.  
 
 </center>
 <p>&nbsp;</p>
@@ -301,7 +327,7 @@ BuildPPINetwork(stringdb.edges = NA, gm.network = NA, db.filepaths = c(), ppi.ne
 
 <center>
 ![](vig_figs/ppi_network.png)  
-**Figure 9** First 19 rows of the ppi_network produced by find_ppi_edges. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. All subsequent columns (two, in the base case of just using STRINGdb and GeneMANIA), show the weights of the interaction from the associated database. These have been normalized to all be on a scale of 0-1.  
+**Figure 15** First 19 rows of the ppi_network produced by find_ppi_edges. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. All subsequent columns (two, in the base case of just using STRINGdb and GeneMANIA), show the weights of the interaction from the associated database. These have been normalized to all be on a scale of 0-1.  
 
 </center>
 <p>&nbsp;</p>
@@ -338,7 +364,7 @@ ClusterFilteredNetwork(gene.cccn, ppi.network, cfn.name = "cfn")
 
 <center>
 ![](vig_figs/cfn.png)  
-**Figure 10** First 19 rows of the cfn produced by ClusterFilteredNetwork. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. All subsequent columns (two, in the base case of just using STRINGdb and GeneMANIA), show the weights of the interaction from the associated database. These have been normalized to all be on a scale of 0-1. Entries (as evident by the skipping row numbers) are limited to those that have gene pairings in gene.cccn with nonzero weights.  
+**Figure 16** First 19 rows of the cfn produced by ClusterFilteredNetwork. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. The final column is the sum of the weights from each inputted database.  
 
 </center>
 <p>&nbsp;</p>
