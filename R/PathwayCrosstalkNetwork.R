@@ -39,6 +39,7 @@ PathwayCrosstalkNetwork <- function(common.clusters, file = "bioplanet.csv", edg
 
 
   ### Turn bioplanet into a list of pathways. Pathways are character vectors comprised of gene names ###
+  PATHWAY_NAME <- NULL #Gets rid of no binding note
   pathways.list <- plyr::dlply(bioplanet, plyr::.(PATHWAY_NAME)) #Turn the bioplanet .csv into a list of data frames. Each data frame stores genes with the same PATHWAY_ID
   pathways.list <- lapply(pathways.list, `[`, 4) #Modifies all data frames in the list to only have the GENE_SYMBOL column. Uses [] as a function, which I did not know you could do in R. Very cool.
   pathways.list <- lapply(pathways.list, unlist, use.names = FALSE) #Since data frames are 1 row, turn data frames into character vectors
