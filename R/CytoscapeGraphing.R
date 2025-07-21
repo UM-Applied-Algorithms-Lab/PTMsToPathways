@@ -149,7 +149,6 @@ SetStandards <- function(visual.style.name,
 #' @title Graph Cluster Filtered Network
 #'
 #' @description Creates a cytoscape graph of the cluster filtered network. Ensure that you have the Cytoscape app open and the RCy3 package downloaded.
-#' If RCy3 is installed and the Cytoscape App is open yet an error still occurs, run RCy3::cytoscapePing() to ensure connection to the Cytoscape Interface and try again.
 #' The package RCy3 is required for this function. To download, run:
 #' - if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 #' - BiocManager::install("RCy3")
@@ -328,7 +327,12 @@ GraphCfn <- function(cfn, ptmtable, funckey = PTMsToPathways::ex.funckey, Networ
     stop("In order to use this function, please download RCy3 as described in the vignette, the readme, and the function documentation.")
   }
 
-  RCy3::cytoscapePing()                                                                                                 # ensure connection?
+  tryCatch({
+    RCy3::cytoscapePing()                                                                                               # ensure connection?
+  }, error = function(e){
+    stop("Could not connect to Cytoscape. Please ensure the Cytoscape app is open and running. Wait until fully loaded, then run RCy3::cytoscapePing() to verify connection.")
+  }
+  )
 
   # ACTUAL CODE AND DATA PROCESSING
 
