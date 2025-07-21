@@ -8,7 +8,7 @@ test_that("Column names are correct", {
 })
 
 test_that("Nodenames are unique", {
-  expect_equal(length(test.nodenames.123.123$Gene.Names), length(unique((test.nodenames.123.123))))
+  expect_equal(length(test.nodenames.123.123$Gene.Names), length(unique(test.nodenames.123.123$Gene.Names)))
 })
 
 rm(test.stringdb.edges.123.123)
