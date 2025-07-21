@@ -17,5 +17,3 @@ test_that("Correct range of values", {
 test_that("No input error", {
   expect_error(BuildPPINetwork(ppi.network.name = "test.ppi.network.321.321"), "No data input.")
 })
-
-rm(test.ppi.network.123.123)
