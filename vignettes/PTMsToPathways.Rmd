@@ -643,6 +643,31 @@ Arrow Types:
 UNKNOWN  
 
 
+# Step 8: Post-Processing Data
+This is a completely optional step for users that want to visualize their data in different ways or interact with it in a desktop environment. 
+
+#### As igraph
+Most data structure outputs in this package are data frames or matrices with columns of nodes and column(s) of weights. You will need to view the data and manually set which 2 columns are the nodes and which column is the edges. This creates an igraph named graph. 
+```{r eval = FALSE}
+df <- yourdatastructure
+nodecolumns <- c(1, 2)
+edgecolumn <- 3
+
+graph <- igraph::graph_from_data_frame( df[,nodecolumns], directed = FALSE )
+igraph::E(graph)$weight <- df[,3]
+```
+
+#### Saving Data
+If you want to save your data to a file, all data structures can either be exported with the save function and loaded later. You can also save it to an csv format with the write.csv function.
+```{r eval = FALSE}
+save(object, filename="name.rda") #Saves object as a .rda
+load("name.rda") #Loads object saved to a file
+
+utils::write.csv(object, file="name.csv") #Saves object as a .csv
+utils::read.csv(file="name.csv") #Loads object from .csv
+```
+
+
 
 
 
