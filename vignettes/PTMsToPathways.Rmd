@@ -63,6 +63,7 @@ If there is/are column(s) that contain parts of PTM names, the following command
 ```{r eval = FALSE}
 name.columns <- 1:3 
 rownames(ptmtable) <- sort(unlist(apply(ptmtable[name.columns], 1, paste, collapse=" ")))
+ptmtable <- ptmtable[,-name.col]
 ```
 
 #### Replacing Patterns

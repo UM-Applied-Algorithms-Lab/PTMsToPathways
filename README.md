@@ -68,7 +68,3 @@ To check for issues before committing changes, run:
 ```
 check()
 ```
-then
-```
-devtools::test()
-```
