@@ -1211,6 +1211,41 @@ or<br>
 </div>
 </div>
 </div>
+<div class="section level2">
+<h2 id="step-8-post-processing-data">Step 8: Post-Processing Data<a class="anchor" aria-label="anchor" href="#step-8-post-processing-data"></a>
+</h2>
+<p>This is a completely optional step for users that want to visualize
+their data in different ways or interact with it in a desktop
+environment.</p>
+<div class="section level5">
+<h5 id="as-igraph">As igraph<a class="anchor" aria-label="anchor" href="#as-igraph"></a>
+</h5>
+<p>Most data structure outputs in this package are data frames or
+matrices with columns of nodes and column(s) of weights. You will need
+to view the data and manually set which 2 columns are the nodes and
+which column is the edges. This creates an igraph named graph.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">yourdatastructure</span></span>
+<span><span class="va">nodecolumns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="va">edgecolumn</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
+<span></span>
+<span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/graph_from_data_frame.html" class="external-link">graph_from_data_frame</a></span><span class="op">(</span> <span class="va">df</span><span class="op">[</span>,<span class="va">nodecolumns</span><span class="op">]</span>, directed <span class="op">=</span> <span class="cn">FALSE</span> <span class="op">)</span></span>
+<span><span class="fu">igraph</span><span class="fu">::</span><span class="fu"><a href="https://r.igraph.org/reference/E.html" class="external-link">E</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span><span class="op">$</span><span class="va">weight</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">[</span>,<span class="fl">3</span><span class="op">]</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
+</h5>
+<p>If you want to save your data to a file, all data structures can
+either be exported with the save function and loaded later. You can also
+save it to an csv format with the write.csv function.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename<span class="op">=</span><span class="st">"name.rda"</span><span class="op">)</span> <span class="co">#Saves object as a .rda</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"name.rda"</span><span class="op">)</span> <span class="co">#Loads object saved to a file</span></span>
+<span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file<span class="op">=</span><span class="st">"name.csv"</span><span class="op">)</span> <span class="co">#Saves object as a .csv</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"name.csv"</span><span class="op">)</span> <span class="co">#Loads object from .csv</span></span></code></pre></div>
+</div>
+</div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
 </div>
