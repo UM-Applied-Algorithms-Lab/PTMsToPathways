@@ -1,16 +1,3 @@
-# PTPedgelist to igraph
-#
-# Helper function that converts a PTPedgelist into an igraph
-#
-# @param df Edgelist, a dataframe with first 2 columns as pathways x pathways, 3rd column as jaccard weights, 4th column as PTP weights. Meant to be used for the PTPedgelist created in Pathway Crosstalk Network
-# @return An igraph object
-PTPedgelist.to.igraph <- function(df){
-  graph <- igraph::graph_from_data_frame(df[,1:2], directed = FALSE) #Create unweighted igraph
-  igraph::E(graph)$weight <- df[,3] #Adds the jaccard value to the weights
-  #igraph::E(graph)$weight <- ex.PTPedgelist[,4] #Adds the PTP value to weights (will overwrite jaccard)
-  return(graph)
-}
-
 #' Pathway Crosstalk Network
 #'
 #' Converts Bioplanet pathways from (<https://tripod.nih.gov/bioplanet/>)  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.
