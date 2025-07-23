@@ -380,7 +380,7 @@
 
 #' Jaccard Example
 #'
-#' A matrix measuring the Jaccard similarity between pairs ofpathways
+#' A matrix measuring the Jaccard similarity between pairs of pathways
 #'
 #' @keywords internal
 #'
