@@ -19,7 +19,7 @@ Matrix with 36 rows and 3 columns:
 ex.Jaccard.Full
 }
 \description{
-A matrix measuring the Jaccard similarity between pairs ofpathways
+A matrix measuring the Jaccard similarity between pairs of pathways
 }
 \examples{
 head(ex.Jaccard.Full)

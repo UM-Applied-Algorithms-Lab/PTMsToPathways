@@ -17,7 +17,7 @@ MakeClusterList(
 \arguments{
 \item{ptmtable}{A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.}
 
-\item{correlation.matrix.name}{Desired name for the correlation matrix to be saved as; defaults to ptm.correlation.matrix}
+\item{correlation.matrix.name}{Desired name for the correlation matrix to be saved as; defaults to "ptm.correlation.matrix"}
 
 \item{clusters.list.name}{Desired name for the lists of clusters to be saved as; defaults to clusters.list}
 
