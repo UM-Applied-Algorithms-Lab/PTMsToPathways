@@ -6,7 +6,7 @@
 \usage{
 PathwayCrosstalkNetwork(
   common.clusters,
-  bioplanet.file = "bioplanet.csv",
+  file = "bioplanet.csv",
   edgelist.name = "PTPedgelist",
   createfile = getwd()
 )
@@ -14,18 +14,17 @@ PathwayCrosstalkNetwork(
 \arguments{
 \item{common.clusters}{The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork}
 
-\item{bioplanet.file}{Either the name of the bioplanet pathway .csv file OR the name of a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"}
+\item{file}{Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"}
 
 \item{edgelist.name}{The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.}
 
 \item{createfile}{The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.}
 }
 \value{
-An edgelist file that is created in the working directory and saved to the global environment. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
-The CPE.matrix which represents how likely it is that a pathway interacts with a given cluster. The Jaccard.Full matrix that measures the Jaccard similarity between pairs of pathways is also returned.
+An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
 }
 \description{
-Converts Bioplanet pathways from (\url{https://tripod.nih.gov/bioplanet/}) into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or the Jaccard Similarity.
+Converts Bioplanet pathways from (\url{https://tripod.nih.gov/bioplanet/})  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.
 }
 \examples{
 PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
