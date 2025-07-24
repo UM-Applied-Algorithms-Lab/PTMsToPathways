@@ -1,3 +1,5 @@
+# PTMsToPathways <a href="https://um-applied-algorithms-lab.github.io/PTMsToPathways/"><img src="man/figures/logo.png" align="right" height="138" alt="PTMsToPathways website" /></a>
+
 This is the supporting package for the projects in the papers listed below.
 
 Please feel free to reach out with errors, critiques, or questions.
