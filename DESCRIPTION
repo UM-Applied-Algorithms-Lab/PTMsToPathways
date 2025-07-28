@@ -6,7 +6,8 @@ Authors@R: c(
     person("Mikhail", "Ukrainetz", email = "first.last@example.com", role = c("aut")),
     person("Grant", "Smith", email = "first.last@example.com", role = c("aut")),
     person("Madison", "Moffett", email = "first.last@example.com", role = c("aut")),
-    person("Nagashree", "Avabhrath", email = "first.last@example.com", role = c("aut"))
+    person("Nagashree", "Avabhrath", email = "first.last@example.com", role = c("aut")),
+    person("Lucia", "Williams", email = "first.last@example.com", role = c("aut"))
            )
 Description: A collection of functions in order to process mass spectrometry data of post-translational modifications into possible pathways.
 License: GPL (>= 3)
