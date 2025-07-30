@@ -87,27 +87,32 @@ MakeClusterList(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", cl
 
 <center>
 ![](vig_figs/EU_MCL.png)  
+<p>&nbsp;</p>
 **Figure 1** Example plot produced by MakeClusterList calculated using Euclidean Distance. The Euclidean Distance between every PTM is calculated and that information is put into a large matrix. This matrix is then condensed using t-SNE to get coordinates in two-dimensional space, which is what the above figure shows. These data points -- and the PTMs they represent -- are put into clusters based on these positions. This process is also undergone using Spearman Dissimilarity and the average of Euclidean Distance and Spearman Dissimilarity.  
   
 <p>&nbsp;</p>
 
 ![](vig_figs/MCL-output.png)  
+<p>&nbsp;</p>
 **Figure 2** Output of MakeClusterList. Automatic print statements from the function ordiplot from the package vegan.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/EU_clusters.png)
 
+<p>&nbsp;</p>
 **Figure 3** The second cluster created by Euclidean Distance. The left column is the name of the PTM in this cluster. The right column is the cluster number.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/common_clusters.png)
+<p>&nbsp;</p>
 **Figure 4**  The second common cluster. All six of these post-translational modifications were clustered together whether distance was calculated by Spearman, Euclidean, or the average.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/tsne_coords.png)
+<p>&nbsp;</p>
 **Figure 5** Coordinates of the t-SNE plot produced by Spearman Dissimilarity. Each row is a ptm, and each column is its positional location along the x, y, and z axes.  
 
 </center>
@@ -157,20 +162,14 @@ MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = 
 
 <center>
 ![](vig_figs/ptm_cccn.png)
+<p>&nbsp;</p>
 **Figure 6** First 17 rows and columns of the ptm.cccn produced by MakeCorrelationNetwork. PTMs that cluster together in all three distance metrics have entries that represent how strongly they correlate, or how alike their responses are under the same environment. PTMs that don't cluster in all three distance metrics are correlated by an NA. Self-correlations are also marked by an NA to prevent self-similarity skewing.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/gene_cccn.png)
+<p>&nbsp;</p>
 **Figure 7** First 17 rows and columns of the genes.cccn produced by MakeCorrelationNetwork. The ptm.cccn was condensed by combining all of the scores between PTMs corresponding to one gene. These new summed scores make up the scores of the genes.ccn. Self-correlations are marked by an NA to prevent self-similarity skewing.  
-
-<p>&nbsp;</p>
-
-![](vig_figs/MakeCorrelationNetwork-1.png)
-**Figure 8** Plot produced by MakeCorrelationNetwork. I have no idea what I'm looking at.  
-
-</center>
-<p>&nbsp;</p>
 
 #### Description  
 
@@ -216,12 +215,14 @@ GetSTRINGdb(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "noden
 
 <center>
 ![](vig_figs/string_edges.png)  
-**Figure 9** First 18 rows of stringdb.edges produced by GetSTRINGdb. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The GetSTRINGdb function limits the interaction types to database, database_transferred (database information from other species' that are homologous to humans), experimental, and experimental_transferred (database information from other species' that are homologous to humans). The final column is the score associated with this interaction.  
+<p>&nbsp;</p>
+**Figure 8** First 18 rows of stringdb.edges produced by GetSTRINGdb. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The GetSTRINGdb function limits the interaction types to database, database_transferred (database information from other species' that are homologous to humans), experimental, and experimental_transferred (database information from other species' that are homologous to humans). The final column is the score associated with this interaction.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/nodenames.png)  
-**Figure 10** First 18 rows of nodenames produced by GetSTRINGdb. Nodenames is a data frame consisting of every gene in gene.cccn. This represents all of the genes of the study (that cocluster).  
+<p>&nbsp;</p>
+**Figure 9** First 18 rows of nodenames produced by GetSTRINGdb. Nodenames is a data frame consisting of every gene in gene.cccn. This represents all of the genes of the study (that cocluster).  
 
 </center>
 <p>&nbsp;</p>
@@ -254,7 +255,8 @@ MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
 <center>
 ![](vig_figs/db_nodes-txt.png)  
 
-**Figure 11** First 15 lines from the produced text file named by file.path.name. Lists all of the gene names separated by newlines with no other extra characters for clean copy and pasting into a database input.  
+<p>&nbsp;</p>
+**Figure 10** First 15 lines from the produced text file named by file.path.name. Lists all of the gene names separated by newlines with no other extra characters for clean copy and pasting into a database input.  
 
 </center>
 <p>&nbsp;</p>
@@ -284,19 +286,22 @@ ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network
 <center>
 ![](vig_figs/gm_nodetable.png)  
 
-**Figure 12** The node table produced by the GeneMANIA query.  
+<p>&nbsp;</p>
+**Figure 11** The node table produced by the GeneMANIA query.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/gm_edgetable.png)  
 
-**Figure 13** The edge table produced by the GeneMANIA query.  
+<p>&nbsp;</p>
+**Figure 12** The edge table produced by the GeneMANIA query.  
 
 <p>&nbsp;</p>
 
 ![](vig_figs/gm_network.png)  
 
-**Figure 14** First 44 rows of the GeneMANIA network. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The ProcessGmEdgefile function limits the interaction types to Pathway and Physical Interactions. The final column is the score associated with this interaction.  
+<p>&nbsp;</p>
+**Figure 13** First 44 rows of the GeneMANIA network. The first two columns represent the genes that are known to interact. The second column is the type of interaction. The ProcessGmEdgefile function limits the interaction types to Pathway and Physical Interactions. The final column is the score associated with this interaction.  
 
 </center>
 <p>&nbsp;</p>
@@ -328,7 +333,8 @@ BuildPPINetwork(stringdb.edges = NA, gm.network = NA, db.filepaths = c(), ppi.ne
 
 <center>
 ![](vig_figs/ppi_network.png)  
-**Figure 15** First 19 rows of the ppi_network produced by find_ppi_edges. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. All subsequent columns (two, in the base case of just using STRINGdb and GeneMANIA), show the weights of the interaction from the associated database. These have been normalized to all be on a scale of 0-1.  
+<p>&nbsp;</p>
+**Figure 14** First 19 rows of the ppi_network produced by find_ppi_edges. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. All subsequent columns (two, in the base case of just using STRINGdb and GeneMANIA), show the weights of the interaction from the associated database. These have been normalized to all be on a scale of 0-1.  
 
 </center>
 <p>&nbsp;</p>
@@ -365,7 +371,8 @@ ClusterFilteredNetwork(gene.cccn, ppi.network, cfn.name = "cfn")
 
 <center>
 ![](vig_figs/cfn.png)  
-**Figure 16** First 19 rows of the cfn produced by ClusterFilteredNetwork. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. The final column is the sum of the weights from each inputted database.  
+<p>&nbsp;</p>
+**Figure 15** First 19 rows of the cfn produced by ClusterFilteredNetwork. The first two columns represent the two genes that interact according to the consulted PPI databases. The third column is all of the interaction types concatenated together from each database. The final column is the sum of the weights from each inputted database.  
 
 </center>
 <p>&nbsp;</p>
@@ -401,7 +408,8 @@ PathwayCrosstalkNetwork(common.clusters, file = "bioplanet.csv", edgelist.name =
 
 ![](vig_figs/PTP_edgelist.png) 
 
-**Figure 12** Graph in Cytoscape - Didn't add cuz not good yet Will exist at some point  
+<p>&nbsp;</p>
+**Figure 16** The Pathway To Pathway Edgelist created by Pathway Crosstalk Network. This table shows the relationships between each pair of pathways represented in Bioplanet and the dataset as well as two different scores for the strength of the interaction.    
 
 </center>
 <p>&nbsp;</p>
@@ -444,7 +452,8 @@ GraphCfn(cfn, ptmtable, funckey = PTMsToPathways::ex.funckey, Network.title = "c
 
 <center>
 ![](vig_figs/cytoscape_graph.png)  
-**Figure 13** Default cytoscape graph. Nodes represent the genes of the study. The score of each node is taken as the minimum value of the gene in the ptmtable. Edges are the lines between the nodes and they represent relationships. See the key below for a full description of each characteristic.  
+<p>&nbsp;</p>
+**Figure 17** Default cytoscape graph. Nodes represent the genes of the study. The score of each node is taken as the minimum value of the gene in the ptmtable. Edges are the lines between the nodes and they represent relationships. See the key below for a full description of each characteristic.  
 
 </center>
 <p>&nbsp;</p>
