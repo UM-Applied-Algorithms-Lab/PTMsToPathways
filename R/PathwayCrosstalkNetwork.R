@@ -3,26 +3,26 @@
 #' Converts Bioplanet pathways from (<https://tripod.nih.gov/bioplanet/>)  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.
 #'
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
-#' @param file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
+#' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
 #' @param edgelist.name The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.
-#' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created. 
+#' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
 #' @export
 #'
 #' @examples
 #' PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
-PathwayCrosstalkNetwork <- function(common.clusters, file = "bioplanet.csv", edgelist.name = "PTPedgelist", createfile = getwd()){
-  
+PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", edgelist.name = "PTPedgelist", createfile = getwd()){
+
   if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
-  
+
   #### Read file in, converts to dataframe like with rows like: PATHWAY_ID | PATHWAY_NAME | GENE_ID | GENE_SYMBOL ###
-  if(is.character(file)){ #If Path to a .csv file (string input)
-    if(!file.exists(file)) stop(paste(file, "not found. Plese check your working directory."))
-    bioplanet <- utils::read.csv(file, stringsAsFactors = F) #Reads the file and turns it into a dataframe
+  if(is.character(bioplanet.file)){ #If Path to a .csv file (string input)
+    if(!file.exists(bioplanet.file)) stop(paste(bioplanet.file, "not found. Plese check your working directory."))
+    bioplanet <- utils::read.csv(bioplanet.file, stringsAsFactors = F) #Reads the file and turns it into a dataframe
 
-  }else if(is.data.frame(file)){ bioplanet <- file #If data frame input
+  }else if(is.data.frame(bioplanet.file)){ bioplanet <- bioplanet.file #If data frame input
 
-  }else {stop(paste(class(file), "is not a supported file type. Please make sure you input a path to a .csv file or a data frame"))} #If unsupported
+  }else {stop(paste(class(bioplanet.file), "is not a supported file type. Please make sure you input a path to a .csv file or a data frame"))} #If unsupported
 
 
   ### Turn bioplanet into a list of pathways. Pathways are character vectors comprised of gene names ###
@@ -101,7 +101,7 @@ PathwayCrosstalkNetwork <- function(common.clusters, file = "bioplanet.csv", edg
     setwd(createfile)
     filename <- paste(edgelist.name, ".csv", sep="") #Name of the file created with .csv appended
     utils::write.csv(PTPedgelist, file = filename, row.names = FALSE) #Save to files for cytoscape... Correct formatting?
-    
+
     cat(filename, "made in directory:", getwd()) #Tell the user where their files got put
     setwd(saved.dir)
   }

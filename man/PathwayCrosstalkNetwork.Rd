@@ -6,7 +6,7 @@
 \usage{
 PathwayCrosstalkNetwork(
   common.clusters,
-  file = "bioplanet.csv",
+  bioplanet.file = "bioplanet.csv",
   edgelist.name = "PTPedgelist",
   createfile = getwd()
 )
@@ -14,7 +14,7 @@ PathwayCrosstalkNetwork(
 \arguments{
 \item{common.clusters}{The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork}
 
-\item{file}{Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"}
+\item{bioplanet.file}{Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"}
 
 \item{edgelist.name}{The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.}
 
