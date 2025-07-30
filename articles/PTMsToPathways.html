@@ -179,7 +179,10 @@ as the user ensures that any special character (such as $ or @) have a
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/EU_MCL.png"><br><strong>Figure 1</strong> Example plot produced by MakeClusterList
+<img src="vig_figs/EU_MCL.png"><br><p>
+ 
+</p>
+<p><strong>Figure 1</strong> Example plot produced by MakeClusterList
 calculated using Euclidean Distance. The Euclidean Distance between
 every PTM is calculated and that information is put into a large matrix.
 This matrix is then condensed using t-SNE to get coordinates in
@@ -191,29 +194,39 @@ Dissimilarity.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/MCL-output.png"><br><strong>Figure 2</strong> Output of MakeClusterList. Automatic print
+<img src="vig_figs/MCL-output.png"><br><p>
+ 
+</p>
+<p><strong>Figure 2</strong> Output of MakeClusterList. Automatic print
 statements from the function ordiplot from the package vegan.</p>
 <p>
  
 </p>
 <p><img src="vig_figs/EU_clusters.png"></p>
+<p>
+ 
+</p>
 <p><strong>Figure 3</strong> The second cluster created by Euclidean
 Distance. The left column is the name of the PTM in this cluster. The
 right column is the cluster number.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/common_clusters.png"><strong>Figure 4</strong>
-The second common cluster. All six of these post-translational
-modifications were clustered together whether distance was calculated by
-Spearman, Euclidean, or the average.</p>
+<img src="vig_figs/common_clusters.png"><p>
+ 
+</p>
+<p><strong>Figure 4</strong> The second common cluster. All six of these
+post-translational modifications were clustered together whether
+distance was calculated by Spearman, Euclidean, or the average.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/tsne_coords.png"><strong>Figure 5</strong>
-Coordinates of the t-SNE plot produced by Spearman Dissimilarity. Each
-row is a ptm, and each column is its positional location along the x, y,
-and z axes.</p>
+<img src="vig_figs/tsne_coords.png"><p>
+ 
+</p>
+<p><strong>Figure 5</strong> Coordinates of the t-SNE plot produced by
+Spearman Dissimilarity. Each row is a ptm, and each column is its
+positional location along the x, y, and z axes.</p>
 </center>
 <p>
  
@@ -338,32 +351,29 @@ Spearman, and SED distances, found with Rtsne.</li>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">ptm.correlation.matrix</span>, ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>, gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/ptm_cccn.png"><strong>Figure 6</strong> First
-17 rows and columns of the ptm.cccn produced by MakeCorrelationNetwork.
-PTMs that cluster together in all three distance metrics have entries
-that represent how strongly they correlate, or how alike their responses
-are under the same environment. PTMs that don’t cluster in all three
-distance metrics are correlated by an NA. Self-correlations are also
-marked by an NA to prevent self-similarity skewing.</p>
+<img src="vig_figs/ptm_cccn.png"><p>
+ 
+</p>
+<p><strong>Figure 6</strong> First 17 rows and columns of the ptm.cccn
+produced by MakeCorrelationNetwork. PTMs that cluster together in all
+three distance metrics have entries that represent how strongly they
+correlate, or how alike their responses are under the same environment.
+PTMs that don’t cluster in all three distance metrics are correlated by
+an NA. Self-correlations are also marked by an NA to prevent
+self-similarity skewing.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/gene_cccn.png"><strong>Figure 7</strong> First
-17 rows and columns of the genes.cccn produced by
-MakeCorrelationNetwork. The ptm.cccn was condensed by combining all of
-the scores between PTMs corresponding to one gene. These new summed
-scores make up the scores of the genes.ccn. Self-correlations are marked
-by an NA to prevent self-similarity skewing.</p>
-<p>
+<img src="vig_figs/gene_cccn.png"><p>
  
 </p>
-<p><img src="vig_figs/MakeCorrelationNetwork-1.png"><strong>Figure
-8</strong> Plot produced by MakeCorrelationNetwork. I have no idea what
-I’m looking at.</p>
+<p><strong>Figure 7</strong> First 17 rows and columns of the genes.cccn
+produced by MakeCorrelationNetwork. The ptm.cccn was condensed by
+combining all of the scores between PTMs corresponding to one gene.
+These new summed scores make up the scores of the genes.ccn.
+Self-correlations are marked by an NA to prevent self-similarity
+skewing.</p>
 </center>
-<p>
- 
-</p>
 </div>
 <div class="section level5">
 <h5 id="description-1">Description<a class="anchor" aria-label="anchor" href="#description-1"></a>
@@ -462,7 +472,10 @@ term ‘weight’ in the column name.</p>
 <span></span>
 <span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/string_edges.png"><br><strong>Figure 9</strong> First 18 rows of stringdb.edges produced by
+<img src="vig_figs/string_edges.png"><br><p>
+ 
+</p>
+<p><strong>Figure 8</strong> First 18 rows of stringdb.edges produced by
 GetSTRINGdb. The first two columns represent the genes that are known to
 interact. The second column is the type of interaction. The GetSTRINGdb
 function limits the interaction types to database, database_transferred
@@ -473,7 +486,10 @@ final column is the score associated with this interaction.</p>
 <p>
  
 </p>
-<p><img src="vig_figs/nodenames.png"><br><strong>Figure 10</strong> First 18 rows of nodenames produced by
+<img src="vig_figs/nodenames.png"><br><p>
+ 
+</p>
+<p><strong>Figure 9</strong> First 18 rows of nodenames produced by
 GetSTRINGdb. Nodenames is a data frame consisting of every gene in
 gene.cccn. This represents all of the genes of the study (that
 cocluster).</p>
@@ -541,7 +557,10 @@ genes of study pulled from the STRINGdb database<br>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/db_nodes-txt.png"></p>
-<p><strong>Figure 11</strong> First 15 lines from the produced text file
+<p>
+ 
+</p>
+<p><strong>Figure 10</strong> First 15 lines from the produced text file
 named by file.path.name. Lists all of the gene names separated by
 newlines with no other extra characters for clean copy and pasting into
 a database input.</p>
@@ -599,19 +618,28 @@ file.path.name</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/gm_nodetable.png"></p>
-<p><strong>Figure 12</strong> The node table produced by the GeneMANIA
+<p>
+ 
+</p>
+<p><strong>Figure 11</strong> The node table produced by the GeneMANIA
 query.</p>
 <p>
  
 </p>
 <p><img src="vig_figs/gm_edgetable.png"></p>
-<p><strong>Figure 13</strong> The edge table produced by the GeneMANIA
+<p>
+ 
+</p>
+<p><strong>Figure 12</strong> The edge table produced by the GeneMANIA
 query.</p>
 <p>
  
 </p>
 <p><img src="vig_figs/gm_network.png"></p>
-<p><strong>Figure 14</strong> First 44 rows of the GeneMANIA network.
+<p>
+ 
+</p>
+<p><strong>Figure 13</strong> First 44 rows of the GeneMANIA network.
 The first two columns represent the genes that are known to interact.
 The second column is the type of interaction. The ProcessGmEdgefile
 function limits the interaction types to Pathway and Physical
@@ -677,8 +705,11 @@ genes of study</li>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/BuildPPINetwork.html">BuildPPINetwork</a></span><span class="op">(</span>stringdb.edges <span class="op">=</span> <span class="cn">NA</span>, gm.network <span class="op">=</span> <span class="cn">NA</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"ppi.network"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/ppi_network.png"><br><strong>Figure 15</strong> First 19 rows of the ppi_network produced by
-find_ppi_edges. The first two columns represent the two genes that
+<img src="vig_figs/ppi_network.png"><br><p>
+ 
+</p>
+<p><strong>Figure 14</strong> First 19 rows of the ppi_network produced
+by find_ppi_edges. The first two columns represent the two genes that
 interact according to the consulted PPI databases. The third column is
 all of the interaction types concatenated together from each database.
 All subsequent columns (two, in the base case of just using STRINGdb and
@@ -762,7 +793,10 @@ networks</li>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/cfn.png"><br><strong>Figure 16</strong> First 19 rows of the cfn produced by
+<img src="vig_figs/cfn.png"><br><p>
+ 
+</p>
+<p><strong>Figure 15</strong> First 19 rows of the cfn produced by
 ClusterFilteredNetwork. The first two columns represent the two genes
 that interact according to the consulted PPI databases. The third column
 is all of the interaction types concatenated together from each
@@ -837,8 +871,13 @@ with have non-zero weights</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"PTPedgelist"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
-<p><strong>Figure 12</strong> Graph in Cytoscape - Didn’t add cuz not
-good yet Will exist at some point</p>
+<p>
+ 
+</p>
+<p><strong>Figure 16</strong> The Pathway To Pathway Edgelist created by
+Pathway Crosstalk Network. This table shows the relationships between
+each pair of pathways represented in Bioplanet and the dataset as well
+as two different scores for the strength of the interaction.</p>
 </center>
 <p>
  
@@ -934,11 +973,14 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 <span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
 <span>         edge.opacity <span class="op">=</span> <span class="fl">175</span>, edge.label.opacity <span class="op">=</span> <span class="fl">255</span>, border.opacity <span class="op">=</span> <span class="fl">255</span>, node.label.opacity <span class="op">=</span> <span class="fl">255</span>, node.fill.opacity <span class="op">=</span> <span class="fl">255</span><span class="op">)</span></span></code></pre></div>
 <center>
-<p><img src="vig_figs/cytoscape_graph.png"><br><strong>Figure 13</strong> Default cytoscape graph. Nodes represent the
-genes of the study. The score of each node is taken as the minimum value
-of the gene in the ptmtable. Edges are the lines between the nodes and
-they represent relationships. See the key below for a full description
-of each characteristic.</p>
+<img src="vig_figs/cytoscape_graph.png"><br><p>
+ 
+</p>
+<p><strong>Figure 17</strong> Default cytoscape graph. Nodes represent
+the genes of the study. The score of each node is taken as the minimum
+value of the gene in the ptmtable. Edges are the lines between the nodes
+and they represent relationships. See the key below for a full
+description of each characteristic.</p>
 </center>
 <p>
  
