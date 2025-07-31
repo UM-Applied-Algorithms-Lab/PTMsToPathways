@@ -65,35 +65,29 @@ Lucia Williams</h4>
 
     
     
-<p>This vignette is intended to be a step-by-step guide to walk users
-through the process of using the PTMsToPathways package. It includes an
-example pipeline demonstrating how to run the full analysis along with
-descriptions of each function. This pipeline must be run in order as
-subsequent steps require the data produced in previous steps. Estimated
-run-times are included with each description and are based on a
-preliminary dataset of ~9,000 post-translational modifications and 70
-experimental conditions processed with a 12th Gen i5 processor and 8GB
-of RAM.</p>
-<div class="section level2">
-<h2 id="this-package">This Package<a class="anchor" aria-label="anchor" href="#this-package"></a>
-</h2>
-<p>The PTMsToPathways package takes mass-spectrometry data of
+<p>
+ 
+</p>
+<p>The PTMsToPathways package takes mass spectrometry data of
 post-translational modifications under different experimental conditions
 and implicates pathways that are involved. These pathways are generated
-based on analysis of which ptms cluster together (based on the same
-environmental conditions) compared to how those proteins are known to
-interact.</p>
-<p><strong>An important note about this package:</strong> there are no
+based on analysis of which ptms cluster together (based on the similar
+reactiosn to the same environmental conditions) compared to how those
+proteins are known to interact. This clustering information is also used
+to find interactions between known, existing pathways.</p>
+<p><strong>An important note about this package:</strong> There are no
 returned outputs from any of the functions. All outputs listed are
 assigned to the Global Namespace in order to prevent loss of data and
 promote ease of use.</p>
-</div>
+<p>
+ 
+</p>
 <div class="section level2">
 <h2 id="starting-data">Starting Data<a class="anchor" aria-label="anchor" href="#starting-data"></a>
 </h2>
 <p>This package provides an example data set using 497 ptms and 69
 experimental conditions in the correct format for entry. Below is an
-example of a section of the input dataset:</p>
+example selection of the input dataset:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.ptmtable.html">ex.ptmtable</a></span><span class="op">)</span></span>
 <span><span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.ptmtable.html">ex.ptmtable</a></span><span class="op">[</span><span class="fl">38</span><span class="op">:</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
@@ -116,13 +110,13 @@ example of a section of the input dataset:</p>
 post-translational modifications. All of their respective columns are
 the environmental conditions under which the post-translational
 modifications occurred. NAs – which are importantly not zeroes –
-represent condition-PTM combinations that were not studied while the
-numeric values are data output by the mass spectrometer. Ambigious PTMs,
-cases where a PTM could be any one of several PTMs, should also be
-separated by semicolons. (I.e. “AARS ubi k747; AMBLIL p U123”).</p>
+represent condition-PTM combinations that were not studied. The numeric
+values are data output by the mass spectrometer. Ambigious PTMs, cases
+where a PTM could be any one of several PTMs, should also be separated
+by semicolons. (e.g. “AARS ubi k747; AMBLIL p U123”).</p>
 </div>
 <div class="section level2">
-<h2 id="preprocessing-data">Preprocessing Data<a class="anchor" aria-label="anchor" href="#preprocessing-data"></a>
+<h2 id="pre-processing-data">Pre-Processing Data<a class="anchor" aria-label="anchor" href="#pre-processing-data"></a>
 </h2>
 <p>For data that does not conform to the above structure, the data must
 be converted. The following provides a set of general functions that may
@@ -141,13 +135,15 @@ storage.</p>
 <div class="section level5">
 <h5 id="turning-columns-of-ptms-into-rownames">Turning Columns of PTMs into Rownames<a class="anchor" aria-label="anchor" href="#turning-columns-of-ptms-into-rownames"></a>
 </h5>
-<p>If there is/are column(s) that contain parts of PTM names, the
-following command concatenates those columns and converts them into data
-frame. The vector “name.columns” is the indices of the columns which
-contain names. For the example below, the strings in columns 1, 2, and 3
-will be concatenated in each row and then turned into a rowname. It is
-also possible to have name.columns equal a vector like c(2, 4, 6), which
-takes columns 2, 4, and 6.</p>
+<p>If there is/are column(s) that contain parts of PTM names (e.g. the
+first column may contain the protein, the second column may contain the
+post-translational modification, and the third column may contain the
+location), the following command concatenates those columns and converts
+them into data frame. The vector “name.columns” is the indices of the
+columns which contain names. For the example below, the strings in
+columns 1, 2, and 3 will be concatenated in each row and then turned
+into a rowname. It is also possible to have name.columns equal a vector
+like c(2, 4, 6), which takes columns 2, 4, and 6.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name.columns</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">[</span><span class="va">name.columns</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">" "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -170,9 +166,30 @@ as the user ensures that any special character (such as $ or @) have a
 <div class="section level2">
 <h2 id="pipeline">Pipeline<a class="anchor" aria-label="anchor" href="#pipeline"></a>
 </h2>
+<p>The following pipeline is intended to be a step-by-step guide to walk
+users through the process of using the PTMsToPathways package. It
+includes descriptions of each function. This pipeline must be run in
+order as subsequent steps require the data produced in previous steps.
+Example code and example outputs as well as estimated run-times are
+included with each description and are based on a preliminary dataset of
+~9,000 post-translational modifications and 69 experimental conditions
+processed with a 12th Gen i5 processor and 8GB of RAM.</p>
 <div class="section level3">
 <h3 id="step-1-make-cluster-list">Step 1: Make Cluster List<a class="anchor" aria-label="anchor" href="#step-1-make-cluster-list"></a>
 </h3>
+<p>Make Cluster List is the first step in the analyzing one’s data. This
+function takes the post-translational modification table and runs it
+through three calculations of distance: Euclidean Distance, Spearman
+Dissimilarity (1 - |Spearman Correlation|), and the average of the two
+of these. These calculations find the ‘distance’ between ptms based upon
+under what conditions they occur. In other words, they found how
+dissimilar each pair of PTMs are. These matricies are then run through
+t-SNE in order to put them into a 3-dimensional space and the clusters
+that are present in each present in each matrix are identified as well.
+Please note: t-SNE involves an element of randomness; in order to get
+the same results, set.seed(#) must be called. A correlation table is
+also produced based on the Spearman Correlation values for each pair of
+PTMs.</p>
 <div class="section level5">
 <h5 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h5>
@@ -233,118 +250,22 @@ positional location along the x, y, and z axes.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
-</h5>
-<p>Make Cluster List is the first step in the analyzing one’s data. This
-function takes the post-translational modification table and runs it
-through three calculations of distance: Euclidean Distance, Spearman
-Dissimilarity (1 - |Spearman Correlation|), and the average of the two
-of these. These calculations find the ‘distance’ between ptms based upon
-under what conditions they occur. In other words, they found how
-dissimilar each pair of PTMs are. These matricies are then run through
-t-SNE in order to put them into a 3-dimensional space and the clusters
-that are present in each present in each matrix are identified as well.
-Please note: t-SNE involves an element of randomness; in order to get
-the same results, set.seed(#) must be called. A correlation table is
-also produced based on the Spearman Correlation table.</p>
-</div>
-<div class="section level5">
-<h5 id="input">Input<a class="anchor" aria-label="anchor" href="#input"></a>
-</h5>
-<ul>
-<li>ptmtable
-<ul>
-<li>A data frame of post-translational modifications. The row names must
-be PTM names and the column names must be drugs (experimental
-conditions). Values of the table are numeric values that represent how
-much the PTM has reacted to the drug or NA if that PTM wasn’t studied
-under that condition.<br>
-</li>
-</ul>
-</li>
-<li>correlation.matrix.name
-<ul>
-<li>Desired name for the correlation matrix to be saved as; defaults to
-“ptm.correlation.matrix”<br>
-</li>
-</ul>
-</li>
-<li>clusters.list.name
-<ul>
-<li>Desired name for the lists of clusters to be saved as; defaults to
-“clusters.list”<br>
-</li>
-</ul>
-</li>
-<li>tsne.coords.name
-<ul>
-<li>Desired name for the lists of tsne coordinates to be saved as;
-defaults to “all.tsne.coords”</li>
-</ul>
-</li>
-<li>common.clusters.name
-<ul>
-<li>Desired name for the clusters that all 3 methods found in common;
-defaults to “common.clusters”</li>
-</ul>
-</li>
-<li>keeplength
-<ul>
-<li>MakeClusterList only saves subsets whose size is strictly
-<em>greater</em> than keeplength; defaults to 2</li>
-<li>example: [‘AARS’, ‘ABR’] will be discarded unless keeplength &lt;
-2</li>
-</ul>
-</li>
-<li>toolong
-<ul>
-<li>Threshold for cluster separation; defaults to 3.5</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output">Output<a class="anchor" aria-label="anchor" href="#output"></a>
-</h5>
-<ul>
-<li>ptm.correlation.matrix (or otherwise named by
-correlation.matrix.name)
-<ul>
-<li>A data frame showing the correlation between ptms (as the rows and
-the columns). NAs are placed along the diagonal so as to not skew the
-data with self-similarity.</li>
-</ul>
-</li>
-<li>clusters.list (or otherwise named by list.name)
-<ul>
-<li>A list of three-dimensional data frames used to represent ptms in
-space to show relationships between them based on distances. Based on
-Euclidean Distance, Spearman Dissimilarity, and SED (the average between
-the two).</li>
-</ul>
-</li>
-<li>all.tsne.coords (or otherwise named by tsne.coords.name)
-<ul>
-<li>A list of matrices containing points in 3D space based on Euclidian,
-Spearman, and SED distances, found with Rtsne.</li>
-</ul>
-</li>
-<li>common.clusters (or otherwise named by common.clusters.name)
-<ul>
-<li>A list of clusters that are in all 3 distance metrics.</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time"></a>
 </h5>
-<p>1hr 30mins</p>
+<p>2hrs 30mins</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="step-2-make-correlation-network">Step 2: Make Correlation Network<a class="anchor" aria-label="anchor" href="#step-2-make-correlation-network"></a>
 </h3>
+<p>Next, Make Correlation Network is run to filter the correlation
+matrix of PTMs by specific PTMs that cluster together or have react
+similarly to the same conditions. It groups the PTM correlation matrix
+based on the Genes of PTMs. By summing these submatrices, it produces a
+gene by gene cocluster correlation network shows strength of
+relationships between proteins using the common clusters between the
+three distance metrics. The PTM version is also saved for analysis by
+the user.</p>
 <div class="section level5">
 <h5 id="code-1">Code<a class="anchor" aria-label="anchor" href="#code-1"></a>
 </h5>
@@ -376,78 +297,35 @@ skewing.</p>
 </center>
 </div>
 <div class="section level5">
-<h5 id="description-1">Description<a class="anchor" aria-label="anchor" href="#description-1"></a>
-</h5>
-<p>Make Correlation Network filters the correlation matrix of PTMs by
-specific PTMs that cluster together or have react similarly to the same
-conditions. It groups the PTM correlation matrix based on the Genes of
-PTMs. By summing these submatrices, it produces a gene by gene cocluster
-correlation network shows strength of relationships between proteins
-using the common clusters between the three distance metrics. The PTM
-version is also saved for analysis by the user.</p>
-</div>
-<div class="section level5">
-<h5 id="input-1">Input<a class="anchor" aria-label="anchor" href="#input-1"></a>
-</h5>
-<p>-common.clusters - A character vector of PTMs. It is not required for
-it to be the one made in MakeClusterList - ptm.correlation.matrix<br>
-- A data frame showing the correlation between ptms (as the rows and the
-columns). NAs are placed along the diagonal so as to not skew the data
-with self-similarity<br>
-- ptm.cccn.name - Desired name for the PTM cocluster correlation network
-matrix; defaults to ptm.cccn<br>
-- gene.cccn.name<br>
-- Desired name for the gene cocluster correlation network matrix;
-defaults to gene.cccn</p>
-</div>
-<div class="section level5">
-<h5 id="output-1">Output<a class="anchor" aria-label="anchor" href="#output-1"></a>
-</h5>
-<ul>
-<li>ptm.cccn (or otherwise named by ptm.cccn.name)
-<ul>
-<li>The PTM correlation matrix filtered by specific PTMs that cluster
-together by reacting similarly to the same conditions<br>
-</li>
-</ul>
-</li>
-<li>gene.cccn (or otherwise named by gene.cccn.name)
-<ul>
-<li>A matrix showing strength of correlations between genes using the
-common clusters between the three distance metrics (Euclidean, Spearman,
-and Combined (SED)) and the ptm.cccn</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-1">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-1"></a>
 </h5>
-<p>2hrs 30mins</p>
+<p>12hrs</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="step-3-retrieve-database-edgefiles">Step 3: Retrieve Database Edgefiles<a class="anchor" aria-label="anchor" href="#step-3-retrieve-database-edgefiles"></a>
 </h3>
 <div class="section level4">
-<h4 id="description-2">Description<a class="anchor" aria-label="anchor" href="#description-2"></a>
+<h4 id="description">Description<a class="anchor" aria-label="anchor" href="#description"></a>
 </h4>
-<p>PPI (protein-protein interaction) databases are consulted in order to
-filter the clusters by proteins that are known to interact with each
-other as well as how strongly they are known to interact. The standard
-recommended PPI database is STRINGdb; getting data from this database is
-the first (optional) step. This is accomplished with the function
-GetSTRINGdb. The function GetSTRINGdb requires the STRINGdb package to
-be downloaded. Code for this is supplied with the code to run the
-function itself. Please note, however, that the user may consult any
+<p>The third step of the PTMsToPathways pipeline is broken up into
+several parts as there is a lot of choice for the user during each
+sub-step. PPI (protein-protein interaction) databases are consulted in
+order to filter the clusters by proteins that are known to interact with
+each other as well as how strongly they are known to interact. The
+standard recommended PPI database is STRINGdb; getting data from this
+database is the first (optional) step. This is accomplished with the
+function GetSTRINGdb. The function GetSTRINGdb requires the STRINGdb
+package to be downloaded. Code for this is supplied with the code to run
+the function itself. Please note, however, that the user may consult any
 database that they choose. After getting STRINGdb data (or not), the
 user runs MakeDBInput which produces a text file of all of their gene
 names. This information can be copy and pasted into any database that
-the user chooses in order to get other PPI networks. Step three is
-getting a GeneMANIA network, which is also optional but recommended. The
-user pastes their input data into GeneMANIA on the Cytoscape app and
-saves the edgefile and the nodetable. These files are then input into
-ProcessGMEdgefile in order to sort the data.</p>
+the user chooses in order to get data from other PPI networks. Step
+three is getting a GeneMANIA network, which is also optional but
+recommended. The user pastes their input data into GeneMANIA on the
+Cytoscape app and saves the edgefile and the nodetable. These files are
+then input into ProcessGMEdgefile in order to sort the data.</p>
 <p>Note again that the database input can be used in any PPI database
 that the user chooses, though this package only explicitly supports
 STRINGdb and GeneMANIA. If another database is chosen, its file will
@@ -499,52 +377,9 @@ cocluster).</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="input-2">Input<a class="anchor" aria-label="anchor" href="#input-2"></a>
-</h5>
-<ul>
-<li>gene.cccn
-<ul>
-<li>A matrix showing strength of correlations between genes using the
-common clusters between the three distance metrics (Euclidean, Spearman,
-and Combined (SED)) and the ptm.cccn<br>
-</li>
-</ul>
-</li>
-<li>stringdb.name
-<ul>
-<li>Desired name for STRINGdb data; defaults to stringdb.edges<br>
-</li>
-</ul>
-</li>
-<li>nodenames.name
-<ul>
-<li>Desired name for list of gene names; defaults to nodenames</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-2">Output<a class="anchor" aria-label="anchor" href="#output-2"></a>
-</h5>
-<ul>
-<li>stringdb.edges (or otherwise named by STRINGdb.name)
-<ul>
-<li>Data frame of consisting of the network of interactions from the
-genes of study pulled from the STRINGdb database<br>
-</li>
-</ul>
-</li>
-<li>nodenames (or otherwise named by nodenames.name)
-<ul>
-<li>Data frame of gene names</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-2">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-2"></a>
 </h5>
-<p>30 mins</p>
+<p>1hr</p>
 </div>
 </div>
 <div class="section level4">
@@ -570,42 +405,9 @@ a database input.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="input-3">Input<a class="anchor" aria-label="anchor" href="#input-3"></a>
-</h5>
-<ul>
-<li>gene.cccn
-<ul>
-<li>A matrix showing strength of correlations between genes using the
-common clusters between the three distance metrics (Euclidean, Spearman,
-and Combined (SED)) and the ptm.cccn<br>
-</li>
-</ul>
-</li>
-<li>file.path.name
-<ul>
-<li>Desired path for file to be saved as; defaults to db_nodes.txt</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-3">Output<a class="anchor" aria-label="anchor" href="#output-3"></a>
-</h5>
-<ul>
-<li>db_nodes.txt (or otherwise named by file.path.name)
-<ul>
-<li>A text file with the names of all of the genes<br>
-</li>
-<li>Saved into the user’s working directory unless otherwise stated in
-file.path.name</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-3">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-3"></a>
 </h5>
-<p>1s</p>
+<p>0s</p>
 </div>
 </div>
 <div class="section level4">
@@ -651,45 +453,6 @@ interaction.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="input-4">Input<a class="anchor" aria-label="anchor" href="#input-4"></a>
-</h5>
-<ul>
-<li>gm.edgefile.path
-<ul>
-<li>Path to the GeneMANIA edgefile</li>
-</ul>
-</li>
-<li>gm.nodetable.path
-<ul>
-<li>Path to the GeneMANIA nodetable</li>
-</ul>
-</li>
-<li>db_nodes.path
-<ul>
-<li>Path to the nodenames file created in make_db_input</li>
-</ul>
-</li>
-<li>gm.network.name
-<ul>
-<li>Desired name for the output of the GeneMANIA network, defaults to
-gm.network</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-4">Output<a class="anchor" aria-label="anchor" href="#output-4"></a>
-</h5>
-<ul>
-<li>gm.network (or otherwise named by gm.network.name)
-<ul>
-<li>Data frame of consisting of the network of interactions from the
-genes of study</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-4">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-4"></a>
 </h5>
 <p>10s</p>
@@ -699,6 +462,14 @@ genes of study</li>
 <div class="section level3">
 <h3 id="step-4-build-ppi-network">Step 4: Build PPI Network<a class="anchor" aria-label="anchor" href="#step-4-build-ppi-network"></a>
 </h3>
+<p>The fourth step in the pipeline, BuildPPINetwork, combines the data
+of protein-protein interactions from each of the provided databases.
+This package explicitly processes STRINGdb and GeneMANIA in Step 3, but
+the user may consult as many databases as desired (the processing for
+which is described in Step 3). BuildPPINetwork combines these databases
+as efficiently as possible while retaining desired edgeweights from each
+database. BuildPPINetwork also normalizes the weights on a scale of 0-1
+and removes duplicate rows from the data frame.</p>
 <div class="section level5">
 <h5 id="code-5">Code<a class="anchor" aria-label="anchor" href="#code-5"></a>
 </h5>
@@ -721,64 +492,6 @@ database. These have been normalized to all be on a scale of 0-1.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="description-3">Description<a class="anchor" aria-label="anchor" href="#description-3"></a>
-</h5>
-<p>The purpose of BuildPPINetwork is to combine the data about desired
-protein-protein interactions from each of the provided databases. This
-package explicitly processes STRINGdb and GeneMANIA in Step 3, but the
-user may consult as many databases as desired (the processing for which
-is described in Step 3). BuildPPINetwork combines these databases as
-efficiently as possible while retaining desired edgeweights from each
-database. BuildPPINetwork also normalizes the weights on a scale of 0-1
-and removes duplicate rows from the data frame.</p>
-</div>
-<div class="section level5">
-<h5 id="input-5">Input<a class="anchor" aria-label="anchor" href="#input-5"></a>
-</h5>
-<ul>
-<li>stringdb.edges (produced optionally in step 3)
-<ul>
-<li>Data frame of consisting of the network of interactions from the
-genes of study pulled from the STRINGdb database; defaults to NA<br>
-</li>
-</ul>
-</li>
-<li>gm.network (produced optionally in step 3)
-<ul>
-<li>GeneMANIA network of protein-protein interactions from the genes of
-study; defaults to NA<br>
-</li>
-</ul>
-</li>
-<li>db.filepaths (produced optionally in step 3)
-<ul>
-<li>A vector of paths to the additional ppi network files; defaults to
-an empty vector<br>
-</li>
-</ul>
-</li>
-<li>ppi.network.name
-<ul>
-<li>Desired name for the output protein-protein interaction network
-using all entered database input; defaults to ppi.network</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-5">Output<a class="anchor" aria-label="anchor" href="#output-5"></a>
-</h5>
-<ul>
-<li>ppi.network (or otherwise named by ppi.network.name)
-<ul>
-<li>A dataframe representing how strongly proteins are known to interact
-based on previous research contained within provided database
-networks</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-5">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-5"></a>
 </h5>
 <p>1hr (only using STRINGdb and GeneMANIA)</p>
@@ -787,6 +500,13 @@ networks</li>
 <div class="section level3">
 <h3 id="step-5-cluster-filtered-network">Step 5: Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-5-cluster-filtered-network"></a>
 </h3>
+<p>Cluster Filtered Network, which is step five in the pipeline and one
+of the final outputs of the package, checks all of the edges in the PPI
+network to ensure that both of the genes are within the cocluster
+correlation network created in step two and that its weight is nonzero.
+If either of these conditions are not met, then it will be removed from
+the list of PPI edges. This new, cluster filtered network is then
+returned.</p>
 <div class="section level5">
 <h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
@@ -808,54 +528,6 @@ database.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="description-4">Description<a class="anchor" aria-label="anchor" href="#description-4"></a>
-</h5>
-<p>Cluster Filtered Network checks all of the edges in the PPI network
-to see ensure that both of the genes are within the cocluster
-correlation network and that its weight is nonzero. If either of these
-conditions are not met, then it will be removed from the list of PPI
-edges. This new, cluster filtered network is then returned.</p>
-</div>
-<div class="section level5">
-<h5 id="input-6">Input<a class="anchor" aria-label="anchor" href="#input-6"></a>
-</h5>
-<ul>
-<li>gene.cccn
-<ul>
-<li>A matrix showing strength of correlations between genes using the
-common clusters between the three distance metrics (Euclidean, Spearman,
-and Combined (SED)) and the ptm.cccn<br>
-</li>
-</ul>
-</li>
-<li>ppi.network
-<ul>
-<li>A dataframe representing how strongly proteins are known to
-interact<br>
-</li>
-</ul>
-</li>
-<li>cfn.name
-<ul>
-<li>Desired name for the output of ClusterFilteredNetwork; defaults to
-cfn</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-6">Output<a class="anchor" aria-label="anchor" href="#output-6"></a>
-</h5>
-<ul>
-<li>cfn (or otherwise named by cfn.name)
-<ul>
-<li>A version of ppi.network with only the edges that exist in gene.cccn
-with have non-zero weights</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-6">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-6"></a>
 </h5>
 <p>10mins</p>
@@ -864,6 +536,21 @@ with have non-zero weights</li>
 <div class="section level3">
 <h3 id="step-6-pathway-crosstalk-network">Step 6: Pathway Crosstalk Network<a class="anchor" aria-label="anchor" href="#step-6-pathway-crosstalk-network"></a>
 </h3>
+<p><strong>Note:</strong> This step is directory sensitive. The user can
+check and set the working directory in R using getwd() and
+setwd(“yourdirectoryhere”) respectively. It needs a path to the
+bioplanet file and will put an edgelist file in the working directory or
+the otherwise given path. If the file cannot be found, please check the
+working directory first.</p>
+<p>Step 6, our final analysis step, is the Pathway Crosstalk Network.
+This step requires input of an external database, bioplanet, that
+contains groups of genes (proteins) involved in various cellular
+processes known as pathways. PCN turns this database into a list of
+pathways and converts those pathways into a pathway x pathway edgelist
+that possesses multiple weights, a jaccard similarity, and a score. The
+score is derived from Cluster-Pathway Evidence using the common clusters
+found in Make Correlation Network. Info about the Cluster-Pathway
+Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a></p>
 <div class="section level5">
 <h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
@@ -884,78 +571,6 @@ as two different scores for the strength of the interaction.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="description-5">Description<a class="anchor" aria-label="anchor" href="#description-5"></a>
-</h5>
-<p><strong>Note:</strong> This step is directory sensitive. The user can
-check and set the working directory in R using getwd() and
-setwd(“yourdirectoryhere”) respectively. It needs a path to the
-bioplanet file and will put an edgelist file in the working directory or
-the otherwise given path. If the file cannot be found, please check the
-working directory first.</p>
-<p>Pathway Crosstalk Network requires input of an external database,
-bioplanet, that contains of groups of genes (proteins) involved in
-various cellular processes known as pathways. PCN turns this database
-into a list of pathways and converts those pathways into a pathway x
-pathway edgelist that possesses multiple weights, a jaccard similarity,
-and a score. The score is derived from Cluster-Pathway Evidence using
-the common clusters found in Make Correlation Network.</p>
-</div>
-<div class="section level5">
-<h5 id="input-7">Input<a class="anchor" aria-label="anchor" href="#input-7"></a>
-</h5>
-<ul>
-<li>common.clusters
-<ul>
-<li>The list of common clusters between all three distance metrics
-(Euclidean, Spearman, and SED) made by MakeCorrelationNetwork<br>
-</li>
-</ul>
-</li>
-<li>file
-<ul>
-<li>File path for the pathway data from Bioplanet (can also take in a
-data frame that is formatted correctly like the one found by running
-View(ex.bioplanet) or ?ex.bioplanet, but this is not recommended as
-formatting must match sample data exactly)<br>
-</li>
-</ul>
-</li>
-<li>edgelist.name
-<ul>
-<li>The desired name of the Pathway to Pathway edgelist file created
-(‘.csv’ will automatically be added to the end); defaults to
-edgelist<br>
-</li>
-<li>Intended for use in Cytoscape<br>
-</li>
-</ul>
-</li>
-<li>createfile
-<ul>
-<li>The path for the .csv file to be created. Defaults to the working
-directory.</li>
-<li>Putting a non-character value (Boolean FALSE) will result in nothing
-being written to a file.</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-7">Output<a class="anchor" aria-label="anchor" href="#output-7"></a>
-</h5>
-<ul>
-<li>edgelist.csv (or otherwise named by edgelist.name)
-<ul>
-<li>An edgelist file that is created in the working directory. Contains
-pathway source-target columns, with edge weights of their jaccard
-similarity and their Cluster-Pathway Evidence score. Info about the
-Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a>
-</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-7">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-7"></a>
 </h5>
 <p>UNKNOWN</p>
@@ -964,6 +579,8 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 <div class="section level3">
 <h3 id="step-7-graph-cluster-filtered-network">Step 7: Graph Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-7-graph-cluster-filtered-network"></a>
 </h3>
+<p>This optional function GraphCfn creates a graph using the cluster
+filtered network in the Cytoscape app.</p>
 <div class="section level5">
 <h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
 </h5>
@@ -987,288 +604,26 @@ description of each characteristic.</p>
 </p>
 </div>
 <div class="section level5">
-<h5 id="description-6">Description<a class="anchor" aria-label="anchor" href="#description-6"></a>
-</h5>
-<p>This optional function GraphCfn creates a graph using the cluster
-filtered network in the Cytoscape app.</p>
-</div>
-<div class="section level5">
-<h5 id="input-8">Input<a class="anchor" aria-label="anchor" href="#input-8"></a>
-</h5>
-<ul>
-<li>cfn
-<ul>
-<li>A version of ppi.network with only the edges that exist in
-cccn.matrix and have non-zero weights<br>
-</li>
-</ul>
-</li>
-<li>ptmtable
-<ul>
-<li>A data frame of post-translational modifications. Formatted with
-numbered rows and the first column containing PTM names. The rest of the
-column names should be drugs (experimental conditions). Values of the
-table are numeric values that represent how much the PTM has reacted to
-the drug or NA if that PTM wasn’t studied under that condition.<br>
--Network.title<br>
-</li>
-<li>Desired title for the created Cytoscape Network<br>
-</li>
-</ul>
-</li>
-<li>Network.collection
-<ul>
-<li>Desired name for the collection created on Cytoscape in which the
-network will reside</li>
-</ul>
-</li>
-<li>background.color
-<ul>
-<li>Hex code of background color of graph; defaults to ‘#fcf3cf’<br>
-</li>
-</ul>
-</li>
-<li>edge.label.color
-<ul>
-<li>Hex code of edge label color of graph; defaults to ‘#17202a’<br>
-</li>
-</ul>
-</li>
-<li>node.label.color
-<ul>
-<li>Hex code of node label color of graph; defaults to ‘#145a32’</li>
-</ul>
-</li>
-<li>default.font
-<ul>
-<li>Font style of edge and node names; defaults to “Times New
-Roman”<br>
-</li>
-</ul>
-</li>
-<li>node.font.size
-<ul>
-<li>Font size of the node name; defaults to 12<br>
-</li>
-</ul>
-</li>
-<li>edge.font.size
-<ul>
-<li>Font size of the edge name; defaults to 8</li>
-</ul>
-</li>
-<li>edge.line.style
-<ul>
-<li>Type of edge style; defaults to “SOLID”<br>
-</li>
-<li>options include: “PARALLEL_LINES”, “MARQUEE_EQUAL”, “DOT”,
-“EQUAL_DASH”, “LONG_DASH”, “CONTIGUOUS_ARROW”, “MARQUEE_DASH”,
-“DASH_DOT”, “BACKWARD_SLASH”, “FORWARD_SLASH”, “VERTICAL_SLASH”,
-“SOLID”, “SEPARATE_ARROW”, “MARQUEE_DASH_DOT”, “ZIGZAG”, “SINEWAVE”</li>
-</ul>
-</li>
-<li>edge.opacity
-<ul>
-<li>Opacity of the edge line on a scale of 0 - 255 with 0 being
-transparent; defaults to 175<br>
-</li>
-</ul>
-</li>
-<li>edge.label.opacity
-<ul>
-<li>Opacity of the edge label on a scale of 0 - 255 with 0 being
-transparent; defaults to 255<br>
-</li>
-</ul>
-</li>
-<li>border.opacity
-<ul>
-<li>Opacity of the node border on a scale of 0 - 255 with 0 being
-transparent; defaults to 255<br>
-</li>
-</ul>
-</li>
-<li>node.label.opacity
-<ul>
-<li>Opacity of the node label on a scale of 0 - 255 with 0 being
-transparent; defaults to 255<br>
-</li>
-</ul>
-</li>
-<li>node.fill.opacity
-<ul>
-<li>Opacity of the node fill on a scale of 0 - 255 with 0 being
-transparent; defaults to 255</li>
-</ul>
-</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="output-8">Output<a class="anchor" aria-label="anchor" href="#output-8"></a>
-</h5>
-<ul>
-<li>No actual output or assignment<br>
-</li>
-<li>Creates a graph in the cytoscape interface</li>
-</ul>
-</div>
-<div class="section level5">
-<h5 id="key">Key<a class="anchor" aria-label="anchor" href="#key"></a>
-</h5>
-<p>The thicker the edge is, the stronger a correlation between these two
-genes. The border and shape of the node represent the type of protein
-this gene is.</p>
-<ul>
-<li>Node Size
-<ul>
-<li>Greater the node size, larger the absolute value of the score<br>
-</li>
-</ul>
-</li>
-<li>Blue Node
-<ul>
-<li>Negative score<br>
-</li>
-</ul>
-</li>
-<li>Yellow Node
-<ul>
-<li>Positive score<br>
-</li>
-</ul>
-</li>
-<li>Green Node
-<ul>
-<li>Approximately zero score</li>
-</ul>
-</li>
-</ul>
-<p>Node Shapes: - “ELLIPSE”<br>
-- unknown - “ROUND_RECTANGLE”<br>
-- receptor tyrosine kinase - “VEE”<br>
-- SH2 protein or - SH2-SH3 protein - “TRIANGLE”<br>
-- SH3 protein - “HEXAGON”<br>
-- tyrosine kinase - “DIAMOND”<br>
-- SRC-family kinase - “OCTAGON”<br>
-- kinase or - phosphatase - “PARALLELOGRAM”<br>
-- transcription factor - “RECTANGLE” - RNA binding protein</p>
-<p>Node Border Colors: - Orange<br>
-- deacetylase<br>
-or<br>
-- acetyltransferase<br>
-- Blue<br>
-- demethylase<br>
-or<br>
-- methyltransferase<br>
-- Royal Purple<br>
-- membrane protein<br>
-- Red<br>
-- kinase<br>
-or<br>
-- tyrosine kinase<br>
-or<br>
-- SRC-family kinase<br>
-- Yellow<br>
-- phosphatase<br>
-or<br>
-- tyrosine phosphatase<br>
-- Lilac - G protein-coupled receptor<br>
-or<br>
-- receptor tyrosine kinase<br>
-- Grey<br>
-- default</p>
-<ul>
-<li>Edge Thickness
-<ul>
-<li>Stronger correlation</li>
-</ul>
-</li>
-</ul>
-<p>Edge Colors: - Red<br>
-- Phosphorylation<br>
-or<br>
-- pp<br>
-or<br>
-- controls-phosphorylation-of<br>
-- Bright Magenta<br>
-- controls-expression-of<br>
-- Dull Magenta<br>
-- controls-transport-of<br>
-- Purple<br>
-- controls-state-change-of<br>
-- Blood Orange<br>
-- Acetylation<br>
-- Lime Green<br>
-- Phystical interactions<br>
-- Green<br>
-- BioPlex<br>
-- Dull Green<br>
-- in-complex-with<br>
-- Seafoam Green<br>
-- experiments<br>
-or<br>
-- experiments_transferred<br>
-- Cyan<br>
-- database<br>
-or<br>
-- database_transferred<br>
-- Teal - Pathway<br>
-or<br>
-- Predicted<br>
-- Dark Turquoise<br>
-- Genetic interactions<br>
-- Yellow-Orange<br>
-- correlation<br>
-- Royal Blue<br>
-- negative correlation<br>
-- Bright Yellow - positive correlation<br>
-- Grey<br>
-- combined_score - Dark Grey<br>
-- merged<br>
-- Light Grey<br>
-- intersect<br>
-- Black<br>
-- peptide<br>
-- Orange<br>
-- homology<br>
-- Dull Orange<br>
-- Shared protein domains - White<br>
-- Default</p>
-<p>Arrow Types:<br>
-- Arrow - Phosphorylation<br>
-or<br>
-- pp<br>
-or<br>
-- controls-phosphorylation-of<br>
-or<br>
-- controls-expression-of<br>
-or<br>
-- controls-transport-of<br>
-or<br>
-- controls-state-change-of<br>
-or<br>
-- Acetylation<br>
-- No Arrow - Default</p>
-</div>
-<div class="section level5">
 <h5 id="estimated-run-time-8">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-8"></a>
 </h5>
 <p>UNKNOWN</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="step-8-post-processing-data">Step 8: Post-Processing Data<a class="anchor" aria-label="anchor" href="#step-8-post-processing-data"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="post-processing-data">Post-Processing Data<a class="anchor" aria-label="anchor" href="#post-processing-data"></a>
+</h2>
 <p>This is a completely optional step for users that want to visualize
 their data in different ways or interact with it in a desktop
 environment.</p>
 <div class="section level5">
-<h5 id="as-igraph">As igraph<a class="anchor" aria-label="anchor" href="#as-igraph"></a>
+<h5 id="as-an-igraph-object">As an igraph Object<a class="anchor" aria-label="anchor" href="#as-an-igraph-object"></a>
 </h5>
 <p>Most data structure outputs in this package are data frames or
 matrices with columns of nodes and column(s) of weights. You will need
-to view the data and manually set which 2 columns are the nodes and
-which column is the edges. This creates an igraph named graph.</p>
+to view the data and manually set which two columns are the nodes and
+which column is the edges. The following code creates an igraph named
+graph.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">yourdatastructure</span></span>
 <span><span class="va">nodecolumns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
@@ -1281,15 +636,18 @@ which column is the edges. This creates an igraph named graph.</p>
 <h5 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
 </h5>
 <p>If you want to save your data to a file, all data structures can
-either be exported with the save function and loaded later. You can also
-save it to an csv format with the write.csv function.</p>
+either be exported with the save function and loaded later or saved to a
+csv file with the write.csv function.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename<span class="op">=</span><span class="st">"name.rda"</span><span class="op">)</span> <span class="co">#Saves object as a .rda</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"name.rda"</span><span class="op">)</span> <span class="co">#Loads object saved to a file</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as a .rda</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
 <span></span>
-<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file<span class="op">=</span><span class="st">"name.csv"</span><span class="op">)</span> <span class="co">#Saves object as a .csv</span></span>
-<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"name.csv"</span><span class="op">)</span> <span class="co">#Loads object from .csv</span></span></code></pre></div>
-</div>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span> <span class="co"># Saves object as a .csv</span></span>
+<span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
+<p>You may also save your entire Global Environment namespace using the
+save.image function as shown below:</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
