@@ -1,5 +1,5 @@
 ---
-title: "Finding Pathways from PTMs: An Analysis Guide"
+title: "Analyzing Pathways from PTMs: A Guide"
 author: "Nagashree Avabhrath, Mikhail Ukrainetz, Mark Grimes, Madison Moffett, Grant Smith, Lucia Williams"
 output: 
   html_document:
@@ -46,6 +46,8 @@ PTMsToPathways::ex.ptmtable[38:50, 1:4]
 
 Note that it is very important that the rownames are the names of post-translational modifications. All of their respective columns are the environmental conditions under which the post-translational modifications occurred. NAs -- which are importantly not zeroes -- represent condition-PTM combinations that were not studied. The numeric values are data output by the mass spectrometer. Ambigious PTMs, cases where a PTM could be any one of several PTMs, should also be separated by semicolons. (e.g. "AARS ubi k747; AMBLIL p U123").
 
+<p>&nbsp;</p>
+
 # Pre-Processing Data
 
 For data that does not conform to the above structure, the data must be converted. The following provides a set of general functions that may assist in this process.
@@ -76,9 +78,13 @@ patterns <- patterns[order(nchar(patterns), patterns, decreasing = TRUE)]
 rownames(ptmtable) <- sapply(rownames(ptmtable), function(x) {for(p in patterns) x <- gsub(p, "", x); return(x)})
 ```
 
+<p>&nbsp;</p>
+
 # Pipeline  
 
 The following pipeline is intended to be a step-by-step guide to walk users through the process of using the PTMsToPathways package. It includes descriptions of each function. This pipeline must be run in order as subsequent steps require the data produced in previous steps. Example code and example outputs as well as estimated run-times are included with each description and are based on a preliminary dataset of \~9,000 post-translational modifications and 69 experimental conditions processed with a 12th Gen i5 processor and 8GB of RAM.  
+
+<p>&nbsp;</p>
 
 ## Step 1: Make Cluster List  
 
@@ -126,6 +132,8 @@ MakeClusterList(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", cl
 #### Estimated run-time  
 2hrs 30mins
 
+<p>&nbsp;</p>
+
 ## Step 2: Make Correlation Network  
 
 Next, Make Correlation Network is run to filter the correlation matrix of PTMs by specific PTMs that cluster together or have react similarly to the same conditions. It groups the PTM correlation matrix based on the Genes of PTMs. By summing these submatrices, it produces a gene by gene cocluster correlation network shows strength of relationships between proteins using the common clusters between the three distance metrics. The PTM version is also saved for analysis by the user.  
@@ -150,6 +158,8 @@ MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = 
 #### Estimated run-time  
 12hrs  
 
+<p>&nbsp;</p>
+
 ## Step 3: Retrieve Database Edgefiles  
 
 ### Description  
@@ -157,6 +167,8 @@ MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = 
 The third step of the PTMsToPathways pipeline is broken up into several parts as there is a lot of choice for the user during each sub-step. PPI (protein-protein interaction) databases are consulted in order to filter the clusters by proteins that are known to interact with each other as well as how strongly they are known to interact. The standard recommended PPI database is STRINGdb; getting data from this database is the first (optional) step. This is accomplished with the function GetSTRINGdb. The function GetSTRINGdb requires the STRINGdb package to be downloaded. Code for this is supplied with the code to run the function itself. Please note, however, that the user may consult any database that they choose. After getting STRINGdb data (or not), the user runs MakeDBInput which produces a text file of all of their gene names. This information can be copy and pasted into any database that the user chooses in order to get data from other PPI networks. Step three is getting a GeneMANIA network, which is also optional but recommended. The user pastes their input data into GeneMANIA on the Cytoscape app and saves the edgefile and the nodetable. These files are then input into ProcessGMEdgefile in order to sort the data.  
 
 Note again that the database input can be used in any PPI database that the user chooses, though this package only explicitly supports STRINGdb and GeneMANIA. If another database is chosen, its file will have to be filtered manually by the user before moving on to step 4. The file should have four columns. Column one and two should strictly be labeled "Gene.1" and "Gene.2" in order to integrate with other PPI databases. Column three should name the interaction type between the two proteins (naming of this column is not important). The fourth column should contain the edgeweight and may be named however the user chooses. It is recommended, though, that the database is specified as well as the term 'weight' in the column name.  
+
+<p>&nbsp;</p>
 
 ### Part 1 --- Get STRINGdb Data
 
@@ -186,6 +198,8 @@ GetSTRINGdb(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "noden
 #### Estimated run-time  
 1hr  
 
+<p>&nbsp;</p>
+
 ### Part 2 --- Get File for Database Input
 
 #### Code  
@@ -205,6 +219,8 @@ MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
 
 #### Estimated run-time  
 0s  
+
+<p>&nbsp;</p>
 
 ### Part 3 --- Process GeneMANIA File
 
@@ -240,6 +256,8 @@ ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network
 #### Estimated run-time  
 10s  
 
+<p>&nbsp;</p>
+
 ## Step 4: Build PPI Network  
 
 The fourth step in the pipeline, BuildPPINetwork, combines the data of protein-protein interactions from each of the provided databases. This package explicitly processes STRINGdb and GeneMANIA in Step 3, but the user may consult as many databases as desired (the processing for which is described in Step 3). BuildPPINetwork combines these databases as efficiently as possible while retaining desired edgeweights from each database. BuildPPINetwork also normalizes the weights on a scale of 0-1 and removes duplicate rows from the data frame.  
@@ -261,6 +279,8 @@ BuildPPINetwork(stringdb.edges = NA, gm.network = NA, db.filepaths = c(), ppi.ne
 #### Estimated run-time  
 1hr (only using STRINGdb and GeneMANIA)
 
+<p>&nbsp;</p>
+
 ## Step 5: Cluster Filtered Network  
 
 Cluster Filtered Network, which is step five in the pipeline and one of the final outputs of the package, checks all of the edges in the PPI network to ensure that both of the genes are within the cocluster correlation network created in step two and that its weight is nonzero. If either of these conditions are not met, then it will be removed from the list of PPI edges. This new, cluster filtered network is then returned.  
@@ -281,6 +301,8 @@ ClusterFilteredNetwork(gene.cccn, ppi.network, cfn.name = "cfn")
 
 #### Estimated run-time  
 10mins
+
+<p>&nbsp;</p>
 
 ## Step 6: Pathway Crosstalk Network  
 
@@ -307,9 +329,11 @@ PathwayCrosstalkNetwork(common.clusters, file = "bioplanet.csv", edgelist.name =
 #### Estimated run-time  
 UNKNOWN
 
+<p>&nbsp;</p>
+
 ## Step 7: Graph Cluster Filtered Network  
 
-This optional function GraphCfn creates a graph using the cluster filtered network in the Cytoscape app.
+This optional function GraphCfn creates a graph using the cluster filtered network in the Cytoscape app. When graphed, Cytoscape provides an interactive interface to view the data.  
 
 #### Code  
 
@@ -328,9 +352,139 @@ GraphCfn(cfn, ptmtable, funckey = PTMsToPathways::ex.funckey, Network.title = "c
 </center>
 <p>&nbsp;</p>
 
+#### Key  
+
+The thicker the edge is, the stronger the interaction between these two genes. The border and shape of the node represent the type of protein this gene is.   
+
+Node Size:  
+
+- Greater the node size, larger the absolute value of the score  
+
+Node Color:  
+
+- Blue Node  
+  - Negative score  
+- Yellow Node  
+  - Positive score  
+- Green Node  
+  - Approximately zero score  
+
+Node Shapes:  
+
+- "ELLIPSE"  
+  - unknown  
+- "ROUND_RECTANGLE"  
+  - receptor tyrosine kinase  
+- "VEE"  
+  - SH2 protein  
+  - SH2-SH3 protein  
+- "TRIANGLE"  
+  - SH3 protein  
+- "HEXAGON"  
+  - tyrosine kinase  
+- "DIAMOND"  
+  - SRC-family kinase  
+- "OCTAGON"  
+  - kinase  
+  - phosphatase  
+- "PARALLELOGRAM"  
+  - transcription factor   
+- "RECTANGLE"  
+  - RNA binding protein  
+
+Node Border Colors:  
+
+- Orange  
+  - deacetylase  
+  - acetyltransferase  
+- Blue  
+  - demethylase  
+  - methyltransferase  
+- Royal Purple  
+  - membrane protein  
+- Red  
+  - kinase  
+  - tyrosine kinase  
+  - SRC-family kinase  
+- Yellow  
+  - phosphatase  
+  - tyrosine phosphatase  
+- Lilac  
+  - G protein-coupled receptor  
+  - receptor tyrosine kinase  
+- Grey  
+  - default  
+
+Edge Colors:  
+
+- Red  
+  - Phosphorylation  
+  - pp  
+  - controls-phosphorylation-of  
+- Bright Magenta  
+  - controls-expression-of  
+- Dull Magenta  
+  - controls-transport-of  
+- Purple  
+  - controls-state-change-of  
+- Blood Orange  
+  - Acetylation  
+- Lime Green  
+  - Physical interactions  
+- Green  
+  - BioPlex  
+- Dull Green  
+  - in-complex-with  
+- Seafoam Green  
+  - experiments  
+  - experiments_transferred   
+- Cyan  
+  - database  
+  - database_transferred  
+- Teal  
+  - Pathway  
+  - Predicted  
+- Dark Turquoise  
+  - Genetic interactions  
+- Yellow-Orange  
+  - correlation  
+- Royal Blue  
+  - negative correlation  
+- Bright Yellow  
+  - positive correlation  
+- Grey  
+  - combined_score  
+- Dark Grey  
+  - merged  
+- Light Grey  
+  - intersect  
+- Black  
+  - peptide  
+- Orange  
+  - homology  
+- Dull Orange  
+  - Shared protein domains  
+- White  
+  - Default  
+
+Arrow Types:  
+
+- Arrow  
+  - Phosphorylation  
+  - pp  
+  - controls-phosphorylation-of  
+  - controls-expression-of  
+  - controls-transport-of  
+  - controls-state-change-of  
+  - Acetylation  
+- No Arrow  
+  - Default  
+
+
 #### Estimated run-time  
 UNKNOWN  
 
+<p>&nbsp;</p>
 
 # Post-Processing Data  
 
