@@ -46,29 +46,4 @@ You can then use the available functions as described in the package documentati
 
 ## Development & Contribution
 
-Todo: either move all instruction to [the wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki) and keep the link here, or give a brief summary below and say there are more details in the wiki (and still link to it).
-
-If you wish to modify or contribute to the package, clone the repository locally using:
-
-```
-git clone https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways.git
-```
-
-Then, in R, navigate to the package directory. You will need to use devtools to load the package for development, so ensure you have that installed and libraried:
-
-```
-install.packages("devtools")
-library(devtools)
-```
-
-You may then load the package for development:
-
-```
-load_all()
-```
-
-To check for issues before committing changes, run:
-
-```
-check()
-```
+If you wish to modify or contribute to the package, we provide instructions on how to clone our repository, as well as an in depth look at some our solutions on [our wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
