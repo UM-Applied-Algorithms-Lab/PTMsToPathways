@@ -46,6 +46,8 @@ You can then use the available functions as described in the package documentati
 
 ## Development & Contribution
 
+Todo: either move all instruction to [the wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki) and keep the link here, or give a brief summary below and say there are more details in the wiki (and still link to it).
+
 If you wish to modify or contribute to the package, clone the repository locally using:
 
 ```
