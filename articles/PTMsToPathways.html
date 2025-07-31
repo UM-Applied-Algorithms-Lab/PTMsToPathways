@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Finding Pathways from PTMs: An Analysis Guide • PTMsToPathways</title>
+<title>Analyzing Pathways from PTMs: A Guide • PTMsToPathways</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -15,7 +15,7 @@
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Finding Pathways from PTMs: An Analysis Guide">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Analyzing Pathways from PTMs: A Guide">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -53,7 +53,7 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Finding Pathways from PTMs: An Analysis Guide</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Analyzing Pathways from PTMs: A Guide</h1>
                         <h4 data-toc-skip class="author">Nagashree
 Avabhrath, Mikhail Ukrainetz, Mark Grimes, Madison Moffett, Grant Smith,
 Lucia Williams</h4>
@@ -114,6 +114,9 @@ represent condition-PTM combinations that were not studied. The numeric
 values are data output by the mass spectrometer. Ambigious PTMs, cases
 where a PTM could be any one of several PTMs, should also be separated
 by semicolons. (e.g. “AARS ubi k747; AMBLIL p U123”).</p>
+<p>
+ 
+</p>
 </div>
 <div class="section level2">
 <h2 id="pre-processing-data">Pre-Processing Data<a class="anchor" aria-label="anchor" href="#pre-processing-data"></a>
@@ -161,6 +164,9 @@ as the user ensures that any special character (such as $ or @) have a
 <code class="sourceCode R"><span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">" ~K"</span>, <span class="st">"zzzz"</span>, <span class="st">"/"</span>, <span class="st">"\\$"</span>, <span class="st">"\\@"</span><span class="op">)</span></span>
 <span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="va">patterns</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">patterns</span><span class="op">)</span>, <span class="va">patterns</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="kw">for</span><span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="va">patterns</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span>, <span class="va">x</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level2">
@@ -174,6 +180,9 @@ Example code and example outputs as well as estimated run-times are
 included with each description and are based on a preliminary dataset of
 ~9,000 post-translational modifications and 69 experimental conditions
 processed with a 12th Gen i5 processor and 8GB of RAM.</p>
+<p>
+ 
+</p>
 <div class="section level3">
 <h3 id="step-1-make-cluster-list">Step 1: Make Cluster List<a class="anchor" aria-label="anchor" href="#step-1-make-cluster-list"></a>
 </h3>
@@ -253,6 +262,9 @@ positional location along the x, y, and z axes.</p>
 <h5 id="estimated-run-time">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time"></a>
 </h5>
 <p>2hrs 30mins</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level3">
@@ -300,6 +312,9 @@ skewing.</p>
 <h5 id="estimated-run-time-1">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-1"></a>
 </h5>
 <p>12hrs</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level3">
@@ -337,6 +352,9 @@ proteins (naming of this column is not important). The fourth column
 should contain the edgeweight and may be named however the user chooses.
 It is recommended, though, that the database is specified as well as the
 term ‘weight’ in the column name.</p>
+<p>
+ 
+</p>
 </div>
 <div class="section level4">
 <h4 id="part-1-get-stringdb-data">Part 1 — Get STRINGdb Data<a class="anchor" aria-label="anchor" href="#part-1-get-stringdb-data"></a>
@@ -380,6 +398,9 @@ cocluster).</p>
 <h5 id="estimated-run-time-2">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-2"></a>
 </h5>
 <p>1hr</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level4">
@@ -408,6 +429,9 @@ a database input.</p>
 <h5 id="estimated-run-time-3">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-3"></a>
 </h5>
 <p>0s</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level4">
@@ -456,6 +480,9 @@ interaction.</p>
 <h5 id="estimated-run-time-4">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-4"></a>
 </h5>
 <p>10s</p>
+<p>
+ 
+</p>
 </div>
 </div>
 </div>
@@ -495,6 +522,9 @@ database. These have been normalized to all be on a scale of 0-1.</p>
 <h5 id="estimated-run-time-5">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-5"></a>
 </h5>
 <p>1hr (only using STRINGdb and GeneMANIA)</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level3">
@@ -531,6 +561,9 @@ database.</p>
 <h5 id="estimated-run-time-6">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-6"></a>
 </h5>
 <p>10mins</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level3">
@@ -574,13 +607,17 @@ as two different scores for the strength of the interaction.</p>
 <h5 id="estimated-run-time-7">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-7"></a>
 </h5>
 <p>UNKNOWN</p>
+<p>
+ 
+</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="step-7-graph-cluster-filtered-network">Step 7: Graph Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-7-graph-cluster-filtered-network"></a>
 </h3>
 <p>This optional function GraphCfn creates a graph using the cluster
-filtered network in the Cytoscape app.</p>
+filtered network in the Cytoscape app. When graphed, Cytoscape provides
+an interactive interface to view the data.</p>
 <div class="section level5">
 <h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
 </h5>
@@ -604,9 +641,329 @@ description of each characteristic.</p>
 </p>
 </div>
 <div class="section level5">
+<h5 id="key">Key<a class="anchor" aria-label="anchor" href="#key"></a>
+</h5>
+<p>The thicker the edge is, the stronger the interaction between these
+two genes. The border and shape of the node represent the type of
+protein this gene is.</p>
+<p>Node Size:</p>
+<ul>
+<li>Greater the node size, larger the absolute value of the score</li>
+</ul>
+<p>Node Color:</p>
+<ul>
+<li>Blue Node
+<ul>
+<li>Negative score<br>
+</li>
+</ul>
+</li>
+<li>Yellow Node
+<ul>
+<li>Positive score<br>
+</li>
+</ul>
+</li>
+<li>Green Node
+<ul>
+<li>Approximately zero score</li>
+</ul>
+</li>
+</ul>
+<p>Node Shapes:</p>
+<ul>
+<li>“ELLIPSE”
+<ul>
+<li>unknown<br>
+</li>
+</ul>
+</li>
+<li>“ROUND_RECTANGLE”
+<ul>
+<li>receptor tyrosine kinase<br>
+</li>
+</ul>
+</li>
+<li>“VEE”
+<ul>
+<li>SH2 protein<br>
+</li>
+<li>SH2-SH3 protein<br>
+</li>
+</ul>
+</li>
+<li>“TRIANGLE”
+<ul>
+<li>SH3 protein<br>
+</li>
+</ul>
+</li>
+<li>“HEXAGON”
+<ul>
+<li>tyrosine kinase<br>
+</li>
+</ul>
+</li>
+<li>“DIAMOND”
+<ul>
+<li>SRC-family kinase<br>
+</li>
+</ul>
+</li>
+<li>“OCTAGON”
+<ul>
+<li>kinase<br>
+</li>
+<li>phosphatase<br>
+</li>
+</ul>
+</li>
+<li>“PARALLELOGRAM”
+<ul>
+<li>transcription factor<br>
+</li>
+</ul>
+</li>
+<li>“RECTANGLE”
+<ul>
+<li>RNA binding protein</li>
+</ul>
+</li>
+</ul>
+<p>Node Border Colors:</p>
+<ul>
+<li>Orange
+<ul>
+<li>deacetylase<br>
+</li>
+<li>acetyltransferase<br>
+</li>
+</ul>
+</li>
+<li>Blue
+<ul>
+<li>demethylase<br>
+</li>
+<li>methyltransferase<br>
+</li>
+</ul>
+</li>
+<li>Royal Purple
+<ul>
+<li>membrane protein<br>
+</li>
+</ul>
+</li>
+<li>Red
+<ul>
+<li>kinase<br>
+</li>
+<li>tyrosine kinase<br>
+</li>
+<li>SRC-family kinase<br>
+</li>
+</ul>
+</li>
+<li>Yellow
+<ul>
+<li>phosphatase<br>
+</li>
+<li>tyrosine phosphatase<br>
+</li>
+</ul>
+</li>
+<li>Lilac
+<ul>
+<li>G protein-coupled receptor<br>
+</li>
+<li>receptor tyrosine kinase<br>
+</li>
+</ul>
+</li>
+<li>Grey
+<ul>
+<li>default</li>
+</ul>
+</li>
+</ul>
+<p>Edge Colors:</p>
+<ul>
+<li>Red
+<ul>
+<li>Phosphorylation<br>
+</li>
+<li>pp<br>
+</li>
+<li>controls-phosphorylation-of<br>
+</li>
+</ul>
+</li>
+<li>Bright Magenta
+<ul>
+<li>controls-expression-of<br>
+</li>
+</ul>
+</li>
+<li>Dull Magenta
+<ul>
+<li>controls-transport-of<br>
+</li>
+</ul>
+</li>
+<li>Purple
+<ul>
+<li>controls-state-change-of<br>
+</li>
+</ul>
+</li>
+<li>Blood Orange
+<ul>
+<li>Acetylation<br>
+</li>
+</ul>
+</li>
+<li>Lime Green
+<ul>
+<li>Physical interactions<br>
+</li>
+</ul>
+</li>
+<li>Green
+<ul>
+<li>BioPlex<br>
+</li>
+</ul>
+</li>
+<li>Dull Green
+<ul>
+<li>in-complex-with<br>
+</li>
+</ul>
+</li>
+<li>Seafoam Green
+<ul>
+<li>experiments<br>
+</li>
+<li>experiments_transferred<br>
+</li>
+</ul>
+</li>
+<li>Cyan
+<ul>
+<li>database<br>
+</li>
+<li>database_transferred<br>
+</li>
+</ul>
+</li>
+<li>Teal
+<ul>
+<li>Pathway<br>
+</li>
+<li>Predicted<br>
+</li>
+</ul>
+</li>
+<li>Dark Turquoise
+<ul>
+<li>Genetic interactions<br>
+</li>
+</ul>
+</li>
+<li>Yellow-Orange
+<ul>
+<li>correlation<br>
+</li>
+</ul>
+</li>
+<li>Royal Blue
+<ul>
+<li>negative correlation<br>
+</li>
+</ul>
+</li>
+<li>Bright Yellow
+<ul>
+<li>positive correlation<br>
+</li>
+</ul>
+</li>
+<li>Grey
+<ul>
+<li>combined_score<br>
+</li>
+</ul>
+</li>
+<li>Dark Grey
+<ul>
+<li>merged<br>
+</li>
+</ul>
+</li>
+<li>Light Grey
+<ul>
+<li>intersect<br>
+</li>
+</ul>
+</li>
+<li>Black
+<ul>
+<li>peptide<br>
+</li>
+</ul>
+</li>
+<li>Orange
+<ul>
+<li>homology<br>
+</li>
+</ul>
+</li>
+<li>Dull Orange
+<ul>
+<li>Shared protein domains<br>
+</li>
+</ul>
+</li>
+<li>White
+<ul>
+<li>Default</li>
+</ul>
+</li>
+</ul>
+<p>Arrow Types:</p>
+<ul>
+<li>Arrow
+<ul>
+<li>Phosphorylation<br>
+</li>
+<li>pp<br>
+</li>
+<li>controls-phosphorylation-of<br>
+</li>
+<li>controls-expression-of<br>
+</li>
+<li>controls-transport-of<br>
+</li>
+<li>controls-state-change-of<br>
+</li>
+<li>Acetylation<br>
+</li>
+</ul>
+</li>
+<li>No Arrow
+<ul>
+<li>Default</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section level5">
 <h5 id="estimated-run-time-8">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-8"></a>
 </h5>
 <p>UNKNOWN</p>
+<p>
+ 
+</p>
 </div>
 </div>
 </div>
