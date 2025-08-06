@@ -100,11 +100,11 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
   combined_interactions$Weight <- rowSums(combined_interactions[, c("experiments", "experiments_transferred", "database", "database_transferred")])
 
   # Create the final edges dataframe from STRINGdb
-  combined.edges <- combined_interactions[, c("Gene.1", "Gene.2", "edgeType", "Weight")]
-  colnames(combined.edges) <- c("Gene.1", "Gene.2", "Interaction", "STRINGdb.combined_score")
-
+  stringdb.edges <- combined_interactions[, c("Gene.1", "Gene.2", "edgeType", "Weight")]
+  # Cytoscape edge column names are c(source, target, interaction, Weight)
+  colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
   # assign
-  assign(stringdb.name, combined.edges, envir = .GlobalEnv)
+  assign(stringdb.name, stringdb.edges, envir = .GlobalEnv)
 }
 
 
@@ -126,34 +126,50 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
 #' ex.db.nodes  <- system.file("extdata/ex_db_nodes.txt", package = "PTMsToPathways")
 #' ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes, "ex.gm.network")
 #' utils::head(ex.gm.network)
+# NOTE:
+#  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
+# Note: The column names may change in future releases of GeneMANIA.
 ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network.name = "gm.network"){
-  edgetable <- utils::read.csv(gm.edgefile.path, header = TRUE)        # read the edgefile
-  nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
+  # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
+  # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
   nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
 
-  nodenames <- nodenames[!is.na(nodenames)]   # REMOVE THESE STUPID NAs
+  nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
+  # Read all lines
+  all_lines <- readLines(gm.edgefile.path)
 
-  keeper <- edgetable$data.type == "Pathway" | edgetable$data.type == "Physical Interactions"   # which rows have these data types
+  # Locate start: line exactly matching the header for your network section
+  start_line <- grep("Weight\\tType", all_lines)
+  # Locate end: first occurrence of the footer/different table (e.g., GO ids table)
+  end_line <- grep("^Gene\\s+GO ids", all_lines)
+
+  # Defensive: Stop at the last line if there is no footer
+  if (length(end_line) == 0) end_line <- length(all_lines) + 1
+
+  # Extract: lines containing just the table (from header through end of last row)
+  network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
+
+  # Read network into a data frame, tab-delimited
+  edgetable <- read.table(
+    text = network_lines,
+    header = TRUE,
+    stringsAsFactors = FALSE,
+    sep = "\t",
+    comment.char = "#", na.strings='', quote = "",  fill=TRUE
+  )
+
+  keeper <- edgetable$Type == "Pathway" | edgetable$Type == "Physical Interactions"   # which rows have these data types
   edgetable <- edgetable[keeper,]                                                               # copy 'em over
+  # Cytoscape edge column names are c(source, target, interaction, Weight), so re-order columns to match StringDB edges
+  edgetable <- edgetable[, c("Gene.1", "Gene.2", "Type", "Weight")]
+  colnames(edgetable) <- c("source", "target", "interaction", "Weight")
+  keep <- edgetable$source %in% nodenames & edgetable$target %in% nodenames         # which rows are we keeping
+  genemania.edges <- edgetable[keep,]                                                 # copy 'em over
 
-  edgetable <- subset(edgetable, select = c(name, data.type, normalized.max.weight))            # only look at the name and normalized.max.weight columns
-  nodetable <- subset(nodetable, select = c(name, query.term))                                  # only look at the names (GM ID) and query.term (real names) columns
-
-  edgetable$Gene.1 <- 'null'   # make new columns!
-  edgetable$Gene.2 <- 'null'
-
-  split.names <- strsplit(edgetable$name, "\\|")                                                       # split the names up bc it has three pieces of info there
-  edgetable$Gene.1 <- sapply(split.names, function(x)x[1])                                             # take the first thing; first ID name
-  edgetable$Gene.1 <- sapply(edgetable$Gene.1, function(x)nodetable$query.term[nodetable$name == x])   # turn the ID into the gene name!
-  edgetable$Gene.2 <- sapply(split.names, function(x)x[2])                                             # take the first thing; first ID name
-  edgetable$Gene.2 <- sapply(edgetable$Gene.2, function(x)nodetable$query.term[nodetable$name == x])   # turn the ID into the gene name!
-
-  edges <- edgetable[, c("Gene.1", "Gene.2", "data.type", "normalized.max.weight")]      # sort into a new table with only our information and in the order we want
-
-  colnames(edges) <- c("Gene.1", "Gene.2", "interaction", "GM.weights")                  # rename so when put with everything, clearer where came from
-
-  keep <- edges$Gene.1 %in% nodenames & edges$Gene.2 %in% nodenames         # which rows are we keeping
-  all.edges <- edges[keep,]                                                 # copy 'em over
-
-  assign(gm.network.name, as.data.frame(all.edges), envir = .GlobalEnv)     # assign :)
+  assign(gm.network.name, as.data.frame(genemania.edges), envir = .GlobalEnv)     # assign :)
 }
+
+# NOTE: Other PPI network sources are:
+  # Pathway Commons: www.pathwaycommons.org
+  # BioPlex: https://bioplex.hms.harvard.edu
+  # kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/homeAction.action

@@ -5,13 +5,27 @@
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
 #' @param edgelist.name The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.
+#' @param jaccard.edgelist.name The desired name of the Pathway Jaccard similarity edges
+#' @param CPE.edgelist.name The desired name of the Pathway PTM cluster evidence edges
+#' @param PCN.edgelist.name The desired name of the PCN containg both CPE and Jaccard edges for Cytoscape
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
 #' @export
 #'
 #' @examples
 #' PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
-PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", edgelist.name = "PTPedgelist", createfile = getwd()){
+#'
+PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd()){
+  # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
+  fix.excel <- function(cell) {
+    fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
+    corrects = c("CDK1", "SEPT1", "SEPT2", "SEPT3", "SEPT4", "SEPT5", "SEPT7", "SEPT8", "SEPT9", "SEPT10", "SEPT11", "SEPT15", "SEPT6", "POU2F1", "POU2F2", "POU5F1", "POU5F1", "POU3F1", "POU3F2", "POU2F3", "MARCH1", "MARCH2", "MARCH3", "MARCH4", "MARCH5", "MARCH6", "MARCH7", "MARCH8", "MARCH9", "MARCH10", "MARCH11", "SMAP", "EFCAB13", "BRK1", "NYAP1", "LAMTOR1", 'AP1AR', "DEC1", "SEPT14")
+    cellv <- unlist(strsplit(as.character(cell), "; "))
+    if (any(fixgenes %in% cellv)) {
+      cellv.new <- gsub(fixgenes[fixgenes %in% cellv], corrects[fixgenes %in% cellv], cellv)
+      return (paste(cellv.new, collapse="; "))
+    } else return(cell)    }print("Making PCN")
+  start_time <- Sys.time()
 
   if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
 
@@ -24,7 +38,8 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
 
   }else {stop(paste(class(bioplanet.file), "is not a supported file type. Please make sure you input a path to a .csv file or a data frame"))} #If unsupported
 
-
+  # Correct errors from Excel
+  bioplanet[, "GENE_SYMBOL"] <- sapply(bioplanet$GENE_SYMBOL, fix.excel)
   ### Turn bioplanet into a list of pathways. Pathways are character vectors comprised of gene names ###
   PATHWAY_NAME <- NULL #Gets rid of no binding note
   pathways.list <- plyr::dlply(bioplanet, plyr::.(PATHWAY_NAME)) #Turn the bioplanet .csv into a list of data frames. Each data frame stores genes with the same PATHWAY_ID
@@ -45,12 +60,15 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
 
 
   ### Create the main data structure and add Jaccard Values ###
-  PTPedgelist <- t(combinations(names(pathways.list), 2)) #Creating the edgelist. First two columns of the data frame like PATHWAY | PATHWAY; Found by finding all pairs pathway names
+  PCNedgelist <- t(combinations(names(pathways.list), 2)) #Creating the edgelist. First two columns of the data frame like PATHWAY | PATHWAY; Found by finding all pairs pathway names
   combn.vector <- combinations(pathways.list, 2)  #The values of the above vector, performs the same operation to get pairs of string vectors containing gene names instead of pathway names. Prepares data for analysis
   jaccard.values <- apply(combn.vector, 2, find.jaccard.val) #Find the jaccard value for every pair of string vectors in combn.svector
-  PTPedgelist <- cbind(PTPedgelist, jaccard.values) #Attach the JACCARD VALUE column to PATHWAY | PATHWAY
-
-  assign("Jaccard.Full", PTPedgelist, envir = .GlobalEnv) #DEBUG - For viewing the full jaccard edgelist
+  PCNedgelist <- cbind(PCNedgelist, jaccard.values) #Attach the JACCARD VALUE column to PATHWAY | PATHWAY
+  bioplanetjaccardedges <- as.data.frame(PCNedgelist)
+  bioplanetjaccardedges <- bioplanetjaccardedges[!is.na(bioplanetjaccardedges$jaccard.values),]
+  bioplanetjaccardedges$interaction <- "pathway Jaccard similarity"
+  names(bioplanetjaccardedges)[1:2] <- c("source", "target") # For Cytoscape graphing
+  assign("Jaccard.Full", bioplanetjaccardedges, envir = .GlobalEnv) #DEBUG - For viewing the full jaccard edgelist
 
   ### Pathway Cluster Evidence ###
   CPE.matrix <- matrix(NA, nrow = length(common.clusters), ncol = length(pathways.list)) #Initilize empty data structure, Clusters x Pathways
@@ -60,49 +78,116 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   pathways.temp <- as.data.frame(table(bioplanet$GENE_SYMBOL)) #Create table for how many times each gene appears in the pathways list. Needs to be converted into a named vector for efficent runtime.
   pathgene.count <- pathways.temp$Freq #Transform into a named vector
   names(pathgene.count) <- pathways.temp$Var1 #Now any string vector of genes like pathways.hash[[c("AARS", "ABCA1")]] will return the frequency of how many times those genes appear in the pathway list *in constant time*. Sum() to return the total
+  get_weighted_gene_counts <- function(ptm_vec, pepsep = ";") {
+    all_genes <- character()
+    all_weights <- numeric()
 
-  for(a in 1:nrow(CPE.matrix)){ #Populate the matrix - Perform the following steps for every cluster
+    for (ptm_entry in ptm_vec) {
+      # Normalize spacing
+      ptm_entry <- gsub("[;,]\\s*", ";", ptm_entry)
 
-    gene.names <- sapply(common.clusters[[a]], function(x) strsplit(x, "; ", fixed=TRUE)) #Turn all ambiguous proteins into a list within the list which will be "Flattened out" in the next line
-    gene.weights <- sapply(gene.names, function(y) rep(1/length(y), length(y) )) #Create weights for ambiguous PTMs that map onto gene.names,
+      # Split ambiguous entry
+      ptm_parts <- strsplit(ptm_entry, pepsep, fixed = TRUE)[[1]]
 
-    gene.names <- c(gene.names, recursive=TRUE, use.names=FALSE) #Turns list of lists of lists into a character vector, easier to work with. Names will get messed up at this part
-    gene.weights <- c(gene.weights, recursive=TRUE, use.names=FALSE) #Perform the same operation on weights to keep them mapped
-    gene.names <- sapply(gene.names, function(z) unlist(strsplit(z, " ",  fixed=TRUE))[1]) #Crop the PTM part ("AARS ubi 474" -> "AARS")
+      # Extract gene names (string before first space)
+      genes <- sapply(ptm_parts, function(part) strsplit(part, " ", fixed = TRUE)[[1]][1])
 
-    gene.count <- tapply(gene.weights, gene.names, sum) #Count the number of times genes appear in the vector, needs to be accessed FAST due to how many look ups is required.
+      weight <- 1 / length(genes)
 
-    cluster.length <- length(common.clusters[[a]]) #Precompute
+      all_genes <- c(all_genes, genes)
+      all_weights <- c(all_weights, rep(weight, length(genes)))
+    }
 
-    for(b in 1:ncol(CPE.matrix)){ #For every pathway for the given cluster, perform the following steps
+    # Aggregate weights for duplicated gene names
+    gene_weights <- tapply(all_weights, all_genes, sum)
 
-      num <- gene.count[pathways.list[[b]]] #Calculate numerator vector - How many times every Protein from a pathway appears in the cluster (can appear multiple times due to PTMs, or less than 1 time(s) due to ambiguous PTMs)
-      den <- pathgene.count[pathways.list[[b]]] #Calculate denominator - How many times every Protein in the pathway appears in the entire list of pathways
-      value <- sum(num/den, na.rm=TRUE)/cluster.length #Element wise division. Then take the sum of the vector. Apply large cluster penalty afterwards.
-      if(value != 0) CPE.matrix[[a,b]] <- value #Important because I create a new vector by summing two columns. To see if two pathways have relation to the same cluster, I want to see if they have nonzero values in the same cluster (row). This is accomplished because only two nonzero values will result in an int, as int + NA = NA.
-  }}
+    return(gene_weights)
+  }
+
+
+  for (a in 1:nrow(CPE.matrix)) {
+
+    # Step 1: Get weighted gene counts for cluster a
+    gene.count <- get_weighted_gene_counts(common.clusters[[a]])  #
+
+    cluster.length <- length(common.clusters[[a]])
+
+    for (b in 1:ncol(CPE.matrix)) {
+
+      # Get genes in this pathway
+      pathway.genes <- pathways.list[[b]]
+
+      # Numerator: weighted sum of pathway genes in this cluster
+      num <- gene.count[pathway.genes]
+
+      # Denominator: total frequency across all pathways
+      den <- pathgene.count[pathway.genes]
+
+      value <- sum(num / den, na.rm = TRUE) / cluster.length
+
+      if (!is.na(value) && value != 0) {
+        CPE.matrix[a, b] <- value
+      }
+    }
+  }
+
 
 
   ### Generate PCN network ###
-  PTPscore <- apply(PTPedgelist[,1:2], 1, function(x) sum(CPE.matrix[rowSums(!is.na(CPE.matrix[,x])) == 2,x])) #Get a vector of all the PTP weights for every pair of pathways using the CPE weights to filter. For a PTP weight to be non-NA, the PTP weight will be the sum of all clusters both pathways have nonzero CPEs in.
-  PTPscore[PTPscore== 0] <- NA #Turn all 0s created in above line into NAs
+  # Get a vector of all the PTP weights for every pair of pathways using the CPE weights to filter. For a PTP weight to be non-NA, the PTP weight will be the sum of all clusters both pathways have nonzero CPEs in.
 
-  PTPedgelist <- cbind(PTPedgelist, PTPscore) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
-  PTPedgelist <- PTPedgelist[rowSums(is.na(PTPedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
+  PTPscore <- apply(PCNedgelist[,1:2], 1, function(x) {
+    rows <- rowSums(!is.na(CPE.matrix[, x])) == 2
+    if (any(rows)) {
+      sum(CPE.matrix[rows, x], na.rm = TRUE)
+    } else {
+      NA
+    }})
+
+
+  PTPscore[PTPscore== 0] <- NA # Safety check: Turn all 0s created in above line into NAs
+
+  PCNedgelist <- cbind(PCNedgelist, PTPscore) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
+  PCNedgelist <- PCNedgelist[rowSums(is.na(PCNedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
+  PCNedgelist <- as.data.frame(PCNedgelist)
+  names(PCNedgelist) <- c("source", "target", "pathway Jaccard similarity", "PTM cluster evidence")
+  # For Cytoscape graphing
+  #Remove all rows that only have NA values for  CPE values
+  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM cluster evidence"]), c("source", "target", "PTM cluster evidence")]
+  # For Cytoscape it's useful to have both types of edges for plotting in different colors
+
+  # Assign interaction, required for Cytoscape
+  bioplanetCPEedges$interaction <- "PTM cluster evidence"
+  # Create pathway crosstalk network with individual cluster and bioplanet edges
+  jaccard.net <- bioplanetjaccardedges
+  names(jaccard.net) <- c("source", "target", "Weight", "interaction")
+  CPE.net <- bioplanetCPEedges
+  names(CPE.net) <- c("source", "target", "Weight", "interaction")
+  pathway.crosstalk.network <- rbind(CPE.net, jaccard.net)
 
   assign("CPE.matrix", CPE.matrix, envir = .GlobalEnv)   #Save for user viewing
-  assign(edgelist.name, PTPedgelist, envir = .GlobalEnv)
-
+  assign(edgelist.name, PCNedgelist, envir = .GlobalEnv)
+  assign(jaccard.edgelist.name, jaccard.net, envir = .GlobalEnv)
+  assign(CPE.edgelist.name, CPE.net, envir = .GlobalEnv)
+  assign(PCN.edgelist.name, pathway.crosstalk.network, envir = .GlobalEnv)
 
   ### Save edgefile for cytoscape plotting ###
 
   if(is.character(createfile)){ #Don't need to check if directory exists since was done above
     saved.dir <- getwd()
     setwd(createfile)
-    filename <- paste(edgelist.name, ".csv", sep="") #Name of the file created with .csv appended
-    utils::write.csv(PTPedgelist, file = filename, row.names = FALSE) #Save to files for cytoscape... Correct formatting?
+    filename <- paste(PCN.edgelist.name, ".csv", sep="") #Name of the file created with .csv appended
+    utils::write.csv(pathway.crosstalk.network, file = filename, row.names = FALSE) #Save to files for cytoscape...
 
     cat(filename, "made in directory:", getwd()) #Tell the user where their files got put
     setwd(saved.dir)
   }
+  end_time <- Sys.time()
+  print(end_time)
+  #calculate difference between start and end time
+  total_time <- end_time - start_time
+  print(noquote(paste("Total time: ", total_time, sep="")))
 }
+
+
+
