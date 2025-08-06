@@ -34,6 +34,7 @@ GetRtsne <- function(table, iter=5000){
 #' @param common.clusters.name Desired name for the clusters that all 3 methods found in common; defaults to common.clusters
 #' @param keeplength Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
+#' @param adj.consensus.name adjacency matrix of consensus clusters from three t-SNE embeddings
 #' @return The correlation matrix: A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal; and A list of three-dimensional data frames used to represent ptms in space to show relationships between them based on distances. Based on Euclidean Distance, Spearman Dissimilarity, and SED (the average between the two)
 #' @export
 #'
@@ -47,7 +48,7 @@ GetRtsne <- function(table, iter=5000){
 #' print(ex.clusters.list[[1]][1])
 #' print(ex.clusters.list[[2]][1])
 #' print(ex.clusters.list[[3]][1])
-MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", keeplength = 2, toolong = 3.5){
+MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", adj.consensus.name = "adj.consensus", keeplength = 2, toolong = 3.5){
 
   #SPEARMAN CALCULATION
 
@@ -153,48 +154,63 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
   clusters.list <- lapply(all.tsne.coords, clustercreate)
   names(clusters.list) <- c("Euclidean", "Spearman", "SED")
 
+  FindCommonClusters <- function(list1, list2, list3, keeplength=3) { # >>>> NEW method
+    # For each clustering method:
+    #   1.	Create a square matrix of all PTMs (across clusterings).
+    #  2.	For each cluster, set all PTM–PTM pairs in the cluster to 1 (indicating co-membership).
+    #  3.	The final matrix for a method has 1 for PTM pairs co-clustered at least once in that method; 0 otherwise.
+    #  clusters.list is the list of clusters from different embeddings: list(Euclidean, Spearman, SED) from MakeClusterList()
+    library(purrr)
+    start_time <- Sys.time()
+    print(start_time)
 
-  ### Create common clusters ###
-  cluster.as.matrix <- function(cl){ #Helper function to turn a cluster (as a char vector) into a square matrix of 1s
-    cl <- cl$PTMnames
-    len <- length(cl)
-    mat <- matrix(1, len, len)
-    rownames(mat) <- cl
-    colnames(mat) <- cl
-    return(mat)
-  }
+    get_ptm_names <- function(clusters) {
+      unique(unlist(lapply(clusters, function(cl) cl$PTM.Name)))
+    }
+    all_ptms <- unique(unlist(map(clusters.list, get_ptm_names)))
 
-  #Need Error Catch
-
-  PTMsize <- length(PTMnames)
-  clusters.adj.matrix <- matrix(0, PTMsize, PTMsize, dimnames = list(PTMnames, PTMnames)) #Intilize a matirx of 0s
-
-  for(clusters in clusters.list){   #Run for every batch of clusters, run cluster.as.matrix over all of them and turn them into a diagional block matrix
-
-    cl.matrix.list <- lapply(clusters, cluster.as.matrix) #Work on 1 batch of clusters at a time
-    temp.matrix <- cl.matrix.list[[1]] #Create the diagonal block matrix
-
-    for(i in 2:length(cl.matrix.list)){ #For every cluster in a batch
-
-      addme <- cl.matrix.list[[i]] #This is the matrix we want to add
-      row.temp <- nrow(temp.matrix)   #Since the number of rows in temp matrix changes
-
-      temp.matrix <- rbind(temp.matrix, matrix(0, nrow = nrow(addme), ncol = ncol(temp.matrix))) #Make a matrix that is returnmatrix + addme by returnmatrix + addme by filling with 0s
-      addme <- rbind(matrix(0, nrow=row.temp, ncol=ncol(addme)), addme)
-      temp.matrix <- cbind(temp.matrix, addme)
-      rownames(temp.matrix) <- colnames(temp.matrix) #I loathe that I have to do this
+    co_membership_matrix <- function(clusters, all_ptms) {
+      mat <- matrix(0, nrow=length(all_ptms), ncol=length(all_ptms), dimnames=list(all_ptms, all_ptms))
+      for(cluster in clusters) {
+        ptms <- cluster$PTM.Name
+        mat[ptms, ptms] <- 1
+      }
+      diag(mat) <- 0
+      mat # Works identically to `return(mat)`
     }
 
-    temp.matrix <- temp.matrix[,sort(colnames(temp.matrix))] #Sort the matrices so they line up
-    temp.matrix <- temp.matrix[sort(rownames(temp.matrix)),]
+    adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix, all_ptms=all_ptms)
 
-    clusters.adj.matrix <- clusters.adj.matrix + temp.matrix #Add all block matrices onto eachother
+    # Step 2: Sum the Co-Membership Matrices Across Methods
+    adj.sum <- Reduce("+", adjacency_matrices)    # values: 0 (never), 1, 2, 3 (co-clustered in all 3 methods)
+    diag(adj.sum) <- 0
+
+    #Step 3: Build a Consensus Network (for Co-Clustering in All 3 Embeddings)
+    #	Edges: Only keep edges where `adj.sum == 3` (meaning the PTM pair is in the same cluster in all three methods).
+    adj.consensus <- (adj.sum == 3) * 1 # This is a neat R trick to convert a logical matrix (`TRUE`/`FALSE`) to a numeric matrix (`1`/`0`) via multiplication.
+    diag(adj.consensus) <- 0
+    g <- igraph::graph_from_adjacency_matrix(adj.consensus, mode="undirected", diag=FALSE)
+
+    # Step 4: Extract Cliques (Consensus Clusters)
+    # use `igraph` to extract maximal cliques, which are sets of PTMs such that every member is connected to every other member in all three methods.
+    clique_list <- igraph::max_cliques(g, min=2)  # Only consider cliques of at least size 2
+    clusters_in_all_three <- lapply(clique_list, function(v) igraph::V(g)[v]$name)
+    # Optionally filter out very small cliques (e.g, singletons)
+    clusters_in_all_three <- Filter(function(x) length(x) >= keeplength, clusters_in_all_three)
+    names(clusters_in_all_three) <- paste0("ConsensusCluster", seq_along(clusters_in_all_three))
+    end_time <- Sys.time()
+    print(end_time)
+    #calculate difference between start and end time
+    total_time <- end_time - start_time
+    print(noquote(paste("Total time: ", total_time, sep="")))
+    # Assign
+    # assign(adj.consensus, ptm.correlation.matrix, envir = .GlobalEnv)
+    return(list(adj.consensus, clusters_in_all_three))
   }
-
-  clusters.adj.matrix[clusters.adj.matrix < 3] <- NA #Take the combined block matrix and filter out every relationship that is less than 3
-  graph <- igraph::graph_from_adjacency_matrix(clusters.adj.matrix) #Create the igraph object
-  comp <- igraph::components(graph) #Find the components
-  common.clusters <- lapply(seq_along(comp$csize)[comp$csize > keeplength], function(x) igraph::V(graph)$name[comp$membership %in% x]) #Take any greater than size 2 (god bless stack overflow)
+  #Find common clusters
+  clusters.common.list <- FindCommonClusters(clusterlist[[1]], clusterlist[[2]], clusterlist[[3]], keeplength) # Runtime: 10 seconds
+  adj.consensus <- clusters.common.list[[1]]
+  common.clusters <- clusters.common.list[[2]]
 
 
   #Assign
@@ -202,4 +218,5 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
   assign(clusters.list.name, clusters.list, envir = .GlobalEnv) # list of the t-SNE data for Euclidean, Spearman, and SED
   assign(correlation.matrix.name, ptm.correlation.matrix, envir = .GlobalEnv) # Correlation Matrix for later use
   assign(common.clusters.name, common.clusters, envir = .GlobalEnv) #Common clusters
+  assign(adj.consensus.name, adj.consensus, envir = .GlobalEnv) # consensus adjacency matrix from all clusters for later use
 }

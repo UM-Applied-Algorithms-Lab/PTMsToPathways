@@ -1,6 +1,6 @@
 ---
 title: "Analyzing Pathways from PTMs: A Guide"
-author: "Nagashree Avabhrath, Mikhail Ukrainetz, Mark Grimes, Madison Moffett, Grant Smith, Lucia Williams"
+author: "Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia Williams, Mark Grimes"
 output: 
   html_document:
     toc: true
@@ -166,7 +166,7 @@ MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = 
 
 The third step of the PTMsToPathways pipeline is broken up into several parts as there is a lot of choice for the user during each sub-step. PPI (protein-protein interaction) databases are consulted in order to filter the clusters by proteins that are known to interact with each other as well as how strongly they are known to interact. The standard recommended PPI database is STRINGdb; getting data from this database is the first (optional) step. This is accomplished with the function GetSTRINGdb. The function GetSTRINGdb requires the STRINGdb package to be downloaded. Code for this is supplied with the code to run the function itself. Please note, however, that the user may consult any database that they choose. After getting STRINGdb data (or not), the user runs MakeDBInput which produces a text file of all of their gene names. This information can be copy and pasted into any database that the user chooses in order to get data from other PPI networks. Step three is getting a GeneMANIA network, which is also optional but recommended. The user pastes their input data into GeneMANIA on the Cytoscape app and saves the edgefile and the nodetable. These files are then input into ProcessGMEdgefile in order to sort the data.  
 
-Note again that the database input can be used in any PPI database that the user chooses, though this package only explicitly supports STRINGdb and GeneMANIA. If another database is chosen, its file will have to be filtered manually by the user before moving on to step 4. The file should have four columns. Column one and two should strictly be labeled "Gene.1" and "Gene.2" in order to integrate with other PPI databases. Column three should name the interaction type between the two proteins (naming of this column is not important). The fourth column should contain the edgeweight and may be named however the user chooses. It is recommended, though, that the database is specified as well as the term 'weight' in the column name.  
+Note again that the database input can be used in any PPI database that the user chooses, though this package only explicitly supports STRINGdb and GeneMANIA. If another database is chosen, its file will have to be filtered manually by the user before moving on to step 4. The file should have four columns. Column one and two should strictly be labeled "source" and "target" in order to integrate with other PPI databases. Column three, "interaction", should name the interaction type between the two proteins (these have different names in different PPI databases). The fourth column, "Weight", should contain the edge weight from the PPI databases. .  
 
 <p>&nbsp;</p>
 
@@ -227,7 +227,7 @@ MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
 #### Code  
 
 ```{r eval = FALSE}
-ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network.name = "gm.network")
+ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, genemania.edges.name = "genemania.edges")
 ```
 
 <center>
@@ -260,12 +260,14 @@ ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network
 
 ## Step 4: Build PPI Network  
 
-The fourth step in the pipeline, BuildPPINetwork, combines the data of protein-protein interactions from each of the provided databases. This package explicitly processes STRINGdb and GeneMANIA in Step 3, but the user may consult as many databases as desired (the processing for which is described in Step 3). BuildPPINetwork combines these databases as efficiently as possible while retaining desired edgeweights from each database. BuildPPINetwork also normalizes the weights on a scale of 0-1 and removes duplicate rows from the data frame.  
+The fourth step in the pipeline, BuildClusterFilteredNetwork, combines the data of protein-protein interactions from each of the provided databases. This package explicitly processes STRINGdb and GeneMANIA in Step 3, but the user may consult as many databases as desired (the processing for which is described in Step 3). BuildClusterFilteredNetwork combines these databases as efficiently as possible while retaining desired edgeweights from each database. BuildClusterFilteredNetwork also normalizes the weights on a scale of 0-1 and removes duplicate rows from the data frame. The Cluster Filtered Network, one of the final outputs of the package, checks all of the edges in the PPI network to ensure that both of the genes are within the cocluster correlation network created in step two and that its weight is nonzero. If either of these conditions are not met, then it will be removed from the list of PPI edges. This new, cluster filtered network is then returned. 
 
 #### Code  
 
 ```{r eval = FALSE}
-BuildPPINetwork(stringdb.edges = NA, gm.network = NA, db.filepaths = c(), ppi.network.name = "ppi.network")
+network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, gene.cccn, db.filepaths = c(), ppi.network.name = "combined.PPIs", cfn.name = "cfn")
+combined.PPIs <- network.list[[1]]
+cfn <- network.list[[2]]
 ```
 
 <center>
@@ -281,15 +283,6 @@ BuildPPINetwork(stringdb.edges = NA, gm.network = NA, db.filepaths = c(), ppi.ne
 
 <p>&nbsp;</p>
 
-## Step 5: Cluster Filtered Network  
-
-Cluster Filtered Network, which is step five in the pipeline and one of the final outputs of the package, checks all of the edges in the PPI network to ensure that both of the genes are within the cocluster correlation network created in step two and that its weight is nonzero. If either of these conditions are not met, then it will be removed from the list of PPI edges. This new, cluster filtered network is then returned.  
-
-#### Code  
-
-```{r eval = FALSE}
-ClusterFilteredNetwork(gene.cccn, ppi.network, cfn.name = "cfn")
-```
 
 <center>
 ![](vig_figs/cfn.png)  
@@ -313,7 +306,7 @@ Step 6, our final analysis step, is the Pathway Crosstalk Network. This step req
 #### Code  
 
 ```{r eval = FALSE}
-PathwayCrosstalkNetwork(common.clusters, file = "bioplanet.csv", edgelist.name = "PTPedgelist", createfile = getwd())
+PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "bioplanet.csv", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd())
 ```
 
 <center>
