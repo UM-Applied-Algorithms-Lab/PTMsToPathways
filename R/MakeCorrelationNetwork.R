@@ -164,8 +164,8 @@ gene.cccn <- gene.cccn.list[[3]]
   assign(ptm.cccn.name, ptm.cccn, envir = .GlobalEnv) # PTM Co-Cluster Correlation Network
   assign(gene.cccn.graph.name, gene.cccn.g, envir = .GlobalEnv) # igraph object for Gene Co-Cluster Correlation Network
   assign(ptm.cccn.graph.name, ptm.cccn.g, envir = .GlobalEnv) # igraph object for PTM Co-Cluster Correlation Network
-  assign(gene.cccn.edges.name, gene.cccn.edges, envir = .GlobalEnv) # igraph object for Gene Co-Cluster Correlation Network
-  assign(ptm.cccn.edges.name, ptm.cccn.edges, envir = .GlobalEnv) # igraph object for PTM Co-Cluster Correlation Network
+  assign(gene.cccn.edges.name, gene.cccn.edges, envir = .GlobalEnv) # edge file for Gene Co-Cluster Correlation Network
+  assign(ptm.cccn.edges.name, ptm.cccn.edges, envir = .GlobalEnv) # edge file for PTM Co-Cluster Correlation Network
 
 
   ### Graphing ###
