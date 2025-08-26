@@ -8,7 +8,11 @@ MakeCorrelationNetwork(
   common.clusters,
   ptm.correlation.matrix,
   ptm.cccn.name = "ptm.cccn",
-  gene.cccn.name = "gene.cccn"
+  gene.cccn.name = "gene.cccn",
+  ptm.cccn.graph.name = "ptm.cccn.g",
+  gene.cccn.graph.name = "gene.cccn.g",
+  ptm.cccn.edges.name = "ptm.cccn.edges",
+  gene.cccn.edges.name = "gene.cccn.edges"
 )
 }
 \arguments{
@@ -16,9 +20,17 @@ MakeCorrelationNetwork(
 
 \item{ptm.correlation.matrix}{A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.}
 
-\item{ptm.cccn.name}{Desired name of the PTM correlation matrix filtered by specific PTMs from input}
+\item{ptm.cccn.name}{Desired name of the PTM correlation matrix filtered by specific PTMs from input; defaults to ptm.cccn}
 
-\item{gene.cccn.name}{Desired name for the cocluster correlation network; defaults to gene.cccn}
+\item{gene.cccn.name}{Desired name for the gene cocluster correlation network; defaults to gene.cccn}
+
+\item{ptm.cccn.graph.name}{Desired name of the PTM correlation matrix filtered by specific PTMs from input - igraph object}
+
+\item{gene.cccn.graph.name}{Desired name for the gene cocluster correlation network; defaults to gene.cccn - igraph object}
+
+\item{ptm.cccn.edges.name}{Desired name of the PTM edge list file}
+
+\item{gene.cccn.edges.name}{Desired name for the gene edge list file}
 }
 \value{
 The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
@@ -33,4 +45,5 @@ ex.ptm.cor <- ex.ptm.correlation.matrix
 MakeCorrelationNetwork(ex.common.clusters, ex.ptm.cor, "ex.ptm.cccn", "ex.gene.cccn")
 ex.ptm.cccn[1:5, 1:5]
 ex.gene.cccn[1:5, 1:5]
+
 }

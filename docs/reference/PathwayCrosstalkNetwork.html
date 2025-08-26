@@ -40,7 +40,10 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span></span>
 <span>  <span class="va">common.clusters</span>,</span>
 <span>  bioplanet.file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>,</span>
-<span>  edgelist.name <span class="op">=</span> <span class="st">"PTPedgelist"</span>,</span>
+<span>  edgelist.name <span class="op">=</span> <span class="st">"PCNedgelist"</span>,</span>
+<span>  jaccard.edgelist.name <span class="op">=</span> <span class="st">"jaccard.net"</span>,</span>
+<span>  CPE.edgelist.name <span class="op">=</span> <span class="st">"CPE.net"</span>,</span>
+<span>  PCN.edgelist.name <span class="op">=</span> <span class="st">"pathway crosstalk network"</span>,</span>
 <span>  createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -61,6 +64,18 @@
 <dd><p>The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.</p></dd>
 
 
+<dt id="arg-jaccard-edgelist-name">jaccard.edgelist.name<a class="anchor" aria-label="anchor" href="#arg-jaccard-edgelist-name"></a></dt>
+<dd><p>The desired name of the Pathway Jaccard similarity edges</p></dd>
+
+
+<dt id="arg-cpe-edgelist-name">CPE.edgelist.name<a class="anchor" aria-label="anchor" href="#arg-cpe-edgelist-name"></a></dt>
+<dd><p>The desired name of the Pathway PTM cluster evidence edges</p></dd>
+
+
+<dt id="arg-pcn-edgelist-name">PCN.edgelist.name<a class="anchor" aria-label="anchor" href="#arg-pcn-edgelist-name"></a></dt>
+<dd><p>The desired name of the PCN containg both CPE and Jaccard edges for Cytoscape</p></dd>
+
+
 <dt id="arg-createfile">createfile<a class="anchor" aria-label="anchor" href="#arg-createfile"></a></dt>
 <dd><p>The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.</p></dd>
 
@@ -73,6 +88,10 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span><span class="va">ex.common.clusters</span>, <span class="va">ex.bioplanet</span>, <span class="st">"ex.edgelist"</span>, createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PCN"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-08-25 21:21:58 MDT"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 0.117194652557373</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

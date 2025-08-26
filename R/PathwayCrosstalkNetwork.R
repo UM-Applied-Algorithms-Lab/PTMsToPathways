@@ -24,7 +24,10 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
     if (any(fixgenes %in% cellv)) {
       cellv.new <- gsub(fixgenes[fixgenes %in% cellv], corrects[fixgenes %in% cellv], cellv)
       return (paste(cellv.new, collapse="; "))
-    } else return(cell)    }print("Making PCN")
+    } else {return(cell)}
+}
+  
+  print("Making PCN")
   start_time <- Sys.time()
 
   if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
