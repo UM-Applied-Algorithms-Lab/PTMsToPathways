@@ -14,6 +14,9 @@
 #' @examples
 #' ClusterFilteredNetwork(ex.gene.cccn, ex.ppi.network, cfn.name = "ex.cfn")
 #' utils::head(ex.cfn)
+#'
+# NOTE: Superceded by BuildClusterFilteredNetwork in BuildPPINetwork.R
+# NOT RUN:
 ClusterFilteredNetwork <- function(gene.cccn, ppi.network, cfn.name = "cfn") {
 
   cfn <- data.frame(matrix(0,ncol = 4, nrow = 0))                      # initiate an empty dataframe

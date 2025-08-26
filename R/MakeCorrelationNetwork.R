@@ -21,10 +21,10 @@
 #' ex.ptm.cccn[1:5, 1:5]
 #' ex.gene.cccn[1:5, 1:5]
 #'
-MakeCorrelationNetwork <- function(common.clusters, ptm.correlation.matrix, ptm.cccn.name = "ptm.cccn", gene.cccn.name = "gene.cccn", ptm.cccn.graph.name = "ptm.cccn.g", gene.cccn.graph.name = "gene.cccn.g", ptm.cccn.edges.name = "ptm.cccn.edges", gene.cccn.edges.name = "gene.cccn.edges"){
+MakeCorrelationNetwork <- function(common.clusters, ptm.correlation.matrix, ptm.cccn.name = "ptm.cccn", gene.cccn.name = "gene.cccn", ptm.cccn.graph.name = "ptm.cccn.g", gene.cccn.graph.name = "gene.cccn.g", ptm.cccn.edges.name = "ptm.cccn.edges", gene.cccn.edges.name = "gene.cccn.edges", returndata = TRUE){
  # Two nested functions for creating the PTM and gene CCCN, respectively
   # Use the consensus adjacency matrix to filter PTM correlations, then create a graph and edge files for PTMs and genes
-MakePTMCCCN <- function(adj.consensus, ptm.correlation.matrix) {
+  MakePTMCCCN <- function(adj.consensus, ptm.correlation.matrix) {
   #calculate time at start of code block
   print("Making PTM CCCN")
   start_time <- Sys.time()
@@ -70,25 +70,21 @@ MakePTMCCCN <- function(adj.consensus, ptm.correlation.matrix) {
   #calculate difference between start and end time
   total_time <- end_time - start_time
   print(noquote(paste("Total time: ", total_time, sep="")))
-  return(list(ptm.cccn.g, ptm.cccn.edges))
+  return(list(ptm.cccn0, ptm.cccn.g, ptm.cccn.edges))
 }
 #
 ptm.cccn.list <- MakePTMCCCN(adj.consensus, ptm.correlation.matrix)
-ptm.cccn.g <- ptm.cccn.list[[1]]
-ptm.cccn.edges <- ptm.cccn.list[[2]]
+ptm.cccn <- ptm.cccn.list[[1]]
+ptm.cccn.g <- ptm.cccn.list[[2]]
+ptm.cccn.edges <- ptm.cccn.list[[3]]
 # Build the Gene CCCN
 # Start from igraph object saved from MakePTMCCCN()
 # Double ddply Summing: By grouping and summing in both directions, you ensure the aggregation is performed for both genes in each pair, producing a correctly shaped and labeled gene–gene matrix.
-MakeGeneCCCN <- function(ptm.cccn.g){
+MakeGeneCCCN <- function(ptm.cccn){
   start_time <- Sys.time()
   print("Making Gene CCCN")
   print(start_time)
-  ptm.cccn <- igraph::as_adjacency_matrix(
-    ptm.cccn.g,
-    type = "both",
-    attr = "weight",
-    sparse = FALSE
-  )
+  # ptm.cccn  was returned above
   gene.cccn <- data.frame(ptm.cccn, row.names = rownames(ptm.cccn), check.rows=TRUE, check.names=FALSE, fix.empty.names = FALSE)
   # Check: identical(rownames(gene.cccn), colnames(gene.cccn)) # TRUE
   gene.cccn$Gene.Name <- sapply(rownames(gene.cccn), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
@@ -142,8 +138,6 @@ MakeGeneCCCN <- function(ptm.cccn.g){
   gene.cccn.edges$interaction <- "correlation"
   gene.cccn.edges$interaction[gene.cccn.edges$Weight <= -0.5] <- "negative correlation"
   gene.cccn.edges$interaction[gene.cccn.edges$Weight >=  0.5] <- "positive correlation"
-  #Assign
-  # assign(gene.cccn.g, gene.cccn.edges, envir = .GlobalEnv) #>>>> GENE CoCluster Correlation Network
   end_time <- Sys.time()
   print(end_time)
   #calculate difference between start and end time
@@ -152,21 +146,20 @@ MakeGeneCCCN <- function(ptm.cccn.g){
   return(list(gene.cccn.g, gene.cccn.edges, gene.cccn.matrix))
 }
 
-gene.cccn.list <- MakeGeneCCCN(ptm.cccn.g)
+gene.cccn.list <- MakeGeneCCCN(ptm.cccn)
 gene.cccn.g <- gene.cccn.list[[1]]
 gene.cccn.edges <- gene.cccn.list[[2]]
 gene.cccn <- gene.cccn.list[[3]]
 
 
   ### Export Final Data Structure ###
-  #gene.cccn[is.na(gene.cccn)] <- 0 #Used to be function
-  assign(gene.cccn.name, gene.cccn, envir = .GlobalEnv) # Gene Co-Cluster Correlation Network
-  assign(ptm.cccn.name, ptm.cccn, envir = .GlobalEnv) # PTM Co-Cluster Correlation Network
+  assign(gene.cccn.name, gene.cccn, envir = .GlobalEnv) # Gene Co-Cluster Correlation Network adjacency matrix
+  assign(ptm.cccn.name, ptm.cccn, envir = .GlobalEnv) # PTM Co-Cluster Correlation Network adjacency matrix
   assign(gene.cccn.graph.name, gene.cccn.g, envir = .GlobalEnv) # igraph object for Gene Co-Cluster Correlation Network
   assign(ptm.cccn.graph.name, ptm.cccn.g, envir = .GlobalEnv) # igraph object for PTM Co-Cluster Correlation Network
   assign(gene.cccn.edges.name, gene.cccn.edges, envir = .GlobalEnv) # edge file for Gene Co-Cluster Correlation Network
   assign(ptm.cccn.edges.name, ptm.cccn.edges, envir = .GlobalEnv) # edge file for PTM Co-Cluster Correlation Network
-
+  if (returndata == TRUE) {return (list(ptm.cccn.g, gene.cccn.g, ptm.cccn.edges, gene.cccn.edges))}
 
   ### Graphing ###
   # graph <- igraph::graph_from_adjacency_matrix(gene.cccn, mode = "lower", diag = FALSE, weighted = "Weight")

@@ -5,8 +5,8 @@
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
 #' @param edgelist.name The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.
-#' @param jaccard.edgelist.name The desired name of the Pathway Jaccard similarity edges
-#' @param CPE.edgelist.name The desired name of the Pathway PTM cluster evidence edges
+#' @param jaccard.edgelist.name The desired name of the pathway_Jaccard_similarity edges
+#' @param CPE.edgelist.name The desired name of the Pathway PTM_cluster_evidence edges
 #' @param PCN.edgelist.name The desired name of the PCN containg both CPE and Jaccard edges for Cytoscape
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
@@ -66,7 +66,7 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   PCNedgelist <- cbind(PCNedgelist, jaccard.values) #Attach the JACCARD VALUE column to PATHWAY | PATHWAY
   bioplanetjaccardedges <- as.data.frame(PCNedgelist)
   bioplanetjaccardedges <- bioplanetjaccardedges[!is.na(bioplanetjaccardedges$jaccard.values),]
-  bioplanetjaccardedges$interaction <- "pathway Jaccard similarity"
+  bioplanetjaccardedges$interaction <- "pathway_Jaccard_similarity"
   names(bioplanetjaccardedges)[1:2] <- c("source", "target") # For Cytoscape graphing
   assign("Jaccard.Full", bioplanetjaccardedges, envir = .GlobalEnv) #DEBUG - For viewing the full jaccard edgelist
 
@@ -150,14 +150,31 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   PCNedgelist <- cbind(PCNedgelist, PTPscore) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
   PCNedgelist <- PCNedgelist[rowSums(is.na(PCNedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
   PCNedgelist <- as.data.frame(PCNedgelist)
-  names(PCNedgelist) <- c("source", "target", "pathway Jaccard similarity", "PTM cluster evidence")
+  names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_evidence")
+  # Sort by the highest PTM cluster evidence
+  # PCNedgelist <- PCNedgelist[order(PCNedgelist$PTM_cluster_evidence, decreasing = TRUE),]
+  PCNedgelist$pathway_Jaccard_similarity <- as.numeric(PCNedgelist$pathway_Jaccard_similarity)
+  PCNedgelist$PTM_cluster_evidence <- as.numeric(PCNedgelist$PTM_cluster_evidence)
+  # Convert NA to 0
+  PCNedgelist[is.na(PCNedgelist)] <- 0
+  # Subset data frames
+  zero_jaccard <- PCNedgelist[PCNedgelist$pathway_Jaccard_similarity == 0, ]
+  nonzero_jaccard <- PCNedgelist[PCNedgelist$pathway_Jaccard_similarity > 0, ]
+
+  # Sort both by PTM_cluster_evidence in decreasing order
+  zero_jaccard <- zero_jaccard[order(zero_jaccard$PTM_cluster_evidence, decreasing=TRUE), ]
+  nonzero_jaccard <- nonzero_jaccard[order(nonzero_jaccard$PTM_cluster_evidence, decreasing=TRUE), ]
+
+  # Combine results: zero-jaccard block on top, then nonzero-jaccard block
+  PCNedgelist <- rbind(zero_jaccard, nonzero_jaccard)
+
   # For Cytoscape graphing
   #Remove all rows that only have NA values for  CPE values
-  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM cluster evidence"]), c("source", "target", "PTM cluster evidence")]
+  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM_cluster_evidence"]), c("source", "target", "PTM_cluster_evidence")]
   # For Cytoscape it's useful to have both types of edges for plotting in different colors
 
   # Assign interaction, required for Cytoscape
-  bioplanetCPEedges$interaction <- "PTM cluster evidence"
+  bioplanetCPEedges$interaction <- "PTM_cluster_evidence"
   # Create pathway crosstalk network with individual cluster and bioplanet edges
   jaccard.net <- bioplanetjaccardedges
   names(jaccard.net) <- c("source", "target", "Weight", "interaction")
