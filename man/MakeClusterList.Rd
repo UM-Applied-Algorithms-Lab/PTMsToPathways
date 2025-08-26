@@ -10,7 +10,6 @@ MakeClusterList(
   clusters.list.name = "clusters.list",
   tsne.coords.name = "all.tsne.coords",
   common.clusters.name = "common.clusters",
-  adj.consensus.name = "adj.consensus",
   keeplength = 2,
   toolong = 3.5
 )
@@ -25,8 +24,6 @@ MakeClusterList(
 \item{tsne.coords.name}{Desired name for the lists of tsne coords to be saved as; defaults to tsne.coords}
 
 \item{common.clusters.name}{Desired name for the clusters that all 3 methods found in common; defaults to common.clusters}
-
-\item{adj.consensus.name}{adjacency matrix of consensus clusters from three t-SNE embeddings}
 
 \item{keeplength}{Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2}
 
