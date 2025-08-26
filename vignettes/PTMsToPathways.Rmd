@@ -31,7 +31,7 @@ knitr::opts_chunk$set(
 
 The PTMsToPathways package takes mass spectrometry data of post-translational modifications under different experimental conditions and implicates pathways that are involved. These pathways are generated based on analysis of which ptms cluster together (based on the similar reactiosn to the same environmental conditions) compared to how those proteins are known to interact. This clustering information is also used to find interactions between known, existing pathways.
 
-**An important note about this package:** There are no returned outputs from any of the functions. All outputs listed are assigned to the Global Namespace in order to prevent loss of data and promote ease of use.  
+##**An important note about this package:** The returned outputs from the functions are data that may be saved in an RData object so that the user may reload the data, which may take a while to generate, and pick up where they left off later. If returned outputs are not desired, set "returdata = FALSE" in the function command. In either case all outputs listed are assigned to the Global Namespace to promote ease of use.  
 
 <p>&nbsp;</p>
 
@@ -66,7 +66,7 @@ If there is/are column(s) that contain parts of PTM names (e.g. the first column
 ```{r eval = FALSE, echo = TRUE}
 name.columns <- 1:3 
 rownames(ptmtable) <- sort(unlist(apply(ptmtable[name.columns], 1, paste, collapse=" ")))
-ptmtable <- ptmtable[,-name.col]
+ptmtable <- ptmtable[,-name.columns]
 ```
 
 #### Replacing Patterns
@@ -82,18 +82,21 @@ rownames(ptmtable) <- sapply(rownames(ptmtable), function(x) {for(p in patterns)
 
 # Pipeline  
 
-The following pipeline is intended to be a step-by-step guide to walk users through the process of using the PTMsToPathways package. It includes descriptions of each function. This pipeline must be run in order as subsequent steps require the data produced in previous steps. Example code and example outputs as well as estimated run-times are included with each description and are based on a preliminary dataset of \~9,000 post-translational modifications and 69 experimental conditions processed with a 12th Gen i5 processor and 8GB of RAM.  
+The following pipeline is intended to be a step-by-step guide to walk users through the process of using the PTMsToPathways package. It includes descriptions of each function. This pipeline must be run in order as subsequent steps require the data produced in previous steps. Example code and example outputs as well as estimated run-times are included with each description and are based on a preliminary dataset of ~9,000 post-translational modifications and 69 experimental conditions processed with a 12th Gen i5 processor and 8GB of RAM.  
 
 <p>&nbsp;</p>
 
 ## Step 1: Make Cluster List  
 
-Make Cluster List is the first step in the analyzing one's data. This function takes the post-translational modification table and runs it through three calculations of distance: Euclidean Distance, Spearman Dissimilarity (1 - |Spearman Correlation|), and the average of the two of these. These calculations find the 'distance' between ptms based upon under what conditions they occur. In other words, they found how dissimilar each pair of PTMs are. These matricies are then run through t-SNE in order to put them into a 3-dimensional space and the clusters that are present in each present in each matrix are identified as well. Please note: t-SNE involves an element of randomness; in order to get the same results, set.seed(#) must be called. A correlation table is also produced based on the Spearman Correlation values for each pair of PTMs.  
+Make Cluster List is the first step in the analyzing one's data. This function takes the post-translational modification table and runs it through three calculations of distance: Euclidean Distance, Spearman Dissimilarity (1 - |Spearman Correlation|), and the average of the two of these. These calculations find the 'distance' between ptms based upon under what conditions they occur. In other words, they found how dissimilar each pair of PTMs are. These matricies are then run through t-SNE in order to put them into a 3-dimensional space and the clusters that are present in each present in each matrix are identified as well. Please note: t-SNE involves an element of randomness due to pseudorandom initialization or stochastic processes within the algorithm; in order to get exactly the same results on multiple executions, set.seed(#) must be called (# = any integer of choice). A correlation table is also produced based on the Spearman Correlation values for each pair of PTMs.  
 
 #### Code  
 
 ```{r eval = FALSE}
-MakeClusterList(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", keeplength = 2, toolong = 3.5)
+clusterlist.data <- MakeClusterList(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", adj.consensus.name = "adj.consensus", keeplength = 2, toolong = 3.5, returndata = TRUE)
+common.clusters <- clusterlist.data[[1]]
+adj.consensus <- clusterlist.data[[2]]
+ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
 <center>
@@ -141,7 +144,11 @@ Next, Make Correlation Network is run to filter the correlation matrix of PTMs b
 #### Code  
 
 ```{r eval = FALSE}
-MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = "ptm.cccn", gene.cccn.name = "gene.cccn")
+CCCN.data <- MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix, ptm.cccn.name = "ptm.cccn", gene.cccn.name = "gene.cccn", returndata = TRUE)
+ptm.cccn.g <- CCCN.data[[1]]
+gene.cccn.g <- CCCN.data[[2]]
+ptm.cccn.edges <- CCCN.data[[3]]
+gene.cccn.edges <- CCCN.data[[4]]
 ```
 
 <center>
@@ -178,7 +185,7 @@ Note again that the database input can be used in any PPI database that the user
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 
-GetSTRINGdb(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "nodenames")
+stringdb.edges <- GetSTRINGdb(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "nodenames", returndata=TRUE)
 ```
 
 <center>
@@ -227,7 +234,7 @@ MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
 #### Code  
 
 ```{r eval = FALSE}
-ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, genemania.edges.name = "genemania.edges")
+genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network.name = "gm.network", returndata=TRUE)
 ```
 
 <center>
@@ -260,12 +267,12 @@ ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path, genemania.
 
 ## Step 4: Build PPI Network  
 
-The fourth step in the pipeline, BuildClusterFilteredNetwork, combines the data of protein-protein interactions from each of the provided databases. This package explicitly processes STRINGdb and GeneMANIA in Step 3, but the user may consult as many databases as desired (the processing for which is described in Step 3). BuildClusterFilteredNetwork combines these databases as efficiently as possible while retaining desired edgeweights from each database. BuildClusterFilteredNetwork also normalizes the weights on a scale of 0-1 and removes duplicate rows from the data frame. The Cluster Filtered Network, one of the final outputs of the package, checks all of the edges in the PPI network to ensure that both of the genes are within the cocluster correlation network created in step two and that its weight is nonzero. If either of these conditions are not met, then it will be removed from the list of PPI edges. This new, cluster filtered network is then returned. 
+The fourth step in the pipeline, BuildClusterFilteredNetwork, combines the data of protein-protein interactions from each of the provided databases. This package explicitly processes STRINGdb and GeneMANIA in Step 3, but the user may consult as many databases as desired (the processing for which is described in Step 3). BuildClusterFilteredNetwork combines these databases as efficiently as possible while retaining desired edgeweights from each database. BuildClusterFilteredNetwork also normalizes the weights on a scale of 0-1 and removes duplicate rows from the data frame. The Cluster Filtered Network, one of the final outputs of the package, checks all of the edges in the PPI network to ensure that both of the genes are within the cocluster correlation network created in step two and that its weight is nonzero. If either of these conditions are not met, then it will be removed from the list of PPI edges. This new, cluster filtered network is then returned. The combined PPIs are all the PPIs for all genes in the data. The cfn is about 12% of these filtered by PTM cluster data.
 
 #### Code  
 
 ```{r eval = FALSE}
-network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, gene.cccn, db.filepaths = c(), ppi.network.name = "combined.PPIs", cfn.name = "cfn")
+network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, gene.cccn.edges, db.filepaths = c(), ppi.network.name = "combined.PPIs", cfn.name = "cfn", returndata=TRUE)
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
@@ -301,12 +308,15 @@ cfn <- network.list[[2]]
 
 **Note:** This step is directory sensitive. The user can check and set the working directory in R using getwd() and setwd("yourdirectoryhere") respectively. It needs a path to the bioplanet file and will put an edgelist file in the working directory or the otherwise given path. If the file cannot be found, please check the working directory first.  
 
-Step 6, our final analysis step, is the Pathway Crosstalk Network. This step requires input of an external database, bioplanet, that contains groups of genes (proteins) involved in various cellular processes known as pathways. PCN turns this database into a list of pathways and converts those pathways into a pathway x pathway edgelist that possesses multiple weights, a jaccard similarity, and a score. The score is derived from Cluster-Pathway Evidence using the common clusters found in Make Correlation Network. Info about the Cluster-Pathway Evidence score can be found at: <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690>  
+Step 6, our final analysis step, is the Pathway Crosstalk Network. This step requires input of an external database, bioplanet, that contains groups of genes (proteins) involved in various cellular processes known as pathways. PCN turns this database into a list of pathways and converts those pathways into a pathway x pathway edgelist (PCNedgelist) that possesses multiple weights, a jaccard similarity, and a score. The score is derived from Cluster-Pathway Evidence using the common clusters found in Make Correlation Network. Info about the Cluster-Pathway Evidence score can be found at: <https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690>. For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard similarity edges are listed separately in the edgelist called pathway.crosstalk.network.  
 
 #### Code  
 
 ```{r eval = FALSE}
-PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "bioplanet.csv", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd())
+PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file , edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd(), returndata=TRUE)
+pathway.crosstalk.network <- PCN.data[[1]]
+PCNedgelist <- PCN.data[[2]]
+pathways.list <- PCN.data[[3]]
 ```
 
 <center>
@@ -324,16 +334,45 @@ UNKNOWN
 
 <p>&nbsp;</p>
 
-## Step 7: Graph Cluster Filtered Network  
+## Step 7: Graph Networks in Cytoscape  
 
-This optional function GraphCfn creates a graph using the cluster filtered network in the Cytoscape app. When graphed, Cytoscape provides an interactive interface to view the data.  
+It is possible to graph the entire PCN, CFN, and CCCNs in their entirety, though very large graphs take a long time to graph. One approach to navigating these data structures is to select nodes from the large networks in Cytoscape (or in R using RCy3::selectNodes()) and select nearest neighbors or shortest paths and create a subnetwork in a new window (see the Cytoscape Manual https://manual.cytoscape.org/en/stable/). 
+
+The approach described below is to identify pathways, genes, and PTMs of interest in the R data objects, then make smaller, more interpretable graphs in Cytoscape using RCy3. 
+
+For example, we will find names of all pathways in Bioplanet that contain EGFR. The data object 'pathways.list' is a list, where the name of the list element is the name of a Bioplanet pathway and each element is a character vector of the genes in that pathway. Then we want to find interactions between the pathway "Transmembrane transport of small molecules" and those pathways. The utility functions used below are in CytoscapeGraphing.R
+```{r eval = FALSE}
+egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list),function(x){"EGFR" %in% pathways.list[[x]]})]
+length(egfr_pathways) #83
+egfr_transporter.pcn <- filter.edges.between("Transmembrane transport of small molecules", egfr_pathways, PCNedgelist)
+egfr_transporter_pcn.cy <- filter.edges.between("Transmembrane transport of small molecules", egfr_pathways, pathway.crosstalk.network)
+```
+
+These two versions of the PCN show cluster evidence and Jaccard smilarity in adjacent columns (the first case) or as distinct edges (the second case, which can be used to plot this network in cytoscape).
+```{r eval = FALSE}
+# Graph PCN
+pcn.graph.1 <- cytoscape.graph.PCN.pathways(PCN = egfr_transporter_pcn.cy, net.name="EGFR signaling and transmembrane transporters", Jaccard.edges=TRUE) 
+
+```
+
+
+Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common.
+First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data. 
+```{r eval = FALSE}
+egfr_transporter.cfn <- filter.edges.between(pathways.list[["EGF/EGFR signaling pathway"]], pathways.list[["Transmembrane transport of small molecules"]], cfn)
+egfr_transporter.nodes <- make.cytoscape.node.file (egfr_transporter.cfn, funckey, ptmtable, include.ptm.data = TRUE) 
+
+```
+
+
+The function GraphCfn creates a graph using the cluster filtered network in the Cytoscape app. When graphed, Cytoscape provides an interactive interface to view the data. This function requires the edge list file (egfr_transporter.cfn in the example), and node data file (egfr_transporter.nodes).
 
 #### Code  
 
 ```{r eval = FALSE}
-GraphCfn(cfn, ptmtable, funckey = PTMsToPathways::ex.funckey, Network.title = "cfn", Network.collection = "PTMsToPathways",
+GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes, plotcol = "H3122_Crizotinib", Network.title = "CFN", Network.collection = "PTMsToPathways",
          visual.style.name = "PTMsToPathways.style", background.color = "#949494", edge.label.color = '#17202a', node.label.color = '#000000',
-         default.font = "Times New Roman", node.font.size = 20, edge.font.size = 8, edge.line.style = 'SOLID',
+         default.font = "Arial", node.font.size = 20, edge.font.size = 8, edge.line.style = 'SOLID',
          edge.opacity = 175, edge.label.opacity = 255, border.opacity = 255, node.label.opacity = 255, node.fill.opacity = 255)
 ```
 

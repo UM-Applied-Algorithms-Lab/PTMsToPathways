@@ -55,7 +55,7 @@ cccn_to_nodenames <- function(gene.cccn, nodenames.name = 'nodenames'){
 #' # GetSTRINGdb(ex.gene.cccn, 'ex.stringdb.edges', 'ex.nodenames')
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
-GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "nodenames") {
+GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "nodenames", returndata=TRUE) {
   nodenames <- cccn_to_nodenames(gene.cccn, nodenames.name)
 
   if(!requireNamespace("STRINGdb", quietly = TRUE)){
@@ -105,6 +105,7 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
   colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
   # assign
   assign(stringdb.name, stringdb.edges, envir = .GlobalEnv)
+  if(returndata==TRUE) (return(stringdb.edges))
 }
 
 
@@ -129,7 +130,7 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
 # NOTE:
 #  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
 # Note: The column names may change in future releases of GeneMANIA.
-ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network.name = "gm.network"){
+ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network.name = "gm.network", returndata=TRUE){
   # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
   # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
   nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
@@ -167,6 +168,7 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
   genemania.edges <- edgetable[keep,]                                                 # copy 'em over
 
   assign(gm.network.name, as.data.frame(genemania.edges), envir = .GlobalEnv)     # assign :)
+  if (returndata==TRUE) {return(genemania.edges)}
 }
 
 # NOTE: Other PPI network sources are:

@@ -48,8 +48,11 @@ GetRtsne <- function(table, iter=5000){
 #' print(ex.clusters.list[[1]][1])
 #' print(ex.clusters.list[[2]][1])
 #' print(ex.clusters.list[[3]][1])
-MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", adj.consensus.name = "adj.consensus", keeplength = 2, toolong = 3.5){
-
+MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", adj.consensus.name = "adj.consensus", keeplength = 2, toolong = 3.5, returndata = TRUE){
+  start_time <- Sys.time()
+  print("Starting correlation calculations and t-SNE.")
+  print(start_time)
+  print("This may take a few minutes for large data sets.")
   #SPEARMAN CALCULATION
 
   # Add if statement here to make sure functions are formatted correctly #
@@ -59,6 +62,7 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
 
   # Calculate Spearman correlation #
   ptm.correlation.matrix <- stats::cor(t(ptmtable.sp), use = "pairwise.complete.obs", method = "spearman")
+  # Note: this is the slowest step. We found  use = "pairwise.complete.obs", method = "spearman" to perform the best according to evaluations with data with missing values, but it takes longer.
 
   # Replace diagonal with NA #
   diag(ptm.correlation.matrix) <- NA
@@ -145,6 +149,11 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
     #Convert data frame into a list of clusters (check doesn't like group but it's a column name)
     result.span.list <- plyr::dlply(result.span.df, plyr::.(group))  # GROUP LIST  !
     return(result.span.list)
+    end_time <- Sys.time()
+    print(end_time)
+    #calculate difference between start and end time
+    total_time <- end_time - start_time
+    print(noquote(paste("Total time: ", total_time, sep="")))
 
   } #END of nested function
 
@@ -154,7 +163,7 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
   clusters.list <- lapply(all.tsne.coords, clustercreate)
   names(clusters.list) <- c("Euclidean", "Spearman", "SED")
 
-  FindCommonClusters <- function(list1, list2, list3, keeplength=3) { # >>>> NEW method
+  FindCommonClusters <- function(clusters.list, keeplength=3) { # >>>> NEW method
     # For each clustering method:
     #   1.	Create a square matrix of all PTMs (across clusterings).
     #  2.	For each cluster, set all PTM–PTM pairs in the cluster to 1 (indicating co-membership).
@@ -162,24 +171,28 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
     #  clusters.list is the list of clusters from different embeddings: list(Euclidean, Spearman, SED) from MakeClusterList()
     library(purrr)
     start_time <- Sys.time()
-    print(start_time)
+    message("Starting FindCommonClusters at ", start_time)
 
     get_ptm_names <- function(clusters) {
-      unique(unlist(lapply(clusters, function(cl) cl$PTM.Name)))
+      unique(unlist(lapply(clusters, function(cl) cl$PTMnames)))
     }
     all_ptms <- unique(unlist(map(clusters.list, get_ptm_names)))
 
     co_membership_matrix <- function(clusters, all_ptms) {
-      mat <- matrix(0, nrow=length(all_ptms), ncol=length(all_ptms), dimnames=list(all_ptms, all_ptms))
-      for(cluster in clusters) {
-        ptms <- cluster$PTM.Name
-        mat[ptms, ptms] <- 1
+      mat <- matrix(0, nrow = length(all_ptms), ncol = length(all_ptms),
+                    dimnames = list(all_ptms, all_ptms))
+      for (cluster in clusters) {
+        ptms <- intersect(cluster$PTMnames, all_ptms)
+        if (length(ptms) > 1) {
+          mat[ptms, ptms] <- 1
+        }
       }
       diag(mat) <- 0
-      mat # Works identically to `return(mat)`
+      mat
     }
 
-    adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix, all_ptms=all_ptms)
+
+  adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix, all_ptms=all_ptms)
 
     # Step 2: Sum the Co-Membership Matrices Across Methods
     adj.sum <- Reduce("+", adjacency_matrices)    # values: 0 (never), 1, 2, 3 (co-clustered in all 3 methods)
@@ -195,9 +208,16 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
     # use `igraph` to extract maximal cliques, which are sets of PTMs such that every member is connected to every other member in all three methods.
     clique_list <- igraph::max_cliques(g, min=2)  # Only consider cliques of at least size 2
     clusters_in_all_three <- lapply(clique_list, function(v) igraph::V(g)[v]$name)
-    # Optionally filter out very small cliques (e.g, singletons)
+
+    # Filter out very small cliques
     clusters_in_all_three <- Filter(function(x) length(x) >= keeplength, clusters_in_all_three)
-    names(clusters_in_all_three) <- paste0("ConsensusCluster", seq_along(clusters_in_all_three))
+
+    if (length(clusters_in_all_three) > 0) {
+      names(clusters_in_all_three) <- paste0("ConsensusCluster", seq_along(clusters_in_all_three))
+    } else {
+      warning("No cliques remain after filtering with keeplength = ", keeplength)
+    }
+
     end_time <- Sys.time()
     print(end_time)
     #calculate difference between start and end time
@@ -208,7 +228,7 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
     return(list(adj.consensus, clusters_in_all_three))
   }
   #Find common clusters
-  clusters.common.list <- FindCommonClusters(clusterlist[[1]], clusterlist[[2]], clusterlist[[3]], keeplength) # Runtime: 10 seconds
+  clusters.common.list <- FindCommonClusters(clusters.list, keeplength) # Runtime: 10 seconds
   adj.consensus <- clusters.common.list[[1]]
   common.clusters <- clusters.common.list[[2]]
 
@@ -219,4 +239,5 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
   assign(correlation.matrix.name, ptm.correlation.matrix, envir = .GlobalEnv) # Correlation Matrix for later use
   assign(common.clusters.name, common.clusters, envir = .GlobalEnv) #Common clusters
   assign(adj.consensus.name, adj.consensus, envir = .GlobalEnv) # consensus adjacency matrix from all clusters for later use
+  if (returndata==TRUE) {return(list(common.clusters, adj.consensus, ptm.correlation.matrix))}
 }
