@@ -55,6 +55,7 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 <span>  clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>,</span>
 <span>  tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>,</span>
 <span>  common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>,</span>
+<span>  adj.consensus.name <span class="op">=</span> <span class="st">"adj.consensus"</span>,</span>
 <span>  keeplength <span class="op">=</span> <span class="fl">2</span>,</span>
 <span>  toolong <span class="op">=</span> <span class="fl">3.5</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -82,6 +83,10 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 
 <dt id="arg-common-clusters-name">common.clusters.name<a class="anchor" aria-label="anchor" href="#arg-common-clusters-name"></a></dt>
 <dd><p>Desired name for the clusters that all 3 methods found in common; defaults to common.clusters</p></dd>
+
+
+<dt id="arg-adj-consensus-name">adj.consensus.name<a class="anchor" aria-label="anchor" href="#arg-adj-consensus-name"></a></dt>
+<dd><p>adjacency matrix of consensus clusters from three t-SNE embeddings</p></dd>
 
 
 <dt id="arg-keeplength">keeplength<a class="anchor" aria-label="anchor" href="#arg-keeplength"></a></dt>
@@ -114,6 +119,8 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 <span class="r-plt img"><img src="MakeClusterList-2.png" alt="" width="700" height="433"></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> species scores not available</span>
 <span class="r-plt img"><img src="MakeClusterList-3.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-08-26 16:18:51 UTC"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in names(clusters_in_all_three) &lt;- paste0("ConsensusCluster", seq_along(clusters_in_all_three)):</span> 'names' attribute [1] must be the same length as the vector [0]</span>
 <span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">ex.ptm.correlation.matrix</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               ABLIM1 p Y357 ABLIM1 p Y373 ABLIM1 p Y383 ABLIM1 p Y406</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1 p Y357            NA     0.8857143     0.6428571          -0.5</span>
@@ -134,33 +141,39 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span>                                                                         PTMnames</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1                                                                  ABLIM1 p Y357</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2                                                                  ABLIM1 p Y373</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                ATP5PO ack K162</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                    CTTN p T401</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                HNRNPU ubi K524</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                     LCK p Y394</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                    MET p Y1003</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                    MET p Y1235</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                     MYH9 p Y11</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                 PARD3 p Y1127</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                                                 PIK3R2 p Y464</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                  PKP4 p Y1156</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                                                   PKP4 p Y470</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                                   PKP4 p Y478</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                                                  PTPRK p Y858</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                                                 RASSF8 p Y418</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                                                 SCRIB p Y1268</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                                              SUPT16H ack K674</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 19                                                                TMEM192 p Y213</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 20      TUBA1B p Y103; TUBA4A p Y103; TUBA1A p Y103; TUBA1C p Y103; TUBA8 p Y103</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 21                                   TUBA1B p Y272; TUBA4A p Y272; TUBA1A p Y272</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 22                             TUBA1B ubi K112; TUBA1A ubi K112; TUBA1C ubi K112</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 23                             TUBA1B ubi K326; TUBA1A ubi K326; TUBA1C ubi K326</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 24                             TUBA1B ubi K336; TUBA1A ubi K336; TUBA1C ubi K336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 25                             TUBA1B ubi K338; TUBA1A ubi K338; TUBA1C ubi K338</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 26                                              TUBA1B ubi K370; TUBA4A ubi K370</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 27                                TUBA1B ubi K60; TUBA1A ubi K60; TUBA1C ubi K60</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 28 TUBA1B ubi K96; TUBA4A ubi K96; TUBA1A ubi K96; TUBA1C ubi K96; TUBA8 ubi K96</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 29                                                                 ZDHHC5 p Y533</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                                                   AGFG1 p Y327</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                                                ATP5PO ack K162</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                                                                    CTTN p S405</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                                                    CTTN p T401</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                                                                HNRNPF ack K167</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                                                                HNRNPU ubi K524</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                                                     LCK p Y394</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                                                   MET p Y1003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                                                                   MET p Y1235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                                                                    MYH9 p Y11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                                                                  ORAI1 p Y300</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                                                 PARD3 p Y1127</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                                                 PIK3R2 p Y464</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                                                  PKP4 p Y1156</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                                                   PKP4 p Y470</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                                                   PKP4 p Y478</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                                                                  PTPRK p S856</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                                                                  PTPRK p Y858</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                                                                 RASSF8 p Y418</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                                                                 SCRIB p Y1268</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                                                              SUPT16H ack K674</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                                                                TMEM192 p Y213</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25      TUBA1B p Y103; TUBA4A p Y103; TUBA1A p Y103; TUBA1C p Y103; TUBA8 p Y103</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                                   TUBA1B p Y272; TUBA4A p Y272; TUBA1A p Y272</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 27                             TUBA1B ubi K112; TUBA1A ubi K112; TUBA1C ubi K112</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 28                             TUBA1B ubi K326; TUBA1A ubi K326; TUBA1C ubi K326</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 29                             TUBA1B ubi K336; TUBA1A ubi K336; TUBA1C ubi K336</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                             TUBA1B ubi K338; TUBA1A ubi K338; TUBA1C ubi K338</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                                              TUBA1B ubi K370; TUBA4A ubi K370</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                                TUBA1B ubi K60; TUBA1A ubi K60; TUBA1C ubi K60</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33 TUBA1B ubi K96; TUBA4A ubi K96; TUBA1A ubi K96; TUBA1C ubi K96; TUBA8 ubi K96</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                                                                 ZDHHC5 p S529</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                                                                 ZDHHC5 p Y533</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    group</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1      1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 2      1</span>
@@ -191,6 +204,12 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 <span class="r-out co"><span class="r-pr">#&gt;</span> 27     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 28     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 29     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34     1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35     1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">ex.clusters.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $`1`</span>

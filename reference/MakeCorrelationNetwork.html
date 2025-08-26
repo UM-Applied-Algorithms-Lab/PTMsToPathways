@@ -47,7 +47,11 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 <span>  <span class="va">common.clusters</span>,</span>
 <span>  <span class="va">ptm.correlation.matrix</span>,</span>
 <span>  ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>,</span>
-<span>  gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span></span>
+<span>  gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span>,</span>
+<span>  ptm.cccn.graph.name <span class="op">=</span> <span class="st">"ptm.cccn.g"</span>,</span>
+<span>  gene.cccn.graph.name <span class="op">=</span> <span class="st">"gene.cccn.g"</span>,</span>
+<span>  ptm.cccn.edges.name <span class="op">=</span> <span class="st">"ptm.cccn.edges"</span>,</span>
+<span>  gene.cccn.edges.name <span class="op">=</span> <span class="st">"gene.cccn.edges"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -64,11 +68,27 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 
 
 <dt id="arg-ptm-cccn-name">ptm.cccn.name<a class="anchor" aria-label="anchor" href="#arg-ptm-cccn-name"></a></dt>
-<dd><p>Desired name of the PTM correlation matrix filtered by specific PTMs from input</p></dd>
+<dd><p>Desired name of the PTM correlation matrix filtered by specific PTMs from input; defaults to ptm.cccn</p></dd>
 
 
 <dt id="arg-gene-cccn-name">gene.cccn.name<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-name"></a></dt>
-<dd><p>Desired name for the cocluster correlation network; defaults to gene.cccn</p></dd>
+<dd><p>Desired name for the gene cocluster correlation network; defaults to gene.cccn</p></dd>
+
+
+<dt id="arg-ptm-cccn-graph-name">ptm.cccn.graph.name<a class="anchor" aria-label="anchor" href="#arg-ptm-cccn-graph-name"></a></dt>
+<dd><p>Desired name of the PTM correlation matrix filtered by specific PTMs from input - igraph object</p></dd>
+
+
+<dt id="arg-gene-cccn-graph-name">gene.cccn.graph.name<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-graph-name"></a></dt>
+<dd><p>Desired name for the gene cocluster correlation network; defaults to gene.cccn - igraph object</p></dd>
+
+
+<dt id="arg-ptm-cccn-edges-name">ptm.cccn.edges.name<a class="anchor" aria-label="anchor" href="#arg-ptm-cccn-edges-name"></a></dt>
+<dd><p>Desired name of the PTM edge list file</p></dd>
+
+
+<dt id="arg-gene-cccn-edges-name">gene.cccn.edges.name<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-edges-name"></a></dt>
+<dd><p>Desired name for the gene edge list file</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -80,7 +100,8 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ex.ptm.cor</span> <span class="op">&lt;-</span> <span class="va">ex.ptm.correlation.matrix</span></span></span>
 <span class="r-in"><span><span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex.common.clusters</span>, <span class="va">ex.ptm.cor</span>, <span class="st">"ex.ptm.cccn"</span>, <span class="st">"ex.gene.cccn"</span><span class="op">)</span></span></span>
-<span class="r-plt img"><img src="MakeCorrelationNetwork-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PTM CCCN"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MakeCorrelationNetwork(ex.common.clusters, ex.ptm.cor, "ex.ptm.cccn",     "ex.gene.cccn"):</span> object 'adj.consensus' not found</span>
 <span class="r-in"><span><span class="va">ex.ptm.cccn</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               ABLIM1 p Y357 ABLIM1 p Y373 MET p Y1003 PKP4 p Y1156</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1 p Y357            NA     0.8857143   0.8186275    0.8846154</span>
@@ -95,12 +116,13 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 <span class="r-out co"><span class="r-pr">#&gt;</span> PKP4 p Y1156      0.3000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1 p Y383            NA</span>
 <span class="r-in"><span><span class="va">ex.gene.cccn</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>          ABLIM1       MET      PKP4      MYH9   SEC16A</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1       NA  44.48902  82.79735  36.05673 21.02892</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MET    44.48902        NA 110.88877  66.78124 24.29454</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4   82.79735 110.88877        NA 221.19493 77.65545</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9   36.05673  66.78124 221.19493        NA 22.81430</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> SEC16A 21.02892  24.29454  77.65545  22.81430       NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>          ABLIM1      MET      PKP4      MYH9   SEC16A</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1  0.00000 40.07949  66.83899  33.44287 16.70035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MET    40.07949  0.00000  83.84216  71.98251 19.22144</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PKP4   66.83899 83.84216   0.00000 202.27512 55.17711</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> MYH9   33.44287 71.98251 202.27512   0.00000 33.70387</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> SEC16A 16.70035 19.22144  55.17711  33.70387  0.00000</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

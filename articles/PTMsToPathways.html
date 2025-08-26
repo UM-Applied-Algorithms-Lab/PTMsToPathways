@@ -55,8 +55,8 @@
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Analyzing Pathways from PTMs: A Guide</h1>
                         <h4 data-toc-skip class="author">Nagashree
-Avabhrath, Mikhail Ukrainetz, Mark Grimes, Madison Moffett, Grant Smith,
-Lucia Williams</h4>
+Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
+Williams, Mark Grimes</h4>
             
       
 
@@ -346,12 +346,11 @@ that the user chooses, though this package only explicitly supports
 STRINGdb and GeneMANIA. If another database is chosen, its file will
 have to be filtered manually by the user before moving on to step 4. The
 file should have four columns. Column one and two should strictly be
-labeled “Gene.1” and “Gene.2” in order to integrate with other PPI
-databases. Column three should name the interaction type between the two
-proteins (naming of this column is not important). The fourth column
-should contain the edgeweight and may be named however the user chooses.
-It is recommended, though, that the database is specified as well as the
-term ‘weight’ in the column name.</p>
+labeled “source” and “target” in order to integrate with other PPI
+databases. Column three, “interaction”, should name the interaction type
+between the two proteins (these have different names in different PPI
+databases). The fourth column, “Weight”, should contain the edge weight
+from the PPI databases. .</p>
 <p>
  
 </p>
@@ -441,7 +440,7 @@ a database input.</p>
 <h5 id="code-4">Code<a class="anchor" aria-label="anchor" href="#code-4"></a>
 </h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, genemania.edges.name <span class="op">=</span> <span class="st">"genemania.edges"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/gm_nodetable.png"></p>
 <p>
@@ -489,19 +488,28 @@ interaction.</p>
 <div class="section level3">
 <h3 id="step-4-build-ppi-network">Step 4: Build PPI Network<a class="anchor" aria-label="anchor" href="#step-4-build-ppi-network"></a>
 </h3>
-<p>The fourth step in the pipeline, BuildPPINetwork, combines the data
-of protein-protein interactions from each of the provided databases.
-This package explicitly processes STRINGdb and GeneMANIA in Step 3, but
-the user may consult as many databases as desired (the processing for
-which is described in Step 3). BuildPPINetwork combines these databases
-as efficiently as possible while retaining desired edgeweights from each
-database. BuildPPINetwork also normalizes the weights on a scale of 0-1
-and removes duplicate rows from the data frame.</p>
+<p>The fourth step in the pipeline, BuildClusterFilteredNetwork,
+combines the data of protein-protein interactions from each of the
+provided databases. This package explicitly processes STRINGdb and
+GeneMANIA in Step 3, but the user may consult as many databases as
+desired (the processing for which is described in Step 3).
+BuildClusterFilteredNetwork combines these databases as efficiently as
+possible while retaining desired edgeweights from each database.
+BuildClusterFilteredNetwork also normalizes the weights on a scale of
+0-1 and removes duplicate rows from the data frame. The Cluster Filtered
+Network, one of the final outputs of the package, checks all of the
+edges in the PPI network to ensure that both of the genes are within the
+cocluster correlation network created in step two and that its weight is
+nonzero. If either of these conditions are not met, then it will be
+removed from the list of PPI edges. This new, cluster filtered network
+is then returned.</p>
 <div class="section level5">
 <h5 id="code-5">Code<a class="anchor" aria-label="anchor" href="#code-5"></a>
 </h5>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/BuildPPINetwork.html">BuildPPINetwork</a></span><span class="op">(</span>stringdb.edges <span class="op">=</span> <span class="cn">NA</span>, gm.network <span class="op">=</span> <span class="cn">NA</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"ppi.network"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">gene.cccn</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"combined.PPIs"</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span>
+<span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <center>
 <img src="vig_figs/ppi_network.png"><br><p>
  
@@ -525,23 +533,6 @@ database. These have been normalized to all be on a scale of 0-1.</p>
 <p>
  
 </p>
-</div>
-</div>
-<div class="section level3">
-<h3 id="step-5-cluster-filtered-network">Step 5: Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-5-cluster-filtered-network"></a>
-</h3>
-<p>Cluster Filtered Network, which is step five in the pipeline and one
-of the final outputs of the package, checks all of the edges in the PPI
-network to ensure that both of the genes are within the cocluster
-correlation network created in step two and that its weight is nonzero.
-If either of these conditions are not met, then it will be removed from
-the list of PPI edges. This new, cluster filtered network is then
-returned.</p>
-<div class="section level5">
-<h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
-</h5>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ClusterFilteredNetwork.html">ClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn</span>, <span class="va">ppi.network</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <img src="vig_figs/cfn.png"><br><p>
  
@@ -585,10 +576,10 @@ score is derived from Cluster-Pathway Evidence using the common clusters
 found in Make Correlation Network. Info about the Cluster-Pathway
 Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a></p>
 <div class="section level5">
-<h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
+<h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"PTPedgelist"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"PCNedgelist"</span>, jaccard.edgelist.name <span class="op">=</span> <span class="st">"jaccard.net"</span>, CPE.edgelist.name <span class="op">=</span> <span class="st">"CPE.net"</span>, PCN.edgelist.name <span class="op">=</span> <span class="st">"pathway crosstalk network"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
 <p>
@@ -619,9 +610,9 @@ as two different scores for the strength of the interaction.</p>
 filtered network in the Cytoscape app. When graphed, Cytoscape provides
 an interactive interface to view the data.</p>
 <div class="section level5">
-<h5 id="code-8">Code<a class="anchor" aria-label="anchor" href="#code-8"></a>
+<h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, <span class="va">ptmtable</span>, funckey <span class="op">=</span> <span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.funckey.html">ex.funckey</a></span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span>,</span>
 <span>         visual.style.name <span class="op">=</span> <span class="st">"PTMsToPathways.style"</span>, background.color <span class="op">=</span> <span class="st">"#949494"</span>, edge.label.color <span class="op">=</span> <span class="st">'#17202a'</span>, node.label.color <span class="op">=</span> <span class="st">'#000000'</span>,</span>
 <span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
@@ -981,7 +972,7 @@ matrices with columns of nodes and column(s) of weights. You will need
 to view the data and manually set which two columns are the nodes and
 which column is the edges. The following code creates an igraph named
 graph.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">yourdatastructure</span></span>
 <span><span class="va">nodecolumns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">edgecolumn</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
@@ -995,7 +986,7 @@ graph.</p>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as a .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
 <span></span>
@@ -1003,7 +994,7 @@ csv file with the write.csv function.</p>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
