@@ -4,6 +4,7 @@
 #'
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
+#' @param pathwayslist.name bioplanet pathways in list format
 #' @param edgelist.name The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.
 #' @param jaccard.edgelist.name The desired name of the pathway_Jaccard_similarity edges
 #' @param CPE.edgelist.name The desired name of the Pathway PTM_cluster_evidence edges
@@ -15,7 +16,7 @@
 #' @examples
 #' PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
 #'
-PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd()){
+PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", pathwayslist.name = "pathways.list", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd(), returndata=TRUE){
   # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
   fix.excel <- function(cell) {
     fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
@@ -24,9 +25,10 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
     if (any(fixgenes %in% cellv)) {
       cellv.new <- gsub(fixgenes[fixgenes %in% cellv], corrects[fixgenes %in% cellv], cellv)
       return (paste(cellv.new, collapse="; "))
-    } else return(cell)    }print("Making PCN")
+    } else return(cell)    }
+  print("Making PCN")
   start_time <- Sys.time()
-
+  print(start_time)
   if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
 
   #### Read file in, converts to dataframe like with rows like: PATHWAY_ID | PATHWAY_NAME | GENE_ID | GENE_SYMBOL ###
@@ -131,8 +133,6 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
     }
   }
 
-
-
   ### Generate PCN network ###
   # Get a vector of all the PTP weights for every pair of pathways using the CPE weights to filter. For a PTP weight to be non-NA, the PTP weight will be the sum of all clusters both pathways have nonzero CPEs in.
 
@@ -182,6 +182,7 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   names(CPE.net) <- c("source", "target", "Weight", "interaction")
   pathway.crosstalk.network <- rbind(CPE.net, jaccard.net)
 
+  assign(pathwayslist.name, pathways.list, envir = .GlobalEnv)   #Save for user viewing
   assign("CPE.matrix", CPE.matrix, envir = .GlobalEnv)   #Save for user viewing
   assign(edgelist.name, PCNedgelist, envir = .GlobalEnv)
   assign(jaccard.edgelist.name, jaccard.net, envir = .GlobalEnv)
@@ -204,6 +205,7 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   #calculate difference between start and end time
   total_time <- end_time - start_time
   print(noquote(paste("Total time: ", total_time, sep="")))
+  if(returndata==TRUE) {return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))}
 }
 
 
