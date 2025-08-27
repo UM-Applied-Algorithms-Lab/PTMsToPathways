@@ -16,7 +16,7 @@
 #' @examples
 #' PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
 #'
-PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", pathwayslist.name = "pathways.list", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway crosstalk network", createfile = getwd(), returndata=TRUE){
+PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", pathwayslist.name = "pathways.list", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway.crosstalk.network", createfile = getwd(), returndata=TRUE){
   # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
   fix.excel <- function(cell) {
     fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
