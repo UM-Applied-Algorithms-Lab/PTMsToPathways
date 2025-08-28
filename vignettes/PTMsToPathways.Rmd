@@ -360,7 +360,7 @@ Let's zero in on interactions between proteins in the two pathways "EGF/EGFR sig
 First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data. 
 ```{r eval = FALSE}
 egfr_transporter.cfn <- filter.edges.between(pathways.list[["EGF/EGFR signaling pathway"]], pathways.list[["Transmembrane transport of small molecules"]], cfn)
-egfr_transporter.nodes <- make.cytoscape.node.file (egfr_transporter.cfn, funckey, ptmtable, include.ptm.data = TRUE) 
+egfr_transporter.nodes <- make.cytoscape.node.file (egfr_transporter.cfn, funckey, ptmtable, include.gene.data = TRUE) 
 
 ```
 
@@ -370,10 +370,9 @@ The function GraphCfn creates a graph using the cluster filtered network in the 
 #### Code  
 
 ```{r eval = FALSE}
-GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes, plotcol = "H3122_Crizotinib", Network.title = "CFN", Network.collection = "PTMsToPathways",
-         visual.style.name = "PTMsToPathways.style", background.color = "#949494", edge.label.color = '#17202a', node.label.color = '#000000',
-         default.font = "Arial", node.font.size = 20, edge.font.size = 8, edge.line.style = 'SOLID',
-         edge.opacity = 175, edge.label.opacity = 255, border.opacity = 255, node.label.opacity = 255, node.fill.opacity = 255)
+GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways")
+# Choose a ratio data column to show which proteins' PTMs were inhibited by a drug
+setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
 <center>
@@ -383,6 +382,22 @@ GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes, p
 
 </center>
 <p>&nbsp;</p>
+
+Let's now zoom in further on PTMs for a subset of proteins whose PTMs were affected by the tyrosine kinase inhbitor. 
+
+```{r eval = FALSE}
+egfr_ATP1A1 <- connectNodes.all(nodepair = c("EGFR", "ATP1A1"), ig.graph=NULL, edgefile=cfn, newgraph=TRUE)
+# To include co-clustered PTMs in the network an extra step is necessary:
+egfr_ATP1A1_plus <- get.co.clustered.ptms(egfr_ATP1A1)
+egfr_ATP1A1.nodes <- make.cytoscape.node.file (egfr_ATP1A1_plus, funckey, ptmtable, include.gene.data = TRUE, include.PTM.data = TRUE) 
+
+ # Now, graph in cytoscape
+GraphCfn(cfn.edges = egfr_ATP1A1_plus, cfn.nodes = egfr_ATP1A1.nodes,  Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
+# Choose a ratio data column to show which proteins' PTMs were inhibited by a drug
+setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
+# Note that within Cytoscape you can change the column for node size and color (two separate tings) in the "Styles" tab
+```
+
 
 #### Key  
 
@@ -511,10 +526,18 @@ Arrow Types:
   - Acetylation  
 - No Arrow  
   - Default  
-
+  
+  These properties can be visualized in Cytoscape
+```{r eval = FALSE, echo = TRUE}
+NodeEdgeKey()
+# The edges have different weights, with smaller weights resulting in very thin lines
+setEdgeLineWidthMapping('Weight')
+# Edge widths can be adjusted using the following function. 
+setEdgeWidths(ffactor = 6, log=FALSE) #
+```
 
 #### Estimated run-time  
-UNKNOWN  
+Depends on the size of the network  
 
 <p>&nbsp;</p>
 
@@ -542,7 +565,8 @@ If you want to save your data to a file, all data structures can either be expor
 ```{r eval = FALSE, echo = TRUE}
 save(object, filename = "filepath/name.rda") # Saves object as a .rda
 load("filepath/name.rda")                    # Loads object saved to a file
-
+# For multiple objects
+save(object1, object2, object.ect, filename="NeFile.RData")
 utils::write.csv(object, file = "filepath/name.csv") # Saves object as a .csv
 utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 ```
