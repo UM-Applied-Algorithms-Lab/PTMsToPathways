@@ -628,11 +628,11 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   )
 
   # Apply visual and mapping styles
-  RCy3::copyVisualStyle("default", visual.style.name)
   setEdgeFontSizeDefault(20)
   setEdgeLabelMapping("label")
   setNodeMapping()
   setCorrEdgeAppearance()
+  RCy3::copyVisualStyle("default", visual.style.name)
   RCy3::setVisualStyle(visual.style.name)
 
   message("Check the 'Node & Edge Key' network in Cytoscape: kinase sources PHOSPHORYLATION/pp, all edges labelled, all node-edge types illustrated.")
