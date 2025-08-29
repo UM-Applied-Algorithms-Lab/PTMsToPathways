@@ -8,7 +8,8 @@ ProcessGMEdgefile(
   gm.edgefile.path,
   gm.nodetable.path,
   db_nodes.path,
-  gm.network.name = "gm.network"
+  gm.network.name = "gm.network",
+  returndata = TRUE
 )
 }
 \arguments{

@@ -7,7 +7,8 @@
 GetSTRINGdb(
   gene.cccn,
   stringdb.name = "stringdb.edges",
-  nodenames.name = "nodenames"
+  nodenames.name = "nodenames",
+  returndata = TRUE
 )
 }
 \arguments{

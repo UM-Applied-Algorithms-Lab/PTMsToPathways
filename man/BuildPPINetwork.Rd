@@ -4,17 +4,12 @@
 \alias{BuildPPINetwork}
 \title{Build PPI Network}
 \usage{
-BuildPPINetwork(
-  stringdb.edges = NA,
-  gm.network = NA,
-  db.filepaths = c(),
-  ppi.network.name = "ppi.network"
-)
+BuildPPINetwork(removeme)
 }
 \arguments{
 \item{stringdb.edges}{Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database}
 
-\item{gm.network}{GeneMANIA network of protein-protein interactions from the genes of study; defaults to NA}
+\item{genemania.edges}{GeneMANIA network of protein-protein interactions from the genes of study; defaults to NA}
 
 \item{db.filepaths}{A vector of paths to the additional ppi network files; defaults to an empty vector}
 
@@ -28,7 +23,7 @@ Uses all inputted database information on protein-protein interactions in order 
 }
 \examples{
 ex.string <- ex.stringdb.edges
-ex.gm <- ex.gm.network
-BuildPPINetwork(stringdb.edges = ex.string, gm.network = ex.gm, ppi.network.name = "ex.ppi.network")
+ex.gm <- ex.genemania.edges
+BuildPPINetwork(stringdb.edges = ex.string, genemania.edges = ex.gm, ppi.network.name = "ex.ppi.network")
 utils::head(ex.ppi.network)
 }
