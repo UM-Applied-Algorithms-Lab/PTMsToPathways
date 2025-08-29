@@ -40,11 +40,13 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span></span>
 <span>  <span class="va">common.clusters</span>,</span>
 <span>  bioplanet.file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>,</span>
+<span>  pathwayslist.name <span class="op">=</span> <span class="st">"pathways.list"</span>,</span>
 <span>  edgelist.name <span class="op">=</span> <span class="st">"PCNedgelist"</span>,</span>
 <span>  jaccard.edgelist.name <span class="op">=</span> <span class="st">"jaccard.net"</span>,</span>
 <span>  CPE.edgelist.name <span class="op">=</span> <span class="st">"CPE.net"</span>,</span>
-<span>  PCN.edgelist.name <span class="op">=</span> <span class="st">"pathway crosstalk network"</span>,</span>
-<span>  createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  PCN.edgelist.name <span class="op">=</span> <span class="st">"pathway.crosstalk.network"</span>,</span>
+<span>  createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  returndata <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -60,16 +62,20 @@
 <dd><p>Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"</p></dd>
 
 
+<dt id="arg-pathwayslist-name">pathwayslist.name<a class="anchor" aria-label="anchor" href="#arg-pathwayslist-name"></a></dt>
+<dd><p>bioplanet pathways in list format</p></dd>
+
+
 <dt id="arg-edgelist-name">edgelist.name<a class="anchor" aria-label="anchor" href="#arg-edgelist-name"></a></dt>
 <dd><p>The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.</p></dd>
 
 
 <dt id="arg-jaccard-edgelist-name">jaccard.edgelist.name<a class="anchor" aria-label="anchor" href="#arg-jaccard-edgelist-name"></a></dt>
-<dd><p>The desired name of the Pathway Jaccard similarity edges</p></dd>
+<dd><p>The desired name of the pathway_Jaccard_similarity edges</p></dd>
 
 
 <dt id="arg-cpe-edgelist-name">CPE.edgelist.name<a class="anchor" aria-label="anchor" href="#arg-cpe-edgelist-name"></a></dt>
-<dd><p>The desired name of the Pathway PTM cluster evidence edges</p></dd>
+<dd><p>The desired name of the Pathway PTM_cluster_evidence edges</p></dd>
 
 
 <dt id="arg-pcn-edgelist-name">PCN.edgelist.name<a class="anchor" aria-label="anchor" href="#arg-pcn-edgelist-name"></a></dt>
@@ -89,8 +95,435 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span><span class="va">ex.common.clusters</span>, <span class="va">ex.bioplanet</span>, <span class="st">"ex.edgelist"</span>, createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PCN"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-08-26 16:18:52 UTC"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 0.0446240901947021</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-08-29 21:05:34 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-08-29 21:05:34 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 0.0676414966583252</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[1]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                       Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                       Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                              ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                       Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                       Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                              ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                              ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                    Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                    Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13            Mitochondrial fatty acid beta-oxidation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                    RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                    RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                    RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                   Selenium pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                   Selenium pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19  Validated nuclear estrogen receptor alpha network</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110                                     Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                                      Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                                      Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161                            ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181                            ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20                             ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30            Mitochondrial fatty acid beta-oxidation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                                    RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32                                    RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                                    RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34                                   Selenium pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                                   Selenium pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  Validated nuclear estrogen receptor alpha network</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                                target              Weight</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   Validated nuclear estrogen receptor alpha network                0.12</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                    Lipid and lipoprotein metabolism    1.48188405797101</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                    Lipid and lipoprotein metabolism   0.316666666666667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                              ERBB signaling pathway                 0.3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11  Validated nuclear estrogen receptor alpha network                0.16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                      Class A GPCRs (rhodopsin-like)                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                     RXR/VDR pathway                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7   Validated nuclear estrogen receptor alpha network                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             Mitochondrial fatty acid beta-oxidation                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                     RXR/VDR pathway                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                   Selenium pathway                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                             Vitamin B12 metabolism                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                             Vitamin B12 metabolism                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                   Selenium pathway                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15  Validated nuclear estrogen receptor alpha network                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                             Vitamin B12 metabolism                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17  Validated nuclear estrogen receptor alpha network                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                             Vitamin B12 metabolism                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                             Vitamin B12 metabolism                   0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110                    Class A GPCRs (rhodopsin-like) 0.00173310225303293</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21                             ERBB signaling pathway  0.0716112531969309</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37                   Lipid and lipoprotein metabolism   0.001230012300123</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161                  Lipid and lipoprotein metabolism  0.0139130434782609</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181                                   RXR/VDR pathway 0.00840336134453781</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  Validated nuclear estrogen receptor alpha network   0.025974025974026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22            Mitochondrial fatty acid beta-oxidation  0.0427698574338086</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23                                    RXR/VDR pathway  0.0157790927021696</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24                                   Selenium pathway  0.0110497237569061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  Validated nuclear estrogen receptor alpha network  0.0128205128205128</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26                             Vitamin B12 metabolism  0.0207547169811321</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30                             Vitamin B12 metabolism  0.0273972602739726</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31                                   Selenium pathway  0.0238095238095238</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  Validated nuclear estrogen receptor alpha network  0.0344827586206897</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33                             Vitamin B12 metabolism  0.0263157894736842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  Validated nuclear estrogen receptor alpha network 0.00813008130081301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35                             Vitamin B12 metabolism   0.534246575342466</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36                             Vitamin B12 metabolism 0.00869565217391304</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                    interaction</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9         PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19        PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 110 pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 21  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 37  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 161 pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 181 pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 20  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 22  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 23  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 24  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 25  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 26  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 30  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 31  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 32  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 33  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 34  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 35  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 36  pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[2]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                               source</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4                                      Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                                      Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                             ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                                      Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11                  Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                                      Axon guidance</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                             ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7                             ERBB signaling pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                   Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                  Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                  Lipid and lipoprotein metabolism</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13           Mitochondrial fatty acid beta-oxidation</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                   RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15                                   RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                                   RXR/VDR pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17                                  Selenium pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                                  Selenium pathway</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19 Validated nuclear estrogen receptor alpha network</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                                               target pathway_Jaccard_similarity</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4  Validated nuclear estrogen receptor alpha network                0.000000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3                   Lipid and lipoprotein metabolism                0.001230012</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5                   Lipid and lipoprotein metabolism                0.013913043</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2                             ERBB signaling pathway                0.071611253</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11 Validated nuclear estrogen receptor alpha network                0.012820513</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1                     Class A GPCRs (rhodopsin-like)                0.001733102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6                                    RXR/VDR pathway                0.008403361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  Validated nuclear estrogen receptor alpha network                0.025974026</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8            Mitochondrial fatty acid beta-oxidation                0.042769857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9                                    RXR/VDR pathway                0.015779093</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10                                  Selenium pathway                0.011049724</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12                            Vitamin B12 metabolism                0.020754717</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13                            Vitamin B12 metabolism                0.027397260</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14                                  Selenium pathway                0.023809524</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15 Validated nuclear estrogen receptor alpha network                0.034482759</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16                            Vitamin B12 metabolism                0.026315789</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17 Validated nuclear estrogen receptor alpha network                0.008130081</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18                            Vitamin B12 metabolism                0.534246575</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19                            Vitamin B12 metabolism                0.008695652</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    PTM_cluster_evidence</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4             0.1200000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3             1.4818841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5             0.3166667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2             0.3000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 11            0.1600000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1             0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6             0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7             0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8             0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9             0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 12            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 13            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 14            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 15            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 16            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 17            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 18            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 19            0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Axon guidance`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "ABL1"     "ABL2"     "AP2A1"    "AP2A2"    "AP2B1"    "ALCAM"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "ANK1"     "ANK2"     "ANK3"     "RHOA"     "RHOB"     "RHOC"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "RHOG"     "CACNA1C"  "CACNA1D"  "CACNA1F"  "CACNA1S"  "CACNB1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "CACNB2"   "CACNB3"   "CACNB4"   "CD72"     "CDK1"     "CDC42"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "CDK5"     "CFL1"     "CFL2"     "AP2M1"    "AP2S1"    "CLTA"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "CLTC"     "CNTN1"    "COL1A1"   "COL1A2"   "COL2A1"   "COL3A1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "COL4A1"   "COL4A2"   "COL4A3"   "COL4A4"   "COL4A5"   "COL5A1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "COL5A2"   "COL6A1"   "COL6A2"   "COL6A3"   "COL9A1"   "COL9A2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "COL9A3"   "CREB1"    "CRMP1"    "CSNK2A1"  "CSNK2A2"  "CSNK2B"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "NCAN"     "DCC"      "DCX"      "DLG1"     "DLG3"     "DLG4"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "DNM1"     "DNM2"     "DOCK1"    "DPYSL2"   "DPYSL3"   "EFNA1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "EFNA2"    "EFNA3"    "EFNA4"    "EFNA5"    "EFNB1"    "EFNB2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "EFNB3"    "EGFR"     "EPHA2"    "EPHA1"    "EPHA3"    "EPHA4"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "EPHA5"    "EPHA7"    "EPHA8"    "EPHB1"    "EPHB2"    "EPHB3"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "EPHB4"    "EPHB6"    "ERBB2"    "FES"      "FGFR1"    "FYN"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "GDNF"     "GFRA1"    "GFRA2"    "GNAI1"    "GNAI2"    "GNAI3"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "GPC1"     "GRB2"     "ARHGAP35" "GSK3B"    "HRAS"     "HSP90AA1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "HSP90AB1" "ITGA1"    "ITGA2"    "ITGA2B"   "ITGA5"    "ITGA9"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "ITGAV"    "ITGB1"    "ITGB3"    "KCNQ2"    "KCNQ3"    "KRAS"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "L1CAM"    "LAMB1"    "LAMC1"    "ABLIM1"   "LIMK1"    "LIMK2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "MET"      "MSN"      "MYH9"     "MYH10"    "MYH11"    "MYL6"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "MYO10"    "NCAM1"    "NCK1"     "NEO1"     "NFATC1"   "NFATC2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "NFATC3"   "NFATC4"   "NRAS"     "NRCAM"    "NRTN"     "NTN3"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [139] "PAK1"     "PAK2"     "PAK3"     "PFN1"     "PFN2"     "PITPNA"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [145] "PLCG1"    "PLXNA1"   "PLXNA2"   "PLXNB1"   "PLXNB3"   "PPP3CA"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [151] "PPP3CB"   "PPP3CC"   "PPP3R1"   "PPP3R2"   "PRKCQ"    "MAPK1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [157] "MAPK3"    "MAP2K1"   "MAP2K2"   "PRNP"     "PSPN"     "PTK2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [163] "PTPN11"   "PTPRA"    "PTPRC"    "RAC1"     "RAC2"     "RAC3"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [169] "RAF1"     "RASA1"    "RDX"      "RGS3"     "ROBO1"    "ROBO2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [175] "ROCK1"    "RPS6KA1"  "RPS6KA2"  "RPS6KA3"  "RRAS"     "SCN1A"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [181] "SCN1B"    "SCN2A"    "SCN2B"    "SCN3A"    "SCN4A"    "SCN5A"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [187] "SCN7A"    "SCN8A"    "SCN9A"    "SDCBP"    "CXCL12"   "SEMA3F"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [193] "SH3GL2"   "SIAH1"    "SIAH2"    "SLIT1"    "SLIT3"    "SOS1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [199] "SOS2"     "SPTA1"    "SPTAN1"   "SPTB"     "SPTBN1"   "SPTBN2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [205] "SRC"      "CNTN2"    "TLN1"     "TRIO"     "TRPC1"    "TRPC3"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [211] "TRPC4"    "TRPC5"    "TRPC6"    "TYROBP"   "VASP"     "VAV2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [217] "EZR"      "YWHAB"    "CXCR4"    "SEMA3B"   "ST8SIA4"  "ST8SIA2" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [223] "NCK2"     "SEMA7A"   "CNTNAP1"  "UNC5C"    "NUMB"     "NRP2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [229] "NRP1"     "CDK5R1"   "CACNA1I"  "CACNA1H"  "CACNA1G"  "WASL"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [235] "RPS6KA4"  "SEMA5A"   "ARTN"     "RPS6KA5"  "SLIT2"    "NTN1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [241] "ROCK2"    "SEMA3E"   "ARHGEF11" "FARP2"    "SRGAP3"   "RANBP9"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [247] "PLXNC1"   "PAK4"     "SEMA3A"   "MYL9"     "CAP2"     "CAP1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [253] "SEMA6C"   "SEMA6B"   "SEMA4F"   "SEMA4D"   "SEMA4B"   "SEMA3C"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [259] "DPYSL4"   "NFAT5"    "CHL1"     "STIP1"    "CHP1"     "NTNG1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [265] "ABLIM3"   "NFASC"    "CLASP2"   "PLXND1"   "CLASP1"   "ARHGEF12"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [271] "SRGAP2"   "PIP5K1C"  "PLXNB2"   "KIF4A"    "NGEF"     "DNM3"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [277] "CNTN6"    "RND1"     "RPS6KA6"  "RHOD"     "SPTBN5"   "EVL"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [283] "TREM2"    "SEMA5B"   "SEMA4C"   "PLXNA3"   "ENAH"     "SCN3B"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [289] "DPYSL5"   "SEMA3G"   "PAK6"     "RGMA"     "TRPC7"    "PAK7"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [295] "SRGAP1"   "SEMA6A"   "LRRC4C"   "KIAA1598" "SEMA4G"   "SPTBN4"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [301] "NTN4"     "CHP2"     "GFRA4"    "SEMA4A"   "ROBO3"    "MYH14"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [307] "SEMA6D"   "ARHGAP39" "ABLIM2"   "UNC5A"    "PLXNA4"   "MYL12B"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [313] "AGAP2"    "COL6A6"   "UNC5D"    "HFE2"     "UNC5B"    "SEMA3D"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [319] "COL6A5"   "LAMA1"    "EPHA6"    "KIF4B"    "RGMB"     "AGRN"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [325] "CD24"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Class A GPCRs (rhodopsin-like)`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "ADORA1"  "ADORA2A" "ADORA2B" "ADORA3"  "ADRA1D"  "ADRA1B"  "ADRA1A" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [8] "ADRA2A"  "ADRA2B"  "ADRA2C"  "ADRB1"   "ADRB2"   "ADRB3"   "AGTR1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "AGTR2"   "APLNR"   "AVPR1A"  "AVPR1B"  "AVPR2"   "OPN1SW"  "BDKRB1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [22] "BDKRB2"  "CXCR5"   "BRS3"    "C3AR1"   "CCKAR"   "CCKBR"   "CHRM1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "CHRM2"   "CHRM3"   "CHRM4"   "CHRM5"   "CCR1"    "CCR3"    "CCR4"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [36] "CCR5"    "CCR6"    "CCR7"    "CCR8"    "ACKR2"   "CMKLR1"  "LTB4R"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "CNR1"    "CNR2"    "CX3CR1"  "DRD1"    "DRD2"    "DRD3"    "DRD4"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [50] "DRD5"    "EDNRA"   "EDNRB"   "F2R"     "F2RL1"   "F2RL2"   "FPR1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "FPR2"    "FPR3"    "FSHR"    "GALR1"   "OPN1MW"  "GHSR"    "GPR1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [64] "CCR10"   "GPR3"    "GPR4"    "XCR1"    "GPR6"    "NPBWR1"  "NPBWR2" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "CXCR3"   "PRLHR"   "GPR12"   "GPR15"   "GPR17"   "GPR18"   "GPR19"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [78] "GPR20"   "GPR21"   "GPR22"   "LPAR4"   "MCHR1"   "GPR25"   "GPR27"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "GPER1"   "GPR31"   "GPR32"   "GPR34"   "GPR35"   "GPR37"   "MLNR"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [92] "GPR39"   "FFAR1"   "FFAR3"   "FFAR2"   "GRPR"    "HCRTR1"  "HCRTR2" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "HRH1"    "HRH2"    "HTR1A"   "HTR1B"   "HTR1D"   "HTR1E"   "HTR1F"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [106] "HTR2A"   "HTR2B"   "HTR2C"   "HTR4"    "HTR5A"   "HTR6"    "HTR7"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "CXCR1"   "CXCR2"   "LHCGR"   "MAS1"    "MC2R"    "MC3R"    "MC4R"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [120] "MC5R"    "MTNR1A"  "MTNR1B"  "NMBR"    "NPY1R"   "NPY2R"   "NPY5R"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "NTSR1"   "OPRD1"   "OPRK1"   "OPRL1"   "OPRM1"   "OR1D2"   "OR1F1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [134] "OR2C1"   "OR3A1"   "OR3A2"   "OXTR"    "P2RY1"   "P2RY2"   "P2RY4"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [141] "P2RY6"   "P2RY11"  "NPY4R"   "PTAFR"   "PTGDR"   "PTGER1"  "PTGER2" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [148] "PTGER3"  "PTGER4"  "PTGFR"   "PTGIR"   "OPN1LW"  "RHO"     "SSTR1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [155] "SSTR2"   "SSTR3"   "SSTR4"   "SSTR5"   "TBXA2R"  "TRHR"    "CXCR4"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [162] "OR2H2"   "GPR68"   "OR1A1"   "OR1E1"   "OR1G1"   "OR3A3"   "GPR65"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [169] "GALR3"   "OR6A2"   "GALR2"   "HCAR3"   "F2RL3"   "CCRL2"   "GPR50"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [176] "GPR37L1" "GPR52"   "P2RY14"  "LPAR6"   "NMUR1"   "RRH"     "OR5I1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [183] "CYSLTR1" "CCR9"    "NPFFR2"  "GPR83"   "GPR75"   "GPR45"   "PTGDR2" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [190] "HRH3"    "SPECC1L" "GPR161"  "OPN3"    "NTSR2"   "OR1C1"   "OR1A2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [197] "OR2F1"   "OR2B6"   "OR7A17"  "OR10J1"  "OR8B8"   "OR11A1"  "OR10H3" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [204] "OR10H2"  "OR10H1"  "OR7C2"   "OR7A5"   "OR7C1"   "OR2W1"   "OR2T1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [211] "OR2J2"   "OR2H1"   "HCAR1"   "C5AR2"   "P2RY10"  "GPR171"  "ACKR4"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [218] "P2RY13"  "GPR87"   "GPR173"  "GPR85"   "OR2S2"   "SUCNR1"  "NMUR2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [225] "ACKR3"   "CYSLTR2" "LPAR5"   "NPFFR1"  "P2RY12"  "OR2A4"   "GPR63"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [232] "OR5V1"   "OR2B2"   "OR12D3"  "GPR174"  "OPN4"    "MAS1L"   "OR2D2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [239] "OR1I1"   "OR6B1"   "OR2F2"   "OR10A5"  "OR2AG1"  "OR1Q1"   "RGL4"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [246] "OR8D2"   "OR10A4"  "OR5F1"   "OR7A10"  "OR2B3"   "OR2J3"   "OR14J1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [253] "OPN1MW2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`ERBB signaling pathway`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "ABL1"     "ABL2"     "AKT1"     "AKT2"     "ARAF"     "AREG"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "BAD"      "CCND1"    "BRAF"     "BTC"      "CAMK2A"   "CAMK2B"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "CAMK2D"   "CAMK2G"   "CBL"      "CBLB"     "CDKN1A"   "CDKN1B"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "CRK"      "CRKL"     "HBEGF"    "EGF"      "EGFR"     "EIF4EBP1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "ELK1"     "ERBB2"    "ERBB3"    "ERBB4"    "EREG"     "FOXO1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "MTOR"     "GAB1"     "GRB2"     "GSK3B"    "NRG1"     "HRAS"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "HSP90AA1" "JUN"      "KRAS"     "MDM2"     "MYC"      "NCK1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "NRAS"     "PAK1"     "PAK2"     "PAK3"     "PDK1"     "PIK3CA"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "PIK3CB"   "PIK3CD"   "PIK3CG"   "PIK3R1"   "PIK3R2"   "PLCG1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "PLCG2"    "PRKCA"    "PRKCB"    "PRKCG"    "MAPK1"    "MAPK3"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "MAPK8"    "MAPK9"    "MAPK10"   "MAP2K1"   "MAP2K2"   "MAP2K7"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [67] "PTK2"     "RAF1"     "RPS6KB1"  "RPS6KB2"  "MAP2K4"   "SHC1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [73] "SOS1"     "SOS2"     "SRC"      "STAT5A"   "STAT5B"   "TGFA"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [79] "TP53"     "NCK2"     "PIK3R3"   "NRG2"     "AKT3"     "BCL2L11" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [85] "PAK4"     "NRG3"     "PIK3R5"   "CBLC"     "SHC2"     "SHC3"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [91] "PAK6"     "PAK7"     "NRG4"     "SHC4"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Lipid and lipoprotein metabolism`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "A2M"      "ABCA1"    "ACAA1"    "ACACA"    "ACACB"    "ACADL"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "ACADM"    "ACADS"    "ACADVL"   "ACAT1"    "ACHE"     "ACLY"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "ACOX1"    "PLIN2"    "AGT"      "ALAS1"    "ALB"      "ABCD1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "AKR1B1"   "APOA1"    "APOA2"    "APOA4"    "APOB"     "APOC2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "APOC3"    "APOE"     "ARF1"     "ARF3"     "ARNTL"    "ARSA"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "ARSB"     "STS"      "ARSD"     "ARSE"     "ARSF"     "ASAH1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "BAAT"     "BDH1"     "BMP1"     "SLC25A20" "CAV1"     "CCNC"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "CD36"     "SCARB1"   "CDK8"     "CDS1"     "CEL"      "CETP"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "CGA"      "CHAT"     "AKR1C4"   "CHKA"     "CHKB"     "CLPS"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "CPT1A"    "CPT1B"    "CPT2"     "CRAT"     "CREBBP"   "CSNK1G2" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "CTGF"     "CYP1A1"   "CYP4A11"  "CYP7A1"   "CYP8B1"   "CYP11A1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "CYP11B1"  "CYP11B2"  "CYP17A1"  "CYP19A1"  "CYP21A2"  "CYP24A1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "CYP27A1"  "CYP27B1"  "CYP51A1"  "ECI1"     "DECR1"    "DHCR7"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "DHCR24"   "ECHS1"    "EP300"    "ESRRA"    "FABP4"    "FABP1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "FABP6"    "ACSL1"    "ACSL3"    "ACSL4"    "FASN"     "FDFT1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "FDPS"     "FHL2"     "KDSR"     "GALC"     "GBA"      "GC"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "GK"       "GLA"      "GLB1"     "GM2A"     "GPD1"     "GPD2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "HADHA"    "HADHB"    "HADH"     "HEXA"     "HEXB"     "HMGCL"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "HMGCR"    "HMGCS1"   "HMGCS2"   "HSD3B1"   "HSD3B2"   "HSD11B1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "HSD17B1"  "HSD17B3"  "HSD17B4"  "HSPG2"    "IDH1"     "IDI1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "INPP4A"   "INPP5D"   "INPPL1"   "LBR"      "LCAT"     "LDLR"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [127] "LHB"      "LIPC"     "LIPE"     "FADS1"    "LPA"      "LPL"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [133] "LRP2"     "LSS"      "ME1"      "MTM1"     "MTTP"     "MUT"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [139] "MVD"      "MVK"      "NEU1"     "NEU2"     "NFYA"     "NFYB"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [145] "NFYC"     "NPAS2"    "NRF1"     "OCRL"     "OSBP"     "OXCT1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [151] "P4HB"     "PCCA"     "PCCB"     "PCYT1A"   "ABCB4"    "PHYH"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [157] "PIK3C2A"  "PIK3C2B"  "PIK3C2G"  "PIK3C3"   "PIK3CA"   "PIK3CB"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [163] "PIK3CD"   "PIK3CG"   "PIK3R1"   "PIK3R2"   "PI4KA"    "PI4KB"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [169] "PIP4K2A"  "PLA2G1B"  "PLA2G2A"  "PLA2G4A"  "PLA2G5"   "PLD1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [175] "PLD2"     "PLIN1"    "PLTP"     "PNLIP"    "PNLIPRP2" "POMC"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [181] "PPARA"    "PPARG"    "MED1"     "CTSA"     "PPP1CA"   "PPP1CB"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [187] "PPP1CC"   "PRKAA2"   "PRKAB2"   "PRKACA"   "PRKACB"   "PRKACG"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [193] "PRKD1"    "LGMN"     "PSAP"     "PTEN"     "PCYT2"    "RBP2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [199] "RORA"     "RXRA"     "MSMO1"    "SC5D"     "SCP2"     "SDC1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [205] "SLC10A1"  "SLC10A2"  "SLC25A1"  "SLCO1A2"  "SMARCD3"  "SMPD1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [211] "SMPD2"    "SQLE"     "SRD5A1"   "SRD5A2"   "AKR1D1"   "SREBF1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [217] "SREBF2"   "STAR"     "ELOVL4"   "SULT2A1"  "MED22"    "TAZ"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [223] "TBL1X"    "TEAD1"    "TEAD4"    "TEAD3"    "TM7SF2"   "TXNRD1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [229] "UGCG"     "CUBN"     "NCOA3"    "ACOX2"    "ACOX3"    "PIP5K1A" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [235] "PIP5K1B"  "PIP4K2B"  "PLA2G6"   "PLA2G10"  "GNPAT"    "TEAD2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [241] "PIK3R3"   "AGPS"     "DEGS1"    "PLA2G4C"  "PPAP2A"   "PPAP2C"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [247] "PPAP2B"   "ABCB11"   "NCOA1"    "DGAT1"    "ABCC3"    "CDS2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [253] "MTMR1"    "PEX11A"   "INPP4B"   "HDAC3"    "SYNJ1"    "SYNJ2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [259] "SPHK1"    "SGPL1"    "MTMR3"    "MTMR2"    "CH25H"    "MTMR6"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [265] "MTMR7"    "MTMR4"    "VAPB"     "VAPA"     "LRAT"     "MED14"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [271] "MED21"    "FADS2"    "CYP7B1"   "MED23"    "MED17"    "MED26"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [277] "MED27"    "MED7"     "GGPS1"    "PCYT1B"   "MED20"    "PGS1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [283] "GAL3ST1"  "SPTLC2"   "TECR"     "NR1D1"    "CLOCK"    "NCOR1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [289] "NCOR2"    "ABCG1"    "LPIN2"    "PTDSS1"   "MED24"    "FIG4"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [295] "LPGAT1"   "MED12"    "MED13"    "MED6"     "ACOT8"    "MED16"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [301] "COL4A3BP" "LPCAT3"   "CEPT1"    "PEMT"     "YAP1"     "CDIPT"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [307] "SLC25A17" "CARM1"    "NCOA2"    "AGPAT1"   "AGPAT2"   "SPTLC1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [313] "SLCO1B1"  "PMVK"     "EBP"      "CERS1"    "NEU3"     "CYP46A1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [319] "PPARGC1A" "SLC27A5"  "SLC27A2"  "GLIPR1"   "PLA2G16"  "MGLL"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [325] "ARSG"     "SACM1L"   "NCOA6"    "CDK19"    "GPD1L"    "LPIN1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [331] "RGL1"     "ACSL6"    "SIN3B"    "MED13L"   "PIP5K1C"  "SLC44A1" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [337] "PIK3R5"   "AMACR"    "PLD3"     "PITPNB"   "PISD"     "SUMF2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [343] "WWTR1"    "SIN3A"    "HACL1"    "LDLRAP1"  "TIAM2"    "PLA2G2D" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [349] "ANKRD1"   "INPP5J"   "TNFRSF21" "SLCO1B3"  "MED4"     "GRHL1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [355] "NPC1L1"   "CERS2"    "PLA2G2E"  "PIK3R4"   "G0S2"     "PLA2G3"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [361] "PNPLA8"   "NSDHL"    "MED31"    "ABHD5"    "RDH11"    "SAR1B"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [367] "ANGPTL4"  "HSD17B12" "CYP39A1"  "PRKAG2"   "HSD17B7"  "MED15"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [373] "ACSL5"    "INPP5K"   "BCO1"     "UGT1A9"   "CRLS1"    "CROT"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [379] "MED18"    "ELOVL2"   "LPCAT2"   "MED9"     "ETNK2"    "PI4K2B"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [385] "SPTLC3"   "AGPAT5"   "ACER3"    "PI4K2A"   "ETNK1"    "SMPD3"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [391] "MED29"    "SMPD4"    "VAC14"    "FAR2"     "GPCPD1"   "INPP5E"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [397] "ASAH2"    "SPHK2"    "AGPAT3"   "AGPAT4"   "CHPT1"    "PNPLA2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [403] "SLC44A2"  "GPAM"     "GBA2"     "GBA3"     "TRIB3"    "ELOVL5"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [409] "ABCG5"    "ABCG8"    "MTMR14"   "PLA2G2F"  "CERK"     "ELOVL1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [415] "LPIN3"    "ELOVL6"   "MBOAT7"   "CERS4"    "ARSJ"     "SRD5A3"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [421] "TBL1XR1"  "PLBD1"    "LPCAT1"   "ELOVL7"   "CHD9"     "HSD3B7"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [427] "PNPLA3"   "SLC44A4"  "STARD5"   "PTDSS2"   "SGPP1"    "PLA2G12A"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [433] "AMN"      "MED25"    "ELOVL3"   "FAR1"     "MED10"    "DGAT2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [439] "MCEE"     "AGPAT9"   "HELZ2"    "EPT1"     "MED30"    "CERS5"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [445] "IDI2"     "TPTE2"    "TGS1"     "MED8"     "APOA5"    "CYP2R1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [451] "PLD4"     "DEGS2"    "PLA2G4E"  "ACER1"    "SLC44A3"  "MBOAT2"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [457] "NEU4"     "SGPP2"    "PPARGC1B" "STARD4"   "AGPAT6"   "PIK3R6"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [463] "STARD6"   "GPAT2"    "PLB1"     "PPM1L"    "ARSK"     "MBOAT1"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [469] "PHOSPHO1" "SGMS2"    "PIKFYVE"  "PLD6"     "CERS3"    "SLC44A5" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [475] "MED19"    "LCLAT1"   "CERS6"    "LPCAT4"   "PLA2G4F"  "SGMS1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [481] "PLA2G4D"  "SUMF1"    "ENPP7"    "ARSI"     "ACER2"    "ARSH"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [487] "SLC27A1"  "MED11"    "PLA2G4B" </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Mitochondrial fatty acid beta-oxidation`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "ACADL"    "ACADM"    "ACADS"    "ACADVL"   "SLC25A20" "CPT1A"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "CPT2"     "ECI1"     "DECR1"    "ECHS1"    "EHHADH"   "ACSL1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "ACSL3"    "ACSL4"    "HADHA"    "HADHB"    "HADH"     "MUT"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "PCCA"     "PCCB"     "SCP2"     "PECR"     "MCEE"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`RXR/VDR pathway`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "ABCA1"   "BCL2"    "NR4A1"   "PPARA"   "PPARD"   "PPARG"   "MED1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "RARA"    "RARB"    "RARG"    "RPS6KB1" "RXRA"    "RXRB"    "RXRG"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [15] "SREBF1"  "TGFB1"   "THRA"    "THRB"    "TNF"     "NR1H2"   "VDR"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [22] "NCOA1"   "NCOR2"   "NR1H4"   "NR1H3"   "FAM120B"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Selenium pathway`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "SERPINA3"  "ABCA1"     "ALB"       "ALOX5"     "ALOX5AP"   "ALOX15B"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "APOA1"     "APOB"      "CAT"       "CBS"       "SCARB1"    "CRP"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "CTH"       "DIO1"      "F2"        "F7"        "GGT1"      "GSR"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "HBA1"      "HBA2"      "HBB"       "ICAM1"     "IFNG"      "IL1B"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "IL6"       "INS"       "INSR"      "LDLR"      "MPO"       "MTHFR"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "MTR"       "NFKB1"     "NFKB2"     "PRDX1"     "SERPINE1"  "PLAT"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "PLG"       "PTGS1"     "PTGS2"     "RELA"      "SAA1"      "SAA2"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "SAA4"      "CCL2"      "SOD1"      "SOD2"      "SOD3"      "PRDX2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "TNF"       "TXN"       "XDH"       "KMO"       "KYNU"      "PRDX4"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "PRDX3"     "PRDX5"     "PNPO"      "RFK"       "FLAD1"     "SAA2-SAA4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Validated nuclear estrogen receptor alpha network`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "ABCA3"    "AP1B1"    "NR0B1"    "APBB1"    "ATP5J"    "CCND1"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "BRCA1"    "C3"       "CEBPB"    "CHUK"     "CTSD"     "DSCAM"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "EP300"    "ESR1"     "ESR2"     "HDAC1"    "HSF2"     "JUN"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "CD82"     "KLRC3"    "SMAD4"    "MPG"      "MYC"      "NDUFV3"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "NEDD8"    "PCNA"     "PGR"      "POU4F1"   "POU4F2"   "MED1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "PRL"      "SAFB"     "SET"      "SOD1"     "STAT5A"   "TFF1"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "XBP1"     "ANP32A"   "NCOA3"    "NRIP1"    "AXIN2"    "NR0B2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "LMO4"     "NCOA1"    "UBA3"     "UBE2M"    "MTA1"     "EBAG9"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "NCOR1"    "NCOR2"    "GREB1"    "HDAC4"    "SRA1"     "NCOA2"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [55] "DDX17"    "PHB2"     "CALCOCO1" "PRDM15"   "PDIA2"    "DDX54"   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [61] "COL18A1"  "LCOR"     "NCOA7"    "TRIM59"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [[3]]$`Vitamin B12 metabolism`</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "SERPINA3"  "ABCA1"     "ALB"       "APOA1"     "APOB"      "APOE"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "CBS"       "SCARB1"    "CRP"       "CTH"       "F2"        "F7"       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "GIF"       "HBA1"      "HBA2"      "HBB"       "ICAM1"     "IFNG"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [19] "IL1B"      "IL6"       "INS"       "INSR"      "LDLR"      "LRP2"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [25] "MAT1A"     "MPO"       "MTHFR"     "MTR"       "MTRR"      "MUT"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [31] "NFKB1"     "NFKB2"     "SERPINE1"  "PLAT"      "PLG"       "RELA"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [37] "SAA1"      "SAA2"      "SAA4"      "CCL2"      "CCL5"      "SHMT2"    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [43] "SOD1"      "SOD2"      "SOD3"      "TCN1"      "TCN2"      "TNF"      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [49] "CUBN"      "MCEE"      "MMAB"      "SAA2-SAA4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

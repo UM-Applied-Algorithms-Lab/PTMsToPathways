@@ -75,10 +75,13 @@ based on analysis of which ptms cluster together (based on the similar
 reactiosn to the same environmental conditions) compared to how those
 proteins are known to interact. This clustering information is also used
 to find interactions between known, existing pathways.</p>
-<p><strong>An important note about this package:</strong> There are no
-returned outputs from any of the functions. All outputs listed are
-assigned to the Global Namespace in order to prevent loss of data and
-promote ease of use.</p>
+<p>##<strong>An important note about this package:</strong> The returned
+outputs from the functions are data that may be saved in an RData object
+so that the user may reload the data, which may take a while to
+generate, and pick up where they left off later. If returned outputs are
+not desired, set “returdata = FALSE” in the function command. In either
+case all outputs listed are assigned to the Global Namespace to promote
+ease of use.</p>
 <p>
  
 </p>
@@ -150,7 +153,7 @@ like c(2, 4, 6), which takes columns 2, 4, and 6.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">name.columns</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> </span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">[</span><span class="va">name.columns</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">" "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="va">ptmtable</span><span class="op">[</span>,<span class="op">-</span><span class="va">name.col</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="va">ptmtable</span><span class="op">[</span>,<span class="op">-</span><span class="va">name.columns</span><span class="op">]</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="replacing-patterns">Replacing Patterns<a class="anchor" aria-label="anchor" href="#replacing-patterns"></a>
@@ -195,15 +198,19 @@ under what conditions they occur. In other words, they found how
 dissimilar each pair of PTMs are. These matricies are then run through
 t-SNE in order to put them into a 3-dimensional space and the clusters
 that are present in each present in each matrix are identified as well.
-Please note: t-SNE involves an element of randomness; in order to get
-the same results, set.seed(#) must be called. A correlation table is
-also produced based on the Spearman Correlation values for each pair of
-PTMs.</p>
+Please note: t-SNE involves an element of randomness due to pseudorandom
+initialization or stochastic processes within the algorithm; in order to
+get exactly the same results on multiple executions, set.seed(#) must be
+called (# = any integer of choice). A correlation table is also produced
+based on the Spearman Correlation values for each pair of PTMs.</p>
 <div class="section level5">
 <h5 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h5>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, correlation.matrix.name <span class="op">=</span> <span class="st">"ptm.correlation.matrix"</span>, clusters.list.name <span class="op">=</span> <span class="st">"clusters.list"</span>, tsne.coords.name <span class="op">=</span> <span class="st">"all.tsne.coords"</span>, common.clusters.name <span class="op">=</span> <span class="st">"common.clusters"</span>, adj.consensus.name <span class="op">=</span> <span class="st">"adj.consensus"</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span>, returndata <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">common.clusters</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">adj.consensus</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">ptm.correlation.matrix</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <center>
 <img src="vig_figs/EU_MCL.png"><br><p>
  
@@ -282,7 +289,11 @@ the user.</p>
 <h5 id="code-1">Code<a class="anchor" aria-label="anchor" href="#code-1"></a>
 </h5>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">ptm.correlation.matrix</span>, ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>, gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">CCCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">ptm.correlation.matrix</span>, ptm.cccn.name <span class="op">=</span> <span class="st">"ptm.cccn"</span>, gene.cccn.name <span class="op">=</span> <span class="st">"gene.cccn"</span>, returndata <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">ptm.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">gene.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">ptm.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">gene.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <center>
 <img src="vig_figs/ptm_cccn.png"><p>
  
@@ -365,7 +376,7 @@ from the PPI databases. .</p>
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">stringdb.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn</span>, stringdb.name <span class="op">=</span> <span class="st">"stringdb.edges"</span>, nodenames.name <span class="op">=</span> <span class="st">"nodenames"</span>, returndata<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <center>
 <img src="vig_figs/string_edges.png"><br><p>
  
@@ -440,7 +451,7 @@ a database input.</p>
 <h5 id="code-4">Code<a class="anchor" aria-label="anchor" href="#code-4"></a>
 </h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, genemania.edges.name <span class="op">=</span> <span class="st">"genemania.edges"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span>, returndata<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/gm_nodetable.png"></p>
 <p>
@@ -502,12 +513,14 @@ edges in the PPI network to ensure that both of the genes are within the
 cocluster correlation network created in step two and that its weight is
 nonzero. If either of these conditions are not met, then it will be
 removed from the list of PPI edges. This new, cluster filtered network
-is then returned.</p>
+is then returned. The combined PPIs are all the PPIs for all genes in
+the data. The cfn is about 12% of these filtered by PTM cluster
+data.</p>
 <div class="section level5">
 <h5 id="code-5">Code<a class="anchor" aria-label="anchor" href="#code-5"></a>
 </h5>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">gene.cccn</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"combined.PPIs"</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">gene.cccn.edges</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"combined.PPIs"</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span>, returndata<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <center>
@@ -571,15 +584,21 @@ This step requires input of an external database, bioplanet, that
 contains groups of genes (proteins) involved in various cellular
 processes known as pathways. PCN turns this database into a list of
 pathways and converts those pathways into a pathway x pathway edgelist
-that possesses multiple weights, a jaccard similarity, and a score. The
-score is derived from Cluster-Pathway Evidence using the common clusters
-found in Make Correlation Network. Info about the Cluster-Pathway
-Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a></p>
+(PCNedgelist) that possesses multiple weights, a jaccard similarity, and
+a score. The score is derived from Cluster-Pathway Evidence using the
+common clusters found in Make Correlation Network. Info about the
+Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link uri">https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690</a>.
+For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
+similarity edges are listed separately in the edgelist called
+pathway.crosstalk.network.</p>
 <div class="section level5">
 <h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, edgelist.name <span class="op">=</span> <span class="st">"PCNedgelist"</span>, jaccard.edgelist.name <span class="op">=</span> <span class="st">"jaccard.net"</span>, CPE.edgelist.name <span class="op">=</span> <span class="st">"CPE.net"</span>, PCN.edgelist.name <span class="op">=</span> <span class="st">"pathway crosstalk network"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">bioplanet.file</span> , edgelist.name <span class="op">=</span> <span class="st">"PCNedgelist"</span>, jaccard.edgelist.name <span class="op">=</span> <span class="st">"jaccard.net"</span>, CPE.edgelist.name <span class="op">=</span> <span class="st">"CPE.net"</span>, PCN.edgelist.name <span class="op">=</span> <span class="st">"pathway crosstalk network"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span>, returndata<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">PCNedgelist</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">pathways.list</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/PTP_edgelist.png"></p>
 <p>
@@ -604,19 +623,57 @@ as two different scores for the strength of the interaction.</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-7-graph-cluster-filtered-network">Step 7: Graph Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-7-graph-cluster-filtered-network"></a>
+<h3 id="step-7-graph-networks-in-cytoscape">Step 7: Graph Networks in Cytoscape<a class="anchor" aria-label="anchor" href="#step-7-graph-networks-in-cytoscape"></a>
 </h3>
-<p>This optional function GraphCfn creates a graph using the cluster
-filtered network in the Cytoscape app. When graphed, Cytoscape provides
-an interactive interface to view the data.</p>
+<p>It is possible to graph the entire PCN, CFN, and CCCNs in their
+entirety, though very large graphs take a long time to graph. One
+approach to navigating these data structures is to select nodes from the
+large networks in Cytoscape (or in R using RCy3::selectNodes()) and
+select nearest neighbors or shortest paths and create a subnetwork in a
+new window (see the Cytoscape Manual <a href="https://manual.cytoscape.org/en/stable/" class="external-link uri">https://manual.cytoscape.org/en/stable/</a>).</p>
+<p>The approach described below is to identify pathways, genes, and PTMs
+of interest in the R data objects, then make smaller, more interpretable
+graphs in Cytoscape using RCy3.</p>
+<p>For example, we will find names of all pathways in Bioplanet that
+contain EGFR. The data object ‘pathways.list’ is a list, where the name
+of the list element is the name of a Bioplanet pathway and each element
+is a character vector of the genes in that pathway. Then we want to find
+interactions between the pathway “Transmembrane transport of small
+molecules” and those pathways. The utility functions used below are in
+CytoscapeGraphing.R</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">egfr_pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pathways.list</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pathways.list</span><span class="op">)</span>,<span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span><span class="st">"EGFR"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pathways.list</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">}</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">egfr_pathways</span><span class="op">)</span> <span class="co">#83</span></span>
+<span><span class="va">egfr_transporter.pcn</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.between</span><span class="op">(</span><span class="st">"Transmembrane transport of small molecules"</span>, <span class="va">egfr_pathways</span>, <span class="va">PCNedgelist</span><span class="op">)</span></span>
+<span><span class="va">egfr_transporter_pcn.cy</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.between</span><span class="op">(</span><span class="st">"Transmembrane transport of small molecules"</span>, <span class="va">egfr_pathways</span>, <span class="va">pathway.crosstalk.network</span><span class="op">)</span></span></code></pre></div>
+<p>These two versions of the PCN show cluster evidence and Jaccard
+smilarity in adjacent columns (the first case) or as distinct edges (the
+second case, which can be used to plot this network in cytoscape).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Graph PCN</span></span>
+<span><span class="va">pcn.graph.1</span> <span class="op">&lt;-</span> <span class="fu">cytoscape.graph.PCN.pathways</span><span class="op">(</span>PCN <span class="op">=</span> <span class="va">egfr_transporter_pcn.cy</span>, net.name<span class="op">=</span><span class="st">"EGFR signaling and transmembrane transporters"</span>, Jaccard.edges<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<p>Let’s zero in on interactions between proteins in the two pathways
+“EGF/EGFR signaling pathway” and “Transmembrane transport of small
+molecules” because they have no genes in common. First we extract a
+network of interactions between the genes in the two pathways. Then we
+generate a node file for cytoscape. In the following case we include the
+data extracted from the ptmtable. This is optional, useful if node size
+and color is used later to indicate values in data.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">egfr_transporter.cfn</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.between</span><span class="op">(</span><span class="va">pathways.list</span><span class="op">[[</span><span class="st">"EGF/EGFR signaling pathway"</span><span class="op">]</span><span class="op">]</span>, <span class="va">pathways.list</span><span class="op">[[</span><span class="st">"Transmembrane transport of small molecules"</span><span class="op">]</span><span class="op">]</span>, <span class="va">cfn</span><span class="op">)</span></span>
+<span><span class="va">egfr_transporter.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span> <span class="op">(</span><span class="va">egfr_transporter.cfn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<p>The function GraphCfn creates a graph using the cluster filtered
+network in the Cytoscape app. When graphed, Cytoscape provides an
+interactive interface to view the data. This function requires the edge
+list file (egfr_transporter.cfn in the example), and node data file
+(egfr_transporter.nodes).</p>
 <div class="section level5">
 <h5 id="code-7">Code<a class="anchor" aria-label="anchor" href="#code-7"></a>
 </h5>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span><span class="va">cfn</span>, <span class="va">ptmtable</span>, funckey <span class="op">=</span> <span class="fu">PTMsToPathways</span><span class="fu">::</span><span class="va"><a href="../reference/ex.funckey.html">ex.funckey</a></span>, Network.title <span class="op">=</span> <span class="st">"cfn"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span>,</span>
-<span>         visual.style.name <span class="op">=</span> <span class="st">"PTMsToPathways.style"</span>, background.color <span class="op">=</span> <span class="st">"#949494"</span>, edge.label.color <span class="op">=</span> <span class="st">'#17202a'</span>, node.label.color <span class="op">=</span> <span class="st">'#000000'</span>,</span>
-<span>         default.font <span class="op">=</span> <span class="st">"Times New Roman"</span>, node.font.size <span class="op">=</span> <span class="fl">20</span>, edge.font.size <span class="op">=</span> <span class="fl">8</span>, edge.line.style <span class="op">=</span> <span class="st">'SOLID'</span>,</span>
-<span>         edge.opacity <span class="op">=</span> <span class="fl">175</span>, edge.label.opacity <span class="op">=</span> <span class="fl">255</span>, border.opacity <span class="op">=</span> <span class="fl">255</span>, node.label.opacity <span class="op">=</span> <span class="fl">255</span>, node.fill.opacity <span class="op">=</span> <span class="fl">255</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_transporter.cfn</span>, cfn.nodes <span class="op">=</span> <span class="va">egfr_transporter.nodes</span>,  Network.title <span class="op">=</span> <span class="st">"CFN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
+<span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a drug</span></span>
+<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <img src="vig_figs/cytoscape_graph.png"><br><p>
  
@@ -630,6 +687,19 @@ description of each characteristic.</p>
 <p>
  
 </p>
+<p>Let’s now zoom in further on PTMs for a subset of proteins whose PTMs
+were affected by the tyrosine kinase inhbitor.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">egfr_ATP1A1</span> <span class="op">&lt;-</span> <span class="fu">connectNodes.all</span><span class="op">(</span>nodepair <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EGFR"</span>, <span class="st">"ATP1A1"</span><span class="op">)</span>, ig.graph<span class="op">=</span><span class="cn">NULL</span>, edgefile<span class="op">=</span><span class="va">cfn</span>, newgraph<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># To include co-clustered PTMs in the network an extra step is necessary:</span></span>
+<span><span class="va">egfr_ATP1A1_plus</span> <span class="op">&lt;-</span> <span class="fu">get.co.clustered.ptms</span><span class="op">(</span><span class="va">egfr_ATP1A1</span><span class="op">)</span></span>
+<span><span class="va">egfr_ATP1A1.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span> <span class="op">(</span><span class="va">egfr_ATP1A1_plus</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>, include.PTM.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
+<span></span>
+<span> <span class="co"># Now, graph in cytoscape</span></span>
+<span><span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_ATP1A1_plus</span>, cfn.nodes <span class="op">=</span> <span class="va">egfr_ATP1A1.nodes</span>,  Network.title <span class="op">=</span> <span class="st">"CFN/CCCN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
+<span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a drug</span></span>
+<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span>
+<span><span class="co"># Note that within Cytoscape you can change the column for node size and color (two separate tings) in the "Styles" tab</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="key">Key<a class="anchor" aria-label="anchor" href="#key"></a>
@@ -945,13 +1015,19 @@ protein this gene is.</p>
 <ul>
 <li>Default</li>
 </ul>
-</li>
+These properties can be visualized in Cytoscape</li>
 </ul>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">NodeEdgeKey</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># The edges have different weights, large weights can be too thick and smaller weights can result in very thin lines</span></span>
+<span><span class="fu">setEdgeLineWidthMapping</span><span class="op">(</span><span class="st">'Weight'</span><span class="op">)</span></span>
+<span><span class="co"># Edge widths can be adjusted using the following function. </span></span>
+<span><span class="fu">setEdgeWidths</span><span class="op">(</span>ffactor <span class="op">=</span> <span class="fl">6</span>, log<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span> <span class="co">#</span></span></code></pre></div>
 </div>
 <div class="section level5">
 <h5 id="estimated-run-time-8">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-8"></a>
 </h5>
-<p>UNKNOWN</p>
+<p>Depends on the size of the network</p>
 <p>
  
 </p>
@@ -972,7 +1048,7 @@ matrices with columns of nodes and column(s) of weights. You will need
 to view the data and manually set which two columns are the nodes and
 which column is the edges. The following code creates an igraph named
 graph.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">yourdatastructure</span></span>
 <span><span class="va">nodecolumns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">edgecolumn</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
@@ -986,15 +1062,16 @@ graph.</p>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as a .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
-<span></span>
+<span><span class="co"># For multiple objects</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object1</span>, <span class="va">object2</span>, <span class="va">object.ect</span>, filename<span class="op">=</span><span class="st">"NewFile.RData"</span><span class="op">)</span></span>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span> <span class="co"># Saves object as a .csv</span></span>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
