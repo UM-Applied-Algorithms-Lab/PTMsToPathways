@@ -530,7 +530,7 @@ Arrow Types:
   These properties can be visualized in Cytoscape
 ```{r eval = FALSE, echo = TRUE}
 NodeEdgeKey()
-# The edges have different weights, with smaller weights resulting in very thin lines
+# The edges have different weights, large weights can be too thick and smaller weights can result in very thin lines
 setEdgeLineWidthMapping('Weight')
 # Edge widths can be adjusted using the following function. 
 setEdgeWidths(ffactor = 6, log=FALSE) #
@@ -566,7 +566,7 @@ If you want to save your data to a file, all data structures can either be expor
 save(object, filename = "filepath/name.rda") # Saves object as a .rda
 load("filepath/name.rda")                    # Loads object saved to a file
 # For multiple objects
-save(object1, object2, object.ect, filename="NeFile.RData")
+save(object1, object2, object.ect, filename="NewFile.RData")
 utils::write.csv(object, file = "filepath/name.csv") # Saves object as a .csv
 utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 ```
