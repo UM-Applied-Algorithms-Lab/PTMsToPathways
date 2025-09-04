@@ -190,7 +190,7 @@ format.kinsub.table <- function (kinasesubstrate.filename = "Kinase_Substrate_Da
   nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn, nodenames.name = "nodenames"))))
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
   kinsub.edges$interaction <- "pp"
-  kinsub.edges$Weight <- 0.2
+  kinsub.edges$Weight <- 1
   # We all know that many kinases can phosphorylate themselves, but this clutters the graph, so
   kinsub.edges <- remove.autophos(kinsub.edges)
   return(kinsub.edges)

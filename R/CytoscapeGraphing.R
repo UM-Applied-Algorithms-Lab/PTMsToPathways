@@ -298,9 +298,9 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
   # Step 4: Optionally merge PTM CCCN and data
   if (include.PTM.data == TRUE) {
     edge.file.with.ptms <- get.co.clustered.ptms(edge.file)
-    node_file <- harmonize_cfs(edge.file.with.ptms, node_file)
+    node_file <- harmonize_cfs(edge.file.with.ptms, genecf = node_file)
   }
-  return(node_file)
+  return(unique(node_file)
 }
 
 # Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))
@@ -323,8 +323,8 @@ get.co.clustered.ptms <- function (edge.file) {
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
   subset.ptms <- rownames(ptmtable.temp[ptmtable.temp$Gene.Name %in% unique(gene_nodes), ])
-  # Simplify ambiguous names
-  subset.ptms <- unique(sapply(subset.ptms,  function (x) unlist(strsplit(x, ";",  fixed=TRUE))[1]))
+  # Simplify ambiguous names - turned off because it limits their retrieval in the ptm cccn
+  # subset.ptms <- unique(sapply(subset.ptms,  function (x) unlist(strsplit(x, ";",  fixed=TRUE))[1]))
   subset.ptm.cccn <- filter.edges.0(subset.ptms, ptm.cccn.edges)
   pep.edges <- make.genepep.edges(subset.ptm.cccn)
   edge.file.with.ptms <- rbind(edge.file, subset.ptm.cccn, pep.edges)
@@ -347,7 +347,18 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf) {
       stop("There are no PTMs/peptides in this edge file!")
       }
   parent.genes <- sapply(peptides, function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
-  pepcf <- data.frame(id = peptides, parent = parent.genes, Gene.Name = parent.genes, ptmtable[rownames(ptmtable) %in% peptides,])
+  # Map peptides to ptmtable rows, handling unmatched by filling with NA or zero
+  matches <- match(peptides, rownames(ptmtable))
+  ptm.rows <- ptmtable[matches, , drop=FALSE]   # Will include NAs for unmatched rows
+  # Optionally replace all NA to 0 in the resulting data.frame
+  ptm.rows[is.na(ptm.rows)] <- 0
+  pepcf <- data.frame(
+    id = as.character(peptides),
+    parent = as.character(parent.genes),
+    Gene.Name = as.character(parent.genes),
+    ptm.rows
+  )
+
   pepcf$Node.ID <- "PTM"
   cf <- merge(genecf.new, pepcf, all=TRUE)
   if(any(grepl("Gene.Name.1", names(cf)))) {cf <- cf[,-which(names(cf)=="Gene.Name.1")]}
@@ -355,6 +366,60 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf) {
   # Make sure "id" is in the first column
   cf <- cf[,c("id", "Gene.Name", "Node.ID", "parent", names(cf) %w/o% c("id", "Gene.Name", "Node.ID", "parent"))]
   return(cf)
+}
+
+# Function to merge edges to declutter networks
+
+mergeEdges <- function(edgefile) {
+  # Define edge type priorities for directed edges
+  directed_priority <- c("pp", "controls-phosphorylation-of", "controls-expression-of",
+                         "controls-transport-of", "controls-state-change-of",
+                         "PHOSPHORYLATION", "METHYLATION", "ACETYLATION", "catalysis-precedes")
+  undirected <- c("Physical interactions", "BioPlex", "in-complex-with",  'experiments',
+                  'database',   "Pathway", "Predicted", "Genetic interactions",
+                  "correlation", "negative correlation", "positive correlation",
+                  'combined_score', "merged", "intersect", "peptide", 'homology',
+                  "Shared protein domains", "interacts-with")
+
+  require(plyr)
+
+  # --- UNDIRECTED EDGES ---
+  undir.edges <- edgefile[!(edgefile$interaction %in% directed_priority), ]
+  # Sort node pairs for undirected edges
+  undir.edges[, 1:2] <- t(apply(undir.edges[, 1:2], 1, function(x) sort(x)))
+
+  # Merge by source/target and make informative label
+  undir.merged <- ddply(undir.edges, .(source, target), function(x) {
+    data.frame(
+      Weight = max(x$Weight, na.rm = TRUE),
+      interaction = paste(sort(unique(as.character(x$interaction))), collapse = " | "),
+      stringsAsFactors = FALSE
+    )
+  })
+  # ..
+
+  # --- DIRECTED EDGES ---
+  dir.edges <- edgefile[edgefile$interaction %in% directed_priority, ]
+  # For each directed edge (source, target), choose the top-priority interaction
+  dir.merged <- ddply(dir.edges, .(source, target), function(x) {
+    ints <- as.character(x$interaction)
+    present <- intersect(directed_priority, ints)
+    best <- if (length(present) > 0) present[1] else ints[1]
+    all_types <- paste(sort(unique(ints)), collapse = " | ")
+    data.frame(
+      Weight = max(x$Weight, na.rm = TRUE),
+      interaction = if (best != all_types) paste0(best, " [", all_types, "]") else best,
+      stringsAsFactors = FALSE
+    )
+  })
+
+  # Combine and clean
+  edgefile.merged <- rbind(dir.merged, undir.merged)
+  # Remove self-loops
+  edgefile.merged <- edgefile.merged[edgefile.merged$source != edgefile.merged$target, ]
+  if (exists("remove.autophos")) edgefile.merged <- remove.autophos(edgefile.merged)
+  rownames(edgefile.merged) <- NULL
+  return(edgefile.merged)
 }
 
 # Vizprops helper functions:
@@ -387,7 +452,7 @@ setNodeMapping <- function(cf=getTableColumns('node')) {
 
 # Function to set edge appearance
 # # Use:  setCorrEdgeAppearance()  to change cytoscape front window
-#
+#This is now modified to handle merged edges and match colors correctly
 setCorrEdgeAppearance <- function() {
   require(RCy3)
   setEdgeLineWidthDefault (3)
@@ -399,27 +464,40 @@ setCorrEdgeAppearance <- function() {
   loadTableData(edgevalues, table = 'edge', table.key.column = 'SUID')
   setEdgeLineWidthMapping('Width', mapping.type = 'p', style.name = 'default')
   setEdgeSelectionColorDefault ( "#FF69B4")  # hotpink
-  edgecolors <- gplots::col2hex(c("red", "red", "red", "magenta", "violet", "purple", "darkorange1", "green", "green2", "green3", "aquamarine2", "aquamarine2", "cyan","cyan",  "turquoise2", "cyan2", "lightseagreen", "gold",  "blue", "yellow", "slategrey", "darkslategrey", "grey", "black", "orange", "orange2"))
-  edgecolorsplus <- gplots::col2hex(c("deeppink", "red", "red", "red", "magenta", "violet", "purple",  "green", "green2", "green3",  "aquamarine2", "aquamarine2", "cyan","cyan", "turquoise2", "cyan3", "lightseagreen", "gold",  "blue", "yellow", "slategrey", "darkslategrey", "grey", "black", "orange", "orange2", "orangered2"))
-  #  red; turquois; green; magenta; blue; violet; green;  bluegreen; black; gray; turquoiseblue; orange
-  edgeTypes <- c("PHOSPHORYLATION", "pp", "controls-phosphorylation-of", "controls-expression-of", "controls-transport-of",  "controls-state-change-of", "ACETYLATION", "Physical Interactions", "BioPlex", "in-complex-with",  'experimental', 'experimental_transferred',  'database', 'database_transferred',   "Pathway", "Predicted", "Genetic interactions", "correlation", "negative correlation", "positive correlation",  'combined_score', "merged" , "intersect", "peptide", 'homology', "Shared protein domains")
-  # 22 edgeTypes
-  myarrows <- c ('Arrow', 'Arrow', 'Arrow', 'Arrow', 'Arrow', 'Arrow', "Arrow", 'None', 'None', 'None', 'None','None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None')
-  # Fix phosphorylation edge color to red with merged edges
-  # work around for misaligned mapping
-  edgevalues <- getTableColumns('edge',c('interaction', "shared interaction", "shared name"))
-  if (length(edgevalues[grep("pp", edgevalues$'shared interaction'), 1])>0) {
-    edgevalues[grep("pp", edgevalues$'shared interaction'), 1] <- "PHOSPHORYLATION"}
-  if (length(edgevalues[grep("PHOSPHORYLATION", edgevalues$'shared interaction'), 1])>0) {
-    edgevalues[grep("PHOSPHORYLATION", edgevalues$'shared interaction'), 1] <- "PHOSPHORYLATION"}
-  if (length(edgevalues[grep("phosphorylation", edgevalues$'shared interaction'), 1])>0) {
-    edgevalues[grep("phosphorylation", edgevalues$'shared interaction'), 1] <- "PHOSPHORYLATION"}
-  if (length(edgevalues[grep("ACETYLATION", edgevalues$'shared interaction'), 1])>0) {
-    edgevalues[grep("ACETYLATION", edgevalues$'shared interaction'), 1] <- "ACETYLATION"}
-  loadTableData(edgevalues, table = 'edge', table.key.column = 'SUID')
-  setEdgeTargetArrowMapping( 'interaction', edgeTypes, myarrows, default.shape='None')
+
+  edgecolors <- gplots::col2hex(c("red", "red", "red", "magenta", "violet", "purple", "darkorange1", "green",
+                                  "green2", "green3", "aquamarine2", "aquamarine2", "cyan","cyan",
+                                  "turquoise2", "cyan2", "lightseagreen", "gold",  "blue", "yellow",
+                                  "slategrey", "darkslategrey", "grey", "black", "orange", "orange2"))
+  edgeTypes <- c("PHOSPHORYLATION", "pp", "controls-phosphorylation-of", "controls-expression-of", "controls-transport-of",
+                 "controls-state-change-of", "ACETYLATION", "Physical Interactions", "BioPlex", "in-complex-with",
+                 'experimental', 'experimental_transferred',  'database', 'database_transferred',   "Pathway",
+                 "Predicted", "Genetic interactions", "correlation", "negative correlation", "positive correlation",
+                 'combined_score', "merged", "intersect", "peptide", 'homology', "Shared protein domains")
+  myarrows <- c ('Arrow', 'Arrow', 'Arrow', 'Arrow', 'Arrow', 'Arrow', "Arrow", 'None', 'None', 'None', 'None','None',
+                 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None')
+
+  # ➤ MAIN: assign the highest-priority interaction per edge as a new column
+  edge_priority <- edgeTypes  # already in desired order
+  edgevalues2 <- getTableColumns('edge',c('interaction','SUID'))
+  get_main_interaction <- function(intchar) {
+    components <- unlist(strsplit(as.character(intchar), split = "[|]", fixed = FALSE))
+    components <- trimws(components)
+    found <- edge_priority[edge_priority %in% components]
+    if (length(found)) {
+      return(found[1])
+    } else {
+      return(components[1])
+    }
+  }
+  edgevalues2$main_interaction <- sapply(edgevalues2$interaction, get_main_interaction)
+
+  # Write back this single type for each edge (now used for color/arrows)
+  loadTableData(edgevalues2, table = 'edge', table.key.column = 'SUID')
+
+  setEdgeTargetArrowMapping('main_interaction', edgeTypes, myarrows, default.shape='None')
   matchArrowColorToEdge('TRUE')
-  setEdgeColorMapping( 'interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
+  setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
 
 # function to sent node size and color to match ratio data. this one uses the Cytoscape table.
@@ -493,13 +571,14 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
 
   cyscape <- RCy3::createNetworkFromDataFrames(cfn.nodes, cfn.edges, title = Network.title, collection = Network.collection) # create network (not sure if storing it does anything?)
 
-  RCy3::copyVisualStyle("default", visual.style.name)   # create visual style
 
   # CUSTOMIZATION of visual properties
 
   setNodeMapping()
 
   setCorrEdgeAppearance()
+
+  RCy3::copyVisualStyle("default", visual.style.name)   # create visual style
 
   RCy3::setVisualStyle(visual.style.name)                           # set vis style
 
