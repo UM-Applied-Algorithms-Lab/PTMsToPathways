@@ -36,14 +36,14 @@ BuildPPINetwork <- function(removeme){
 #' ClusterFilteredNetwork(ex.gene.cccn, ex.ppi.network, cfn.name = "ex.cfn")
 #' utils::head(ex.cfn)
 
-BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, gene.cccn.edges, db.filepaths = c(), ppi.network.name = "combined.PPIs", cfn.name = "cfn", returndata=TRUE) {
+BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c(), ppi.network.name = "combined.PPIs", cfn.name = "cfn", returndata=TRUE) {
   # Combine PPIs from different databases
   # First Normalize Weights
   stringdb.edges$Weight <- 100 * stringdb.edges$Weight / max(stringdb.edges$Weight, na.rm = TRUE) #  this returns a range of 0 to 100
   genemania.edges$Weight <- 100 * genemania.edges$Weight / max(genemania.edges$Weight, na.rm = TRUE) #  this returns a range of 0 to 100
   # Note: if additional PPI data is desired, duplicate the normalization of Weights above and add the additional edge file(s) here (and in the function header)
   # Now combine
-  combined.PPIs <- rbind(stringdb.edges, genemania.edges)
+  combined.PPIs <- rbind(stringdb.edges, genemania.edges, kinsub.edges)
   cfn1 <- merge(gene.cccn.edges[,c("source", "target")], combined.PPIs, by=c("source", "target"))
   # Undirected edges may be reversed in their order so merge the other way around.
   reversed <- combined.PPIs

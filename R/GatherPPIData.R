@@ -171,7 +171,33 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
   if (returndata==TRUE) {return(genemania.edges)}
 }
 
+# Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
+format.kinsub.table <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt") {
+  # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
+  kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
+  #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
+  kinasesubstrateraw -> kinsub
+  if (any(is.na(kinsub$GENE))) {
+    kinsub[which(is.na(kinsub$GENE)),"GENE"] <- as.character(kinsub[which(is.na(kinsub$GENE)),"KINASE"]) }
+  if (any(is.na(kinsub$SUB_GENE))) {
+    kinsub[which(is.na(kinsub$SUB_GENE)),"SUB_GENE"] <- as.character(kinsub[which(is.na(kinsub$SUB_GENE)),"SUBSTRATE"])	}
+  kinase <- toupper(kinsub$GENE)
+  substrate <- toupper(kinsub$SUB_GENE)
+  kinsub <- data.frame(kinase,substrate)
+  kinsub <- unique(kinsub)
+  names(kinsub) <- c("source", "target")
+  # Prune kinase-substrate to genes in data
+  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn, nodenames.name = "nodenames"))))
+  kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
+  kinsub.edges$interaction <- "pp"
+  kinsub.edges$Weight <- 0.2
+  # We all know that many kinases can phosphorylate themselves, but this clutters the graph, so
+  kinsub.edges <- remove.autophos(kinsub.edges)
+  return(kinsub.edges)
+}
+
+
 # NOTE: Other PPI network sources are:
   # Pathway Commons: www.pathwaycommons.org
   # BioPlex: https://bioplex.hms.harvard.edu
-  # kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/homeAction.action
+
