@@ -300,7 +300,7 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
     edge.file.with.ptms <- get.co.clustered.ptms(edge.file)
     node_file <- harmonize_cfs(edge.file.with.ptms, genecf = node_file)
   }
-  return(unique(node_file)
+  return(unique(node_file))
 }
 
 # Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))

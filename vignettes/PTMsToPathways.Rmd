@@ -276,6 +276,8 @@ The fourth step in the pipeline, BuildClusterFilteredNetwork, combines the data 
 network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c(), ppi.network.name = "combined.PPIs", cfn.name = "cfn", returndata=TRUE)
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
+# To reduce clutter on graphs, the cfn edges can be merged:
+cfn.merged <- mergeEdges(cfn)
 ```
 
 <center>
