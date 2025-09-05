@@ -13,12 +13,6 @@
 #' @examples
 #' ex.string <- ex.stringdb.edges
 #' ex.gm <- ex.genemania.edges
-#' BuildPPINetwork(stringdb.edges = ex.string, genemania.edges = ex.gm, ppi.network.name = "ex.ppi.network")
-#' utils::head(ex.ppi.network)
-BuildPPINetwork <- function(removeme){
-  return(1)
-}
-
 #' #' Filter PPI Network by Known Clusters
 #'
 #' All edges in the PPI network are checked against the cocluster correlation network to ensure existence and a non-zero weight.
