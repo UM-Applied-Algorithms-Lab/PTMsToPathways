@@ -209,7 +209,7 @@ filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
 # connectNodes.all  uses all_shortest_paths and returns just the edge file
 connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
   if (newgraph==TRUE) {
-    ig.graph <- igraph::graph.data.frame(edgefile, directed=FALSE) }
+    ig.graph <- igraph::graph_from_data_frame(edgefile, directed=FALSE) }
   sp <- igraph::all_shortest_paths(graph= ig.graph, from=nodepair[1], to=nodepair[2], mode="all")
   path.nodeslist <-  unique(lapply(sp[[1]], names))
   edges.list <- lapply(path.nodeslist, filter.edges.0, edge.file=edgefile)
@@ -265,10 +265,15 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
 
   return(as.data.frame(gene.data))  # Ensure base R class
 }
-make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.PTM.data = FALSE) {
-
+make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE) {
   # Step 1: get unique nodes from edge file
   edge_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
+  # check if there are PTMs in edgefile
+  peptides <- edge.file[which(edge.file$interaction == "peptide"), "target"]
+  if(length (peptides) > 0)  {
+    edge_nodes <- edge_nodes %w/o% peptides
+  }
+
 
   # Step 2: build node data frame from function key
   annotation_cols <- c(
@@ -282,6 +287,8 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
     by = "Gene.Name",
     all.x = TRUE
   )
+  # For un-annotated genes:
+  node_file[is.na(node_file)] <- ""
 
   # Step 3: Optionally merge gene data summed from PTM table
   if (include.gene.data == TRUE) {
@@ -294,11 +301,13 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
     )
   }
   node_file <- cbind(data.frame(id = node_file$Gene.Name), node_file)
-
   # Step 4: Optionally merge PTM CCCN and data
-  if (include.PTM.data == TRUE) {
+  if (include.coclustered.PTMs == TRUE) {
     edge.file.with.ptms <- get.co.clustered.ptms(edge.file)
-    node_file <- harmonize_cfs(edge.file.with.ptms, genecf = node_file)
+    if(length (peptides) > 0)  {
+      edge.file.with.ptms <- unique(rbind(edge.file.with.ptms, edge.file[which(edge.file$interaction == "peptide"), ]))
+    }
+    node_file <- harmonize_cfs(edge.file.with.ptms, genecf = node_file, ptmtable = ptmtable)
   }
   return(unique(node_file))
 }
@@ -335,9 +344,14 @@ get.co.clustered.ptms <- function (edge.file) {
 #  - for graphing combined CFN/CCCN graphs
 # Enusres that for Cytoscape, "id" is used for node name columns
 #
+# helper functions
 "%w/o%" <- function(x, y) x[!x %in% y] #--  x without y
 
-harmonize_cfs <- function(edge.file.with.ptms, genecf) {
+outersect <- function(x, y) {
+  sort(c(setdiff(x, y),
+         setdiff(y, x)))
+}
+harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
   if(!any(grepl("Gene.Name", names(genecf)))) {
     genecf.new <- data.frame(Gene.Name= genecf$id, genecf)} else {genecf.new = genecf}
   genecf.new$parent <- ""
@@ -358,9 +372,23 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf) {
     Gene.Name = as.character(parent.genes),
     ptm.rows
   )
-
   pepcf$Node.ID <- "PTM"
-  cf <- merge(genecf.new, pepcf, all=TRUE)
+  # Add annotation from function key
+  annotation_cols <- c(
+    "Gene.Name", "Approved.Name", "Hugo.Gene.Family", "HPRD.Function",
+    "nodeType", "Domains", "Compartment", "Compartment.Overview"
+  )
+
+  pepcf.funcs <- merge(
+    pepcf,
+    funckey[, annotation_cols, drop = FALSE],
+    by = "Gene.Name",
+    all.x = TRUE
+  )
+  # For un-annotated genes:
+  pepcf.funcs[is.na(pepcf.funcs)] <- ""
+  # Harmonize
+  cf <- merge(genecf.new, pepcf.funcs, all=TRUE)
   if(any(grepl("Gene.Name.1", names(cf)))) {cf <- cf[,-which(names(cf)=="Gene.Name.1")]}
   if(any(is.na(cf))) {cf[is.na(cf)] <- 0}
   # Make sure "id" is in the first column
@@ -422,6 +450,34 @@ mergeEdges <- function(edgefile) {
   return(edgefile.merged)
 }
 
+# Function to start with PTMs and retrive CFN
+ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
+  ambig.ptms <- ptms[grep(";", ptms)]
+  if (length(ambig.ptms) > 0) {
+
+    sub.ptms <- ptms %w/o% ambig.ptms
+    all_genes <- unique(sapply(sub.ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
+
+    for (i in 1:length(ambig.ptms) ) {
+      # Normalize spacing
+      ptm_entry <- gsub("[;,]\\s*", ";", ambig.ptms)
+
+      # Split ambiguous entry
+      ptm_parts <- strsplit(ptm_entry, pepsep, fixed = TRUE)[[1]]
+
+      # Extract gene names (string before first space)
+      ambig.genes <- sapply(ptm_parts, function(part) strsplit(part, " ", fixed = TRUE)[[1]][1])
+
+      all_genes <- unique(c(all_genes, ambig.genes))
+    }
+  } else {
+    all_genes  <- unique(sapply(ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
+  }
+
+  sub.cfn <- filter.edges.0(all_genes, cfn.merged)
+  sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn)
+  return(sub.cfn.cccn)
+}
 # Vizprops helper functions:
 
 
