@@ -453,7 +453,7 @@ from PhosphositePlus (<a href="https://www.phosphosite.org/staticDownloads" clas
 </h5>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span>, gm.network.name <span class="op">=</span> <span class="st">"gm.network"</span>, returndata<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format.kinsub.table.html">format.kinsub.table</a></span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/gm_nodetable.png"></p>
 <p>
@@ -524,7 +524,9 @@ data.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">kinsub.edges</span>, <span class="va">gene.cccn.edges</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span>, ppi.network.name <span class="op">=</span> <span class="st">"combined.PPIs"</span>, cfn.name <span class="op">=</span> <span class="st">"cfn"</span>, returndata<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="co"># To reduce clutter on graphs, the cfn edges can be merged:</span></span>
+<span><span class="va">cfn.merged</span> <span class="op">&lt;-</span> <span class="fu">mergeEdges</span><span class="op">(</span><span class="va">cfn</span><span class="op">)</span></span></code></pre></div>
 <center>
 <img src="vig_figs/ppi_network.png"><br><p>
  
@@ -701,6 +703,36 @@ were affected by the tyrosine kinase inhbitor.</p>
 <span><span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_ATP1A1_plus</span>, cfn.nodes <span class="op">=</span> <span class="va">egfr_ATP1A1.nodes</span>,  Network.title <span class="op">=</span> <span class="st">"CFN/CCCN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a drug</span></span>
 <span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span>
+<span><span class="co"># Note that within Cytoscape you can change the column for node size and color (two separate tings) in the "Styles" tab</span></span></code></pre></div>
+</div>
+<div class="section level5">
+<h5 id="dasatinib---focal-adhesion">Dasatinib - focal adhesion<a class="anchor" aria-label="anchor" href="#dasatinib---focal-adhesion"></a>
+</h5>
+<p>Dasatinib exhibits strong binding and inhibitory effects on multiple
+focal adhesion-associated genes from your provided BioPlanet list: • SRC
+(proto-oncogene tyrosine-protein kinase Src) • FYN (tyrosine-protein
+kinase Fyn) • EGFR (epidermal growth factor receptor) • ERBB2 (receptor
+tyrosine-protein kinase erbB-2) All these genes are directly implicated
+in focal adhesion signaling regulation. We hypothesize that ptms on
+proteins involved in focal adhesion will be downregulated by
+dasatinib.</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pt.sub</span> <span class="op">&lt;-</span> <span class="va">ptmtable</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"DasatinibRatio"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span> <span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">pt.sub</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">pt.sub</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Sum.Dasat</span>, decreasing<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span>, <span class="op">]</span></span>
+<span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub</span><span class="op">)</span>,  <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">" "</span>,  fixed<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="va">fa.genes</span> <span class="op">&lt;-</span> <span class="va">pathways.list</span><span class="op">[[</span><span class="st">"Focal adhesion"</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="va">pt.sub.fa</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">fa.genes</span>,<span class="op">]</span></span>
+<span><span class="va">pt.sub.fa.topz</span> <span class="op">&lt;-</span> <span class="va">pt.sub.fa</span><span class="op">[</span><span class="va">pt.sub.fa</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span>,<span class="op">]</span></span>
+<span><span class="va">ptms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub.fa.topz</span><span class="op">)</span></span>
+<span><span class="co"># Employ a helper function to derive a cfn starting with a list of PTMs</span></span>
+<span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu">ptms_to_cfn</span><span class="op">(</span><span class="va">ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
+<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>, include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="co"># Let's see what it looks like.</span></span>
+<span><span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,  Network.title <span class="op">=</span> <span class="st">"CFN/CCCN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
+<span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a dasatinib</span></span>
+<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"H366_DasatinibRatio"</span><span class="op">)</span></span>
+<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"H2286_DasatinibRatio"</span><span class="op">)</span></span>
 <span><span class="co"># Note that within Cytoscape you can change the column for node size and color (two separate tings) in the "Styles" tab</span></span></code></pre></div>
 </div>
 <div class="section level5">
@@ -1019,7 +1051,7 @@ protein this gene is.</p>
 </ul>
 These properties can be visualized in Cytoscape</li>
 </ul>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">NodeEdgeKey</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co"># The edges have different weights, large weights can be too thick and smaller weights can result in very thin lines</span></span>
 <span><span class="fu">setEdgeLineWidthMapping</span><span class="op">(</span><span class="st">'Weight'</span><span class="op">)</span></span>
@@ -1050,7 +1082,7 @@ matrices with columns of nodes and column(s) of weights. You will need
 to view the data and manually set which two columns are the nodes and
 which column is the edges. The following code creates an igraph named
 graph.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">yourdatastructure</span></span>
 <span><span class="va">nodecolumns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">edgecolumn</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
@@ -1064,7 +1096,7 @@ graph.</p>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as a .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
 <span><span class="co"># For multiple objects</span></span>
@@ -1073,7 +1105,7 @@ csv file with the write.csv function.</p>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

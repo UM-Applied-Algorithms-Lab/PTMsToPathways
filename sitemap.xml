@@ -6,8 +6,6 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/authors.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildClusterFilteredNetwork.html</loc></url>
-<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildPPINetwork.html</loc></url>
-<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ClusterFilteredNetwork.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetSTRINGdb.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeClusterList.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeCorrelationNetwork.html</loc></url>
@@ -34,6 +32,7 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.ptm.correlation.matrix.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.ptmtable.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.stringdb.edges.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/format.kinsub.table.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/funckey.filename.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/index.html</loc></url>
 </urlset>
