@@ -171,7 +171,14 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
   if (returndata==TRUE) {return(genemania.edges)}
 }
 
-# Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
+#' Format Kinsub Table
+#' 
+#' Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
+#' 
+#' @param kinasesubstrate.filename The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads
+#' 
+#' @return An edgelist filtered by the gene cccn and nodenames
+#' @export
 format.kinsub.table <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt") {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
   kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
