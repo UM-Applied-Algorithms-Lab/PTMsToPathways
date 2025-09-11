@@ -8,7 +8,7 @@
 # Lysine acetylation = "ack"
 # Lysine methylation = "kme"
 # Arginine methylation  = "rme"
-# ubiquitination = "ubi"
+# Ubiquitination = "ubi"
 
 
 # Helper functions
@@ -35,7 +35,7 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
   Peptide <- paste(unique(Peptide.v), collapse="; ")
   return(Peptide)
 }
-# Use this function to average technical replciates. This function ignores NA values in either column and takes the average in the case where there are two values.
+# Use this function to average technical replicates. This function ignores NA values in either column and takes the average in the case where there are two values.
 merge2cols <- function (colv1, colv2) {
   newcolv=NA
   if (is.na(colv1) & is.na(colv2)) {
