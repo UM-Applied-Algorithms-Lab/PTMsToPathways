@@ -49,8 +49,7 @@ merge2cols <- function (colv1, colv2) {
 
 # _________________________________________________________________________________
 # Example data file /Users/markgrimes/Library/CloudStorage/Dropbox/_Work/R_/_LINCS/_KarenGuolin/unnormalized_separate_septm/phospho_cleaned_mapped.txt
-datafilepath <- "/Users/markgrimes/Library/CloudStorage/Dropbox/_Work/R_/_LINCS/_KarenGuolin/unnormalized_separate_septm/phospho_cleaned_mapped.txt"
-newphos <- read.table(datafilepath, sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
+newphos <- read.table(datafilepath ="phospho_cleaned_mapped.txt", sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
 # "Amino Acid" has the modsite, e.g. S,T, etc.;
 # "Position" has the sequence postion; "Positions" and "Positions Within Proteins" have multiple possible postions separated by ";". Assume singular value in Position is for the first gene name. "Modification Type" has Phosphorylation" etc.
 # In our data table, which includes ambigous PTM IDs, the relevant column names are
