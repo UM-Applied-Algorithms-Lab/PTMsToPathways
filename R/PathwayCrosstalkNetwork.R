@@ -4,11 +4,6 @@
 #'
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
-#' @param pathwayslist.name bioplanet pathways in list format
-#' @param edgelist.name The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.
-#' @param jaccard.edgelist.name The desired name of the pathway_Jaccard_similarity edges
-#' @param CPE.edgelist.name The desired name of the Pathway PTM_cluster_evidence edges
-#' @param PCN.edgelist.name The desired name of the PCN containg both CPE and Jaccard edges for Cytoscape
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
 #' @export
@@ -16,7 +11,7 @@
 #' @examples
 #' PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
 #'
-PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", pathwayslist.name = "pathways.list", edgelist.name = "PCNedgelist", jaccard.edgelist.name = "jaccard.net", CPE.edgelist.name = "CPE.net", PCN.edgelist.name = "pathway.crosstalk.network", createfile = getwd(), returndata=TRUE){
+PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd()){
   # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
   fix.excel <- function(cell) {
     fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
@@ -70,7 +65,6 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   bioplanetjaccardedges <- bioplanetjaccardedges[!is.na(bioplanetjaccardedges$jaccard.values),]
   bioplanetjaccardedges$interaction <- "pathway_Jaccard_similarity"
   names(bioplanetjaccardedges)[1:2] <- c("source", "target") # For Cytoscape graphing
-  assign("Jaccard.Full", bioplanetjaccardedges, envir = .GlobalEnv) #DEBUG - For viewing the full jaccard edgelist
 
   ### Pathway Cluster Evidence ###
   CPE.matrix <- matrix(NA, nrow = length(common.clusters), ncol = length(pathways.list)) #Initilize empty data structure, Clusters x Pathways
@@ -182,13 +176,6 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   names(CPE.net) <- c("source", "target", "Weight", "interaction")
   pathway.crosstalk.network <- rbind(CPE.net, jaccard.net)
 
-  assign(pathwayslist.name, pathways.list, envir = .GlobalEnv)   #Save for user viewing
-  assign("CPE.matrix", CPE.matrix, envir = .GlobalEnv)   #Save for user viewing
-  assign(edgelist.name, PCNedgelist, envir = .GlobalEnv)
-  assign(jaccard.edgelist.name, jaccard.net, envir = .GlobalEnv)
-  assign(CPE.edgelist.name, CPE.net, envir = .GlobalEnv)
-  assign(PCN.edgelist.name, pathway.crosstalk.network, envir = .GlobalEnv)
-
   ### Save edgefile for cytoscape plotting ###
 
   if(is.character(createfile)){ #Don't need to check if directory exists since was done above
@@ -205,7 +192,7 @@ PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet
   #calculate difference between start and end time
   total_time <- end_time - start_time
   print(noquote(paste("Total time: ", total_time, sep="")))
-  if(returndata==TRUE) {return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))}
+  return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))
 }
 
 
