@@ -28,13 +28,8 @@ GetRtsne <- function(table, iter=5000){
 #' Please note: t-SNE involves an element of randomness; in order to get the same results, set.seed(#) must be called.
 #'
 #' @param ptmtable A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
-#' @param correlation.matrix.name Desired name for the correlation matrix to be saved as; defaults to "ptm.correlation.matrix"
-#' @param clusters.list.name Desired name for the lists of clusters to be saved as; defaults to clusters.list
-#' @param tsne.coords.name Desired name for the lists of tsne coords to be saved as; defaults to tsne.coords
-#' @param common.clusters.name Desired name for the clusters that all 3 methods found in common; defaults to common.clusters
 #' @param keeplength Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
-#' @param adj.consensus.name adjacency matrix of consensus clusters from three t-SNE embeddings
 #' @return The correlation matrix: A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal; and A list of three-dimensional data frames used to represent ptms in space to show relationships between them based on distances. Based on Euclidean Distance, Spearman Dissimilarity, and SED (the average between the two)
 #' @export
 #'
@@ -48,7 +43,7 @@ GetRtsne <- function(table, iter=5000){
 #' print(ex.clusters.list[[1]][1])
 #' print(ex.clusters.list[[2]][1])
 #' print(ex.clusters.list[[3]][1])
-MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation.matrix", clusters.list.name = "clusters.list", tsne.coords.name = "all.tsne.coords", common.clusters.name = "common.clusters", adj.consensus.name = "adj.consensus", keeplength = 2, toolong = 3.5, returndata = TRUE){
+MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   start_time <- Sys.time()
   print("Starting correlation calculations and t-SNE.")
   print(start_time)
@@ -157,7 +152,7 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
 
   } #END of nested function
 
-  #Assign tsne coords and distance clusters as a list to global environment
+  #Create all tsne coords data sturcture and give it names
   all.tsne.coords <- list(euclidean.cluster.coords, spearman.cluster.coords, sed.cluster.coords)
   names(all.tsne.coords) <- c("Euclidean", "Spearman", "SED")
   clusters.list <- lapply(all.tsne.coords, clustercreate)
@@ -223,8 +218,6 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
     #calculate difference between start and end time
     total_time <- end_time - start_time
     print(noquote(paste("Total time: ", total_time, sep="")))
-    # Assign
-    # assign(adj.consensus, ptm.correlation.matrix, envir = .GlobalEnv)
     return(list(adj.consensus, clusters_in_all_three))
   }
   #Find common clusters
@@ -233,11 +226,5 @@ MakeClusterList <- function(ptmtable, correlation.matrix.name = "ptm.correlation
   common.clusters <- clusters.common.list[[2]]
 
 
-  #Assign
-  assign(tsne.coords.name, all.tsne.coords, envir = .GlobalEnv) # The list of tsne coords
-  assign(clusters.list.name, clusters.list, envir = .GlobalEnv) # list of the t-SNE data for Euclidean, Spearman, and SED
-  assign(correlation.matrix.name, ptm.correlation.matrix, envir = .GlobalEnv) # Correlation Matrix for later use
-  assign(common.clusters.name, common.clusters, envir = .GlobalEnv) #Common clusters
-  assign(adj.consensus.name, adj.consensus, envir = .GlobalEnv) # consensus adjacency matrix from all clusters for later use
-  if (returndata==TRUE) {return(list(common.clusters, adj.consensus, ptm.correlation.matrix))}
+  return(list(common.clusters, adj.consensus, ptm.correlation.matrix))
 }
