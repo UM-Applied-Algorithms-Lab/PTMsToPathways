@@ -625,7 +625,7 @@ interface to view the data. This function requires the edge list file
 ```{r eval = FALSE}
 GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways")
 # Choose a ratio data column to show which proteins' PTMs were inhibited by a drug
-setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
+setNodeColorToRatios(plotcol="PC9.E3.ratio")
 ```
 
 <center>
