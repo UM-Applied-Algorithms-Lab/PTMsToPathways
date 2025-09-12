@@ -48,78 +48,78 @@ merge2cols <- function (colv1, colv2) {
         return(newcolv) }
 
 # _________________________________________________________________________________
-# Example data file /Users/markgrimes/Library/CloudStorage/Dropbox/_Work/R_/_LINCS/_KarenGuolin/unnormalized_separate_septm/phospho_cleaned_mapped.txt
-newphos <- read.table(datafilepath ="phospho_cleaned_mapped.txt", sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
-# "Amino Acid" has the modsite, e.g. S,T, etc.;
-# "Position" has the sequence postion; "Positions" and "Positions Within Proteins" have multiple possible postions separated by ";". Assume singular value in Position is for the first gene name. "Modification Type" has Phosphorylation" etc.
-# In our data table, which includes ambigous PTM IDs, the relevant column names are
-# genes =  "AllGeneSymbols"
-# positions = "Positions.Within.Proteins"
-# aa = "Amino.Acid"
-# modification = "Modification.Type"
-#### Workflow
-# First remove internal control rows (reverse sequences)
-newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
-# If there are dates in the AllGeneSymbols column, use:
-newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
-headercols <- c("AllGeneSymbols", "Amino.Acid", "Positions.Within.Proteins", "Modification.Type")
-newphos.head <- newphos[,headercols]
-
-newphos.head$Peptide.Name <- mapply(name.peptide, genes=newphos.head$AllGeneSymbols, sites= newphos.head$Positions.Within.Proteins, aa=newphos.head$Amino.Acid)
-#
-# Define Data columns
-phosdata <- newphos[,grep("Intensity", names(newphos))]
-names(phosdata) <- sapply(names(phosdata), function (x) unlist(strsplit(x, "Intensity."))[2])
-# make zero into NA, which it is.
-zer0 <- which(phosdata==0, arr.ind = TRUE)
-phosdata <- replace (phosdata, zer0, NA)
-# Define technical replicates
-tr1 <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
-tr2 <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
-phosdata <- newphos[,grep("Intensity", names(newphos))]
-names(phosdata) <- sapply(names(phosdata), function (x) unlist(strsplit(x, "Intensity."))[2])
-# make zero into NA, which it is.
-zer0 <- which(phosdata==0, arr.ind = TRUE)
-phosdata <- replace (phosdata, zer0, NA)
-# Define technical replicates
-tr1 <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
-tr2 <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
-# The optimal pulldown columns are straightforward to identify by the pulldown strings present in the sample names (they are also identifiable by zooming out and looking at the patterns of missing data, the optimal pulldowns, as a group, have the least missing data).
-tr1.opt <- tr1[grep("pTyr", tr1)]
-tr2.opt <- tr2[grep("pTyr", tr2)]
-
-
-# Use merge2cols() function to average technical replciates:
-phosdata.merged <- data.frame(matrix(nrow=nrow(phosdata), ncol=18))
-for(i in 1:length(tr1.opt)) {
-  phosdata.merged[,i] <- mapply(merge2cols, colv1=as.numeric(phosdata[, tr1.opt[i]]), colv2=as.numeric(phosdata[,tr2.opt[i]]))
-}
-names(phosdata.merged) <- sapply(tr1.opt, function(x) substr(x, start=1, stop=nchar(x)-2))
-
-
-# Merge with header
-phosdatafile <- cbind(newphos.head, phosdata.merged)
-# This file could be safed for reference using write.table()
-# For subsequent steps
-rownames(phosdatafile) <- phosdatafile$Peptide.Name
-phosdata.df <- phosdatafile[,6:23]
-# This contains just the data with individual PTMs as rownames
-######################
-# Workflow: Repeat with aceltylation or other PTM data
-# ...
-# Then, to put them together:
-# Make column names common. For example:
-kgp <- phosdata.df
-kga <- ackdata.df
-kgu <- ubidata.df
-names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
-names(kga) <- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))
-names(kgu) <- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))
-identical(names(kgp), names(kga)) # Check TRUE
-#
-ptmdata <- rbind (kgp, kga, kgu) # 3159   18
-# Reorder here
-ptmdata <- ptmdata[order(rownames(ptmdata)),]
-# This optional step improves clustering in our hands:
-log2ptmdata <- log2(ptmdata)
-# This is now ready to use as the ptmtable.
+# # Example data file /Users/markgrimes/Library/CloudStorage/Dropbox/_Work/R_/_LINCS/_KarenGuolin/unnormalized_separate_septm/phospho_cleaned_mapped.txt
+# newphos <- read.table(datafilepath ="phospho_cleaned_mapped.txt", sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
+# # "Amino Acid" has the modsite, e.g. S,T, etc.;
+# # "Position" has the sequence postion; "Positions" and "Positions Within Proteins" have multiple possible postions separated by ";". Assume singular value in Position is for the first gene name. "Modification Type" has Phosphorylation" etc.
+# # In our data table, which includes ambigous PTM IDs, the relevant column names are
+# # genes =  "AllGeneSymbols"
+# # positions = "Positions.Within.Proteins"
+# # aa = "Amino.Acid"
+# # modification = "Modification.Type"
+# #### Workflow
+# # First remove internal control rows (reverse sequences)
+# newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
+# # If there are dates in the AllGeneSymbols column, use:
+# newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
+# headercols <- c("AllGeneSymbols", "Amino.Acid", "Positions.Within.Proteins", "Modification.Type")
+# newphos.head <- newphos[,headercols]
+# 
+# newphos.head$Peptide.Name <- mapply(name.peptide, genes=newphos.head$AllGeneSymbols, sites= newphos.head$Positions.Within.Proteins, aa=newphos.head$Amino.Acid)
+# #
+# # Define Data columns
+# phosdata <- newphos[,grep("Intensity", names(newphos))]
+# names(phosdata) <- sapply(names(phosdata), function (x) unlist(strsplit(x, "Intensity."))[2])
+# # make zero into NA, which it is.
+# zer0 <- which(phosdata==0, arr.ind = TRUE)
+# phosdata <- replace (phosdata, zer0, NA)
+# # Define technical replicates
+# tr1 <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
+# tr2 <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
+# phosdata <- newphos[,grep("Intensity", names(newphos))]
+# names(phosdata) <- sapply(names(phosdata), function (x) unlist(strsplit(x, "Intensity."))[2])
+# # make zero into NA, which it is.
+# zer0 <- which(phosdata==0, arr.ind = TRUE)
+# phosdata <- replace (phosdata, zer0, NA)
+# # Define technical replicates
+# tr1 <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
+# tr2 <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
+# # The optimal pulldown columns are straightforward to identify by the pulldown strings present in the sample names (they are also identifiable by zooming out and looking at the patterns of missing data, the optimal pulldowns, as a group, have the least missing data).
+# tr1.opt <- tr1[grep("pTyr", tr1)]
+# tr2.opt <- tr2[grep("pTyr", tr2)]
+# 
+# 
+# # Use merge2cols() function to average technical replciates:
+# phosdata.merged <- data.frame(matrix(nrow=nrow(phosdata), ncol=18))
+# for(i in 1:length(tr1.opt)) {
+#   phosdata.merged[,i] <- mapply(merge2cols, colv1=as.numeric(phosdata[, tr1.opt[i]]), colv2=as.numeric(phosdata[,tr2.opt[i]]))
+# }
+# names(phosdata.merged) <- sapply(tr1.opt, function(x) substr(x, start=1, stop=nchar(x)-2))
+# 
+# 
+# # Merge with header
+# phosdatafile <- cbind(newphos.head, phosdata.merged)
+# # This file could be safed for reference using write.table()
+# # For subsequent steps
+# rownames(phosdatafile) <- phosdatafile$Peptide.Name
+# phosdata.df <- phosdatafile[,6:23]
+# # This contains just the data with individual PTMs as rownames
+# ######################
+# # Workflow: Repeat with aceltylation or other PTM data
+# # ...
+# # Then, to put them together:
+# # Make column names common. For example:
+# kgp <- phosdata.df
+# kga <- ackdata.df
+# kgu <- ubidata.df
+# names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
+# names(kga) <- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))
+# names(kgu) <- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))
+# identical(names(kgp), names(kga)) # Check TRUE
+# #
+# ptmdata <- rbind (kgp, kga, kgu) # 3159   18
+# # Reorder here
+# ptmdata <- ptmdata[order(rownames(ptmdata)),]
+# # This optional step improves clustering in our hands:
+# log2ptmdata <- log2(ptmdata)
+# # This is now ready to use as the ptmtable.
