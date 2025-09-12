@@ -23,14 +23,13 @@ MakeDBInput <- function(gene.cccn, file.path.name = "db_nodes.txt") {
 #
 # @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 # @return data frame of the names of the genes
-cccn_to_nodenames <- function(gene.cccn, nodenames.name = 'nodenames'){
+cccn_to_nodenames <- function(gene.cccn){
 
   gene.names <- unique(rownames(gene.cccn))
 
   nodenames <- data.frame(Gene.Names = gene.names, stringsAsFactors = FALSE)
 
   #return :)
-  assign(nodenames.name, nodenames, envir = .GlobalEnv)
   return(nodenames)
 }
 
@@ -45,8 +44,6 @@ cccn_to_nodenames <- function(gene.cccn, nodenames.name = 'nodenames'){
 #' @details The full example takes ~10 minutes to load, so it has been commented out and the results are displayed.
 #'
 #' @param gene.cccn A matrix showing strength of relationships between proteins using common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
-#' @param stringdb.name Desired name for the output STRINGdb data frame; defaults to "stringdb.edges"
-#' @param nodenames.name Desired name for list of gene names; defaults to nodenames
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database and a list of gene names
 #' @export
@@ -55,8 +52,8 @@ cccn_to_nodenames <- function(gene.cccn, nodenames.name = 'nodenames'){
 #' # GetSTRINGdb(ex.gene.cccn, 'ex.stringdb.edges', 'ex.nodenames')
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
-GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.name = "nodenames", returndata=TRUE) {
-  nodenames <- cccn_to_nodenames(gene.cccn, nodenames.name)
+GetSTRINGdb <- function(gene.cccn) {
+  nodenames <- cccn_to_nodenames(gene.cccn)
 
   if(!requireNamespace("STRINGdb", quietly = TRUE)){
     stop("In order to use this function, please download STRINGdb as described in the vignette, the readme, and the function documentation.")
@@ -103,9 +100,8 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
   stringdb.edges <- combined_interactions[, c("Gene.1", "Gene.2", "edgeType", "Weight")]
   # Cytoscape edge column names are c(source, target, interaction, Weight)
   colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
-  # assign
-  assign(stringdb.name, stringdb.edges, envir = .GlobalEnv)
-  if(returndata==TRUE) (return(stringdb.edges))
+  # Return
+  return(stringdb.edges)
 }
 
 
@@ -116,7 +112,6 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
 #' @param gm.edgefile.path Path to GeneMANIA edgefile
 #' @param gm.nodetable.path Path to GeneMANIA nodetable
 #' @param db_nodes.path Path to the node file from MakeDBInput
-#' @param gm.network.name Desired name for the output genemania network; defaults to gm.network
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study
 #' @export
@@ -130,7 +125,7 @@ GetSTRINGdb <- function(gene.cccn, stringdb.name = "stringdb.edges", nodenames.n
 # NOTE:
 #  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
 # Note: The column names may change in future releases of GeneMANIA.
-ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gm.network.name = "gm.network", returndata=TRUE){
+ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path){
   # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
   # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
   nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
@@ -167,8 +162,7 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
   keep <- edgetable$source %in% nodenames & edgetable$target %in% nodenames         # which rows are we keeping
   genemania.edges <- edgetable[keep,]                                                 # copy 'em over
 
-  assign(gm.network.name, as.data.frame(genemania.edges), envir = .GlobalEnv)     # assign :)
-  if (returndata==TRUE) {return(genemania.edges)}
+  return(genemania.edges)
 }
 
 #' Format Kinsub Table
@@ -194,7 +188,7 @@ format.kinsub.table <- function (kinasesubstrate.filename = "Kinase_Substrate_Da
   kinsub <- unique(kinsub)
   names(kinsub) <- c("source", "target")
   # Prune kinase-substrate to genes in data
-  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn, nodenames.name = "nodenames"))))
+  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn))))
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
   kinsub.edges$interaction <- "pp"
   kinsub.edges$Weight <- 1
