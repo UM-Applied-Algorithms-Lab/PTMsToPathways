@@ -40,7 +40,7 @@ reactiosn to the same environmental conditions) compared to how those
 proteins are known to interact. This clustering information is also used
 to find interactions between known, existing pathways.
 
-\##**An important note about this package:** The returned outputs from
+**An important note about this package:** The returned outputs from
 the functions are data that may be saved in an RData object so that the
 user may reload the data, which may take a while to generate, and pick
 up where they left off later.
