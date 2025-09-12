@@ -4,30 +4,10 @@
 \alias{MakeClusterList}
 \title{Build Clusters Based on PTM Data Under Like Conditions}
 \usage{
-MakeClusterList(
-  ptmtable,
-  correlation.matrix.name = "ptm.correlation.matrix",
-  clusters.list.name = "clusters.list",
-  tsne.coords.name = "all.tsne.coords",
-  common.clusters.name = "common.clusters",
-  adj.consensus.name = "adj.consensus",
-  keeplength = 2,
-  toolong = 3.5,
-  returndata = TRUE
-)
+MakeClusterList(ptmtable, keeplength = 2, toolong = 3.5)
 }
 \arguments{
 \item{ptmtable}{A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.}
-
-\item{correlation.matrix.name}{Desired name for the correlation matrix to be saved as; defaults to "ptm.correlation.matrix"}
-
-\item{clusters.list.name}{Desired name for the lists of clusters to be saved as; defaults to clusters.list}
-
-\item{tsne.coords.name}{Desired name for the lists of tsne coords to be saved as; defaults to tsne.coords}
-
-\item{common.clusters.name}{Desired name for the clusters that all 3 methods found in common; defaults to common.clusters}
-
-\item{adj.consensus.name}{adjacency matrix of consensus clusters from three t-SNE embeddings}
 
 \item{keeplength}{Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2}
 

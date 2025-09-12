@@ -4,13 +4,7 @@
 \alias{ProcessGMEdgefile}
 \title{Process GM Edge File}
 \usage{
-ProcessGMEdgefile(
-  gm.edgefile.path,
-  gm.nodetable.path,
-  db_nodes.path,
-  gm.network.name = "gm.network",
-  returndata = TRUE
-)
+ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
 }
 \arguments{
 \item{gm.edgefile.path}{Path to GeneMANIA edgefile}
@@ -18,8 +12,6 @@ ProcessGMEdgefile(
 \item{gm.nodetable.path}{Path to GeneMANIA nodetable}
 
 \item{db_nodes.path}{Path to the node file from MakeDBInput}
-
-\item{gm.network.name}{Desired name for the output genemania network; defaults to gm.network}
 }
 \value{
 Data frame of consisting of the network of interactions from the genes of study

@@ -7,29 +7,13 @@
 PathwayCrosstalkNetwork(
   common.clusters,
   bioplanet.file = "bioplanet.csv",
-  pathwayslist.name = "pathways.list",
-  edgelist.name = "PCNedgelist",
-  jaccard.edgelist.name = "jaccard.net",
-  CPE.edgelist.name = "CPE.net",
-  PCN.edgelist.name = "pathway.crosstalk.network",
-  createfile = getwd(),
-  returndata = TRUE
+  createfile = getwd()
 )
 }
 \arguments{
 \item{common.clusters}{The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork}
 
 \item{bioplanet.file}{Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"}
-
-\item{pathwayslist.name}{bioplanet pathways in list format}
-
-\item{edgelist.name}{The desired name of the Pathway to Pathway edgelist file created ('.csv' will automatically be added to the end for you); defaults to edgelist. Intended for use in Cytoscape.}
-
-\item{jaccard.edgelist.name}{The desired name of the pathway_Jaccard_similarity edges}
-
-\item{CPE.edgelist.name}{The desired name of the Pathway PTM_cluster_evidence edges}
-
-\item{PCN.edgelist.name}{The desired name of the PCN containg both CPE and Jaccard edges for Cytoscape}
 
 \item{createfile}{The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.}
 }
