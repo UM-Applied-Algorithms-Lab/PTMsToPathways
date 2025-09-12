@@ -4,19 +4,10 @@
 \alias{GetSTRINGdb}
 \title{Get STRINGdb PPI data}
 \usage{
-GetSTRINGdb(
-  gene.cccn,
-  stringdb.name = "stringdb.edges",
-  nodenames.name = "nodenames",
-  returndata = TRUE
-)
+GetSTRINGdb(gene.cccn)
 }
 \arguments{
 \item{gene.cccn}{A matrix showing strength of relationships between proteins using common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
-
-\item{stringdb.name}{Desired name for the output STRINGdb data frame; defaults to "stringdb.edges"}
-
-\item{nodenames.name}{Desired name for list of gene names; defaults to nodenames}
 }
 \value{
 Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database and a list of gene names

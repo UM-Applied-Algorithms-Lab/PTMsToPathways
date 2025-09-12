@@ -7,8 +7,8 @@
 #' 
 #' @param stringdb.edges Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database
 #' @param genemania.edges GeneMANIA network of protein-protein interactions from the genes of study; defaults to NA
-#' @param kinsub.edges 
-#' @param gene.cccn.edges
+#' @param kinsub.edges TODO
+#' @param gene.cccn.edges TODO
 #' @param db.filepaths A vector of paths to the additional ppi network files; defaults to an empty vector
 #'
 #' @return A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights
