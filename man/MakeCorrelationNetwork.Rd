@@ -4,12 +4,12 @@
 \alias{MakeCorrelationNetwork}
 \title{Make Correlation Network}
 \usage{
-MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix)
+MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 }
 \arguments{
-\item{common.clusters}{A list of clusters. Ideally the ones found by MakeClusterList in common_clusters}
-
 \item{ptm.correlation.matrix}{A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.}
+
+\item{common.clusters}{A list of clusters. Ideally the ones found by MakeClusterList in common_clusters}
 }
 \value{
 The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
