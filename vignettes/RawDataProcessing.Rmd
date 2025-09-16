@@ -189,7 +189,7 @@ averaging values detected in both, using the function, *merge2cols()*.
 
 ... & similar for other drugs
 
-```{r read in more data sets for multiple PTMs}
+```{r read in first data sets for multiple PTMs}
 # Define Data columns
 phosdata <- newphos[,grep("Intensity", names(newphos))]
 phosdata <- phosdata[,grep("pTyr", names(phosdata))]
