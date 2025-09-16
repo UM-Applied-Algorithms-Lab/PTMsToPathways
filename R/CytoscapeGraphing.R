@@ -179,6 +179,8 @@ if(is.character(funckey.filename)){ #If Path to file (string input)
 }
 # helper functions for networks in R:
 # function to filter networks to include only selected nodes and those with edges to them
+
+#' @export
 filter.edges.0 <- function(nodenames, edge.file) {
   nodenames <-as.character(nodenames)
   a = as.character(edge.file[,1])
@@ -189,6 +191,7 @@ filter.edges.0 <- function(nodenames, edge.file) {
 }
 #
 #function to filter networks and to get first order connected nodes
+#' @export
 filter.edges.1 <- function(nodenames, edge.file) {
   nodenames <-as.character(nodenames)
   a = as.character(edge.file[,1])
@@ -200,6 +203,8 @@ filter.edges.1 <- function(nodenames, edge.file) {
   if(dim(sel.edges)[1] == 0) {return(NA)} else {
     return(unique(sel.edges)) }
 }
+
+#' @export
 filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
   sel.edges1 <- edge.file[edge.file[,1] %in% nodes1 & edge.file[,2]%in% nodes2,]
   sel.edges2 <- edge.file[edge.file[,1] %in% nodes2 & edge.file[,2]%in% nodes1,]
