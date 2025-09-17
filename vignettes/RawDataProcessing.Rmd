@@ -189,7 +189,7 @@ averaging values detected in both, using the function, *merge2cols()*.
 
 ... & similar for other drugs
 
-```{r read in first data sets for multiple PTMs}
+```{r reformat data sets for multiple PTMs}
 # Define Data columns
 phosdata <- newphos[,grep("Intensity", names(newphos))]
 phosdata <- phosdata[,grep("pTyr", names(phosdata))]
@@ -308,7 +308,7 @@ from the same experimental samples. Combining the data is simply
 repeating the above steps using the correct optimum data columns, then
 making the column names the same, and binding all the rows together.
 
-```{r  Subsequent steps and ratio calculations}
+```{r  Subsequent steps to merge datasets from a mulit-PTM experiment}
 ######################
 # Workflow: Repeat the with aceltylation or other PTM data (ubiquitination in this case).
 # This can be done with data that include ratios as above if desired.
