@@ -127,7 +127,10 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
 # _________________________________________________________________________________
 # Read in data file that is output from mass spectrometry. 
 
-# newphos <- read.table(datafilepath ="phospho_cleaned_mapped.txt", sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
+# You should replace file_path with your own path to file, as in the commented line below
+file_path <- system.file("extdata", "phospho_cleaned_mapped.txt", package = "PTMsToPathways")
+# file_path <- "path/to/your/file.txt"
+newphos <- read.table(file_path, sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
 
 # First remove internal control rows (reverse sequences)
 newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
@@ -289,13 +292,15 @@ phos_ratios.lim <- replace (phos_ratios, hi.ratio, 100)
 phos_ratios.lim <- replace (phos_ratios.lim, low.ratio, 1/100) 
 # log2 transformation improves clustering 
 phos_ratios.lim.log2 <- log2(phos_ratios.lim)
+# lucy comment: this was below but we needed phosdata_plus_ratios
+phosdata_plus_ratios <- cbind(log2phosdata, phos_ratios.lim.log2)
+
 boxplot(phosdata_plus_ratios)
 # Now merge intensity and ratio data
 # Check
 identical(rownames(phos_ratios.lim.log2), rownames(log2phosdata)) 
 # TRUE, okay
 
-phosdata_plus_ratios <- cbind(log2phosdata, phos_ratios.lim.log2)
 
 # This can be used as the example ptmtable for subsequent testing.
 # ptmtable <- phosdata_plus_ratios
@@ -315,19 +320,20 @@ making the column names the same, and binding all the rows together.
 # How to put them together:
 # Make column names common. For example:
 kgp <- phosdata.df
-kga <- ackdata.df
-kgu <- ubidata.df
-names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
-names(kga) <- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))
-names(kgu) <- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))
-identical(names(kgp), names(kga)) # Check TRUE
+# lucy comment: ackdata.df not defined, so I'm just commenting everything out below
+# kga <- ackdata.df
+# kgu <- ubidata.df
+# names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
+# names(kga) <- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))
+# names(kgu) <- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))
+# identical(names(kgp), names(kga)) # Check TRUE
 #
-ptmdata <- rbind (kgp, kga, kgu) 
+# ptmdata <- rbind (kgp, kga, kgu) 
 # Reorder here
-ptmdata <- ptmdata[order(rownames(ptmdata)),]
+# ptmdata <- ptmdata[order(rownames(ptmdata)),]
 
 # This optional step improves clustering in our hands:
-log2ptmdata <- log2(ptmdata)
+# log2ptmdata <- log2(ptmdata)
 
 # This could be used as the ptmtable for clustering.
 # ptmtable = log2ptmdata
