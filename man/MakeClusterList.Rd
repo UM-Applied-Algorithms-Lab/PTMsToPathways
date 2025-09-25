@@ -14,7 +14,10 @@ MakeClusterList(ptmtable, keeplength = 2, toolong = 3.5)
 \item{toolong}{A numeric threshold for cluster separation, defaults to 3.5.}
 }
 \value{
-The correlation matrix: A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal; and A list of three-dimensional data frames used to represent ptms in space to show relationships between them based on distances. Based on Euclidean Distance, Spearman Dissimilarity, and SED (the average between the two)
+A list with these data structures at the given index.
+1 (Consesus Clusters as a list): Clusters in all 3 distance metrices as a list.
+2 (Consesus Clusters as an adjacent matrix) A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.
+3 (PTM Correlation Matrix) The PTMs that clustered A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal; and A list of three-dimensional data frames used to represent ptms in space to show relationships between them based on distances. Based on Euclidean Distance, Spearman Dissimilarity, and SED (the average between the two)
 }
 \description{
 This function takes the post-translational modification table and runs it through three calculations of distance:
@@ -27,13 +30,8 @@ A correlation table is also produced based on the Spearman Correlation table.
 Please note: t-SNE involves an element of randomness; in order to get the same results, set.seed(#) must be called.
 }
 \examples{
-ex.ptm.cor <- "ex.ptm.correlation.matrix"
-ex.clusters <- "ex.clusters.list"
-ex.tsnes <- "ex.all.tsne.coords"
-ex.commons <- "ex.common.clusters"
-MakeClusterList(ex.ptmtable, ex.ptm.cor, ex.clusters, ex.tsnes, ex.commons)
-utils::head(ex.ptm.correlation.matrix[, c(1,2,3,4,5)])
-print(ex.clusters.list[[1]][1])
-print(ex.clusters.list[[2]][1])
-print(ex.clusters.list[[3]][1])
+Output <- MakeClusterList(ex_full_ptm_table)
+utils::head(Output[[1]][, c(1,2,3,4,5)])
+#Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view. 
+print(Output[[1]][1:3])
 }

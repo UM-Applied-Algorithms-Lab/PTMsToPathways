@@ -27,7 +27,7 @@ GetRtsne <- function(table, iter=5000){
 #'
 #' Please note: t-SNE involves an element of randomness; in order to get the same results, set.seed(#) must be called.
 #'
-#' @param ptmtable A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
+#' @param ptmtable A dataset for post-translational modifications. Formatted with row's names containing PTM names. The column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
 #' @param keeplength Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
 #' @return A list with these data structures at the given index. 
@@ -38,9 +38,9 @@ GetRtsne <- function(table, iter=5000){
 #'
 #' @examples
 #' Output <- MakeClusterList(ex_full_ptm_table)
-#' utils::head(Output[[1]][, c(1,2,3,4,5)])
-#' #Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view. 
 #' print(Output[[1]][1:3])
+#' #Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view. 
+#' utils::head(Output[[3]][, c(1,2,3,4,5)])
 MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   start_time <- Sys.time()
   print("Starting correlation calculations and t-SNE.")
