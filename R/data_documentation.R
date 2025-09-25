@@ -184,7 +184,7 @@
 
 
 
-#' PTM Table Example
+#' Small PTM Table Example
 #'
 #' Post-translational modification data under certain environmental conditions.
 #'
@@ -196,10 +196,27 @@
 #'   \item{columns}{Names of drugs that were used on PTMs}
 #'   \item{values}{Expression as found by mass spectrometry}
 #' }
-#' @source "manually created"
+#' @source "An .rda version of phospho_cleaned_mapped.txt found in inst/extdata"
 #' @examples
-#' head(ex.ptmtable)
-"ex.ptmtable"
+#' head(ex_small_ptm_table)
+"ex_small_ptm_table"
+
+#' Full PTM Table Example
+#'
+#' Post-translational modification data under certain environmental conditions.
+#'
+#' @keywords internal
+#'
+#' @format Dataframe of 497 rows and 72 columns:
+#' \describe{
+#'   \item{row}{Number of PTMs}
+#'   \item{columns}{Names of drugs that were used on PTMs}
+#'   \item{values}{Expression as found by mass spectrometry}
+#' }
+#' @source "An .rda version of phospho_cleaned_mapped.txt found in inst/extdata"
+#' @examples
+#' head(ex_small_ptm_table)
+"ex_full_ptm_table"
 
 
 
