@@ -236,7 +236,7 @@ metrics. The PTM version is also saved for analysis by the user.
 #### Code
 
 ```{r eval = FALSE}
-CCCN.data <- MakeCorrelationNetwork(common.clusters, ptm.correlation.matrix)
+CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 ptm.cccn.g <- CCCN.data[[1]]
 gene.cccn.g <- CCCN.data[[2]]
 ptm.cccn.edges <- CCCN.data[[3]]
