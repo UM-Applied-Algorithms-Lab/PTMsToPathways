@@ -49,7 +49,7 @@ up where they left off later.
 
 # Starting Data
 
-This package provides an example data set using 497 ptms and 69
+This package provides an example data set using 933 ptms and 8
 experimental conditions in the correct format for entry. Below is an
 example selection of the input dataset:
 
@@ -58,67 +58,7 @@ dim(PTMsToPathways::ex.ptmtable)
 PTMsToPathways::ex.ptmtable[38:50, 1:4]
 ```
 
-Note that it is very important that the rownames are the names of
-post-translational modifications. All of their respective columns are
-the environmental conditions under which the post-translational
-modifications occurred. NAs -- which are importantly not zeroes --
-represent condition-PTM combinations that were not studied. The numeric
-values are data output by the mass spectrometer. Ambigious PTMs, cases
-where a PTM could be any one of several PTMs, should also be separated
-by semicolons. (e.g. "AARS ubi k747; AMBLIL p U123").
 
-<p> </p>
-
-# Pre-Processing Data
-
-For data that does not conform to the above structure, the data must be
-converted. The following provides a set of general functions that may
-assist in this process.
-
-#### Importing the Dataframe
-
-R supports many file types and can automatically convert them into a
-data frame. For example, read.csv() will take a csv file and convert it
-into a data frame. The csv file type is recommended for data storage.
-
-```{r eval = FALSE, echo = TRUE}
-ptmtable <- read.csv("Pathto/filename.csv")
-View(ptmtable)
-```
-
-#### Turning Columns of PTMs into Rownames
-
-If there is/are column(s) that contain parts of PTM names (e.g. the
-first column may contain the protein, the second column may contain the
-post-translational modification, and the third column may contain the
-location), the following command concatenates those columns and converts
-them into data frame. The vector "name.columns" is the indices of the
-columns which contain names. For the example below, the strings in
-columns 1, 2, and 3 will be concatenated in each row and then turned
-into a rowname. It is also possible to have name.columns equal a vector
-like c(2, 4, 6), which takes columns 2, 4, and 6.
-
-```{r eval = FALSE, echo = TRUE}
-name.columns <- 1:3 
-rownames(ptmtable) <- sort(unlist(apply(ptmtable[name.columns], 1, paste, collapse=" ")))
-ptmtable <- ptmtable[,-name.columns]
-```
-
-#### Replacing Patterns
-
-If the list of PTMs possesses symbols that are unnecessary such as "AARS
-\~K ubi K747", this command will remove all strings included in the
-"patterns" vector from the rownames. Any pattern can be chosen so long
-as the user ensures that any special character (such as \$ or \@) have a
-"\\\\" in front of them.
-
-```{r eval = FALSE}
-patterns <- c(" ~K", "zzzz", "/", "\\$", "\\@")
-patterns <- patterns[order(nchar(patterns), patterns, decreasing = TRUE)]
-rownames(ptmtable) <- sapply(rownames(ptmtable), function(x) {for(p in patterns) x <- gsub(p, "", x); return(x)})
-```
-
-<p> </p>
 
 # Pipeline
 
