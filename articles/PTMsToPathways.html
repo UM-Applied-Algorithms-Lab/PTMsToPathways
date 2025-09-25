@@ -39,7 +39,8 @@
 <li class="nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/RawDataProcessing.html">Analyzing Pathways from PTMs: A Guide</a></li>
+<li><a class="dropdown-item" href="../articles/Cytoscape_Graphing.html">Cytoscape_Graphing</a></li>
+    <li><a class="dropdown-item" href="../articles/RawDataProcessing.html">Analyzing Pathways from PTMs: A Guide</a></li>
   </ul>
 </li>
       </ul>
@@ -91,7 +92,7 @@ generate, and pick up where they left off later.</p>
 <div class="section level2">
 <h2 id="starting-data">Starting Data<a class="anchor" aria-label="anchor" href="#starting-data"></a>
 </h2>
-<p>This package provides an example data set using 497 ptms and 69
+<p>This package provides an example data set using 933 ptms and 8
 experimental conditions in the correct format for entry. Below is an
 example selection of the input dataset:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -112,68 +113,6 @@ example selection of the input dataset:</p>
 <span><span class="co">#&gt; CTTN p S405              NA            NA            NA            NA</span></span>
 <span><span class="co">#&gt; CTTN p S417              NA      18.22809      18.97026      17.71552</span></span>
 <span><span class="co">#&gt; CTTN p S418              NA      18.22809      18.97026      17.71552</span></span></code></pre></div>
-<p>Note that it is very important that the rownames are the names of
-post-translational modifications. All of their respective columns are
-the environmental conditions under which the post-translational
-modifications occurred. NAs – which are importantly not zeroes –
-represent condition-PTM combinations that were not studied. The numeric
-values are data output by the mass spectrometer. Ambigious PTMs, cases
-where a PTM could be any one of several PTMs, should also be separated
-by semicolons. (e.g. “AARS ubi k747; AMBLIL p U123”).</p>
-<p>
- 
-</p>
-</div>
-<div class="section level2">
-<h2 id="pre-processing-data">Pre-Processing Data<a class="anchor" aria-label="anchor" href="#pre-processing-data"></a>
-</h2>
-<p>For data that does not conform to the above structure, the data must
-be converted. The following provides a set of general functions that may
-assist in this process.</p>
-<div class="section level5">
-<h5 id="importing-the-dataframe">Importing the Dataframe<a class="anchor" aria-label="anchor" href="#importing-the-dataframe"></a>
-</h5>
-<p>R supports many file types and can automatically convert them into a
-data frame. For example, read.csv() will take a csv file and convert it
-into a data frame. The csv file type is recommended for data
-storage.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"Pathto/filename.csv"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level5">
-<h5 id="turning-columns-of-ptms-into-rownames">Turning Columns of PTMs into Rownames<a class="anchor" aria-label="anchor" href="#turning-columns-of-ptms-into-rownames"></a>
-</h5>
-<p>If there is/are column(s) that contain parts of PTM names (e.g. the
-first column may contain the protein, the second column may contain the
-post-translational modification, and the third column may contain the
-location), the following command concatenates those columns and converts
-them into data frame. The vector “name.columns” is the indices of the
-columns which contain names. For the example below, the strings in
-columns 1, 2, and 3 will be concatenated in each row and then turned
-into a rowname. It is also possible to have name.columns equal a vector
-like c(2, 4, 6), which takes columns 2, 4, and 6.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">name.columns</span> <span class="op">&lt;-</span> <span class="fl">1</span><span class="op">:</span><span class="fl">3</span> </span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sort.html" class="external-link">sort</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/apply.html" class="external-link">apply</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">[</span><span class="va">name.columns</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">paste</span>, collapse<span class="op">=</span><span class="st">" "</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="va">ptmtable</span><span class="op">[</span>,<span class="op">-</span><span class="va">name.columns</span><span class="op">]</span></span></code></pre></div>
-</div>
-<div class="section level5">
-<h5 id="replacing-patterns">Replacing Patterns<a class="anchor" aria-label="anchor" href="#replacing-patterns"></a>
-</h5>
-<p>If the list of PTMs possesses symbols that are unnecessary such as
-“AARS ~K ubi K747”, this command will remove all strings included in the
-“patterns” vector from the rownames. Any pattern can be chosen so long
-as the user ensures that any special character (such as $ or @) have a
-“\\” in front of them.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">" ~K"</span>, <span class="st">"zzzz"</span>, <span class="st">"/"</span>, <span class="st">"\\$"</span>, <span class="st">"\\@"</span><span class="op">)</span></span>
-<span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="va">patterns</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">patterns</span><span class="op">)</span>, <span class="va">patterns</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="kw">for</span><span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="va">patterns</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span>, <span class="va">x</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
-<p>
- 
-</p>
-</div>
 </div>
 <div class="section level2">
 <h2 id="pipeline">Pipeline<a class="anchor" aria-label="anchor" href="#pipeline"></a>
@@ -209,7 +148,7 @@ based on the Spearman Correlation values for each pair of PTMs.</p>
 <div class="section level5">
 <h5 id="code">Code<a class="anchor" aria-label="anchor" href="#code"></a>
 </h5>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
 <span><span class="va">common.clusters</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">adj.consensus</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -295,7 +234,7 @@ the user.</p>
 <div class="section level5">
 <h5 id="code-1">Code<a class="anchor" aria-label="anchor" href="#code-1"></a>
 </h5>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CCCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">adj.consensus</span>, <span class="va">ptm.correlation.matrix</span><span class="op">)</span></span>
 <span><span class="va">ptm.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">gene.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -381,7 +320,7 @@ from the PPI databases. .</p>
 <div class="section level5">
 <h5 id="code-2">Code<a class="anchor" aria-label="anchor" href="#code-2"></a>
 </h5>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
 <span></span>
@@ -430,7 +369,7 @@ cocluster).</p>
 <div class="section level5">
 <h5 id="code-3">Code<a class="anchor" aria-label="anchor" href="#code-3"></a>
 </h5>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
 <p><img src="vig_figs/db_nodes-txt.png"></p>
@@ -462,7 +401,7 @@ from PhosphositePlus (<a href="https://www.phosphosite.org/staticDownloads" clas
 <div class="section level5">
 <h5 id="code-4">Code<a class="anchor" aria-label="anchor" href="#code-4"></a>
 </h5>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span><span class="op">)</span></span>
 <span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/format.kinsub.table.html">format.kinsub.table</a></span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span><span class="op">)</span></span></code></pre></div>
 <center>
@@ -532,7 +471,7 @@ data.</p>
 <div class="section level5">
 <h5 id="code-5">Code<a class="anchor" aria-label="anchor" href="#code-5"></a>
 </h5>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">kinsub.edges</span>, <span class="va">gene.cccn.edges</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -611,7 +550,7 @@ pathway.crosstalk.network.</p>
 <div class="section level5">
 <h5 id="code-6">Code<a class="anchor" aria-label="anchor" href="#code-6"></a>
 </h5>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">PCNedgelist</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -654,7 +593,7 @@ matrices with columns of nodes and column(s) of weights. You will need
 to view the data and manually set which two columns are the nodes and
 which column is the edges. The following code creates an igraph named
 graph.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">df</span> <span class="op">&lt;-</span> <span class="va">yourdatastructure</span></span>
 <span><span class="va">nodecolumns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">edgecolumn</span> <span class="op">&lt;-</span> <span class="fl">3</span></span>
@@ -668,7 +607,7 @@ graph.</p>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as a .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
 <span><span class="co"># For multiple objects</span></span>
@@ -677,7 +616,7 @@ csv file with the write.csv function.</p>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>

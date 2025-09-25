@@ -39,7 +39,8 @@
 <li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
-<li><a class="dropdown-item" href="../articles/RawDataProcessing.html">Analyzing Pathways from PTMs: A Guide</a></li>
+<li><a class="dropdown-item" href="../articles/Cytoscape_Graphing.html">Cytoscape_Graphing</a></li>
+    <li><a class="dropdown-item" href="../articles/RawDataProcessing.html">Analyzing Pathways from PTMs: A Guide</a></li>
   </ul>
 </li>
       </ul>
@@ -71,19 +72,17 @@ Williams, Mark Grimes</h4>
 
     
     
-<p>
- 
-</p>
 <div class="section level2">
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
 <p>Mass spectrometry data output will vary depending on the experimental
-design, source of data, and software used to process the raw spectra. We
-start with data in tab-delimited spreadsheet format. (R has a variation
-of read.table() called read.csv(), which can be used for comma-delimited
-.csv files.) This vignette intends to help users produce a matrix with
-PTM names as row names (e.g. FYN p Y411) and numeric data in all the
-columns.</p>
+design, source of data, and software used to process the raw spectra. R
+supports many file types and can automatically convert them into a data
+frame. For example, read.csv() will take a csv file and convert it into
+a data frame (read.csv() is a variation of read.table()). We start with
+data in tab-delimited spreadsheet format. This vignette intends to help
+users produce a matrix with PTM names as row names (e.g. FYN p Y411) and
+numeric data in all the columns.</p>
 </div>
 <div class="section level2">
 <h2 id="conventions">Conventions<a class="anchor" aria-label="anchor" href="#conventions"></a>
@@ -123,6 +122,14 @@ in our data table, the relevant column names are:</p>
 name using these columns. This function concatenates ambiguous
 modification sites and ignores NA values that are present in cells or
 ambiguous gene names.</p>
+<p>Note that it is very important that the rownames are the names of
+post-translational modifications. All of their respective columns are
+the experimental conditions under which the post-translational
+modifications occurred. The numeric values are data output by the mass
+spectrometer. NAs – which are importantly not zeroes – represent missing
+data. Ambigious PTMs, cases where a PTM could be any one of several
+PTMs, are separated by semicolons. (e.g. “AARS ubi k747; AMBLIL p
+U123”).</p>
 <p>Many investigators will examine their data in Microsoft Excel, which
 can export the spreadsheet in tab- or comma-delimited format.
 Unfortunately, Excel inescapably turns some gene names into dates when
@@ -177,6 +184,22 @@ present in a cell by themselves. We reverse this with a helper function,
 <span></span>
 <span><span class="co"># Now create a unique PTM name (peptide name)</span></span>
 <span><span class="va">newphos.head</span><span class="op">$</span><span class="va">Peptide.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span><span class="va">name.peptide</span>, genes<span class="op">=</span><span class="va">newphos.head</span><span class="op">$</span><span class="va">AllGeneSymbols</span>, sites<span class="op">=</span> <span class="va">newphos.head</span><span class="op">$</span><span class="va">Positions.Within.Proteins</span>, aa<span class="op">=</span><span class="va">newphos.head</span><span class="op">$</span><span class="va">Amino.Acid</span><span class="op">)</span></span></code></pre></div>
+<div class="section level4">
+<h4 id="replacing-patterns">Replacing Patterns<a class="anchor" aria-label="anchor" href="#replacing-patterns"></a>
+</h4>
+<p>If the list of PTMs possesses symbols that are unnecessary such as
+“AARS ~K ubi K747”, this command will remove all strings included in the
+“patterns” vector from the rownames. Any pattern can be chosen so long
+as the user ensures that any special character (such as $ or @) have a
+“\” in front of them.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"\\~"</span>, <span class="st">"\\#"</span>, <span class="st">"/"</span>, <span class="st">"\\$"</span>, <span class="st">"\\@"</span>, <span class="st">"\\|"</span><span class="op">)</span></span>
+<span><span class="va">patterns</span> <span class="op">&lt;-</span> <span class="va">patterns</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">patterns</span><span class="op">)</span>, <span class="va">patterns</span>, decreasing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="op">{</span><span class="kw">for</span><span class="op">(</span><span class="va">p</span> <span class="kw">in</span> <span class="va">patterns</span><span class="op">)</span> <span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">gsub</a></span><span class="op">(</span><span class="va">p</span>, <span class="st">""</span>, <span class="va">x</span><span class="op">)</span>; <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="data-columns">Data columns<a class="anchor" aria-label="anchor" href="#data-columns"></a>
+</h4>
 <p>Next we identify the data columns, which contain the string
 “Intensity.” The example data file is from a multi-PTM study and the
 data in this table are from just the phosphorylation pulldown (other
@@ -193,6 +216,7 @@ technical replicates. We therefore merge the technical replicates taking
 the value of either replicate where it’s missing in the other, and
 averaging values detected in both, using the function,
 <em>merge2cols()</em>.</p>
+</div>
 </div>
 <div class="section level2">
 <h2 id="key-for-column-names">Key for column names<a class="anchor" aria-label="anchor" href="#key-for-column-names"></a>
@@ -215,7 +239,7 @@ averaging values detected in both, using the function,
 <p><em>C3-2</em>: Crizotinib biological replicate 3- technical replicate
 2</p>
 <p>… &amp; similar for other drugs</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Define Data columns</span></span>
 <span><span class="va">phosdata</span> <span class="op">&lt;-</span> <span class="va">newphos</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"Intensity"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">phosdata</span> <span class="op">&lt;-</span> <span class="va">phosdata</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"pTyr"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
@@ -223,7 +247,7 @@ averaging values detected in both, using the function,
 <span><span class="co"># Simplify column names</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"Intensity."</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Make zero into NA, which it is. (Note that this may not apply if you are confident that zero means actual zero, which is possible with certain technical advances.) </span></span>
+<span><span class="co"># Make zero into NA, which it is. (Note that this may not apply if you are confident that zero means actual zero, which is possible with certain technical advances like DIA.) </span></span>
 <span><span class="va">zer0</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">phosdata</span><span class="op">==</span><span class="fl">0</span>, arr.ind <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">phosdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span> <span class="op">(</span><span class="va">phosdata</span>, <span class="va">zer0</span>, <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
@@ -269,7 +293,7 @@ averaging values detected in both, using the function,
 samples, adding treatment/control ratios as additional data column can
 improve clustering. This optional step adds dimensions to the data set
 that enhance focus on the changes in response to drug treatments.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="co"># Simplify column names first:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"SEPTM_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"SEPTM_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
@@ -317,7 +341,7 @@ that enhance focus on the changes in response to drug treatments.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">phosdata_plus_ratios</span><span class="op">)</span></span></code></pre></div>
 <p><img src="plots/Example%20ratio%20calculations-1.png" width="100%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Now merge intensity and ratio data</span></span>
 <span><span class="co"># Check</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phos_ratios.lim.log2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">log2phosdata</span><span class="op">)</span><span class="op">)</span> </span>
@@ -334,7 +358,7 @@ pulldowns were made to isolate acetylated and ubiquitinated peptides
 from the same experimental samples. Combining the data is simply
 repeating the above steps using the correct optimum data columns, then
 making the column names the same, and binding all the rows together.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">######################</span></span>
 <span><span class="co"># Workflow: Repeat the with aceltylation or other PTM data (ubiquitination in this case).</span></span>
 <span><span class="co"># This can be done with data that include ratios as above if desired.</span></span>
