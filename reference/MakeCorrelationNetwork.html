@@ -65,12 +65,16 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))</p>
+    <p>The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+<strong>1</strong> (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics
+<strong>2</strong> (Gene CoCluster Correlation Network) Similar to <strong>1</strong> but at the level of genes.
+<strong>3</strong> The PTM CoCluster Correlation Network as an igraph edgelist object.
+<strong>4</strong> The gene CoCluster Correlation Network as an igraph edgelist object.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex_adj_consensus</span>, <span class="va">ex.common.clusters</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex_adj_consensus</span>, <span class="va">ex.common.clusters</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PTM CCCN"</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)),     sort(colnames(ptm.correlation.matrix))]:</span> incorrect number of dimensions</span>
 <span class="r-in"><span><span class="va">ex.ptm.cccn</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
