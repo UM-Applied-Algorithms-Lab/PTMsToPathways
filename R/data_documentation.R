@@ -190,7 +190,7 @@
 #'
 #' @keywords internal
 #'
-#' @format Dataframe of 497 rows and 72 columns:
+#' @format Dataframe of 908 rows and 18 columns:
 #' \describe{
 #'   \item{row}{Number of PTMs}
 #'   \item{columns}{Names of drugs that were used on PTMs}
@@ -207,7 +207,7 @@
 #'
 #' @keywords internal
 #'
-#' @format Dataframe of 497 rows and 72 columns:
+#' @format Dataframe of 9215 rows and 70 columns:
 #' \describe{
 #'   \item{row}{Number of PTMs}
 #'   \item{columns}{Names of drugs that were used on PTMs}
