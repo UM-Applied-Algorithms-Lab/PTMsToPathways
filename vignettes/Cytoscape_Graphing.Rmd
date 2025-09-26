@@ -95,7 +95,7 @@ each characteristic.
 <p> </p>
 
 Let's now zoom in further on PTMs for a subset of proteins whose PTMs
-were affected by the tyrosine kinase inhbitor.
+were affected by the tyrosine kinase inhibitor
 
 ```{r eval = FALSE}
 egfr_ATP1A1 <- connectNodes.all(nodepair = c("EGFR", "ATP1A1"), ig.graph=NULL, edgefile=cfn, newgraph=TRUE)
@@ -113,7 +113,7 @@ setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 #### Dasatinib - focal adhesion
 
 Dasatinib exhibits strong binding and inhibitory effects on multiple
-focal adhesion-associated genes from your provided BioPlanet list: • SRC
+focal adhesion-associated genes from the BioPlanet list: • SRC
 (proto-oncogene tyrosine-protein kinase Src) • FYN (tyrosine-protein
 kinase Fyn) • EGFR (epidermal growth factor receptor) • ERBB2 (receptor
 tyrosine-protein kinase erbB-2) All these genes are directly implicated
@@ -129,7 +129,7 @@ fa.genes <- pathways.list[["Focal adhesion"]]
 pt.sub.fa <- pt.sub[pt.sub$Gene.Name %in% fa.genes,]
 pt.sub.fa.topz <- pt.sub.fa[pt.sub.fa$Sum.Dasat < -2,]
 ptms = rownames(pt.sub.fa.topz)
-# Employ a helper function to derive a cfn starting with a list of PTMs
+# Employ a helper function to derive a CFN starting with a list of PTMs
 cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable, include.gene.data = TRUE, include.coclustered.PTMs = TRUE)
 # Let's see what it looks like.
