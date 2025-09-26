@@ -30,17 +30,17 @@ GetRtsne <- function(table, iter=5000){
 #' @param ptmtable A dataset for post-translational modifications. Formatted with row's names containing PTM names. The column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
 #' @param keeplength Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
-#' @return A list with these data structures at the given index. 
-#' 1 (Consesus Clusters as a list): Clusters in all 3 distance metrices as a list. 
-#' 2 (Consesus Clusters as an adjacent matrix) A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed. 
-#' 3 (PTM Correlation Matrix) The PTMs that clustered A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal; and A list of three-dimensional data frames used to represent ptms in space to show relationships between them based on distances. Based on Euclidean Distance, Spearman Dissimilarity, and SED (the average between the two)
+#' @return A list with these data structures at the given index: \cr
+#' \strong{1} (Consensus Clusters as a list): Clusters in all 3 distance metrices as a list.\cr
+#' \strong{2} (Consensus Clusters as an adjacent matrix) A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed. \cr
+#' \strong{3} (PTM Correlation Matrix) A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal.
 #' @export
 #'
 #' @examples
-#' Output <- MakeClusterList(ex_small_ptm_table)
-#' print(Output[[1]][1:3])
+#' Example_Output <- MakeClusterList(ex_small_ptm_table)
+#' print(Example_Output[[1]][1:3])
 #' #Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view. 
-#' utils::head(Output[[3]][, c(1,2,3,4,5)])
+#' utils::head(Example_Output[[3]][, c(1,2,3,4,5)])
 MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   start_time <- Sys.time()
   print("Starting correlation calculations and t-SNE.")

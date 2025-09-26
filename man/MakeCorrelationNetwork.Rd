@@ -20,8 +20,7 @@ It groups the PTM correlation matrix based on the Genes of PTMs.
 By summing these submatrices, it also produces a gene by gene cocluster correlation network shows strength of relationships between proteins using the common clusters between the three distance metrics.
 }
 \examples{
-ex.ptm.cor <- ex.ptm.correlation.matrix
-MakeCorrelationNetwork(ex.common.clusters, ex.ptm.cor, "ex.ptm.cccn", "ex.gene.cccn")
+MakeCorrelationNetwork(ex_adj_consensus, ex.common.clusters)
 ex.ptm.cccn[1:5, 1:5]
 ex.gene.cccn[1:5, 1:5]
 
