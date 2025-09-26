@@ -24,7 +24,9 @@ BuildClusterFilteredNetwork(
 \item{db.filepaths}{A vector of paths to the additional ppi network files; defaults to an empty vector}
 }
 \value{
-A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights
+A list containing the following data structures at the given index:
+\strong{1} All the database data.frames stringdb, genemania, and kinsub bound together in a data.frame
+\strong{2} A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights
 }
 \description{
 Uses all inputted database information on protein-protein interactions in order to create a combined PPI-network.
@@ -33,6 +35,6 @@ If either of these conditions are not met, then it will be removed from the list
 This new, cluster filtered network is then assigned to the global namespace.
 }
 \examples{
-ClusterFilteredNetwork(ex.gene.cccn, ex.ppi.network, cfn.name = "ex.cfn")
-utils::head(ex.cfn)
+Example_Output <- ClusterFilteredNetwork(ex.stringdb.edges, ex.gm.edges, "need example", "need example", "need example")
+utils::head(Example_Output)
 }

@@ -12,10 +12,10 @@ MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 \item{common.clusters}{A list of clusters. Ideally the ones found by MakeClusterList in common_clusters}
 }
 \value{
-The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
-\strong{1} (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics
-\strong{2} (Gene CoCluster Correlation Network) Similar to \strong{1} but at the level of genes.
-\strong{3} The PTM CoCluster Correlation Network as an igraph edgelist object.
+A list containing the following data structures at the given index: \cr
+\strong{1} (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics \cr
+\strong{2} (Gene CoCluster Correlation Network) Similar to \strong{1} but at the level of genes. \cr
+\strong{3} The PTM CoCluster Correlation Network as an igraph edgelist object. \cr
 \strong{4} The gene CoCluster Correlation Network as an igraph edgelist object.
 }
 \description{
