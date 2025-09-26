@@ -6,10 +6,13 @@
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
+#' \strong{1} (pathway.crosstalk.network) Contains pathway source-target columns, along with the interaction type. 
+#' \strong{2} (PCNedgelist) Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
+#' \strong{3} (pathways.list) All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway. 
 #' @export
 #'
 #' @examples
-#' PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist", createfile = FALSE)
+#' Example_Output <- PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
 #'
 PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd()){
   # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
