@@ -13,7 +13,8 @@
 #'
 #' @examples
 #' Example_Output <- PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
-#'
+#' Example_Output[[1]][[3,]]
+#' Example_Output[[3]][[1:3]]
 PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd()){
   # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
   fix.excel <- function(cell) {
