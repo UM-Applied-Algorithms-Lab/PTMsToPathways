@@ -49,7 +49,7 @@ cccn_to_nodenames <- function(gene.cccn){
 #' @export
 #'
 #' @examples
-#' # GetSTRINGdb(ex.gene.cccn, 'ex.stringdb.edges', 'ex.nodenames')
+#' # GetSTRINGdb(ex.gene.cccn)
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
 GetSTRINGdb <- function(gene.cccn) {
@@ -120,8 +120,8 @@ GetSTRINGdb <- function(gene.cccn) {
 #' ex.edgefile <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
 #' ex.nodefile <- system.file("extdata/ex_gm_nodetable.csv", package = "PTMsToPathways")
 #' ex.db.nodes  <- system.file("extdata/ex_db_nodes.txt", package = "PTMsToPathways")
-#' ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes, "ex.gm.network")
-#' utils::head(ex.gm.network)
+#' Example_Output <- ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes)
+#' utils::head(Example_Output)
 # NOTE:
 #  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
 # Note: The column names may change in future releases of GeneMANIA.
