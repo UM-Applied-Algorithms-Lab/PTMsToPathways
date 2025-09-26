@@ -5,7 +5,7 @@
 \alias{ex_full_ptm_table}
 \title{Full PTM Table Example}
 \format{
-Dataframe of 497 rows and 72 columns:
+Dataframe of 9215 rows and 70 columns:
 \describe{
 \item{row}{Number of PTMs}
 \item{columns}{Names of drugs that were used on PTMs}
@@ -13,7 +13,7 @@ Dataframe of 497 rows and 72 columns:
 }
 }
 \source{
-"An .rda version of phospho_cleaned_mapped.txt found in inst/extdata"
+"Mass Spectrometry Data"
 }
 \usage{
 ex_full_ptm_table
@@ -22,6 +22,6 @@ ex_full_ptm_table
 Post-translational modification data under certain environmental conditions.
 }
 \examples{
-head(ex_small_ptm_table)
+head(ex_full_ptm_table)
 }
 \keyword{internal}

@@ -213,10 +213,27 @@
 #'   \item{columns}{Names of drugs that were used on PTMs}
 #'   \item{values}{Expression as found by mass spectrometry}
 #' }
-#' @source "An .rda version of phospho_cleaned_mapped.txt found in inst/extdata"
+#' @source "Mass Spectrometry Data"
 #' @examples
-#' head(ex_small_ptm_table)
+#' head(ex_full_ptm_table)
 "ex_full_ptm_table"
+
+#' Adj Consensus
+#'
+#' A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.
+#'
+#' @keywords internal
+#'
+#' @format Dataframe of 908 rows and columns:
+#' \describe{
+#'   \rows{PTM} Post-Translational Modifications
+#'   \columns{PTM} Post-Translational Modifications
+#'   \item{values}1 if PTMs are in the same cluster (pls confirm) 
+#' }
+#' @source "Produced by MakeClusterList"
+#' @examples
+#' head(ex_adj_consensus)
+"ex_adj_consensus"
 
 
 
