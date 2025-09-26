@@ -2,7 +2,9 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/404.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/LICENSE.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CoClusterCorrelationNetwork.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/Cytoscape_Graphing.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/PTMsToPathways.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/RawDataProcessing.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/authors.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/index.html</loc></url>
@@ -34,8 +36,10 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.ppi.network.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.ptm.cccn.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.ptm.correlation.matrix.html</loc></url>
-<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.ptmtable.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex.stringdb.edges.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_full_ptm_table.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_small_ptm_table.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/format.kinsub.table.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/funckey.filename.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/index.html</loc></url>
 </urlset>

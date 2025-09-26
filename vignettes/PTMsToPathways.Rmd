@@ -54,8 +54,8 @@ experimental conditions in the correct format for entry. Below is an
 example selection of the input dataset:
 
 ```{r eval = TRUE, echo = TRUE}
-dim(PTMsToPathways::ex.ptmtable)
-PTMsToPathways::ex.ptmtable[38:50, 1:4]
+dim(PTMsToPathways::ex_small_ptm_table)
+PTMsToPathways::ex_small_ptm_table[38:50, 1:4]
 ```
 
 
