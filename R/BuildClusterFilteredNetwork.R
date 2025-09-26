@@ -15,8 +15,8 @@
 #'
 #' @export
 #' @examples
-#' ClusterFilteredNetwork(ex.gene.cccn, ex.ppi.network, cfn.name = "ex.cfn")
-#' utils::head(ex.cfn)
+#' Example_Output <- ClusterFilteredNetwork(ex.stringdb.edges, ex.gm.edges, "need example", "need example", "need example")
+#' utils::head(Example_Output)
 
 BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c()) {
   # Combine PPIs from different databases
