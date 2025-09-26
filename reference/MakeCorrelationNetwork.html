@@ -70,9 +70,9 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex_adj_consensus</span>, <span class="va">ex.common.clusters</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex_adj_consensus</span>, <span class="va">ex.ptm.correlation.matrix</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PTM CCCN"</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)),     sort(colnames(ptm.correlation.matrix))]:</span> incorrect number of dimensions</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ptm.cccn[active_ptms, active_ptms, drop = FALSE]:</span> incorrect number of dimensions</span>
 <span class="r-in"><span><span class="va">Example_Output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'Example_Output' not found</span>
 <span class="r-in"><span><span class="va">Example_Output</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
