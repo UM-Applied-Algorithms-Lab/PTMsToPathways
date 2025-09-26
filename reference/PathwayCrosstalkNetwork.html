@@ -67,13 +67,19 @@
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score</p>
+    <p>An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
+<strong>1</strong> (pathway.crosstalk.network) Contains pathway source-target columns, along with the interaction type.
+<strong>2</strong> (PCNedgelist) Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
+<strong>3</strong> (pathways.list) All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.</p>
     </div>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span><span class="va">ex.common.clusters</span>, <span class="va">ex.bioplanet</span>, <span class="st">"ex.edgelist"</span>, createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, "ex.edgelist",     createfile = FALSE):</span> unused argument ("ex.edgelist")</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">PathwayCrosstalkNetwork</span><span class="op">(</span><span class="va">ex.common.clusters</span>, <span class="va">ex.bioplanet</span>, createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PCN"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-09-26 05:27:32 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-09-26 05:27:32 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 0.0501120090484619</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
