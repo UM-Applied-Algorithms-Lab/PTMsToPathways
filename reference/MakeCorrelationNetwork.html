@@ -70,9 +70,9 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">ex.ptm.cor</span> <span class="op">&lt;-</span> <span class="va">ex.ptm.correlation.matrix</span></span></span>
-<span class="r-in"><span><span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex.common.clusters</span>, <span class="va">ex.ptm.cor</span>, <span class="st">"ex.ptm.cccn"</span>, <span class="st">"ex.gene.cccn"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in MakeCorrelationNetwork(ex.common.clusters, ex.ptm.cor, "ex.ptm.cccn",     "ex.gene.cccn"):</span> unused arguments ("ex.ptm.cccn", "ex.gene.cccn")</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">MakeCorrelationNetwork</span><span class="op">(</span><span class="va">ex_adj_consensus</span>, <span class="va">ex.common.clusters</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Making PTM CCCN"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)),     sort(colnames(ptm.correlation.matrix))]:</span> incorrect number of dimensions</span>
 <span class="r-in"><span><span class="va">ex.ptm.cccn</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>               ABLIM1 p Y357 ABLIM1 p Y373 MET p Y1003 PKP4 p Y1156</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ABLIM1 p Y357            NA     0.8857143   0.8186275    0.8846154</span>
