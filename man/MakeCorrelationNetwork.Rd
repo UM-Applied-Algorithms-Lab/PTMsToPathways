@@ -25,7 +25,7 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 }
 \examples{
 Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex.common.clusters)
-ex.ptm.cccn[1:5, 1:5]
-ex.gene.cccn[1:5, 1:5]
+Example_Output[[1]][1:5, 1:5]
+Example_Output[[2]][1:5, 1:5]
 
 }
