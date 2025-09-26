@@ -142,7 +142,7 @@ description of each characteristic.</p>
  
 </p>
 <p>Let’s now zoom in further on PTMs for a subset of proteins whose PTMs
-were affected by the tyrosine kinase inhbitor.</p>
+were affected by the tyrosine kinase inhibitor</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_ATP1A1</span> <span class="op">&lt;-</span> <span class="fu">connectNodes.all</span><span class="op">(</span>nodepair <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"EGFR"</span>, <span class="st">"ATP1A1"</span><span class="op">)</span>, ig.graph<span class="op">=</span><span class="cn">NULL</span>, edgefile<span class="op">=</span><span class="va">cfn</span>, newgraph<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co"># To include co-clustered PTMs in the network an extra step is necessary:</span></span>
@@ -159,7 +159,7 @@ were affected by the tyrosine kinase inhbitor.</p>
 <h4 id="dasatinib---focal-adhesion">Dasatinib - focal adhesion<a class="anchor" aria-label="anchor" href="#dasatinib---focal-adhesion"></a>
 </h4>
 <p>Dasatinib exhibits strong binding and inhibitory effects on multiple
-focal adhesion-associated genes from your provided BioPlanet list: • SRC
+focal adhesion-associated genes from the BioPlanet list: • SRC
 (proto-oncogene tyrosine-protein kinase Src) • FYN (tyrosine-protein
 kinase Fyn) • EGFR (epidermal growth factor receptor) • ERBB2 (receptor
 tyrosine-protein kinase erbB-2) All these genes are directly implicated
@@ -175,7 +175,7 @@ dasatinib.</p>
 <span><span class="va">pt.sub.fa</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">fa.genes</span>,<span class="op">]</span></span>
 <span><span class="va">pt.sub.fa.topz</span> <span class="op">&lt;-</span> <span class="va">pt.sub.fa</span><span class="op">[</span><span class="va">pt.sub.fa</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span>,<span class="op">]</span></span>
 <span><span class="va">ptms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub.fa.topz</span><span class="op">)</span></span>
-<span><span class="co"># Employ a helper function to derive a cfn starting with a list of PTMs</span></span>
+<span><span class="co"># Employ a helper function to derive a CFN starting with a list of PTMs</span></span>
 <span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu">ptms_to_cfn</span><span class="op">(</span><span class="va">ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
 <span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>, include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="co"># Let's see what it looks like.</span></span>
