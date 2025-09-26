@@ -17,7 +17,7 @@
 #'
 #' @export
 #' @examples
-#' Example_Output <- ClusterFilteredNetwork(ex.stringdb.edges, ex.gm.edges, "need example", "need example", "need example")
+#' Example_Output <- BuildClusterFilteredNetwork(ex.stringdb.edges, ex.gm.edges, "need example", "need example", "need example")
 #' utils::head(Example_Output)
 
 BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c()) {
