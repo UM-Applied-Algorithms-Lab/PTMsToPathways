@@ -11,7 +11,9 @@
 #' @param gene.cccn.edges TODO
 #' @param db.filepaths A vector of paths to the additional ppi network files; defaults to an empty vector
 #'
-#' @return A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights
+#' @return A list containing the following data structures at the given index:
+#' \strong{1} All the database data.frames stringdb, genemania, and kinsub bound together in a data.frame
+#' \strong{2} A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights
 #'
 #' @export
 #' @examples
