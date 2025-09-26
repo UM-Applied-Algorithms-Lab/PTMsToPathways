@@ -7,9 +7,9 @@
 \format{
 Dataframe of 908 rows and columns:
 \describe{
-\rows{PTM} Post-Translational Modifications
-\columns{PTM} Post-Translational Modifications
-\item{values}1 if PTMs are in the same cluster (pls confirm)
+\item{rows}{PTMs}
+\item{columns}{PTMs}
+\item{values}{1 if PTMs are in the same cluster (pls confirm)}
 }
 }
 \source{
