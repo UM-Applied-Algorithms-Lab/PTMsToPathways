@@ -18,10 +18,9 @@ entirety, though very large graphs take a long time to graph. One
 approach to navigating these data structures is to select nodes from the
 large networks in Cytoscape (or in R using RCy3::selectNodes()) and
 select nearest neighbors or shortest paths and create a subnetwork in a
-new window (see the Cytoscape Manual
-<https://manual.cytoscape.org/en/stable/>).
+new window (see the Cytoscape Manual <https://manual.cytoscape.org/en/stable/>).
 
-The approach described below is to identify pathways, genes, and PTMs of
+The alternative approach described below is to identify pathways, genes, and PTMs of
 interest in the R data objects, then make smaller, more interpretable
 graphs in Cytoscape using RCy3.
 
