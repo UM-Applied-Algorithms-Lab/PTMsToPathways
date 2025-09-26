@@ -7,10 +7,14 @@
 #' @param common.clusters A list of clusters. Ideally the ones found by MakeClusterList in common_clusters
 #' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
 #' @return The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' \strong{1} (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics
+#' \strong{2} (Gene CoCluster Correlation Network) Similar to \strong{1} but at the level of genes.
+#' \strong{3} The PTM CoCluster Correlation Network as an igraph edgelist object.
+#' \strong{4} The gene CoCluster Correlation Network as an igraph edgelist object.
 #' @export
 #'
 #' @examples
-#' MakeCorrelationNetwork(ex_adj_consensus, ex.common.clusters)
+#' Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex.common.clusters)
 #' ex.ptm.cccn[1:5, 1:5]
 #' ex.gene.cccn[1:5, 1:5]
 #'

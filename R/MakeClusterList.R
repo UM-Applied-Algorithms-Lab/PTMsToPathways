@@ -38,7 +38,7 @@ GetRtsne <- function(table, iter=5000){
 #'
 #' @examples
 #' Example_Output <- MakeClusterList(ex_small_ptm_table)
-#' print(Example_Output[[1]][1:3])
+#' Example_Output[[1]][1:3]
 #' #Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view. 
 #' utils::head(Example_Output[[3]][, c(1,2,3,4,5)])
 MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){

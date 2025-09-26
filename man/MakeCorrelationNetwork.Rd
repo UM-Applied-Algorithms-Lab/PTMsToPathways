@@ -13,6 +13,10 @@ MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 }
 \value{
 The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED) and a matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+\strong{1} (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics
+\strong{2} (Gene CoCluster Correlation Network) Similar to \strong{1} but at the level of genes.
+\strong{3} The PTM CoCluster Correlation Network as an igraph edgelist object.
+\strong{4} The gene CoCluster Correlation Network as an igraph edgelist object.
 }
 \description{
 Make Correlation Network filters a correlation matrix of PTMs by specific PTMs.
@@ -20,7 +24,7 @@ It groups the PTM correlation matrix based on the Genes of PTMs.
 By summing these submatrices, it also produces a gene by gene cocluster correlation network shows strength of relationships between proteins using the common clusters between the three distance metrics.
 }
 \examples{
-MakeCorrelationNetwork(ex_adj_consensus, ex.common.clusters)
+Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex.common.clusters)
 ex.ptm.cccn[1:5, 1:5]
 ex.gene.cccn[1:5, 1:5]
 
