@@ -172,14 +172,15 @@
 #
 
 # Import Function Key
+#' @export
 funckey.filename <- "FunctionKey.txt"
 if(is.character(funckey.filename)){ #If Path to file (string input)
   if(!file.exists(funckey.filename)) stop(paste(funckey.filename, "not found. Plese check your working directory."))
   funckey <- read.table(funckey.filename, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)
 }
 # helper functions for networks in R:
-# function to filter networks to include only selected nodes and those with edges to them
 
+# function to filter networks to include only selected nodes and those with edges to them
 #' @export
 filter.edges.0 <- function(nodenames, edge.file) {
   nodenames <-as.character(nodenames)
@@ -204,6 +205,7 @@ filter.edges.1 <- function(nodenames, edge.file) {
     return(unique(sel.edges)) }
 }
 
+# This function narrows the search only for edges between two sets of nodes
 #' @export
 filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
   sel.edges1 <- edge.file[edge.file[,1] %in% nodes1 & edge.file[,2]%in% nodes2,]
@@ -211,7 +213,9 @@ filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
   sel.edges <- rbind(sel.edges1, sel.edges2)
   if(dim(sel.edges)[1] == 0) {return(NA)} else return(sel.edges)
 }
+
 # connectNodes.all  uses all_shortest_paths and returns just the edge file
+#' @export
 connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
   if (newgraph==TRUE) {
     ig.graph <- igraph::graph_from_data_frame(edgefile, directed=FALSE) }
@@ -222,18 +226,22 @@ connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	
   return(path.edges)
 }
 # This function names the edges the way Cytoscape does so they can be selected:
+#' @export
 getCyEdgeNames <- function(edgefile) {
   cyedges <- mapply(paste, edgefile $source, " (", edgefile $interaction, ") ", edgefile $target, sep="")
   return(cyedges)
 }
 # Function to extract node names from, e.g.:
 #	"ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
+#' @export
 strip.cy.goo <- function(test) {
   t1 <- unlist(strsplit(test, "Object="))
   t2 <- sapply(t1[2:length(t1)], function (x) (strsplit(x, ", ")))
   return(plyr::ldply(t2)$V1)
 }
+
 # For graphing Pathway Crosstalk Networks (PCNs) in cytoscape
+#' @export
 cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.name, Jaccard.edges=TRUE) {
   PCN.df <- data.frame(id=unique(c(PCN$source, PCN$target)))
   if (Jaccard.edges== FALSE) {PCN = PCN[-which (PCN$interaction=="pathway Jaccard similarity"),]}
@@ -256,7 +264,7 @@ cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.na
 }
 
 # Two linked functions to generate node file for Cytoscape:
-
+#' @export
 make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -270,6 +278,7 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
 
   return(as.data.frame(gene.data))  # Ensure base R class
 }
+#' @export
 make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE) {
   # Step 1: get unique nodes from edge file
   edge_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
@@ -331,7 +340,9 @@ make.genepep.edges <- function(peptide.edgefile) {
   net.gpe <- remove.autophos(net.gpe)
   return(net.gpe)
 }
+
 # This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
+#' @export
 get.co.clustered.ptms <- function (edge.file) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   ptmtable.temp <- ptmtable
@@ -350,12 +361,15 @@ get.co.clustered.ptms <- function (edge.file) {
 # Enusres that for Cytoscape, "id" is used for node name columns
 #
 # helper functions
+#' @export
 "%w/o%" <- function(x, y) x[!x %in% y] #--  x without y
 
+#' @export
 outersect <- function(x, y) {
   sort(c(setdiff(x, y),
          setdiff(y, x)))
 }
+#' @export
 harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
   if(!any(grepl("Gene.Name", names(genecf)))) {
     genecf.new <- data.frame(Gene.Name= genecf$id, genecf)} else {genecf.new = genecf}
@@ -403,6 +417,7 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
 
 # Function to merge edges to declutter networks
 
+#' @export
 mergeEdges <- function(edgefile) {
   # Define edge type priorities for directed edges
   directed_priority <- c("pp", "controls-phosphorylation-of", "controls-expression-of",
@@ -456,6 +471,7 @@ mergeEdges <- function(edgefile) {
 }
 
 # Function to start with PTMs and retrive CFN
+#' @export
 ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   ambig.ptms <- ptms[grep(";", ptms)]
   if (length(ambig.ptms) > 0) {
@@ -487,6 +503,7 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
 
 
 # Function to set shape and border color according to node type
+#' @export
 setNodeMapping <- function(cf=getTableColumns('node')) {
   require(RCy3)
   setBackgroundColorDefault("#949494") # grey 58
@@ -514,6 +531,7 @@ setNodeMapping <- function(cf=getTableColumns('node')) {
 # Function to set edge appearance
 # # Use:  setCorrEdgeAppearance()  to change cytoscape front window
 #This is now modified to handle merged edges and match colors correctly
+#' @export
 setCorrEdgeAppearance <- function() {
   require(RCy3)
   setEdgeLineWidthDefault (3)
@@ -562,6 +580,7 @@ setCorrEdgeAppearance <- function() {
 }
 
 # function to sent node size and color to match ratio data. this one uses the Cytoscape table.
+#' @export
 setNodeColorToRatios <- function(plotcol){
   require(RCy3)
   cf <- getTableColumns('node')
@@ -593,6 +612,7 @@ setNodeColorToRatios <- function(plotcol){
 }
 
 # This function works well with data that are normalized by row z-scores
+#' @export
 setNodeColorToRowz <- function(plotcol){
   cf <- getTableColumns('node')
   if(!(plotcol %in% getTableColumnNames('node'))){
@@ -615,7 +635,7 @@ setNodeColorToRowz <- function(plotcol){
 }
 
 # This function wraps RCy3 graphing in cytoscape and sets node and edge visual properties
-
+#' @export
 GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways", visual.style.name = "PTMsToPathways.style"){
 
   if(!requireNamespace("RCy3", quietly = TRUE)){                                                                       # check RCy3 downloaded
@@ -646,6 +666,7 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
 }
 
 # # This helper function will make wider edges if they are two thin
+#' @export
 setEdgeWidths <- function (ffactor=-1.2, log=TRUE)	{
   edgevalues <- RCy3::getTableColumns('edge',c('Weight'))
   edgevalues$Weight <- abs(as.numeric(edgevalues$Weight))
@@ -698,6 +719,7 @@ SetStandards <- function(visual.style.name,
 }
 
 # NodeEdgeKey function: Cytoscape legend for styles
+#' @export
 NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   require(RCy3)
 
@@ -775,7 +797,7 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   RCy3::copyVisualStyle("default", visual.style.name)
   RCy3::setVisualStyle(visual.style.name)
 
-  message("Check the 'Node & Edge Key' network in Cytoscape: kinase sources PHOSPHORYLATION/pp, all edges labelled, all node-edge types illustrated.")
+  message("Check the 'Node & Edge Key' network in Cytoscape.")
 }
 
 
