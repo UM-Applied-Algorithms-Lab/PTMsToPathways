@@ -181,6 +181,10 @@ if(is.character(funckey.filename)){ #If Path to file (string input)
 # helper functions for networks in R:
 
 # function to filter networks to include only selected nodes and those with edges to them
+#' @param nodenames
+#'
+#' @param edge.file
+#'
 #' @export
 filter.edges.0 <- function(nodenames, edge.file) {
   nodenames <-as.character(nodenames)
@@ -192,6 +196,10 @@ filter.edges.0 <- function(nodenames, edge.file) {
 }
 #
 #function to filter networks and to get first order connected nodes
+#' @param nodenames
+#'
+#' @param edge.file
+#'
 #' @export
 filter.edges.1 <- function(nodenames, edge.file) {
   nodenames <-as.character(nodenames)
@@ -206,6 +214,12 @@ filter.edges.1 <- function(nodenames, edge.file) {
 }
 
 # This function narrows the search only for edges between two sets of nodes
+#' @param nodes1
+#'
+#' @param nodes2
+#' @param edge.file
+#' @param convert
+#'
 #' @export
 filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
   sel.edges1 <- edge.file[edge.file[,1] %in% nodes1 & edge.file[,2]%in% nodes2,]
@@ -215,6 +229,12 @@ filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
 }
 
 # connectNodes.all  uses all_shortest_paths and returns just the edge file
+#' @param nodepair
+#'
+#' @param ig.graph
+#' @param edgefile
+#' @param newgraph
+#'
 #' @export
 connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
   if (newgraph==TRUE) {
@@ -226,6 +246,8 @@ connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	
   return(path.edges)
 }
 # This function names the edges the way Cytoscape does so they can be selected:
+#' @param edgefile
+#'
 #' @export
 getCyEdgeNames <- function(edgefile) {
   cyedges <- mapply(paste, edgefile $source, " (", edgefile $interaction, ") ", edgefile $target, sep="")
@@ -233,6 +255,8 @@ getCyEdgeNames <- function(edgefile) {
 }
 # Function to extract node names from, e.g.:
 #	"ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
+#' @param test
+#'
 #' @export
 strip.cy.goo <- function(test) {
   t1 <- unlist(strsplit(test, "Object="))
@@ -241,6 +265,11 @@ strip.cy.goo <- function(test) {
 }
 
 # For graphing Pathway Crosstalk Networks (PCNs) in cytoscape
+#' @param PCN
+#'
+#' @param net.name
+#' @param Jaccard.edges
+#'
 #' @export
 cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.name, Jaccard.edges=TRUE) {
   PCN.df <- data.frame(id=unique(c(PCN$source, PCN$target)))
@@ -264,6 +293,10 @@ cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.na
 }
 
 # Two linked functions to generate node file for Cytoscape:
+#' @param genes
+#'
+#' @param ptmtable
+#'
 #' @export
 make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   ptmtable.temp <- ptmtable
@@ -278,6 +311,13 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
 
   return(as.data.frame(gene.data))  # Ensure base R class
 }
+#' @param edge.file
+#'
+#' @param funckey
+#' @param ptmtable
+#' @param include.gene.data
+#' @param include.coclustered.PTMs
+#'
 #' @export
 make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE) {
   # Step 1: get unique nodes from edge file
@@ -327,12 +367,28 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
 }
 
 # Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))
+#' Title
+#'
+#' @param edgefile
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 remove.autophos <-    function(edgefile)	{
   auto <- which (as.character(edgefile$source) == as.character(edgefile$target))
   if (length(auto) > 0) {
     newedgefile <- edgefile[-auto,] } else newedgefile <- edgefile
     return (newedgefile)
 }
+#' Title
+#'
+#' @param peptide.edgefile
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 make.genepep.edges <- function(peptide.edgefile) {
   peptides <- unique(c(peptide.edgefile$source, peptide.edgefile$target))
   genenames <- sapply(peptides,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
@@ -342,6 +398,8 @@ make.genepep.edges <- function(peptide.edgefile) {
 }
 
 # This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
+#' @param edge.file
+#'
 #' @export
 get.co.clustered.ptms <- function (edge.file) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
@@ -361,9 +419,19 @@ get.co.clustered.ptms <- function (edge.file) {
 # Enusres that for Cytoscape, "id" is used for node name columns
 #
 # helper functions
+#' @param x
+#'
+#' @param y
+#'
 #' @export
-"%w/o%" <- function(x, y) x[!x %in% y] #--  x without y
+"%w/o%" <- function(x, y) {
+  x[!x %in% y] #--  x without y
+  }
 
+#' @param x
+#'
+#' @param y
+#'
 #' @export
 outersect <- function(x, y) {
   sort(c(setdiff(x, y),
