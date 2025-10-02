@@ -437,6 +437,11 @@ outersect <- function(x, y) {
   sort(c(setdiff(x, y),
          setdiff(y, x)))
 }
+#' @param edge.file.with.ptms
+#'
+#' @param genecf
+#' @param ptmtable
+#'
 #' @export
 harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
   if(!any(grepl("Gene.Name", names(genecf)))) {
@@ -485,6 +490,8 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
 
 # Function to merge edges to declutter networks
 
+#' @param edgefile
+#'
 #' @export
 mergeEdges <- function(edgefile) {
   # Define edge type priorities for directed edges
@@ -539,6 +546,11 @@ mergeEdges <- function(edgefile) {
 }
 
 # Function to start with PTMs and retrive CFN
+#' @param ptms
+#'
+#' @param cfn
+#' @param pepsep
+#'
 #' @export
 ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   ambig.ptms <- ptms[grep(";", ptms)]
@@ -571,6 +583,8 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
 
 
 # Function to set shape and border color according to node type
+#' @param cf
+#'
 #' @export
 setNodeMapping <- function(cf=getTableColumns('node')) {
   require(RCy3)
@@ -648,6 +662,8 @@ setCorrEdgeAppearance <- function() {
 }
 
 # function to sent node size and color to match ratio data. this one uses the Cytoscape table.
+#' @param plotcol
+#'
 #' @export
 setNodeColorToRatios <- function(plotcol){
   require(RCy3)
@@ -680,6 +696,8 @@ setNodeColorToRatios <- function(plotcol){
 }
 
 # This function works well with data that are normalized by row z-scores
+#' @param plotcol
+#'
 #' @export
 setNodeColorToRowz <- function(plotcol){
   cf <- getTableColumns('node')
@@ -703,6 +721,13 @@ setNodeColorToRowz <- function(plotcol){
 }
 
 # This function wraps RCy3 graphing in cytoscape and sets node and edge visual properties
+#' @param cfn.edges
+#'
+#' @param cfn.nodes
+#' @param Network.title
+#' @param Network.collection
+#' @param visual.style.name
+#'
 #' @export
 GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways", visual.style.name = "PTMsToPathways.style"){
 
@@ -734,6 +759,10 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
 }
 
 # # This helper function will make wider edges if they are two thin
+#' @param ffactor
+#'
+#' @param log
+#'
 #' @export
 setEdgeWidths <- function (ffactor=-1.2, log=TRUE)	{
   edgevalues <- RCy3::getTableColumns('edge',c('Weight'))
@@ -787,6 +816,8 @@ SetStandards <- function(visual.style.name,
 }
 
 # NodeEdgeKey function: Cytoscape legend for styles
+#' @param visual.style.name
+#'
 #' @export
 NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   require(RCy3)
