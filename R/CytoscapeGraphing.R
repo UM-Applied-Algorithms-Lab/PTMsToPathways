@@ -172,12 +172,32 @@
 #
 
 # Import Function Key
+#' @param funckey.filename
+#'
 #' @export
-funckey.filename <- "FunctionKey.txt"
-if(is.character(funckey.filename)){ #If Path to file (string input)
-  if(!file.exists(funckey.filename)) stop(paste(funckey.filename, "not found. Plese check your working directory."))
-  funckey <- read.table(funckey.filename, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)
+getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
+  if (is.character(funckey.filename)) {
+    # If path to file is a string input
+    if (!file.exists(funckey.filename)) {
+      stop(paste(funckey.filename, "not found. Please check your working directory."))
+    }
+
+    # Read the table from the file
+    funckey <- read.table(
+      file = funckey.filename,
+      header = TRUE,
+      sep = "\t",
+      comment.char = "#",
+      na.strings = "",
+      quote = "",
+      stringsAsFactors = FALSE,
+      fill = TRUE
+    )
+
+    return(funckey)
+  }
 }
+
 # helper functions for networks in R:
 
 # function to filter networks to include only selected nodes and those with edges to them
