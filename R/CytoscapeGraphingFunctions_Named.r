@@ -569,13 +569,28 @@ mergeEdges <- function(edgefile) {
   return(edgefile.merged)
 }
 
-# Function to start with PTMs and retrive CFN
-#' @param ptms
+#' Extracts co-clustered PTM and gene network from a cluster filtered network object.
 #'
-#' @param cfn
-#' @param pepsep
+#' This function takes a list of PTM (post-translational modification) site IDs and a cluster-filtered network,
+#' extracts the genes from unambiguous and ambiguous PTM entries, then returns the co-clustered subnetwork.
 #'
+#' @param ptms Character vector of PTM site strings (e.g., \"TP53 p S15\")
+#' @param cfn List or data frame representing the cluster filtered network (default: global cfn.merged)
+#' @param pepsep Character used to split ambiguous PTM entries (default: \";\")
+#'
+#' @return Subnetwork object with co-clustered PTMs and genes
 #' @export
+#' @examples
+#' # Example input objects
+#' ptms <- c(\"TP53 p S15\", \"BRCA1 p S123; BRCA1 p T124\", \"MDM2 p S200\")
+#' # Example network (edge list with 'source', 'target', and cluster info, could be data.frame or igraph)
+#' cfn.merged <- data.frame(source = c(\"TP53\", \"BRCA1\", \"BRCA1\", \"MDM2\"),
+#'                          target = c(\"BRCA1\", \"MDM2\", \"TP53\", \"TP53\"),
+#'                          cluster = c(1,1,2,1))
+#' # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
+#' # The following returns the gene/PTM subnetwork
+#' res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = \";\")
+#' print(res)
 ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   ambig.ptms <- ptms[grep(";", ptms)]
   if (length(ambig.ptms) > 0) {
@@ -586,10 +601,8 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
     for (i in 1:length(ambig.ptms) ) {
       # Normalize spacing
       ptm_entry <- gsub("[;,]\\s*", ";", ambig.ptms)
-
       # Split ambiguous entry
       ptm_parts <- strsplit(ptm_entry, pepsep, fixed = TRUE)[[1]]
-
       # Extract gene names (string before first space)
       ambig.genes <- sapply(ptm_parts, function(part) strsplit(part, " ", fixed = TRUE)[[1]][1])
 
