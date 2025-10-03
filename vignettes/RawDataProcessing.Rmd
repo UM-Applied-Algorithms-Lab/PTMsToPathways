@@ -343,8 +343,7 @@ making the column names the same, and binding all the rows together.
 # This can be done with data that include ratios as above if desired.
 # How to put them together:
 # Make column names common. For example:
-kgp <- phosdata.df
-# lucy comment: ackdata.df not defined, so I'm just commenting everything out below
+# kgp <- phosdata.df
 # kga <- ackdata.df
 # kgu <- ubidata.df
 # names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
