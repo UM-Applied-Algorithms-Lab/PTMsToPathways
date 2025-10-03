@@ -192,8 +192,416 @@ getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
   }
 }
 
-# ... (other helper functions unchanged)
+# helper functions for networks in R:
 
+# function to filter networks to include only selected nodes and those with edges to them
+#' @param nodenames
+#'
+#' @param edge.file
+#'
+#' @export
+filter.edges.0 <- function(nodenames, edge.file) {
+  nodenames <-as.character(nodenames)
+  a = as.character(edge.file[,1])
+  b = as.character(edge.file[,2])
+  edgefile.nodes <- unique(c(a,b))
+  sel.edges <- edge.file[edge.file[,1] %in% nodenames & edge.file[,2] %in% nodenames,]
+  if(dim(sel.edges)[1] == 0) {return(NA)} else return(sel.edges)
+}
+#
+#function to filter networks and to get first order connected nodes
+#' @param nodenames
+#'
+#' @param edge.file
+#'
+#' @export
+filter.edges.1 <- function(nodenames, edge.file) {
+  nodenames <-as.character(nodenames)
+  a = as.character(edge.file[,1])
+  b = as.character(edge.file[,2])
+  edgefile.nodes <- unique(c(a,b))
+  sel.edges.1 <- edge.file[edge.file[,1] %in% nodenames,]
+  sel.edges.2 <- edge.file[edge.file[,2] %in% nodenames,]
+  sel.edges <- rbind(sel.edges.1, sel.edges.2)
+  if(dim(sel.edges)[1] == 0) {return(NA)} else {
+    return(unique(sel.edges)) }
+}
+
+# This function narrows the search only for edges between two sets of nodes
+#' @param nodes1
+#'
+#' @param nodes2
+#' @param edge.file
+#' @param convert
+#'
+#' @export
+filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
+  sel.edges1 <- edge.file[edge.file[,1] %in% nodes1 & edge.file[,2]%in% nodes2,]
+  sel.edges2 <- edge.file[edge.file[,1] %in% nodes2 & edge.file[,2]%in% nodes1,]
+  sel.edges <- rbind(sel.edges1, sel.edges2)
+  if(dim(sel.edges)[1] == 0) {return(NA)} else return(sel.edges)
+}
+
+# connectNodes.all  uses all_shortest_paths and returns just the edge file
+#' @param nodepair
+#'
+#' @param ig.graph
+#' @param edgefile
+#' @param newgraph
+#'
+#' @export
+connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
+  if (newgraph==TRUE) {
+    ig.graph <- igraph::graph_from_data_frame(edgefile, directed=FALSE) }
+  sp <- igraph::all_shortest_paths(graph= ig.graph, from=nodepair[1], to=nodepair[2], mode="all")
+  path.nodeslist <-  unique(lapply(sp[[1]], names))
+  edges.list <- lapply(path.nodeslist, filter.edges.0, edge.file=edgefile)
+  path.edges <- unique(plyr::ldply(edges.list))
+  return(path.edges)
+}
+# This function names the edges the way Cytoscape does so they can be selected:
+#' @param edgefile
+#'
+#' @export
+getCyEdgeNames <- function(edgefile) {
+  cyedges <- mapply(paste, edgefile $source, " (", edgefile $interaction, ") ", edgefile $target, sep="")
+  return(cyedges)
+}
+# Function to extract node names from, e.g.:
+#	"ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
+#' @param test
+#'
+#' @export
+strip.cy.goo <- function(test) {
+  t1 <- unlist(strsplit(test, "Object="))
+  t2 <- sapply(t1[2:length(t1)], function (x) (strsplit(x, ", ")))
+  return(plyr::ldply(t2)$V1)
+}
+
+
+# For graphing Pathway Crosstalk Networks (PCNs) in cytoscape
+#' @param PCN
+#'
+#' @param net.name
+#' @param Jaccard.edges
+#'
+#' @export
+cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.name, Jaccard.edges=TRUE) {
+  PCN.df <- data.frame(id=unique(c(PCN$source, PCN$target)))
+  if (Jaccard.edges== FALSE) {PCN = PCN[-which (PCN$interaction=="pathway Jaccard similarity"),]}
+  # Get rid of zero weight edges
+  PCN.edges <- PCN[PCN$Weight>0, ]
+  no.windows <- length(RCy3::getNetworkList())
+  PCN.suid <- RCy3::createNetworkFromDataFrames(PCN.df, PCN.edges, title=paste(net.name, "PCN", (1+no.windows), sep=" "), collection = "Pathway Interactions")
+  RCy3::setEdgeSelectionColorDefault (gplots::col2hex("chartreuse")) # still doesn't work
+  RCy3::setNodeColorDefault("#33FFFF" ) # bright Cyan
+  # edgeColors <- c(col2hex(alpha("purple",0.33333)), col2hex(alpha("magenta",0.33333)), col2hex("green"))
+  # edgeColors <- c("#9966FF", col2hex("green"))
+  edgeColors <- c(gplots::col2hex(ggplot2::alpha("darkorchid1",0.33333)), gplots::col2hex(ggplot2::alpha("tomato", 0.25)), gplots::col2hex("green"))
+  # edgeColors <- c("#9966FF", col2hex("green"))
+  edgeTypes <- c("PTM_cluster_evidence", "Protein_cluster_evidence", "pathway_Jaccard_similarity")
+  RCy3::setEdgeColorMapping( 'interaction', edgeTypes, edgeColors, 'd', default.color="#FFFFFF")
+  setEdgeWidths(ffactor = -1.2, log=TRUE) # Finally works!
+  style.name <- paste("PCN style", (1+no.windows), sep=" ")
+  RCy3::copyVisualStyle('default', style.name)
+  RCy3::setVisualStyle(style.name)
+}
+
+# Two linked functions to generate node file for Cytoscape:
+#' @param genes
+#'
+#' @param ptmtable
+#'
+#' @export
+make.gene.data.from.ptmtable <- function(genes, ptmtable) {
+  ptmtable.temp <- ptmtable
+  ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
+  subset.ptmtable <- ptmtable.temp[ptmtable.temp$Gene.Name %in% unique(genes), ]
+  gene.data <- subset.ptmtable %>%
+    dplyr::group_by(.data$Gene.Name) %>%
+    dplyr::summarise(
+      dplyr::across(where(is.numeric), ~sum(.x, na.rm = TRUE)),
+      .groups = "drop"
+    )
+
+  return(as.data.frame(gene.data))  # Ensure base R class
+}
+#' @param edge.file
+#'
+#' @param funckey
+#' @param ptmtable
+#' @param include.gene.data
+#' @param include.coclustered.PTMs
+#'
+#' @export
+make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE) {
+  # Step 1: get unique nodes from edge file
+  edge_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
+  # check if there are PTMs in edgefile
+  peptides <- edge.file[which(edge.file$interaction == "peptide"), "target"]
+  if(length (peptides) > 0)  {
+    edge_nodes <- edge_nodes %w/o% peptides
+  }
+
+
+  # Step 2: build node data frame from function key
+  annotation_cols <- c(
+    "Gene.Name", "Approved.Name", "Hugo.Gene.Family", "HPRD.Function",
+    "nodeType", "Domains", "Compartment", "Compartment.Overview"
+  )
+
+  node_file <- merge(
+    data.frame(Gene.Name = edge_nodes, stringsAsFactors = FALSE),
+    funckey[, annotation_cols, drop = FALSE],
+    by = "Gene.Name",
+    all.x = TRUE
+  )
+  # For un-annotated genes:
+  node_file[is.na(node_file)] <- ""
+
+  # Step 3: Optionally merge gene data summed from PTM table
+  if (include.gene.data == TRUE) {
+    gene.data <- make.gene.data.from.ptmtable(edge_nodes, ptmtable)
+    node_file <- merge(
+      node_file,
+      gene.data,
+      by = "Gene.Name",
+      all.x = TRUE
+    )
+  }
+  node_file <- cbind(data.frame(id = node_file$Gene.Name), node_file)
+  # Step 4: Optionally merge PTM CCCN and data
+  if (include.coclustered.PTMs == TRUE) {
+    edge.file.with.ptms <- get.co.clustered.ptms(edge.file)
+    if(length (peptides) > 0)  {
+      edge.file.with.ptms <- unique(rbind(edge.file.with.ptms, edge.file[which(edge.file$interaction == "peptide"), ]))
+    }
+    node_file <- harmonize_cfs(edge.file.with.ptms, genecf = node_file, ptmtable = ptmtable)
+  }
+  return(unique(node_file))
+}
+# To remove self-loops
+#' Title
+#'
+#' @param edgefile
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+remove.autophos <-    function(edgefile)	{
+  auto <- which (as.character(edgefile$source) == as.character(edgefile$target))
+  if (length(auto) > 0) {
+    newedgefile <- edgefile[-auto,] } else newedgefile <- edgefile
+    return (newedgefile)
+}
+# Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))
+#' Title
+#'
+#' @param peptide.edgefile
+#'
+#' @returns
+#' @export
+#'
+#' @examples
+make.genepep.edges <- function(peptide.edgefile) {
+  peptides <- unique(c(peptide.edgefile$source, peptide.edgefile$target))
+  genenames <- sapply(peptides,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
+  net.gpe <- data.frame(source=genenames, target=peptides, Weight=0.25, interaction="peptide")
+  net.gpe <- remove.autophos(net.gpe)
+  return(net.gpe)
+}
+
+# This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
+#' @param edge.file
+#'
+#' @export
+get.co.clustered.ptms <- function (edge.file) {
+  gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
+  ptmtable.temp <- ptmtable
+  ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
+  subset.ptms <- rownames(ptmtable.temp[ptmtable.temp$Gene.Name %in% unique(gene_nodes), ])
+  # Simplify ambiguous names - turned off because it limits their retrieval in the ptm cccn
+  # subset.ptms <- unique(sapply(subset.ptms,  function (x) unlist(strsplit(x, ";",  fixed=TRUE))[1]))
+  subset.ptm.cccn <- filter.edges.0(subset.ptms, ptm.cccn.edges)
+  pep.edges <- make.genepep.edges(subset.ptm.cccn)
+  edge.file.with.ptms <- rbind(edge.file, subset.ptm.cccn, pep.edges)
+  return(edge.file.with.ptms)
+}
+
+
+#
+# helper functions
+#' @param x
+#'
+#' @param y
+#'
+#' @export
+"%w/o%" <- function(x, y) {
+  x[!x %in% y] #--  x without y
+}
+
+#' @param x
+#'
+#' @param y
+#'
+#' @export
+outersect <- function(x, y) {
+  sort(c(setdiff(x, y),
+         setdiff(y, x)))
+}
+
+# Function to harmonize gene and peptide data for networks
+#  - for graphing combined CFN/CCCN graphs
+# Enusres that for Cytoscape, "id" is used for node name columns#' @param edge.file.with.ptms
+#'
+#' @param genecf
+#' @param ptmtable
+#'
+#' @export
+harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
+  if(!any(grepl("Gene.Name", names(genecf)))) {
+    genecf.new <- data.frame(Gene.Name= genecf$id, genecf)} else {genecf.new = genecf}
+  genecf.new$parent <- ""
+  genecf.new$Node.ID <- "Gene"
+  peptides <- edge.file.with.ptms[which(edge.file.with.ptms$interaction == "peptide"), "target"]
+  if(length (peptides) == 0)  {                                                                       # check if there are PTMs in edgefile
+    stop("There are no PTMs/peptides in this edge file!")
+  }
+  parent.genes <- sapply(peptides, function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
+  # Map peptides to ptmtable rows, handling unmatched by filling with NA or zero
+  matches <- match(peptides, rownames(ptmtable))
+  ptm.rows <- ptmtable[matches, , drop=FALSE]   # Will include NAs for unmatched rows
+  # Optionally replace all NA to 0 in the resulting data.frame
+  ptm.rows[is.na(ptm.rows)] <- 0
+  pepcf <- data.frame(
+    id = as.character(peptides),
+    parent = as.character(parent.genes),
+    Gene.Name = as.character(parent.genes),
+    ptm.rows
+  )
+  pepcf$Node.ID <- "PTM"
+  # Add annotation from function key
+  annotation_cols <- c(
+    "Gene.Name", "Approved.Name", "Hugo.Gene.Family", "HPRD.Function",
+    "nodeType", "Domains", "Compartment", "Compartment.Overview"
+  )
+
+  pepcf.funcs <- merge(
+    pepcf,
+    funckey[, annotation_cols, drop = FALSE],
+    by = "Gene.Name",
+    all.x = TRUE
+  )
+  # For un-annotated genes:
+  pepcf.funcs[is.na(pepcf.funcs)] <- ""
+  # Harmonize
+  cf <- merge(genecf.new, pepcf.funcs, all=TRUE)
+  if(any(grepl("Gene.Name.1", names(cf)))) {cf <- cf[,-which(names(cf)=="Gene.Name.1")]}
+  if(any(is.na(cf))) {cf[is.na(cf)] <- 0}
+  # Make sure "id" is in the first column
+  cf <- cf[,c("id", "Gene.Name", "Node.ID", "parent", names(cf) %w/o% c("id", "Gene.Name", "Node.ID", "parent"))]
+  return(cf)
+}
+
+# Function to merge edges to declutter networks
+
+#' @param edgefile
+#'
+#' @export
+mergeEdges <- function(edgefile) {
+  # Define edge type priorities for directed edges
+  directed_priority <- c("pp", "controls-phosphorylation-of", "controls-expression-of",
+                         "controls-transport-of", "controls-state-change-of",
+                         "PHOSPHORYLATION", "METHYLATION", "ACETYLATION", "catalysis-precedes")
+  undirected <- c("Physical interactions", "BioPlex", "in-complex-with",  'experiments',
+                  'database',   "Pathway", "Predicted", "Genetic interactions",
+                  "correlation", "negative correlation", "positive correlation",
+                  'combined_score', "merged", "intersect", "peptide", 'homology',
+                  "Shared protein domains", "interacts-with")
+
+  require(plyr)
+
+  # --- UNDIRECTED EDGES ---
+  undir.edges <- edgefile[!(edgefile$interaction %in% directed_priority), ]
+  # Sort node pairs for undirected edges
+  undir.edges[, 1:2] <- t(apply(undir.edges[, 1:2], 1, function(x) sort(x)))
+
+  # Merge by source/target and make informative label
+  undir.merged <- ddply(undir.edges, .(source, target), function(x) {
+    data.frame(
+      Weight = max(x$Weight, na.rm = TRUE),
+      interaction = paste(sort(unique(as.character(x$interaction))), collapse = " | "),
+      stringsAsFactors = FALSE
+    )
+  })
+  # ..
+
+  # --- DIRECTED EDGES ---
+  dir.edges <- edgefile[edgefile$interaction %in% directed_priority, ]
+  # For each directed edge (source, target), choose the top-priority interaction
+  dir.merged <- ddply(dir.edges, .(source, target), function(x) {
+    ints <- as.character(x$interaction)
+    present <- intersect(directed_priority, ints)
+    best <- if (length(present) > 0) present[1] else ints[1]
+    all_types <- paste(sort(unique(ints)), collapse = " | ")
+    data.frame(
+      Weight = max(x$Weight, na.rm = TRUE),
+      interaction = if (best != all_types) paste0(best, " [", all_types, "]") else best,
+      stringsAsFactors = FALSE
+    )
+  })
+
+  # Combine and clean
+  edgefile.merged <- rbind(dir.merged, undir.merged)
+  # Remove self-loops
+  edgefile.merged <- edgefile.merged[edgefile.merged$source != edgefile.merged$target, ]
+  if (exists("remove.autophos")) edgefile.merged <- remove.autophos(edgefile.merged)
+  rownames(edgefile.merged) <- NULL
+  return(edgefile.merged)
+}
+
+# Function to start with PTMs and retrive CFN
+#' @param ptms
+#'
+#' @param cfn
+#' @param pepsep
+#'
+#' @export
+ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
+  ambig.ptms <- ptms[grep(";", ptms)]
+  if (length(ambig.ptms) > 0) {
+
+    sub.ptms <- ptms %w/o% ambig.ptms
+    all_genes <- unique(sapply(sub.ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
+
+    for (i in 1:length(ambig.ptms) ) {
+      # Normalize spacing
+      ptm_entry <- gsub("[;,]\\s*", ";", ambig.ptms)
+
+      # Split ambiguous entry
+      ptm_parts <- strsplit(ptm_entry, pepsep, fixed = TRUE)[[1]]
+
+      # Extract gene names (string before first space)
+      ambig.genes <- sapply(ptm_parts, function(part) strsplit(part, " ", fixed = TRUE)[[1]][1])
+
+      all_genes <- unique(c(all_genes, ambig.genes))
+    }
+  } else {
+    all_genes  <- unique(sapply(ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
+  }
+
+  sub.cfn <- filter.edges.0(all_genes, cfn.merged)
+  sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn)
+  return(sub.cfn.cccn)
+}
+
+#_____________________________________________________________________________
+# Vizprops helper functions:
+# Function to set shape and border color according to node type
+#' @param cf
+#'
+#' @export
 setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
   # require(RCy3)
   RCy3::setBackgroundColorDefault("#949494") # grey 58
@@ -214,6 +622,15 @@ setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
   RCy3::setNodeBorderWidthMapping(table.column="nodeType", table.column.values=molclasses, widths=nodeborderwidths, mapping.type = "d", default.width=2)
 }
 
+# Function to set edge appearance
+# # Use:  setCorrEdgeAppearance()  to change cytoscape front window
+#This is now modified to handle merged edges and match colors correctly
+#' Title
+#'
+#' @returns
+#' @export
+#'
+#' @examples
 setCorrEdgeAppearance <- function() {
   # require(RCy3)
   RCy3::setEdgeLineWidthDefault(3)
@@ -246,8 +663,40 @@ setCorrEdgeAppearance <- function() {
   RCy3::setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
 
-# ... (other helper/utility and data formatting functions unchanged)
+# This function works well with node data that are normalized by row z-scores
+#' @param plotcol
+#'
+#' @export
+setNodeColorToRowz <- function(plotcol){
+  cf <- getTableColumns('node')
+  if(!(plotcol %in% getTableColumnNames('node'))){
+    print (getTableColumnNames('node'))
+    cat("\n","\n","\t", "Which attribute will set node size and color?")
+    plotcol <- as.character(readLines(con = stdin(), n = 1))
+  }
+  limits <- range(cf[, plotcol])
+  node.sizes     = c (135, 130, 108, 75, 35, 75, 108, 130, 135)
+  #	Row z-score data is plotted
+  #	Blue is negative: Yellow positive, Green in middle
+  #
+  size.control.points = c (-log2(100.0), -log2(15.0), -log2(5.0), 0.0, log2(5.0), log2(15.0), log2(100.0))
+  color.control.points = c (-log2(100.0), -log2(10.0), -log2(5.0), -log2(2.25), 0.0, log2(2.25), log2(5.0), log2(10.0), log2(100.0))
+  ratio.colors = c ('#0099FF', '#007FFF','#00BFFF', '#00CCFF', '#00FFFF', '#00EE00', '#FFFF7E', '#FFFF00', '#FFE600', '#FFD700', '#FFCC00')
+  RCy3::setNodeColorMapping (names(cf[plotcol]), color.control.points, ratio.colors, 'c')
+  RCy3::lockNodeDimensions('TRUE')
+  RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
+  RCy3::setNodeSelectionColorDefault ( "#CC00FF")
+}
 
+# This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
+#' @param cfn.edges
+#'
+#' @param cfn.nodes
+#' @param Network.title
+#' @param Network.collection
+#' @param visual.style.name
+#'
+#' @export
 GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways", visual.style.name = "PTMsToPathways.style"){
   if(!requireNamespace("RCy3", quietly = TRUE)){
     stop("In order to use this function, please download RCy3 as described in the vignette, the readme, and the function documentation.")
@@ -264,8 +713,67 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
   RCy3::setVisualStyle(visual.style.name)
 }
 
-# ... (rest of your script and documentation remains unchanged)
+# # This helper function will make wider edges if they are two thin or narrow if to thick
+#' @param ffactor
+#'
+#' @param log
+#'
+#' @export
+setEdgeWidths <- function (ffactor=-1.2, log=TRUE)	{
+  edgevalues <- RCy3::getTableColumns('edge',c('Weight'))
+  edgevalues$Weight <- abs(as.numeric(edgevalues$Weight))
+  if (log==FALSE) {
+    line.widths <- ffactor*abs(as.numeric(unlist(edgevalues$Weight)))
+  }
+  if (log==TRUE) {
+    line.widths <- log(abs(as.numeric(unlist(edgevalues$Weight)))) + ffactor - min(log(abs(as.numeric(unlist(edgevalues$Weight)))))
+  }
+  # plot(line.widths ~ unlist(edgevalues$Weight), pch=19, col="blue")
+  edgevalues['Width']<-line.widths
+  RCy3::loadTableData(edgevalues, table = 'edge', table.key.column = 'SUID')
+  RCy3::setEdgeLineWidthMapping("Width", mapping.type = "p",default.width=1.2)
+}
 
+# helper function
+# For further customization if necessary:
+SetStandards <- function(visual.style.name,
+                         background.color = "#949494", edge.label.color = '#17202a', node.label.color = '#000000',
+                         default.font = "Arial", node.font.size = 20, edge.font.size = 8,
+                         edge.line.style = 'SOLID',
+                         edge.opacity = 175, edge.label.opacity = 255, border.opacity = 255, node.label.opacity = 255, node.fill.opacity = 255){
+
+  RCy3::setNodeLabelPositionDefault("C", "C", "c", 0, 0, visual.style.name)  # What part of the node label is aligned "C", "NW", "N", "NE", "E", "SE", "S", "SW", "W"
+  # to what part of the node graphic       "C", "NW", "N", "NE", "E", "SE", "S", "SW", "W"
+  # "l", "r", "c"
+  # amount offset in the x direction
+  # amount offset in the y direction
+
+  # CUSTOMIZED: user inputs can change the following:
+
+  # colors
+  RCy3::setBackgroundColorDefault(background.color, visual.style.name)       # set color of background
+  RCy3::setEdgeLabelColorDefault(edge.label.color, visual.style.name)        # set color of edge label
+  RCy3::setNodeLabelColorDefault(node.label.color, visual.style.name)        # set color of node name
+  # fonts
+  RCy3::setEdgeFontFaceDefault(default.font, visual.style.name)              # set font of edge
+  RCy3::setNodeFontFaceDefault(default.font, visual.style.name)              # set font of node name (Initial Default UNKNOWN (not TNR or Arial))
+  RCy3::setEdgeFontSizeDefault(edge.font.size, visual.style.name)            # set font size of edge (Initial Default 12)
+  RCy3::setNodeFontSizeDefault(node.font.size, visual.style.name)            # set font size of node name (Initial Default 12)
+  # shape/style
+  RCy3::setEdgeLineStyleDefault(edge.line.style, visual.style.name)          # "PARALLEL_LINES", "MARQUEE_EQUAL", "DOT", "EQUAL_DASH", "LONG_DASH", "CONTIGUOUS_ARROW", "MARQUEE_DASH", "DASH_DOT", "BACKWARD_SLASH", "FORWARD_SLASH", "VERTICAL_SLASH", "SOLID", "SEPARATE_ARROW", "MARQUEE_DASH_DOT", "ZIGZAG", "SINEWAVE"
+  # opacity
+  RCy3::setEdgeOpacityDefault(edge.opacity, visual.style.name)               # set opacity of edge; 0 - 255 w 0 --> translucent
+  RCy3::setEdgeLabelOpacityDefault(edge.label.opacity, visual.style.name)    # set opacity of edge label; 0 - 255 w 0 --> translucent
+  RCy3::setNodeBorderOpacityDefault(border.opacity, visual.style.name)       # set opacity of border of node; 0 - 255 w 0 --> translucent
+  RCy3::setNodeFillOpacityDefault(node.fill.opacity, visual.style.name)      # set opacity of interior color of node; 0 - 255 w 0 --> translucent
+  RCy3::setNodeLabelOpacityDefault(node.label.opacity, visual.style.name)    # set opacity of name of node; 0 - 255 w 0 --> translucent
+
+}
+
+# NodeEdgeKey function: Cytoscape legend for styles
+#' @param visual.style.name
+#'
+#' @export
 NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   # require(RCy3)
   node_types <- c(
@@ -329,3 +837,5 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   RCy3::setVisualStyle(visual.style.name)
   message("Check the 'Node & Edge Key' network in Cytoscape: kinase sources PHOSPHORYLATION/pp, all edges labelled, all node-edge types illustrated.")
 }
+
+
