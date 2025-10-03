@@ -1,6 +1,6 @@
 ---
 title: "Analyzing Pathways from PTMs: A Guide"
-author: "Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia Williams, Mark Grimes"
+author: "Lucia Williams, Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Mark Grimes"
 output: 
   html_document: 
     toc: true
