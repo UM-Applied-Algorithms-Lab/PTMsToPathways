@@ -385,8 +385,7 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
   }
   return(unique(node_file))
 }
-
-# Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))
+# To remove self-loops
 #' Title
 #'
 #' @param edgefile
@@ -401,6 +400,7 @@ remove.autophos <-    function(edgefile)	{
     newedgefile <- edgefile[-auto,] } else newedgefile <- edgefile
     return (newedgefile)
 }
+# Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))
 #' Title
 #'
 #' @param peptide.edgefile
@@ -434,9 +434,7 @@ get.co.clustered.ptms <- function (edge.file) {
   return(edge.file.with.ptms)
 }
 
-# Function to harmonize gene and peptide data for networks
-#  - for graphing combined CFN/CCCN graphs
-# Enusres that for Cytoscape, "id" is used for node name columns
+
 #
 # helper functions
 #' @param x
@@ -457,7 +455,10 @@ outersect <- function(x, y) {
   sort(c(setdiff(x, y),
          setdiff(y, x)))
 }
-#' @param edge.file.with.ptms
+
+# Function to harmonize gene and peptide data for networks
+#  - for graphing combined CFN/CCCN graphs
+# Enusres that for Cytoscape, "id" is used for node name columns#' @param edge.file.with.ptms
 #'
 #' @param genecf
 #' @param ptmtable
@@ -599,9 +600,9 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn)
   return(sub.cfn.cccn)
 }
+
+#_____________________________________________________________________________
 # Vizprops helper functions:
-
-
 # Function to set shape and border color according to node type
 #' @param cf
 #'
@@ -681,7 +682,7 @@ setCorrEdgeAppearance <- function() {
   setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
 
-# function to sent node size and color to match ratio data. this one uses the Cytoscape table.
+# Function to sent node size and color to match ratio data in the Cytoscape node table.
 #' @param plotcol
 #'
 #' @export
@@ -715,7 +716,7 @@ setNodeColorToRatios <- function(plotcol){
   setNodeSelectionColorDefault ( "#CC00FF")
 }
 
-# This function works well with data that are normalized by row z-scores
+# This function works well with node data that are normalized by row z-scores
 #' @param plotcol
 #'
 #' @export
@@ -740,7 +741,7 @@ setNodeColorToRowz <- function(plotcol){
   setNodeSelectionColorDefault ( "#CC00FF")
 }
 
-# This function wraps RCy3 graphing in cytoscape and sets node and edge visual properties
+# This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
 #' @param cfn.edges
 #'
 #' @param cfn.nodes
@@ -778,7 +779,7 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
 
 }
 
-# # This helper function will make wider edges if they are two thin
+# # This helper function will make wider edges if they are two thin or narrow if to thick
 #' @param ffactor
 #'
 #' @param log
