@@ -432,14 +432,22 @@ get.co.clustered.ptms <- function (edge.file) {
 
 #
 # helper functions
-#' @param x
+
+#' Set difference for vectors using custom infix operator
 #'
-#' @param y
+#' Returns the elements in vector x that are not in vector y.
 #'
+#' @param x A vector.
+#' @param y A vector to compare.
+#' @return Elements of x that are not in y.
 #' @export
+#' @examples
+#' 1:5 %w/o% c(2, 4)
+#' letters[1:5] %w/o% c("b", "d")
 "%w/o%" <- function(x, y) {
-  x[!x %in% y] #--  x without y
+  x[!x %in% y] # x without y
 }
+
 
 #' @param x
 #'
