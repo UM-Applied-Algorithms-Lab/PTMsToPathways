@@ -3,15 +3,15 @@ title: 'Analyzing Pathways from PTMs: A Guide'
 author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
   Williams, Mark Grimes
 output:
-  pdf_document:
-    toc: true
-    toc_depth: '4'
   html_document:
     toc: true
     toc_float: true
     toc_depth: 4
     theme: cosmo
     highlight: tango
+  pdf_document:
+    toc: true
+    toc_depth: '4'
   word_document:
     toc: true
     toc_depth: '4'
@@ -37,24 +37,57 @@ knitr::opts_chunk$set(
 
 <p> </p>
 
-The PTMs2Pathways (P2P) package takes mass spectrometry data of protein post-translational modifications under different experimental conditions and uses machine learning to identify PTM clusters that represent functional modules in cell signaling. The clusters created initially are then used to identify protein-protein interactions, and interactions between cell signaling pathways. 
-The tutorial is intended to be a step-by-step guide to walk users through the process of using PTMs2athways (P2P) package. It includes descriptions of each function and must be run in order as subsequent steps require the data produced in previous steps. Example code and example outputs as well as estimated run-times are included with each description and are based on a preliminary dataset of ~9000 PTMs and 69 experimental conditions processed with a 12th Gen i7 processor and 16GB of RAM. 
+The PTMs2Pathways (P2P) package takes mass spectrometry data of protein
+post-translational modifications under different experimental conditions
+and uses machine learning to identify PTM clusters that represent
+functional modules in cell signaling. The clusters created initially are
+then used to identify protein-protein interactions, and interactions
+between cell signaling pathways. The tutorial is intended to be a
+step-by-step guide to walk users through the process of using
+PTMs2athways (P2P) package. It includes descriptions of each function
+and must be run in order as subsequent steps require the data produced
+in previous steps. Example code and example outputs as well as estimated
+run-times are included with each description and are based on a
+preliminary dataset of \~9000 PTMs and 69 experimental conditions
+processed with a 12th Gen i7 processor and 16GB of RAM.
 
-**An important note about this package:** The returned outputs from the functions are data that may be saved in an RData object so that the user may reload the data, which may take a while to generate, and pick up where they left off later. 
+**An important note about this package:** The returned outputs from the
+functions are data that may be saved in an RData object so that the user
+may reload the data, which may take a while to generate, and pick up
+where they left off later.
 
 INSTALLING THE PACKAGE
 
-Ensure you have the latest version of RStudio and base R installed. You will also need to install the devtools package, which can be installed with:
+Ensure you have the latest version of RStudio and base R installed. You
+will also need to install the devtools package, which can be installed
+with:
 
 ```{r eval = FALSE}
 install.packages("devtools")
 
 ```
 
+Additionally, you will need to install the latest versions of STRINGdb
+and RCy3. To install STRINGdb and RCy3 respectively, use the following
+code (gathered from
+[STRINGdb](https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html)
+and
+[RCy3](https://www.bioconductor.org/packages/release/bioc/html/RCy3.html)):
 
+```{r eval = FALSE}
+if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+BiocManager::install("STRINGdb")
+BiocManager::install("RCy3")
 
+```
 
+Once these are installed, the package can be directly installed from
+GitHub using:
 
+```{r eval=FALSE}
+devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
+
+```
 
 # Starting Data
 
@@ -66,8 +99,6 @@ example selection of the input dataset:
 dim(PTMsToPathways::ex_small_ptm_table)
 PTMsToPathways::ex_small_ptm_table[38:50, 1:4]
 ```
-
-
 
 # Pipeline
 
@@ -509,8 +540,6 @@ different scores for the strength of the interaction.
 UNKNOWN
 
 <p> </p>
-
-
 
 # Post-Processing Data
 
