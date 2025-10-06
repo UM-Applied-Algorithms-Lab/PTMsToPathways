@@ -30,16 +30,16 @@ knitr::opts_chunk$set(
 )
 ```
 
-
 ## Purpose
 
 Mass spectrometry data output will vary depending on the experimental
-design, source of data, and software used to process the raw spectra. R supports many file types and can automatically convert them into a
-data frame. For example, read.csv() will take a csv file and convert it
-into a data frame (read.csv() is a variation
-of read.table()). We start with data in tab-delimited spreadsheet format. This vignette intends to help users produce a matrix with
-PTM names as row names (e.g. FYN p Y411) and numeric data in all the
-columns.
+design, source of data, and software used to process the raw spectra. R
+supports many file types and can automatically convert them into a data
+frame. For example, read.csv() will take a csv file and convert it into
+a data frame (read.csv() is a variation of read.table()). We start with
+data in tab-delimited spreadsheet format. This vignette intends to help
+users produce a matrix with PTM names as row names (e.g. FYN p Y411) and
+numeric data in all the columns.
 
 ## Conventions
 
@@ -94,11 +94,11 @@ and ignores NA values that are present in cells or ambiguous gene names.
 Note that it is very important that the rownames are the names of
 post-translational modifications. All of their respective columns are
 the experimental conditions under which the post-translational
-modifications occurred. The numeric
-values are data output by the mass spectrometer. NAs -- which are importantly not zeroes --
-represent missing data.  Ambigious PTMs, cases
-where a PTM could be any one of several PTMs, are separated
-by semicolons. (e.g. "AARS ubi k747; AMBLIL p U123").
+modifications occurred. The numeric values are data output by the mass
+spectrometer. NAs -- which are importantly not zeroes -- represent
+missing data. Ambigious PTMs, cases where a PTM could be any one of
+several PTMs, are separated by semicolons. (e.g. "AARS ubi k747; AMBLIL
+p U123").
 
 Many investigators will examine their data in Microsoft Excel, which can
 export the spreadsheet in tab- or comma-delimited format. Unfortunately,
@@ -162,7 +162,7 @@ newphos.head$Peptide.Name <- mapply(name.peptide, genes=newphos.head$AllGeneSymb
 If the list of PTMs possesses symbols that are unnecessary such as "AARS
 \~K ubi K747", this command will remove all strings included in the
 "patterns" vector from the rownames. Any pattern can be chosen so long
-as the user ensures that any special character (such as $ or @) have a
+as the user ensures that any special character (such as \$ or \@) have a
 "\\" in front of them.
 
 ```{r eval = FALSE}
