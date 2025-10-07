@@ -62,7 +62,6 @@ with:
 
 ```{r eval = FALSE}
 install.packages("devtools")
-
 ```
 
 Additionally, you will need to install the latest versions of STRINGdb
@@ -76,7 +75,6 @@ and
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 BiocManager::install("RCy3")
-
 ```
 
 Once these are installed, the package can be directly installed from
@@ -84,7 +82,6 @@ GitHub using:
 
 ```{r eval=FALSE}
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
-
 ```
 
 # Starting Data
@@ -99,15 +96,15 @@ and imported in.
 If you are using a smaller dataset, use the following code to read it
 in:
 
-```{r eval = TRUE, echo = TRUE}
-dim(PTMsToPathways:: ex_small_ptm_table)
+```{r eval = FALSE, echo = TRUE}
+dim(PTMsToPathways::ex_small_ptm_table)
 PTMstoPathways::ex.ptmtable[38:50, 1:4]
 ```
 
 If you want to use the bigger dataset, use the following code:
 
 ```{r eval = FALSE}
-dim(PTMsToPathways:: ex_full_ptm_table)
+dim(PTMsToPathways::ex_full_ptm_table)
 ```
 
 If you want to download the data and import the dataset use the
@@ -153,10 +150,7 @@ cluster and is set at 3.5; recommended as a good starting point for
 t-SNE, which can be changed as per the researcher’s discretion. This
 function takes a while to run, so it is recommended that the output is
 saved as an RData object which can then be imported.
-
-```         
-saveRDATA
-```
+###Insert the code here
 
 #### Estimated run-time
 
