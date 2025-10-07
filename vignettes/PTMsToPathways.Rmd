@@ -101,7 +101,7 @@ in:
 
 ```{r eval = TRUE, echo = TRUE}
 dim(PTMsToPathways:: ex_small_ptm_table)
-PTMtoPathways::ex.ptmtable[38:50, 1:4]
+PTMstoPathways::ex.ptmtable[38:50, 1:4]
 ```
 
 If you want to use the bigger dataset, use the following code:
