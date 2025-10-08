@@ -114,11 +114,11 @@ GitHub using:</p>
 <h2 id="starting-data">Starting Data<a class="anchor" aria-label="anchor" href="#starting-data"></a>
 </h2>
 <p>For the tutorial, we will be using two example datasets – a smaller
-dataset consisting of 933 PTMs and 69 experimental conditions and a
-larger dataset containing around 9000 PTMs and 69 experimental
-conditions. The datasets are available with the package as a variable or
-can be downloaded from our GitHub page ——- to the working directory and
-imported in.</p>
+dataset consisting of 933 PTMs and 18 experimental conditions (the
+example used in the RawDataProcessing vignette) and a larger dataset
+containing around 9000 PTMs and 69 experimental conditions. The datasets
+are available with the package as a variable or can be downloaded from
+our GitHub page ——- to the user’s working directory and imported.</p>
 <p>If you are using a smaller dataset, use the following code to read it
 in:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
@@ -147,25 +147,30 @@ output file into a P2P package input dataframe.</p>
 table, a dataframe, and runs it through three calculations of
 statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- |Spearman Correlation|), and the average of both
+Spearman Dissimilarity (1- Spearman Correlation) and Euclidean Distance
 (SED). Combining the two dissimilarities leads to better resolution of
 the data and is useful in pattern recognition. A correlation table is
 generated based on the distances calculated for each pair of PTMs. The
 function then runs the matrices through t-SNE to generate clusters based
 on the previously calculated distance and provides you with a cluster
-list.</p>
+list, <em>common.clusters</em>. The returned <em>adj.consuensus</em> and
+<em>ptm.correlation.matrix</em> are also used in the next step to create
+co-cluster correlation networks (CCCNs).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="co"># Set seed to obtain repeatable t-SNE graphs</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">88</span><span class="op">)</span></span>
+<span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
 <span><span class="va">common.clusters</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">adj.consensus</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">ptm.correlation.matrix</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>##Note: t-SNE involves an element of randomness due to pseudorandom
 initialization or stochastic processes within the algorithm; in order to
 get the same results on multiple executions, set.seed(#) must be called
-(# = any integer of choice). toolong manipulates the size of the cluster
-and is set at 3.5; recommended as a good starting point for t-SNE, which
-can be changed as per the researcher’s discretion. This function takes a
-while to run, so it is recommended that the output is saved as an RData
-object which can then be imported. ###Insert the code here</p>
+(# = any integer of choice). <em>toolong</em> manipulates the size of
+the cluster and is set at 3.5; recommended as a good starting point for
+t-SNE, which can be changed as per the researcher’s discretion. This
+function takes a while to run, so it is recommended that the output is
+saved as an RData object which can then be imported.</p>
 <div class="section level5">
 <h5 id="estimated-run-time">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time"></a>
 </h5>
@@ -173,7 +178,7 @@ object which can then be imported. ###Insert the code here</p>
 </div>
 </div>
 <div class="section level3">
-<h3 id="step-2-make-co-cluster-correlation-network-ptm-and-gene">Step 2: Make Co-Cluster Correlation Network (PTM and Gene)<a class="anchor" aria-label="anchor" href="#step-2-make-co-cluster-correlation-network-ptm-and-gene"></a>
+<h3 id="step-2-make-co-cluster-correlation-networks-ptm-and-gene">Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)<a class="anchor" aria-label="anchor" href="#step-2-make-co-cluster-correlation-networks-ptm-and-gene"></a>
 </h3>
 <p>The cluster list generated in the previous step is next used to
 create a new network of PTMs that have strong associations called the
@@ -270,9 +275,9 @@ bioplanet file and will put an edgelist file in the working directory or
 the otherwise given path. If the file cannot be found, please check the
 working directory first.</p>
 <p>Step 6, our final analysis step, is the Pathway Crosstalk Network.
-This step requires input of an external database, bioplanet, that
-contains groups of genes (proteins) involved in various cellular
-processes known as pathways. PCN turns this database into a list of
+This step requires input of an external database, bioplanet (<a href="https://tripod.nih.gov/bioplanet/download/pathway.csv" class="external-link uri">https://tripod.nih.gov/bioplanet/download/pathway.csv</a>),
+that contains groups of genes (proteins) involved in various cellular
+processes known as pathways. PCN turns this data file into a list of
 pathways and converts those pathways into a pathway x pathway edgelist
 (PCNedgelist) that possesses multiple weights, a jaccard similarity, and
 a score. The score is derived from Cluster-Pathway Evidence using the
