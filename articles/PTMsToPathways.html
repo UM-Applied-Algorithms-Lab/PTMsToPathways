@@ -275,7 +275,8 @@ bioplanet file and will put an edgelist file in the working directory or
 the otherwise given path. If the file cannot be found, please check the
 working directory first.</p>
 <p>Step 6, our final analysis step, is the Pathway Crosstalk Network.
-This step requires input of an external database, bioplanet (<a href="https://tripod.nih.gov/bioplanet/download/pathway.csv" class="external-link uri">https://tripod.nih.gov/bioplanet/download/pathway.csv</a>),
+This step requires input of an external database from NCATS BioPlanet
+(<a href="https://tripod.nih.gov/bioplanet/download/pathway.csv" class="external-link uri">https://tripod.nih.gov/bioplanet/download/pathway.csv</a>),
 that contains groups of genes (proteins) involved in various cellular
 processes known as pathways. PCN turns this data file into a list of
 pathways and converts those pathways into a pathway x pathway edgelist
@@ -287,7 +288,7 @@ For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"bioplanet.csv"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"pathway.csv"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">PCNedgelist</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">pathways.list</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
