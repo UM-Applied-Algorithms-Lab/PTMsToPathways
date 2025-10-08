@@ -87,11 +87,11 @@ devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 # Starting Data
 
 For the tutorial, we will be using two example datasets – a smaller
-dataset consisting of 933 PTMs and 18 experimental conditions (the example used in the RawDataProcessing vignette) and a
-larger dataset containing around 9000 PTMs and 69 experimental
-conditions. The datasets are available with the package as a variable or
-can be downloaded from our GitHub page ------- to the user's working directory
-and imported.
+dataset consisting of 933 PTMs and 18 experimental conditions (the
+example used in the RawDataProcessing vignette) and a larger dataset
+containing around 9000 PTMs and 69 experimental conditions. The datasets
+are available with the package as a variable or can be downloaded from
+our GitHub page ------- to the user's working directory and imported.
 
 If you are using a smaller dataset, use the following code to read it
 in:
@@ -127,13 +127,16 @@ output file into a P2P package input dataframe.
 MakeClusterList is the first step. This function takes the PTMs table, a
 dataframe, and runs it through three calculations of statistical
 measures of distance: Euclidean Distance, Spearman Dissimilarity (1-
-\|Spearman Correlation\|), and the average of both Spearman Dissimilarity (1-
-Spearman Correlation) and Euclidean Distance (SED). Combining the
-two dissimilarities leads to better resolution of the data and is useful
-in pattern recognition. A correlation table is generated based on the
-distances calculated for each pair of PTMs. The function then runs the
-matrices through t-SNE to generate clusters based on the previously
-calculated distance and provides you with a cluster list, *common.clusters*. The returned *adj.consuensus* and *ptm.correlation.matrix* are also used in the next step to create co-cluster correlation networks (CCCNs).
+\|Spearman Correlation\|), and the average of both Spearman
+Dissimilarity (1- Spearman Correlation) and Euclidean Distance (SED).
+Combining the two dissimilarities leads to better resolution of the data
+and is useful in pattern recognition. A correlation table is generated
+based on the distances calculated for each pair of PTMs. The function
+then runs the matrices through t-SNE to generate clusters based on the
+previously calculated distance and provides you with a cluster list,
+*common.clusters*. The returned *adj.consuensus* and
+*ptm.correlation.matrix* are also used in the next step to create
+co-cluster correlation networks (CCCNs).
 
 ```{r eval = FALSE}
 # Set seed to obtain repeatable t-SNE graphs
@@ -151,7 +154,7 @@ get the same results on multiple executions, set.seed(\#) must be called
 cluster and is set at 3.5; recommended as a good starting point for
 t-SNE, which can be changed as per the researcher’s discretion. This
 function takes a while to run, so it is recommended that the output is
-saved as an RData object which can then be imported. 
+saved as an RData object which can then be imported.
 
 #### Estimated run-time
 
@@ -267,7 +270,8 @@ edgelist file in the working directory or the otherwise given path. If
 the file cannot be found, please check the working directory first.
 
 Step 6, our final analysis step, is the Pathway Crosstalk Network. This
-step requires input of an external database, bioplanet (https://tripod.nih.gov/bioplanet/download/pathway.csv), that contains
+step requires input of an external database from NCATS BioPlanet
+(<https://tripod.nih.gov/bioplanet/download/pathway.csv>), that contains
 groups of genes (proteins) involved in various cellular processes known
 as pathways. PCN turns this data file into a list of pathways and
 converts those pathways into a pathway x pathway edgelist (PCNedgelist)
@@ -281,7 +285,7 @@ similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
 ```{r eval = FALSE}
-PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd())
+PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "pathway.csv", createfile = getwd())
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
