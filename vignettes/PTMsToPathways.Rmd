@@ -87,11 +87,11 @@ devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 # Starting Data
 
 For the tutorial, we will be using two example datasets – a smaller
-dataset consisting of 933 PTMs and 69 experimental conditions and a
+dataset consisting of 933 PTMs and 18 experimental conditions (the example used in the RawDataProcessing vignette) and a
 larger dataset containing around 9000 PTMs and 69 experimental
 conditions. The datasets are available with the package as a variable or
-can be downloaded from our GitHub page ------- to the working directory
-and imported in.
+can be downloaded from our GitHub page ------- to the user's working directory
+and imported.
 
 If you are using a smaller dataset, use the following code to read it
 in:
@@ -127,15 +127,17 @@ output file into a P2P package input dataframe.
 MakeClusterList is the first step. This function takes the PTMs table, a
 dataframe, and runs it through three calculations of statistical
 measures of distance: Euclidean Distance, Spearman Dissimilarity (1-
-\|Spearman Correlation\|), and the average of both (SED). Combining the
+\|Spearman Correlation\|), and the average of both Spearman Dissimilarity (1-
+Spearman Correlation) and Euclidean Distance (SED). Combining the
 two dissimilarities leads to better resolution of the data and is useful
 in pattern recognition. A correlation table is generated based on the
 distances calculated for each pair of PTMs. The function then runs the
 matrices through t-SNE to generate clusters based on the previously
-calculated distance and provides you with a cluster list.
-
+calculated distance and provides you with a cluster list, *common.clusters*. The returned *adj.consuensus* and *ptm.correlation.matrix* are also used in the next step to create co-cluster correlation networks (CCCNs).
 
 ```{r eval = FALSE}
+# Set seed to obtain repeatable t-SNE graphs
+set.seed(88)
 clusterlist.data <- MakeClusterList(ptmtable, keeplength = 2, toolong = 3.5)
 common.clusters <- clusterlist.data[[1]]
 adj.consensus <- clusterlist.data[[2]]
@@ -145,18 +147,17 @@ ptm.correlation.matrix <- clusterlist.data[[3]]
 ##Note: t-SNE involves an element of randomness due to pseudorandom
 initialization or stochastic processes within the algorithm; in order to
 get the same results on multiple executions, set.seed(\#) must be called
-(\# = any integer of choice). toolong manipulates the size of the
+(\# = any integer of choice). *toolong* manipulates the size of the
 cluster and is set at 3.5; recommended as a good starting point for
 t-SNE, which can be changed as per the researcher’s discretion. This
 function takes a while to run, so it is recommended that the output is
-saved as an RData object which can then be imported.
-###Insert the code here
+saved as an RData object which can then be imported. 
 
 #### Estimated run-time
 
-~60min
+\~60min
 
-## Step 2: Make Co-Cluster Correlation Network (PTM and Gene)
+## Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)
 
 The cluster list generated in the previous step is next used to create a
 new network of PTMs that have strong associations called the Co-cluster
@@ -168,7 +169,6 @@ relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of PTM correlations serving as edge weights. The output of this
 function can be saved as an RData object.
 
-
 ```{r eval = FALSE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 ptm.cccn.g <- CCCN.data[[1]]
@@ -179,7 +179,7 @@ gene.cccn.edges <- CCCN.data[[4]]
 
 #### Estimated run-time
 
-~10min
+\~10min
 
 ## Step 3: Retrieve Database Edgefiles
 
@@ -191,10 +191,9 @@ of cell types, disease states, and environmental conditions. The P2P
 package allows the users to integrate data from three external
 databases: STRING, GeneMANIA, and PhosphoSite Plus. Other databases can
 also be downloaded and added to the PPI network. All three external
-databases have different interfaces for downloading data. 
+databases have different interfaces for downloading data.
 
 ###1. STRINGdb
-
 
 ```{r eval = FALSE}
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
@@ -202,41 +201,54 @@ BiocManager::install("STRINGdb")
 
 stringdb.edges <- GetSTRINGdb(gene.cccn)
 ```
-### Note: 
+
+### Note:
+
 Please ensure that only physical interactions is retained.
 
 ###2. GeneMANIA
 
-To our knowledge, no R package exists to programmatically query GeneMANIA. Thus, utilizing the data from GeneMANIA involves two steps, first generating the input the file and then processing the output file. 
-MakeDBInput function allows us to automatically generate an input file to query GeneMANIA from within Cytoscape.
+To our knowledge, no R package exists to programmatically query
+GeneMANIA. Thus, utilizing the data from GeneMANIA involves two steps,
+first generating the input the file and then processing the output file.
+MakeDBInput function allows us to automatically generate an input file
+to query GeneMANIA from within Cytoscape.
 
 ```{r eval = FALSE}
 MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
 ```
 
-ProcessGMEdgefile function processes the expected resulting output files from the previous function.
+ProcessGMEdgefile function processes the expected resulting output files
+from the previous function.
 
 ```{r eval = FALSE}
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
 ```
 
-###3. Phosphosite Plus 
+###3. Phosphosite Plus
 
-The kinase-substrate data can be downloaded from [Phosphosite Plus](https://www.phosphosite.org/staticDownloads) database. The users will be required to create an account and sign in to download the data.  
-Format.kinsub.table function reads this downloaded data in and formats it so that all the PPI edge data frames are in the same format for the next step.
-
+The kinase-substrate data can be downloaded from [Phosphosite
+Plus](https://www.phosphosite.org/staticDownloads) database. The users
+will be required to create an account and sign in to download the data.\
+Format.kinsub.table function reads this downloaded data in and formats
+it so that all the PPI edge data frames are in the same format for the
+next step.
 
 ```{r eval = FALSE}
 kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt")
 ```
 
-
-
 ## Step 4: Build PPI Network and Cluster Filtered Network
 
-CFN allows the users to filter protein-protein networks using the previously generated PPI clusters. PPIs are retained in the CFN only if the interacting proteins share statistically correlated PTMs identified via t-SNE clusters. 
-BuildClusterFilteredNetwork function combines all the PPI data downloaded in step 3 as efficiently as possible while retaining the desired edge weights. It then normalizes the weights on a scale of 0-1 and gives an output cluster filter network that will only retain interacting proteins whose genes are within the co-cluster correlation network created in step 2. 
-
+CFN allows the users to filter protein-protein networks using the
+previously generated PPI clusters. PPIs are retained in the CFN only if
+the interacting proteins share statistically correlated PTMs identified
+via t-SNE clusters. BuildClusterFilteredNetwork function combines all
+the PPI data downloaded in step 3 as efficiently as possible while
+retaining the desired edge weights. It then normalizes the weights on a
+scale of 0-1 and gives an output cluster filter network that will only
+retain interacting proteins whose genes are within the co-cluster
+correlation network created in step 2.
 
 ```{r eval = FALSE}
 network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c())
@@ -245,7 +257,6 @@ cfn <- network.list[[2]]
 # To reduce clutter on graphs, the cfn edges can be merged:
 cfn.merged <- mergeEdges(cfn)
 ```
-
 
 ## Step 6: Pathway Crosstalk Network
 
@@ -256,9 +267,9 @@ edgelist file in the working directory or the otherwise given path. If
 the file cannot be found, please check the working directory first.
 
 Step 6, our final analysis step, is the Pathway Crosstalk Network. This
-step requires input of an external database, bioplanet, that contains
+step requires input of an external database, bioplanet (https://tripod.nih.gov/bioplanet/download/pathway.csv), that contains
 groups of genes (proteins) involved in various cellular processes known
-as pathways. PCN turns this database into a list of pathways and
+as pathways. PCN turns this data file into a list of pathways and
 converts those pathways into a pathway x pathway edgelist (PCNedgelist)
 that possesses multiple weights, a jaccard similarity, and a score. The
 score is derived from Cluster-Pathway Evidence using the common clusters
@@ -269,16 +280,12 @@ For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
-
 ```{r eval = FALSE}
 PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd())
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 ```
-
-
-
 
 #### Saving Data
 
