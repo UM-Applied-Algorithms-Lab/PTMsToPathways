@@ -35,14 +35,14 @@ knitr::opts_chunk$set(
 )
 ```
 
-The PTMs2Pathways (P2P) package takes Mass Spectrometry (MS) data of
+The PTMsToPathways (P2P) package takes Mass Spectrometry (MS) data of
 protein post-translational modifications under different experimental
 conditions and uses machine learning to identify PTM clusters that
 represent functional modules in cell signaling. The clusters created
 initially are then used to identify protein-protein interactions, and
 interactions between cell signaling pathways. The tutorial is intended
 to be a step-by-step guide to walk users through the process of using
-PTMs2athways (P2P) package. It includes descriptions of each function
+PTMsToPathways (P2P) package. It includes descriptions of each function
 and must be run in order as subsequent steps require the data produced
 in previous steps. Example code and example outputs as well as estimated
 run-times are included with each description and are based on a
@@ -114,12 +114,12 @@ following code:
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
 ```
 
-## Processing the data
+# Processing the data
 
 The MS data needs to be transformed into a data frame with PTMs as row
 names and numeric data per experiment as columns to carry out the
 analysis using P2P vignette. Please refer to the RawDataProcessing
-Vignette for a tutorial showing all steps needed to transform a real MS
+Vignette for a tutorial showing all steps needed to transform an MS
 output file into a P2P package input dataframe.
 
 ## Step 1: Make Cluster List
@@ -261,7 +261,7 @@ cfn <- network.list[[2]]
 cfn.merged <- mergeEdges(cfn)
 ```
 
-## Step 6: Pathway Crosstalk Network
+## Step 5: Pathway Crosstalk Network
 
 **Note:** This step is directory sensitive. The user can check and set
 the working directory in R using getwd() and setwd("yourdirectoryhere")
@@ -269,7 +269,7 @@ respectively. It needs a path to the bioplanet file and will put an
 edgelist file in the working directory or the otherwise given path. If
 the file cannot be found, please check the working directory first.
 
-Step 6, our final analysis step, is the Pathway Crosstalk Network. This
+Step 5, our final analysis step, is the Pathway Crosstalk Network. This
 step requires input of an external database from NCATS BioPlanet
 (<https://tripod.nih.gov/bioplanet/download/pathway.csv>), that contains
 groups of genes (proteins) involved in various cellular processes known
@@ -291,7 +291,7 @@ PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 ```
 
-#### Saving Data
+# Saving Data
 
 If you want to save your data to a file, all data structures can either
 be exported with the save function and loaded later or saved to a csv
