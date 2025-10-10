@@ -72,14 +72,14 @@ Williams, Mark Grimes</h4>
 
     
     
-<p>The PTMs2Pathways (P2P) package takes Mass Spectrometry (MS) data of
+<p>The PTMsToPathways (P2P) package takes Mass Spectrometry (MS) data of
 protein post-translational modifications under different experimental
 conditions and uses machine learning to identify PTM clusters that
 represent functional modules in cell signaling. The clusters created
 initially are then used to identify protein-protein interactions, and
 interactions between cell signaling pathways. The tutorial is intended
 to be a step-by-step guide to walk users through the process of using
-PTMs2athways (P2P) package. It includes descriptions of each function
+PTMsToPathways (P2P) package. It includes descriptions of each function
 and must be run in order as subsequent steps require the data produced
 in previous steps. Example code and example outputs as well as estimated
 run-times are included with each description and are based on a
@@ -131,15 +131,15 @@ in:</p>
 following code:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"AlldataPTMs.txt"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header<span class="op">=</span><span class="cn">TRUE</span>, blank.lines.skip<span class="op">=</span><span class="cn">T</span>, fill<span class="op">=</span><span class="cn">T</span>, quote<span class="op">=</span><span class="st">"\""</span>, dec<span class="op">=</span><span class="st">"."</span>, comment.char <span class="op">=</span> <span class="st">""</span>, stringsAsFactors<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
-<div class="section level3">
-<h3 id="processing-the-data">Processing the data<a class="anchor" aria-label="anchor" href="#processing-the-data"></a>
-</h3>
+</div>
+<div class="section level2">
+<h2 id="processing-the-data">Processing the data<a class="anchor" aria-label="anchor" href="#processing-the-data"></a>
+</h2>
 <p>The MS data needs to be transformed into a data frame with PTMs as
 row names and numeric data per experiment as columns to carry out the
 analysis using P2P vignette. Please refer to the RawDataProcessing
-Vignette for a tutorial showing all steps needed to transform a real MS
+Vignette for a tutorial showing all steps needed to transform an MS
 output file into a P2P package input dataframe.</p>
-</div>
 <div class="section level3">
 <h3 id="step-1-make-cluster-list">Step 1: Make Cluster List<a class="anchor" aria-label="anchor" href="#step-1-make-cluster-list"></a>
 </h3>
@@ -266,7 +266,7 @@ correlation network created in step 2.</p>
 <span><span class="va">cfn.merged</span> <span class="op">&lt;-</span> <span class="fu">mergeEdges</span><span class="op">(</span><span class="va">cfn</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level3">
-<h3 id="step-6-pathway-crosstalk-network">Step 6: Pathway Crosstalk Network<a class="anchor" aria-label="anchor" href="#step-6-pathway-crosstalk-network"></a>
+<h3 id="step-5-pathway-crosstalk-network">Step 5: Pathway Crosstalk Network<a class="anchor" aria-label="anchor" href="#step-5-pathway-crosstalk-network"></a>
 </h3>
 <p><strong>Note:</strong> This step is directory sensitive. The user can
 check and set the working directory in R using getwd() and
@@ -274,7 +274,7 @@ setwd(“yourdirectoryhere”) respectively. It needs a path to the
 bioplanet file and will put an edgelist file in the working directory or
 the otherwise given path. If the file cannot be found, please check the
 working directory first.</p>
-<p>Step 6, our final analysis step, is the Pathway Crosstalk Network.
+<p>Step 5, our final analysis step, is the Pathway Crosstalk Network.
 This step requires input of an external database from NCATS BioPlanet
 (<a href="https://tripod.nih.gov/bioplanet/download/pathway.csv" class="external-link uri">https://tripod.nih.gov/bioplanet/download/pathway.csv</a>),
 that contains groups of genes (proteins) involved in various cellular
@@ -292,9 +292,11 @@ pathway.crosstalk.network.</p>
 <span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">PCNedgelist</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">pathways.list</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
-<div class="section level5">
-<h5 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
-</h5>
+</div>
+</div>
+<div class="section level2">
+<h2 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
+</h2>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
@@ -309,8 +311,6 @@ csv file with the write.csv function.</p>
 save.image function as shown below:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
