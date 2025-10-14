@@ -3,18 +3,18 @@ title: 'Analyzing Pathways from PTMs: A Guide'
 author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
   Williams, Mark Grimes
 output:
+  word_document:
+    toc: true
+    toc_depth: '4'
+  pdf_document:
+    toc: true
+    toc_depth: '4'
   html_document:
     toc: true
     toc_float: true
     toc_depth: 4
     theme: cosmo
     highlight: tango
-  pdf_document:
-    toc: true
-    toc_depth: '4'
-  word_document:
-    toc: true
-    toc_depth: '4'
 vignette: "%\\VignetteIndexEntry{Mass_Spec_Data_Processing} %\\VignetteEncoding{UTF-8}
   %\\VignetteEngine{knitr::rmarkdown}\n"
 editor_options:
