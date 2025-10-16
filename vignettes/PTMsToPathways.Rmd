@@ -172,12 +172,14 @@ relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of PTM correlations serving as edge weights. The output of this
 function can be saved as an RData object.
 
+In addition to CCCN edge lists, this function also returns igraph objects ptm.cccn.g and gene.cccn.g, which can be used later to extract edge lists or adjacency matrices, plotting, and many other functions available from the igraph package. 
+
 ```{r eval = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
-ptm.cccn.g <- CCCN.data[[1]] # note what this is for
-gene.cccn.g <- CCCN.data[[2]] # note what this is for
-ptm.cccn.edges <- CCCN.data[[3]]
-gene.cccn.edges <- CCCN.data[[4]]
+ptm.cccn.g <- CCCN.data[[1]] # igraph data object
+gene.cccn.g <- CCCN.data[[2]] # igraph data object
+ptm.cccn.edges <- CCCN.data[[3]] # PTM CCCN edge list
+gene.cccn.edges <- CCCN.data[[4]] # Gene CCCN edge list
 
 head(gene.cccn.edges)
 ```
@@ -205,6 +207,8 @@ if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 
 stringdb.edges <- GetSTRINGdb(gene.cccn.edges)
+
+head(stringdb.edges)
 ```
 
 ### Note:
@@ -228,6 +232,8 @@ from the previous function.
 
 ```{r eval = TRUE}
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
+
+head(genmania.edges)
 ```
 
 ###3. Phosphosite Plus
@@ -241,6 +247,8 @@ next step.
 
 ```{r eval = TRUE}
 kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt")
+
+head(kinsub.edges)
 ```
 
 ## Step 4: Build PPI Network and Cluster Filtered Network
@@ -261,6 +269,8 @@ combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 # To reduce clutter on graphs, the cfn edges can be merged:
 cfn.merged <- mergeEdges(cfn)
+
+head(cfn.merged)
 ```
 
 ## Step 5: Pathway Crosstalk Network
@@ -291,6 +301,9 @@ PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "pathway.c
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+
+head(PCNedgelist)
+head(pathway.crosstalk.network)
 ```
 
 # Saving Data
