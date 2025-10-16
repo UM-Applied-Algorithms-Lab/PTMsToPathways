@@ -3,7 +3,7 @@
 .Rhistory
 .RData
 .temp
-
+*.DS_Store
 /PTMsToPathways_0.0.0.9000/
 PTMsToPathways_0.0.0.9000.tar.gz
 
