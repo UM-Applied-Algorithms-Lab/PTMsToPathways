@@ -172,12 +172,14 @@ relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of PTM correlations serving as edge weights. The output of this
 function can be saved as an RData object.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 ptm.cccn.g <- CCCN.data[[1]] # note what this is for
 gene.cccn.g <- CCCN.data[[2]] # note what this is for
 ptm.cccn.edges <- CCCN.data[[3]]
 gene.cccn.edges <- CCCN.data[[4]]
+
+head(gene.cccn.edges)
 ```
 
 #### Estimated run-time
