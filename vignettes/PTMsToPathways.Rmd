@@ -60,7 +60,7 @@ Ensure you have the latest version of RStudio and base R installed. You
 will also need to install the devtools package, which can be installed
 with:
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 install.packages("devtools")
 ```
 
@@ -71,7 +71,7 @@ code (gathered from
 and
 [RCy3](https://www.bioconductor.org/packages/release/bioc/html/RCy3.html)):
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 BiocManager::install("RCy3")
@@ -96,14 +96,14 @@ our GitHub page ------- to the user's working directory and imported.
 If you are using a smaller dataset, use the following code to read it
 in:
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 dim(PTMsToPathways::ex_small_ptm_table)
 PTMstoPathways::ex.ptmtable[38:50, 1:4]
 ```
 
 If you want to use the bigger dataset, use the following code:
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 dim(PTMsToPathways::ex_full_ptm_table)
 ```
 
@@ -138,7 +138,7 @@ previously calculated distance and provides you with a cluster list,
 *ptm.correlation.matrix* are also used in the next step to create
 co-cluster correlation networks (CCCNs).
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 # Set seed to obtain repeatable t-SNE graphs
 set.seed(88)
 clusterlist.data <- MakeClusterList(ptmtable, keeplength = 2, toolong = 3.5)
@@ -200,7 +200,7 @@ databases have different interfaces for downloading data.
 
 ###1. STRINGdb
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 
@@ -219,14 +219,14 @@ first generating the input the file and then processing the output file.
 MakeDBInput function allows us to automatically generate an input file
 to query GeneMANIA from within Cytoscape.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 MakeDBInput(gene.cccn.edges, file.path.name = "db_nodes.txt")
 ```
 
 ProcessGMEdgefile function processes the expected resulting output files
 from the previous function.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
 ```
 
@@ -239,7 +239,7 @@ Format.kinsub.table function reads this downloaded data in and formats
 it so that all the PPI edge data frames are in the same format for the
 next step.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt")
 ```
 
@@ -255,7 +255,7 @@ scale of 0-1 and gives an output cluster filter network that will only
 retain interacting proteins whose genes are within the co-cluster
 correlation network created in step 2.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c())
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
@@ -286,7 +286,7 @@ For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "pathway.csv", createfile = getwd())
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
@@ -299,7 +299,7 @@ If you want to save your data to a file, all data structures can either
 be exported with the save function and loaded later or saved to a csv
 file with the write.csv function.
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 save(object, filename = "filepath/name.rda") # Saves object as a .rda
 load("filepath/name.rda")                    # Loads object saved to a file
 # For multiple objects
@@ -311,6 +311,6 @@ utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 You may also save your entire Global Environment namespace using the
 save.image function as shown below:
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 save.image(file = "filepath/name.RData")
 ```
