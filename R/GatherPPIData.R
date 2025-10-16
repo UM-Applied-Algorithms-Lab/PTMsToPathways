@@ -3,7 +3,7 @@
 #' This function outputs a file consisting entirely of gene names, each produced on a new line. This data can be copy and pasted into
 #' a database input in order to get protein-protein interaction data.
 #'
-#' @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.edges A edge list showing relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #' @param file.path.name Path for the output file; defaults to db_nodes.txt
 #'
 #' @return A file with all of the gene names which can be copy and pasted into the GeneMania cytoscape app, data frame of the names of the genes
@@ -12,7 +12,7 @@
 #' @examples
 #' #MakeDBInput(ex.nodenames)
 #' cat(ex.nodenames[[1]], sep = '\n')
-MakeDBInput <- function(gene.cccn, file.path.name = "db_nodes.txt") {
+MakeDBInput <- function(gene.cccn.edges, file.path.name = "db_nodes.txt") {
   utils::write.table(unique(gene.cccn.edges[, c("source", "target")]), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
 }
 

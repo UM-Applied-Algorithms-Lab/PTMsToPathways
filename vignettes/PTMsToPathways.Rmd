@@ -174,8 +174,8 @@ function can be saved as an RData object.
 
 ```{r eval = FALSE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
-ptm.cccn.g <- CCCN.data[[1]]
-gene.cccn.g <- CCCN.data[[2]]
+ptm.cccn.g <- CCCN.data[[1]] # note what this is for
+gene.cccn.g <- CCCN.data[[2]] # note what this is for
 ptm.cccn.edges <- CCCN.data[[3]]
 gene.cccn.edges <- CCCN.data[[4]]
 ```
@@ -202,7 +202,7 @@ databases have different interfaces for downloading data.
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 
-stringdb.edges <- GetSTRINGdb(gene.cccn)
+stringdb.edges <- GetSTRINGdb(gene.cccn.edges)
 ```
 
 ### Note:
@@ -218,7 +218,7 @@ MakeDBInput function allows us to automatically generate an input file
 to query GeneMANIA from within Cytoscape.
 
 ```{r eval = FALSE}
-MakeDBInput(gene.cccn, file.path.name = "db_nodes.txt")
+MakeDBInput(gene.cccn.edges, file.path.name = "db_nodes.txt")
 ```
 
 ProcessGMEdgefile function processes the expected resulting output files

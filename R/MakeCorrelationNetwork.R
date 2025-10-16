@@ -7,10 +7,12 @@
 #' @param common.clusters A list of clusters. Ideally the ones found by MakeClusterList in common_clusters
 #' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
 #' @return A list containing the following data structures at the given index: \cr
+#FIX----
 #' \strong{1} (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics \cr
-#' \strong{2} (Gene CoCluster Correlation Network) Similar to \strong{1} but at the level of genes. \cr 
+#' \strong{2} (Gene CoCluster Correlation Network) Similar to \strong{1} but at the level of genes. \cr
 #' \strong{3} The PTM CoCluster Correlation Network as an igraph edgelist object. \cr
 #' \strong{4} The gene CoCluster Correlation Network as an igraph edgelist object.
+# end FIX----
 #' @export
 #'
 #' @examples
