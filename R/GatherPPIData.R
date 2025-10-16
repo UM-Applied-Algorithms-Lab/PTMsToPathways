@@ -13,7 +13,7 @@
 #' #MakeDBInput(ex.nodenames)
 #' cat(ex.nodenames[[1]], sep = '\n')
 MakeDBInput <- function(gene.cccn, file.path.name = "db_nodes.txt") {
-  utils::write.table(rownames(gene.cccn), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
+  utils::write.table(unique(gene.cccn.edges[, c("source", "target")]), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
 }
 
 
@@ -23,9 +23,9 @@ MakeDBInput <- function(gene.cccn, file.path.name = "db_nodes.txt") {
 #
 # @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 # @return data frame of the names of the genes
-cccn_to_nodenames <- function(gene.cccn){
+cccn_to_nodenames <- function(gene.cccn.edges){
 
-  gene.names <- unique(rownames(gene.cccn))
+  gene.names <- unique(gene.cccn.edges[, c("source", "target")])
 
   nodenames <- data.frame(Gene.Names = gene.names, stringsAsFactors = FALSE)
 
