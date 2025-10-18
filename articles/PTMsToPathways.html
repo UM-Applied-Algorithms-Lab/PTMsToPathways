@@ -97,17 +97,8 @@ You will also need to install the devtools package, which can be
 installed with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span></code></pre></div>
-<p>Additionally, you will need to install the latest versions of
-STRINGdb and RCy3. To install STRINGdb and RCy3 respectively, use the
-following code (gathered from <a href="https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html" class="external-link">STRINGdb</a>
-and <a href="https://www.bioconductor.org/packages/release/bioc/html/RCy3.html" class="external-link">RCy3</a>):</p>
+<p>Next, install the package with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
-<span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"RCy3"</span><span class="op">)</span></span></code></pre></div>
-<p>Once these are installed, the package can be directly installed from
-GitHub using:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"UM-Applied-Algorithms-Lab/PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -121,15 +112,15 @@ are available with the package as a variable or can be downloaded from
 our GitHub page ——- to the user’s working directory and imported.</p>
 <p>If you are using a smaller dataset, use the following code to read it
 in:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ex_small_ptm_table</span><span class="op">)</span></span>
 <span><span class="va">ex_small_ptm_table</span><span class="op">[</span><span class="fl">38</span><span class="op">:</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
 <p>If you want to use the bigger dataset, use the following code:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ex_full_ptm_table</span><span class="op">)</span></span></code></pre></div>
 <p>If you want to download the data and import the dataset use the
 following code:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">allptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"AlldataPTMs.txt"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header<span class="op">=</span><span class="cn">TRUE</span>, blank.lines.skip<span class="op">=</span><span class="cn">T</span>, fill<span class="op">=</span><span class="cn">T</span>, quote<span class="op">=</span><span class="st">"\""</span>, dec<span class="op">=</span><span class="st">"."</span>, comment.char <span class="op">=</span> <span class="st">""</span>, stringsAsFactors<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -156,7 +147,7 @@ on the previously calculated distance and provides you with a cluster
 list, <em>common.clusters</em>. The returned <em>adj.consuensus</em> and
 <em>ptm.correlation.matrix</em> are also used in the next step to create
 co-cluster correlation networks (CCCNs).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set seed to obtain repeatable t-SNE graphs</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">88</span><span class="op">)</span></span>
 <span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ex_small_ptm_table</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
@@ -193,7 +184,7 @@ function can be saved as an RData object.</p>
 objects ptm.cccn.g and gene.cccn.g, which can be used later to extract
 edge lists or adjacency matrices, plotting, and many other functions
 available from the igraph package.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CCCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">adj.consensus</span>, <span class="va">ptm.correlation.matrix</span><span class="op">)</span></span>
 <span><span class="va">ptm.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># igraph data object</span></span>
 <span><span class="va">gene.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># igraph data object</span></span>
@@ -220,7 +211,7 @@ databases: STRING, GeneMANIA, and PhosphoSite Plus. Other databases can
 also be downloaded and added to the PPI network. All three external
 databases have different interfaces for downloading data.</p>
 <p>###1. STRINGdb</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># TO DO: FIX ME </span></span>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
@@ -238,11 +229,11 @@ GeneMANIA. Thus, utilizing the data from GeneMANIA involves two steps,
 first generating the input the file and then processing the output file.
 MakeDBInput function allows us to automatically generate an input file
 to query GeneMANIA from within Cytoscape.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <p>ProcessGMEdgefile function processes the expected resulting output
 files from the previous function.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">genmania.edges</span><span class="op">)</span></span></code></pre></div>
@@ -253,7 +244,7 @@ download the data.<br>
 Format.kinsub.table function reads this downloaded data in and formats
 it so that all the PPI edge data frames are in the same format for the
 next step.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">kinsub.edges</span><span class="op">)</span></span></code></pre></div>
@@ -271,7 +262,7 @@ retaining the desired edge weights. It then normalizes the weights on a
 scale of 0-1 and gives an output cluster filter network that will only
 retain interacting proteins whose genes are within the co-cluster
 correlation network created in step 2.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">kinsub.edges</span>, <span class="va">gene.cccn.edges</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -302,7 +293,7 @@ Cluster-Pathway Evidence score can be found at: <a href="https://journals.plos.o
 For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"pathway.csv"</span>, createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">PCNedgelist</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
@@ -318,7 +309,7 @@ pathway.crosstalk.network.</p>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as a .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
 <span><span class="co"># For multiple objects</span></span>
@@ -327,7 +318,7 @@ csv file with the write.csv function.</p>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
