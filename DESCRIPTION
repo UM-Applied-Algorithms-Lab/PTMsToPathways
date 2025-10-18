@@ -20,10 +20,10 @@ Imports:
     igraph,
     vegan,
     utils,
+    RCy3,
+    STRINGdb,
 Suggests: 
     BiocManager,
-    STRINGdb,
-    RCy3,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
@@ -34,3 +34,4 @@ Depends:
 LazyData: true
 URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
 Config/testthat/edition: 3
+Additional_repositories: https://bioconductor.org/packages/3.21/bioc
