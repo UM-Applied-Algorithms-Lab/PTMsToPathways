@@ -12,23 +12,7 @@ Before proceeding, ensure you have R installed. You will also need the devtools 
 install.packages("devtools")
 ```
 
-Additionally, please check that you have R version 4.5. STRINGdb and RCy3 will also need to be installed before moving forward.
-
-To install STRINGdb, use the following code (gathered from https://www.bioconductor.org/packages/release/bioc/html/STRINGdb.html):
-
-```
-if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-BiocManager::install("STRINGdb")
-```
-
-To install RCy3, use the following code (gathered from https://www.bioconductor.org/packages/release/bioc/html/RCy3.html):
-
-```
-if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-BiocManager::install("RCy3")
-```
-
-Once these are installed, you can install this package directly from GitHub using:
+Then you can do:
 
 ```
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
