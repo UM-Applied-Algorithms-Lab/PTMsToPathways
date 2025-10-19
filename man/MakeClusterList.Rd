@@ -30,6 +30,8 @@ A correlation table is also produced based on the Spearman Correlation table.
 Please note: t-SNE involves an element of randomness; in order to get the same results, set.seed(#) must be called.
 }
 \examples{
-print("Hello world!")
-
+Example_Output <- MakeClusterList(ex_tiny_ptm_table) #Run function
+Example_Output[[1]][1:3] #Display data
+#Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.
+utils::head(Example_Output[[3]][, c(1,2,3,4,5)]) #Display data
 }
