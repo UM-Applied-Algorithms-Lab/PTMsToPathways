@@ -50,7 +50,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
 
   # Add if statement here to make sure functions are formatted correctly #
   # Ensure ptmtable is a data frame with numeric values #
-  PTMnames <- sort(rownames(ptmtable))
+  PTMnames <- rownames(ptmtable)
   if (!all(sapply(ptmtable, is.numeric))) {
     stop("All columns in 'ptmtable' must be numeric.")
   }
@@ -71,10 +71,6 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
 
   #Set NA values to 100 * the max distance
   sp.diss.matrix[is.na(sp.diss.matrix)] <- 100 * max.dist.sp
-
-  # Fix names of correlation matrix
-  colnames(ptm.correlation.matrix) <- PTMnames
-  rownames(ptm.correlation.matrix) <- PTMnames
 
   # Run t-SNE #
   tsne.results <- GetRtsne(sp.diss.matrix) #Call GetRtsne
