@@ -5,7 +5,7 @@ test_that("MakeClusterList() gives right answer", {
     adj.consensus <- clusterlist.data[[2]]
     ptm.correlation.matrix <- clusterlist.data[[3]]
     expect_equal(ptm.correlation.matrix[200, 5], 0.3212121, tolerance = 1e-6)
-    expect_equal(common.clusters[[4]][1], "BCAR3 p Y212")
+    expect_equal(common.clusters[[4]][1], "LCK p T395; SRC p T420; FYN p T421; YES1 p T427")
     expect_equal(length(common.clusters),  132)
     expect_equal(sum(adj.consensus), 14664)
 })
