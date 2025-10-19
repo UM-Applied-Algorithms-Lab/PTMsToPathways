@@ -54,7 +54,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   ptmtable.sp <- apply(ptmtable, 1:2, as.numeric) #Exclude colnames from matrix and test to make sure they are numbers
 
   # Calculate Spearman correlation #
-  ptm.correlation.matrix <- stats::cor(t(ptmtable.sp), use = "pairwise.complete.obs", method = "spearman")
+  ptm.correlation.matrix <- suppressWarnings(stats::cor(t(ptmtable.sp), use = "pairwise.complete.obs", method = "spearman"))
   # Note: this is the slowest step. We found  use = "pairwise.complete.obs", method = "spearman" to perform the best according to evaluations with data with missing values, but it takes longer.
 
   # Replace diagonal with NA #
