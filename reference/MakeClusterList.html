@@ -86,47 +86,175 @@ A correlation table is also produced based on the Spearman Correlation table.</p
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">ex_tiny_ptm_table</span><span class="op">)</span> <span class="co">#Run function</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Starting correlation calculations and t-SNE."</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-19 15:15:42 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-20 15:05:44 UTC"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "This may take a few minutes for large data sets."</span>
 <span class="r-plt img"><img src="MakeClusterList-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-20 15:05:50 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 6.0369930267334</span>
 <span class="r-plt img"><img src="MakeClusterList-2.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-20 15:05:50 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 6.04105162620544</span>
 <span class="r-plt img"><img src="MakeClusterList-3.png" alt="" width="700" height="433"></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting FindCommonClusters at 2025-10-19 15:15:48.459984</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-19 15:15:48 UTC"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 0.0493423938751221</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-20 15:05:50 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 6.04455232620239</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Starting FindCommonClusters at 2025-10-20 15:05:50.667946</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "length of all ptms is"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 125</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "class of all ptms is"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "character"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [1] "RNPS1 p Y205"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [2] "EML4 p Y453"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [3] "DDX5 p Y442"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [4] "DCBLD2 p Y732"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [5] "SYK p Y203"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [6] "PKP4 p Y494"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [7] "IRS1 p Y46"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [8] "S100A16 p Y20"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   [9] "EIF4A1 p Y70; EIF4A2 p Y71"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [10] "AHCY p Y193"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [11] "NECTIN4 p Y502"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [12] "PIK3C2B p Y1401"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [13] "CBL p Y674"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [14] "SEC16A p Y1031"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [15] "CLTC p Y634"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [16] "DDX1 p Y628"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [17] "CGN p Y313"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [18] "GAREM1 p Y701"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [19] "PKP4 p Y275"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [20] "ALK p Y1507"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [21] "PDLIM5 p Y251"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [22] "ARAP1 p Y504"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [23] "MUC1 p Y1229"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [24] "PTPN6 p Y536"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [25] "RBM12B p Y326"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [26] "MAPK13 p T180"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [27] "ARHGEF5 p Y656"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [28] "CDK1 p Y19; CDK2 p Y19; CDK3 p Y19"     </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [29] "KIAA1217 p Y393"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [30] "PIKFYVE p Y1041"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [31] "IRS1 p T88"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [32] "SRCIN1 p Y264"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [33] "EPHA2 p Y575"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [34] "PTK2B p Y580"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [35] "ARHGAP39 p Y448"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [36] "PIK3R1 p Y467"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [37] "ADGRL2 p Y1372"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [38] "ENAH p Y529"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [39] "FAM20B p Y138"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [40] "MAOA p T435"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [41] "YWHAZ p Y128"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [42] "C11orf52 p Y103"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [43] "SSBP1 p Y99"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [44] "TC2N p Y154"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [45] "ATP5PB p Y165"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [46] "SPATS2L p Y15"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [47] "PTPN11 p Y279"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [48] "EPS8 p Y774"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [49] "TJP2 p Y261"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [50] "ARHGEF5 p Y1370"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [51] "ATXN2L p Y349"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [52] "ITSN2 p Y968"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [53] "BCAR3 p Y117"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [54] "S100A14 p Y32"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [55] "HNRNPA3 p Y360"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [56] "HSP90AB4P p Y32"                        </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [57] "CTNND1 p Y213"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [58] "LYN p Y397; HCK p Y411"                 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [59] "PTK2 p Y925"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [60] "MTMR10 p Y708"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [61] "INPPL1 p Y886"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [62] "CTNND1 p Y248"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [63] "EPB41L2 p Y623"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [64] "TNS1 p Y1254"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [65] "MAN2A1 p Y33"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [66] "NQO1 p Y20"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [67] "AHNAK p Y715"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [68] "RACK1 p Y52"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [69] "ATP8B1 p Y1217"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [70] "CTTN p Y141"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [71] "SYTL1 p Y304"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [72] "CDK5 p Y15"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [73] "NEDD9 p Y92"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [74] "AHNAK p Y160"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [75] "PSMB5 p Y220"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [76] "NAA10 p Y106; NAA11 p Y106"             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [77] "ADAM10 p Y741"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [78] "G6PD p Y202"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [79] "EIF2S1 p Y147"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [80] "ACTG1 p T297; ACTB p T297"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [81] "PDLIM5 p T248"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [82] "LSR p S365"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [83] "DCP1A p Y64"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [84] "MAPK13 p T185"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [85] "ALK p S1509"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [86] "GAREM1 p S700"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [87] "RACK1 p T229"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [88] "ATP6V1H p Y388"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [89] "TNK2 p T829"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [90] "IRS2 p Y632"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [91] "ACTG1 p Y294; ACTB p Y294"              </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [92] "KRT7 p Y55"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [93] "ARVCF p Y201"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [94] "LSR p Y406"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [95] "ITGB1 p Y783"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [96] "SHC1 p Y315"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [97] "KIAA0895L p Y393"                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [98] "DDX49 p Y223"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [99] "MAP3K14 p Y682"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [100] "TNS3 p S332"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [101] "TNS1 p Y1404"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [102] "INSR p Y1185; IGF1R p Y1161"            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [103] "EPHA2 p Y594"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [104] "CEBPB p S141"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [105] "KIAA1549L p Y1418"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [106] "GPRC5B p Y376"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [107] "EGFR p Y727; ERBB4 p Y733; ERBB2 p Y735"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [108] "ZC3H18 p S492"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [109] "TNS3 p S602"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [110] "CAV1 p T15"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [111] "AHNAK p Y964"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [112] "ANKS1A p Y455"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [113] "PKP2 p T216"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [114] "CAV1 p Y14"                             </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [115] "HNRNPH3 p Y296"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [116] "ATG101 p Y164"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [117] "ALK p Y1584"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [118] "SLC25A5 p Y195"                         </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [119] "EPHA2 p Y588"                           </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [120] "FRS2 p Y306"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [121] "EPS8 p T499"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [122] "DIAPH1 p S373"                          </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [123] "ACLY p Y682"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [124] "TAGLN2 p Y8"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [125] "G6PD p Y503"                            </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "2025-10-20 15:05:50 UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] Total time: 0.0440976619720459</span>
 <span class="r-in"><span><span class="va">Example_Output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#Display data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ConsensusCluster1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "MAPK13 p T185"                      "CDK1 p Y19; CDK2 p Y19; CDK3 p Y19"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "TNS3 p S602"  "CEBPB p S141"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ConsensusCluster2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "ADGRL2 p Y1372" "ALK p Y1584"    "SYK p Y203"     "HNRNPA3 p Y360"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "RACK1 p T229"   "ATP6V1H p Y388" "IRS2 p Y632"    "TNK2 p T829"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ConsensusCluster3</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "TNS1 p Y1254" "BCAR3 p Y117" "MUC1 p Y1229" "CAV1 p T15"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "EPHA2 p Y588"   "ATG101 p Y164"  "SLC25A5 p Y195" "ALK p Y1584"   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"><span><span class="co">#Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.</span></span></span>
 <span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Example_Output</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span><span class="op">]</span><span class="op">)</span> <span class="co">#Display data</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           ACLY p Y682 ACTG1 p T297; ACTB p T297</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACLY p Y682                        NA                         1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p T297; ACTB p T297           1                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p Y294; ACTB p Y294          NA                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ADAM10 p Y741                      NA                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ADGRL2 p Y1372                     NA                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AHCY p Y193                        -1                        -1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           ACTG1 p Y294; ACTB p Y294 ADAM10 p Y741</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACLY p Y682                                      NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p T297; ACTB p T297                        NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p Y294; ACTB p Y294                        NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ADAM10 p Y741                                    NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ADGRL2 p Y1372                                   NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AHCY p Y193                                      NA            NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>                           ADGRL2 p Y1372</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACLY p Y682                           NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p T297; ACTB p T297             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p Y294; ACTB p Y294             NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ADAM10 p Y741                         NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> ADGRL2 p Y1372                        NA</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AHCY p Y193                           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           RNPS1 p Y205 PTPN6 p Y536 EIF2S1 p Y147</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RNPS1 p Y205                        NA            1            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PTPN6 p Y536                         1           NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EIF2S1 p Y147                       NA           NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p T297; ACTB p T297           NA           NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RACK1 p T229                        NA           NA            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EML4 p Y453                         -1           -1            NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                           ACTG1 p T297; ACTB p T297 RACK1 p T229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RNPS1 p Y205                                     NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> PTPN6 p Y536                                     NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EIF2S1 p Y147                                    NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ACTG1 p T297; ACTB p T297                        NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> RACK1 p T229                                     NA           NA</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> EML4 p Y453                                      NA           NA</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
