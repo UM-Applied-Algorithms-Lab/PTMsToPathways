@@ -6,16 +6,16 @@
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
-#' \strong{1} (pathway.crosstalk.network) Contains pathway source-target columns, along with the interaction type. 
+#' \strong{1} (pathway.crosstalk.network) Contains pathway source-target columns, along with the interaction type.
 #' \strong{2} (PCNedgelist) Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
-#' \strong{3} (pathways.list) All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway. 
+#' \strong{3} (pathways.list) All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.
 #' @export
 #'
 #' @examples
 #' Example_Output <- PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
 #' Example_Output[[1]][[3,]]
 #' Example_Output[[3]][[1:3]]
-PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd()){
+PathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd(), PCN.edgelist.name = "PCN_file"){
   # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
   fix.excel <- function(cell) {
     fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
