@@ -72,7 +72,6 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   #Set NA values to 100 * the max distance
   sp.diss.matrix[is.na(sp.diss.matrix)] <- 100 * max.dist.sp
 
-
   # Run t-SNE #
   tsne.results <- GetRtsne(sp.diss.matrix) #Call GetRtsne
   # Return t-SNE results #
@@ -124,27 +123,29 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   clustercreate <- function(result){
 
     #Compute the minimum spanning tree connecting the points
-    # tsne.span <- vegan::spantree(stats::dist(result), toolong=toolong)
+    tsne.span <- vegan::spantree(stats::dist(result), toolong=toolong)
 
-    #Find clusters that are connected based on toolong
-    result.disc <-  vegan::distconnected(stats::dist(result), toolong = toolong, trace = FALSE)
+    #Find clusters that are connected based on toolong (distance?)
+    result.disc2 <-  vegan::distconnected(stats::dist(result), toolong = toolong, trace = FALSE)  # test
+    # cat ("threshold dissimilarity", toolong, "\n", max(result.disc2), " groups","\n")
 
-    # Plot the clusters with convex hull 
+    #Create a plot of the clusters using vegan
     vegan::ordiplot(result, display = c())
-    vegan::ordihull(result, result.disc, col="red", lwd=2)
+    #lines(tsne.span, result) #???
+    vegan::ordihull(result, result.disc2, col="red", lwd=2)
 
     #Format a data frame
     result.span.df <- data.frame(PTMnames)
-    result.span.df$group <- result.disc #Add groups found above to the data frame
+    result.span.df$group <- result.disc2 #Add groups found above to the data frame
 
     #Convert data frame into a list of clusters (check doesn't like group but it's a column name)
     result.span.list <- plyr::dlply(result.span.df, plyr::.(group))  # GROUP LIST  !
+    return(result.span.list)
     end_time <- Sys.time()
     print(end_time)
     #calculate difference between start and end time
     total_time <- end_time - start_time
     print(noquote(paste("Total time: ", total_time, sep="")))
-    return(result.span.list)
 
   } #END of nested function
 
@@ -156,7 +157,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
 
   FindCommonClusters <- function(clusters.list, keeplength=3) { # >>>> NEW method
     # For each clustering method:
-    #  1.	Create a square matrix of all PTMs (across clusterings).
+    #   1.	Create a square matrix of all PTMs (across clusterings).
     #  2.	For each cluster, set all PTM–PTM pairs in the cluster to 1 (indicating co-membership).
     #  3.	The final matrix for a method has 1 for PTM pairs co-clustered at least once in that method; 0 otherwise.
     #  clusters.list is the list of clusters from different embeddings: list(Euclidean, Spearman, SED) from MakeClusterList()
@@ -168,11 +169,6 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
       unique(unlist(lapply(clusters, function(cl) cl$PTMnames)))
     }
     all_ptms <- unique(unlist(map(clusters.list, get_ptm_names)))
-    print("length of all ptms is")
-    print(length(all_ptms))
-    print("class of all ptms is")
-    print(class(all_ptms))
-    print(all_ptms)
 
     co_membership_matrix <- function(clusters, all_ptms) {
       mat <- matrix(0, nrow = length(all_ptms), ncol = length(all_ptms),
@@ -188,7 +184,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
     }
 
 
-    adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix, all_ptms=all_ptms)
+  adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix, all_ptms=all_ptms)
 
     # Step 2: Sum the Co-Membership Matrices Across Methods
     adj.sum <- Reduce("+", adjacency_matrices)    # values: 0 (never), 1, 2, 3 (co-clustered in all 3 methods)
@@ -221,7 +217,6 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
     print(noquote(paste("Total time: ", total_time, sep="")))
     return(list(adj.consensus, clusters_in_all_three))
   }
-
   #Find common clusters
   clusters.common.list <- FindCommonClusters(clusters.list, keeplength) # Runtime: 10 seconds
   adj.consensus <- clusters.common.list[[1]]
