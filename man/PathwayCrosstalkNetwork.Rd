@@ -7,7 +7,8 @@
 PathwayCrosstalkNetwork(
   common.clusters,
   bioplanet.file = "bioplanet.csv",
-  createfile = getwd()
+  createfile = getwd(),
+  PCN.edgelist.name = "PCN_file"
 )
 }
 \arguments{
@@ -16,6 +17,8 @@ PathwayCrosstalkNetwork(
 \item{bioplanet.file}{Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"}
 
 \item{createfile}{The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.}
+
+\item{PCN.edgelist.name}{The name of the file to be created if createfile is not FALSE.}
 }
 \value{
 An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
