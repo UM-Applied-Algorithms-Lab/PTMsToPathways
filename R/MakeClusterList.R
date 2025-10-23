@@ -73,9 +73,8 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   sp.diss.matrix[is.na(sp.diss.matrix)] <- 100 * max.dist.sp
 
   # Run t-SNE #
-  tsne.results <- GetRtsne(sp.diss.matrix) #Call GetRtsne
-  # Return t-SNE results #
-  spearman.cluster.coords = tsne.results$Y
+  tsne.results <- GetRtsne(sp.diss.matrix)
+  spearman.coords <- tsne.results$Y
 
 
   #EUCLIDEAN CALCULATION
@@ -94,14 +93,9 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   eu.dist.calc <- 100 * ptmtable.dist / max(ptmtable.dist, na.rm = TRUE)
   eu.dist.calc <- as.matrix(eu.dist.calc) #Fix eu.dist.calc RQ
 
-  # Apply t-SNE to the distance matrix to reduce dimensions to 3 #
-  # Parameters: dims = 3 (3D output), perplexity = 15, theta = 0.25 (speed/accuracy trade-off) #
-  # max_iter = 5000 (number of iterations), check_duplicates = FALSE (treat rows as unique) #
-  # pca = FALSE (no initial PCA) #
-  eu.ptms.tsne.list <- GetRtsne(eu.dist.calc) #Call GetRtsne
-
-  # Extract the t-SNE results from the output list #
-  euclidean.cluster.coords <- eu.ptms.tsne.list$Y
+  # Run t-SNE #
+  eu.ptms.tsne.list <- GetRtsne(eu.dist.calc)
+  euclidean.coords <- eu.ptms.tsne.list$Y
 
   #COMBINED CALCULATION
 
@@ -115,44 +109,39 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   combined.distance <- (sp.diss.calc + eu.dist.calc) / 2
   # Perform t-SNE on the combined distances #
   tsne.result <- GetRtsne(combined.distance) #Call GetRtsne
-  sed.cluster.coords <- tsne.result$Y
+  sed.coords <- tsne.result$Y
 
 
   #Nested function to analyze result
   group <- NULL #Gets rid of check note
-  clustercreate <- function(result){
+  clustercreate <- function(tsne_coords, distance_name){
 
-    #Compute the minimum spanning tree connecting the points
-    tsne.span <- vegan::spantree(stats::dist(result), toolong=toolong)
+    # Find clusters that are connected
+    # this returns a vector with cluster assignment for each PTM
+    result.disc2 <-  vegan::distconnected(stats::dist(tsne_coords), toolong = toolong, trace = FALSE)
 
-    #Find clusters that are connected based on toolong (distance?)
-    result.disc2 <-  vegan::distconnected(stats::dist(result), toolong = toolong, trace = FALSE)  # test
-    # cat ("threshold dissimilarity", toolong, "\n", max(result.disc2), " groups","\n")
+    # Create a plot of the clusters, with convex hulll around each cluster
+    # note that tsne_coords is a matrix with 3 columns (the t-SNE dimensions), but only first two will get plotted
+    vegan::ordiplot(tsne_coords, display = c(), main=paste("t-SNE Cluster Plot", distance_name))
+    vegan::ordihull(tsne_coords, result.disc2, col="red", lwd=2)
 
-    #Create a plot of the clusters using vegan
-    vegan::ordiplot(result, display = c())
-    #lines(tsne.span, result) #???
-    vegan::ordihull(result, result.disc2, col="red", lwd=2)
+    # make a dataframe with one column for PTMs and another for group assignment
+    result.span.df <- data.frame(PTMnames = PTMnames, group= result.disc2)
 
-    #Format a data frame
-    result.span.df <- data.frame(PTMnames)
-    result.span.df$group <- result.disc2 #Add groups found above to the data frame
-
-    #Convert data frame into a list of clusters (check doesn't like group but it's a column name)
+    # Convert data frame into a list of clusters (check doesn't like group but it's a column name)
     result.span.list <- plyr::dlply(result.span.df, plyr::.(group))  # GROUP LIST  !
-    return(result.span.list)
+
     end_time <- Sys.time()
-    print(end_time)
-    #calculate difference between start and end time
     total_time <- end_time - start_time
     print(noquote(paste("Total time: ", total_time, sep="")))
 
+    return(result.span.list)
   } #END of nested function
 
   #Create all tsne coords data sturcture and give it names
-  all.tsne.coords <- list(euclidean.cluster.coords, spearman.cluster.coords, sed.cluster.coords)
+  all.tsne.coords <- list(euclidean.coords, spearman.coords, sed.coords)
   names(all.tsne.coords) <- c("Euclidean", "Spearman", "SED")
-  clusters.list <- lapply(all.tsne.coords, clustercreate)
+  clusters.list <- mapply(clustercreate, all.tsne.coords, names(all.tsne.coords))
   names(clusters.list) <- c("Euclidean", "Spearman", "SED")
 
   FindCommonClusters <- function(clusters.list, keeplength=3) { # >>>> NEW method
