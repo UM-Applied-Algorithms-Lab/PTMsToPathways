@@ -6,6 +6,7 @@
 #'
 #' @param common.clusters A list of clusters. Ideally the ones found by MakeClusterList in common_clusters
 #' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
+#' @param adj.consensus Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings
 #' @return A list containing the following data structures at the given index: \cr
 #' \strong{1} The PTM CoCluster Correlation Network as an igraph edgelist object. \cr
 #' \strong{2} The gene CoCluster Correlation Network as an igraph edgelist object.
@@ -147,9 +148,11 @@ gene.cccn.g <- gene.cccn.list[[1]]
 gene.cccn.edges <- gene.cccn.list[[2]]
 gene.cccn <- gene.cccn.list[[3]]
 
+  # Make a list of nodes of gathering PPI data
+  gene.cccn.nodes <-  unique(gene.cccn.edges[, c("source", "target")])
 
   ### Return Final Data Structure ###
-  return (list(ptm.cccn.g, gene.cccn.g, ptm.cccn.edges, gene.cccn.edges))
+  return (list(ptm.cccn.edges, gene.cccn.edges, gene.cccn.nodes))
 
   ### Graphing ###
   # graph <- igraph::graph_from_adjacency_matrix(gene.cccn, mode = "lower", diag = FALSE, weighted = "Weight")
