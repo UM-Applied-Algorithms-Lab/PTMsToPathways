@@ -23,15 +23,6 @@ MakeDBInput <- function(gene.cccn.edges, file.path.name = "db_nodes.txt") {
 #
 # @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 # @return data frame of the names of the genes
-cccn_to_nodenames <- function(gene.cccn.edges){
-
-  gene.names <- unique(gene.cccn.edges[, c("source", "target")])
-
-  nodenames <- data.frame(Gene.Names = gene.names, stringsAsFactors = FALSE)
-
-  #return :)
-  return(nodenames)
-}
 
 
 #' @title Get STRINGdb PPI data
@@ -52,8 +43,8 @@ cccn_to_nodenames <- function(gene.cccn.edges){
 #' # GetSTRINGdb(ex.gene.cccn)
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
-GetSTRINGdb <- function(gene.cccn) {
-  nodenames <- cccn_to_nodenames(gene.cccn)
+GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
+  nodenames <- data.frame(Gene.Names = gene.cccn.nodes, stringsAsFactors = FALSE)
 
   if(!requireNamespace("STRINGdb", quietly = TRUE)){
     stop("In order to use this function, please download STRINGdb as described in the vignette, the readme, and the function documentation.")
@@ -188,7 +179,7 @@ formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Data
   kinsub <- unique(kinsub)
   names(kinsub) <- c("source", "target")
   # Prune kinase-substrate to genes in data
-  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn))))
+  nodenames <- gene.cccn.nodes
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
   kinsub.edges$interaction <- "pp"
   kinsub.edges$Weight <- 1
