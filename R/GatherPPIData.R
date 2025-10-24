@@ -164,7 +164,7 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
 #'
 #' @return An edgelist filtered by the gene cccn and nodenames
 #' @export
-formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt") {
+formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.edges) {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
   kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
@@ -179,7 +179,11 @@ formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Data
   kinsub <- unique(kinsub)
   names(kinsub) <- c("source", "target")
   # Prune kinase-substrate to genes in data
+<<<<<<< HEAD
   nodenames <- gene.cccn.nodes
+=======
+  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn.edges))))
+>>>>>>> b4e3350e55b75ab467fac8762f788f678b3323a7
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
   kinsub.edges$interaction <- "pp"
   kinsub.edges$Weight <- 1
