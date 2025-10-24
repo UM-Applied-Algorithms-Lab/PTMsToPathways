@@ -3,7 +3,7 @@
 #' This function outputs a file consisting entirely of gene names, each produced on a new line. This data can be copy and pasted into
 #' a database input in order to get protein-protein interaction data.
 #'
-#' @param gene.cccn.edges A edge list showing relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #' @param file.path.name Path for the output file; defaults to db_nodes.txt
 #'
 #' @return A file with all of the gene names which can be copy and pasted into the GeneMania cytoscape app, data frame of the names of the genes
@@ -35,7 +35,8 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #'
 #' @details The full example takes ~10 minutes to load, so it has been commented out and the results are displayed.
 #'
-#' @param gene.cccn A matrix showing strength of relationships between proteins using common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.edges A dataframe showing interactions relationships between proteins using common PTM clusters derived from three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database and a list of gene names
 #' @export
@@ -104,6 +105,7 @@ GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
 #' @param gm.edgefile.path Path to GeneMANIA edgefile
 #' @param gm.nodetable.path Path to GeneMANIA nodetable
 #' @param db_nodes.path Path to the node file from MakeDBInput
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study
 #' @export
@@ -167,6 +169,7 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
 #' Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
 #'
 #' @param kinasesubstrate.filename The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return An edgelist filtered by the gene cccn and nodenames
 #' @export
