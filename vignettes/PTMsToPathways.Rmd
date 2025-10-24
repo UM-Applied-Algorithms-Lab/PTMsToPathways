@@ -194,7 +194,7 @@ databases have different interfaces for downloading data.
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 
-stringdb.edges <- GetSTRINGdb(gene.cccn.edges)
+stringdb.edges <- GetSTRINGdb(gene.cccn.edges, gene.cccn.nodes)
 
 head(stringdb.edges)
 ```
@@ -212,7 +212,7 @@ MakeDBInput function allows us to automatically generate an input file
 to query GeneMANIA from within Cytoscape.
 
 ```{r eval = FALSE}
-MakeDBInput(gene.cccn.edges, file.path.name = "db_nodes.txt")
+MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
 ProcessGMEdgefile function processes the expected resulting output files
@@ -234,7 +234,7 @@ it so that all the PPI edge data frames are in the same format for the
 next step.
 
 ```{r eval = FALSE}
-kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt")
+kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes)
 
 head(kinsub.edges)
 ```
