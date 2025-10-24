@@ -4,7 +4,12 @@
 \alias{ProcessGMEdgefile}
 \title{Process GM Edge File}
 \usage{
-ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
+ProcessGMEdgefile(
+  gm.edgefile.path,
+  gm.nodetable.path,
+  db_nodes.path,
+  gene.cccn.nodes
+)
 }
 \arguments{
 \item{gm.edgefile.path}{Path to GeneMANIA edgefile}
@@ -12,6 +17,8 @@ ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
 \item{gm.nodetable.path}{Path to GeneMANIA nodetable}
 
 \item{db_nodes.path}{Path to the node file from MakeDBInput}
+
+\item{gene.cccn.nodes}{A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
 }
 \value{
 Data frame of consisting of the network of interactions from the genes of study
