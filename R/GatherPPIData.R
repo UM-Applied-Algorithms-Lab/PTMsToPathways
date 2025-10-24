@@ -12,9 +12,10 @@
 #' @examples
 #' #MakeDBInput(ex.nodenames)
 #' cat(ex.nodenames[[1]], sep = '\n')
-MakeDBInput <- function(gene.cccn.edges, file.path.name = "db_nodes.txt") {
-  utils::write.table(unique(gene.cccn.edges[, c("source", "target")]), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
-}
+MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
+  # utils::write.table(unique(gene.cccn.edges[, c("source", "target")]), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
+  utils::write.table(unique(gene.cccn.nodes, file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
+  }
 
 
 # Pulls nodenames from the gene.cccn
@@ -116,12 +117,17 @@ GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
 # NOTE:
 #  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
 # Note: The column names may change in future releases of GeneMANIA.
-ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path){
+ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gene.cccn.nodes){
   # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
   # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
-  nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
+  if (!exists(gene.cccn.nodes)){
+    nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
 
-  nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
+    nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
+  } else {
+    nodenames <- gene.cccn.nodes
+  }
+
   # Read all lines
   all_lines <- readLines(gm.edgefile.path)
 
@@ -164,7 +170,7 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
 #'
 #' @return An edgelist filtered by the gene cccn and nodenames
 #' @export
-formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.edges) {
+formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
   kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
@@ -179,11 +185,9 @@ formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Data
   kinsub <- unique(kinsub)
   names(kinsub) <- c("source", "target")
   # Prune kinase-substrate to genes in data
-<<<<<<< HEAD
+
   nodenames <- gene.cccn.nodes
-=======
-  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn.edges))))
->>>>>>> b4e3350e55b75ab467fac8762f788f678b3323a7
+
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
   kinsub.edges$interaction <- "pp"
   kinsub.edges$Weight <- 1
