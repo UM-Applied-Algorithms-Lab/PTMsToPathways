@@ -4,10 +4,10 @@
 \alias{MakeDBInput}
 \title{Make Database Input File}
 \usage{
-MakeDBInput(gene.cccn.edges, file.path.name = "db_nodes.txt")
+MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 }
 \arguments{
-\item{gene.cccn.edges}{A edge list showing relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
+\item{gene.cccn.nodes}{A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
 
 \item{file.path.name}{Path for the output file; defaults to db_nodes.txt}
 }

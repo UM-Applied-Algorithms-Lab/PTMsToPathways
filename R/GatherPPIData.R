@@ -13,8 +13,7 @@
 #' #MakeDBInput(ex.nodenames)
 #' cat(ex.nodenames[[1]], sep = '\n')
 MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
-  # utils::write.table(unique(gene.cccn.edges[, c("source", "target")]), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
-  utils::write.table(unique(gene.cccn.nodes, file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
+  utils::write.table(unique(gene.cccn.nodes, file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE))
   }
 
 
