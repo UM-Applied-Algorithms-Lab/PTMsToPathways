@@ -55,7 +55,11 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-ptm-correlation-matrix">ptm.correlation.matrix<a class="anchor" aria-label="anchor" href="#arg-ptm-correlation-matrix"></a></dt>
+<dl><dt id="arg-adj-consensus">adj.consensus<a class="anchor" aria-label="anchor" href="#arg-adj-consensus"></a></dt>
+<dd><p>Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings</p></dd>
+
+
+<dt id="arg-ptm-correlation-matrix">ptm.correlation.matrix<a class="anchor" aria-label="anchor" href="#arg-ptm-correlation-matrix"></a></dt>
 <dd><p>A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.</p></dd>
 
 
@@ -65,8 +69,8 @@ By summing these submatrices, it also produces a gene by gene cocluster correlat
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>A list containing the following data structures at the given index: <br><strong>1</strong> The PTM CoCluster Correlation Network as an igraph edgelist object. <br><strong>2</strong> The gene CoCluster Correlation Network as an igraph edgelist object.
-<strong>3</strong> (PTM CoCluster Correlation Network) A matrix that shows the strength of the relationships between PTMs using the common clusters between the three distance metrics <br><strong>4</strong> (Gene CoCluster Correlation Network) Similar to <strong>1</strong> but at the level of genes. <br></p>
+    <p>A list containing the following data structures at the given index: <br><strong>1</strong> The PTM CoCluster Correlation Network as an edgelist  <br><strong>2</strong> The Gene CoCluster Correlation Network as an edgelist
+<strong>3</strong> A list of nodes that are in the Gene CoCluster Correlation Network <br></p>
     </div>
 
     <div class="section level2">

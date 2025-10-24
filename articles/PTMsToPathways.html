@@ -186,10 +186,9 @@ edge lists or adjacency matrices, plotting, and many other functions
 available from the igraph package.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">CCCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">adj.consensus</span>, <span class="va">ptm.correlation.matrix</span><span class="op">)</span></span>
-<span><span class="va">ptm.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># igraph data object</span></span>
-<span><span class="va">gene.cccn.g</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># igraph data object</span></span>
-<span><span class="va">ptm.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="co"># PTM CCCN edge list</span></span>
-<span><span class="va">gene.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span> <span class="co"># Gene CCCN edge list</span></span>
+<span><span class="va">ptm.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># PTM CCCN edge list</span></span>
+<span><span class="va">gene.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># Gene CCCN edge list</span></span>
+<span><span class="va">gene.cccn.nodes</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="co"># List of nodes in the CCCN for gathering PPI data from external databases</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span><span class="op">)</span></span></code></pre></div>
 <div class="section level5">
@@ -201,7 +200,7 @@ available from the igraph package.</p>
 <div class="section level3">
 <h3 id="step-3-retrieve-database-edgefiles">Step 3: Retrieve Database Edgefiles<a class="anchor" aria-label="anchor" href="#step-3-retrieve-database-edgefiles"></a>
 </h3>
-<p>The third step of the P2P package requires the use of multiple
+<p>The third step of the P2P pacage requires the use of multiple
 protein-protein interaction (PPI) databases. The data is used to
 generate a PPI network where proteins are nodes, and their interactions
 are edges and represent all known interactions observed in a wide range
@@ -216,7 +215,7 @@ databases have different interfaces for downloading data.</p>
 <span><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">require</a></span><span class="op">(</span><span class="st"><a href="https://bioconductor.github.io/BiocManager/" class="external-link">"BiocManager"</a></span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span></span>
 <span><span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://bioconductor.github.io/BiocManager/reference/install.html" class="external-link">install</a></span><span class="op">(</span><span class="st">"STRINGdb"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">stringdb.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span><span class="op">)</span></span>
+<span><span class="va">stringdb.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">stringdb.edges</span><span class="op">)</span></span></code></pre></div>
 <div class="section level4">
@@ -230,7 +229,7 @@ first generating the input the file and then processing the output file.
 MakeDBInput function allows us to automatically generate an input file
 to query GeneMANIA from within Cytoscape.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn.nodes</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <p>ProcessGMEdgefile function processes the expected resulting output
 files from the previous function.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -245,7 +244,7 @@ Format.kinsub.table function reads this downloaded data in and formats
 it so that all the PPI edge data frames are in the same format for the
 next step.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">kinsub.edges</span><span class="op">)</span></span></code></pre></div>
 </div>

@@ -42,7 +42,12 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ProcessGMEdgefile</span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">ProcessGMEdgefile</span><span class="op">(</span></span>
+<span>  <span class="va">gm.edgefile.path</span>,</span>
+<span>  <span class="va">gm.nodetable.path</span>,</span>
+<span>  <span class="va">db_nodes.path</span>,</span>
+<span>  <span class="va">gene.cccn.nodes</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -60,6 +65,10 @@
 <dt id="arg-db-nodes-path">db_nodes.path<a class="anchor" aria-label="anchor" href="#arg-db-nodes-path"></a></dt>
 <dd><p>Path to the node file from MakeDBInput</p></dd>
 
+
+<dt id="arg-gene-cccn-nodes">gene.cccn.nodes<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-nodes"></a></dt>
+<dd><p>A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))</p></dd>
+
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
@@ -72,7 +81,7 @@
 <span class="r-in"><span><span class="va">ex.nodefile</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ex_gm_nodetable.csv"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">ex.db.nodes</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata/ex_db_nodes.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">ProcessGMEdgefile</span><span class="op">(</span><span class="va">ex.edgefile</span>, <span class="va">ex.nodefile</span>, <span class="va">ex.db.nodes</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in start_line[1]:(end_line[1] - 1):</span> NA/NaN argument</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes):</span> argument "gene.cccn.nodes" is missing, with no default</span>
 <span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Example_Output</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'Example_Output' not found</span>
 </code></pre></div>

@@ -42,7 +42,10 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">formatKinsubTable</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">formatKinsubTable</span><span class="op">(</span></span>
+<span>  kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span>,</span>
+<span>  <span class="va">gene.cccn.nodes</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -51,6 +54,10 @@
 
 <dl><dt id="arg-kinasesubstrate-filename">kinasesubstrate.filename<a class="anchor" aria-label="anchor" href="#arg-kinasesubstrate-filename"></a></dt>
 <dd><p>The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads</p></dd>
+
+
+<dt id="arg-gene-cccn-nodes">gene.cccn.nodes<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-nodes"></a></dt>
+<dd><p>A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))</p></dd>
 
 </dl></div>
     <div class="section level2">
