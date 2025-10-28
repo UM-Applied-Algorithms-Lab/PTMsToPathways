@@ -3,7 +3,7 @@
 #' This function outputs a file consisting entirely of gene names, each produced on a new line. This data can be copy and pasted into
 #' a database input in order to get protein-protein interaction data.
 #'
-#' @param gene.cccn.edges A edge list showing relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #' @param file.path.name Path for the output file; defaults to db_nodes.txt
 #'
 #' @return A file with all of the gene names which can be copy and pasted into the GeneMania cytoscape app, data frame of the names of the genes
@@ -12,9 +12,9 @@
 #' @examples
 #' #MakeDBInput(ex.nodenames)
 #' cat(ex.nodenames[[1]], sep = '\n')
-MakeDBInput <- function(gene.cccn.edges, file.path.name = "db_nodes.txt") {
-  utils::write.table(unique(gene.cccn.edges[, c("source", "target")]), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
-}
+MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
+  utils::write.table(unique(gene.cccn.nodes, file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE))
+  }
 
 
 # Pulls nodenames from the gene.cccn
@@ -23,15 +23,6 @@ MakeDBInput <- function(gene.cccn.edges, file.path.name = "db_nodes.txt") {
 #
 # @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 # @return data frame of the names of the genes
-cccn_to_nodenames <- function(gene.cccn.edges){
-
-  gene.names <- unique(gene.cccn.edges[, c("source", "target")])
-
-  nodenames <- data.frame(Gene.Names = gene.names, stringsAsFactors = FALSE)
-
-  #return :)
-  return(nodenames)
-}
 
 
 #' @title Get STRINGdb PPI data
@@ -43,7 +34,8 @@ cccn_to_nodenames <- function(gene.cccn.edges){
 #'
 #' @details The full example takes ~10 minutes to load, so it has been commented out and the results are displayed.
 #'
-#' @param gene.cccn A matrix showing strength of relationships between proteins using common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.edges A dataframe showing interactions relationships between proteins using common PTM clusters derived from three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database and a list of gene names
 #' @export
@@ -52,8 +44,8 @@ cccn_to_nodenames <- function(gene.cccn.edges){
 #' # GetSTRINGdb(ex.gene.cccn)
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
-GetSTRINGdb <- function(gene.cccn) {
-  nodenames <- cccn_to_nodenames(gene.cccn)
+GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
+  nodenames <- data.frame(Gene.Names = gene.cccn.nodes, stringsAsFactors = FALSE)
 
   if(!requireNamespace("STRINGdb", quietly = TRUE)){
     stop("In order to use this function, please download STRINGdb as described in the vignette, the readme, and the function documentation.")
@@ -112,6 +104,7 @@ GetSTRINGdb <- function(gene.cccn) {
 #' @param gm.edgefile.path Path to GeneMANIA edgefile
 #' @param gm.nodetable.path Path to GeneMANIA nodetable
 #' @param db_nodes.path Path to the node file from MakeDBInput
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study
 #' @export
@@ -125,12 +118,17 @@ GetSTRINGdb <- function(gene.cccn) {
 # NOTE:
 #  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
 # Note: The column names may change in future releases of GeneMANIA.
-ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path){
+ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gene.cccn.nodes){
   # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
   # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
-  nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
+  if (!exists(gene.cccn.nodes)){
+    nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
 
-  nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
+    nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
+  } else {
+    nodenames <- gene.cccn.nodes
+  }
+
   # Read all lines
   all_lines <- readLines(gm.edgefile.path)
 
@@ -170,10 +168,11 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
 #' Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
 #'
 #' @param kinasesubstrate.filename The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads
+#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return An edgelist filtered by the gene cccn and nodenames
 #' @export
-formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt") {
+formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
   kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
@@ -188,7 +187,9 @@ formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Data
   kinsub <- unique(kinsub)
   names(kinsub) <- c("source", "target")
   # Prune kinase-substrate to genes in data
-  nodenames <- as.character(as.vector(unlist(cccn_to_nodenames(gene.cccn))))
+
+  nodenames <- gene.cccn.nodes
+
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
   kinsub.edges$interaction <- "pp"
   kinsub.edges$Weight <- 1

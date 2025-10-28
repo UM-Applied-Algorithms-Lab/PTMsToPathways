@@ -164,10 +164,9 @@ In addition to CCCN edge lists, this function also returns igraph objects ptm.cc
 
 ```{r eval = FALSE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
-ptm.cccn.g <- CCCN.data[[1]] # igraph data object
-gene.cccn.g <- CCCN.data[[2]] # igraph data object
-ptm.cccn.edges <- CCCN.data[[3]] # PTM CCCN edge list
-gene.cccn.edges <- CCCN.data[[4]] # Gene CCCN edge list
+ptm.cccn.edges <- CCCN.data[[1]] # PTM CCCN edge list
+gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
+gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN for gathering PPI data from external databases
 
 head(gene.cccn.edges)
 ```
@@ -178,7 +177,7 @@ head(gene.cccn.edges)
 
 ## Step 3: Retrieve Database Edgefiles
 
-The third step of the P2P package requires the use of multiple
+The third step of the P2P pacage requires the use of multiple
 protein-protein interaction (PPI) databases. The data is used to
 generate a PPI network where proteins are nodes, and their interactions
 are edges and represent all known interactions observed in a wide range
@@ -195,7 +194,7 @@ databases have different interfaces for downloading data.
 if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 BiocManager::install("STRINGdb")
 
-stringdb.edges <- GetSTRINGdb(gene.cccn.edges)
+stringdb.edges <- GetSTRINGdb(gene.cccn.edges, gene.cccn.nodes)
 
 head(stringdb.edges)
 ```
@@ -213,7 +212,7 @@ MakeDBInput function allows us to automatically generate an input file
 to query GeneMANIA from within Cytoscape.
 
 ```{r eval = FALSE}
-MakeDBInput(gene.cccn.edges, file.path.name = "db_nodes.txt")
+MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
 ProcessGMEdgefile function processes the expected resulting output files
@@ -235,7 +234,7 @@ it so that all the PPI edge data frames are in the same format for the
 next step.
 
 ```{r eval = FALSE}
-kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt")
+kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes)
 
 head(kinsub.edges)
 ```
