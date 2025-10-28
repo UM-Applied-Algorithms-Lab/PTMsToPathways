@@ -77,7 +77,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   # Run t-SNE #
   tsne.results <- GetRtsne(sp.diss.matrix)
   spearman.coords <- tsne.results$Y
-  message("Spearman T-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+  message("Spearman t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   #EUCLIDEAN CALCULATION
 
@@ -98,7 +98,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   # Run t-SNE #
   eu.ptms.tsne.list <- GetRtsne(eu.dist.calc)
   euclidean.coords <- eu.ptms.tsne.list$Y
-  message("Euclidean T-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+  message("Euclidean t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   #COMBINED CALCULATION
 
@@ -114,7 +114,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   # Perform t-SNE on the combined distances #
   tsne.result <- GetRtsne(combined.distance) #Call GetRtsne
   sed.coords <- tsne.result$Y
-  message("SED T-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+  message("SED t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
 
   #Nested function to analyze result
