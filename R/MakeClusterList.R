@@ -72,12 +72,12 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
 
   #Set NA values to 100 * the max distance
   sp.diss.matrix[is.na(sp.diss.matrix)] <- 100 * max.dist.sp
-  message("Spearman correlation calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), ".")
+  message("Spearman correlation calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   # Run t-SNE #
   tsne.results <- GetRtsne(sp.diss.matrix)
   spearman.coords <- tsne.results$Y
-  message("Spearman T-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), ".")
+  message("Spearman T-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   #EUCLIDEAN CALCULATION
 
@@ -93,7 +93,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   # Normalize the distance matrix by scaling it to a range from 0 to 100. This becomes the distance matrix for euclidian distance which we will run Rtsne on#
   eu.dist.calc <- 100 * ptmtable.dist / max(ptmtable.dist, na.rm = TRUE)
   eu.dist.calc <- as.matrix(eu.dist.calc) #Fix eu.dist.calc RQ
-  message("Euclidean distance calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), ".")
+  message("Euclidean distance calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   # Run t-SNE #
   eu.ptms.tsne.list <- GetRtsne(eu.dist.calc)
