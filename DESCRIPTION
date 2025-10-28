@@ -22,6 +22,7 @@ Imports:
     utils,
     RCy3,
     STRINGdb,
+    purrr
 Suggests: 
     BiocManager,
     knitr,
