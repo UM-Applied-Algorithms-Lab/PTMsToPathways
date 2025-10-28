@@ -4,10 +4,15 @@
 \alias{formatKinsubTable}
 \title{Format Kinsub Table}
 \usage{
-formatKinsubTable(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt")
+formatKinsubTable(
+  kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
+  gene.cccn.nodes
+)
 }
 \arguments{
 \item{kinasesubstrate.filename}{The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads}
+
+\item{gene.cccn.nodes}{A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
 }
 \value{
 An edgelist filtered by the gene cccn and nodenames
