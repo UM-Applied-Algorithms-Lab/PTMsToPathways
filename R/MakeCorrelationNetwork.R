@@ -148,7 +148,8 @@ gene.cccn.edges <- gene.cccn.list[[2]]
 gene.cccn <- gene.cccn.list[[3]]
 
   # Make a list of nodes of gathering PPI data
-  gene.cccn.nodes <-  unique(gene.cccn.edges[, c("source", "target")])
+  gene.cccn.nodes <-  unique(c(gene.cccn.edges$source, gene.cccn.edges$target))
+  if(length(gene.cccn.nodes) == 0) stop("No genes found (gene.cccn.nodes is empty)")
 
   ### Return Final Data Structure ###
   return (list(ptm.cccn.edges, gene.cccn.edges, gene.cccn.nodes))
