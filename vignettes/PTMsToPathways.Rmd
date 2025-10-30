@@ -27,7 +27,7 @@ library("PTMsToPathways")
 
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
+  comment = ">>",
   fig.align = "center",
   fig.path = "plots/",
   fig.width = 8,
@@ -59,22 +59,24 @@ devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 
 For the tutorial, we will be using two example datasets: a smaller dataset consisting of 933 PTMs and 18 experimental conditions (the example used in the RawDataProcessing vignette) and a larger dataset containing around 9000 PTMs and 69 experimental conditions. These datasets are available with the package as a variable or can be downloaded from our GitHub page [PTMsToPathways](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways) to the user's working directory and imported.
 
-If you are using a smaller dataset, use the following code to read it in:
+If you are using a smaller dataset, use the following code to view the dimensions of the dataset and a small portion of it:
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 dim(ex_small_ptm_table)
-ex_small_ptm_table[38:50, 1:4]
+ex_small_ptm_table[38:50, 1:2]
 ```
 
-If you want to use the bigger dataset, use the following code:
+If you want to use the bigger dataset, the following code shows the dimensions and a snippet of the dataset:
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 dim(ex_full_ptm_table)
+ex_full_ptm_table[38:50, 1:2]
 ```
 
-If you want to download the data and import the dataset use the following code:
+If you want to download the data and then import the dataset use the following code:
 
 ```{r eval=FALSE}
+# TO DO FIX THIS!!!!!
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
                           blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
                           comment.char = "", stringsAsFactors = F)
@@ -88,7 +90,7 @@ The MS data needs to be transformed into a data frame with PTMs as row names, ex
 
 MakeClusterList is the first step in the P2P process. This function takes the dataframe PTM table and runs it through three calculations of statistical measures of distance: Euclidean Distance, Spearman Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean Distance). Combining the two dissimilarities leads to better resolution of the data and is useful in pattern recognition. A correlation table -- *ptm.correlation.matrix* -- is generated based on the distances calculated for each pair of PTMs. The function then runs the matrices through t-SNE to generate clusters based on the previously calculated distance and provides you with a cluster list, *common.clusters*. The returned *adj.consensus* (which identifies which PTMs cluster together with a 'short distance' between them) and *ptm.correlation.matrix* are also used in the next step to create co-cluster correlation networks (CCCNs).
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 # Set seed to obtain repeatable t-SNE graphs
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
@@ -97,6 +99,14 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong 
 common.clusters <- clusterlist.data[[1]]
 adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
+
+# Now we can view the objects:
+print("This is an example of a cluster:")
+common.clusters[1]
+print("This is a piece of the adj.consensus table; Ones represent a pair that cluster and zeroes represent a pair that doesn't:")
+adj.consensus[1:5, 1:2]
+print("This is part of the ptm.correlation.matrix:")
+ptm.correlation.matrix[38:43, 1:2]
 ```
 
 **Note:** t-SNE involves an element of randomness due to pseudorandom initialization or stochastic processes within the algorithm; in order to get the same results on multiple executions, set.seed(\#) must be called (\# = any integer of choice). The variable *toolong* manipulates the size of the cluster and is set at 3.5. This is recommended as a good starting point for t-SNE but can be changed as per the researcher’s discretion. This function may take upwards of an hour to run, so it is recommended that the output is saved as an RData object which can then be imported.
@@ -111,12 +121,15 @@ The cluster list generated in the previous step is next used to create a new net
 
 In addition to CCCN edge lists, this function also returns igraph object gene.cccn.g. This object can be used later to plot, extract edge lists or adjacency matrices, and accomplish many other functions available from the igraph package. 
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
                                   # used to gather PPI data from external databases
+ptm.cccn.edges[18:22,]
+gene.cccn.edges[1:5,]
+gene.cccn.nodes[1:5,]
 ```
 
 #### Estimated run-time
@@ -131,8 +144,9 @@ The third step of the P2P package requires the use of multiple protein-protein i
 
 STRINGdb has its own R package, making this the easiest database to pull from. The database will automatically be queried by the GetSTRINGdb function. Its output is then filtered by interaction type so only experimental, database, and experimental_transferred and database_transferred are retained. This ensures that only interactions with more substantial evidence are used in this analysis.
 
-```{r eval = FALSE}
+```{r eval = TRUE}
 stringdb.edges <- GetSTRINGdb(gene.cccn.edges, gene.cccn.nodes)
+stringdb.edges[1:5,]
 ```
 
 ### 2. GeneMANIA
@@ -146,7 +160,8 @@ MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 The ProcessGMEdgefile function then processes the output files produced by GeneMANIA itself.
 
 ```{r eval = FALSE}
-genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nodes.path)
+genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path,
+                                     db_nodes.path)
 ```
 
 ### 3. Phosphosite Plus
@@ -154,7 +169,8 @@ genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path, db_nod
 The kinase-substrate data can be downloaded from [Phosphosite Plus](https://www.phosphosite.org/staticDownloads) database. The users will be required to create an account and sign in to download the data. The format.kinsub.table function reads this downloaded data in and formats it so that all the PPI edge data frames are in the same format for the next step.
 
 ```{r eval = FALSE}
-kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
+kinsub.edges <- format.kinsub.table(kinasesubstrate.filename =
+                                      "Kinase_Substrate_Dataset.txt",
                                     gene.cccn.nodes)
 ```
 
@@ -163,8 +179,9 @@ kinsub.edges <- format.kinsub.table(kinasesubstrate.filename = "Kinase_Substrate
 The BuildClusterFilteredNetwork function allows the users to filter protein-protein interaction networks using the previously generated cocluster correlation networks. PPIs are retained in the cluster filtered network (cfn) only if the interacting proteins share statistically correlated PTMs identified via t-SNE clusters. The BuildClusterFilteredNetwork function combines all the PPI data downloaded in step 3 as efficiently as possible while retaining the desired edge weights. It then normalizes the weights on a scale of 0-1 and gives an output cluster filter network that will only retain interacting proteins whose genes are within the co-cluster correlation network created in step 2.
 
 ```{r eval = FALSE}
-network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges, kinsub.edges,
-                                            gene.cccn.edges, db.filepaths = c())
+network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges,
+                                            kinsub.edges, gene.cccn.edges,
+                                            db.filepaths = c())
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 
@@ -195,7 +212,7 @@ If you want to save your data to a file, all data structures can either be expor
 save(object, filename = "filepath/name.rda") # Saves object as an .rda
 load("filepath/name.rda")                    # Loads object saved to a file
 
-# For multiple objects: Note that the objects are saved as an .RData rather than an .rda
+# For multiple objects: Note the objects are saved as an .RData rather than an .rda
 save(object1, object2, object.ect, filename="NewFile.RData")
 
 # One object as a csv
