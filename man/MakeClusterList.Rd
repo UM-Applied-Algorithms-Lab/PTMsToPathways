@@ -4,7 +4,13 @@
 \alias{MakeClusterList}
 \title{Build Clusters Based on PTM Data Under Like Conditions}
 \usage{
-MakeClusterList(ptmtable, keeplength = 2, toolong = 3.5)
+MakeClusterList(
+  ptmtable,
+  keeplength = 2,
+  toolong = 3.5,
+  tsne_perplexity = 15,
+  tsne_max_iter = 5000
+)
 }
 \arguments{
 \item{ptmtable}{A dataset for post-translational modifications. Formatted with row's names containing PTM names. The column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.}
@@ -12,6 +18,10 @@ MakeClusterList(ptmtable, keeplength = 2, toolong = 3.5)
 \item{keeplength}{Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2}
 
 \item{toolong}{A numeric threshold for cluster separation, defaults to 3.5.}
+
+\item{tsne_perplexity}{The perplexity parameter for Rtsne. Please read Rtsne documentation for more information.}
+
+\item{tsne_max_iter}{Number of iterations for Rtsne. Please read Rtsne documentation for more information.}
 }
 \value{
 A list with these data structures at the given index: \cr

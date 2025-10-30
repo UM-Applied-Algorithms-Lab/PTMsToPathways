@@ -1,22 +1,3 @@
-# Helper function for Rtsne since parameters are set
-#
-# This function is made to help people new to the Rtsne function understand parameters and organize code. All it does is call Rtsne with set parameters. If you understand R code, feel free to modify the parameters and resource the function.
-#
-# @param table The matrix that Rtsne needs to be performed on. It's called table because a lot of operations contain the word "matrix" so it was called something else to not be confusing.
-# @param iter Number of iterations, defaults 5000
-#
-# @return A matrix where each row has 3 dimensionial t-SNE coords for a given matrix.
-GetRtsne <- function(table, iter=5000){
-  if(!is.matrix(table)) table <- as.matrix(table) #Force parameter to be a matrix if it is not already
-
-  # Apply t-SNE to the distance matrix to reduce dimensions to 3 #
-  # Parameters: dims = 3 (3D output), perplexity = 15, theta = 0.25 (speed/accuracy trade-off) #
-  # max_iter = 5000 (number of iterations)
-  # check_duplicates = FALSE (treat rows as unique) #
-  # pca = FALSE (no initial PCA) #
-  return(Rtsne::Rtsne(table, dims = 3, perplexity = 15, theta = 0.25, max_iter = iter, check_duplicates = FALSE, pca = FALSE))
-}
-
 #' Build Clusters Based on PTM Data Under Like Conditions
 #'
 #' This function takes the post-translational modification table and runs it through three calculations of distance:
@@ -30,6 +11,8 @@ GetRtsne <- function(table, iter=5000){
 #' @param ptmtable A dataset for post-translational modifications. Formatted with row's names containing PTM names. The column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
 #' @param keeplength Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
+#' @param tsne_perplexity The perplexity parameter for Rtsne. Please read Rtsne documentation for more information.
+#' @param tsne_max_iter Number of iterations for Rtsne. Please read Rtsne documentation for more information.
 #' @return A list with these data structures at the given index: \cr
 #' \strong{1} (Consensus Clusters as a list): Clusters in all 3 distance metrices as a list.\cr
 #' \strong{2} (Consensus Clusters as an adjacent matrix) A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed. \cr
@@ -41,7 +24,7 @@ GetRtsne <- function(table, iter=5000){
 #' Example_Output[[1]][1:3] #Display data
 #' #Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.
 #' utils::head(Example_Output[[3]][, c(1,2,3,4,5)]) #Display data
-MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
+MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perplexity = 15, tsne_max_iter = 5000){
   start_time <- Sys.time()
   message("Starting correlation calculations and t-SNE.")
   message("This may take a few minutes or hours for large data sets.")
@@ -75,7 +58,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   message("Spearman correlation calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   # Run t-SNE #
-  tsne.results <- GetRtsne(sp.diss.matrix)
+  tsne.results <- Rtsne::Rtsne(sp.diss.matrix, dims = 3, perplexity = tsne_perplexity, theta = 0.25, max_iter = tsne_max_iter, check_duplicates = FALSE, pca = FALSE)
   spearman.coords <- tsne.results$Y
   message("Spearman t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
@@ -96,7 +79,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   message("Euclidean distance calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
   # Run t-SNE #
-  eu.ptms.tsne.list <- GetRtsne(eu.dist.calc)
+  eu.ptms.tsne.list <- Rtsne::Rtsne(eu.dist.calc, dims = 3, perplexity = tsne_perplexity, theta = 0.25, max_iter = tsne_max_iter, check_duplicates = FALSE, pca = FALSE)
   euclidean.coords <- eu.ptms.tsne.list$Y
   message("Euclidean t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
@@ -112,7 +95,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5){
   combined.distance <- (sp.diss.calc + eu.dist.calc) / 2
   message("Combined distance calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
   # Perform t-SNE on the combined distances #
-  tsne.result <- GetRtsne(combined.distance) #Call GetRtsne
+  tsne.result <- Rtsne::Rtsne(combined.distance, dims = 3, perplexity = tsne_perplexity, theta = 0.25, max_iter = tsne_max_iter, check_duplicates = FALSE, pca = FALSE)
   sed.coords <- tsne.result$Y
   message("SED t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
