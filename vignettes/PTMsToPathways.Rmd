@@ -129,7 +129,7 @@ gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
                                   # used to gather PPI data from external databases
 ptm.cccn.edges[18:22,]
 gene.cccn.edges[1:5,]
-gene.cccn.nodes[1:5,]
+gene.cccn.nodes[1:5]
 ```
 
 #### Estimated run-time
