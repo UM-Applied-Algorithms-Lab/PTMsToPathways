@@ -45,7 +45,7 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
 GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
-  nodenames <- data.frame(Gene.Names = unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])), stringsAsFactors = FALSE)
+  nodenames <- data.frame(Gene.Names = gene.cccn.nodes)
 
   if(!requireNamespace("STRINGdb", quietly = TRUE)){
     stop("In order to use this function, please download STRINGdb as described in the vignette, the readme, and the function documentation.")
