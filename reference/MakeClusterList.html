@@ -54,7 +54,13 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span><span class="va">ptmtable</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">MakeClusterList</span><span class="op">(</span></span>
+<span>  <span class="va">ptmtable</span>,</span>
+<span>  keeplength <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  toolong <span class="op">=</span> <span class="fl">3.5</span>,</span>
+<span>  tsne_perplexity <span class="op">=</span> <span class="fl">15</span>,</span>
+<span>  tsne_max_iter <span class="op">=</span> <span class="fl">5000</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -71,6 +77,14 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 
 <dt id="arg-toolong">toolong<a class="anchor" aria-label="anchor" href="#arg-toolong"></a></dt>
 <dd><p>A numeric threshold for cluster separation, defaults to 3.5.</p></dd>
+
+
+<dt id="arg-tsne-perplexity">tsne_perplexity<a class="anchor" aria-label="anchor" href="#arg-tsne-perplexity"></a></dt>
+<dd><p>The perplexity parameter for Rtsne. Please read Rtsne documentation for more information.</p></dd>
+
+
+<dt id="arg-tsne-max-iter">tsne_max_iter<a class="anchor" aria-label="anchor" href="#arg-tsne-max-iter"></a></dt>
+<dd><p>Number of iterations for Rtsne. Please read Rtsne documentation for more information.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -89,18 +103,18 @@ A correlation table is also produced based on the Spearman Correlation table.</p
 <span class="r-msg co"><span class="r-pr">#&gt;</span> This may take a few minutes or hours for large data sets.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Spearman correlation calculation complete after 0.28 secs total.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Spearman t-SNE calculation complete after 1.85 secs total.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Euclidean distance calculation complete after 1.85 secs total.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Euclidean t-SNE calculation complete after 3.49 secs total.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Combined distance calculation complete after 3.49 secs total.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> SED t-SNE calculation complete after 5.04 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Euclidean distance calculation complete after 1.86 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Euclidean t-SNE calculation complete after 3.5 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Combined distance calculation complete after 3.5 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> SED t-SNE calculation complete after 5.05 secs total.</span>
 <span class="r-plt img"><img src="MakeClusterList-1.png" alt="" width="700" height="433"></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Clustering for Euclidean complete after 5.95 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Clustering for Euclidean complete after 5.92 secs total.</span>
 <span class="r-plt img"><img src="MakeClusterList-2.png" alt="" width="700" height="433"></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Clustering for Spearman complete after 5.95 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Clustering for Spearman complete after 5.92 secs total.</span>
 <span class="r-plt img"><img src="MakeClusterList-3.png" alt="" width="700" height="433"></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Clustering for SED complete after 5.96 secs total.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> Consensus clustering complete after 6 secs total.</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> MakeClusterList complete after 6 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Clustering for SED complete after 5.92 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Consensus clustering complete after 5.96 secs total.</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> MakeClusterList complete after 5.97 secs total.</span>
 <span class="r-in"><span><span class="va">Example_Output</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="co">#Display data</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $ConsensusCluster1</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "RNPS1 p Y205"               "EML4 p Y453"               </span>

@@ -112,18 +112,49 @@ containing around 9000 PTMs and 69 experimental conditions. These
 datasets are available with the package as a variable or can be
 downloaded from our GitHub page <a href="https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways" class="external-link">PTMsToPathways</a>
 to the user’s working directory and imported.</p>
-<p>If you are using a smaller dataset, use the following code to read it
-in:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ex_small_ptm_table</span><span class="op">)</span></span>
-<span><span class="va">ex_small_ptm_table</span><span class="op">[</span><span class="fl">38</span><span class="op">:</span><span class="fl">50</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span></code></pre></div>
-<p>If you want to use the bigger dataset, use the following code:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">ex_full_ptm_table</span><span class="op">)</span></span></code></pre></div>
-<p>If you want to download the data and import the dataset use the
+<p>If you are using a smaller dataset, use the following code to view
+the dimensions of the dataset and a small portion of it:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">dim</span>(ex_small_ptm_table)</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>ex_small_ptm_table[<span class="dv">38</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">908</span>  <span class="dv">18</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>                            H3122SEPTM_pTyr.C1 H3122SEPTM_pTyr.C2</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> HNRNPA3 p S358                             <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> EPHB4 p S575                               <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> BCAR1 p S407                           <span class="dv">163730</span>             <span class="dv">159600</span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> MAGOH p S38; MAGOHB p S40             <span class="dv">1824100</span>                 <span class="cn">NA</span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> DYNLL1 p S64; DYNLL2 p S64                 <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PRKCD p S304                               <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PCDH1 p S1018                              <span class="cn">NA</span>             <span class="dv">563220</span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> AHNAK p S5832                              <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> AHNAK p S5841                              <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ARHGEF5 p S1139                            <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SRSF9 p S178                               <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> RIPK1 p S389                               <span class="cn">NA</span>                 <span class="cn">NA</span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> URB2 p S18                                 <span class="cn">NA</span>                 <span class="cn">NA</span></span></code></pre></div>
+<p>If you want to use the bigger dataset, the following code shows the
+dimensions and a snippet of the dataset:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">dim</span>(ex_full_ptm_table)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>ex_full_ptm_table[<span class="dv">38</span><span class="sc">:</span><span class="dv">50</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">9215</span>   <span class="dv">69</span></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>                                H3122SEPTM.C1 H3122SEPTM.C2</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCC4 ubi K540                      <span class="fl">20.03456</span>            <span class="cn">NA</span></span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCC4 ubi K622                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCC4 ubi K695                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCC4 ubi K77                             <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCC5 p Y10                               <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCD1 ubi K407; ABCD2 ubi K411            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCD3 ack K260                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCD3 ubi K260                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-13"><a href="#cb4-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCD3 ubi K576                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-14"><a href="#cb4-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCE1 ubi K121                      <span class="fl">17.62671</span>      <span class="fl">17.65533</span></span>
+<span id="cb4-15"><a href="#cb4-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCE1 ubi K210                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-16"><a href="#cb4-16" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCE1 ubi K250                            <span class="cn">NA</span>            <span class="cn">NA</span></span>
+<span id="cb4-17"><a href="#cb4-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ABCE1 ubi K93                             <span class="cn">NA</span>            <span class="cn">NA</span></span></code></pre></div>
+<p>If you want to download the data and then import the dataset use the
 following code:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">allptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"AlldataPTMs.txt"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<code class="sourceCode R"><span><span class="co"># TO DO FIX THIS!!!!!</span></span>
+<span><span class="va">allptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"AlldataPTMs.txt"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                          blank.lines.skip <span class="op">=</span> <span class="cn">T</span>, fill <span class="op">=</span> <span class="cn">T</span>, quote <span class="op">=</span> <span class="st">"\""</span>, dec <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>                          comment.char <span class="op">=</span> <span class="st">""</span>, stringsAsFactors <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -154,15 +185,64 @@ The returned <em>adj.consensus</em> (which identifies which PTMs cluster
 together with a ‘short distance’ between them) and
 <em>ptm.correlation.matrix</em> are also used in the next step to create
 co-cluster correlation networks (CCCNs).</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Set seed to obtain repeatable t-SNE graphs</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">88</span><span class="op">)</span></span>
-<span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ex_small_ptm_table</span>, keeplength <span class="op">=</span> <span class="fl">2</span>, toolong <span class="op">=</span> <span class="fl">3.5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># The following code unpacks the output into separate objects:</span></span>
-<span><span class="va">common.clusters</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">adj.consensus</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">ptm.correlation.matrix</span> <span class="op">&lt;-</span> <span class="va">clusterlist.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Set seed to obtain repeatable t-SNE graphs</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">88</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table, <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.47</span> secs total.</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.56</span> secs total.</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.6</span> secs total.</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.6</span> mins total.</span></code></pre></div>
+<p><img src="plots/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.62 mins total.</code></pre>
+<p><img src="plots/unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.62 mins total.</code></pre>
+<p><img src="plots/unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.62 mins total.
+&gt;&gt; Consensus clustering complete after 1.63 mins total.
+&gt;&gt; MakeClusterList complete after 1.63 mins total.
+
+# The following code unpacks the output into separate objects:
+common.clusters &lt;- clusterlist.data[[1]]
+adj.consensus &lt;- clusterlist.data[[2]]
+ptm.correlation.matrix &lt;- clusterlist.data[[3]]
+
+# Now we can view the objects:
+print("This is an example of a cluster:")
+common.clusters[1]
+print("This is a piece of the adj.consensus table; Ones represent a pair that cluster and zeroes represent a pair that doesn't:")
+adj.consensus[1:5, 1:2]
+print("This is part of the ptm.correlation.matrix:")
+ptm.correlation.matrix[38:43, 1:2]
+&gt;&gt; [1] "This is an example of a cluster:"
+&gt;&gt; $ConsensusCluster1
+&gt;&gt; [1] "KRT7 p S37"                              
+&gt;&gt; [2] "CALM3 p Y100; CALM2 p Y100; CALM1 p Y100"
+&gt;&gt; [3] "ERP29 p Y66"                             
+&gt;&gt; [4] "MYH9 p Y1408"                            
+&gt;&gt; [5] "PTK2 p Y925"                             
+&gt;&gt; [6] "TNK2 p Y827"                             
+&gt;&gt; [7] "ITSN2 p Y553"                            
+&gt;&gt; [8] "PRRC2C p Y1218"                          
+&gt;&gt; 
+&gt;&gt; [1] "This is a piece of the adj.consensus table; Ones represent a pair that cluster and zeroes represent a pair that doesn't:"
+&gt;&gt;               KRT7 p S37 KRT7 p S38
+&gt;&gt; KRT7 p S37             0          0
+&gt;&gt; KRT7 p S38             0          0
+&gt;&gt; INPPL1 p S890          0          0
+&gt;&gt; KDM6A p S388           0          0
+&gt;&gt; DIAPH1 p S373          0          0
+&gt;&gt; [1] "This is part of the ptm.correlation.matrix:"
+&gt;&gt;                            KRT7 p S37 KRT7 p S38
+&gt;&gt; HNRNPA3 p S358                     NA         NA
+&gt;&gt; EPHB4 p S575                       NA         NA
+&gt;&gt; BCAR1 p S407                0.5868132        0.5
+&gt;&gt; MAGOH p S38; MAGOHB p S40   1.0000000         NA
+&gt;&gt; DYNLL1 p S64; DYNLL2 p S64 -0.8000000         NA
+&gt;&gt; PRKCD p S304                0.8571429         NA</code></pre>
 <p><strong>Note:</strong> t-SNE involves an element of randomness due to
 pseudorandom initialization or stochastic processes within the
 algorithm; in order to get the same results on multiple executions,
@@ -194,12 +274,34 @@ this function can be saved as an RData object.</p>
 object gene.cccn.g. This object can be used later to plot, extract edge
 lists or adjacency matrices, and accomplish many other functions
 available from the igraph package.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">CCCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeCorrelationNetwork.html">MakeCorrelationNetwork</a></span><span class="op">(</span><span class="va">adj.consensus</span>, <span class="va">ptm.correlation.matrix</span><span class="op">)</span></span>
-<span><span class="va">ptm.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>  <span class="co"># PTM CCCN edge list</span></span>
-<span><span class="va">gene.cccn.edges</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span> <span class="co"># Gene CCCN edge list</span></span>
-<span><span class="va">gene.cccn.nodes</span> <span class="op">&lt;-</span> <span class="va">CCCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span> <span class="co"># List of nodes in the CCCN</span></span>
-<span>                                  <span class="co"># used to gather PPI data from external databases</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus, ptm.correlation.matrix)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]  <span class="co"># PTM CCCN edge list</span></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]] <span class="co"># Gene CCCN edge list</span></span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]] <span class="co"># List of nodes in the CCCN</span></span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>                                  <span class="co"># used to gather PPI data from external databases</span></span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>ptm.cccn.edges[<span class="dv">18</span><span class="sc">:</span><span class="dv">22</span>,]</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>gene.cccn.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>gene.cccn.nodes[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PTM CCCN"</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-10-31 01:07:35 UTC"</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.0393147468566895</span></span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making Gene CCCN"</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-10-31 01:07:35 UTC"</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-10-31 01:07:37 UTC"</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">1.81975626945496</span></span>
+<span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>           source        target     Weight          interaction</span>
+<span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">18</span> EIF2B1 p S131   PKP4 p S273 <span class="sc">-</span><span class="fl">0.6833333</span> negative correlation</span>
+<span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">19</span>   LDHB p S238   EML4 p S242 <span class="sc">-</span><span class="fl">1.0000000</span> negative correlation</span>
+<span id="cb10-19"><a href="#cb10-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">20</span> S100A16 p S27   EML4 p S242 <span class="sc">-</span><span class="fl">0.5000000</span> negative correlation</span>
+<span id="cb10-20"><a href="#cb10-20" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">21</span>     PXN p S90 S100A14 p S33 <span class="sc">-</span><span class="fl">0.3571429</span>          correlation</span>
+<span id="cb10-21"><a href="#cb10-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">22</span>    URB2 p S18 SHANK2 p S589  <span class="fl">0.5428571</span> positive correlation</span>
+<span id="cb10-22"><a href="#cb10-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   source target     Weight          interaction</span>
+<span id="cb10-23"><a href="#cb10-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span> ADGRL2  ALDOA <span class="sc">-</span><span class="fl">0.4535714</span>          correlation</span>
+<span id="cb10-24"><a href="#cb10-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>   ACP1    ALK  <span class="fl">0.6000000</span> positive correlation</span>
+<span id="cb10-25"><a href="#cb10-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>  AHNAK   ANO1  <span class="fl">1.5428571</span> positive correlation</span>
+<span id="cb10-26"><a href="#cb10-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>   ACP1  ANXA2 <span class="sc">-</span><span class="fl">0.2571429</span>          correlation</span>
+<span id="cb10-27"><a href="#cb10-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span> ADAM10  ANXA2  <span class="fl">0.1702786</span>          correlation</span>
+<span id="cb10-28"><a href="#cb10-28" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"ADGRL2"</span> <span class="st">"ACP1"</span>   <span class="st">"AHNAK"</span>  <span class="st">"ADAM10"</span> <span class="st">"ALDOA"</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="estimated-run-time-1">Estimated run-time<a class="anchor" aria-label="anchor" href="#estimated-run-time-1"></a>
 </h5>
@@ -227,8 +329,14 @@ function. Its output is then filtered by interaction type so only
 experimental, database, and experimental_transferred and
 database_transferred are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">stringdb.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetSTRINGdb.html">GetSTRINGdb</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>stringdb.edges <span class="ot">&lt;-</span> <span class="fu">GetSTRINGdb</span>(gene.cccn.edges, gene.cccn.nodes)</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>stringdb.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning<span class="sc">:</span>  we couldn<span class="st">'t map to STRING 0% of your identifiers   source target              interaction Weight</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="st">&gt;&gt; 21 MAPK13 MAPK12                 database   1128</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="st">&gt;&gt; 31 MAPK12  MAPK1                 database   1182</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="st">&gt;&gt; 35 GPRC5A   MYH9             experimental    164</span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="st">&gt;&gt; 41   MISP   MYH9             experimental    148</span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="st">&gt;&gt; 71   MYH9 PIK3R2 experimental_transferred    216</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="genemania">2. GeneMANIA<a class="anchor" aria-label="anchor" href="#genemania"></a>
@@ -241,12 +349,13 @@ installing the <a href="https://apps.cytoscape.org/apps/genemania" class="extern
 extension</a>. The MakeDBInput function allows us to automatically
 generate an input file that can be copy and pasted into the query box in
 GeneMANIA from within the Cytoscape app.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn.nodes</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
 <p>The ProcessGMEdgefile function then processes the output files
 produced by GeneMANIA itself.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>, <span class="va">db_nodes.path</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ProcessGMEdgefile.html">ProcessGMEdgefile</a></span><span class="op">(</span><span class="va">gm.edgefile.path</span>, <span class="va">gm.nodetable.path</span>,</span>
+<span>                                     <span class="va">db_nodes.path</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="phosphosite-plus">3. Phosphosite Plus<a class="anchor" aria-label="anchor" href="#phosphosite-plus"></a>
@@ -256,8 +365,9 @@ database. The users will be required to create an account and sign in to
 download the data. The format.kinsub.table function reads this
 downloaded data in and formats it so that all the PPI edge data frames
 are in the same format for the next step.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span> <span class="st">"Kinase_Substrate_Dataset.txt"</span>,</span>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span></span>
+<span>                                      <span class="st">"Kinase_Substrate_Dataset.txt"</span>,</span>
 <span>                                    <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -275,9 +385,10 @@ desired edge weights. It then normalizes the weights on a scale of 0-1
 and gives an output cluster filter network that will only retain
 interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>, <span class="va">kinsub.edges</span>,</span>
-<span>                                            <span class="va">gene.cccn.edges</span>, db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">stringdb.edges</span>, <span class="va">genemania.edges</span>,</span>
+<span>                                            <span class="va">kinsub.edges</span>, <span class="va">gene.cccn.edges</span>,</span>
+<span>                                            db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
 <span></span>
@@ -306,7 +417,7 @@ be found <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/jour
 For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/PathwayCrosstalkNetwork.html">PathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, bioplanet.file <span class="op">=</span> <span class="st">"pathway.csv"</span>,</span>
 <span>                                    createfile <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">getwd</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
@@ -320,12 +431,12 @@ pathway.crosstalk.network.</p>
 <p>If you want to save your data to a file, all data structures can
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># For one object</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as an .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span>
 <span></span>
-<span><span class="co"># For multiple objects: Note that the objects are saved as an .RData rather than an .rda</span></span>
+<span><span class="co"># For multiple objects: Note the objects are saved as an .RData rather than an .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object1</span>, <span class="va">object2</span>, <span class="va">object.ect</span>, filename<span class="op">=</span><span class="st">"NewFile.RData"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># One object as a csv</span></span>
@@ -333,7 +444,7 @@ csv file with the write.csv function.</p>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span> <span class="co"># All objects in the environment are saved</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
