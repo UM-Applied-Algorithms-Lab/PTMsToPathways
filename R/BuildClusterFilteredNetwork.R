@@ -21,7 +21,7 @@
 #' utils::head(Example_Output)
 
 BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.edges, gene.cccn.edges, db.filepaths = c(), stringdb=TRUE, genemania=TRUE, kinsub=TRUE) {
-  # Give users the option of opting out of all three designated PPI datasets
+  # Give users the option of opting out of one, two, but not three designated PPI datasets
   if (stringdb == FALSE) {stringdb.edges = NULL}
   if (genemania == FALSE) {genemania.edges = NULL}
   if (kinsub == FALSE) {kinsub.edges = NULL}
