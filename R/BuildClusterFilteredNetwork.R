@@ -32,6 +32,7 @@ BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.
   if (genemania == TRUE) {
     genemania.edges$Weight <- 100 * genemania.edges$Weight / max(genemania.edges$Weight, na.rm = TRUE) } #  this returns a range of 0 to 100
   # Note: if additional PPI data is desired, duplicate the normalization of Weights above and add the additional edge file(s) here (and in the function header)
+  # Check that all edge data objects are not NULL
   if (is.null (c(stringdb.edges, genemania.edges, kinsub.edges))) {
     print("Warning: no PPI edges found to create cluster filtered network!")}# Now combine
   # Combine gathered PPI edges into one data frame
