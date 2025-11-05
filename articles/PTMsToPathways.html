@@ -190,20 +190,20 @@ co-cluster correlation networks (CCCNs).</p>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table, <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
 <span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.64</span> secs total.</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.5</span> secs total.</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.54</span> secs total.</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
-<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.6</span> mins total.</span></code></pre></div>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.6</span> secs total.</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.16</span> secs total.</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.2</span> secs total.</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.14</span> mins total.</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.14</span> mins total.</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.59</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-6-1.png" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.61 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.6 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-6-2.png" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.62 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.6 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-6-3.png" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.62 mins total.
-&gt;&gt; Consensus clustering complete after 1.62 mins total.
-&gt;&gt; MakeClusterList complete after 1.62 mins total.
+<pre><code>&gt;&gt; Clustering for SED complete after 1.61 mins total.
+&gt;&gt; Consensus clustering complete after 1.61 mins total.
+&gt;&gt; MakeClusterList complete after 1.61 mins total.
 
 # The following code unpacks the output into separate objects:
 common.clusters &lt;- clusterlist.data[[1]]
@@ -283,12 +283,12 @@ available from the igraph package.</p>
 <span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>gene.cccn.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
 <span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>gene.cccn.nodes[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
 <span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PTM CCCN"</span></span>
-<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-05 18:06:08 UTC"</span></span>
-<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.0402710437774658</span></span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-05 20:14:23 UTC"</span></span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.0374324321746826</span></span>
 <span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making Gene CCCN"</span></span>
-<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-05 18:06:08 UTC"</span></span>
-<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-05 18:06:10 UTC"</span></span>
-<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">1.82490611076355</span></span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-05 20:14:23 UTC"</span></span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-05 20:14:25 UTC"</span></span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">1.85263609886169</span></span>
 <span id="cb10-16"><a href="#cb10-16" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>           source        target     Weight          interaction</span>
 <span id="cb10-17"><a href="#cb10-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">18</span> EIF2B1 p S131   PKP4 p S273 <span class="sc">-</span><span class="fl">0.6833333</span> negative correlation</span>
 <span id="cb10-18"><a href="#cb10-18" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">19</span>   LDHB p S238   EML4 p S242 <span class="sc">-</span><span class="fl">1.0000000</span> negative correlation</span>

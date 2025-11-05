@@ -52,11 +52,11 @@ This new, cluster filtered network is then assigned to the global namespace.</p>
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">BuildClusterFilteredNetwork</span><span class="op">(</span></span>
-<span>  <span class="va">stringdb.edges</span>,</span>
-<span>  <span class="va">genemania.edges</span>,</span>
-<span>  <span class="va">kinsub.edges</span>,</span>
 <span>  <span class="va">gene.cccn.edges</span>,</span>
-<span>  db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span></span>
+<span>  stringdb.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  genemania.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  kinsub.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NULL</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -64,7 +64,11 @@ This new, cluster filtered network is then assigned to the global namespace.</p>
     <h2 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h2>
 
 
-<dl><dt id="arg-stringdb-edges">stringdb.edges<a class="anchor" aria-label="anchor" href="#arg-stringdb-edges"></a></dt>
+<dl><dt id="arg-gene-cccn-edges">gene.cccn.edges<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-edges"></a></dt>
+<dd><p>TODO</p></dd>
+
+
+<dt id="arg-stringdb-edges">stringdb.edges<a class="anchor" aria-label="anchor" href="#arg-stringdb-edges"></a></dt>
 <dd><p>Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database</p></dd>
 
 
@@ -73,10 +77,6 @@ This new, cluster filtered network is then assigned to the global namespace.</p>
 
 
 <dt id="arg-kinsub-edges">kinsub.edges<a class="anchor" aria-label="anchor" href="#arg-kinsub-edges"></a></dt>
-<dd><p>TODO</p></dd>
-
-
-<dt id="arg-gene-cccn-edges">gene.cccn.edges<a class="anchor" aria-label="anchor" href="#arg-gene-cccn-edges"></a></dt>
 <dd><p>TODO</p></dd>
 
 
@@ -93,7 +93,7 @@ This new, cluster filtered network is then assigned to the global namespace.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">BuildClusterFilteredNetwork</span><span class="op">(</span><span class="va">ex.stringdb.edges</span>, <span class="va">ex.gm.edges</span>, <span class="st">"need example"</span>, <span class="st">"need example"</span>, <span class="st">"need example"</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">BuildClusterFilteredNetwork</span><span class="op">(</span><span class="st">"need example"</span>, <span class="va">ex.stringdb.edges</span>, <span class="va">ex.gm.edges</span>, <span class="st">"need example"</span>, <span class="st">"need example"</span><span class="op">)</span></span></span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>no non-missing arguments to max; returning -Inf</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in `$&lt;-.data.frame`(`*tmp*`, "Weight", value = numeric(0)):</span> replacement has 0 rows, data has 241</span>
 <span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Example_Output</span><span class="op">)</span></span></span>
