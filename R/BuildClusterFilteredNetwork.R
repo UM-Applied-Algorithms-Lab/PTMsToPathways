@@ -32,10 +32,11 @@ BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.
   if (genemania == TRUE) {
     genemania.edges$Weight <- 100 * genemania.edges$Weight / max(genemania.edges$Weight, na.rm = TRUE) } #  this returns a range of 0 to 100
   # Note: if additional PPI data is desired, duplicate the normalization of Weights above and add the additional edge file(s) here (and in the function header)
-  # Now combine
+  if (is.null (c(stringdb.edges, genemania.edges, kinsub.edges))) {
+    print("Warning: no PPI edges found to create cluster filtered network!")}# Now combine
+  # Combine gathered PPI edges into one data frame
   combined.PPIs <- rbind(stringdb.edges, genemania.edges, kinsub.edges)
-  if (is.null (dim (combined.PPIs))) {
-    print("Warning: no PPI edges found to create cluster filtered network!")}
+  # Check that this found all the data objects
   if (!exists(combined.PPIs)) {
     print("Warning: no PPI edges found to create cluster filtered network!")}
   cfn1 <- merge(gene.cccn.edges[,c("source", "target")], combined.PPIs, by=c("source", "target"))
