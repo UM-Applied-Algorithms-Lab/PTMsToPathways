@@ -5,21 +5,21 @@
 \title{Build PPI Network}
 \usage{
 BuildClusterFilteredNetwork(
-  stringdb.edges,
-  genemania.edges,
-  kinsub.edges,
   gene.cccn.edges,
-  db.filepaths = c()
+  stringdb.edges = NULL,
+  genemania.edges = NULL,
+  kinsub.edges = NULL,
+  db.filepaths = c(NULL)
 )
 }
 \arguments{
+\item{gene.cccn.edges}{TODO}
+
 \item{stringdb.edges}{Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database}
 
 \item{genemania.edges}{GeneMANIA network of protein-protein interactions from the genes of study; defaults to NA}
 
 \item{kinsub.edges}{TODO}
-
-\item{gene.cccn.edges}{TODO}
 
 \item{db.filepaths}{A vector of paths to the additional ppi network files; defaults to an empty vector}
 }
@@ -35,6 +35,6 @@ If either of these conditions are not met, then it will be removed from the list
 This new, cluster filtered network is then assigned to the global namespace.
 }
 \examples{
-Example_Output <- BuildClusterFilteredNetwork(ex.stringdb.edges, ex.gm.edges, "need example", "need example", "need example")
+Example_Output <- BuildClusterFilteredNetwork("need example", ex.stringdb.edges, ex.gm.edges, "need example", "need example")
 utils::head(Example_Output)
 }
