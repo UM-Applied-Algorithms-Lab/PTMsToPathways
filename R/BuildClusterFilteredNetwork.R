@@ -36,6 +36,8 @@ BuildClusterFilteredNetwork <- function(stringdb.edges, genemania.edges, kinsub.
   combined.PPIs <- rbind(stringdb.edges, genemania.edges, kinsub.edges)
   if (is.null (dim (combined.PPIs))) {
     print("Warning: no PPI edges found to create cluster filtered network!")}
+  if (!exists(combined.PPIs))) {
+    print("Warning: no PPI edges found to create cluster filtered network!")}
   cfn1 <- merge(gene.cccn.edges[,c("source", "target")], combined.PPIs, by=c("source", "target"))
   # Undirected edges may be reversed in their order so merge the other way around.
   reversed <- combined.PPIs
