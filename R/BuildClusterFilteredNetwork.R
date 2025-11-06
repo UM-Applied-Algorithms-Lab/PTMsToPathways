@@ -39,8 +39,7 @@ BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, 
     for(path in db.filepaths){
       db.edges <- utils::read.table(path)
       if(colnames(db.edges) != c("source", "target", "interaction", "Weight")){                        # Ensure the column names are the same
-        print("WARNING: incorrect column names in the file " + path + ". This file has been skipped.") # Give warning + skip if not
-        print("Ensure the column names are as follows: source, target, interaction, Weight")
+        stop("WARNING: incorrect column names in the file " + path + ". Ensure the column names are as follows: source, target, interaction, Weight")
       } else {
         db.edges$Weight <- 100 * db.edges$Weight / max(db.edges$Weight, na.rm = TRUE)                  # return a range of 0 to 100
         combined.PPIs <- rbind(combined.PPIs, db.edges)                                                # add it to combined.PPIs
