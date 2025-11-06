@@ -144,7 +144,7 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong 
 
 The following code unpacks the output into separate objects:
 
-````{r eval = TRUE}
+```{r eval = TRUE}
 common.clusters <- clusterlist.data[[1]]
 adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
@@ -152,7 +152,7 @@ ptm.correlation.matrix <- clusterlist.data[[3]]
 
 Now we can view the objects:
 
-````{r eval = TRUE}
+```{r eval = TRUE}
 print("This is an example of a cluster:")
 common.clusters[1]
 print("This is a piece of the adj.consensus table; Ones represent a pair that cluster and zeroes represent a pair that doesn't:")
