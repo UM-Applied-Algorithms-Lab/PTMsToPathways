@@ -16,7 +16,7 @@ MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 \value{
 A list containing the following data structures at the given index: \cr
 \strong{1} The PTM CoCluster Correlation Network as an edgelist  \cr
-\strong{2} The Gene CoCluster Correlation Network as an edgelist
+\strong{2} The Gene CoCluster Correlation Network as an edgelist \cr
 \strong{3} A list of nodes that are in the Gene CoCluster Correlation Network \cr
 }
 \description{
