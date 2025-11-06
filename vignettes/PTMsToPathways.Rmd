@@ -89,18 +89,24 @@ The MS data needs to be transformed into a data frame with PTMs as row names, ex
 ## Step 1: Make Cluster List
 
 MakeClusterList is the first step in the P2P process. This function takes the dataframe PTM table and runs it through three calculations of statistical measures of distance: Euclidean Distance, Spearman Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean Distance). Combining the two dissimilarities leads to better resolution of the data and is useful in pattern recognition. A correlation table -- *ptm.correlation.matrix* -- is generated based on the distances calculated for each pair of PTMs. The function then runs the matrices through t-SNE to generate clusters based on the previously calculated distance and provides you with a cluster list, *common.clusters*. The returned *adj.consensus* (which identifies which PTMs cluster together with a 'short distance' between them) and *ptm.correlation.matrix* are also used in the next step to create co-cluster correlation networks (CCCNs).
+Notice that we set a seed for reproducibility, since t-SNE includes stochastic elements.
 
 ```{r eval = TRUE}
-# Set seed to obtain repeatable t-SNE graphs
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
+```
 
-# The following code unpacks the output into separate objects:
+The following code unpacks the output into separate objects:
+
+````{r eval = TRUE}
 common.clusters <- clusterlist.data[[1]]
 adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
+```
 
-# Now we can view the objects:
+Now we can view the objects:
+
+````{r eval = TRUE}
 print("This is an example of a cluster:")
 common.clusters[1]
 print("This is a piece of the adj.consensus table; Ones represent a pair that cluster and zeroes represent a pair that doesn't:")
@@ -108,8 +114,6 @@ adj.consensus[1:5, 1:2]
 print("This is part of the ptm.correlation.matrix:")
 ptm.correlation.matrix[38:43, 1:2]
 ```
-
-**Note:** t-SNE involves an element of randomness due to pseudorandom initialization or stochastic processes within the algorithm; in order to get the same results on multiple executions, set.seed(\#) must be called (\# = any integer of choice). The variable *toolong* manipulates the size of the cluster and is set at 3.5. This is recommended as a good starting point for t-SNE but can be changed as per the researcher’s discretion. This function may take upwards of an hour to run, so it is recommended that the output is saved as an RData object which can then be imported.
 
 #### Estimated run-time
 
