@@ -50,9 +50,7 @@ BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, 
 
   # Check that all edge data objects are not NULL
   if(is.null(combined.PPIs)){
-    print("WARNING: no PPI edges found to create cluster filtered network!")
-    print("Returning the gene.cccn.edges")
-    return(gene.cccn.edges)
+    stop("WARNING: no PPI edges found to create cluster filtered network!")
     }
 
   cfn1 <- merge(gene.cccn.edges[,c("source", "target")], combined.PPIs, by=c("source", "target"))
