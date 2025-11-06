@@ -73,7 +73,7 @@ dim(ex_full_ptm_table)
 ex_full_ptm_table[38:50, 1:2]
 ```
 
-If you want to download the data and then import the dataset use the following code:
+If you want to download the [data](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/blob/main/inst/extdata/AlldataPTMs.txt) and then import the dataset use the following code:
 
 ```{r eval=FALSE}
 # TO DO FIX THIS!!!!!
