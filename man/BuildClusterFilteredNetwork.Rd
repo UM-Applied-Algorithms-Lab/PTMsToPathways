@@ -24,9 +24,10 @@ BuildClusterFilteredNetwork(
 \item{db.filepaths}{A vector of paths to the additional ppi network files; defaults to an empty vector}
 }
 \value{
-A list containing the following data structures at the given index: \cr
-\strong{1} All the database data.frames stringdb, genemania, and kinsub bound together in a data.frame \cr
-\strong{2} A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights
+A list containing the following data structures at the given index: \enumerate{
+\item{All the database data.frames stringdb, genemania, and kinsub bound together in a data frame.}
+\item{A version of ppi.network with only the edges that exist in gene.cccn and have non-zero weights.}
+}
 }
 \description{
 Uses all inputted database information on protein-protein interactions in order to create a combined PPI-network.
