@@ -2,10 +2,28 @@ url: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
 template:
   bootstrap: 5
 
+navbar:
+  structure:
+    left:
+      - reference
+      - articles
+    right:
+      - search
+  components:
+    articles:
+      text: "Vignettes"
+      menu:
+        - text: "PTMs To Pathways"
+          href: articles/PTMsToPathways.html
+        - text: "Raw Data Processing"
+          href: articles/RawDataProcessing.html
+        - text: "Cytoscape Graphing"
+          href: articles/Cytoscape_Graphing.html
+
 articles:
 - title: Articles
   navbar: ~
   contents:
-  - RawDataProcessing
   - PTMsToPathways
+  - RawDataProcessing
   - Cytoscape_Graphing
