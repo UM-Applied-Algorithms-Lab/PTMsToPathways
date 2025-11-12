@@ -6,10 +6,11 @@
 #' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @param PCN.edgelist.name The name of the file to be created if createfile is not FALSE.
-#' @return An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score \cr
-#' \strong{1} (pathway.crosstalk.network) Contains pathway source-target columns, along with the interaction type. \cr
-#' \strong{2} (PCNedgelist) Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score \cr
-#' \strong{3} (pathways.list) All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.
+#' @return A list with these data structures at the given index: \enumerate{
+#' \item{Contains pathway source-target columns, along with the interaction type.}
+#' \item{Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score.}
+#' \item{All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.}
+#' }
 #' @export
 #'
 #' @examples

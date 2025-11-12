@@ -14,10 +14,12 @@ MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 \item{common.clusters}{A list of clusters. Ideally the ones found by MakeClusterList in common_clusters}
 }
 \value{
-A list containing the following data structures at the given index: \cr
-\strong{1} The PTM CoCluster Correlation Network as an edgelist  \cr
-\strong{2} The Gene CoCluster Correlation Network as an edgelist
-\strong{3} A list of nodes that are in the Gene CoCluster Correlation Network \cr
+A list containing the following data structures at the given index:
+\enumerate{
+\item{The PTM CoCluster Correlation Network as an edgelist.}
+\item{The Gene CoCluster Correlation Network as an edgelist.}
+\item{A list of nodes that are in the Gene CoCluster Correlation Network.}
+}
 }
 \description{
 Make Correlation Network filters a correlation matrix of PTMs by specific PTMs.

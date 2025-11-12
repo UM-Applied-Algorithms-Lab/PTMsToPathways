@@ -13,10 +13,13 @@
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
 #' @param tsne_perplexity The perplexity parameter for Rtsne. Please read Rtsne documentation for more information.
 #' @param tsne_max_iter Number of iterations for Rtsne. Please read Rtsne documentation for more information.
-#' @return A list with these data structures at the given index: \cr
-#' \strong{1} (Consensus Clusters as a list): Clusters in all 3 distance metrices as a list.\cr
-#' \strong{2} (Consensus Clusters as an adjacent matrix) A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed. \cr
-#' \strong{3} (PTM Correlation Matrix) A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal.
+#' @return A list with these data structures at the given index:
+#' \enumerate{
+#' \item{Clusters in all 3 distance metrices as a list.}
+#' \item{A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.}
+#' \item{A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal.}
+#' }
+#'
 #' @export
 #'
 #' @examples

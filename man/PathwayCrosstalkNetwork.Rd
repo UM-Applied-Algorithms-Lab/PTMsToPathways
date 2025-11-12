@@ -21,10 +21,11 @@ PathwayCrosstalkNetwork(
 \item{PCN.edgelist.name}{The name of the file to be created if createfile is not FALSE.}
 }
 \value{
-An edgelist file that is created in the working directory. Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
-\strong{1} (pathway.crosstalk.network) Contains pathway source-target columns, along with the interaction type.
-\strong{2} (PCNedgelist) Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score
-\strong{3} (pathways.list) All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.
+A list with these data structures at the given index: \enumerate{
+\item{Contains pathway source-target columns, along with the interaction type.}
+\item{Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score.}
+\item{All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.}
+}
 }
 \description{
 Converts Bioplanet pathways from (\url{https://tripod.nih.gov/bioplanet/})  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.

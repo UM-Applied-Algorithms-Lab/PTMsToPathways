@@ -7,10 +7,12 @@
 #' @param common.clusters A list of clusters. Ideally the ones found by MakeClusterList in common_clusters
 #' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
 #' @param adj.consensus Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings
-#' @return A list containing the following data structures at the given index: \cr
-#' \strong{1} The PTM CoCluster Correlation Network as an edgelist  \cr
-#' \strong{2} The Gene CoCluster Correlation Network as an edgelist \cr
-#' \strong{3} A list of nodes that are in the Gene CoCluster Correlation Network \cr
+#' @return A list containing the following data structures at the given index:
+#' \enumerate{
+#' \item{The PTM CoCluster Correlation Network as an edgelist.}
+#' \item{The Gene CoCluster Correlation Network as an edgelist.}
+#' \item{A list of nodes that are in the Gene CoCluster Correlation Network.}
+#' }
 #' @export
 #'
 #' @examples
