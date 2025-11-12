@@ -135,27 +135,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.6 secs total.
->> Spearman t-SNE calculation complete after 42.84 secs total.
->> Euclidean distance calculation complete after 42.88 secs total.
->> Euclidean t-SNE calculation complete after 1.16 mins total.
->> Combined distance calculation complete after 1.16 mins total.
->> SED t-SNE calculation complete after 1.61 mins total.
+>> Spearman correlation calculation complete after 13.24 secs total.
+>> Spearman t-SNE calculation complete after 42 secs total.
+>> Euclidean distance calculation complete after 42.04 secs total.
+>> Euclidean t-SNE calculation complete after 1.14 mins total.
+>> Combined distance calculation complete after 1.14 mins total.
+>> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
 ![](plots/unnamed-chunk-6-1.png)
 
-    >> Clustering for Euclidean complete after 1.62 mins total.
+    >> Clustering for Euclidean complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-6-2.png)
 
-    >> Clustering for Spearman complete after 1.63 mins total.
+    >> Clustering for Spearman complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-6-3.png)
 
-    >> Clustering for SED complete after 1.63 mins total.
-    >> Consensus clustering complete after 1.63 mins total.
-    >> MakeClusterList complete after 1.63 mins total.
+    >> Clustering for SED complete after 1.61 mins total.
+    >> Consensus clustering complete after 1.62 mins total.
+    >> MakeClusterList complete after 1.62 mins total.
 
 The following code unpacks the output into separate objects:
 
@@ -237,12 +237,12 @@ ptm.cccn.edges[18:22,]
 gene.cccn.edges[1:5,]
 gene.cccn.nodes[1:5]
 >> [1] "Making PTM CCCN"
->> [1] "2025-11-12 04:20:31 UTC"
->> [1] Total time: 0.0383641719818115
+>> [1] "2025-11-12 05:37:16 UTC"
+>> [1] Total time: 0.0381147861480713
 >> [1] "Making Gene CCCN"
->> [1] "2025-11-12 04:20:31 UTC"
->> [1] "2025-11-12 04:20:33 UTC"
->> [1] Total time: 1.79358959197998
+>> [1] "2025-11-12 05:37:16 UTC"
+>> [1] "2025-11-12 05:37:18 UTC"
+>> [1] Total time: 1.79593324661255
 >>           source        target     Weight          interaction
 >> 18 EIF2B1 p S131   PKP4 p S273 -0.6833333 negative correlation
 >> 19   LDHB p S238   EML4 p S242 -1.0000000 negative correlation
