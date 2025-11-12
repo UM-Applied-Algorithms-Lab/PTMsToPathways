@@ -150,14 +150,21 @@ adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
-Now we can view the objects:
+Now we can view the objects. First, here is an example of a cluster"
 
 ```{r eval = TRUE}
-print("This is an example of a cluster:")
 common.clusters[1]
-print("This is a piece of the adj.consensus table; Ones represent a pair that cluster and zeroes represent a pair that doesn't:")
+```
+
+Next, we look at a piece of the `adj.consensus` table. Ones represent a pair that cluster and zeroes represent a pair that doesn't:
+
+```{r eval = TRUE}
 adj.consensus[1:5, 1:2]
-print("This is part of the ptm.correlation.matrix:")
+```
+
+Here is a part of the `ptm.correlation.matrix`.
+
+```{r eval = TRUE}
 ptm.correlation.matrix[38:43, 1:2]
 ```
 
