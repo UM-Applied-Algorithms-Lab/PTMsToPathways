@@ -189,18 +189,18 @@ co-cluster correlation networks (CCCNs).</p>
 <span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table, <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
 <span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
 <span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.18</span> secs total.</span>
-<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.82</span> secs total.</span>
-<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.86</span> secs total.</span>
-<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.14</span> mins total.</span>
-<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.14</span> mins total.</span>
-<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.59</span> mins total.</span></code></pre></div>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.33</span> secs total.</span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.1</span> secs total.</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.14</span> secs total.</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.6</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-6-1.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
 <pre><code>&gt;&gt; Clustering for Euclidean complete after 1.61 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-6-2.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
 <pre><code>&gt;&gt; Clustering for Spearman complete after 1.61 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-6-3.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.61 mins total.
+<pre><code>&gt;&gt; Clustering for SED complete after 1.62 mins total.
 &gt;&gt; Consensus clustering complete after 1.62 mins total.
 &gt;&gt; MakeClusterList complete after 1.62 mins total.</code></pre>
 <p>The following code unpacks the output into separate objects:</p>
@@ -265,7 +265,7 @@ available from the igraph package.</p>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.04</span> secs total.</span>
 <span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.85</span> secs total.</span>
+<span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.84</span> secs total.</span>
 <span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]  <span class="co"># PTM CCCN edge list</span></span>
 <span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]] <span class="co"># Gene CCCN edge list</span></span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]] <span class="co"># List of nodes in the CCCN</span></span>

@@ -135,12 +135,12 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.18 secs total.
->> Spearman t-SNE calculation complete after 41.82 secs total.
->> Euclidean distance calculation complete after 41.86 secs total.
->> Euclidean t-SNE calculation complete after 1.14 mins total.
->> Combined distance calculation complete after 1.14 mins total.
->> SED t-SNE calculation complete after 1.59 mins total.
+>> Spearman correlation calculation complete after 13.33 secs total.
+>> Spearman t-SNE calculation complete after 42.1 secs total.
+>> Euclidean distance calculation complete after 42.14 secs total.
+>> Euclidean t-SNE calculation complete after 1.15 mins total.
+>> Combined distance calculation complete after 1.15 mins total.
+>> SED t-SNE calculation complete after 1.6 mins total.
 ```
 
 ![](plots/unnamed-chunk-6-1.png)
@@ -153,7 +153,7 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong 
 
 ![](plots/unnamed-chunk-6-3.png)
 
-    >> Clustering for SED complete after 1.61 mins total.
+    >> Clustering for SED complete after 1.62 mins total.
     >> Consensus clustering complete after 1.62 mins total.
     >> MakeClusterList complete after 1.62 mins total.
 
@@ -232,7 +232,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.04 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.85 secs total.
+>> Gene CCCN complete after 1.84 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN

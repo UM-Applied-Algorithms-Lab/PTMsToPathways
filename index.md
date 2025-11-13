@@ -1,8 +1,9 @@
 # PTMsToPathways
 
-PTMsToPathways (P2P) implements the methods developed in [Grimes et al
-2018](https://um-applied-algorithms-lab.github.io/PTMsToPathways/),
-[](https://um-applied-algorithms-lab.github.io/PTMsToPathways/). Tools
+PTMsToPathways (P2P) implements the methods developed in [Ross et
+al. 2023](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690),
+[Grimes et
+al. 2018](https://www.science.org/doi/10.1126/scisignal.aaq1087). Tools
 are provided to aid formatting mass spectrometry data for subsequent
 steps. We employ machine learning pattern recognition algorithms to
 cluster PTMs based on several statistical tests that reveal patterns in
