@@ -21,10 +21,11 @@
 MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
   # Two nested functions for creating the PTM and gene CCCN, respectively
   # Use the consensus adjacency matrix to filter PTM correlations, then create a graph and edge files for PTMs and genes
+
+  start_time <- Sys.time()
+
   MakePTMCCCN <- function(adj.consensus, ptm.correlation.matrix) {
-    #calculate time at start of code block
-    print("Making PTM CCCN")
-    start_time <- Sys.time()
+    message("Making PTM CCCN")
     # Use only PTM pairs that co-clustered in all three methods (adj.consensus == 1)
     ptm.cccn <- ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)), sort(colnames(ptm.correlation.matrix))]
     ptm.cccn.mask <- adj.consensus[sort(rownames(adj.consensus)), sort(colnames(adj.consensus))]
@@ -61,11 +62,7 @@ MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
     ptm.cccn.edges$interaction[ptm.cccn.edges$Weight <= -0.5] <- "negative correlation"
     ptm.cccn.edges$interaction[ptm.cccn.edges$Weight >=  0.5] <- "positive correlation"
 
-    end_time <- Sys.time()
-    print(end_time)
-    #calculate difference between start and end time
-    total_time <- end_time - start_time
-    print(noquote(paste("Total time: ", total_time, sep="")))
+    message("PTM CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
     return(list(ptm.cccn0, ptm.cccn.g, ptm.cccn.edges))
   }
   #
@@ -77,9 +74,7 @@ MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
   # Start from igraph object saved from MakePTMCCCN()
   # Double ddply Summing: By grouping and summing in both directions, you ensure the aggregation is performed for both genes in each pair, producing a correctly shaped and labeled gene–gene matrix.
   MakeGeneCCCN <- function(ptm.cccn){
-    start_time <- Sys.time()
-    print("Making Gene CCCN")
-    print(start_time)
+    message("Making Gene CCCN")
     # ptm.cccn  was returned above
     gene.cccn <- data.frame(ptm.cccn, row.names = rownames(ptm.cccn), check.rows=TRUE, check.names=FALSE, fix.empty.names = FALSE)
     # Check: identical(rownames(gene.cccn), colnames(gene.cccn)) # TRUE
@@ -134,11 +129,8 @@ MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
     gene.cccn.edges$interaction <- "correlation"
     gene.cccn.edges$interaction[gene.cccn.edges$Weight <= -0.5] <- "negative correlation"
     gene.cccn.edges$interaction[gene.cccn.edges$Weight >=  0.5] <- "positive correlation"
-    end_time <- Sys.time()
-    print(end_time)
-    #calculate difference between start and end time
-    total_time <- end_time - start_time
-    print(noquote(paste("Total time: ", total_time, sep="")))
+
+    message("Gene CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
     return(list(gene.cccn.g, gene.cccn.edges, gene.cccn.matrix))
   }
 
@@ -147,7 +139,7 @@ MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
   gene.cccn.edges <- gene.cccn.list[[2]]
   gene.cccn <- gene.cccn.list[[3]]
 
-  # Make a list of nodes of gathering PPI data
+  # Make a list of nodes for gathering PPI data
   gene.cccn.nodes <-  unique(c(gene.cccn.edges$source, gene.cccn.edges$target))
   if(length(gene.cccn.nodes) == 0) stop("No genes found (gene.cccn.nodes is empty)")
 
