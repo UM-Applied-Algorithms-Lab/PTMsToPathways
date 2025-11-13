@@ -37,14 +37,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-The PTMsToPathways (P2P) package takes Mass Spectrometry (MS) data of
-protein post-translational modifications under different experimental
-conditions and uses machine learning to identify PTM clusters that
-represent functional modules in cell signaling. The clusters created
-initially are then used to identify protein-protein interactions as well
-as interactions between cell signaling pathways. This tutorial is
+This tutorial is
 intended to be a step-by-step guide to walk users through the process of
-using the PTMsToPathways (P2P) package. It includes descriptions of each
+using the P2P package. It includes descriptions of each
 function and must be run in order as subsequent steps require the data
 produced in previous steps. Example code and example outputs as well as
 estimated run-times are included with each description and are based on

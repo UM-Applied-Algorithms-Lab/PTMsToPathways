@@ -2,6 +2,8 @@
 
 PTMsToPathways (P2P) implements the methods developed in [Ross et al. 2023](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690),
 [Grimes et al. 2018](https://www.science.org/doi/10.1126/scisignal.aaq1087).
+It takes mass spectrometry data of protein post-translational modifications
+under different experimental conditions.
 Tools are provided to aid
 formatting mass spectrometry data for subsequent steps. We employ machine learning pattern
 recognition algorithms to cluster PTMs based on several statistical tests that reveal patterns in
