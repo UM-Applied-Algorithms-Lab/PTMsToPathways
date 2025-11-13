@@ -43,7 +43,7 @@ A list containing the following data structures at the given index:
 
 ``` r
 Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex.ptm.correlation.matrix)
-#> [1] "Making PTM CCCN"
+#> Making PTM CCCN
 #> Error in ptm.cccn[active_ptms, active_ptms, drop = FALSE]: incorrect number of dimensions
 Example_Output[[1]][1:5, 1:5]
 #> Error: object 'Example_Output' not found
