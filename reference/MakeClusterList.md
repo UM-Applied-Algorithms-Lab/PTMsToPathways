@@ -74,19 +74,19 @@ Example_Output <- MakeClusterList(ex_tiny_ptm_table) #Run function
 #> Starting correlation calculations and t-SNE.
 #> This may take a few minutes or hours for large data sets.
 #> Spearman correlation calculation complete after 0.28 secs total.
-#> Spearman t-SNE calculation complete after 1.86 secs total.
-#> Euclidean distance calculation complete after 1.86 secs total.
-#> Euclidean t-SNE calculation complete after 3.51 secs total.
-#> Combined distance calculation complete after 3.51 secs total.
-#> SED t-SNE calculation complete after 5.06 secs total.
+#> Spearman t-SNE calculation complete after 1.76 secs total.
+#> Euclidean distance calculation complete after 1.76 secs total.
+#> Euclidean t-SNE calculation complete after 3.29 secs total.
+#> Combined distance calculation complete after 3.29 secs total.
+#> SED t-SNE calculation complete after 4.73 secs total.
 
-#> Clustering for Euclidean complete after 6.09 secs total.
+#> Clustering for Euclidean complete after 5.54 secs total.
 
-#> Clustering for Spearman complete after 6.09 secs total.
+#> Clustering for Spearman complete after 5.54 secs total.
 
-#> Clustering for SED complete after 6.09 secs total.
-#> Consensus clustering complete after 6.14 secs total.
-#> MakeClusterList complete after 6.14 secs total.
+#> Clustering for SED complete after 5.54 secs total.
+#> Consensus clustering complete after 5.58 secs total.
+#> MakeClusterList complete after 5.58 secs total.
 Example_Output[[1]][1:3] #Display data
 #> $ConsensusCluster1
 #>  [1] "RNPS1 p Y205"               "EML4 p Y453"               

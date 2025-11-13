@@ -1,18 +1,12 @@
 # Analyzing Pathways from PTMs: A Guide
 
-The PTMsToPathways (P2P) package takes Mass Spectrometry (MS) data of
-protein post-translational modifications under different experimental
-conditions and uses machine learning to identify PTM clusters that
-represent functional modules in cell signaling. The clusters created
-initially are then used to identify protein-protein interactions as well
-as interactions between cell signaling pathways. This tutorial is
-intended to be a step-by-step guide to walk users through the process of
-using the PTMsToPathways (P2P) package. It includes descriptions of each
-function and must be run in order as subsequent steps require the data
-produced in previous steps. Example code and example outputs as well as
-estimated run-times are included with each description and are based on
-a preliminary dataset of ~9000 PTMs and 69 experimental conditions
-processed with a 12th Gen i7 processor and 16GB of RAM.
+This tutorial is intended to be a step-by-step guide to walk users
+through the process of using the P2P package. It includes descriptions
+of each function and must be run in order as subsequent steps require
+the data produced in previous steps. Example code and example outputs as
+well as estimated run-times are included with each description and are
+based on a preliminary dataset of ~9000 PTMs and 69 experimental
+conditions processed with a 12th Gen i7 processor and 16GB of RAM.
 
 **An important note:** The returned outputs from the functions are data
 that may be saved in an RData object so that the user may reload the
@@ -135,27 +129,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.33 secs total.
->> Spearman t-SNE calculation complete after 42.1 secs total.
->> Euclidean distance calculation complete after 42.14 secs total.
->> Euclidean t-SNE calculation complete after 1.15 mins total.
->> Combined distance calculation complete after 1.15 mins total.
->> SED t-SNE calculation complete after 1.6 mins total.
+>> Spearman correlation calculation complete after 11.94 secs total.
+>> Spearman t-SNE calculation complete after 39.41 secs total.
+>> Euclidean distance calculation complete after 39.46 secs total.
+>> Euclidean t-SNE calculation complete after 1.09 mins total.
+>> Combined distance calculation complete after 1.09 mins total.
+>> SED t-SNE calculation complete after 1.52 mins total.
 ```
 
 ![](plots/unnamed-chunk-6-1.png)
 
-    >> Clustering for Euclidean complete after 1.61 mins total.
+    >> Clustering for Euclidean complete after 1.53 mins total.
 
 ![](plots/unnamed-chunk-6-2.png)
 
-    >> Clustering for Spearman complete after 1.61 mins total.
+    >> Clustering for Spearman complete after 1.54 mins total.
 
 ![](plots/unnamed-chunk-6-3.png)
 
-    >> Clustering for SED complete after 1.62 mins total.
-    >> Consensus clustering complete after 1.62 mins total.
-    >> MakeClusterList complete after 1.62 mins total.
+    >> Clustering for SED complete after 1.54 mins total.
+    >> Consensus clustering complete after 1.54 mins total.
+    >> MakeClusterList complete after 1.54 mins total.
 
 The following code unpacks the output into separate objects:
 
@@ -232,7 +226,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.04 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.84 secs total.
+>> Gene CCCN complete after 1.77 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
