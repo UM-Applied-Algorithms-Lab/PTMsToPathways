@@ -58,13 +58,13 @@ Ensure you have the latest version of RStudio and base R installed. You
 will also need to install the devtools package, which can be installed
 with:
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = TRUE}
 install.packages("devtools")
 ```
 
 Next, install the package with:
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = TRUE}
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 ```
 
@@ -90,7 +90,7 @@ ex_small_ptm_table[38:50, 1:2]
 If you want to use the bigger dataset, the following code shows the
 dimensions and a snippet of the dataset:
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 dim(ex_full_ptm_table)
 ex_full_ptm_table[38:50, 1:2]
 ```
@@ -99,8 +99,7 @@ If you want to download the
 [data](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/blob/main/inst/extdata/AlldataPTMs.txt)
 and then import the dataset use the following code:
 
-```{r eval=FALSE}
-# TO DO FIX THIS!!!!!
+```{r eval = FALSE, echo = TRUE}
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
                           blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
                           comment.char = "", stringsAsFactors = F)
@@ -132,14 +131,14 @@ with a 'short distance' between them) and *ptm.correlation.matrix* are
 also used in the next step to create co-cluster correlation networks
 (CCCNs).
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 ```
 
 The following code unpacks the output into separate objects:
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 common.clusters <- clusterlist.data[[1]]
 adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
@@ -147,19 +146,19 @@ ptm.correlation.matrix <- clusterlist.data[[3]]
 
 Now we can view the objects. First, here is an example of a cluster"
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 common.clusters[1]
 ```
 
 Next, we look at a piece of the `adj.consensus` table. Ones represent a pair that cluster and zeroes represent a pair that doesn't:
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 adj.consensus[1:5, 1:2]
 ```
 
 Here is a part of the `ptm.correlation.matrix`.
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 ptm.correlation.matrix[38:43, 1:2]
 ```
 
@@ -184,7 +183,7 @@ gene.cccn.g. This object can be used later to plot, extract edge lists
 or adjacency matrices, and accomplish many other functions available
 from the igraph package.
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
@@ -220,7 +219,7 @@ experimental, database, and experimental_transferred and
 database_transferred are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.
 
-```{r eval = TRUE}
+```{r eval = TRUE, echo = TRUE}
 stringdb.edges <- GetSTRINGdb(gene.cccn.edges, gene.cccn.nodes)
 stringdb.edges[1:5,]
 ```
@@ -237,16 +236,22 @@ MakeDBInput function allows us to automatically generate an input file
 that can be copy and pasted into the query box in GeneMANIA from within
 the Cytoscape app.
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = TRUE}
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
 The ProcessGMEdgefile function then processes the output files produced
 by GeneMANIA itself.
 
-```{r eval = FALSE}
+```{r eval = TRUE, echo = FALSE}
+gm.edgefile.path <- system.file("extdata", "ex_gm_edgetable.csv", package = "PTMsToPathways")
+gm.nodetable.path <- system.file("extdata", "ex_gm_nodetable.csv", package = "PTMsToPathways")
+db.nodes_path <- system.file("extdata", "ex_db_nodes.txt", package = "PTMsToPathways")
+```
+
+```{r eval = TRUE, echo = TRUE}
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path,
-                                     db_nodes.path)
+                                     db_nodes.path, gene.cccn.nodes
 ```
 
 ### 3. Phosphosite Plus
@@ -258,7 +263,11 @@ The format.kinsub.table function reads this downloaded data in and
 formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
-```{r eval = FALSE}
+```{r eval = FALSE, echo = FALSE}
+kinasesubstrate.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+```
+
+```{r eval = FALSE, echo = TRUE}
 kinsub.edges <- format.kinsub.table(kinasesubstrate.filename =
                                       "Kinase_Substrate_Dataset.txt",
                                     gene.cccn.nodes)
@@ -278,14 +287,17 @@ and gives an output cluster filter network that will only retain
 interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.
 
-```{r eval = FALSE}
+```{r eval = TRUE, echo = TRUE}
 network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges,
                                             kinsub.edges, gene.cccn.edges,
                                             db.filepaths = c())
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
+```
 
-# To reduce clutter on graphs, the cfn edges can be merged:
+To reduce clutter on graphs, the cfn edges can be merged:
+
+```{r eval = TRUE, echo = TRUE}
 cfn.merged <- mergeEdges(cfn)
 ```
 
@@ -312,9 +324,13 @@ For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
-```{r eval = FALSE}
-PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "pathway.csv",
-                                    createfile = getwd())
+```{r eval = TRUE, echo = FALSE}
+bioplanet.file <- system.file("extdata", "pathway.csv", package = "PTMsToPathways")
+```
+
+```{r eval = TRUE, echo = TRUE}
+PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file,
+                                    createfile = FALSE)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
@@ -326,15 +342,21 @@ If you want to save your data to a file, all data structures can either
 be exported with the save function and loaded later or saved to a csv
 file with the write.csv function.
 
+To save one object:
 ```{r eval = FALSE, echo = TRUE}
-# For one object
 save(object, filename = "filepath/name.rda") # Saves object as an .rda
 load("filepath/name.rda")                    # Loads object saved to a file
+```
 
-# For multiple objects: Note the objects are saved as an .RData rather than an .rda
+For multiple objects: Note the objects are saved as an .RData rather than an .rda
+
+```{r eval = FALSE, echo = TRUE}
 save(object1, object2, object.ect, filename="NewFile.RData")
+```
 
-# One object as a csv
+To save one object as a csv:
+
+```{r eval = FALSE, echo = TRUE}
 utils::write.csv(object, file = "filepath/name.csv") # Saves object as a .csv
 utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 ```
