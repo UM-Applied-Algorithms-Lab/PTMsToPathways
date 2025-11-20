@@ -1,0 +1,1221 @@
+GeneMANIA Results
+Plugin Version	3.5.3
+Data Version	2021-04-29-core
+Report Generated	Thu Nov 20 13:08:28 MST 2025
+
+Gene	Score	Description
+SGMS2		sphingomyelin synthase 2 [Source:HGNC Symbol;Acc:HGNC:28395]
+TMEM192		transmembrane protein 192 [Source:HGNC Symbol;Acc:HGNC:26775]
+HSPA1B		heat shock protein family A (Hsp70) member 1B [Source:HGNC Symbol;Acc:HGNC:5233]
+SPRED1		sprouty related EVH1 domain containing 1 [Source:HGNC Symbol;Acc:HGNC:20249]
+RMC1		regulator of MON1-CCZ1 [Source:HGNC Symbol;Acc:HGNC:24326]
+SYAP1		synapse associated protein 1 [Source:HGNC Symbol;Acc:HGNC:16273]
+DCBLD1		discoidin, CUB and LCCL domain containing 1 [Source:HGNC Symbol;Acc:HGNC:21479]
+ACTR5		actin related protein 5 [Source:HGNC Symbol;Acc:HGNC:14671]
+TMEM106B		transmembrane protein 106B [Source:HGNC Symbol;Acc:HGNC:22407]
+USP15		ubiquitin specific peptidase 15 [Source:HGNC Symbol;Acc:HGNC:12613]
+EMC7		ER membrane protein complex subunit 7 [Source:HGNC Symbol;Acc:HGNC:24301]
+APH1A		aph-1 homolog A, gamma-secretase subunit [Source:HGNC Symbol;Acc:HGNC:29509]
+HNRNPH2		heterogeneous nuclear ribonucleoprotein H2 [Source:HGNC Symbol;Acc:HGNC:5042]
+MYO18A		myosin XVIIIA [Source:HGNC Symbol;Acc:HGNC:31104]
+NFS1		NFS1 cysteine desulfurase [Source:HGNC Symbol;Acc:HGNC:15910]
+SLC12A4		solute carrier family 12 member 4 [Source:HGNC Symbol;Acc:HGNC:10913]
+SLC38A2		solute carrier family 38 member 2 [Source:HGNC Symbol;Acc:HGNC:13448]
+FRS2		fibroblast growth factor receptor substrate 2 [Source:HGNC Symbol;Acc:HGNC:16971]
+TJP3		tight junction protein 3 [Source:HGNC Symbol;Acc:HGNC:11829]
+PI4K2A		phosphatidylinositol 4-kinase type 2 alpha [Source:HGNC Symbol;Acc:HGNC:30031]
+SUPT16H		SPT16 homolog, facilitates chromatin remodeling subunit [Source:HGNC Symbol;Acc:HGNC:11465]
+ZNF185		zinc finger protein 185 with LIM domain [Source:HGNC Symbol;Acc:HGNC:12976]
+MERTK		MER proto-oncogene, tyrosine kinase [Source:HGNC Symbol;Acc:HGNC:7027]
+RASSF8		Ras association domain family member 8 [Source:HGNC Symbol;Acc:HGNC:13232]
+RBM4		RNA binding motif protein 4 [Source:HGNC Symbol;Acc:HGNC:9901]
+RNASEH2B		ribonuclease H2 subunit B [Source:HGNC Symbol;Acc:HGNC:25671]
+PLEKHA6		pleckstrin homology domain containing A6 [Source:HGNC Symbol;Acc:HGNC:17053]
+RPRD2		regulation of nuclear pre-mRNA domain containing 2 [Source:HGNC Symbol;Acc:HGNC:29039]
+SMAGP		small cell adhesion glycoprotein [Source:HGNC Symbol;Acc:HGNC:26918]
+ATG3		autophagy related 3 [Source:HGNC Symbol;Acc:HGNC:20962]
+PKP4		plakophilin 4 [Source:HGNC Symbol;Acc:HGNC:9026]
+ARAP2		ArfGAP with RhoGAP domain, ankyrin repeat and PH domain 2 [Source:HGNC Symbol;Acc:HGNC:16924]
+SLC9A1		solute carrier family 9 member A1 [Source:HGNC Symbol;Acc:HGNC:11071]
+TNK2		tyrosine kinase non receptor 2 [Source:HGNC Symbol;Acc:HGNC:19297]
+RBM14		RNA binding motif protein 14 [Source:HGNC Symbol;Acc:HGNC:14219]
+DNM2		dynamin 2 [Source:HGNC Symbol;Acc:HGNC:2974]
+TUBA1B		tubulin alpha 1b [Source:HGNC Symbol;Acc:HGNC:18809]
+ABLIM1		actin binding LIM protein 1 [Source:HGNC Symbol;Acc:HGNC:78]
+PTTG1IP		PTTG1 interacting protein [Source:HGNC Symbol;Acc:HGNC:13524]
+CTNNA2		catenin alpha 2 [Source:HGNC Symbol;Acc:HGNC:2510]
+CTNNAL1		catenin alpha like 1 [Source:HGNC Symbol;Acc:HGNC:2512]
+FKBP4		FKBP prolyl isomerase 4 [Source:HGNC Symbol;Acc:HGNC:3720]
+ACOX1		acyl-CoA oxidase 1 [Source:HGNC Symbol;Acc:HGNC:119]
+CTTN		cortactin [Source:HGNC Symbol;Acc:HGNC:3338]
+SEC16A		SEC16 homolog A, endoplasmic reticulum export factor [Source:HGNC Symbol;Acc:HGNC:29006]
+ATP5PO		ATP synthase peripheral stalk subunit OSCP [Source:HGNC Symbol;Acc:HGNC:850]
+NSFL1C		NSFL1 cofactor [Source:HGNC Symbol;Acc:HGNC:15912]
+PTPRH		protein tyrosine phosphatase receptor type H [Source:HGNC Symbol;Acc:HGNC:9672]
+SF3B2		splicing factor 3b subunit 2 [Source:HGNC Symbol;Acc:HGNC:10769]
+SCRIB		scribble planar cell polarity protein [Source:HGNC Symbol;Acc:HGNC:30377]
+HSPA9		heat shock protein family A (Hsp70) member 9 [Source:HGNC Symbol;Acc:HGNC:5244]
+PARD3		par-3 family cell polarity regulator [Source:HGNC Symbol;Acc:HGNC:16051]
+PTPRK		protein tyrosine phosphatase receptor type K [Source:HGNC Symbol;Acc:HGNC:9674]
+OXCT1		3-oxoacid CoA-transferase 1 [Source:HGNC Symbol;Acc:HGNC:8527]
+HNRNPF		heterogeneous nuclear ribonucleoprotein F [Source:HGNC Symbol;Acc:HGNC:5039]
+HNRNPU		heterogeneous nuclear ribonucleoprotein U [Source:HGNC Symbol;Acc:HGNC:5048]
+PSMC1		proteasome 26S subunit, ATPase 1 [Source:HGNC Symbol;Acc:HGNC:9547]
+EZR		ezrin [Source:HGNC Symbol;Acc:HGNC:12691]
+PHB2		prohibitin 2 [Source:HGNC Symbol;Acc:HGNC:30306]
+OAT		ornithine aminotransferase [Source:HGNC Symbol;Acc:HGNC:8091]
+PTPN11		protein tyrosine phosphatase non-receptor type 11 [Source:HGNC Symbol;Acc:HGNC:9644]
+EEF1A1		eukaryotic translation elongation factor 1 alpha 1 [Source:HGNC Symbol;Acc:HGNC:3189]
+MYH9		myosin heavy chain 9 [Source:HGNC Symbol;Acc:HGNC:7579]
+ATP6V0D1		ATPase H+ transporting V0 subunit d1 [Source:HGNC Symbol;Acc:HGNC:13724]
+MET		MET proto-oncogene, receptor tyrosine kinase [Source:HGNC Symbol;Acc:HGNC:7029]
+LCK		LCK proto-oncogene, Src family tyrosine kinase [Source:HGNC Symbol;Acc:HGNC:6524]
+APP		amyloid beta precursor protein [Source:HGNC Symbol;Acc:HGNC:620]
+VCP	2.81	valosin containing protein [Source:HGNC Symbol;Acc:HGNC:12666]
+PSEN1	2.24	presenilin 1 [Source:HGNC Symbol;Acc:HGNC:9508]
+CCDC88A	1.81	coiled-coil domain containing 88A [Source:HGNC Symbol;Acc:HGNC:25523]
+APH1B	1.78	aph-1 homolog B, gamma-secretase subunit [Source:HGNC Symbol;Acc:HGNC:24080]
+MTSS1	1.78	MTSS I-BAR domain containing 1 [Source:HGNC Symbol;Acc:HGNC:20443]
+FGFR1	1.72	fibroblast growth factor receptor 1 [Source:HGNC Symbol;Acc:HGNC:3688]
+PRKCI	1.68	protein kinase C iota [Source:HGNC Symbol;Acc:HGNC:9404]
+PTPRM	1.66	protein tyrosine phosphatase receptor type M [Source:HGNC Symbol;Acc:HGNC:9675]
+GLMN	1.55	glomulin, FKBP associated protein [Source:HGNC Symbol;Acc:HGNC:14373]
+DCAF7	1.52	DDB1 and CUL4 associated factor 7 [Source:HGNC Symbol;Acc:HGNC:30915]
+MARK4	1.51	microtubule affinity regulating kinase 4 [Source:HGNC Symbol;Acc:HGNC:13538]
+EIF4G2	1.48	eukaryotic translation initiation factor 4 gamma 2 [Source:HGNC Symbol;Acc:HGNC:3297]
+NCSTN	1.42	nicastrin [Source:HGNC Symbol;Acc:HGNC:17091]
+YWHAH	1.35	tyrosine 3-monooxygenase/tryptophan 5-monooxygenase activation protein eta [Source:HGNC Symbol;Acc:HGNC:12853]
+VAV1	1.34	vav guanine nucleotide exchange factor 1 [Source:HGNC Symbol;Acc:HGNC:12657]
+CHP2	1.33	calcineurin like EF-hand protein 2 [Source:HGNC Symbol;Acc:HGNC:24927]
+CAMLG	1.32	calcium modulating ligand [Source:HGNC Symbol;Acc:HGNC:1471]
+SH2D2A	1.31	SH2 domain containing 2A [Source:HGNC Symbol;Acc:HGNC:10821]
+BTLA	1.28	B and T lymphocyte associated [Source:HGNC Symbol;Acc:HGNC:21087]
+PTPRJ	1.28	protein tyrosine phosphatase receptor type J [Source:HGNC Symbol;Acc:HGNC:9673]
+
+Network Group	Network	Weight	Title	Authors	Year	Publication	PMID	URL	Processing Method	Interactions	Source	Source URL	Tags
+Physical Interactions		66.18
+	Trepte-Wanker-2018 B	9.87	LuTHy: a double-readout bioluminescence-based two-hybrid technology for quantitative mapping of protein-protein interactions in mammalian cells.	Trepte,Wanker	2018.0	Mol Syst Biol	29997244	http://www.ncbi.nlm.nih.gov/pubmed/29997244	Direct interaction	138	BIOGRID	http://thebiogrid.org/	
+	Trepte-Wanker-2018 A	9.87	LuTHy: a double-readout bioluminescence-based two-hybrid technology for quantitative mapping of protein-protein interactions in mammalian cells.	Trepte,Wanker	2018.0	Mol Syst Biol	29997244	http://www.ncbi.nlm.nih.gov/pubmed/29997244	Direct interaction	70	BIOGRID	http://thebiogrid.org/	
+	Brajenovic-Drewes-2004	9.14	Comprehensive proteomic analysis of human Par protein complexes reveals an interconnected protein network.	Brajenovic,Drewes	2004.0	J Biol Chem	14676191	http://www.ncbi.nlm.nih.gov/pubmed/14676191	Direct interaction	118	BIOGRID	http://thebiogrid.org/	
+	Soler-López-Aloy-2011	5.17	Interactome mapping suggests new mechanistic details underlying Alzheimer's disease.	Soler-López,Aloy	2011.0	Genome Res	21163940	http://www.ncbi.nlm.nih.gov/pubmed/21163940	Direct interaction	283	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Moutaoufik-Babu-2019	5.11	Rewiring of the Human Mitochondrial Interactome during Neuronal Reprogramming Reveals Regulators of the Respirasome and Neurogenesis.	Moutaoufik,Babu	2019.0	iScience	31536960	http://www.ncbi.nlm.nih.gov/pubmed/31536960	Direct interaction	6357	BIOGRID	http://thebiogrid.org/	
+	Barr-Knapp-2009	3.32	Large-scale structural analysis of the classical human protein tyrosine phosphatome.	Barr,Knapp	2009.0	Cell	19167335	http://www.ncbi.nlm.nih.gov/pubmed/19167335	Direct interaction	173	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Leung-Jones-2014	3.11	Enhanced prediction of Src homology 2 (SH2) domain binding potentials using a fluorescence polarization-derived c-Met, c-Kit, ErbB, and androgen receptor interactome.	Leung,Jones	2014.0	Mol Cell Proteomics	24728074	http://www.ncbi.nlm.nih.gov/pubmed/24728074	Direct interaction	199	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Kumar-Maddika-2017	2.96	A Human Tyrosine Phosphatase Interactome Mapped by Proteomic Profiling.	Kumar,Maddika	2017.0	J Proteome Res	28675297	http://www.ncbi.nlm.nih.gov/pubmed/28675297	Direct interaction	1863	BIOGRID	http://thebiogrid.org/	
+	Hosp-Selbach-2015	2.78	Quantitative interaction proteomics of neurodegenerative disease proteins.	Hosp,Selbach	2015.0	Cell Rep	25959826	http://www.ncbi.nlm.nih.gov/pubmed/25959826	Direct interaction	365	BIOGRID	http://thebiogrid.org/	
+	IREF-spike	2.61					0		Direct interaction	20971	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Virok-Fülöp-2011	2.50	Protein array based interactome analysis of amyloid-β indicates an inhibition of protein translation.	Virok,Fülöp	2011.0	J Proteome Res	21244100	http://www.ncbi.nlm.nih.gov/pubmed/21244100	Direct interaction	299	BIOGRID	http://thebiogrid.org/	
+	Hegele-Stelzl-2012 B	1.50	Dynamic protein-protein interaction wiring of the human spliceosome.	Hegele,Stelzl	2012.0	Mol Cell	22365833	http://www.ncbi.nlm.nih.gov/pubmed/22365833	Direct interaction	600	BIOGRID	http://thebiogrid.org/	
+	Kristensen-Foster-2012	1.48	A high-throughput approach for measuring temporal changes in the interactome.	Kristensen,Foster	2012.0	Nat Methods	22863883	http://www.ncbi.nlm.nih.gov/pubmed/22863883	Direct interaction	7044	BIOGRID	http://thebiogrid.org/	
+	IREF-mppi	1.43					0		Direct interaction	304	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Sundell-Ivarsson-2018	1.33	Proteome-wide analysis of phospho-regulated PDZ domain interactions.	Sundell,Ivarsson	2018.0	Mol Syst Biol	30126976	http://www.ncbi.nlm.nih.gov/pubmed/30126976	Direct interaction	129	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Oláh-Ovádi-2011	1.19	Interactions of pathological hallmark proteins: tubulin polymerization promoting protein/p25, beta-amyloid, and alpha-synuclein.	Oláh,Ovádi	2011.0	J Biol Chem	21832049	http://www.ncbi.nlm.nih.gov/pubmed/21832049	Direct interaction	1854	BIOGRID	http://thebiogrid.org/	
+	Hein-Mann-2015	0.75	A human interactome in three quantitative dimensions organized by stoichiometries and abundances.	Hein,Mann	2015.0	Cell	26496610	http://www.ncbi.nlm.nih.gov/pubmed/26496610	Direct interaction	27015	BIOGRID	http://thebiogrid.org/	
+	IREF-bind-translation	0.35					0		Direct interaction	6056	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Huttlin-Gygi-2015	0.33	The BioPlex Network: A Systematic Exploration of the Human Interactome.	Huttlin,Gygi	2015.0	Cell	26186194	http://www.ncbi.nlm.nih.gov/pubmed/26186194	Direct interaction	23384	BIOGRID	http://thebiogrid.org/	
+	BIOGRID-SMALL-SCALE-STUDIES	0.33					0		Direct interaction	79201	BIOGRID	http://thebiogrid.org/	
+	Ewing-Figeys-2007	0.33	Large-scale mapping of human protein-protein interactions by mass spectrometry.	Ewing,Figeys	2007.0	Mol Syst Biol	17353931	http://www.ncbi.nlm.nih.gov/pubmed/17353931	Direct interaction	5759	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Liu-Varjosalo-2018	0.25	An AP-MS- and BioID-compatible MAC-tag enables comprehensive mapping of protein interactions and subcellular localizations.	Liu,Varjosalo	2018.0	Nat Commun	29568061	http://www.ncbi.nlm.nih.gov/pubmed/29568061	Direct interaction	825	BIOGRID	http://thebiogrid.org/	
+	IREF-SMALL-SCALE-STUDIES	0.21					0		Direct interaction	75496	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Huttlin-Harper-2017	0.08	Architecture of the human interactome defines protein communities and disease networks.	Huttlin,Harper	2017.0	Nature	28514442	http://www.ncbi.nlm.nih.gov/pubmed/28514442	Direct interaction	55868	BIOGRID	http://thebiogrid.org/	
+	IREF-uniprotpp	0.07					0		Direct interaction	2470	IREF	http://irefindex.uio.no/wiki/iRefIndex	
+	Havugimana-Emili-2012	0.06	A census of human soluble protein complexes.	Havugimana,Emili	2012.0	Cell	22939629	http://www.ncbi.nlm.nih.gov/pubmed/22939629	Direct interaction	13651	BIOGRID	http://thebiogrid.org/	
+	Wan-Emili-2015	0.04	Panorama of ancient metazoan macromolecular complexes.	Wan,Emili	2015.0	Nature	26344197	http://www.ncbi.nlm.nih.gov/pubmed/26344197	Direct interaction	16627	BIOGRID	http://thebiogrid.org/	
+Co-expression		22.37
+	Ramaswamy-Golub-2001	3.50	Multiclass cancer diagnosis using tumor gene expression signatures.	Ramaswamy,Golub	2001.0	Proc Natl Acad Sci U S A	11742071	http://www.ncbi.nlm.nih.gov/pubmed/11742071	Pearson correlation	412445	SUPPLEMENTARY_MATERIAL		
+	Perou-Botstein-2000	2.65	Molecular portraits of human breast tumours.	Perou,Botstein	2000.0	Nature	10963602	http://www.ncbi.nlm.nih.gov/pubmed/10963602	Pearson correlation	250719	SUPPLEMENTARY_MATERIAL		
+	Wang-Maris-2006	2.59	Integrative genomics identifies distinct molecular classes of neuroblastoma and shows that multiple genes are targeted by regional alterations in DNA copy number.	Wang,Maris	2006.0	Cancer Res	16778177	http://www.ncbi.nlm.nih.gov/pubmed/16778177	Pearson correlation	346246	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE3960	
+	Rieger-Chu-2004	2.42	Toxicity from radiation therapy associated with abnormal transcriptional responses to DNA damage.	Rieger,Chu	2004.0	Proc Natl Acad Sci U S A	15096622	http://www.ncbi.nlm.nih.gov/pubmed/15096622	Pearson correlation	358093	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE1725	
+	Wang-Cheung-2015	2.42	Genetic variation in insulin-induced kinase signaling.	Wang,Cheung	2015.0	Mol Syst Biol	26202599	http://www.ncbi.nlm.nih.gov/pubmed/26202599	Pearson correlation	543194	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE21891	
+	Bild-Nevins-2006 B	1.77	Oncogenic pathway signatures in human cancers as a guide to targeted therapies.	Bild,Nevins	2006.0	Nature	16273092	http://www.ncbi.nlm.nih.gov/pubmed/16273092	Pearson correlation	342070	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE3143	
+	Dobbin-Giordano-2005	1.09	Interlaboratory comparability study of cancer gene expression analysis using oligonucleotide microarrays.	Dobbin,Giordano	2005.0	Clin Cancer Res	15701842	http://www.ncbi.nlm.nih.gov/pubmed/15701842	Pearson correlation	521876	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE68606	
+	Ross-Perou-2001	1.04	A comparison of gene expression signatures from breast tumors and breast tissue derived cell lines.	Ross,Perou	2001.0	Dis Markers	11673656	http://www.ncbi.nlm.nih.gov/pubmed/11673656	Pearson correlation	215212	SUPPLEMENTARY_MATERIAL		
+	Wu-Garvey-2007	0.96	The effect of insulin on expression of genes and biochemical pathways in human skeletal muscle.	Wu,Garvey	2007.0	Endocrine	17709892	http://www.ncbi.nlm.nih.gov/pubmed/17709892	Pearson correlation	374799	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE22309	
+	Arijs-Rutgeerts-2009	0.85	Mucosal gene expression of antimicrobial peptides in inflammatory bowel disease before and after first infliximab treatment.	Arijs,Rutgeerts	2009.0	PLoS One	19956723	http://www.ncbi.nlm.nih.gov/pubmed/19956723	Pearson correlation	785989	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE16879	
+	Jiang-de Kok-2017	0.80	Omics-based identification of the combined effects of idiosyncratic drugs and inflammatory cytokines on the development of drug-induced liver injury.	Jiang,de Kok	2017.0	Toxicol Appl Pharmacol	28733206	http://www.ncbi.nlm.nih.gov/pubmed/28733206	Pearson correlation	590106	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE102006	
+	Boldrick-Relman-2002	0.79	Stereotyped and specific gene expression programs in human innate immune responses to bacteria.	Boldrick,Relman	2002.0	Proc Natl Acad Sci U S A	11805339	http://www.ncbi.nlm.nih.gov/pubmed/11805339	Pearson correlation	182708	SUPPLEMENTARY_MATERIAL		
+	Perou-Botstein-1999	0.62	Distinctive gene expression patterns in human mammary epithelial cells and breast cancers.	Perou,Botstein	1999.0	Proc Natl Acad Sci U S A	10430922	http://www.ncbi.nlm.nih.gov/pubmed/10430922	Pearson correlation	121695	SUPPLEMENTARY_MATERIAL		
+	Mallon-McKay-2013	0.27	StemCellDB: the human pluripotent stem cell database at the National Institutes of Health.	Mallon,McKay	2013.0	Stem Cell Res	23117585	http://www.ncbi.nlm.nih.gov/pubmed/23117585	Pearson correlation	748609	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE32923	
+	Chen-Brown-2002	0.22	Gene expression patterns in human liver cancers.	Chen,Brown	2002.0	Mol Biol Cell	12058060	http://www.ncbi.nlm.nih.gov/pubmed/12058060	Pearson correlation	408145	SUPPLEMENTARY_MATERIAL		
+	Roth-Zlotnik-2006	0.21	Gene expression analyses reveal molecular relationships among 20 regions of the human CNS.	Roth,Zlotnik	2006.0	Neurogenetics	16572319	http://www.ncbi.nlm.nih.gov/pubmed/16572319	Pearson correlation	762171	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=GSE3526	
+	Rosenwald-Staudt-2001	0.18	Relation of gene expression phenotype to immunoglobulin mutation genotype in B cell chronic lymphocytic leukemia.	Rosenwald,Staudt	2001.0	J Exp Med	11733578	http://www.ncbi.nlm.nih.gov/pubmed/11733578	Pearson correlation	167190	SUPPLEMENTARY_MATERIAL		
+Predicted		5.01
+	I2D-BIND-Mouse2Human	4.29	BIND--a data specification for storing and describing biomolecular interactions, molecular complexes and pathways.	Bader,Hogue	2000.0	Bioinformatics	10871269	http://www.ncbi.nlm.nih.gov/pubmed/10871269	Direct interaction	1007	I2D	http://ophid.utoronto.ca/	
+	I2D-BioGRID-Yeast2Human	0.44	BioGRID: a general repository for interaction datasets.	Stark,Tyers	2006.0	Nucleic Acids Res	16381927	http://www.ncbi.nlm.nih.gov/pubmed/16381927	Direct interaction	17314	I2D	http://ophid.utoronto.ca/	
+	Wu-Stein-2010	0.25	A human functional protein interaction network and its application to cancer data analysis.	Wu,Stein	2010.0	Genome Biol	20482850	http://www.ncbi.nlm.nih.gov/pubmed/20482850	Direct interaction	89967	SUPPLEMENTARY_MATERIAL		
+	I2D-IntAct-Mouse2Human	0.03	The IntAct molecular interaction database in 2010.	Aranda,Hermjakob	2010.0	Nucleic Acids Res	19850723	http://www.ncbi.nlm.nih.gov/pubmed/19850723	Direct interaction	11478	I2D	http://ophid.utoronto.ca/	
+Pathway		3.99
+	CELL_MAP	3.57					0		Direct interaction	397	PATHWAYCOMMONS	http://www.pathwaycommons.org/	
+	Wu-Stein-2010	0.29	A human functional protein interaction network and its application to cancer data analysis.	Wu,Stein	2010.0	Genome Biol	20482850	http://www.ncbi.nlm.nih.gov/pubmed/20482850	Direct interaction	78117	SUPPLEMENTARY_MATERIAL		
+	REACTOME	0.13					0		Direct interaction	24890	PATHWAYCOMMONS	http://www.pathwaycommons.org/	
+Shared protein domains		1.38
+	INTERPRO	1.31					0		sharedneighbour	621159	INTERPRO	http://www.ebi.ac.uk/interpro/	
+	PFAM	0.07					0		sharedneighbour	471533	PFAM	http://pfam.sanger.ac.uk/	
+Genetic Interactions		0.88
+	Lin-Smith-2010	0.88	A genome-wide map of human genetic interactions inferred from radiation hybrid genotypes.	Lin,Smith	2010.0	Genome Res	20508145	http://www.ncbi.nlm.nih.gov/pubmed/20508145	Direct interaction	4805334	SUPPLEMENTARY_MATERIAL		
+Co-localization		0.18
+	Johnson-Shoemaker-2003	0.18	Genome-wide survey of human alternative pre-mRNA splicing with exon junction microarrays.	Johnson,Shoemaker	2003.0	Science	14684825	http://www.ncbi.nlm.nih.gov/pubmed/14684825	Pearson correlation	426464	GEO	http://www.ncbi.nlm.nih.gov/projects/geo/query/acc.cgi?acc=%s	
+
+Gene 1	Gene 2	Weight	Type	Source
+BTLA	LCK	0.0025655469065491918	Co-expression	Arijs-Rutgeerts-2009
+CAMLG	OAT	0.002276149086664451	Co-expression	Arijs-Rutgeerts-2009
+CHP2	ACOX1	0.005672910622573194	Co-expression	Arijs-Rutgeerts-2009
+DNM2	TJP3	0.007617882524658124	Co-expression	Arijs-Rutgeerts-2009
+EIF4G2	SEC16A	0.007905658497125403	Co-expression	Arijs-Rutgeerts-2009
+EZR	SGMS2	0.022922091780717014	Co-expression	Arijs-Rutgeerts-2009
+FRS2	TMEM192	0.006599973026317258	Co-expression	Arijs-Rutgeerts-2009
+HNRNPF	EMC7	0.007728780404817758	Co-expression	Arijs-Rutgeerts-2009
+HNRNPU	SUPT16H	0.017262358446793007	Co-expression	Arijs-Rutgeerts-2009
+MTSS1	SCRIB	0.004146618444161897	Co-expression	Arijs-Rutgeerts-2009
+OAT	PI4K2A	0.005906405038392683	Co-expression	Arijs-Rutgeerts-2009
+PARD3	SCRIB	0.005234553219010075	Co-expression	Arijs-Rutgeerts-2009
+PSMC1	SYAP1	0.010299456430911274	Co-expression	Arijs-Rutgeerts-2009
+PTPRK	SCRIB	0.0029192114891908264	Co-expression	Arijs-Rutgeerts-2009
+RBM4	ACTR5	0.00811395783933887	Co-expression	Arijs-Rutgeerts-2009
+SEC16A	CTTN	0.010067900037063482	Co-expression	Arijs-Rutgeerts-2009
+ATP6V0D1	CTNNA2	0.01969344442670747	Co-expression	Bild-Nevins-2006 B
+ATP6V0D1	SLC12A4	0.03044938590522688	Co-expression	Bild-Nevins-2006 B
+EZR	FKBP4	0.028627971433377423	Co-expression	Bild-Nevins-2006 B
+EZR	RBM14	0.03531197229471737	Co-expression	Bild-Nevins-2006 B
+HNRNPF	SEC16A	0.03284134169602236	Co-expression	Bild-Nevins-2006 B
+MYH9	TUBA1B	0.02408778748693677	Co-expression	Bild-Nevins-2006 B
+NCSTN	RPRD2	0.02344418087817402	Co-expression	Bild-Nevins-2006 B
+OXCT1	ABLIM1	0.035423441714788756	Co-expression	Bild-Nevins-2006 B
+PHB2	SF3B2	0.026098292756131264	Co-expression	Bild-Nevins-2006 B
+RPRD2	TJP3	0.017426636194266248	Co-expression	Bild-Nevins-2006 B
+VCP	PHB2	0.026407188243374933	Co-expression	Bild-Nevins-2006 B
+YWHAH	MYH9	0.05315521725772328	Co-expression	Bild-Nevins-2006 B
+CCDC88A	TUBA1B	0.0025057054578948726	Co-expression	Boldrick-Relman-2002
+DCAF7	HNRNPU	0.006463470652552693	Co-expression	Boldrick-Relman-2002
+EEF1A1	PHB2	0.004892101698639739	Co-expression	Boldrick-Relman-2002
+MYH9	EEF1A1	0.009878770124703621	Co-expression	Boldrick-Relman-2002
+PHB2	TUBA1B	0.0018446398911884708	Co-expression	Boldrick-Relman-2002
+PRKCI	MYH9	0.01962844753603897	Co-expression	Boldrick-Relman-2002
+PRKCI	PHB2	0.006650395544194284	Co-expression	Boldrick-Relman-2002
+PRKCI	TUBA1B	0.004445712680669913	Co-expression	Boldrick-Relman-2002
+PTPRH	TNK2	0.016123950631518058	Co-expression	Boldrick-Relman-2002
+PTPRJ	SEC16A	0.01097925329186044	Co-expression	Boldrick-Relman-2002
+PTPRM	ARAP2	0.007163747540410008	Co-expression	Boldrick-Relman-2002
+SH2D2A	ARAP2	0.004448625863297023	Co-expression	Boldrick-Relman-2002
+EZR	SLC9A1	0.0014216825023113603	Co-expression	Chen-Brown-2002
+FGFR1	SLC9A1	0.001543092172392963	Co-expression	Chen-Brown-2002
+GLMN	PKP4	0.005193248671557816	Co-expression	Chen-Brown-2002
+HNRNPF	ABLIM1	0.0031130837182178407	Co-expression	Chen-Brown-2002
+LCK	HNRNPU	0.003259091902104381	Co-expression	Chen-Brown-2002
+MET	PTPRK	0.0038779892873758858	Co-expression	Chen-Brown-2002
+MTSS1	PTPRK	0.0013097642394421013	Co-expression	Chen-Brown-2002
+PRKCI	CCDC88A	0.003157703591646041	Co-expression	Chen-Brown-2002
+PRKCI	OXCT1	0.003027581165214553	Co-expression	Chen-Brown-2002
+PTTG1IP	APH1A	0.0017071928416559977	Co-expression	Chen-Brown-2002
+PTTG1IP	RBM14	9.98823270272757E-4	Co-expression	Chen-Brown-2002
+RBM4	SUPT16H	0.002024249481676663	Co-expression	Chen-Brown-2002
+VAV1	LCK	0.0032510529305941204	Co-expression	Chen-Brown-2002
+YWHAH	MYH9	0.002615450057598523	Co-expression	Chen-Brown-2002
+CTTN	SLC9A1	0.012620791436225888	Co-expression	Dobbin-Giordano-2005
+EZR	CTNNAL1	0.015293241156490287	Co-expression	Dobbin-Giordano-2005
+GLMN	CCDC88A	0.011654721583876737	Co-expression	Dobbin-Giordano-2005
+HSPA9	NFS1	0.02117045035000752	Co-expression	Dobbin-Giordano-2005
+MET	MYH9	0.015410734962894497	Co-expression	Dobbin-Giordano-2005
+NCSTN	SEC16A	0.015674951622017017	Co-expression	Dobbin-Giordano-2005
+OAT	PLEKHA6	0.014695383036573962	Co-expression	Dobbin-Giordano-2005
+PARD3	SMAGP	0.011306871249803781	Co-expression	Dobbin-Giordano-2005
+PHB2	APH1A	0.014579392461388093	Co-expression	Dobbin-Giordano-2005
+PHB2	FKBP4	0.02065165551564428	Co-expression	Dobbin-Giordano-2005
+PLEKHA6	TJP3	0.013545088455513006	Co-expression	Dobbin-Giordano-2005
+PSEN1	ATP6V0D1	0.023280851426733827	Co-expression	Dobbin-Giordano-2005
+PSEN1	OXCT1	0.006806112008051396	Co-expression	Dobbin-Giordano-2005
+PTPRH	SMAGP	0.007132233772168526	Co-expression	Dobbin-Giordano-2005
+YWHAH	PTPN11	0.016132453872585314	Co-expression	Dobbin-Giordano-2005
+APH1B	FRS2	0.013142733845818941	Co-expression	Jiang-de Kok-2017
+APP	EZR	0.011295291600228817	Co-expression	Jiang-de Kok-2017
+ARAP2	RASSF8	0.007225743287683958	Co-expression	Jiang-de Kok-2017
+ARAP2	RMC1	0.0032804975223642598	Co-expression	Jiang-de Kok-2017
+ARAP2	USP15	0.011550162386620853	Co-expression	Jiang-de Kok-2017
+CAMLG	MARK4	0.004477284867004187	Co-expression	Jiang-de Kok-2017
+CAMLG	OAT	0.00573316579782338	Co-expression	Jiang-de Kok-2017
+CAMLG	TMEM106B	0.005908185847083397	Co-expression	Jiang-de Kok-2017
+MET	SLC38A2	0.011035364355791182	Co-expression	Jiang-de Kok-2017
+NCSTN	MARK4	0.0077824954094853505	Co-expression	Jiang-de Kok-2017
+OAT	HNRNPF	0.012433691923356777	Co-expression	Jiang-de Kok-2017
+PHB2	SCRIB	0.01632461443719939	Co-expression	Jiang-de Kok-2017
+PRKCI	MYH9	0.01470267236098853	Co-expression	Jiang-de Kok-2017
+PRKCI	RMC1	0.005465417972689612	Co-expression	Jiang-de Kok-2017
+PSEN1	ARAP2	0.009120269008397137	Co-expression	Jiang-de Kok-2017
+PSMC1	NSFL1C	0.00944014597661249	Co-expression	Jiang-de Kok-2017
+TUBA1B	SUPT16H	0.011105578801023055	Co-expression	Jiang-de Kok-2017
+VCP	NSFL1C	0.010627266147378923	Co-expression	Jiang-de Kok-2017
+VCP	PTPN11	0.00914082375219928	Co-expression	Jiang-de Kok-2017
+APH1B	SGMS2	0.00334981381755215	Co-expression	Mallon-McKay-2013
+APP	PKP4	0.0047982325288848165	Co-expression	Mallon-McKay-2013
+ATP5PO	TUBA1B	0.002913892471136122	Co-expression	Mallon-McKay-2013
+ATP6V0D1	SLC12A4	0.0023718731249729565	Co-expression	Mallon-McKay-2013
+ATP6V0D1	TMEM192	0.0017493151431103426	Co-expression	Mallon-McKay-2013
+CCDC88A	ACTR5	0.003714938043871528	Co-expression	Mallon-McKay-2013
+DNM2	RMC1	0.0027630568491785685	Co-expression	Mallon-McKay-2013
+EIF4G2	EEF1A1	0.0019196682267009274	Co-expression	Mallon-McKay-2013
+EIF4G2	HNRNPH2	7.406899898393842E-4	Co-expression	Mallon-McKay-2013
+EIF4G2	VCP	0.001007910721901644	Co-expression	Mallon-McKay-2013
+GLMN	SUPT16H	0.0022616807098030708	Co-expression	Mallon-McKay-2013
+HNRNPF	ATG3	0.002452972339039117	Co-expression	Mallon-McKay-2013
+HNRNPF	SPRED1	0.0020976328576369847	Co-expression	Mallon-McKay-2013
+HSPA9	FKBP4	0.002749355324340128	Co-expression	Mallon-McKay-2013
+MYH9	SEC16A	0.0024093456719539957	Co-expression	Mallon-McKay-2013
+PSEN1	APP	0.0034593913307920344	Co-expression	Mallon-McKay-2013
+PTPRM	SLC12A4	0.0027056526552744426	Co-expression	Mallon-McKay-2013
+PTPRM	TMEM192	0.001895066921176694	Co-expression	Mallon-McKay-2013
+SEC16A	CTTN	0.0028807250027857037	Co-expression	Mallon-McKay-2013
+SF3B2	ACTR5	0.001095886967527958	Co-expression	Mallon-McKay-2013
+YWHAH	GLMN	0.0010224113514568733	Co-expression	Mallon-McKay-2013
+YWHAH	HNRNPF	0.0014233395879876707	Co-expression	Mallon-McKay-2013
+YWHAH	SPRED1	0.0033691655030530787	Co-expression	Mallon-McKay-2013
+APH1B	PTPRH	0.00888743564363234	Co-expression	Perou-Botstein-1999
+EZR	TUBA1B	0.008275439787980773	Co-expression	Perou-Botstein-1999
+MET	SYAP1	0.008671761067967382	Co-expression	Perou-Botstein-1999
+PTPRK	ATP5PO	0.008998841301658648	Co-expression	Perou-Botstein-1999
+VAV1	SCRIB	0.010976220591172899	Co-expression	Perou-Botstein-1999
+VAV1	VCP	0.010599471228134934	Co-expression	Perou-Botstein-1999
+APH1B	ATP6V0D1	0.049501128129658366	Co-expression	Perou-Botstein-2000
+APP	OAT	0.02898184484171151	Co-expression	Perou-Botstein-2000
+APP	PTTG1IP	0.026582240391557068	Co-expression	Perou-Botstein-2000
+APP	SLC12A4	0.03072017851658869	Co-expression	Perou-Botstein-2000
+APP	SMAGP	0.029812463280812433	Co-expression	Perou-Botstein-2000
+ATP6V0D1	RBM4	0.028095498450867916	Co-expression	Perou-Botstein-2000
+EEF1A1	PHB2	0.020286939399786093	Co-expression	Perou-Botstein-2000
+HNRNPF	HNRNPH2	0.03441171008381072	Co-expression	Perou-Botstein-2000
+MTSS1	PSEN1	0.03264255201684999	Co-expression	Perou-Botstein-2000
+MTSS1	SLC9A1	0.04213771217965477	Co-expression	Perou-Botstein-2000
+OAT	ACOX1	0.0536655012770538	Co-expression	Perou-Botstein-2000
+PRKCI	SLC38A2	0.023889859793884558	Co-expression	Perou-Botstein-2000
+PSEN1	SEC16A	0.050284273695015105	Co-expression	Perou-Botstein-2000
+PTPRJ	PTTG1IP	0.038131729327441063	Co-expression	Perou-Botstein-2000
+PTPRJ	YWHAH	0.04541321943304729	Co-expression	Perou-Botstein-2000
+RBM14	HNRNPH2	0.01967778281828867	Co-expression	Perou-Botstein-2000
+SEC16A	CTTN	0.07005458279672884	Co-expression	Perou-Botstein-2000
+SF3B2	NFS1	0.019613813374103756	Co-expression	Perou-Botstein-2000
+SF3B2	RBM14	0.014151528054586767	Co-expression	Perou-Botstein-2000
+APP	PTPRK	0.052673763402694945	Co-expression	Ramaswamy-Golub-2001
+ATG3	USP15	0.022055647269750754	Co-expression	Ramaswamy-Golub-2001
+CAMLG	EZR	0.0651967135865708	Co-expression	Ramaswamy-Golub-2001
+CAMLG	RBM4	0.03457888071958152	Co-expression	Ramaswamy-Golub-2001
+CTNNAL1	ATG3	0.01817612791728584	Co-expression	Ramaswamy-Golub-2001
+EIF4G2	HNRNPU	0.010677955993284614	Co-expression	Ramaswamy-Golub-2001
+EIF4G2	PTPN11	0.046261712920136464	Co-expression	Ramaswamy-Golub-2001
+HNRNPU	HNRNPH2	0.014758126947710275	Co-expression	Ramaswamy-Golub-2001
+HNRNPU	HSPA9	0.01844269746051368	Co-expression	Ramaswamy-Golub-2001
+HSPA9	PTPRH	0.05571001303109921	Co-expression	Ramaswamy-Golub-2001
+MET	DCBLD1	0.06562755784806638	Co-expression	Ramaswamy-Golub-2001
+MYH9	PKP4	0.05554959333456272	Co-expression	Ramaswamy-Golub-2001
+MYH9	SCRIB	0.047164741992892695	Co-expression	Ramaswamy-Golub-2001
+OXCT1	RBM4	0.037351325089766255	Co-expression	Ramaswamy-Golub-2001
+PRKCI	OAT	0.026509760216004458	Co-expression	Ramaswamy-Golub-2001
+PTPN11	HNRNPU	0.027780195000077324	Co-expression	Ramaswamy-Golub-2001
+PTPRK	CTTN	0.032648289743682876	Co-expression	Ramaswamy-Golub-2001
+PTPRM	CTTN	0.03838495930332151	Co-expression	Ramaswamy-Golub-2001
+RASSF8	SLC12A4	0.07721278376360467	Co-expression	Ramaswamy-Golub-2001
+RPRD2	ZNF185	0.03581606268529175	Co-expression	Ramaswamy-Golub-2001
+SCRIB	SF3B2	0.03968611053588484	Co-expression	Ramaswamy-Golub-2001
+TNK2	USP15	0.03837856791171808	Co-expression	Ramaswamy-Golub-2001
+VCP	SMAGP	0.023411125330943267	Co-expression	Ramaswamy-Golub-2001
+YWHAH	EZR	0.04769587868208086	Co-expression	Ramaswamy-Golub-2001
+YWHAH	HNRNPU	0.01599636709083829	Co-expression	Ramaswamy-Golub-2001
+YWHAH	MYH9	0.03668572498211727	Co-expression	Ramaswamy-Golub-2001
+ACOX1	PTTG1IP	0.02583895993488935	Co-expression	Rieger-Chu-2004
+APP	ATP6V0D1	0.034885638881907634	Co-expression	Rieger-Chu-2004
+ATP5PO	RASSF8	0.01913723722907601	Co-expression	Rieger-Chu-2004
+ATP6V0D1	SEC16A	0.02464435030424491	Co-expression	Rieger-Chu-2004
+CTNNAL1	RBM14	0.02441525262041015	Co-expression	Rieger-Chu-2004
+CTNNAL1	ZNF185	0.03397762418299555	Co-expression	Rieger-Chu-2004
+DCAF7	PTPN11	0.04633225309155955	Co-expression	Rieger-Chu-2004
+GLMN	PSMC1	0.04088795577664232	Co-expression	Rieger-Chu-2004
+LCK	SF3B2	0.0241364741192228	Co-expression	Rieger-Chu-2004
+NCSTN	ACOX1	0.029429343887657906	Co-expression	Rieger-Chu-2004
+NCSTN	EZR	0.017061719937665303	Co-expression	Rieger-Chu-2004
+NCSTN	GLMN	0.020176908237624004	Co-expression	Rieger-Chu-2004
+NCSTN	PSEN1	0.023237076899598055	Co-expression	Rieger-Chu-2004
+PHB2	RBM14	0.01041764566359669	Co-expression	Rieger-Chu-2004
+PSEN1	PTTG1IP	0.02402075755132186	Co-expression	Rieger-Chu-2004
+PTPN11	HNRNPU	0.05105969527166702	Co-expression	Rieger-Chu-2004
+PTPRK	MERTK	0.024635087473013035	Co-expression	Rieger-Chu-2004
+PTPRK	PARD3	0.02449076105439613	Co-expression	Rieger-Chu-2004
+SMAGP	TJP3	0.05081040890304988	Co-expression	Rieger-Chu-2004
+TUBA1B	RBM14	0.011811601350842678	Co-expression	Rieger-Chu-2004
+MET	TUBA1B	7.744510403219942E-4	Co-expression	Rosenwald-Staudt-2001
+PHB2	TUBA1B	7.334193869170712E-4	Co-expression	Rosenwald-Staudt-2001
+PRKCI	PTPN11	9.107417713136116E-4	Co-expression	Rosenwald-Staudt-2001
+PTPN11	SEC16A	0.0012744517522996635	Co-expression	Rosenwald-Staudt-2001
+PTPRM	SMAGP	0.0014176325385749525	Co-expression	Rosenwald-Staudt-2001
+SEC16A	ARAP2	0.002200372855034454	Co-expression	Rosenwald-Staudt-2001
+VAV1	PTPRK	0.0030084186989802115	Co-expression	Rosenwald-Staudt-2001
+APP	SLC12A4	0.009975342782204355	Co-expression	Ross-Perou-2001
+APP	SLC9A1	0.013172020902864585	Co-expression	Ross-Perou-2001
+ARAP2	USP15	0.013791374716406353	Co-expression	Ross-Perou-2001
+ATP6V0D1	HNRNPF	0.01061892244698783	Co-expression	Ross-Perou-2001
+EEF1A1	PHB2	0.011262338834847679	Co-expression	Ross-Perou-2001
+HNRNPF	HNRNPH2	0.011175632025454345	Co-expression	Ross-Perou-2001
+HNRNPF	RBM14	0.007492829713318358	Co-expression	Ross-Perou-2001
+MTSS1	SLC9A1	0.014637418732618045	Co-expression	Ross-Perou-2001
+NCSTN	SEC16A	0.016291363729866053	Co-expression	Ross-Perou-2001
+PHB2	NFS1	0.008432273443588463	Co-expression	Ross-Perou-2001
+PTPRJ	PTTG1IP	0.015157582298126637	Co-expression	Ross-Perou-2001
+PTPRJ	YWHAH	0.011831662280265807	Co-expression	Ross-Perou-2001
+PTPRM	MET	0.008941089745973076	Co-expression	Ross-Perou-2001
+PTPRM	SLC12A4	0.008017970809658347	Co-expression	Ross-Perou-2001
+ATP6V0D1	FKBP4	0.0021854139875656965	Co-expression	Roth-Zlotnik-2006
+BTLA	LCK	7.397287041134583E-4	Co-expression	Roth-Zlotnik-2006
+BTLA	RNASEH2B	0.0018476345553215567	Co-expression	Roth-Zlotnik-2006
+BTLA	SH2D2A	0.0011058331254639425	Co-expression	Roth-Zlotnik-2006
+BTLA	VAV1	6.518269596032422E-4	Co-expression	Roth-Zlotnik-2006
+EZR	SMAGP	0.001665137521725256	Co-expression	Roth-Zlotnik-2006
+HNRNPF	APH1A	0.002272508810071743	Co-expression	Roth-Zlotnik-2006
+HNRNPF	SYAP1	0.0015618567417963098	Co-expression	Roth-Zlotnik-2006
+OAT	EMC7	0.0028651109335059567	Co-expression	Roth-Zlotnik-2006
+PARD3	SMAGP	0.0015178949599479476	Co-expression	Roth-Zlotnik-2006
+SCRIB	ZNF185	0.0014355013478541277	Co-expression	Roth-Zlotnik-2006
+SEC16A	DCBLD1	0.003242561137892594	Co-expression	Roth-Zlotnik-2006
+SH2D2A	PTPRH	0.002900496223469839	Co-expression	Roth-Zlotnik-2006
+SMAGP	APH1A	0.0015056662271644122	Co-expression	Roth-Zlotnik-2006
+SMAGP	ZNF185	6.032583232025327E-4	Co-expression	Roth-Zlotnik-2006
+VAV1	RNASEH2B	0.00149552040241207	Co-expression	Roth-Zlotnik-2006
+VCP	PHB2	0.002367437787250166	Co-expression	Roth-Zlotnik-2006
+ZNF185	SYAP1	0.0013547610482526871	Co-expression	Roth-Zlotnik-2006
+ATP6V0D1	CTTN	0.01514104437680475	Co-expression	Wang-Cheung-2015
+ATP6V0D1	NSFL1C	0.014368065547379384	Co-expression	Wang-Cheung-2015
+ATP6V0D1	PI4K2A	0.019371159492260294	Co-expression	Wang-Cheung-2015
+ATP6V0D1	PSMC1	0.00449285651576457	Co-expression	Wang-Cheung-2015
+ATP6V0D1	SF3B2	0.010691217266687114	Co-expression	Wang-Cheung-2015
+ATP6V0D1	TUBA1B	0.0033737253298542595	Co-expression	Wang-Cheung-2015
+CAMLG	PARD3	0.017219875627023897	Co-expression	Wang-Cheung-2015
+CAMLG	RPRD2	0.01338774020387678	Co-expression	Wang-Cheung-2015
+CAMLG	TMEM106B	0.011071828065698182	Co-expression	Wang-Cheung-2015
+EIF4G2	GLMN	0.03401208674890159	Co-expression	Wang-Cheung-2015
+EIF4G2	OAT	0.019028104701052116	Co-expression	Wang-Cheung-2015
+EIF4G2	SCRIB	0.058964437104064626	Co-expression	Wang-Cheung-2015
+EIF4G2	SUPT16H	0.02027110921196137	Co-expression	Wang-Cheung-2015
+EZR	ACOX1	0.02713304982665498	Co-expression	Wang-Cheung-2015
+EZR	SLC38A2	0.02334583585834521	Co-expression	Wang-Cheung-2015
+FKBP4	SUPT16H	0.013709713529004974	Co-expression	Wang-Cheung-2015
+GLMN	OAT	0.010095309911517565	Co-expression	Wang-Cheung-2015
+HNRNPF	SUPT16H	0.008961760404034435	Co-expression	Wang-Cheung-2015
+HNRNPU	HNRNPF	0.030000656362823626	Co-expression	Wang-Cheung-2015
+HNRNPU	SUPT16H	0.024262733202466004	Co-expression	Wang-Cheung-2015
+MET	EZR	0.03936969422373997	Co-expression	Wang-Cheung-2015
+MET	TUBA1B	0.014972998644571746	Co-expression	Wang-Cheung-2015
+MTSS1	ARAP2	0.02325846649534243	Co-expression	Wang-Cheung-2015
+MTSS1	ZNF185	0.030383082898280563	Co-expression	Wang-Cheung-2015
+NCSTN	PTTG1IP	0.04782520038600714	Co-expression	Wang-Cheung-2015
+OAT	ATG3	0.02040896776258807	Co-expression	Wang-Cheung-2015
+PHB2	SUPT16H	0.014677583280932861	Co-expression	Wang-Cheung-2015
+PSEN1	MYH9	0.023926889543222137	Co-expression	Wang-Cheung-2015
+PSEN1	ZNF185	0.03048968194652151	Co-expression	Wang-Cheung-2015
+PSMC1	EMC7	0.008665060958789909	Co-expression	Wang-Cheung-2015
+PSMC1	PI4K2A	0.019320296344028418	Co-expression	Wang-Cheung-2015
+PSMC1	RMC1	0.014629252251516317	Co-expression	Wang-Cheung-2015
+PSMC1	TUBA1B	0.0036587463908116925	Co-expression	Wang-Cheung-2015
+PTPRJ	EEF1A1	0.014534347356985694	Co-expression	Wang-Cheung-2015
+SCRIB	FKBP4	0.03579569412133532	Co-expression	Wang-Cheung-2015
+TUBA1B	RMC1	0.011829093791265042	Co-expression	Wang-Cheung-2015
+VCP	ATP6V0D1	0.007994082137960023	Co-expression	Wang-Cheung-2015
+VCP	PSMC1	0.008181434712966269	Co-expression	Wang-Cheung-2015
+VCP	SF3B2	0.023286207163573772	Co-expression	Wang-Cheung-2015
+YWHAH	EZR	0.015408545608556793	Co-expression	Wang-Cheung-2015
+YWHAH	PSMC1	0.007798112699547502	Co-expression	Wang-Cheung-2015
+YWHAH	TUBA1B	0.005753542210870449	Co-expression	Wang-Cheung-2015
+ATP6V0D1	DNM2	0.028378304974524874	Co-expression	Wang-Maris-2006
+CHP2	SMAGP	0.03745307854506803	Co-expression	Wang-Maris-2006
+CTNNA2	PLEKHA6	0.05131215205331602	Co-expression	Wang-Maris-2006
+CTTN	DNM2	0.051999418880253036	Co-expression	Wang-Maris-2006
+EEF1A1	TUBA1B	0.030008030081632473	Co-expression	Wang-Maris-2006
+EIF4G2	TUBA1B	0.039521716624585354	Co-expression	Wang-Maris-2006
+FKBP4	RBM14	0.02252595811040179	Co-expression	Wang-Maris-2006
+HNRNPU	RBM14	0.031225912441091765	Co-expression	Wang-Maris-2006
+MYH9	PTTG1IP	0.018717358872434253	Co-expression	Wang-Maris-2006
+PHB2	ATP5PO	0.027912073005659375	Co-expression	Wang-Maris-2006
+PHB2	FKBP4	0.022791986831524745	Co-expression	Wang-Maris-2006
+PHB2	HNRNPF	0.03343707254888766	Co-expression	Wang-Maris-2006
+PSMC1	SF3B2	0.032022658135622065	Co-expression	Wang-Maris-2006
+PTPRJ	PI4K2A	0.022654645534162764	Co-expression	Wang-Maris-2006
+PTPRM	OXCT1	0.03150940107074436	Co-expression	Wang-Maris-2006
+SEC16A	PTTG1IP	0.04650366571029705	Co-expression	Wang-Maris-2006
+SF3B2	CTTN	0.031264759469559165	Co-expression	Wang-Maris-2006
+SH2D2A	SLC9A1	0.03016329743254364	Co-expression	Wang-Maris-2006
+VCP	ATP6V0D1	0.023988105290615985	Co-expression	Wang-Maris-2006
+YWHAH	APP	0.02641321871660114	Co-expression	Wang-Maris-2006
+YWHAH	ATP6V0D1	0.018030153634606028	Co-expression	Wang-Maris-2006
+YWHAH	CTTN	0.027384541759095382	Co-expression	Wang-Maris-2006
+YWHAH	EZR	0.02990323681682624	Co-expression	Wang-Maris-2006
+CAMLG	RNASEH2B	0.010252519164472725	Co-expression	Wu-Garvey-2007
+EIF4G2	PSMC1	0.006299137734797395	Co-expression	Wu-Garvey-2007
+EZR	TUBA1B	0.011525083586171082	Co-expression	Wu-Garvey-2007
+MYH9	CTTN	0.021028917644754567	Co-expression	Wu-Garvey-2007
+MYH9	DNM2	0.013472346364161957	Co-expression	Wu-Garvey-2007
+MYH9	EZR	0.02306634126471509	Co-expression	Wu-Garvey-2007
+MYH9	TUBA1B	0.010144745403139331	Co-expression	Wu-Garvey-2007
+NCSTN	DNM2	0.00971468153201616	Co-expression	Wu-Garvey-2007
+NCSTN	MYH9	0.013055580715468503	Co-expression	Wu-Garvey-2007
+SCRIB	SEC16A	0.006992268776110551	Co-expression	Wu-Garvey-2007
+SH2D2A	SMAGP	0.01525959070752416	Co-expression	Wu-Garvey-2007
+YWHAH	CTTN	0.015742545965872146	Co-expression	Wu-Garvey-2007
+YWHAH	MYH9	0.014519242413201067	Co-expression	Wu-Garvey-2007
+APH1B	RASSF8	0.0014043791689299782	Co-localization	Johnson-Shoemaker-2003
+CAMLG	FKBP4	0.002827695755302918	Co-localization	Johnson-Shoemaker-2003
+CAMLG	SUPT16H	0.001039008076693946	Co-localization	Johnson-Shoemaker-2003
+CCDC88A	TUBA1B	0.0027987099228035475	Co-localization	Johnson-Shoemaker-2003
+CTTN	EMC7	0.0026116495881016305	Co-localization	Johnson-Shoemaker-2003
+CTTN	TMEM106B	0.004363572332209702	Co-localization	Johnson-Shoemaker-2003
+EMC7	TMEM106B	0.0025258733368156458	Co-localization	Johnson-Shoemaker-2003
+FKBP4	SUPT16H	0.0014982396760563118	Co-localization	Johnson-Shoemaker-2003
+MTSS1	SYAP1	0.0020595308793793497	Co-localization	Johnson-Shoemaker-2003
+PKP4	FRS2	0.001186430818827501	Co-localization	Johnson-Shoemaker-2003
+PSEN1	PKP4	7.982209817883287E-4	Co-localization	Johnson-Shoemaker-2003
+PTPN11	PKP4	7.324846558711342E-4	Co-localization	Johnson-Shoemaker-2003
+RNASEH2B	ACTR5	0.0017997280585386117	Co-localization	Johnson-Shoemaker-2003
+YWHAH	CTNNA2	0.001014041507066546	Co-localization	Johnson-Shoemaker-2003
+YWHAH	PI4K2A	9.072396405329725E-4	Co-localization	Johnson-Shoemaker-2003
+YWHAH	TUBA1B	6.304898648666508E-4	Co-localization	Johnson-Shoemaker-2003
+ABLIM1	ARAP2	3.7110450569053874E-4	Genetic Interactions	Lin-Smith-2010
+ABLIM1	DCBLD1	6.795023051010555E-4	Genetic Interactions	Lin-Smith-2010
+ABLIM1	DNM2	9.339559805563907E-4	Genetic Interactions	Lin-Smith-2010
+ABLIM1	SGMS2	3.8922049703183563E-4	Genetic Interactions	Lin-Smith-2010
+ABLIM1	TJP3	6.997398711557855E-4	Genetic Interactions	Lin-Smith-2010
+ABLIM1	TUBA1B	0.0013315235733564047	Genetic Interactions	Lin-Smith-2010
+ACOX1	CTNNAL1	0.0017933856520365753	Genetic Interactions	Lin-Smith-2010
+ACOX1	MERTK	0.0010708887489487378	Genetic Interactions	Lin-Smith-2010
+APH1B	APP	4.14794607611115E-4	Genetic Interactions	Lin-Smith-2010
+APH1B	ATP5PO	5.824524610928172E-4	Genetic Interactions	Lin-Smith-2010
+APH1B	HNRNPF	6.890611045235537E-4	Genetic Interactions	Lin-Smith-2010
+APH1B	PI4K2A	0.0010893205366707842	Genetic Interactions	Lin-Smith-2010
+APP	ACOX1	7.991212581545834E-4	Genetic Interactions	Lin-Smith-2010
+APP	CTNNA2	1.727244954224937E-4	Genetic Interactions	Lin-Smith-2010
+APP	CTTN	5.905647044019395E-4	Genetic Interactions	Lin-Smith-2010
+APP	DNM2	9.357669761276288E-4	Genetic Interactions	Lin-Smith-2010
+APP	MERTK	3.0171175475452757E-4	Genetic Interactions	Lin-Smith-2010
+APP	MYO18A	2.4867264266568783E-4	Genetic Interactions	Lin-Smith-2010
+APP	OAT	4.864242240027377E-4	Genetic Interactions	Lin-Smith-2010
+APP	PARD3	2.1958344318490523E-4	Genetic Interactions	Lin-Smith-2010
+APP	RNASEH2B	3.067960560248387E-4	Genetic Interactions	Lin-Smith-2010
+APP	SGMS2	3.8997523196804425E-4	Genetic Interactions	Lin-Smith-2010
+APP	SLC38A2	5.648653033732519E-4	Genetic Interactions	Lin-Smith-2010
+APP	SLC9A1	4.54079646686739E-4	Genetic Interactions	Lin-Smith-2010
+ARAP2	RMC1	0.001103395418705714	Genetic Interactions	Lin-Smith-2010
+ARAP2	SLC38A2	9.328716133273831E-4	Genetic Interactions	Lin-Smith-2010
+ATG3	USP15	0.0014527759824221195	Genetic Interactions	Lin-Smith-2010
+ATP5PO	ABLIM1	3.1553431681112266E-4	Genetic Interactions	Lin-Smith-2010
+ATP5PO	CTNNAL1	7.094943170240835E-4	Genetic Interactions	Lin-Smith-2010
+ATP5PO	TMEM106B	5.580572162546017E-4	Genetic Interactions	Lin-Smith-2010
+ATP5PO	USP15	4.354906768658839E-4	Genetic Interactions	Lin-Smith-2010
+ATP5PO	ZNF185	0.001793088780932936	Genetic Interactions	Lin-Smith-2010
+CAMLG	APP	5.831641026615523E-4	Genetic Interactions	Lin-Smith-2010
+CAMLG	ATG3	0.0027317311715957487	Genetic Interactions	Lin-Smith-2010
+CAMLG	MERTK	7.814882705747732E-4	Genetic Interactions	Lin-Smith-2010
+CAMLG	NSFL1C	0.0028210697324226094	Genetic Interactions	Lin-Smith-2010
+CAMLG	PARD3	5.687610460916549E-4	Genetic Interactions	Lin-Smith-2010
+CAMLG	PI4K2A	0.0015314872329107287	Genetic Interactions	Lin-Smith-2010
+CCDC88A	ABLIM1	3.3086133609917074E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	ACTR5	8.799787373662665E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	APP	3.315029029932011E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	CTNNAL1	7.439578604342379E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	EMC7	6.626685268586628E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	OAT	7.162126880993525E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	PTPRK	3.628732633079123E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	SCRIB	0.0028382246265831017	Genetic Interactions	Lin-Smith-2010
+CCDC88A	SUPT16H	6.69844224697826E-4	Genetic Interactions	Lin-Smith-2010
+CCDC88A	TMEM106B	5.851647090496739E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	EMC7	3.452732670895507E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	MYO18A	1.9077497717282115E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	RNASEH2B	2.3536569211154616E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	SGMS2	2.991785041145535E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	SLC9A1	3.483577036380054E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	SUPT16H	3.490120578814344E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	TNK2	4.803500284407763E-4	Genetic Interactions	Lin-Smith-2010
+CTNNA2	TUBA1B	0.0010234899320820633	Genetic Interactions	Lin-Smith-2010
+CTNNAL1	ARAP2	8.34446617764811E-4	Genetic Interactions	Lin-Smith-2010
+CTNNAL1	RNASEH2B	6.885108393042299E-4	Genetic Interactions	Lin-Smith-2010
+CTNNAL1	TMEM106B	8.918921481576392E-4	Genetic Interactions	Lin-Smith-2010
+CTTN	CTNNA2	4.5306540528183365E-4	Genetic Interactions	Lin-Smith-2010
+CTTN	TJP3	0.0018390133698621355	Genetic Interactions	Lin-Smith-2010
+EEF1A1	ABLIM1	8.056363103744134E-4	Genetic Interactions	Lin-Smith-2010
+EEF1A1	RNASEH2B	0.001099941504483734	Genetic Interactions	Lin-Smith-2010
+EZR	CTNNA2	3.92322887018846E-4	Genetic Interactions	Lin-Smith-2010
+EZR	RNASEH2B	6.968502882374679E-4	Genetic Interactions	Lin-Smith-2010
+FGFR1	ARAP2	9.80975064295322E-4	Genetic Interactions	Lin-Smith-2010
+FGFR1	ATP6V0D1	0.003375486032257625	Genetic Interactions	Lin-Smith-2010
+FGFR1	PARD3	5.793220156612261E-4	Genetic Interactions	Lin-Smith-2010
+HNRNPF	MYO18A	4.1309759847241677E-4	Genetic Interactions	Lin-Smith-2010
+HNRNPF	PTTG1IP	0.001144399435586303	Genetic Interactions	Lin-Smith-2010
+HNRNPF	SLC9A1	7.543218025242743E-4	Genetic Interactions	Lin-Smith-2010
+HNRNPU	ACTR5	0.0013601786934745	Genetic Interactions	Lin-Smith-2010
+HNRNPU	RNASEH2B	6.982330099026456E-4	Genetic Interactions	Lin-Smith-2010
+HSPA9	CTNNA2	3.5758513168818623E-4	Genetic Interactions	Lin-Smith-2010
+HSPA9	EMC7	9.31740700146564E-4	Genetic Interactions	Lin-Smith-2010
+HSPA9	PI4K2A	0.0012240767958966814	Genetic Interactions	Lin-Smith-2010
+HSPA9	SLC9A1	9.400643439159454E-4	Genetic Interactions	Lin-Smith-2010
+LCK	SLC38A2	0.002620082880318801	Genetic Interactions	Lin-Smith-2010
+MARK4	PARD3	9.134822065835685E-4	Genetic Interactions	Lin-Smith-2010
+MARK4	SGMS2	0.0016223236526967531	Genetic Interactions	Lin-Smith-2010
+MET	EMC7	8.363581730517202E-4	Genetic Interactions	Lin-Smith-2010
+MET	HSPA9	8.661813919626857E-4	Genetic Interactions	Lin-Smith-2010
+MET	PARD3	4.080584109707841E-4	Genetic Interactions	Lin-Smith-2010
+MET	PTPRK	4.579846474461066E-4	Genetic Interactions	Lin-Smith-2010
+MET	SGMS2	7.24702516261519E-4	Genetic Interactions	Lin-Smith-2010
+MET	SLC38A2	0.0010497059420264577	Genetic Interactions	Lin-Smith-2010
+MTSS1	ABLIM1	3.5775295286169447E-4	Genetic Interactions	Lin-Smith-2010
+MTSS1	ACTR5	9.515012469193259E-4	Genetic Interactions	Lin-Smith-2010
+MTSS1	APH1B	6.60384859704252E-4	Genetic Interactions	Lin-Smith-2010
+MTSS1	ATG3	0.0016790812748413303	Genetic Interactions	Lin-Smith-2010
+MTSS1	CTNNA2	2.7499067008358456E-4	Genetic Interactions	Lin-Smith-2010
+MTSS1	CTNNAL1	8.044249903405757E-4	Genetic Interactions	Lin-Smith-2010
+MTSS1	NSFL1C	0.0017339940405134615	Genetic Interactions	Lin-Smith-2010
+MTSS1	PTPRK	3.923667732019822E-4	Genetic Interactions	Lin-Smith-2010
+MYH9	ABLIM1	6.327422419115439E-4	Genetic Interactions	Lin-Smith-2010
+MYH9	ATP5PO	8.902161869960512E-4	Genetic Interactions	Lin-Smith-2010
+MYH9	PTTG1IP	0.0019398161474706926	Genetic Interactions	Lin-Smith-2010
+NSFL1C	PI4K2A	0.0028602644928114786	Genetic Interactions	Lin-Smith-2010
+OAT	EMC7	9.72353526434349E-4	Genetic Interactions	Lin-Smith-2010
+OAT	EZR	0.0011048540972263198	Genetic Interactions	Lin-Smith-2010
+OAT	HNRNPF	8.080529659625704E-4	Genetic Interactions	Lin-Smith-2010
+OAT	PLEKHA6	7.288795295172953E-4	Genetic Interactions	Lin-Smith-2010
+OXCT1	FKBP4	0.00459694285371071	Genetic Interactions	Lin-Smith-2010
+OXCT1	TNK2	0.0032701733099643475	Genetic Interactions	Lin-Smith-2010
+PARD3	ABLIM1	2.1915846841498964E-4	Genetic Interactions	Lin-Smith-2010
+PARD3	CTNNA2	1.6845852057695081E-4	Genetic Interactions	Lin-Smith-2010
+PARD3	DCBLD1	6.640049583190171E-4	Genetic Interactions	Lin-Smith-2010
+PARD3	MERTK	2.942600036165456E-4	Genetic Interactions	Lin-Smith-2010
+PARD3	SCRIB	0.0018800049062897117	Genetic Interactions	Lin-Smith-2010
+PARD3	SGMS2	3.803435446539736E-4	Genetic Interactions	Lin-Smith-2010
+PARD3	SLC9A1	4.428647320689195E-4	Genetic Interactions	Lin-Smith-2010
+PARD3	SUPT16H	4.436966258713997E-4	Genetic Interactions	Lin-Smith-2010
+PRKCI	PLEKHA6	0.0015320262452625816	Genetic Interactions	Lin-Smith-2010
+PSEN1	SGMS2	0.0012723032100164379	Genetic Interactions	Lin-Smith-2010
+PSEN1	USP15	0.0010118243912714344	Genetic Interactions	Lin-Smith-2010
+PSMC1	ACTR5	0.0022715314483374056	Genetic Interactions	Lin-Smith-2010
+PSMC1	PARD3	8.345896826298834E-4	Genetic Interactions	Lin-Smith-2010
+PTPN11	PARD3	5.171084407234147E-4	Genetic Interactions	Lin-Smith-2010
+PTPN11	TMEM192	0.001496726409201754	Genetic Interactions	Lin-Smith-2010
+PTPRJ	ABLIM1	4.107417595179999E-4	Genetic Interactions	Lin-Smith-2010
+PTPRJ	CTNNA2	3.157210888364397E-4	Genetic Interactions	Lin-Smith-2010
+PTPRJ	MYO18A	4.545458222964171E-4	Genetic Interactions	Lin-Smith-2010
+PTPRJ	PTPRM	3.470740839306675E-4	Genetic Interactions	Lin-Smith-2010
+PTPRK	ATP5PO	3.460633206847985E-4	Genetic Interactions	Lin-Smith-2010
+PTPRK	CTNNA2	1.8906955395821853E-4	Genetic Interactions	Lin-Smith-2010
+PTPRK	CTTN	6.464502804669246E-4	Genetic Interactions	Lin-Smith-2010
+PTPRK	MYO18A	2.722047158447939E-4	Genetic Interactions	Lin-Smith-2010
+PTPRK	TJP3	7.674420833518942E-4	Genetic Interactions	Lin-Smith-2010
+PTPRK	TNK2	6.853810588148076E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	APP	1.8987707507274492E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	CTNNA2	1.4566859958224513E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	EMC7	3.7956098444547347E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	FGFR1	5.009484023461393E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	HSPA9	3.93095498669514E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	LCK	8.807298151205471E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	OAT	4.1022980519747447E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	PARD3	1.8518746812897332E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	PI4K2A	4.986492369242573E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	PTPRK	2.0784528301704132E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	SGMS2	3.288887340062322E-4	Genetic Interactions	Lin-Smith-2010
+PTPRM	SLC38A2	4.763836995536926E-4	Genetic Interactions	Lin-Smith-2010
+PTTG1IP	ABLIM1	6.87561659933065E-4	Genetic Interactions	Lin-Smith-2010
+PTTG1IP	TNK2	0.0019158295351698613	Genetic Interactions	Lin-Smith-2010
+RNASEH2B	MERTK	4.111321572951414E-4	Genetic Interactions	Lin-Smith-2010
+RNASEH2B	MYO18A	3.388576237239459E-4	Genetic Interactions	Lin-Smith-2010
+RNASEH2B	TMEM192	8.660632368542418E-4	Genetic Interactions	Lin-Smith-2010
+RNASEH2B	ZNF185	0.0017400576992995184	Genetic Interactions	Lin-Smith-2010
+SCRIB	MYO18A	0.0021290576657036243	Genetic Interactions	Lin-Smith-2010
+SF3B2	CTNNA2	0.001442645025838127	Genetic Interactions	Lin-Smith-2010
+SH2D2A	CTTN	0.001753130462336773	Genetic Interactions	Lin-Smith-2010
+SH2D2A	FKBP4	0.002612820279653124	Genetic Interactions	Lin-Smith-2010
+SH2D2A	MYH9	0.0018819794776344574	Genetic Interactions	Lin-Smith-2010
+SH2D2A	MYO18A	7.382012514819421E-4	Genetic Interactions	Lin-Smith-2010
+SLC12A4	TMEM106B	9.886939175875434E-4	Genetic Interactions	Lin-Smith-2010
+SLC38A2	DCBLD1	0.0017081129568245175	Genetic Interactions	Lin-Smith-2010
+SLC9A1	ARAP2	7.499098600853456E-4	Genetic Interactions	Lin-Smith-2010
+SLC9A1	SGMS2	7.865176373920677E-4	Genetic Interactions	Lin-Smith-2010
+SLC9A1	SUPT16H	9.175263848537912E-4	Genetic Interactions	Lin-Smith-2010
+SUPT16H	PI4K2A	0.001194729726727925	Genetic Interactions	Lin-Smith-2010
+SUPT16H	SGMS2	7.87995036592193E-4	Genetic Interactions	Lin-Smith-2010
+TJP3	HNRNPH2	0.003036010753983024	Genetic Interactions	Lin-Smith-2010
+TMEM106B	SYAP1	0.0015093652207498148	Genetic Interactions	Lin-Smith-2010
+TNK2	MYO18A	6.91563281904489E-4	Genetic Interactions	Lin-Smith-2010
+TNK2	USP15	8.62492702005746E-4	Genetic Interactions	Lin-Smith-2010
+USP15	ACTR5	8.23258761178319E-4	Genetic Interactions	Lin-Smith-2010
+VAV1	ATP5PO	0.0025622566449596752	Genetic Interactions	Lin-Smith-2010
+VCP	APP	3.4806812132352294E-4	Genetic Interactions	Lin-Smith-2010
+VCP	CTNNA2	2.6702852468170384E-4	Genetic Interactions	Lin-Smith-2010
+VCP	CTTN	9.130008907522022E-4	Genetic Interactions	Lin-Smith-2010
+VCP	HNRNPF	5.782143754563128E-4	Genetic Interactions	Lin-Smith-2010
+VCP	MET	6.468253078500888E-4	Genetic Interactions	Lin-Smith-2010
+VCP	MYO18A	3.8444281082540587E-4	Genetic Interactions	Lin-Smith-2010
+VCP	PARD3	3.394714932191787E-4	Genetic Interactions	Lin-Smith-2010
+VCP	RNASEH2B	4.7430038458966034E-4	Genetic Interactions	Lin-Smith-2010
+VCP	SLC38A2	8.732700846765404E-4	Genetic Interactions	Lin-Smith-2010
+VCP	SLC9A1	7.01997810163206E-4	Genetic Interactions	Lin-Smith-2010
+VCP	TMEM106B	6.144054386208308E-4	Genetic Interactions	Lin-Smith-2010
+VCP	USP15	4.794631490358817E-4	Genetic Interactions	Lin-Smith-2010
+YWHAH	ABLIM1	6.345867403382067E-4	Genetic Interactions	Lin-Smith-2010
+YWHAH	APH1B	0.0011713990543018482	Genetic Interactions	Lin-Smith-2010
+YWHAH	ATG3	0.0029783756127733122	Genetic Interactions	Lin-Smith-2010
+YWHAH	HNRNPU	0.0014470479659830788	Genetic Interactions	Lin-Smith-2010
+YWHAH	MERTK	8.520479438675098E-4	Genetic Interactions	Lin-Smith-2010
+YWHAH	PARD3	6.201138136911949E-4	Genetic Interactions	Lin-Smith-2010
+YWHAH	PI4K2A	0.001669763389081503	Genetic Interactions	Lin-Smith-2010
+YWHAH	SLC38A2	0.0015952055719763787	Genetic Interactions	Lin-Smith-2010
+YWHAH	TMEM106B	0.0011223366544278037	Genetic Interactions	Lin-Smith-2010
+YWHAH	TMEM192	0.0017948665293957373	Genetic Interactions	Lin-Smith-2010
+APH1B	APH1A	0.4867847476189454	Pathway	CELL_MAP
+APH1B	APP	0.6417034611719854	Pathway	CELL_MAP
+APH1B	PSEN1	0.4867847476189454	Pathway	CELL_MAP
+APP	APH1A	0.6417034611719854	Pathway	CELL_MAP
+NCSTN	APH1A	0.5559911604209036	Pathway	CELL_MAP
+NCSTN	APH1B	0.5559911604209036	Pathway	CELL_MAP
+NCSTN	PSEN1	0.5559911604209036	Pathway	CELL_MAP
+PSEN1	APH1A	0.4867847476189454	Pathway	CELL_MAP
+PSEN1	APP	0.6417034611719854	Pathway	CELL_MAP
+HNRNPF	HNRNPH2	0.0014495491805652004	Pathway	REACTOME
+HNRNPF	SF3B2	0.0014495491805652004	Pathway	REACTOME
+HNRNPU	HNRNPF	0.0014495491805652004	Pathway	REACTOME
+HNRNPU	HNRNPH2	0.0014495491805652004	Pathway	REACTOME
+HNRNPU	SF3B2	0.0014495491805652004	Pathway	REACTOME
+SF3B2	HNRNPH2	0.0014495491805652004	Pathway	REACTOME
+APH1B	APH1A	0.007018794086886968	Pathway	Wu-Stein-2010
+APH1B	APP	0.004530140894673644	Pathway	Wu-Stein-2010
+APH1B	PSEN1	0.0060864525670207646	Pathway	Wu-Stein-2010
+APP	APH1A	0.004530140894673644	Pathway	Wu-Stein-2010
+EZR	SLC9A1	0.020075954296180233	Pathway	Wu-Stein-2010
+FGFR1	FRS2	0.003168349470027991	Pathway	Wu-Stein-2010
+FGFR1	PTPN11	0.0018681946371478632	Pathway	Wu-Stein-2010
+GLMN	MET	0.025356362879574306	Pathway	Wu-Stein-2010
+HNRNPF	HNRNPH2	0.0030399761677255984	Pathway	Wu-Stein-2010
+HNRNPF	SF3B2	0.0030399761677255984	Pathway	Wu-Stein-2010
+HNRNPU	HNRNPF	0.0030399761677255984	Pathway	Wu-Stein-2010
+HNRNPU	HNRNPH2	0.0030399761677255984	Pathway	Wu-Stein-2010
+HNRNPU	SF3B2	0.0030399761677255984	Pathway	Wu-Stein-2010
+LCK	PTPN11	0.0012518333547248475	Pathway	Wu-Stein-2010
+MET	PTPN11	0.0015591019458272863	Pathway	Wu-Stein-2010
+NCSTN	APH1A	0.007018794086886968	Pathway	Wu-Stein-2010
+NCSTN	APH1B	0.007018794086886968	Pathway	Wu-Stein-2010
+NCSTN	APP	0.004530140894673644	Pathway	Wu-Stein-2010
+NCSTN	PSEN1	0.0060864525670207646	Pathway	Wu-Stein-2010
+PRKCI	FGFR1	0.002388831557226672	Pathway	Wu-Stein-2010
+PRKCI	FRS2	0.0026148820179513433	Pathway	Wu-Stein-2010
+PRKCI	PARD3	0.005159534814200778	Pathway	Wu-Stein-2010
+PRKCI	PTPN11	0.001541846612149431	Pathway	Wu-Stein-2010
+PSEN1	APH1A	0.0060864525670207646	Pathway	Wu-Stein-2010
+PSEN1	APP	0.003928379775835177	Pathway	Wu-Stein-2010
+PTPN11	FRS2	0.002044978305000321	Pathway	Wu-Stein-2010
+PTPRJ	MET	0.030290149886449833	Pathway	Wu-Stein-2010
+SF3B2	HNRNPH2	0.0030399761677255984	Pathway	Wu-Stein-2010
+VAV1	LCK	0.0020017051400795433	Pathway	Wu-Stein-2010
+VAV1	PTPN11	0.001928107876831365	Pathway	Wu-Stein-2010
+LCK	PTPRK	0.2537178136755565	Physical Interactions	Barr-Knapp-2009
+MET	PTPRK	0.3348396990700115	Physical Interactions	Barr-Knapp-2009
+PTPRJ	LCK	0.13711686861317768	Physical Interactions	Barr-Knapp-2009
+PTPRJ	PKP4	0.5160119748974905	Physical Interactions	Barr-Knapp-2009
+PTPRJ	TNK2	0.36667874150084656	Physical Interactions	Barr-Knapp-2009
+PTPRM	LCK	1.9891342277651591	Physical Interactions	Barr-Knapp-2009
+APH1B	PSEN1	0.025061098501774664	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+BTLA	PTPN11	0.02352107826122724	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+CHP2	SLC9A1	0.018229823791601072	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+CTTN	DNM2	0.005311081142256514	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+CTTN	TNK2	0.0041201645966029	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+EZR	SLC9A1	0.003781251297866742	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+FGFR1	FRS2	0.003897238929995065	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+FGFR1	PARD3	0.0022661787296102743	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+FGFR1	PTPN11	8.803766935135295E-4	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+FGFR1	TNK2	0.0016121035632354077	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+FGFR1	TUBA1B	0.0017602877299082076	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+GLMN	FKBP4	0.023062608725872773	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+GLMN	MET	0.019981733993633587	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+HSPA9	TNK2	0.003299941526561976	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+LCK	PTPRH	0.016062366828480765	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+MARK4	MYH9	0.009678787650296972	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+MARK4	PRKCI	0.013848072622543232	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+NCSTN	APH1A	0.052745534743318515	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+NCSTN	APH1B	0.0628225857808487	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+NCSTN	APP	0.004889269204220695	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+NCSTN	PSEN1	0.01096145308496361	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PHB2	USP15	0.0024597980995758953	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PI4K2A	USP15	0.005039859829137321	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PRKCI	FRS2	0.013283943152492593	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PRKCI	PARD3	0.007724389091722508	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PSEN1	APH1A	0.021041175200531757	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PSEN1	APP	0.001950420507554514	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PSEN1	PKP4	0.013239555831298032	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PTPN11	DNM2	0.0023714223066385056	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PTPN11	FRS2	0.0044473848642042095	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+PTPN11	HSPA9	0.0018021122475598038	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+SCRIB	PKP4	0.033886922717717816	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+SH2D2A	VCP	0.0017839890936505289	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+TNK2	MERTK	0.026248639647639987	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VAV1	FGFR1	0.0017788074295565573	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VCP	APP	4.226843924150782E-4	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VCP	HNRNPH2	0.0043026152604349124	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VCP	NSFL1C	0.001685348878588699	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VCP	PSMC1	0.0011504209630447029	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VCP	PTPN11	4.54226327007437E-4	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+VCP	RBM4	0.004597664948654372	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+YWHAH	MARK4	0.008329722459234348	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+YWHAH	PRKCI	0.0053914051522882265	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+CCDC88A	PARD3	2.5898066869137355	Physical Interactions	Brajenovic-Drewes-2004
+DCAF7	PARD3	1.8925751262630286	Physical Interactions	Brajenovic-Drewes-2004
+MARK4	MYO18A	2.319796366569286	Physical Interactions	Brajenovic-Drewes-2004
+MARK4	PRKCI	0.1776809124426089	Physical Interactions	Brajenovic-Drewes-2004
+PARD3	RASSF8	2.5898066869137355	Physical Interactions	Brajenovic-Drewes-2004
+PRKCI	PARD3	0.36567269213223813	Physical Interactions	Brajenovic-Drewes-2004
+YWHAH	CCDC88A	1.70036794085292	Physical Interactions	Brajenovic-Drewes-2004
+YWHAH	DCAF7	1.2425923221975779	Physical Interactions	Brajenovic-Drewes-2004
+YWHAH	MARK4	0.17368426231035294	Physical Interactions	Brajenovic-Drewes-2004
+YWHAH	PARD3	0.3574474820150379	Physical Interactions	Brajenovic-Drewes-2004
+YWHAH	PRKCI	0.24008670003761245	Physical Interactions	Brajenovic-Drewes-2004
+YWHAH	RASSF8	1.70036794085292	Physical Interactions	Brajenovic-Drewes-2004
+PHB2	USP15	0.014931878922830771	Physical Interactions	Ewing-Figeys-2007
+EEF1A1	RBM4	0.001963526257023801	Physical Interactions	Havugimana-Emili-2012
+EEF1A1	SUPT16H	7.857509935157407E-4	Physical Interactions	Havugimana-Emili-2012
+MYH9	HNRNPU	6.198751812694579E-4	Physical Interactions	Havugimana-Emili-2012
+NCSTN	HNRNPU	2.945572229130479E-4	Physical Interactions	Havugimana-Emili-2012
+NCSTN	SUPT16H	9.510580123332389E-4	Physical Interactions	Havugimana-Emili-2012
+OXCT1	CTTN	0.0033897432227972973	Physical Interactions	Havugimana-Emili-2012
+HNRNPF	RBM4	0.07813722654935314	Physical Interactions	Hegele-Stelzl-2012 B
+RBM4	HNRNPH2	0.05091918273888199	Physical Interactions	Hegele-Stelzl-2012 B
+ABLIM1	MYO18A	0.011037674857803707	Physical Interactions	Hein-Mann-2015
+CCDC88A	RBM4	0.016201632262019334	Physical Interactions	Hein-Mann-2015
+CTTN	MYO18A	0.012801338391460245	Physical Interactions	Hein-Mann-2015
+EEF1A1	PHB2	0.018779334946985686	Physical Interactions	Hein-Mann-2015
+HNRNPF	HNRNPH2	0.011910266535863853	Physical Interactions	Hein-Mann-2015
+HNRNPF	RBM14	0.04106551631607914	Physical Interactions	Hein-Mann-2015
+HNRNPF	SEC16A	0.005629636249559822	Physical Interactions	Hein-Mann-2015
+HNRNPU	SUPT16H	0.007260098244498199	Physical Interactions	Hein-Mann-2015
+MYH9	ABLIM1	0.0054902579694331086	Physical Interactions	Hein-Mann-2015
+MYH9	CTTN	0.006367523588312067	Physical Interactions	Hein-Mann-2015
+MYH9	MYO18A	0.0011974382644583234	Physical Interactions	Hein-Mann-2015
+MYH9	SEC16A	0.0011567317571937953	Physical Interactions	Hein-Mann-2015
+MYH9	SUPT16H	0.007568641334372681	Physical Interactions	Hein-Mann-2015
+NCSTN	PSEN1	0.154078478108611	Physical Interactions	Hein-Mann-2015
+PARD3	RASSF8	0.0662668564474193	Physical Interactions	Hein-Mann-2015
+PRKCI	DNM2	0.031900207801241094	Physical Interactions	Hein-Mann-2015
+PRKCI	PARD3	0.0376702621121461	Physical Interactions	Hein-Mann-2015
+SEC16A	MYO18A	0.0023255062177627577	Physical Interactions	Hein-Mann-2015
+SEC16A	RBM14	0.01638679241367523	Physical Interactions	Hein-Mann-2015
+SEC16A	RBM4	0.006486303631012194	Physical Interactions	Hein-Mann-2015
+VCP	NSFL1C	0.055618410442126835	Physical Interactions	Hein-Mann-2015
+YWHAH	PARD3	0.02669113278155574	Physical Interactions	Hein-Mann-2015
+YWHAH	RASSF8	0.012552026083469519	Physical Interactions	Hein-Mann-2015
+APP	NSFL1C	0.45259010628996504	Physical Interactions	Hosp-Selbach-2015
+PARD3	RASSF8	0.05373020419044536	Physical Interactions	Huttlin-Gygi-2015
+PRKCI	RASSF8	0.057354478398915075	Physical Interactions	Huttlin-Gygi-2015
+HNRNPF	ACOX1	0.004694584203110244	Physical Interactions	Huttlin-Harper-2017
+PARD3	RASSF8	0.01371590414509408	Physical Interactions	Huttlin-Harper-2017
+PRKCI	RASSF8	0.004878657727972803	Physical Interactions	Huttlin-Harper-2017
+VCP	NSFL1C	0.012439990350125127	Physical Interactions	Huttlin-Harper-2017
+CAMLG	LCK	0.12303742393714977	Physical Interactions	IREF-bind-translation
+CTTN	DNM2	0.05722612210779775	Physical Interactions	IREF-bind-translation
+LCK	DNM2	0.0363233227108339	Physical Interactions	IREF-bind-translation
+MARK4	PRKCI	0.039559901474304236	Physical Interactions	IREF-bind-translation
+NCSTN	APP	0.02876157624225704	Physical Interactions	IREF-bind-translation
+NCSTN	PSEN1	0.030308431547129137	Physical Interactions	IREF-bind-translation
+PRKCI	PARD3	0.024476419430753498	Physical Interactions	IREF-bind-translation
+PSEN1	APP	0.012187618116958406	Physical Interactions	IREF-bind-translation
+PSEN1	PKP4	0.032533938570039216	Physical Interactions	IREF-bind-translation
+PTPN11	FRS2	0.05121813027179	Physical Interactions	IREF-bind-translation
+VAV1	DNM2	0.029100710742564442	Physical Interactions	IREF-bind-translation
+YWHAH	MARK4	0.06462265961850952	Physical Interactions	IREF-bind-translation
+YWHAH	PRKCI	0.03072089418501643	Physical Interactions	IREF-bind-translation
+PSEN1	APP	0.18645354858557986	Physical Interactions	IREF-mppi
+PSEN1	PKP4	0.7037836511873478	Physical Interactions	IREF-mppi
+PTPN11	FRS2	1.425385883318542	Physical Interactions	IREF-mppi
+APH1B	PSEN1	0.01580074996437184	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+APP	ATP5PO	0.005256650347066312	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+BTLA	PTPN11	0.004540846513881059	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+CAMLG	LCK	0.004136869300047925	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+CHP2	SLC9A1	0.01255366542439022	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+CTTN	DNM2	0.002758811067542928	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+EEF1A1	PTPN11	5.24988301914202E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+EIF4G2	VCP	0.0018202979671400749	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+FGFR1	FRS2	0.006906991494140989	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+GLMN	FKBP4	0.03419743996078756	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+GLMN	MET	0.015750748195165032	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+HSPA9	NFS1	0.007586277109780064	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+LCK	DNM2	0.0011508793373312292	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+LCK	EZR	9.172990957815326E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+LCK	PTPN11	3.9592082253749993E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+LCK	PTPRH	0.006092608676637463	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+MARK4	PRKCI	0.0071235221258406705	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+MET	CTTN	0.002428054820655928	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+MET	PTPN11	7.06224233843896E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+MET	SCRIB	0.0013810815324024753	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+MTSS1	CTTN	0.03777764744822048	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+NCSTN	APH1A	0.02386098361885325	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+NCSTN	APH1B	0.04094491400748335	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+NCSTN	APP	0.0010570889347336298	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+NCSTN	PSEN1	0.002464904121754414	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PRKCI	FRS2	0.007471697145709735	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PRKCI	PARD3	0.00308336203314864	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PRKCI	RBM14	0.004684446895843902	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PSEN1	APH1A	0.009208016217216917	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PSEN1	APP	4.079333888658744E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PSEN1	PKP4	0.003980721945121976	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PTPN11	FRS2	0.0024917280538098085	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PTPN11	HNRNPU	7.54343450041336E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PTPN11	SCRIB	5.398354107454428E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PTPRJ	MET	0.005937364493780334	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+PTPRM	PTPRK	0.056512721140712055	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+SCRIB	PKP4	0.004193648240203551	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+SCRIB	RMC1	0.02692283794743657	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+SH2D2A	LCK	0.006063904826321693	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+SH2D2A	VCP	0.0031315687926096866	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+TNK2	MERTK	0.026874401517403203	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VAV1	DNM2	0.0023858037870058114	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VAV1	LCK	0.001177163891527382	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VAV1	MERTK	0.012693467393130122	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VAV1	MET	0.0020997674827091467	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VCP	DNM2	5.943460308697931E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VCP	NSFL1C	0.013292760836343655	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VCP	PSMC1	9.272646112815337E-4	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+VCP	RBM4	0.0013730758724529574	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+YWHAH	DCAF7	0.0024102343727335257	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+YWHAH	MARK4	0.004165948179540666	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+YWHAH	PARD3	0.0018031987444694585	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+YWHAH	PRKCI	0.0014515799585339334	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+YWHAH	RASSF8	0.014219916478383948	Physical Interactions	IREF-SMALL-SCALE-STUDIES
+CHP2	SLC9A1	1.7526195464038286	Physical Interactions	IREF-spike
+GLMN	NSFL1C	2.0272358006794855	Physical Interactions	IREF-spike
+LCK	PTPRH	0.6716980432477364	Physical Interactions	IREF-spike
+MET	CTTN	0.31266073563913044	Physical Interactions	IREF-spike
+MET	PTPN11	0.12857558548960554	Physical Interactions	IREF-spike
+NCSTN	APH1A	1.0751535468039852	Physical Interactions	IREF-spike
+PHB2	USP15	1.6669291252575675	Physical Interactions	IREF-spike
+PSEN1	APH1A	0.4249346193310354	Physical Interactions	IREF-spike
+PSEN1	PKP4	0.2348451326441474	Physical Interactions	IREF-spike
+PTPN11	FRS2	0.28998086915347693	Physical Interactions	IREF-spike
+PTPRJ	PKP4	0.32598592042139996	Physical Interactions	IREF-spike
+PTPRJ	TNK2	0.3104604605260392	Physical Interactions	IREF-spike
+VAV1	LCK	0.04343320725559378	Physical Interactions	IREF-spike
+APP	ATP5PO	0.00505710315187151	Physical Interactions	IREF-uniprotpp
+NCSTN	PSEN1	0.00572920313446737	Physical Interactions	IREF-uniprotpp
+HSPA9	ATG3	0.13677612709060624	Physical Interactions	Kristensen-Foster-2012
+PTPN11	OXCT1	0.19592108285630644	Physical Interactions	Kristensen-Foster-2012
+DCAF7	PTPN11	0.37004576705301984	Physical Interactions	Kumar-Maddika-2017
+PTPRH	TMEM192	0.5577031917768528	Physical Interactions	Kumar-Maddika-2017
+PTPRM	PTPRK	0.6595589193075054	Physical Interactions	Kumar-Maddika-2017
+PTPRM	VCP	0.07305923757233267	Physical Interactions	Kumar-Maddika-2017
+VCP	PTPRH	0.05805616630577882	Physical Interactions	Kumar-Maddika-2017
+LCK	MET	0.17692989754245966	Physical Interactions	Leung-Jones-2014
+MET	PTPN11	0.17692989754245966	Physical Interactions	Leung-Jones-2014
+SH2D2A	MET	0.17692989754245966	Physical Interactions	Leung-Jones-2014
+EZR	SEC16A	0.006743376830058563	Physical Interactions	Liu-Varjosalo-2018
+EEF1A1	HSPA9	1.047738594102523	Physical Interactions	Moutaoufik-Babu-2019
+EIF4G2	OAT	0.9774012267458988	Physical Interactions	Moutaoufik-Babu-2019
+EIF4G2	OXCT1	1.1261176791804508	Physical Interactions	Moutaoufik-Babu-2019
+HSPA9	ATP5PO	0.20863598424763322	Physical Interactions	Moutaoufik-Babu-2019
+OAT	OXCT1	0.10784382564490438	Physical Interactions	Moutaoufik-Babu-2019
+PHB2	ATP5PO	0.07156529730662192	Physical Interactions	Moutaoufik-Babu-2019
+PHB2	HSPA9	0.12995138144431823	Physical Interactions	Moutaoufik-Babu-2019
+VCP	APP	0.13696131645009882	Physical Interactions	Moutaoufik-Babu-2019
+APP	ABLIM1	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	DNM2	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	HSPA9	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	PSMC1	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	RASSF8	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	SF3B2	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	SLC38A2	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+DCAF7	APP	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+PRKCI	APP	0.027678224365441272	Physical Interactions	Oláh-Ovádi-2011
+APP	PI4K2A	0.8753639056759334	Physical Interactions	Soler-López-Aloy-2011
+PSEN1	APP	0.10915113251828798	Physical Interactions	Soler-López-Aloy-2011
+PSEN1	OXCT1	1.1493284458727981	Physical Interactions	Soler-López-Aloy-2011
+PSEN1	TUBA1B	0.6925749437973787	Physical Interactions	Soler-López-Aloy-2011
+SCRIB	PKP4	0.08960363848502637	Physical Interactions	Sundell-Ivarsson-2018
+PTPN11	FRS2	9.87496652899395	Physical Interactions	Trepte-Wanker-2018 A
+VCP	NSFL1C	3.1227385839644	Physical Interactions	Trepte-Wanker-2018 A
+PTPN11	FRS2	9.874966528994003	Physical Interactions	Trepte-Wanker-2018 B
+VCP	NSFL1C	3.122738583964417	Physical Interactions	Trepte-Wanker-2018 B
+APP	ATP5PO	0.1448600471482081	Physical Interactions	Virok-Fülöp-2011
+APP	DNM2	0.1448600471482081	Physical Interactions	Virok-Fülöp-2011
+APP	SF3B2	0.1448600471482081	Physical Interactions	Virok-Fülöp-2011
+ATP6V0D1	ATP5PO	8.086487762482368E-4	Physical Interactions	Wan-Emili-2015
+EEF1A1	HSPA9	3.6182989128205465E-4	Physical Interactions	Wan-Emili-2015
+HNRNPU	HSPA9	7.348445874629885E-4	Physical Interactions	Wan-Emili-2015
+NCSTN	HNRNPF	0.009148533763782222	Physical Interactions	Wan-Emili-2015
+OAT	EZR	0.0013336581424246983	Physical Interactions	Wan-Emili-2015
+PSMC1	NSFL1C	0.0014637470070443484	Physical Interactions	Wan-Emili-2015
+VCP	NSFL1C	0.0017142404060688733	Physical Interactions	Wan-Emili-2015
+BTLA	PTPN11	1.7667594796245978	Predicted	I2D-BIND-Mouse2Human
+CAMLG	LCK	1.9217564211503904	Predicted	I2D-BIND-Mouse2Human
+CTTN	DNM2	2.2526012829461246	Predicted	I2D-BIND-Mouse2Human
+FGFR1	FRS2	2.376188808205839	Predicted	I2D-BIND-Mouse2Human
+MTSS1	CTTN	2.4173390116785693	Predicted	I2D-BIND-Mouse2Human
+PRKCI	FRS2	1.3710444938719482	Predicted	I2D-BIND-Mouse2Human
+PRKCI	PARD3	0.8275431803245483	Predicted	I2D-BIND-Mouse2Human
+SH2D2A	LCK	1.9217564211503904	Predicted	I2D-BIND-Mouse2Human
+VAV1	DNM2	1.9867135564084628	Predicted	I2D-BIND-Mouse2Human
+PHB2	HSPA9	0.011360033497942566	Predicted	I2D-BioGRID-Yeast2Human
+PHB2	PSMC1	0.007387844185207392	Predicted	I2D-BioGRID-Yeast2Human
+VCP	NSFL1C	0.005209902313022136	Predicted	I2D-BioGRID-Yeast2Human
+APP	DNM2	9.027168921809236E-4	Predicted	I2D-IntAct-Mouse2Human
+APP	OAT	0.0034434255920357607	Predicted	I2D-IntAct-Mouse2Human
+CTTN	DNM2	0.0024340130488085744	Predicted	I2D-IntAct-Mouse2Human
+NCSTN	APH1A	0.012969422865546502	Predicted	I2D-IntAct-Mouse2Human
+NCSTN	APP	9.160805310105291E-4	Predicted	I2D-IntAct-Mouse2Human
+NCSTN	PSEN1	0.0032518657011712847	Predicted	I2D-IntAct-Mouse2Human
+PSEN1	APH1A	0.007629269214677782	Predicted	I2D-IntAct-Mouse2Human
+SH2D2A	LCK	0.013352662500538504	Predicted	I2D-IntAct-Mouse2Human
+VCP	NSFL1C	0.008485334153313194	Predicted	I2D-IntAct-Mouse2Human
+YWHAH	ATG3	5.36988608650717E-4	Predicted	I2D-IntAct-Mouse2Human
+YWHAH	SUPT16H	3.9582022088935045E-4	Predicted	I2D-IntAct-Mouse2Human
+GLMN	FKBP4	0.10121666082080584	Predicted	Wu-Stein-2010
+LCK	EZR	0.003168773810132111	Predicted	Wu-Stein-2010
+MARK4	PRKCI	0.027582913660253443	Predicted	Wu-Stein-2010
+MET	CTTN	0.028593505062973333	Predicted	Wu-Stein-2010
+PSEN1	PKP4	0.011474111462108028	Predicted	Wu-Stein-2010
+PTPRM	PTPRK	0.07608724143578437	Predicted	Wu-Stein-2010
+SH2D2A	LCK	0.012743550926173575	Predicted	Wu-Stein-2010
+TNK2	MERTK	0.053819881946735794	Predicted	Wu-Stein-2010
+VAV1	DNM2	0.009334507982888686	Predicted	Wu-Stein-2010
+VAV1	MERTK	0.012479191985855604	Predicted	Wu-Stein-2010
+VAV1	MET	0.008199157451927412	Predicted	Wu-Stein-2010
+VCP	NSFL1C	0.060331604482765915	Predicted	Wu-Stein-2010
+VCP	PSMC1	0.007925806531176706	Predicted	Wu-Stein-2010
+ABLIM1	ZNF185	0.020422984403164778	Shared protein domains	INTERPRO
+ACTR5	HSPA1B	0.009604004707651865	Shared protein domains	INTERPRO
+APH1B	APH1A	1.3092421447950713	Shared protein domains	INTERPRO
+ARAP2	RASSF8	0.012539801536820471	Shared protein domains	INTERPRO
+BTLA	FGFR1	0.013623565990817418	Shared protein domains	INTERPRO
+BTLA	MERTK	0.016507950516599573	Shared protein domains	INTERPRO
+BTLA	PTPRM	0.0153680616709325	Shared protein domains	INTERPRO
+CTNNAL1	CTNNA2	0.3084931051908366	Shared protein domains	INTERPRO
+FGFR1	MERTK	0.02313231140461035	Shared protein domains	INTERPRO
+FGFR1	MET	0.009080105111784875	Shared protein domains	INTERPRO
+FGFR1	TNK2	0.013202245917043554	Shared protein domains	INTERPRO
+HNRNPF	HNRNPH2	0.0674393880067061	Shared protein domains	INTERPRO
+HNRNPF	RBM14	0.009290817579722705	Shared protein domains	INTERPRO
+HNRNPU	SF3B2	0.031397195979477356	Shared protein domains	INTERPRO
+HSPA9	ACTR5	0.010972183835902243	Shared protein domains	INTERPRO
+HSPA9	HSPA1B	0.058771072101035784	Shared protein domains	INTERPRO
+LCK	MET	0.0077772154448343895	Shared protein domains	INTERPRO
+LCK	TNK2	0.015000113968319963	Shared protein domains	INTERPRO
+MET	MERTK	0.011001356228756917	Shared protein domains	INTERPRO
+MET	PTTG1IP	0.010827294894387413	Shared protein domains	INTERPRO
+MET	TNK2	0.008606779532153342	Shared protein domains	INTERPRO
+MYH9	MYO18A	0.02773970585358001	Shared protein domains	INTERPRO
+OAT	NFS1	0.025611902611592612	Shared protein domains	INTERPRO
+PARD3	SCRIB	0.022656415484158015	Shared protein domains	INTERPRO
+PTPN11	PTPRH	0.027723652197390897	Shared protein domains	INTERPRO
+PTPN11	PTPRK	0.024440785588144928	Shared protein domains	INTERPRO
+PTPRJ	PTPN11	0.02772363756546971	Shared protein domains	INTERPRO
+PTPRJ	PTPRH	0.034724924059064355	Shared protein domains	INTERPRO
+PTPRJ	PTPRK	0.030633373114024764	Shared protein domains	INTERPRO
+PTPRJ	PTPRM	0.03137825739616205	Shared protein domains	INTERPRO
+PTPRK	PTPRH	0.030633373114024764	Shared protein domains	INTERPRO
+PTPRM	PTPN11	0.025033524715188354	Shared protein domains	INTERPRO
+PTPRM	PTPRH	0.031378259834815576	Shared protein domains	INTERPRO
+PTPRM	PTPRK	0.041187892417794865	Shared protein domains	INTERPRO
+RBM14	HNRNPH2	0.009145191555178381	Shared protein domains	INTERPRO
+RBM14	RBM4	0.006912443906836971	Shared protein domains	INTERPRO
+TJP3	MYO18A	0.009932340751310447	Shared protein domains	INTERPRO
+VCP	PSMC1	0.03053702922900828	Shared protein domains	INTERPRO
+APH1B	APH1A	0.0707951147489433	Shared protein domains	PFAM
+ARAP2	RASSF8	0.001292547916118718	Shared protein domains	PFAM
+CTNNAL1	CTNNA2	0.017698778687235826	Shared protein domains	PFAM
+DNM2	PLEKHA6	5.927420263450563E-4	Shared protein domains	PFAM
+FGFR1	MERTK	0.00136911561623958	Shared protein domains	PFAM
+HNRNPF	HNRNPH2	0.0032373241415895896	Shared protein domains	PFAM
+HNRNPF	RBM14	4.3656964914563074E-4	Shared protein domains	PFAM
+HNRNPU	SF3B2	0.002773598004903396	Shared protein domains	PFAM
+HSPA9	HSPA1B	0.005445778260482066	Shared protein domains	PFAM
+LCK	TNK2	0.001274326384037951	Shared protein domains	PFAM
+MYH9	MYO18A	0.0017402136755002495	Shared protein domains	PFAM
+PARD3	SCRIB	0.001385212256742938	Shared protein domains	PFAM
+PTPN11	PTPRH	0.0010154736059017487	Shared protein domains	PFAM
+PTPN11	PTPRK	7.552239693517761E-4	Shared protein domains	PFAM
+PTPRJ	PTPN11	0.0010575710258032282	Shared protein domains	PFAM
+PTPRJ	PTPRH	0.0013105463306278713	Shared protein domains	PFAM
+PTPRJ	PTPRK	9.750627544050758E-4	Shared protein domains	PFAM
+PTPRJ	PTPRM	0.0014681268078326627	Shared protein domains	PFAM
+PTPRK	PTPRH	9.362453737921937E-4	Shared protein domains	PFAM
+PTPRM	MERTK	0.0011153104116295065	Shared protein domains	PFAM
+PTPRM	PTPN11	0.0011365747557463106	Shared protein domains	PFAM
+PTPRM	PTPRH	0.0014096804214979895	Shared protein domains	PFAM
+PTPRM	PTPRK	0.0018620093644994725	Shared protein domains	PFAM
+RBM14	HNRNPH2	4.3656964914563074E-4	Shared protein domains	PFAM
+RBM14	RBM4	0.0010940963744592571	Shared protein domains	PFAM
+SH2D2A	LCK	6.664232417828051E-4	Shared protein domains	PFAM
+SH2D2A	PTPN11	8.72273464972578E-4	Shared protein domains	PFAM
+VAV1	LCK	6.112597298595365E-4	Shared protein domains	PFAM
+VCP	PSMC1	0.0015903931272178713	Shared protein domains	PFAM
+
+Gene	GO ids
+ABLIM1	GO:0003779	GO:0031252
+ACOX1
+ACTR5
+APH1A	GO:0007219	GO:0033619	GO:0042982	GO:0042987	GO:0050435
+APH1B	GO:0007219	GO:0033619
+APP	GO:0042982	GO:0042987	GO:0050435	GO:1902903	GO:1902905
+ARAP2
+ATG3
+ATP5PO
+ATP6V0D1
+BTLA	GO:0031294
+CAMLG
+CCDC88A	GO:0031252	GO:0070851	GO:1902903	GO:1902905	GO:1903829
+CHP2	GO:1903829
+CTNNA2	GO:0003779	GO:0005911	GO:1902903	GO:1902905
+CTNNAL1
+CTTN	GO:0003779	GO:0030427	GO:0031252	GO:1902903	GO:1902905
+DCAF7
+DCBLD1
+DNM2	GO:0030427
+EEF1A1	GO:0031252	GO:0098562
+EIF4G2	GO:0005911
+EMC7
+EZR	GO:0003779	GO:0007163	GO:0030010	GO:0031252	GO:0035088	GO:0061245	GO:0098562	GO:1903829
+FGFR1	GO:0004713	GO:0043491	GO:0044344	GO:0051896
+FKBP4	GO:0030427
+FRS2	GO:0005911	GO:0043491	GO:0044344	GO:0051896	GO:0070851
+GLMN	GO:0070851
+HNRNPF	GO:0044344
+HNRNPH2
+HNRNPU
+HSPA1B	GO:1902903	GO:1902905
+HSPA9
+LCK	GO:0004713	GO:0004721	GO:0031294	GO:0043491	GO:0051896	GO:0098562
+MARK4	GO:1903829
+MERTK	GO:0004713
+MET	GO:0004713	GO:0043491	GO:0051896	GO:1902903	GO:1902905
+MTSS1	GO:0003779	GO:0031252
+MYH9	GO:0003779	GO:0031252	GO:0033619
+MYO18A	GO:0003779	GO:0007163	GO:0030010
+NCSTN	GO:0007219	GO:0033619	GO:0042982	GO:0042987	GO:0050435
+NFS1
+NSFL1C	GO:0007163	GO:0030010
+OAT
+OXCT1
+PARD3	GO:0005911	GO:0007163	GO:0030010	GO:0035088	GO:0061245
+PHB2
+PI4K2A	GO:0030427
+PKP4	GO:0005911	GO:0098562
+PLEKHA6
+PRKCI	GO:0007163	GO:0007219	GO:0035088	GO:0061245	GO:1903829
+PSEN1	GO:0007219	GO:0030427	GO:0033619	GO:0042982	GO:0042987	GO:0050435	GO:1902903	GO:1902905	GO:1903829
+PSMC1
+PTPN11	GO:0004721	GO:0031294	GO:0043491	GO:0044344	GO:0051896
+PTPRH	GO:0004721
+PTPRJ	GO:0004721	GO:0043491	GO:0051896	GO:0070851
+PTPRK	GO:0004721	GO:0031252
+PTPRM	GO:0004721	GO:0005911	GO:0031252
+PTTG1IP
+RASSF8
+RBM14
+RBM4
+RMC1
+RNASEH2B
+RPRD2
+SCRIB	GO:0005911	GO:0007163	GO:0030010	GO:0035088	GO:0061245
+SEC16A
+SF3B2
+SGMS2
+SH2D2A
+SLC12A4
+SLC38A2
+SLC9A1	GO:0007163	GO:0031252	GO:1902903
+SMAGP
+SPRED1	GO:0044344
+SUPT16H
+SYAP1	GO:0030427	GO:0098562
+TJP3	GO:0005911
+TMEM106B
+TMEM192
+TNK2	GO:0004713	GO:0070851	GO:0098562
+TUBA1B
+USP15
+VAV1	GO:0031294	GO:0043491	GO:0051896
+VCP
+YWHAH	GO:0005911	GO:1903829
+ZNF185
+
+GO id	Description	q-value	Occurrences in Sample	Occurrences in Genome
+GO:0031252	cell leading edge	0.003908207878953564	10	257
+GO:0007163	establishment or maintenance of cell polarity	0.014302271700629704	7	135
+GO:0005911	cell-cell junction	0.014302271700629704	9	272
+GO:0030427	site of polarized growth	0.014302271700629704	6	85
+GO:0033619	membrane protein proteolysis	0.014302271700629704	5	53
+GO:1902905	positive regulation of supramolecular fiber organization	0.03379290838512689	7	170
+GO:0035088	establishment or maintenance of apical/basal cell polarity	0.043124965859412806	4	35
+GO:0061245	establishment or maintenance of bipolar cell polarity	0.043124965859412806	4	37
+GO:0051896	regulation of protein kinase B signaling	0.043124965859412806	7	191
+GO:0050435	amyloid-beta metabolic process	0.043124965859412806	4	37
+GO:0003779	actin binding	0.04478989627883894	7	195
+GO:0043491	protein kinase B signaling	0.04985398389683061	7	201
+GO:0030010	establishment of cell polarity	0.050164978545371414	5	83
+GO:0042987	amyloid precursor protein catabolic process	0.05400008218309825	4	43
+GO:1902903	regulation of supramolecular fiber organization	0.06482714293166301	8	296
+GO:0044344	cellular response to fibroblast growth factor stimulus	0.08203559145437535	5	96
+GO:0004721	phosphoprotein phosphatase activity	0.08283204936085241	6	158
+GO:0031294	lymphocyte costimulation	0.08912074846736888	4	53
+GO:0042982	amyloid precursor protein metabolic process	0.08912074846736888	4	55
+GO:1903829	positive regulation of cellular protein localization	0.08912074846736888	7	246
+GO:0098562	cytoplasmic side of membrane	0.08912074846736888	6	170
+GO:0004713	protein tyrosine kinase activity	0.08912074846736888	5	102
+GO:0007219	Notch signaling pathway	0.08912074846736888	5	103
+GO:0070851	growth factor receptor binding	0.08912074846736888	5	106
+
+Query Parameters
+Organism	H. sapiens
+Network Weighting	query gene-based
+Related Genes Limit	20
+Related Attributes Limit	20
+Input Genes	EEF1A1	OAT	HNRNPF	PARD3	HSPA1B	APP	CTNNAL1	FRS2	MET	ATP6V0D1	SYAP1	ABLIM1	MERTK	SUPT16H	PLEKHA6	HNRNPU	HSPA9	SCRIB	SPRED1	TMEM106B	NSFL1C	ACOX1	LCK	HNRNPH2	RBM14	PI4K2A	CTTN	MYO18A	TJP3	PTPRK	TUBA1B	SEC16A	ZNF185	PHB2	TMEM192	PTTG1IP	APH1A	USP15	NFS1	ACTR5	MYH9	RASSF8	SLC38A2	PKP4	DCBLD1	ARAP2	RPRD2	RNASEH2B	FKBP4	RMC1	EMC7	EZR	CTNNA2	RBM4	ATP5PO	SLC9A1	ATG3	TNK2	SMAGP	DNM2	OXCT1	PTPN11	PSMC1	SF3B2	SGMS2	PTPRH	SLC12A4
+Networks
+	Arijs-Rutgeerts-2009	Co-expression
+	Bild-Nevins-2006 B	Co-expression
+	Boldrick-Relman-2002	Co-expression
+	Chen-Brown-2002	Co-expression
+	Dobbin-Giordano-2005	Co-expression
+	Jiang-de Kok-2017	Co-expression
+	Mallon-McKay-2013	Co-expression
+	Perou-Botstein-1999	Co-expression
+	Perou-Botstein-2000	Co-expression
+	Ramaswamy-Golub-2001	Co-expression
+	Rieger-Chu-2004	Co-expression
+	Rosenwald-Staudt-2001	Co-expression
+	Ross-Perou-2001	Co-expression
+	Roth-Zlotnik-2006	Co-expression
+	Wang-Cheung-2015	Co-expression
+	Wang-Maris-2006	Co-expression
+	Wu-Garvey-2007	Co-expression
+	Johnson-Shoemaker-2003	Co-localization
+	Lin-Smith-2010	Genetic Interactions
+	CELL_MAP	Pathway
+	REACTOME	Pathway
+	Wu-Stein-2010	Pathway
+	Barr-Knapp-2009	Physical Interactions
+	BIOGRID-SMALL-SCALE-STUDIES	Physical Interactions
+	Brajenovic-Drewes-2004	Physical Interactions
+	Ewing-Figeys-2007	Physical Interactions
+	Havugimana-Emili-2012	Physical Interactions
+	Hegele-Stelzl-2012 B	Physical Interactions
+	Hein-Mann-2015	Physical Interactions
+	Hosp-Selbach-2015	Physical Interactions
+	Huttlin-Gygi-2015	Physical Interactions
+	Huttlin-Harper-2017	Physical Interactions
+	IREF-bind-translation	Physical Interactions
+	IREF-mppi	Physical Interactions
+	IREF-SMALL-SCALE-STUDIES	Physical Interactions
+	IREF-spike	Physical Interactions
+	IREF-uniprotpp	Physical Interactions
+	Kristensen-Foster-2012	Physical Interactions
+	Kumar-Maddika-2017	Physical Interactions
+	Leung-Jones-2014	Physical Interactions
+	Liu-Varjosalo-2018	Physical Interactions
+	Moutaoufik-Babu-2019	Physical Interactions
+	Oláh-Ovádi-2011	Physical Interactions
+	Soler-López-Aloy-2011	Physical Interactions
+	Sundell-Ivarsson-2018	Physical Interactions
+	Trepte-Wanker-2018 A	Physical Interactions
+	Trepte-Wanker-2018 B	Physical Interactions
+	Virok-Fülöp-2011	Physical Interactions
+	Wan-Emili-2015	Physical Interactions
+	I2D-BIND-Mouse2Human	Predicted
+	I2D-BioGRID-Yeast2Human	Predicted
+	I2D-IntAct-Mouse2Human	Predicted
+	Wu-Stein-2010	Predicted
+	INTERPRO	Shared protein domains
+	PFAM	Shared protein domains
+
