@@ -78,13 +78,13 @@ Example_Output <- MakeClusterList(ex_tiny_ptm_table) #Run function
 #> Euclidean distance calculation complete after 1.84 secs total.
 #> Euclidean t-SNE calculation complete after 3.49 secs total.
 #> Combined distance calculation complete after 3.49 secs total.
-#> SED t-SNE calculation complete after 5.08 secs total.
+#> SED t-SNE calculation complete after 5.04 secs total.
 
-#> Clustering for Euclidean complete after 6.02 secs total.
+#> Clustering for Euclidean complete after 6.01 secs total.
 
 #> Clustering for Spearman complete after 6.02 secs total.
 
-#> Clustering for SED complete after 6.03 secs total.
+#> Clustering for SED complete after 6.02 secs total.
 #> Consensus clustering complete after 6.06 secs total.
 #> MakeClusterList complete after 6.06 secs total.
 Example_Output[[1]][1:3] #Display data

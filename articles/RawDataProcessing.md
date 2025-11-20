@@ -162,7 +162,7 @@ as the user ensures that any special character (such as \$ or @) have a
 ``` r
 patterns <- c("\\~", "\\#", "/", "\\$", "\\@", "\\|")
 patterns <- patterns[order(nchar(patterns), patterns, decreasing = TRUE)]
-rownames(ptmtable) <- sapply(rownames(ptmtable), function(x) {for(p in patterns) x <- gsub(p, "", x); return(x)})
+rownames(newphos) <- sapply(rownames(newphos), function(x) {for(p in patterns) x <- gsub(p, "", x); return(x)})
 ```
 
 #### Data columns
@@ -211,22 +211,37 @@ averaging values detected in both, using the function, *merge2cols()*.
 … & similar for other drugs
 
 ``` r
-# Define Data columns
 phosdata <- newphos[,grep("Intensity", names(newphos))]
 phosdata <- phosdata[,grep("pTyr", names(phosdata))]
+```
 
-# Simplify column names
+Now simplify column names:
+
+``` r
 names(phosdata) <- sapply(names(phosdata), function (x) unlist(strsplit(x, "Intensity."))[2])
+```
 
-# Make zero into NA, which it is. (Note that this may not apply if you are confident that zero means actual zero, which is possible with certain technical advances like DIA.) 
+Make zero into NA, which it is. (Note that this may not apply if you are
+confident that zero means actual zero, which is possible with certain
+technical advances like DIA.)
+
+``` r
 zer0 <- which(phosdata==0, arr.ind = TRUE)
 phosdata <- replace (phosdata, zer0, NA)
+```
 
-# Define technical replicates
+Define technical replicates:
+
+``` r
 tr1.opt <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
 tr2.opt <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
+```
 
-# Use this function to average technical replicates. This function ignores NA values in either column and takes the average in the case where there are two values.
+Use this function to average technical replicates. This function ignores
+NA values in either column and takes the average in the case where there
+are two values.
+
+``` r
 merge2cols <- function (colv1, colv2) {
   newcolv=NA
   if (is.na(colv1) & is.na(colv2)) {
@@ -238,27 +253,45 @@ merge2cols <- function (colv1, colv2) {
           newcolv <- (colv1 + colv2)/2
         return(newcolv) }
 
-# Use merge2cols() function to average technical replciates:
+# Use merge2cols() function to average technical replicates:
 phosdata.merged <- data.frame(matrix(nrow=nrow(phosdata), ncol=18))
 for(i in 1:length(tr1.opt)) {
   phosdata.merged[,i] <- mapply(merge2cols, colv1=as.numeric(phosdata[, tr1.opt[i]]), colv2=as.numeric(phosdata[,tr2.opt[i]]))
 }
 names(phosdata.merged) <- sapply(tr1.opt, function(x) substr(x, start=1, stop=nchar(x)-2))
+```
 
-# Merge with header
+Merge with header:
+
+``` r
 phosdatafile <- cbind(newphos.head, phosdata.merged)
-# This file could be safed for reference using write.table()
-write.table(phosdatafile, file="phosdatafile.txt", row.names = FALSE, sep="\t")
+```
 
-# For subsequent steps
+This file could be saved for reference using
+[`write.table()`](https://rdrr.io/r/utils/write.table.html):
+
+``` r
+write.table(phosdatafile, file="phosdatafile.txt", row.names = FALSE, sep="\t")
+```
+
+For subsequent steps, we make a dataframe withjust the data with
+individual PTMs as rownames:
+
+``` r
 rownames(phosdatafile) <- phosdatafile$Peptide.Name
 phosdata.df <- phosdatafile[,6:23]
-# This contains just the data with individual PTMs as rownames
+```
 
-# Log base 2 transformation improves clustering.
+Log base 2 transformation improves clustering.
+
+``` r
 log2phosdata <- log2(phosdata.df)
+```
 
-# This could be used as the ptmtable for subsequent clustering.
+The following vignettes show how to use the functions provided in
+PTMsToPathways to analyze data stored in a variable called `ptmtable`.
+
+``` r
 # ptmtable <- log2phosdata
 ```
 
