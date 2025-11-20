@@ -236,18 +236,19 @@ the Cytoscape app.
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
-The ProcessGMEdgefile function then processes the output files produced
+Instructions on saving the correct GeneMANIA file are shown below. Click on the three lines in the upper right corner. This should be under the GeneMANIA side window beside the species. Click "Export Results". The path to this file is the gm.results.path:
+
+![](vig_figs/GeneMANIA-image-1.png)
+![](vig_figs/GeneMANIA-image-2.png)
+The GetGeneMANIAEdges function then processes the output file produced
 by GeneMANIA itself.
 
 ```{r eval = FALSE, echo = FALSE}
-gm.edgefile.path <- system.file("extdata", "ex_gm_edgetable.csv", package = "PTMsToPathways")
-gm.nodetable.path <- system.file("extdata", "ex_gm_nodetable.csv", package = "PTMsToPathways")
-db.nodes_path <- system.file("extdata", "ex_db_nodes.txt", package = "PTMsToPathways")
+gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsToPathways")
 ```
 
 ```{r eval = FALSE, echo = TRUE}
-genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path,
-                                     db_nodes.path, gene.cccn.nodes)
+GeneMANIA.edges <- GetGeneMANIAEdges(gm.results.path, gene.cccn.nodes)
 ```
 
 ### 3. Phosphosite Plus

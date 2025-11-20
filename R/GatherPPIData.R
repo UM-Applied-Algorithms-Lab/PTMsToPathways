@@ -97,40 +97,34 @@ GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
 }
 
 
-#' Process GM Edge File
+
+#' Get GeneMANIA Edges
 #'
-#' This function processes the GM edgefile and translates it back into gene names using the nodetable.
+#' This function processes the GM results text file and returns it as a filtered edgelist.
 #'
-#' @param gm.edgefile.path Path to GeneMANIA edgefile
-#' @param gm.nodetable.path Path to GeneMANIA nodetable
-#' @param db_nodes.path Path to the node file from MakeDBInput
+#' @param gm.results.path Path to GeneMANIA results text file
 #' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #'
 #' @return Data frame of consisting of the network of interactions from the genes of study
+#'
+#' @details
+#' To get the GeneMANIA results text file, click on the three lines in the upper right corner.
+#' This should be under the GeneMANIA side window beside the species.
+#' Click "Export Results". The path to this file is the gm.results.path.
+#' An visual depiction of these instructions in the vignette PTMsToPathways under the GeneMANIA section.
+#'
 #' @export
 #'
 #' @examples
-#' ex.edgefile <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
-#' ex.nodefile <- system.file("extdata/ex_gm_nodetable.csv", package = "PTMsToPathways")
-#' ex.db.nodes  <- system.file("extdata/ex_db_nodes.txt", package = "PTMsToPathways")
-#' Example_Output <- ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes)
-#' utils::head(Example_Output)
-# NOTE:
-#  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
-# Note: The column names may change in future releases of GeneMANIA.
-ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gene.cccn.nodes = NULL){
-  # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
-  # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
+#' ex.gm.results.path <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
+#' example.GeneMANIA.edges <- GetGeneMANIAEdges(ex.gm.results.path, ex.gene.cccn.nodes)
+#' utils::head(example.GeneMANIA.edges)
+GetGeneMANIAEdges <- function(gm.results.path, gene.cccn.nodes){
 
-  if (is.null(gene.cccn.nodes)){
-    nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
-    nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
-  } else {
-    nodenames <- gene.cccn.nodes
-  }
+  # Note: The column names may change in future releases of GeneMANIA.
 
   # Read all lines
-  all_lines <- readLines(gm.edgefile.path)
+  all_lines <- readLines(gm.results.path)
 
   # Locate start: line exactly matching the header for your network section
   start_line <- grep("Weight\\tType", all_lines)
@@ -157,7 +151,7 @@ ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path
   # Cytoscape edge column names are c(source, target, interaction, Weight), so re-order columns to match StringDB edges
   edgetable <- edgetable[, c("Gene.1", "Gene.2", "Type", "Weight")]
   colnames(edgetable) <- c("source", "target", "interaction", "Weight")
-  keep <- edgetable$source %in% nodenames & edgetable$target %in% nodenames         # which rows are we keeping
+  keep <- edgetable$source %in% gene.cccn.nodes & edgetable$target %in% gene.cccn.nodes         # which rows are we keeping
   genemania.edges <- edgetable[keep,]                                                 # copy 'em over
 
   return(genemania.edges)
