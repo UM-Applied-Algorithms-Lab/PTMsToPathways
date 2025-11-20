@@ -173,9 +173,11 @@ protein) separated by “;” or another separator.</p>
 <span>  <span class="va">Peptide</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">Peptide.v</span><span class="op">)</span>, collapse<span class="op">=</span><span class="st">"; "</span><span class="op">)</span></span>
 <span>  <span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">Peptide</span><span class="op">)</span></span>
 <span><span class="op">}</span></span></code></pre></div>
-<p>Read in data file that is output from mass spectrometry. You should
-replace file_path with your own path to file, as in the commented line
-below.</p>
+<p>Read in data file that is output from mass spectrometry. If you have
+installed the PTMsToPathways package, you can use the example data file
+included in the package as below. To use your own data file, replace
+<code>file_path</code> variable with your own path to file, as in the
+commented line below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"phospho_cleaned_mapped.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span><span class="co"># file_path &lt;- "path/to/your/file.txt"</span></span>
@@ -307,27 +309,28 @@ PTMsToPathways to analyze data stored in a variable called
 <code>ptmtable</code>.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ptmtable &lt;- log2phosdata</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="optional-data-processing-steps">Optional data processing steps<a class="anchor" aria-label="anchor" href="#optional-data-processing-steps"></a>
+</h2>
 <p>For experiments where treatment with drugs is compared to control
 samples, adding treatment/control ratios as additional data column can
 improve clustering. This optional step adds dimensions to the data set
 that enhance focus on the changes in response to drug treatments.</p>
+<p>Simplify column names first:</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="co"># Simplify column names first:</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"SEPTM_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"SEPTM_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Explore using ratios where control=rowMeans (D1, D2, D3)</span></span>
-<span></span>
-<span><span class="va">H3122control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"H3122.D"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co"># Change NaN to NA</span></span>
-<span><span class="va">H3122control</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.nan</a></span><span class="op">(</span><span class="va">H3122control</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"SEPTM_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"SEPTM_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>Explore using ratios where control=rowMeans (D1, D2, D3):</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">H3122control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"H3122.D"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>Change NaN to NA</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">H3122control</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.nan</a></span><span class="op">(</span><span class="va">H3122control</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
 <span><span class="va">PC9control</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowMeans</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"PC9.D"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span><span class="op">)</span><span class="op">]</span><span class="op">]</span>, na.rm<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co"># Change NaN to NA</span></span>
-<span><span class="va">PC9control</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.nan</a></span><span class="op">(</span><span class="va">PC9control</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span>
-<span></span>
-<span><span class="co"># Calculate treatment/control ratios</span></span>
-<span><span class="co"># H3122 cells</span></span>
+<span><span class="va">PC9control</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/is.finite.html" class="external-link">is.nan</a></span><span class="op">(</span><span class="va">PC9control</span><span class="op">)</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<p>Calculate treatment/control ratios</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># H3122 cells</span></span>
 <span><span class="va">H3122.C1.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">H3122.C1</span><span class="op">/</span><span class="va">H3122control</span></span>
 <span><span class="va">H3122.C2.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">H3122.C2</span><span class="op">/</span><span class="va">H3122control</span></span>
 <span><span class="va">H3122.C3.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">H3122.C3</span><span class="op">/</span><span class="va">H3122control</span></span>
@@ -340,65 +343,73 @@ that enhance focus on the changes in response to drug treatments.</p>
 <span><span class="va">PC9.E3.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">PC9.E3</span><span class="op">/</span><span class="va">PC9control</span></span>
 <span><span class="va">PC9.PR1.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">PC9.PR1</span><span class="op">/</span><span class="va">PC9control</span></span>
 <span><span class="va">PC9.PR2.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">PC9.PR2</span><span class="op">/</span><span class="va">PC9control</span></span>
-<span><span class="va">PC9.PR3.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">PC9.PR3</span><span class="op">/</span><span class="va">PC9control</span></span>
-<span></span>
-<span><span class="co"># Put these columns in a data frame</span></span>
-<span><span class="va">phos_ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">H3122.C1.ratio</span>, <span class="va">H3122.C2.ratio</span>, <span class="va">H3122.C3.ratio</span>, <span class="va">H3122.PR1.ratio</span>, <span class="va">H3122.PR2.ratio</span>, <span class="va">H3122.PR3.ratio</span>, <span class="va">PC9.E1.ratio</span>, <span class="va">PC9.E2.ratio</span>, <span class="va">PC9.E3.ratio</span>, <span class="va">PC9.PR1.ratio</span>, <span class="va">PC9.PR2.ratio</span>, <span class="va">PC9.PR3.ratio</span><span class="op">)</span></span>
-<span><span class="co"># Check</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phos_ratios</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="co"># TRUE</span></span>
-<span><span class="co"># Make limits to unweight extreme values. This has been shown to improve clustering, and a ratio of 1000 is biologically not really functional different than a ratio of 100. </span></span>
-<span><span class="va">hi.ratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">phos_ratios</span><span class="op">&gt;=</span><span class="fl">100</span>, arr.ind <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="va">PC9.PR3.ratio</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span><span class="op">$</span><span class="va">PC9.PR3</span><span class="op">/</span><span class="va">PC9control</span></span></code></pre></div>
+<p>Put these columns in a data frame:</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">phos_ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">H3122.C1.ratio</span>, <span class="va">H3122.C2.ratio</span>, <span class="va">H3122.C3.ratio</span>, <span class="va">H3122.PR1.ratio</span>, <span class="va">H3122.PR2.ratio</span>, <span class="va">H3122.PR3.ratio</span>, <span class="va">PC9.E1.ratio</span>, <span class="va">PC9.E2.ratio</span>, <span class="va">PC9.E3.ratio</span>, <span class="va">PC9.PR1.ratio</span>, <span class="va">PC9.PR2.ratio</span>, <span class="va">PC9.PR3.ratio</span><span class="op">)</span></span></code></pre></div>
+<p>Check (should be <code>TRUE</code>):</p>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phosdata.df</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phos_ratios</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>Make limits to unweight extreme values. This has been shown to
+improve clustering, and a ratio of 1000 is biologically not really
+functional different than a ratio of 100.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">hi.ratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">phos_ratios</span><span class="op">&gt;=</span><span class="fl">100</span>, arr.ind <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">low.ratio</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">phos_ratios</span> <span class="op">&lt;=</span><span class="fl">1</span><span class="op">/</span><span class="fl">100</span>, arr.ind <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">phos_ratios.lim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span> <span class="op">(</span><span class="va">phos_ratios</span>, <span class="va">hi.ratio</span>, <span class="fl">100</span><span class="op">)</span> </span>
-<span><span class="va">phos_ratios.lim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span> <span class="op">(</span><span class="va">phos_ratios.lim</span>, <span class="va">low.ratio</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> </span>
-<span><span class="co"># log2 transformation improves clustering </span></span>
-<span><span class="va">phos_ratios.lim.log2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">phos_ratios.lim</span><span class="op">)</span></span>
-<span><span class="co"># lucy comment: this was below but we needed phosdata_plus_ratios</span></span>
-<span><span class="va">phosdata_plus_ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">log2phosdata</span>, <span class="va">phos_ratios.lim.log2</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">phosdata_plus_ratios</span><span class="op">)</span></span></code></pre></div>
-<p><img src="plots/Example%20ratio%20calculations-1.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Now merge intensity and ratio data</span></span>
-<span><span class="co"># Check</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phos_ratios.lim.log2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">log2phosdata</span><span class="op">)</span><span class="op">)</span> </span>
-<span><span class="co"># TRUE, okay</span></span>
-<span></span>
-<span></span>
-<span><span class="co"># This can be used as the example ptmtable for subsequent testing.</span></span>
-<span><span class="co"># ptmtable &lt;- phosdata_plus_ratios</span></span>
-<span><span class="co">#&gt; [1] TRUE</span></span>
+<span><span class="va">phos_ratios.lim</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/replace.html" class="external-link">replace</a></span> <span class="op">(</span><span class="va">phos_ratios.lim</span>, <span class="va">low.ratio</span>, <span class="fl">1</span><span class="op">/</span><span class="fl">100</span><span class="op">)</span> </span></code></pre></div>
+<p>log2 transformation improves clustering:</p>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">phos_ratios.lim.log2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">phos_ratios.lim</span><span class="op">)</span></span>
+<span><span class="va">phosdata_plus_ratios</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">log2phosdata</span>, <span class="va">phos_ratios.lim.log2</span><span class="op">)</span></span></code></pre></div>
+<p>And plot to check:</p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">phosdata_plus_ratios</span><span class="op">)</span></span></code></pre></div>
+<p><img src="plots/unnamed-chunk-24-1.png" class="r-plt" width="100%" style="display: block; margin: auto;">
+And do one more check:</p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">phos_ratios.lim.log2</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">log2phosdata</span><span class="op">)</span><span class="op">)</span> </span>
 <span><span class="co">#&gt; [1] TRUE</span></span></code></pre></div>
+<p>This can be used as the example ptmtable for subsequent testing.</p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ptmtable &lt;- phosdata_plus_ratios</span></span></code></pre></div>
+</div>
+<div class="section level2">
+<h2 id="combining-data-from-multiple-ptm-experiments">Combining data from multiple PTM experiments<a class="anchor" aria-label="anchor" href="#combining-data-from-multiple-ptm-experiments"></a>
+</h2>
 <p>For experiments involving multiple PTMs, or if investigators wish to
 combine several data sets, the data can be combined. For example,
 pulldowns were made to isolate acetylated and ubiquitinated peptides
 from the same experimental samples. Combining the data is simply
 repeating the above steps using the correct optimum data columns, then
 making the column names the same, and binding all the rows together.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">######################</span></span>
-<span><span class="co"># Workflow: Repeat the with aceltylation or other PTM data (ubiquitination in this case).</span></span>
-<span><span class="co"># This can be done with data that include ratios as above if desired.</span></span>
-<span><span class="co"># How to put them together:</span></span>
-<span><span class="co"># Make column names common. For example:</span></span>
-<span><span class="co"># kgp &lt;- phosdata.df</span></span>
-<span><span class="co"># kga &lt;- ackdata.df</span></span>
-<span><span class="co"># kgu &lt;- ubidata.df</span></span>
-<span><span class="co"># names(kgp) &lt;- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))</span></span>
-<span><span class="co"># names(kga) &lt;- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))</span></span>
-<span><span class="co"># names(kgu) &lt;- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))</span></span>
-<span><span class="co"># identical(names(kgp), names(kga)) # Check TRUE</span></span>
-<span><span class="co">#</span></span>
-<span><span class="co"># ptmdata &lt;- rbind (kgp, kga, kgu) </span></span>
-<span><span class="co"># Reorder here</span></span>
-<span><span class="co"># ptmdata &lt;- ptmdata[order(rownames(ptmdata)),]</span></span>
-<span></span>
-<span><span class="co"># This optional step improves clustering in our hands:</span></span>
-<span><span class="co"># log2ptmdata &lt;- log2(ptmdata)</span></span>
-<span></span>
-<span><span class="co"># This could be used as the ptmtable for clustering.</span></span>
-<span><span class="co"># ptmtable = log2ptmdata</span></span></code></pre></div>
+<p>Suppose you had acetylation data in <code>ackdata.df</code> and
+ubiquitination data in <code>ubidata.df</code>, both formatted as above
+for phosphorylation data in <code>phosdata.df</code>. You could combine
+them as follows.</p>
+<p>First, make sure the column names are the same:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">kgp</span> <span class="op">&lt;-</span> <span class="va">phosdata.df</span></span>
+<span><span class="va">kga</span> <span class="op">&lt;-</span> <span class="va">ackdata.df</span></span>
+<span><span class="va">kgu</span> <span class="op">&lt;-</span> <span class="va">ubidata.df</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kgp</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kgp</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"_pTyr"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kga</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kga</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"_AcK"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"_AcK"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kgu</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kgu</span><span class="op">)</span>, <span class="kw">function</span> <span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"_Ubi"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">"_Ubi"</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kgp</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">kga</span><span class="op">)</span><span class="op">)</span> <span class="co"># Check TRUE</span></span></code></pre></div>
+<p>Then <code>rbind</code> them:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ptmdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">rbind</a></span> <span class="op">(</span><span class="va">kgp</span>, <span class="va">kga</span>, <span class="va">kgu</span><span class="op">)</span> </span></code></pre></div>
+<p>Reorder:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ptmdata</span> <span class="op">&lt;-</span> <span class="va">ptmdata</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">ptmdata</span><span class="op">)</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
+<p>This optional step improves clustering in our hands:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">log2ptmdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">ptmdata</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, this dataframe could be used as the example
+<code>ptmtable</code> for the P2P functions.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># ptmtable &lt;- log2ptmdata</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
