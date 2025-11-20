@@ -76,7 +76,8 @@ Mark Grimes</h4>
 <h2 id="purpose">Purpose<a class="anchor" aria-label="anchor" href="#purpose"></a>
 </h2>
 <p>This vignette intends to help users produce a matrix with PTM names
-as row names (e.g. FYN p Y411) and numeric data in all the columns.</p>
+as row names (e.g. FYN p Y411) and numeric data in all the columns,
+which can be used as input to the PTMsToPathways functions.</p>
 <p>Mass spectrometry data output will vary depending on the experimental
 design, source of data, and software used to process the raw spectra. R
 supports many file types and can automatically convert them into a data
@@ -115,13 +116,15 @@ information for analysis of PTMs. The example raw data file for this
 vignette (downloadable <a href="https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/phospho_cleaned_mapped.txt" class="external-link">here</a>,
 or load directly into R using the commands below) contains only
 phosphorylation sites.</p>
-<p>“Amino Acid” has the modified amino acid, e.g. S,T, etc.</p>
-<p>“Positions Within Proteins” is the amino acid number in the protein
-sequence.</p>
-<p>Ambiguous modification sites (a modification site whose peptide
+<ul>
+<li>“Amino Acid” has the modified amino acid, e.g. S,T, etc.</li>
+<li>“Positions Within Proteins” is the amino acid number in the protein
+sequence.</li>
+<li>Ambiguous modification sites (a modification site whose peptide
 sequence is the same in more than one protein) have multiple possible
-postions separated by “;”.</p>
-<p>“Modification Type” has Phosphorylation” etc.</p>
+postions separated by “;”.</li>
+<li>“Modification Type” has Phosphorylation” etc.</li>
+</ul>
 <p>Note that R converts spaces in column names to periods. After reading
 in our data table, the relevant column names are:</p>
 <p><strong>genes</strong> = “AllGeneSymbols”</p>
@@ -179,11 +182,16 @@ commented line below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"phospho_cleaned_mapped.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span><span class="co"># file_path &lt;- "path/to/your/file.txt"</span></span>
-<span><span class="va">newphos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">file_path</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header<span class="op">=</span><span class="cn">TRUE</span>, blank.lines.skip<span class="op">=</span><span class="cn">T</span>, fill<span class="op">=</span><span class="cn">T</span>, quote<span class="op">=</span><span class="st">"\""</span>, dec<span class="op">=</span><span class="st">"."</span>, comment.char <span class="op">=</span> <span class="st">""</span>, stringsAsFactors<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">newphos</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">file_path</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header<span class="op">=</span><span class="cn">TRUE</span>, blank.lines.skip<span class="op">=</span><span class="cn">T</span>, fill<span class="op">=</span><span class="cn">T</span>, quote<span class="op">=</span><span class="st">"\""</span>, dec<span class="op">=</span><span class="st">"."</span>, comment.char <span class="op">=</span> <span class="st">""</span>, stringsAsFactors<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 933 170</span></span></code></pre></div>
 <p>First remove internal control rows (reverse sequences).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">newphos</span> <span class="op">&lt;-</span> <span class="va">newphos</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">$</span><span class="va">AllGeneSymbols</span><span class="op">)</span>,<span class="op">]</span></span></code></pre></div>
-<p>If there are dates in the AllGeneSymbols column, use:</p>
+<code class="sourceCode R"><span><span class="va">newphos</span> <span class="op">&lt;-</span> <span class="va">newphos</span><span class="op">[</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">$</span><span class="va">AllGeneSymbols</span><span class="op">)</span>,<span class="op">]</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 908 170</span></span></code></pre></div>
+<p>If there are dates in the <code>AllGeneSymbols</code> column,
+use:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">newphos</span><span class="op">$</span><span class="va">AllGeneSymbols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">$</span><span class="va">AllGeneSymbols</span>, <span class="va">fix.excel</span><span class="op">)</span></span></code></pre></div>
 <p>Next, identify the columns that will be used to name the PTM</p>

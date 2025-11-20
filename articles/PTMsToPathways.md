@@ -1,4 +1,4 @@
-# Analyzing Pathways from PTMs: A Guide
+# Using the P2P Package: A Step-by-Step Tutorial
 
 This tutorial is intended to be a step-by-step guide to walk users
 through the process of using the P2P package. It includes descriptions
@@ -16,8 +16,7 @@ efficiently.
 
 ## Installing the package
 
-Ensure you have the latest version of RStudio and base R installed. You
-will also need to install the devtools package, which can be installed
+You will need to install the devtools package, which can be installed
 with:
 
 ``` r
@@ -30,18 +29,25 @@ Next, install the package with:
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 ```
 
+And load the package:
+
+``` r
+library(PTMsToPathways)
+```
+
 ## Starting Data
 
 For the tutorial, we will be using two example datasets: a smaller
 dataset consisting of 933 PTMs and 18 experimental conditions (the
-example used in the RawDataProcessing vignette) and a larger dataset
-containing around 9000 PTMs and 69 experimental conditions. These
-datasets are available with the package as a variable or can be
-downloaded from our GitHub page
-[PTMsToPathways](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways)
-to the user’s working directory and imported.
+example used in the [Raw Data Processing
+vignette](vignette:RawDataProcessing)) and a larger dataset containing
+around 9000 PTMs and 69 experimental conditions. These datasets are
+available with the package. Alternatively, the larger dataset can be
+downloaded
+[here](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/AlldataPTMs.txt)
+to be inspected locally.
 
-If you are using a smaller dataset, use the following code to view the
+If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
 
 ``` r
@@ -87,9 +93,8 @@ ex_full_ptm_table[38:50, 1:2]
 >> ABCE1 ubi K93                             NA            NA
 ```
 
-If you want to download the
-[data](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/blob/main/inst/extdata/AlldataPTMs.txt)
-and then import the dataset use the following code:
+If you have downloaded the larger dataset locally, you can read it into
+R using the following code:
 
 ``` r
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
@@ -97,13 +102,14 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
                           comment.char = "", stringsAsFactors = F)
 ```
 
-## Processing the data
+## Using your own data
 
 The MS data needs to be transformed into a data frame with PTMs as row
 names, experimental condition as column names, and numeric data as the
 entries to carry out the analysis using P2P vignette. Please refer to
-the RawDataProcessing Vignette for a tutorial showing all steps needed
-to transform an MS output file into a P2P package input dataframe.
+the [Raw Data Processing vignette](vignette:RawDataProcessing)for a
+tutorial showing all steps needed to transform an MS output file into a
+P2P package input dataframe.
 
 ### Step 1: Make Cluster List
 
@@ -113,40 +119,39 @@ statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of
 both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean
 Distance). Combining the two dissimilarities leads to better resolution
-of the data and is useful in pattern recognition. A correlation table –
-*ptm.correlation.matrix* – is generated based on the distances
-calculated for each pair of PTMs. The function then runs the matrices
-through t-SNE to generate clusters based on the previously calculated
-distance and provides you with a cluster list, *common.clusters*. The
-returned *adj.consensus* (which identifies which PTMs cluster together
-with a ‘short distance’ between them) and *ptm.correlation.matrix* are
-also used in the next step to create co-cluster correlation networks
-(CCCNs).
+of the data and is useful in pattern recognition. A correlation table–
+*ptm.correlation.matrix*–is generated based on the distances calculated
+for each pair of PTMs. The function then runs the matrices through t-SNE
+to generate clusters based on the previously calculated distance and
+provides you with a cluster list, *common.clusters*. The returned
+*adj.consensus* (which identifies which PTMs cluster together with a
+‘short distance’ between them) and *ptm.correlation.matrix* are also
+used in the next step to create co-cluster correlation networks (CCCNs).
 
 ``` r
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.13 secs total.
+>> Spearman correlation calculation complete after 13.16 secs total.
 >> Spearman t-SNE calculation complete after 42.03 secs total.
 >> Euclidean distance calculation complete after 42.07 secs total.
->> Euclidean t-SNE calculation complete after 1.14 mins total.
->> Combined distance calculation complete after 1.14 mins total.
+>> Euclidean t-SNE calculation complete after 1.15 mins total.
+>> Combined distance calculation complete after 1.15 mins total.
 >> SED t-SNE calculation complete after 1.6 mins total.
 ```
 
-![](plots/unnamed-chunk-6-1.png)
+![](plots/unnamed-chunk-7-1.png)
 
     >> Clustering for Euclidean complete after 1.61 mins total.
 
-![](plots/unnamed-chunk-6-2.png)
+![](plots/unnamed-chunk-7-2.png)
 
     >> Clustering for Spearman complete after 1.61 mins total.
 
-![](plots/unnamed-chunk-6-3.png)
+![](plots/unnamed-chunk-7-3.png)
 
-    >> Clustering for SED complete after 1.61 mins total.
+    >> Clustering for SED complete after 1.62 mins total.
     >> Consensus clustering complete after 1.62 mins total.
     >> MakeClusterList complete after 1.62 mins total.
 
@@ -158,7 +163,7 @@ adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
-Now we can view the objects. First, here is an example of a cluster”
+Now we can view the objects. First, here is an example of a cluster:
 
 ``` r
 common.clusters[1]
@@ -199,7 +204,7 @@ ptm.correlation.matrix[38:43, 1:2]
 >> PRKCD p S304                0.8571429         NA
 ```
 
-##### Estimated run-time
+##### Estimated run-time (for large dataset)
 
 ~60min
 
@@ -215,17 +220,12 @@ relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of the PTM correlations serving as edge weights. The output of
 this function can be saved as an RData object.
 
-In addition to CCCN edge lists, this function also returns igraph object
-gene.cccn.g. This object can be used later to plot, extract edge lists
-or adjacency matrices, and accomplish many other functions available
-from the igraph package.
-
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.16 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.85 secs total.
+>> Gene CCCN complete after 1.88 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
@@ -248,7 +248,7 @@ gene.cccn.nodes[1:5]
 >> [1] "ADGRL2" "ACP1"   "AHNAK"  "ADAM10" "ALDOA"
 ```
 
-##### Estimated run-time
+##### Estimated run-time (for large dataset)
 
 ~10min
 
@@ -382,9 +382,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-20 20:57:18 UTC"
->> [1] "2025-11-20 20:57:18 UTC"
->> [1] Total time: 0.107590675354004
+>> [1] "2025-11-20 23:26:09 UTC"
+>> [1] "2025-11-20 23:26:09 UTC"
+>> [1] Total time: 0.107736110687256
 ```
 
 ## Saving Data

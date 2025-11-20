@@ -3,7 +3,8 @@
 ## Purpose
 
 This vignette intends to help users produce a matrix with PTM names as
-row names (e.g. FYN p Y411) and numeric data in all the columns.
+row names (e.g. FYN p Y411) and numeric data in all the columns, which
+can be used as input to the PTMsToPathways functions.
 
 Mass spectrometry data output will vary depending on the experimental
 design, source of data, and software used to process the raw spectra. R
@@ -37,16 +38,13 @@ vignette (downloadable
 or load directly into R using the commands below) contains only
 phosphorylation sites.
 
-“Amino Acid” has the modified amino acid, e.g. S,T, etc.
-
-“Positions Within Proteins” is the amino acid number in the protein
-sequence.
-
-Ambiguous modification sites (a modification site whose peptide sequence
-is the same in more than one protein) have multiple possible postions
-separated by “;”.
-
-“Modification Type” has Phosphorylation” etc.
+- “Amino Acid” has the modified amino acid, e.g. S,T, etc.
+- “Positions Within Proteins” is the amino acid number in the protein
+  sequence.
+- Ambiguous modification sites (a modification site whose peptide
+  sequence is the same in more than one protein) have multiple possible
+  postions separated by “;”.
+- “Modification Type” has Phosphorylation” etc.
 
 Note that R converts spaces in column names to periods. After reading in
 our data table, the relevant column names are:
@@ -119,15 +117,19 @@ line below.
 file_path <- system.file("extdata", "phospho_cleaned_mapped.txt", package = "PTMsToPathways")
 # file_path <- "path/to/your/file.txt"
 newphos <- read.table(file_path, sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
+dim(newphos)
+#> [1] 933 170
 ```
 
 First remove internal control rows (reverse sequences).
 
 ``` r
 newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
+dim(newphos)
+#> [1] 908 170
 ```
 
-If there are dates in the AllGeneSymbols column, use:
+If there are dates in the `AllGeneSymbols` column, use:
 
 ``` r
 newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
