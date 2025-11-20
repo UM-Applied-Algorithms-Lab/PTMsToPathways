@@ -251,7 +251,7 @@ db.nodes_path <- system.file("extdata", "ex_db_nodes.txt", package = "PTMsToPath
 
 ```{r eval = TRUE, echo = TRUE}
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path,
-                                     db_nodes.path, gene.cccn.nodes
+                                     db_nodes.path, gene.cccn.nodes)
 ```
 
 ### 3. Phosphosite Plus
