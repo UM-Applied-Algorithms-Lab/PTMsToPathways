@@ -30,3 +30,18 @@ ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
 Subnetwork object with co-clustered PTMs and genes
 
 ## Examples
+
+``` r
+# Example input objects
+ptms <- c("TP53 p S15", "BRCA1 p S123; BRCA1 p T124", "MDM2 p S200")
+# Example network (edge list with 'source', 'target', and cluster info, could be data.frame or igraph)
+cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
+                         target = c("BRCA1", "MDM2", "TP53", "TP53"),
+                         cluster = c(1,1,2,1))
+# Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
+# The following returns the gene/PTM subnetwork
+res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+#> Error in ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";"): object 'cfn.merged' not found
+print(res)
+#> Error: object 'res' not found
+```

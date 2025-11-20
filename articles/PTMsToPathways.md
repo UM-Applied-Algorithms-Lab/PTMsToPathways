@@ -92,7 +92,6 @@ If you want to download the
 and then import the dataset use the following code:
 
 ``` r
-# TO DO FIX THIS!!!!!
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
                           blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
                           comment.char = "", stringsAsFactors = F)
@@ -129,27 +128,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 11.94 secs total.
->> Spearman t-SNE calculation complete after 39.41 secs total.
->> Euclidean distance calculation complete after 39.46 secs total.
->> Euclidean t-SNE calculation complete after 1.09 mins total.
->> Combined distance calculation complete after 1.09 mins total.
->> SED t-SNE calculation complete after 1.52 mins total.
+>> Spearman correlation calculation complete after 13.35 secs total.
+>> Spearman t-SNE calculation complete after 42.14 secs total.
+>> Euclidean distance calculation complete after 42.18 secs total.
+>> Euclidean t-SNE calculation complete after 1.15 mins total.
+>> Combined distance calculation complete after 1.15 mins total.
+>> SED t-SNE calculation complete after 1.6 mins total.
 ```
 
 ![](plots/unnamed-chunk-6-1.png)
 
-    >> Clustering for Euclidean complete after 1.53 mins total.
+    >> Clustering for Euclidean complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-6-2.png)
 
-    >> Clustering for Spearman complete after 1.54 mins total.
+    >> Clustering for Spearman complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-6-3.png)
 
-    >> Clustering for SED complete after 1.54 mins total.
-    >> Consensus clustering complete after 1.54 mins total.
-    >> MakeClusterList complete after 1.54 mins total.
+    >> Clustering for SED complete after 1.62 mins total.
+    >> Consensus clustering complete after 1.63 mins total.
+    >> MakeClusterList complete after 1.63 mins total.
 
 The following code unpacks the output into separate objects:
 
@@ -224,9 +223,9 @@ from the igraph package.
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.04 secs total.
+>> PTM CCCN complete after 0.16 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.77 secs total.
+>> Gene CCCN complete after 1.91 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
@@ -306,7 +305,7 @@ by GeneMANIA itself.
 
 ``` r
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path,
-                                     db_nodes.path)
+                                     db_nodes.path, gene.cccn.nodes)
 ```
 
 #### 3. Phosphosite Plus
@@ -339,14 +338,18 @@ interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.
 
 ``` r
-network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges,
-                                            kinsub.edges, gene.cccn.edges,
+network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
+                                            genemania.edges = NULL, kinsub.edges = NULL,
                                             db.filepaths = c())
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
+```
 
-# To reduce clutter on graphs, the cfn edges can be merged:
+To reduce clutter on graphs, the cfn edges can be merged:
+
+``` r
 cfn.merged <- mergeEdges(cfn)
+>> Loading required package: plyr
 ```
 
 ### Step 5: Pathway Crosstalk Network
@@ -373,11 +376,15 @@ similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
 ``` r
-PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file = "pathway.csv",
-                                    createfile = getwd())
+PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file,
+                                    createfile = FALSE)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+>> [1] "Making PCN"
+>> [1] "2025-11-20 05:52:48 UTC"
+>> [1] "2025-11-20 05:52:48 UTC"
+>> [1] Total time: 0.109005212783813
 ```
 
 ## Saving Data
@@ -386,15 +393,23 @@ If you want to save your data to a file, all data structures can either
 be exported with the save function and loaded later or saved to a csv
 file with the write.csv function.
 
+To save one object:
+
 ``` r
-# For one object
 save(object, filename = "filepath/name.rda") # Saves object as an .rda
 load("filepath/name.rda")                    # Loads object saved to a file
+```
 
-# For multiple objects: Note the objects are saved as an .RData rather than an .rda
+For multiple objects: Note the objects are saved as an .RData rather
+than an .rda
+
+``` r
 save(object1, object2, object.ect, filename="NewFile.RData")
+```
 
-# One object as a csv
+To save one object as a csv:
+
+``` r
 utils::write.csv(object, file = "filepath/name.csv") # Saves object as a .csv
 utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 ```

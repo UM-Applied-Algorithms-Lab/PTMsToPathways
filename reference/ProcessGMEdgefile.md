@@ -10,7 +10,7 @@ ProcessGMEdgefile(
   gm.edgefile.path,
   gm.nodetable.path,
   db_nodes.path,
-  gene.cccn.nodes
+  gene.cccn.nodes = NULL
 )
 ```
 
@@ -46,7 +46,7 @@ ex.edgefile <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathw
 ex.nodefile <- system.file("extdata/ex_gm_nodetable.csv", package = "PTMsToPathways")
 ex.db.nodes  <- system.file("extdata/ex_db_nodes.txt", package = "PTMsToPathways")
 Example_Output <- ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes)
-#> Error in ProcessGMEdgefile(ex.edgefile, ex.nodefile, ex.db.nodes): argument "gene.cccn.nodes" is missing, with no default
+#> Error in start_line[1]:(end_line[1] - 1): NA/NaN argument
 utils::head(Example_Output)
 #> Error: object 'Example_Output' not found
 ```
