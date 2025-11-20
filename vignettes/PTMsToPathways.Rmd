@@ -288,8 +288,8 @@ interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.
 
 ```{r eval = TRUE, echo = TRUE}
-network.list <- BuildClusterFilteredNetwork(stringdb.edges, genemania.edges,
-                                            kinsub.edges, gene.cccn.edges,
+network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
+                                            genemania.edges = NULL, kinsub.edges,
                                             db.filepaths = c())
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
