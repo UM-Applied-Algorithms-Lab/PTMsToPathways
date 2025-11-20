@@ -133,27 +133,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 11.8 secs total.
->> Spearman t-SNE calculation complete after 39.23 secs total.
->> Euclidean distance calculation complete after 39.28 secs total.
+>> Spearman correlation calculation complete after 12.05 secs total.
+>> Spearman t-SNE calculation complete after 39.6 secs total.
+>> Euclidean distance calculation complete after 39.65 secs total.
 >> Euclidean t-SNE calculation complete after 1.09 mins total.
 >> Combined distance calculation complete after 1.09 mins total.
->> SED t-SNE calculation complete after 1.53 mins total.
+>> SED t-SNE calculation complete after 1.54 mins total.
 ```
 
 ![](plots/unnamed-chunk-7-1.png)
 
-    >> Clustering for Euclidean complete after 1.54 mins total.
+    >> Clustering for Euclidean complete after 1.55 mins total.
 
 ![](plots/unnamed-chunk-7-2.png)
 
-    >> Clustering for Spearman complete after 1.54 mins total.
+    >> Clustering for Spearman complete after 1.55 mins total.
 
 ![](plots/unnamed-chunk-7-3.png)
 
-    >> Clustering for SED complete after 1.54 mins total.
-    >> Consensus clustering complete after 1.55 mins total.
-    >> MakeClusterList complete after 1.55 mins total.
+    >> Clustering for SED complete after 1.55 mins total.
+    >> Consensus clustering complete after 1.56 mins total.
+    >> MakeClusterList complete after 1.56 mins total.
 
 The following code unpacks the output into separate objects:
 
@@ -223,9 +223,9 @@ this function can be saved as an RData object.
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.15 secs total.
+>> PTM CCCN complete after 0.16 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.8 secs total.
+>> Gene CCCN complete after 1.83 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
@@ -387,9 +387,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-20 23:37:22 UTC"
->> [1] "2025-11-20 23:37:22 UTC"
->> [1] Total time: 0.108638048171997
+>> [1] "2025-11-20 23:58:55 UTC"
+>> [1] "2025-11-20 23:58:55 UTC"
+>> [1] Total time: 0.111860752105713
 ```
 
 ## Saving Data
