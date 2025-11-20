@@ -4,7 +4,7 @@
 
 - [`BuildClusterFilteredNetwork()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildClusterFilteredNetwork.md)
   : Build PPI Network
-- [`GetGeneMANIAEdges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIAEdges.md)
+- [`GetGeneMANIA.edges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIA.edges.md)
   : Get GeneMANIA Edges
 - [`GetSTRINGdb()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetSTRINGdb.md)
   : Get STRINGdb PPI data

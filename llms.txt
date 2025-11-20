@@ -21,6 +21,13 @@ exploratory data analysis. Networks are formatted to enable creation of
 visually appealing graphs in Cytoscape, an open source network
 visualization application.
 
+A following figure provides a summary of the functions implemented in
+P2P.
+
+![figure](P2P_Pipeline_Fig.png)
+
+figure
+
 ## Installation
 
 Before proceeding, ensure you have R installed. You will also need the
@@ -54,7 +61,7 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
 
 - [`BuildClusterFilteredNetwork()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildClusterFilteredNetwork.md)
   : Build PPI Network
-- [`GetGeneMANIAEdges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIAEdges.md)
+- [`GetGeneMANIA.edges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIA.edges.md)
   : Get GeneMANIA Edges
 - [`GetSTRINGdb()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetSTRINGdb.md)
   : Get STRINGdb PPI data
