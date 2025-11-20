@@ -46,10 +46,8 @@ data in tab-delimited spreadsheet format.
 ## Naming conventions
 
 In this vignette, we use the following shorthand conventions when describing
-PTMs. This can be modified if different modification types are under
-investigation. (**Lucy comment: I think it is implied that these are just
-our examples, so we don't need to say these can be modified. As is, it sounds
-like they are built in somehow.**)
+PTMs based on the modifications present in the example data set. Your
+data will dictate the names of modifications.
 
 * *Gene.Name* = The HUGO Gene Name is used to identify the protein/gene
 * *Phosphorylation* = "p"
