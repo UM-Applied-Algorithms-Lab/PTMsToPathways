@@ -54,6 +54,8 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
 
 - [`BuildClusterFilteredNetwork()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildClusterFilteredNetwork.md)
   : Build PPI Network
+- [`GetGeneMANIAEdges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIAEdges.md)
+  : Get GeneMANIA Edges
 - [`GetSTRINGdb()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetSTRINGdb.md)
   : Get STRINGdb PPI data
 - [`MakeClusterList()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeClusterList.md)
@@ -64,8 +66,6 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
   : Make Database Input File
 - [`PathwayCrosstalkNetwork()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/PathwayCrosstalkNetwork.md)
   : Pathway Crosstalk Network
-- [`ProcessGMEdgefile()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ProcessGMEdgefile.md)
-  : Process GM Edge File
 - [`formatKinsubTable()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/formatKinsubTable.md)
   : Format Kinsub Table
 - [`getFuncKey()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/getFuncKey.md)
