@@ -16,6 +16,10 @@ These data structures can be interrogated in various ways to facilitate hypothes
 investigation and exploratory data analysis. Networks are formatted to enable creation of
 visually appealing graphs in Cytoscape, an open source network visualization application.
 
+A following figure provides a summary of the functions implemented in P2P.
+
+![figure](P2P_Pipeline_Fig.png)
+
 ## Installation
 
 Before proceeding, ensure you have R installed. You will also need the devtools package, which can be installed with:
