@@ -151,7 +151,7 @@ First remove internal control rows (reverse sequences).
 
 ```{r}
 newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
-````
+```
 
 If there are dates in the AllGeneSymbols column, use:
 ```{r}
