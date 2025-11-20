@@ -1,5 +1,5 @@
 ---
-title: 'Analyzing Pathways from PTMs: A Guide'
+title: 'Using the P2P Package: A Step-by-Step Tutorial'
 author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
   Williams, Mark Grimes
 output:
@@ -23,7 +23,6 @@ editor_options:
 ---
 
 ```{r setup, echo=FALSE}
-library("PTMsToPathways")
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -54,32 +53,34 @@ efficiently.
 
 # Installing the package
 
-Ensure you have the latest version of RStudio and base R installed. You
-will also need to install the devtools package, which can be installed
+You will need to install the devtools package, which can be installed
 with:
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval=FALSE}
 install.packages("devtools")
 ```
 
 Next, install the package with:
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval=FALSE}
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
+```
+And load the package:
+```{r}
+library(PTMsToPathways)
 ```
 
 # Starting Data
 
 For the tutorial, we will be using two example datasets: a smaller
 dataset consisting of 933 PTMs and 18 experimental conditions (the
-example used in the RawDataProcessing vignette) and a larger dataset
+example used in the [Raw Data Processing vignette](vignette:RawDataProcessing)) and a larger dataset
 containing around 9000 PTMs and 69 experimental conditions. These
-datasets are available with the package as a variable or can be
-downloaded from our GitHub page
-[PTMsToPathways](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways)
-to the user's working directory and imported.
+datasets are available with the package. Alternatively, the larger dataset can be
+downloaded [here](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/AlldataPTMs.txt)
+to be inspected locally.
 
-If you are using a smaller dataset, use the following code to view the
+If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
 
 ```{r eval = TRUE, echo = TRUE}
@@ -95,9 +96,8 @@ dim(ex_full_ptm_table)
 ex_full_ptm_table[38:50, 1:2]
 ```
 
-If you want to download the
-[data](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/blob/main/inst/extdata/AlldataPTMs.txt)
-and then import the dataset use the following code:
+If you have downloaded the larger dataset locally, you can read it into
+R using the following code:
 
 ```{r eval = FALSE, echo = TRUE}
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
@@ -105,12 +105,12 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
                           comment.char = "", stringsAsFactors = F)
 ```
 
-# Processing the data
+# Using your own data
 
 The MS data needs to be transformed into a data frame with PTMs as row
 names, experimental condition as column names, and numeric data as the
 entries to carry out the analysis using P2P vignette. Please refer to
-the RawDataProcessing Vignette for a tutorial showing all steps needed
+the [Raw Data Processing vignette](vignette:RawDataProcessing)for a tutorial showing all steps needed
 to transform an MS output file into a P2P package input dataframe.
 
 ## Step 1: Make Cluster List
@@ -121,8 +121,8 @@ statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of
 both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean
 Distance). Combining the two dissimilarities leads to better resolution
-of the data and is useful in pattern recognition. A correlation table --
-*ptm.correlation.matrix* -- is generated based on the distances
+of the data and is useful in pattern recognition. A correlation table--
+*ptm.correlation.matrix*--is generated based on the distances
 calculated for each pair of PTMs. The function then runs the matrices
 through t-SNE to generate clusters based on the previously calculated
 distance and provides you with a cluster list, *common.clusters*. The
@@ -144,13 +144,14 @@ adj.consensus <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
-Now we can view the objects. First, here is an example of a cluster"
+Now we can view the objects. First, here is an example of a cluster:
 
 ```{r eval = TRUE, echo = TRUE}
 common.clusters[1]
 ```
 
-Next, we look at a piece of the `adj.consensus` table. Ones represent a pair that cluster and zeroes represent a pair that doesn't:
+Next, we look at a piece of the `adj.consensus` table. Ones represent a pair
+that cluster and zeroes represent a pair that doesn't:
 
 ```{r eval = TRUE, echo = TRUE}
 adj.consensus[1:5, 1:2]
@@ -162,7 +163,7 @@ Here is a part of the `ptm.correlation.matrix`.
 ptm.correlation.matrix[38:43, 1:2]
 ```
 
-#### Estimated run-time
+#### Estimated run-time (for large dataset)
 
 \~60min
 
@@ -178,11 +179,6 @@ relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of the PTM correlations serving as edge weights. The output of
 this function can be saved as an RData object.
 
-In addition to CCCN edge lists, this function also returns igraph object
-gene.cccn.g. This object can be used later to plot, extract edge lists
-or adjacency matrices, and accomplish many other functions available
-from the igraph package.
-
 ```{r eval = TRUE, echo = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
@@ -194,7 +190,7 @@ gene.cccn.edges[1:5,]
 gene.cccn.nodes[1:5]
 ```
 
-#### Estimated run-time
+#### Estimated run-time (for large dataset)
 
 \~10min
 
