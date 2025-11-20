@@ -117,9 +117,9 @@ GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
 #'
 #' @examples
 #' ex.gm.results.path <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
-#' example.GeneMANIA.edges <- GetGeneMANIAEdges(ex.gm.results.path, ex.gene.cccn.nodes)
+#' example.GeneMANIA.edges <- GetGeneMANIA.edges(ex.gm.results.path, ex.gene.cccn.nodes)
 #' utils::head(example.GeneMANIA.edges)
-GetGeneMANIAEdges <- function(gm.results.path, gene.cccn.nodes){
+GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
 
   # Note: The column names may change in future releases of GeneMANIA.
 

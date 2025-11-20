@@ -2,7 +2,7 @@
 
 export("%w/o%")
 export(BuildClusterFilteredNetwork)
-export(GetGeneMANIAEdges)
+export(GetGeneMANIA.edges)
 export(GetSTRINGdb)
 export(GraphCfn)
 export(MakeClusterList)
