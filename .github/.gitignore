@@ -1,2 +1,2 @@
 *.html
-vignettes/plots/
+vignettes/plots/*
