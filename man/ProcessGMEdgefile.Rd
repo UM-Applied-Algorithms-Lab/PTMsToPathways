@@ -8,7 +8,7 @@ ProcessGMEdgefile(
   gm.edgefile.path,
   gm.nodetable.path,
   db_nodes.path,
-  gene.cccn.nodes
+  gene.cccn.nodes = NULL
 )
 }
 \arguments{
