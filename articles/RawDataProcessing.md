@@ -2,38 +2,42 @@
 
 ## Purpose
 
+This vignette intends to help users produce a matrix with PTM names as
+row names (e.g. FYN p Y411) and numeric data in all the columns.
+
 Mass spectrometry data output will vary depending on the experimental
 design, source of data, and software used to process the raw spectra. R
 supports many file types and can automatically convert them into a data
-frame. For example, read.csv() will take a csv file and convert it into
-a data frame (read.csv() is a variation of read.table()). We start with
-data in tab-delimited spreadsheet format. This vignette intends to help
-users produce a matrix with PTM names as row names (e.g. FYN p Y411) and
-numeric data in all the columns.
+frame. For example,
+[`read.csv()`](https://rdrr.io/r/utils/read.table.html) will take a csv
+file and convert it into a data frame
+([`read.csv()`](https://rdrr.io/r/utils/read.table.html) is a variation
+of [`read.table()`](https://rdrr.io/r/utils/read.table.html)). We start
+with data in tab-delimited spreadsheet format.
 
-## Conventions
+## Naming conventions
 
-We use the following shorthand conventions when describing PTMs. This
-can be modified if different modification types are under investigation.
+In this vignette, we use the following shorthand conventions when
+describing PTMs. This can be modified if different modification types
+are under investigation. (**Lucy comment: I think it is implied that
+these are just our examples, so we don’t need to say these can be
+modified. As is, it sounds like they are built in somehow.**)
 
-*Gene.Name* = The HUGO Gene Name is used to identify the protein/gene
-
-*Phosphorylation* = “p”
-
-*Lysine acetylation* = “ack”
-
-*Lysine methylation* = “kme”
-
-*Arginine methylation* = “rme”
-
-*Ubiquitination* = “ubi”
+- *Gene.Name* = The HUGO Gene Name is used to identify the protein/gene
+- *Phosphorylation* = “p”
+- *Lysine acetylation* = “ack”
+- *Lysine methylation* = “kme”
+- *Arginine methylation* = “rme”
+- *Ubiquitination* = “ubi”
 
 ## Data input
 
 Investigators will need to identify which columns contain key
 information for analysis of PTMs. The example raw data file for this
-vignette contains only phosphorylation sites (ex_phosphotable =
-“phospho_cleaned_mapped.txt”).
+vignette (downloadable
+[here](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/phospho_cleaned_mapped.txt),
+or load directly into R using the commands below) contains only
+phosphorylation sites.
 
 “Amino Acid” has the modified amino acid, e.g. S,T, etc.
 
@@ -57,7 +61,7 @@ our data table, the relevant column names are:
 
 **modification** = “Modification.Type”
 
-We provide a helper function *name.peptide()* to make a PTM name using
+We provide a helper function `name.peptide()` to make a PTM name using
 these columns. This function concatenates ambiguous modification sites
 and ignores NA values that are present in cells or ambiguous gene names.
 
@@ -73,12 +77,10 @@ U123”).
 Many investigators will examine their data in Microsoft Excel, which can
 export the spreadsheet in tab- or comma-delimited format. Unfortunately,
 Excel inescapably turns some gene names into dates when present in a
-cell by themselves. We reverse this with a helper function,
-*fix.excel()*.
+cell by themselves. We reverse this with an example helper function,
+`fix.excel()`:
 
 ``` r
-# Helper functions
-# Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
 fix.excel <- function(cell) {
   fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
   corrects = c("CDK1", "SEPT1", "SEPT2", "SEPT3", "SEPT4", "SEPT5", "SEPT7", "SEPT8", "SEPT9", "SEPT10", "SEPT11", "SEPT15", "SEPT6", "POU2F1", "POU2F2", "POU5F1", "POU5F1", "POU3F1", "POU3F2", "POU2F3", "MARCH1", "MARCH2", "MARCH3", "MARCH4", "MARCH5", "MARCH6", "MARCH7", "MARCH8", "MARCH9", "MARCH10", "MARCH11", "SMAP", "EFCAB13", "BRK1", "NYAP1", "LAMTOR1", 'AP1AR', "DEC1", "SEPT14")
@@ -87,8 +89,14 @@ fix.excel <- function(cell) {
     cellv.new <- gsub(fixgenes[fixgenes %in% cellv], corrects[fixgenes %in% cellv], cellv)
     return (paste(cellv.new, collapse="; "))
   } else return(cell)    }
-# This function will handle ambiguous modification sites (a modification site whose peptide sequence is the same in more than one protein) separated by ";" or another separator
-# Make peptide names using this function:
+```
+
+We provide another example helper function, `name.peptide()`, to handle
+ambiguous modification sites (a modification site whose peptide sequence
+is the same in more than one protein) separated by “;” or another
+separator.
+
+``` r
 name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")   {
   genes.v <- unlist(strsplit(genes, pepsep, fixed = TRUE))
   genes.v[which(genes.v == "NA")] <- NA
@@ -101,29 +109,45 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")   {
   Peptide <- paste(unique(Peptide.v), collapse="; ")
   return(Peptide)
 }
+```
 
-# _________________________________________________________________________________
-# Read in data file that is output from mass spectrometry. 
+Read in data file that is output from mass spectrometry. You should
+replace file_path with your own path to file, as in the commented line
+below.
 
-# You should replace file_path with your own path to file, as in the commented line below
+``` r
 file_path <- system.file("extdata", "phospho_cleaned_mapped.txt", package = "PTMsToPathways")
 # file_path <- "path/to/your/file.txt"
 newphos <- read.table(file_path, sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
+```
 
-# First remove internal control rows (reverse sequences)
+First remove internal control rows (reverse sequences).
+
+``` r
 newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
+```
 
-# If there are dates in the AllGeneSymbols column, use:
+If there are dates in the AllGeneSymbols column, use:
+
+``` r
 newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
+```
 
-# Next, identify the columns that will be used to name the PTM
+Next, identify the columns that will be used to name the PTM
 
+``` r
 headercols <- c("AllGeneSymbols", "Amino.Acid", "Positions.Within.Proteins", "Modification.Type")
+```
 
-# Make a separate data frame using these columns. 
+Make a separate data frame using these columns.
+
+``` r
 newphos.head <- newphos[,headercols]
+```
 
-# Now create a unique PTM name (peptide name)
+Now create a unique PTM name (peptide name)
+
+``` r
 newphos.head$Peptide.Name <- mapply(name.peptide, genes=newphos.head$AllGeneSymbols, sites= newphos.head$Positions.Within.Proteins, aa=newphos.head$Amino.Acid)
 ```
 
