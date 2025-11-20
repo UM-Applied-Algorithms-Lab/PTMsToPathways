@@ -121,9 +121,9 @@ GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
 ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gene.cccn.nodes = NULL){
   # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
   # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
-  if (gene.cccn.nodes != NULL)){
+  
+  if (gene.cccn.nodes != NULL){
     nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
-
     nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
   } else {
     nodenames <- gene.cccn.nodes
