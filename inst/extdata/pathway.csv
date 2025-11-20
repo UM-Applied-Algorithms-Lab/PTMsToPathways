@@ -1,0 +1,252 @@
+          PATHWAY_ID                                      PATHWAY_NAME   GENE_ID GENE_SYMBOL
+13221 bioplanet_1339                                   RXR/VDR pathway        19       ABCA1
+13222 bioplanet_1339                                   RXR/VDR pathway       596        BCL2
+13223 bioplanet_1339                                   RXR/VDR pathway      3164       NR4A1
+13224 bioplanet_1339                                   RXR/VDR pathway      5465       PPARA
+13225 bioplanet_1339                                   RXR/VDR pathway      5467       PPARD
+13226 bioplanet_1339                                   RXR/VDR pathway      5468       PPARG
+13227 bioplanet_1339                                   RXR/VDR pathway      5469        MED1
+13228 bioplanet_1339                                   RXR/VDR pathway      5914        RARA
+13229 bioplanet_1339                                   RXR/VDR pathway      5915        RARB
+13230 bioplanet_1339                                   RXR/VDR pathway      5916        RARG
+13231 bioplanet_1339                                   RXR/VDR pathway      6198     RPS6KB1
+13232 bioplanet_1339                                   RXR/VDR pathway      6256        RXRA
+13233 bioplanet_1339                                   RXR/VDR pathway      6257        RXRB
+13234 bioplanet_1339                                   RXR/VDR pathway      6258        RXRG
+13235 bioplanet_1339                                   RXR/VDR pathway      6720      SREBF1
+13236 bioplanet_1339                                   RXR/VDR pathway      7040       TGFB1
+13237 bioplanet_1339                                   RXR/VDR pathway      7067        THRA
+13238 bioplanet_1339                                   RXR/VDR pathway      7068        THRB
+13239 bioplanet_1339                                   RXR/VDR pathway      7124         TNF
+13240 bioplanet_1339                                   RXR/VDR pathway      7376       NR1H2
+13241 bioplanet_1339                                   RXR/VDR pathway      7421         VDR
+13242 bioplanet_1339                                   RXR/VDR pathway      8648       NCOA1
+13243 bioplanet_1339                                   RXR/VDR pathway      9612       NCOR2
+13244 bioplanet_1339                                   RXR/VDR pathway      9971       NR1H4
+13245 bioplanet_1339                                   RXR/VDR pathway     10062       NR1H3
+13246 bioplanet_1339                                   RXR/VDR pathway     84498     FAM120B
+13871 bioplanet_1354 Validated nuclear estrogen receptor alpha network        21       ABCA3
+13872 bioplanet_1354 Validated nuclear estrogen receptor alpha network       162       AP1B1
+13873 bioplanet_1354 Validated nuclear estrogen receptor alpha network       190       NR0B1
+13874 bioplanet_1354 Validated nuclear estrogen receptor alpha network       322       APBB1
+13875 bioplanet_1354 Validated nuclear estrogen receptor alpha network       522       ATP5J
+13876 bioplanet_1354 Validated nuclear estrogen receptor alpha network       595       CCND1
+13877 bioplanet_1354 Validated nuclear estrogen receptor alpha network       672       BRCA1
+13878 bioplanet_1354 Validated nuclear estrogen receptor alpha network       718          C3
+13879 bioplanet_1354 Validated nuclear estrogen receptor alpha network      1051       CEBPB
+13880 bioplanet_1354 Validated nuclear estrogen receptor alpha network      1147        CHUK
+13881 bioplanet_1354 Validated nuclear estrogen receptor alpha network      1509        CTSD
+13882 bioplanet_1354 Validated nuclear estrogen receptor alpha network      1826       DSCAM
+13883 bioplanet_1354 Validated nuclear estrogen receptor alpha network      2033       EP300
+13884 bioplanet_1354 Validated nuclear estrogen receptor alpha network      2099        ESR1
+13885 bioplanet_1354 Validated nuclear estrogen receptor alpha network      2100        ESR2
+13886 bioplanet_1354 Validated nuclear estrogen receptor alpha network      3065       HDAC1
+13887 bioplanet_1354 Validated nuclear estrogen receptor alpha network      3298        HSF2
+13888 bioplanet_1354 Validated nuclear estrogen receptor alpha network      3725         JUN
+13889 bioplanet_1354 Validated nuclear estrogen receptor alpha network      3732        CD82
+13890 bioplanet_1354 Validated nuclear estrogen receptor alpha network      3823       KLRC3
+13891 bioplanet_1354 Validated nuclear estrogen receptor alpha network      4089       SMAD4
+13892 bioplanet_1354 Validated nuclear estrogen receptor alpha network      4350         MPG
+13893 bioplanet_1354 Validated nuclear estrogen receptor alpha network      4609         MYC
+13894 bioplanet_1354 Validated nuclear estrogen receptor alpha network      4731      NDUFV3
+13895 bioplanet_1354 Validated nuclear estrogen receptor alpha network      4738       NEDD8
+13896 bioplanet_1354 Validated nuclear estrogen receptor alpha network      5111        PCNA
+13897 bioplanet_1354 Validated nuclear estrogen receptor alpha network      5241         PGR
+13898 bioplanet_1354 Validated nuclear estrogen receptor alpha network      5457      POU4F1
+13899 bioplanet_1354 Validated nuclear estrogen receptor alpha network      5458      POU4F2
+13900 bioplanet_1354 Validated nuclear estrogen receptor alpha network      5469        MED1
+13901 bioplanet_1354 Validated nuclear estrogen receptor alpha network      5617         PRL
+13902 bioplanet_1354 Validated nuclear estrogen receptor alpha network      6294        SAFB
+13903 bioplanet_1354 Validated nuclear estrogen receptor alpha network      6418         SET
+13904 bioplanet_1354 Validated nuclear estrogen receptor alpha network      6647        SOD1
+13905 bioplanet_1354 Validated nuclear estrogen receptor alpha network      6776      STAT5A
+13906 bioplanet_1354 Validated nuclear estrogen receptor alpha network      7031        TFF1
+13907 bioplanet_1354 Validated nuclear estrogen receptor alpha network      7494        XBP1
+13908 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8125      ANP32A
+13909 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8202       NCOA3
+13910 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8204       NRIP1
+13911 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8313       AXIN2
+13912 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8431       NR0B2
+13913 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8543        LMO4
+13914 bioplanet_1354 Validated nuclear estrogen receptor alpha network      8648       NCOA1
+13915 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9039        UBA3
+13916 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9040       UBE2M
+13917 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9112        MTA1
+13918 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9166       EBAG9
+13919 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9611       NCOR1
+13920 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9612       NCOR2
+13921 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9687       GREB1
+13922 bioplanet_1354 Validated nuclear estrogen receptor alpha network      9759       HDAC4
+13923 bioplanet_1354 Validated nuclear estrogen receptor alpha network     10011        SRA1
+13924 bioplanet_1354 Validated nuclear estrogen receptor alpha network     10499       NCOA2
+13925 bioplanet_1354 Validated nuclear estrogen receptor alpha network     10521       DDX17
+13926 bioplanet_1354 Validated nuclear estrogen receptor alpha network     11331        PHB2
+13927 bioplanet_1354 Validated nuclear estrogen receptor alpha network     57658    CALCOCO1
+13928 bioplanet_1354 Validated nuclear estrogen receptor alpha network     63977      PRDM15
+13929 bioplanet_1354 Validated nuclear estrogen receptor alpha network     64714       PDIA2
+13930 bioplanet_1354 Validated nuclear estrogen receptor alpha network     79039       DDX54
+13931 bioplanet_1354 Validated nuclear estrogen receptor alpha network     80781     COL18A1
+13932 bioplanet_1354 Validated nuclear estrogen receptor alpha network     84458        LCOR
+13933 bioplanet_1354 Validated nuclear estrogen receptor alpha network    135112       NCOA7
+13934 bioplanet_1354 Validated nuclear estrogen receptor alpha network    286827      TRIM59
+30166 bioplanet_1704                                  Selenium pathway        12    SERPINA3
+30167 bioplanet_1704                                  Selenium pathway        19       ABCA1
+30168 bioplanet_1704                                  Selenium pathway       213         ALB
+30169 bioplanet_1704                                  Selenium pathway       240       ALOX5
+30170 bioplanet_1704                                  Selenium pathway       241     ALOX5AP
+30171 bioplanet_1704                                  Selenium pathway       247     ALOX15B
+30172 bioplanet_1704                                  Selenium pathway       335       APOA1
+30173 bioplanet_1704                                  Selenium pathway       338        APOB
+30174 bioplanet_1704                                  Selenium pathway       847         CAT
+30175 bioplanet_1704                                  Selenium pathway       875         CBS
+30176 bioplanet_1704                                  Selenium pathway       949      SCARB1
+30177 bioplanet_1704                                  Selenium pathway      1401         CRP
+30178 bioplanet_1704                                  Selenium pathway      1491         CTH
+30179 bioplanet_1704                                  Selenium pathway      1733        DIO1
+30180 bioplanet_1704                                  Selenium pathway      2147          F2
+30181 bioplanet_1704                                  Selenium pathway      2155          F7
+30182 bioplanet_1704                                  Selenium pathway      2678        GGT1
+30183 bioplanet_1704                                  Selenium pathway      2936         GSR
+30184 bioplanet_1704                                  Selenium pathway      3039        HBA1
+30185 bioplanet_1704                                  Selenium pathway      3040        HBA2
+30186 bioplanet_1704                                  Selenium pathway      3043         HBB
+30187 bioplanet_1704                                  Selenium pathway      3383       ICAM1
+30188 bioplanet_1704                                  Selenium pathway      3458        IFNG
+30189 bioplanet_1704                                  Selenium pathway      3553        IL1B
+30190 bioplanet_1704                                  Selenium pathway      3569         IL6
+30191 bioplanet_1704                                  Selenium pathway      3630         INS
+30192 bioplanet_1704                                  Selenium pathway      3643        INSR
+30193 bioplanet_1704                                  Selenium pathway      3949        LDLR
+30194 bioplanet_1704                                  Selenium pathway      4353         MPO
+30195 bioplanet_1704                                  Selenium pathway      4524       MTHFR
+30196 bioplanet_1704                                  Selenium pathway      4548         MTR
+30197 bioplanet_1704                                  Selenium pathway      4790       NFKB1
+30198 bioplanet_1704                                  Selenium pathway      4791       NFKB2
+30199 bioplanet_1704                                  Selenium pathway      5052       PRDX1
+30200 bioplanet_1704                                  Selenium pathway      5054    SERPINE1
+30201 bioplanet_1704                                  Selenium pathway      5327        PLAT
+30202 bioplanet_1704                                  Selenium pathway      5340         PLG
+30203 bioplanet_1704                                  Selenium pathway      5742       PTGS1
+30204 bioplanet_1704                                  Selenium pathway      5743       PTGS2
+30205 bioplanet_1704                                  Selenium pathway      5970        RELA
+30206 bioplanet_1704                                  Selenium pathway      6288        SAA1
+30207 bioplanet_1704                                  Selenium pathway      6289        SAA2
+30208 bioplanet_1704                                  Selenium pathway      6291        SAA4
+30209 bioplanet_1704                                  Selenium pathway      6347        CCL2
+30210 bioplanet_1704                                  Selenium pathway      6647        SOD1
+30211 bioplanet_1704                                  Selenium pathway      6648        SOD2
+30212 bioplanet_1704                                  Selenium pathway      6649        SOD3
+30213 bioplanet_1704                                  Selenium pathway      7001       PRDX2
+30214 bioplanet_1704                                  Selenium pathway      7124         TNF
+30215 bioplanet_1704                                  Selenium pathway      7295         TXN
+30216 bioplanet_1704                                  Selenium pathway      7498         XDH
+30217 bioplanet_1704                                  Selenium pathway      8564         KMO
+30218 bioplanet_1704                                  Selenium pathway      8942        KYNU
+30219 bioplanet_1704                                  Selenium pathway     10549       PRDX4
+30220 bioplanet_1704                                  Selenium pathway     10935       PRDX3
+30221 bioplanet_1704                                  Selenium pathway     25824       PRDX5
+30222 bioplanet_1704                                  Selenium pathway     55163        PNPO
+30223 bioplanet_1704                                  Selenium pathway     55312         RFK
+30224 bioplanet_1704                                  Selenium pathway     80308       FLAD1
+30225 bioplanet_1704                                  Selenium pathway 100528017   SAA2-SAA4
+31188 bioplanet_1743           Mitochondrial fatty acid beta-oxidation        33       ACADL
+31189 bioplanet_1743           Mitochondrial fatty acid beta-oxidation        34       ACADM
+31190 bioplanet_1743           Mitochondrial fatty acid beta-oxidation        35       ACADS
+31191 bioplanet_1743           Mitochondrial fatty acid beta-oxidation        37      ACADVL
+31192 bioplanet_1743           Mitochondrial fatty acid beta-oxidation       788    SLC25A20
+31193 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      1374       CPT1A
+31194 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      1376        CPT2
+31195 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      1632        ECI1
+31196 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      1666       DECR1
+31197 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      1892       ECHS1
+31198 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      1962      EHHADH
+31199 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      2180       ACSL1
+31200 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      2181       ACSL3
+31201 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      2182       ACSL4
+31202 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      3030       HADHA
+31203 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      3032       HADHB
+31204 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      3033        HADH
+31205 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      4594         MUT
+31206 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      5095        PCCA
+31207 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      5096        PCCB
+31208 bioplanet_1743           Mitochondrial fatty acid beta-oxidation      6342        SCP2
+31209 bioplanet_1743           Mitochondrial fatty acid beta-oxidation     55825        PECR
+31210 bioplanet_1743           Mitochondrial fatty acid beta-oxidation     84693        MCEE
+31480 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       134      ADORA1
+31481 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       135     ADORA2A
+31482 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       136     ADORA2B
+31483 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       140      ADORA3
+31484 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       146      ADRA1D
+31485 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       147      ADRA1B
+31486 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       148      ADRA1A
+31487 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       150      ADRA2A
+31488 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       151      ADRA2B
+31489 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       152      ADRA2C
+31490 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       153       ADRB1
+31491 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       154       ADRB2
+31492 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       155       ADRB3
+31493 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       185       AGTR1
+31494 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       186       AGTR2
+31495 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       187       APLNR
+31496 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       552      AVPR1A
+31497 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       553      AVPR1B
+31498 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       554       AVPR2
+31499 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       611      OPN1SW
+31500 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       623      BDKRB1
+31501 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       624      BDKRB2
+31502 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       643       CXCR5
+31503 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       680        BRS3
+31504 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       719       C3AR1
+31505 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       886       CCKAR
+31506 bioplanet_1753                    Class A GPCRs (rhodopsin-like)       887       CCKBR
+31507 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1128       CHRM1
+31508 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1129       CHRM2
+31509 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1131       CHRM3
+31510 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1132       CHRM4
+31511 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1133       CHRM5
+31512 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1230        CCR1
+31513 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1232        CCR3
+31514 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1233        CCR4
+31515 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1234        CCR5
+31516 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1235        CCR6
+31517 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1236        CCR7
+31518 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1237        CCR8
+31519 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1238       ACKR2
+31520 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1240      CMKLR1
+31521 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1241       LTB4R
+31522 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1268        CNR1
+31523 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1269        CNR2
+31524 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1524      CX3CR1
+31525 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1812        DRD1
+31526 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1813        DRD2
+31527 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1814        DRD3
+31528 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1815        DRD4
+31529 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1816        DRD5
+31530 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1909       EDNRA
+31531 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      1910       EDNRB
+31532 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2149         F2R
+31533 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2150       F2RL1
+31534 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2151       F2RL2
+31535 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2357        FPR1
+31536 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2358        FPR2
+31537 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2359        FPR3
+31538 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2492        FSHR
+31539 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2587       GALR1
+31540 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2652      OPN1MW
+31541 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2693        GHSR
+31542 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2825        GPR1
+31543 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2826       CCR10
+31544 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2827        GPR3
+31545 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2828        GPR4
+31546 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2829        XCR1
+31547 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2830        GPR6
+31548 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2831      NPBWR1
+31549 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2832      NPBWR2
+31550 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2833       CXCR3
+31551 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2834       PRLHR
+31552 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2835       GPR12
+31553 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2838       GPR15
+31554 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2840       GPR17
+31555 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2841       GPR18
+31556 bioplanet_1753                    Class A GPCRs (rhodopsin-like)      2842       GPR19
+ [ reached 'max' / getOption("max.print") -- omitted 1136 rows ]
