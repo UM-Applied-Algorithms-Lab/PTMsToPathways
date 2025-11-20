@@ -138,8 +138,10 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
 }
 ```
 
-Read in data file that is output from mass spectrometry. 
-You should replace file_path with your own path to file, as in the commented line below.
+Read in data file that is output from mass spectrometry.
+If you have installed the PTMsToPathways package, you can use the example data file included in the package
+as below. To use your own data file,
+replace `file_path` variable with your own path to file, as in the commented line below.
 
 ```{r}
 file_path <- system.file("extdata", "phospho_cleaned_mapped.txt", package = "PTMsToPathways")
@@ -304,27 +306,32 @@ data stored in a variable called `ptmtable`.
 # ptmtable <- log2phosdata
 ```
 
+## Optional data processing steps
+
 For experiments where treatment with drugs is compared to control
 samples, adding treatment/control ratios as additional data column can
 improve clustering. This optional step adds dimensions to the data set
 that enhance focus on the changes in response to drug treatments.
 
+ Simplify column names first:
 ```{r  Example ratio calculations}
-
-# Simplify column names first:
 names(phosdata.df) <- sapply(names(phosdata.df), function (x) paste(unlist(strsplit(x, "SEPTM_pTyr"))[1], unlist(strsplit(x, "SEPTM_pTyr"))[2], sep=""))
+```
 
-# Explore using ratios where control=rowMeans (D1, D2, D3)
-
+Explore using ratios where control=rowMeans (D1, D2, D3):
+```{r}
 H3122control <- rowMeans(phosdata.df[, names(phosdata.df)[grep("H3122.D", names(phosdata.df))]], na.rm=TRUE)
-# Change NaN to NA
+```
+
+Change NaN to NA
+```{r}
 H3122control[is.nan(H3122control)] <- NA
-
 PC9control <- rowMeans(phosdata.df[, names(phosdata.df)[grep("PC9.D", names(phosdata.df))]], na.rm=TRUE)
-# Change NaN to NA
 PC9control[is.nan(PC9control)] <- NA
+```
 
-# Calculate treatment/control ratios
+Calculate treatment/control ratios
+```{r}
 # H3122 cells
 H3122.C1.ratio <- phosdata.df$H3122.C1/H3122control
 H3122.C2.ratio <- phosdata.df$H3122.C2/H3122control
@@ -339,32 +346,45 @@ PC9.E3.ratio <- phosdata.df$PC9.E3/PC9control
 PC9.PR1.ratio <- phosdata.df$PC9.PR1/PC9control
 PC9.PR2.ratio <- phosdata.df$PC9.PR2/PC9control
 PC9.PR3.ratio <- phosdata.df$PC9.PR3/PC9control
+```
 
-# Put these columns in a data frame
+Put these columns in a data frame:
+```{r}
 phos_ratios <- data.frame(H3122.C1.ratio, H3122.C2.ratio, H3122.C3.ratio, H3122.PR1.ratio, H3122.PR2.ratio, H3122.PR3.ratio, PC9.E1.ratio, PC9.E2.ratio, PC9.E3.ratio, PC9.PR1.ratio, PC9.PR2.ratio, PC9.PR3.ratio)
-# Check
+```
+Check (should be `TRUE`):
+```{r}  
 identical(rownames(phosdata.df), rownames(phos_ratios))
-# TRUE
-# Make limits to unweight extreme values. This has been shown to improve clustering, and a ratio of 1000 is biologically not really functional different than a ratio of 100. 
+```
+
+Make limits to unweight extreme values. This has been shown to improve clustering, and a ratio of 1000 is biologically not really functional different than a ratio of 100. 
+```{r}
 hi.ratio <- which(phos_ratios>=100, arr.ind = TRUE)
 low.ratio <- which(phos_ratios <=1/100, arr.ind = TRUE)
 phos_ratios.lim <- replace (phos_ratios, hi.ratio, 100) 
 phos_ratios.lim <- replace (phos_ratios.lim, low.ratio, 1/100) 
-# log2 transformation improves clustering 
+```
+log2 transformation improves clustering:
+```{r}
 phos_ratios.lim.log2 <- log2(phos_ratios.lim)
-# lucy comment: this was below but we needed phosdata_plus_ratios
 phosdata_plus_ratios <- cbind(log2phosdata, phos_ratios.lim.log2)
+```
+And plot to check:
 
+```{r}
 boxplot(phosdata_plus_ratios)
-# Now merge intensity and ratio data
-# Check
+```
+And do one more check:
+```{r}
 identical(rownames(phos_ratios.lim.log2), rownames(log2phosdata)) 
-# TRUE, okay
+```
 
-
-# This can be used as the example ptmtable for subsequent testing.
+This can be used as the example ptmtable for subsequent testing.
+```{r}
 # ptmtable <- phosdata_plus_ratios
 ```
+
+## Combining data from multiple PTM experiments
 
 For experiments involving multiple PTMs, or if investigators wish to
 combine several data sets, the data can be combined. For example,
@@ -373,27 +393,36 @@ from the same experimental samples. Combining the data is simply
 repeating the above steps using the correct optimum data columns, then
 making the column names the same, and binding all the rows together.
 
-```{r  Subsequent steps to merge datasets from a mulit-PTM experiment}
-######################
-# Workflow: Repeat the with aceltylation or other PTM data (ubiquitination in this case).
-# This can be done with data that include ratios as above if desired.
-# How to put them together:
-# Make column names common. For example:
-# kgp <- phosdata.df
-# kga <- ackdata.df
-# kgu <- ubidata.df
-# names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
-# names(kga) <- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))
-# names(kgu) <- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))
-# identical(names(kgp), names(kga)) # Check TRUE
-#
-# ptmdata <- rbind (kgp, kga, kgu) 
-# Reorder here
-# ptmdata <- ptmdata[order(rownames(ptmdata)),]
+Suppose you had acetylation data in `ackdata.df` and ubiquitination data in
+`ubidata.df`, both formatted as above for phosphorylation data in
+`phosdata.df`. You could combine them as follows.
 
-# This optional step improves clustering in our hands:
-# log2ptmdata <- log2(ptmdata)
+First, make sure the column names are the same:
 
-# This could be used as the ptmtable for clustering.
-# ptmtable = log2ptmdata
+```{r  eval = FALSE}
+kgp <- phosdata.df
+kga <- ackdata.df
+kgu <- ubidata.df
+names(kgp) <- sapply(names(kgp), function (x) paste(unlist(strsplit(x, "_pTyr"))[1], unlist(strsplit(x, "_pTyr"))[2], sep=""))
+names(kga) <- sapply(names(kga), function (x) paste(unlist(strsplit(x, "_AcK"))[1], unlist(strsplit(x, "_AcK"))[2], sep=""))
+names(kgu) <- sapply(names(kgu), function (x) paste(unlist(strsplit(x, "_Ubi"))[1], unlist(strsplit(x, "_Ubi"))[2], sep=""))
+identical(names(kgp), names(kga)) # Check TRUE
+```
+Then `rbind` them:
+```{r  eval = FALSE}
+ptmdata <- rbind (kgp, kga, kgu) 
+```
+
+Reorder:
+```{r  eval = FALSE}
+ptmdata <- ptmdata[order(rownames(ptmdata)),]
+```
+This optional step improves clustering in our hands:
+```{r  eval = FALSE}  
+log2ptmdata <- log2(ptmdata)
+```
+
+Finally, this dataframe could be used as the example `ptmtable` for the P2P functions.
+```{r  eval = FALSE}
+# ptmtable <- log2ptmdata
 ```
