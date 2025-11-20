@@ -83,9 +83,8 @@ MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
     gene.cccn$Gene.Name <- sapply(rownames(gene.cccn), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
     # Use only upper triangle so correlations are not duplicated during the next step
     gene.cccn[lower.tri(gene.cccn)] <- NA
+
     # Sum correlations in one dimension, then the other dimension
-    # library(plyr)
-    # gene.cccn2 <- plyr::ddply(gene.cccn, "Gene.Name", numcolwise(function(x) sum(x, na.rm=T)), .progress = "tk") # old method
     gene.cccn2 <- dplyr::summarise(
       dplyr::group_by(gene.cccn, .data$Gene.Name),
       dplyr::across(
@@ -100,7 +99,6 @@ MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
     gene.cccn2 <- data.frame(t(gene.cccn2))
     gene.cccn2$Gene <- sapply(rownames(gene.cccn2), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
     # Now sum the other dimension
-    # gene.cccn3 <- plyr::ddply(gene.cccn2, "Gene", numcolwise(function(x) sum(x, na.rm=T)), .progress = "tk") # old method
     gene.cccn3 <- dplyr::summarise(
       dplyr::group_by(gene.cccn2, .data$Gene),
       dplyr::across(
