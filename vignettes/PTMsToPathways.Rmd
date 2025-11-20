@@ -240,12 +240,11 @@ the Cytoscape app.
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
-Instructions on saving the correct GeneMANIA file are shown below:
+Instructions on saving the correct GeneMANIA file are shown below. Click on the three lines in the upper right corner. This should be under the GeneMANIA side window beside the species. Click "Export Results". The path to this file is the gm.results.path:
 
 ![](vig_figs/GeneMANIA-image-1.png)
 ![](vig_figs/GeneMANIA-image-2.png)
-
-The GetGeneMANIAEdges function then processes the output files produced
+The GetGeneMANIAEdges function then processes the output file produced
 by GeneMANIA itself.
 
 ```{r eval = FALSE, echo = FALSE}
