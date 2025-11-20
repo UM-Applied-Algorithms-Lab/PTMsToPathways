@@ -243,13 +243,13 @@ MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 The ProcessGMEdgefile function then processes the output files produced
 by GeneMANIA itself.
 
-```{r eval = TRUE, echo = FALSE}
+```{r eval = FALSE, echo = FALSE}
 gm.edgefile.path <- system.file("extdata", "ex_gm_edgetable.csv", package = "PTMsToPathways")
 gm.nodetable.path <- system.file("extdata", "ex_gm_nodetable.csv", package = "PTMsToPathways")
 db.nodes_path <- system.file("extdata", "ex_db_nodes.txt", package = "PTMsToPathways")
 ```
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 genemania.edges <- ProcessGMEdgefile(gm.edgefile.path, gm.nodetable.path,
                                      db_nodes.path, gene.cccn.nodes)
 ```
