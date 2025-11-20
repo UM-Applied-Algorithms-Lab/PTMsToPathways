@@ -13,10 +13,10 @@ navbar:
     articles:
       text: "Vignettes"
       menu:
-        - text: "PTMs To Pathways"
-          href: articles/PTMsToPathways.html
         - text: "Raw Data Processing"
           href: articles/RawDataProcessing.html
+        - text: "PTMs To Pathways"
+          href: articles/PTMsToPathways.html
         - text: "Cytoscape Graphing"
           href: articles/Cytoscape_Graphing.html
 
@@ -24,6 +24,6 @@ articles:
 - title: Articles
   navbar: ~
   contents:
-  - PTMsToPathways
   - RawDataProcessing
+  - PTMsToPathways
   - Cytoscape_Graphing
