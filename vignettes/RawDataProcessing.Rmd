@@ -123,7 +123,7 @@ to handle ambiguous modification sites (a modification site
 whose peptide sequence is the same in more than one protein) separated by ";" or
 another separator.
 
-```
+```{r}
 name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
   genes.v <- unlist(strsplit(genes, pepsep, fixed = TRUE))
   genes.v[which(genes.v == "NA")] <- NA
@@ -139,28 +139,38 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
 ```
 
 Read in data file that is output from mass spectrometry. 
-You should replace file_path with your own path to file, as in the commented line below
+You should replace file_path with your own path to file, as in the commented line below.
 
-```
+```{r}
 file_path <- system.file("extdata", "phospho_cleaned_mapped.txt", package = "PTMsToPathways")
 # file_path <- "path/to/your/file.txt"
 newphos <- read.table(file_path, sep = "\t", skip = 0, header=TRUE, blank.lines.skip=T, fill=T, quote="\"", dec=".", comment.char = "", stringsAsFactors=F)
 ```
 
-# First remove internal control rows (reverse sequences)
+First remove internal control rows (reverse sequences).
+
+```{r}
 newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
+````
 
-# If there are dates in the AllGeneSymbols column, use:
+If there are dates in the AllGeneSymbols column, use:
+```{r}
 newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
+```
 
-# Next, identify the columns that will be used to name the PTM
+Next, identify the columns that will be used to name the PTM
 
+```{r}
 headercols <- c("AllGeneSymbols", "Amino.Acid", "Positions.Within.Proteins", "Modification.Type")
+```
 
-# Make a separate data frame using these columns. 
+Make a separate data frame using these columns. 
+```{r}
 newphos.head <- newphos[,headercols]
+```
 
-# Now create a unique PTM name (peptide name)
+Now create a unique PTM name (peptide name)
+```{r}
 newphos.head$Peptide.Name <- mapply(name.peptide, genes=newphos.head$AllGeneSymbols, sites= newphos.head$Positions.Within.Proteins, aa=newphos.head$Amino.Acid)
 ```
 
