@@ -118,10 +118,10 @@ GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
 # NOTE:
 #  GeneMANIA Cytoscape app has the ability to export network as text in the Results panel. The initial approach to extract only the network of interactions is to manually duplcate the file and delete all but the PPIs for the following. However, we now add code to do this as part of the function.
 # Note: The column names may change in future releases of GeneMANIA.
-ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gene.cccn.nodes){
+ProcessGMEdgefile <- function(gm.edgefile.path, gm.nodetable.path, db_nodes.path, gene.cccn.nodes = NULL){
   # edgetable <- utils::read.table(gm.edgefile.path, header=TRUE, sep = "\t", comment.char = "#", na.strings='', quote = "", stringsAsFactors=FALSE, fill=TRUE)        # read the edgefile
   # nodetable <- utils::read.csv(gm.nodetable.path, header = TRUE)       # read the nodetable
-  if (!exists(gene.cccn.nodes)){
+  if (gene.cccn.nodes != NULL)){
     nodenames <- utils::read.table(db_nodes.path, header = FALSE)[[1]]   # read the nodenames file
 
     nodenames <- nodenames[!is.na(nodenames)]   # REMOVE   NAs. if present
