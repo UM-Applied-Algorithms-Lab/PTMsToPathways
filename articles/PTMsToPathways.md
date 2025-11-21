@@ -14,7 +14,7 @@ data, which may take a while to generate, and pick up where they left
 off later. See the bottom of this document for code to save your data
 efficiently.
 
-## Installing the package
+## Installing the Package
 
 You will need to install the devtools package, which can be installed
 with:
@@ -102,7 +102,7 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
                           comment.char = "", stringsAsFactors = F)
 ```
 
-## Using your own data
+## Using Your Own Data
 
 The MS data needs to be transformed into a data frame with PTMs as row
 names, experimental condition as column names, and numeric data as the
@@ -110,6 +110,8 @@ entries to carry out the analysis using P2P vignette. Please refer to
 the [Raw Data Processing vignette](vignette:RawDataProcessing)for a
 tutorial showing all steps needed to transform an MS output file into a
 P2P package input dataframe.
+
+## The Pipeline
 
 ### Step 1: Make Cluster List
 
@@ -133,27 +135,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.39 secs total.
->> Spearman t-SNE calculation complete after 42.07 secs total.
->> Euclidean distance calculation complete after 42.11 secs total.
->> Euclidean t-SNE calculation complete after 1.15 mins total.
->> Combined distance calculation complete after 1.15 mins total.
->> SED t-SNE calculation complete after 1.61 mins total.
+>> Spearman correlation calculation complete after 12.99 secs total.
+>> Spearman t-SNE calculation complete after 41.56 secs total.
+>> Euclidean distance calculation complete after 41.6 secs total.
+>> Euclidean t-SNE calculation complete after 1.14 mins total.
+>> Combined distance calculation complete after 1.14 mins total.
+>> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
 ![](plots/unnamed-chunk-7-1.png)
 
-    >> Clustering for Euclidean complete after 1.62 mins total.
+    >> Clustering for Euclidean complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-7-2.png)
 
-    >> Clustering for Spearman complete after 1.62 mins total.
+    >> Clustering for Spearman complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-7-3.png)
 
-    >> Clustering for SED complete after 1.63 mins total.
-    >> Consensus clustering complete after 1.63 mins total.
-    >> MakeClusterList complete after 1.63 mins total.
+    >> Clustering for SED complete after 1.61 mins total.
+    >> Consensus clustering complete after 1.62 mins total.
+    >> MakeClusterList complete after 1.62 mins total.
 
 The following code unpacks the output into separate objects:
 
@@ -223,9 +225,9 @@ this function can be saved as an RData object.
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.16 secs total.
+>> PTM CCCN complete after 0.15 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.88 secs total.
+>> Gene CCCN complete after 1.83 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
 gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
 gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
@@ -388,9 +390,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-21 02:27:35 UTC"
->> [1] "2025-11-21 02:27:35 UTC"
->> [1] Total time: 0.117814064025879
+>> [1] "2025-11-21 04:17:28 UTC"
+>> [1] "2025-11-21 04:17:28 UTC"
+>> [1] Total time: 0.115716695785522
 ```
 
 ## Saving Data
