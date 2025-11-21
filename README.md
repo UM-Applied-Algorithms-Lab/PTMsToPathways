@@ -18,7 +18,7 @@ visually appealing graphs in Cytoscape, an open source network visualization app
 
 A following figure provides a summary of the functions implemented in P2P.
 
-![](P2P_Pipeline_Fig.png)
+![](man/figures/P2P_Pipeline_Fig.png)
 
 ## Installation
 
