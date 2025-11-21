@@ -243,11 +243,11 @@ Instructions on saving the correct GeneMANIA file are shown below. Click on the 
 The GetGeneMANIAEdges function then processes the output file produced
 by GeneMANIA itself.
 
-```{r eval = FALSE, echo = FALSE}
+```{r eval = TRUE, echo = FALSE}
 gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsToPathways")
 ```
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 GeneMANIA.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
 ```
 
@@ -286,7 +286,7 @@ network created in step 2.
 
 ```{r eval = TRUE, echo = TRUE}
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
-                                            genemania.edges = NULL, kinsub.edges = NULL,
+                                            genemania.edges, kinsub.edges = NULL,
                                             db.filepaths = c())
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
