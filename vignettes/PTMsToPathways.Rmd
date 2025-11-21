@@ -248,7 +248,7 @@ gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsTo
 ```
 
 ```{r eval = TRUE, echo = TRUE}
-GeneMANIA.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
+genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
 ```
 
 ### 3. Phosphosite Plus
