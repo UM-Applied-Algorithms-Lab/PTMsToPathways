@@ -242,7 +242,7 @@ Instructions on saving the correct GeneMANIA file are shown below. Click on the 
 
 ![](vig_figs/GeneMANIA-image-1.png)  
 ![](vig_figs/GeneMANIA-image-2.png)  
-The GetGeneMANIAEdges function then processes the output file produced
+The GetGeneMANIA.edges function then processes the output file produced
 by GeneMANIA itself.  
 
 ```{r eval = TRUE, echo = FALSE}
