@@ -51,7 +51,7 @@ data, which may take a while to generate, and pick up where they left
 off later. See the bottom of this document for code to save your data
 efficiently.
 
-# Installing the package
+# Installing the Package
 
 You will need to install the devtools package, which can be installed
 with:
@@ -105,13 +105,15 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
                           comment.char = "", stringsAsFactors = F)
 ```
 
-# Using your own data
+# Using Your Own Data
 
 The MS data needs to be transformed into a data frame with PTMs as row
 names, experimental condition as column names, and numeric data as the
 entries to carry out the analysis using P2P vignette. Please refer to
 the [Raw Data Processing vignette](vignette:RawDataProcessing)for a tutorial showing all steps needed
 to transform an MS output file into a P2P package input dataframe.
+
+# The Pipeline
 
 ## Step 1: Make Cluster List
 
