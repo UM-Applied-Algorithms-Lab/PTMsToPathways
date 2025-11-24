@@ -8,10 +8,9 @@ output:
     toc_depth: 4
     theme: cosmo
     highlight: tango
-vignette: >
-  %\VignetteIndexEntry{Mass_Spec_Data_Processing}
-  %\VignetteEncoding{UTF-8}
-  %\VignetteEngine{knitr::rmarkdown}
+VignetteIndexEntry: RawDataProcessing
+VignetteEncoding: UTF-8
+VignetteEngine: knitr::rmarkdown
 editor_options: 
   markdown: 
     wrap: 72
