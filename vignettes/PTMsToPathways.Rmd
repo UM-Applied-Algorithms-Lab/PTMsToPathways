@@ -109,8 +109,8 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
 
 The MS data needs to be transformed into a data frame with PTMs as row
 names, experimental condition as column names, and numeric data as the
-entries to carry out the analysis using P2P vignette. Please refer to
-the [Raw Data Processing vignette](vignette:RawDataProcessing)for a tutorial showing all steps needed
+entries to carry out the analysis using this vignette. Please refer to
+the [vignette("RawDataProcessing")] for a tutorial showing all steps needed
 to transform an MS output file into a P2P package input dataframe.
 
 # The Pipeline
