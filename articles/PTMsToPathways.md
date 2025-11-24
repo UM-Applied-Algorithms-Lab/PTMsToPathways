@@ -39,13 +39,18 @@ library(PTMsToPathways)
 
 For the tutorial, we will be using two example datasets: a smaller
 dataset consisting of 933 PTMs and 18 experimental conditions (the
-example used in the [Raw Data Processing
-vignette](vignette:RawDataProcessing)) and a larger dataset containing
-around 9000 PTMs and 69 experimental conditions. These datasets are
-available with the package. Alternatively, the larger dataset can be
-downloaded
+example used in the \[vignette(“RawDataProcessing”)\]) and a larger
+dataset containing around 9000 PTMs and 69 experimental conditions.
+These datasets are available with the package. Alternatively, the larger
+dataset can be downloaded
 [here](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/AlldataPTMs.txt)
 to be inspected locally.
+
+To see all data that is provided with the package, run:
+
+``` r
+data(package = "PTMsToPathways")
+```
 
 If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
@@ -121,43 +126,45 @@ statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of
 both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean
 Distance). Combining the two dissimilarities leads to better resolution
-of the data and is useful in pattern recognition. A correlation table–
-*ptm.correlation.matrix*–is generated based on the distances calculated
+of the data and is useful in pattern recognition. A correlation table—
+`ptm.correlation.matrix`—is generated based on the distances calculated
 for each pair of PTMs. The function then runs the matrices through t-SNE
 to generate clusters based on the previously calculated distance and
-provides you with a cluster list, *common.clusters*. The returned
-*adj.consensus* (which identifies which PTMs cluster together with a
-‘short distance’ between them) and *ptm.correlation.matrix* are also
+provides you with a cluster list, `common.clusters`. The returned
+`adj.consensus` (which identifies which PTMs cluster together with a
+‘short distance’ between them) and `ptm.correlation.matrix` are also
 used in the next step to create co-cluster correlation networks (CCCNs).
+These three outputs are returned as a list.
 
 ``` r
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.16 secs total.
->> Spearman t-SNE calculation complete after 41.73 secs total.
->> Euclidean distance calculation complete after 41.76 secs total.
+>> Spearman correlation calculation complete after 13.19 secs total.
+>> Spearman t-SNE calculation complete after 41.68 secs total.
+>> Euclidean distance calculation complete after 41.71 secs total.
 >> Euclidean t-SNE calculation complete after 1.14 mins total.
 >> Combined distance calculation complete after 1.14 mins total.
->> SED t-SNE calculation complete after 1.6 mins total.
+>> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
-![](plots/unnamed-chunk-7-1.png)
+![](plots/unnamed-chunk-8-1.png)
 
-    >> Clustering for Euclidean complete after 1.61 mins total.
+    >> Clustering for Euclidean complete after 1.6 mins total.
 
-![](plots/unnamed-chunk-7-2.png)
+![](plots/unnamed-chunk-8-2.png)
 
     >> Clustering for Spearman complete after 1.61 mins total.
 
-![](plots/unnamed-chunk-7-3.png)
+![](plots/unnamed-chunk-8-3.png)
 
     >> Clustering for SED complete after 1.61 mins total.
     >> Consensus clustering complete after 1.62 mins total.
     >> MakeClusterList complete after 1.62 mins total.
 
-The following code unpacks the output into separate objects:
+The following unpacks the output into the separate objects discussed
+above:
 
 ``` r
 common.clusters <- clusterlist.data[[1]]
@@ -390,9 +397,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-24 20:25:59 UTC"
->> [1] "2025-11-24 20:25:59 UTC"
->> [1] Total time: 0.11790919303894
+>> [1] "2025-11-24 20:50:23 UTC"
+>> [1] "2025-11-24 20:50:23 UTC"
+>> [1] Total time: 0.115095853805542
 ```
 
 ## Saving Data
