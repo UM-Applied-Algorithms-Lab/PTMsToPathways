@@ -75,7 +75,7 @@ library(PTMsToPathways)
 
 For the tutorial, we will be using two example datasets: a smaller
 dataset consisting of 933 PTMs and 18 experimental conditions (the
-example used in the [vignette("RawDataProcessing")]) and a larger dataset
+example used in the [Raw Data Processing vignette](RawDataProcessing.html)) and a larger dataset
 containing around 9000 PTMs and 69 experimental conditions. These
 datasets are available with the package. Alternatively, the larger dataset can be
 downloaded [here](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/AlldataPTMs.txt)
@@ -118,7 +118,7 @@ To use your own MS data, you will need
 to transform it into a dataframe with PTMs and row names, experimental
 conditions as column names, and numeric data as the entries.
 Please refer to
-the [Raw Data Processing vignette](articles/RawDataProcessing.html) for a tutorial showing all steps needed
+the [Raw Data Processing vignette](RawDataProcessing.html) for a tutorial showing all steps needed
 to transform an MS output file into a P2P package input dataframe.
 
 
