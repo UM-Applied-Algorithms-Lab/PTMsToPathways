@@ -116,11 +116,9 @@ vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/ar
 for a tutorial showing all steps needed to transform an MS output file
 into a P2P package input dataframe.
 
-## An example of the P2P Workflow
+## Step 1: Make Cluster List
 
-### Step 1: Make Cluster List
-
-MakeClusterList is the first step in the P2P process. This function
+`MakeClusterList` is the first step in the P2P process. This function
 takes the dataframe `ptmtable` and runs it through three calculations of
 statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of
@@ -148,11 +146,11 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 12.82 secs total.
->> Spearman t-SNE calculation complete after 41.52 secs total.
->> Euclidean distance calculation complete after 41.56 secs total.
->> Euclidean t-SNE calculation complete after 1.13 mins total.
->> Combined distance calculation complete after 1.13 mins total.
+>> Spearman correlation calculation complete after 13.2 secs total.
+>> Spearman t-SNE calculation complete after 41.82 secs total.
+>> Euclidean distance calculation complete after 41.87 secs total.
+>> Euclidean t-SNE calculation complete after 1.14 mins total.
+>> Combined distance calculation complete after 1.14 mins total.
 >> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
@@ -226,7 +224,7 @@ ptm.correlation.matrix[38:43, 1:2]
 
 ~60min
 
-### Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)
+## Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)
 
 The data generated in the previous step is next used to create a new
 network of PTMs that have strong associations called the Co-cluster
@@ -242,7 +240,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.16 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.84 secs total.
+>> Gene CCCN complete after 1.86 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -291,23 +289,23 @@ save.image(file = "filepath/name.RData") # All objects in the environment are sa
 
 ~10min
 
-### Step 3: Retrieve Database Edgefiles
+## Step 3: Retrieve Database Edgefiles
 
-The third step of the P2P package requires the use of multiple
-protein-protein interaction (PPI) databases. The data is used to
-generate a PPI network where proteins are nodes, and their interactions
-are edges and represent all known interactions observed in a wide range
-of cell types, disease states, and environmental conditions. The P2P
-package explicitly allows the users to integrate data from three
-external databases: STRING, GeneMANIA, and PhosphoSite Plus. Other
-databases can also be downloaded and added to the PPI network. All three
-external databases have different interfaces for downloading data.
+The third step of the P2P package is to gather data from multiple
+existing protein-protein interaction (PPI) databases which will be
+integrated with the data generated in steps 1 and 2. The P2P package
+explicitly allows the users to integrate data from three external
+databases: STRING, GeneMANIA, and PhosphoSite Plus. Other databases can
+also be downloaded and added to the PPI network. All three external
+databases have different interfaces for downloading data, so we show how
+to retrieve data from each of them below.
 
 #### 1. STRINGdb
 
-STRINGdb has its own R package, making this the easiest database to pull
-from. The database will automatically be queried by the GetSTRINGdb
-function. Its output is then filtered by interaction type so only
+[STRINGdb](https://string-db.org/) can be queried directly from R using
+the `STRINGdb` package. We wrap this query in a function called
+`GetSTRINGdb`, which queries only for the genes found in clusters in
+previous steps, and filters the returned by interaction type so only
 experimental, database, and experimental_transferred and
 database_transferred are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.
@@ -326,39 +324,43 @@ stringdb.edges[1:5,]
 #### 2. GeneMANIA
 
 To our knowledge, no R package exists to programmatically query
-GeneMANIA. Thus, utilizing the data from GeneMANIA involves two steps:
-first generating the input the file and then processing the output file.
-Please be aware that this requires downloading the [Cytoscape
-app](https://cytoscape.org/download.html) and then installing the
-[GeneMANIA extension](https://apps.cytoscape.org/apps/genemania). The
-MakeDBInput function allows us to automatically generate an input file
-that can be copy and pasted into the query box in GeneMANIA from within
-the Cytoscape app.
+[GeneMANIA](https://genemania.org/). Thus, we recommend using the
+GeneMANIA Cytoscape App to retrieve PPI data as follows.
+
+First, create an input file for GeneMANIA using the `MakeDBInput`
+function provided within P2P (note that this creates a text file in your
+working directory):
 
 ``` r
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
-Instructions on saving the correct GeneMANIA file are shown below. Click
-on the three lines in the upper right corner. This should be under the
-GeneMANIA side window beside the species. Click “Export Results”. The
-path to this file is the gm.results.path:
+Next, ensure that you have
+[Cystoscape](https://cytoscape.org/download.html) and the [GeneMANIA
+extension](https://apps.cytoscape.org/apps/genemania) installed.
+
+Copy the contents of the `db_nodes.txt` file into the GeneMANIA App’s
+“Genes of Interest” box and run query.
+
+To save the results, click on the three lines in the upper right corner.
+This should be under the GeneMANIA side window beside the species. Click
+“Export Results”. The path to this file is the gm.results.path:
 
 ![](vig_figs/GeneMANIA-image-1.png)  
-![](vig_figs/GeneMANIA-image-2.png)  
-The GetGeneMANIA.edges function then processes the output file produced
-by GeneMANIA itself.
+![](vig_figs/GeneMANIA-image-2.png)
 
-``` r
-genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
-```
+The `GetGeneMANIA.edges` function then processes the output file
+produced by GeneMANIA itself. For example, we have saved
+`ex_gm_results.txt` as an example output file from GeneMANIA within the
+package. The following code shows how to use this file as input to the
+function.
 
 #### 3. Phosphosite Plus
 
 The kinase-substrate data can be downloaded from [Phosphosite
 Plus](https://www.phosphosite.org/staticDownloads) database. The users
 will be required to create an account and sign in to download the data.
-The format.kinsub.table function reads this downloaded data in and
+The `format.kinsub.table` function reads this downloaded data in and
 formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
@@ -427,9 +429,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-24 23:25:42 UTC"
->> [1] "2025-11-24 23:25:42 UTC"
->> [1] Total time: 0.106765985488892
+>> [1] "2025-11-24 23:45:25 UTC"
+>> [1] "2025-11-24 23:45:25 UTC"
+>> [1] Total time: 0.106988191604614
 ```
 
 ## Saving Data

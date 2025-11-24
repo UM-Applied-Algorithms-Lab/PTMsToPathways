@@ -166,23 +166,20 @@ into a P2P package input dataframe.</p>
 </div>
 </div>
 <div class="section level2">
-<h2 id="an-example-of-the-p2p-workflow">An example of the P2P Workflow<a class="anchor" aria-label="anchor" href="#an-example-of-the-p2p-workflow"></a>
+<h2 id="step-1-make-cluster-list">Step 1: Make Cluster List<a class="anchor" aria-label="anchor" href="#step-1-make-cluster-list"></a>
 </h2>
-<div class="section level3">
-<h3 id="step-1-make-cluster-list">Step 1: Make Cluster List<a class="anchor" aria-label="anchor" href="#step-1-make-cluster-list"></a>
-</h3>
-<p>MakeClusterList is the first step in the P2P process. This function
-takes the dataframe <code>ptmtable</code> and runs it through three
-calculations of statistical measures of distance: Euclidean Distance,
-Spearman Dissimilarity (1- |Spearman Correlation|), and SED (the average
-of both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean
-Distance). Combining the two dissimilarities leads to better resolution
-of the data and is useful in pattern recognition. A correlation table—
-<code>ptm.correlation.matrix</code>—is generated based on the distances
-calculated for each pair of PTMs. The function then runs the matrices
-through t-SNE to generate clusters based on the previously calculated
-distance and provides you with a cluster list,
-<code>common.clusters</code>. The returned
+<p><code>MakeClusterList</code> is the first step in the P2P process.
+This function takes the dataframe <code>ptmtable</code> and runs it
+through three calculations of statistical measures of distance:
+Euclidean Distance, Spearman Dissimilarity (1- |Spearman Correlation|),
+and SED (the average of both Spearman Dissimilarity (1- Spearman
+Correlation) and Euclidean Distance). Combining the two dissimilarities
+leads to better resolution of the data and is useful in pattern
+recognition. A correlation table— <code>ptm.correlation.matrix</code>—is
+generated based on the distances calculated for each pair of PTMs. The
+function then runs the matrices through t-SNE to generate clusters based
+on the previously calculated distance and provides you with a cluster
+list, <code>common.clusters</code>. The returned
 <code>adj.consensus.matrix</code> (which identifies which PTMs cluster
 together with a ‘short distance’ between them) and
 <code>ptm.correlation.matrix</code> are also used in the next step to
@@ -197,11 +194,11 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table, <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">12.82</span> secs total.</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.52</span> secs total.</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.56</span> secs total.</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.13</span> mins total.</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.13</span> mins total.</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.2</span> secs total.</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.82</span> secs total.</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.87</span> secs total.</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.14</span> mins total.</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.14</span> mins total.</span>
 <span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.59</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-8-1.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
 <pre><code>&gt;&gt; Clustering for Euclidean complete after 1.6 mins total.</code></pre>
@@ -255,9 +252,9 @@ will be NA.</p>
 <p>~60min</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="step-2-make-co-cluster-correlation-networks-ptm-and-gene">Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)<a class="anchor" aria-label="anchor" href="#step-2-make-co-cluster-correlation-networks-ptm-and-gene"></a>
-</h3>
+<div class="section level2">
+<h2 id="step-2-make-co-cluster-correlation-networks-ptm-and-gene">Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)<a class="anchor" aria-label="anchor" href="#step-2-make-co-cluster-correlation-networks-ptm-and-gene"></a>
+</h2>
 <p>The data generated in the previous step is next used to create a new
 network of PTMs that have strong associations called the Co-cluster
 Correlation Network (CCCN). The Spearman correlations between
@@ -270,7 +267,7 @@ with sum of the PTM correlations serving as edge weights.</p>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.16</span> secs total.</span>
 <span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.84</span> secs total.</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.86</span> secs total.</span>
 <span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -304,27 +301,28 @@ output may be saved as an RData object for later use.</p>
 <p>~10min</p>
 </div>
 </div>
-<div class="section level3">
-<h3 id="step-3-retrieve-database-edgefiles">Step 3: Retrieve Database Edgefiles<a class="anchor" aria-label="anchor" href="#step-3-retrieve-database-edgefiles"></a>
-</h3>
-<p>The third step of the P2P package requires the use of multiple
-protein-protein interaction (PPI) databases. The data is used to
-generate a PPI network where proteins are nodes, and their interactions
-are edges and represent all known interactions observed in a wide range
-of cell types, disease states, and environmental conditions. The P2P
-package explicitly allows the users to integrate data from three
-external databases: STRING, GeneMANIA, and PhosphoSite Plus. Other
-databases can also be downloaded and added to the PPI network. All three
-external databases have different interfaces for downloading data.</p>
+<div class="section level2">
+<h2 id="step-3-retrieve-database-edgefiles">Step 3: Retrieve Database Edgefiles<a class="anchor" aria-label="anchor" href="#step-3-retrieve-database-edgefiles"></a>
+</h2>
+<p>The third step of the P2P package is to gather data from multiple
+existing protein-protein interaction (PPI) databases which will be
+integrated with the data generated in steps 1 and 2. The P2P package
+explicitly allows the users to integrate data from three external
+databases: STRING, GeneMANIA, and PhosphoSite Plus. Other databases can
+also be downloaded and added to the PPI network. All three external
+databases have different interfaces for downloading data, so we show how
+to retrieve data from each of them below.</p>
 <div class="section level4">
 <h4 id="stringdb">1. STRINGdb<a class="anchor" aria-label="anchor" href="#stringdb"></a>
 </h4>
-<p>STRINGdb has its own R package, making this the easiest database to
-pull from. The database will automatically be queried by the GetSTRINGdb
-function. Its output is then filtered by interaction type so only
-experimental, database, and experimental_transferred and
-database_transferred are retained. This ensures that only interactions
-with more substantial evidence are used in this analysis.</p>
+<p><a href="https://string-db.org/" class="external-link">STRINGdb</a> can be queried directly
+from R using the <code>STRINGdb</code> package. We wrap this query in a
+function called <code>GetSTRINGdb</code>, which queries only for the
+genes found in clusters in previous steps, and filters the returned by
+interaction type so only experimental, database, and
+experimental_transferred and database_transferred are retained. This
+ensures that only interactions with more substantial evidence are used
+in this analysis.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>stringdb.edges <span class="ot">&lt;-</span> <span class="fu">GetSTRINGdb</span>(gene.cccn.edges, gene.cccn.nodes)</span>
 <span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>stringdb.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning<span class="sc">:</span>  we couldn<span class="st">'t map to STRING 0% of your identifiers   source target              interaction Weight</span></span>
@@ -337,39 +335,40 @@ with more substantial evidence are used in this analysis.</p>
 <div class="section level4">
 <h4 id="genemania">2. GeneMANIA<a class="anchor" aria-label="anchor" href="#genemania"></a>
 </h4>
-<p>To our knowledge, no R package exists to programmatically query
-GeneMANIA. Thus, utilizing the data from GeneMANIA involves two steps:
-first generating the input the file and then processing the output file.
-Please be aware that this requires downloading the <a href="https://cytoscape.org/download.html" class="external-link">Cytoscape app</a> and then
-installing the <a href="https://apps.cytoscape.org/apps/genemania" class="external-link">GeneMANIA
-extension</a>. The MakeDBInput function allows us to automatically
-generate an input file that can be copy and pasted into the query box in
-GeneMANIA from within the Cytoscape app.</p>
+<p>To our knowledge, no R package exists to programmatically query <a href="https://genemania.org/" class="external-link">GeneMANIA</a>. Thus, we recommend using
+the GeneMANIA Cytoscape App to retrieve PPI data as follows.</p>
+<p>First, create an input file for GeneMANIA using the
+<code>MakeDBInput</code> function provided within P2P (note that this
+creates a text file in your working directory):</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/MakeDBInput.html">MakeDBInput</a></span><span class="op">(</span><span class="va">gene.cccn.nodes</span>, file.path.name <span class="op">=</span> <span class="st">"db_nodes.txt"</span><span class="op">)</span></span></code></pre></div>
-<p>Instructions on saving the correct GeneMANIA file are shown below.
-Click on the three lines in the upper right corner. This should be under
-the GeneMANIA side window beside the species. Click “Export Results”.
-The path to this file is the gm.results.path:</p>
-<p><img src="vig_figs/GeneMANIA-image-1.png"><br><img src="vig_figs/GeneMANIA-image-2.png"><br>
-The GetGeneMANIA.edges function then processes the output file produced
-by GeneMANIA itself.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetGeneMANIA.edges.html">GetGeneMANIA.edges</a></span><span class="op">(</span><span class="va">gm.results.path</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
+<p>Next, ensure that you have <a href="https://cytoscape.org/download.html" class="external-link">Cystoscape</a> and the <a href="https://apps.cytoscape.org/apps/genemania" class="external-link">GeneMANIA extension</a>
+installed.</p>
+<p>Copy the contents of the <code>db_nodes.txt</code> file into the
+GeneMANIA App’s “Genes of Interest” box and run query.</p>
+<p>To save the results, click on the three lines in the upper right
+corner. This should be under the GeneMANIA side window beside the
+species. Click “Export Results”. The path to this file is the
+gm.results.path:</p>
+<p><img src="vig_figs/GeneMANIA-image-1.png"><br><img src="vig_figs/GeneMANIA-image-2.png"></p>
+<p>The <code>GetGeneMANIA.edges</code> function then processes the
+output file produced by GeneMANIA itself. For example, we have saved
+<code>ex_gm_results.txt</code> as an example output file from GeneMANIA
+within the package. The following code shows how to use this file as
+input to the function.</p>
 </div>
 <div class="section level4">
 <h4 id="phosphosite-plus">3. Phosphosite Plus<a class="anchor" aria-label="anchor" href="#phosphosite-plus"></a>
 </h4>
 <p>The kinase-substrate data can be downloaded from <a href="https://www.phosphosite.org/staticDownloads" class="external-link">Phosphosite Plus</a>
 database. The users will be required to create an account and sign in to
-download the data. The format.kinsub.table function reads this
-downloaded data in and formats it so that all the PPI edge data frames
-are in the same format for the next step.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+download the data. The <code>format.kinsub.table</code> function reads
+this downloaded data in and formats it so that all the PPI edge data
+frames are in the same format for the next step.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu">format.kinsub.table</span><span class="op">(</span>kinasesubstrate.filename <span class="op">=</span></span>
 <span>                                      <span class="st">"Kinase_Substrate_Dataset.txt"</span>,</span>
 <span>                                    <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 <div class="section level3">
 <h3 id="step-4-build-ppi-network-and-cluster-filtered-network">Step 4: Build PPI Network and Cluster Filtered Network<a class="anchor" aria-label="anchor" href="#step-4-build-ppi-network-and-cluster-filtered-network"></a>
@@ -385,15 +384,15 @@ desired edge weights. It then normalizes the weights on a scale of 0-1
 and gives an output cluster filter network that will only retain
 interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>, <span class="va">stringdb.edges</span>,</span>
 <span>                                            <span class="va">genemania.edges</span>, kinsub.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                            db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>To reduce clutter on graphs, the cfn edges can be merged:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>cfn.merged <span class="ot">&lt;-</span> <span class="fu">mergeEdges</span>(cfn)</span>
-<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Loading required package<span class="sc">:</span> plyr</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>cfn.merged <span class="ot">&lt;-</span> <span class="fu">mergeEdges</span>(cfn)</span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Loading required package<span class="sc">:</span> plyr</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="step-5-pathway-crosstalk-network">Step 5: Pathway Crosstalk Network<a class="anchor" aria-label="anchor" href="#step-5-pathway-crosstalk-network"></a>
@@ -417,15 +416,15 @@ be found <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/jour
 For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">PathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
-<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>                                    <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
-<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
-<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
-<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PCN"</span></span>
-<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-24 23:25:42 UTC"</span></span>
-<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-24 23:25:42 UTC"</span></span>
-<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.106765985488892</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">PathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>                                    <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PCN"</span></span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-24 23:45:25 UTC"</span></span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-11-24 23:45:25 UTC"</span></span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.106988191604614</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -435,20 +434,20 @@ pathway.crosstalk.network.</p>
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
 <p>To save one object:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as an .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span></code></pre></div>
 <p>For multiple objects: Note the objects are saved as an .RData rather
 than an .rda</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object1</span>, <span class="va">object2</span>, <span class="va">object.ect</span>, filename<span class="op">=</span><span class="st">"NewFile.RData"</span><span class="op">)</span></span></code></pre></div>
 <p>To save one object as a csv:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span> <span class="co"># Saves object as a .csv</span></span>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span> <span class="co"># All objects in the environment are saved</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
