@@ -107,21 +107,21 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
                           comment.char = "", stringsAsFactors = F)
 ```
 
-## Using Your Own Data
+### Using Your Own Data
 
-The MS data needs to be transformed into a data frame with PTMs as row
-names, experimental condition as column names, and numeric data as the
-entries to carry out the analysis using this vignette. Please refer to
-the \[vignette(“RawDataProcessing”)\] for a tutorial showing all steps
+To use your own MS data, you will need to transform it into a dataframe
+with PTMs and row names, experimental conditions as column names, and
+numeric data as the entries. Please refer to the
+\[vignette(“RawDataProcessing”)\] for a tutorial showing all steps
 needed to transform an MS output file into a P2P package input
 dataframe.
 
-## The Pipeline
+## An example of the P2P Workflow
 
 ### Step 1: Make Cluster List
 
 MakeClusterList is the first step in the P2P process. This function
-takes the dataframe PTM table and runs it through three calculations of
+takes the dataframe `ptmtable` and runs it through three calculations of
 statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of
 both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean
@@ -131,44 +131,51 @@ of the data and is useful in pattern recognition. A correlation table—
 for each pair of PTMs. The function then runs the matrices through t-SNE
 to generate clusters based on the previously calculated distance and
 provides you with a cluster list, `common.clusters`. The returned
-`adj.consensus` (which identifies which PTMs cluster together with a
-‘short distance’ between them) and `ptm.correlation.matrix` are also
-used in the next step to create co-cluster correlation networks (CCCNs).
-These three outputs are returned as a list.
+`adj.consensus.matrix` (which identifies which PTMs cluster together
+with a ‘short distance’ between them) and `ptm.correlation.matrix` are
+also used in the next step to create co-cluster correlation networks
+(CCCNs). These three outputs are returned as a list.
+
+The `keeplength` paramter defines the minimum number of PTMs that must
+be in a cluster for it to be retained in the final output. The `toolong`
+parameter defines the maximum distance between two PTMs for them to be
+considered as clustering together.
+
+`MakeClusterList` can be run like so:
 
 ``` r
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.19 secs total.
->> Spearman t-SNE calculation complete after 41.68 secs total.
->> Euclidean distance calculation complete after 41.71 secs total.
->> Euclidean t-SNE calculation complete after 1.14 mins total.
->> Combined distance calculation complete after 1.14 mins total.
->> SED t-SNE calculation complete after 1.59 mins total.
+>> Spearman correlation calculation complete after 13.47 secs total.
+>> Spearman t-SNE calculation complete after 42.44 secs total.
+>> Euclidean distance calculation complete after 42.48 secs total.
+>> Euclidean t-SNE calculation complete after 1.15 mins total.
+>> Combined distance calculation complete after 1.15 mins total.
+>> SED t-SNE calculation complete after 1.6 mins total.
 ```
 
 ![](plots/unnamed-chunk-8-1.png)
 
-    >> Clustering for Euclidean complete after 1.6 mins total.
+    >> Clustering for Euclidean complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-8-2.png)
 
-    >> Clustering for Spearman complete after 1.61 mins total.
+    >> Clustering for Spearman complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-8-3.png)
 
-    >> Clustering for SED complete after 1.61 mins total.
-    >> Consensus clustering complete after 1.62 mins total.
-    >> MakeClusterList complete after 1.62 mins total.
+    >> Clustering for SED complete after 1.62 mins total.
+    >> Consensus clustering complete after 1.63 mins total.
+    >> MakeClusterList complete after 1.63 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
 
 ``` r
 common.clusters <- clusterlist.data[[1]]
-adj.consensus <- clusterlist.data[[2]]
+adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
@@ -187,20 +194,22 @@ common.clusters[1]
 >> [8] "PRRC2C p Y1218"
 ```
 
-Next, we look at a piece of the `adj.consensus` table. Ones represent a
-pair that cluster and zeroes represent a pair that doesn’t:
+Next, we look at a piece of the adjacency matrix. Ones represent a pair
+that cluster and zeroes represent a pair that doesn’t:
 
 ``` r
-adj.consensus[1:5, 1:2]
->>               KRT7 p S37 KRT7 p S38
->> KRT7 p S37             0          0
->> KRT7 p S38             0          0
->> INPPL1 p S890          0          0
->> KDM6A p S388           0          0
->> DIAPH1 p S373          0          0
+adj.consensus.matrix[7:10, 7:10]
+>>               CTNND1 p S225 CTNND1 p S230 STAM2 p S375 EGFR p S1166
+>> CTNND1 p S225             0             0            0            0
+>> CTNND1 p S230             0             0            0            0
+>> STAM2 p S375              0             0            0            0
+>> EGFR p S1166              0             0            0            0
 ```
 
-Here is a part of the `ptm.correlation.matrix`.
+Here is a part of the PTM correlation matrix. Values for pairs of PTMs
+are Spearman correlation coefficients ranging from -1 to 1. If two PTMs
+had no experimental conditions in common, their correlation value will
+be NA.
 
 ``` r
 ptm.correlation.matrix[38:43, 1:2]
@@ -219,42 +228,63 @@ ptm.correlation.matrix[38:43, 1:2]
 
 ### Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)
 
-The cluster list generated in the previous step is next used to create a
-new network of PTMs that have strong associations called the Co-cluster
+The data generated in the previous step is next used to create a new
+network of PTMs that have strong associations called the Co-cluster
 Correlation Network (CCCN). The Spearman correlations between
 co-clustered PTMs are used as edge-weights in this network. The
 MakeCorrelationNetwork function groups the PTM correlation matrices by
 PTMs that co-cluster together to create a PTM CCCN. It then defines a
 relationship between proteins modified by PTMs and creates a gene CCCN
-with sum of the PTM correlations serving as edge weights. The output of
-this function can be saved as an RData object.
+with sum of the PTM correlations serving as edge weights.
 
 ``` r
-CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
+CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.16 secs total.
+>> PTM CCCN complete after 0.15 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.89 secs total.
-ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
-gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
-gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
-                                  # used to gather PPI data from external databases
+>> Gene CCCN complete after 1.84 secs total.
+ptm.cccn.edges <- CCCN.data[[1]]
+gene.cccn.edges <- CCCN.data[[2]]
+gene.cccn.nodes <- CCCN.data[[3]]
+```
+
+We can view a portion of the PTM CCCN edges:
+
+``` r
 ptm.cccn.edges[18:22,]
-gene.cccn.edges[1:5,]
-gene.cccn.nodes[1:5]
 >>           source        target     Weight          interaction
 >> 18 EIF2B1 p S131   PKP4 p S273 -0.6833333 negative correlation
 >> 19   LDHB p S238   EML4 p S242 -1.0000000 negative correlation
 >> 20 S100A16 p S27   EML4 p S242 -0.5000000 negative correlation
 >> 21     PXN p S90 S100A14 p S33 -0.3571429          correlation
 >> 22    URB2 p S18 SHANK2 p S589  0.5428571 positive correlation
+```
+
+And a portion of the gene CCCN edges:
+
+``` r
+gene.cccn.edges[1:5,]
 >>   source target     Weight          interaction
 >> 1 ADGRL2  ALDOA -0.4535714          correlation
 >> 2   ACP1    ALK  0.6000000 positive correlation
 >> 3  AHNAK   ANO1  1.5428571 positive correlation
 >> 4   ACP1  ANXA2 -0.2571429          correlation
 >> 5 ADAM10  ANXA2  0.1702786          correlation
+```
+
+Finally, we can view a portion of the gene CCCN nodes, which are used to
+map to external PPI databases in the next step:
+
+``` r
+gene.cccn.nodes[1:5]
 >> [1] "ADGRL2" "ACP1"   "AHNAK"  "ADAM10" "ALDOA"
+```
+
+Because this step can take a long time to run on larger datasets, the
+output may be saved as an RData object for later use.
+
+``` r
+save.image(file = "filepath/name.RData") # All objects in the environment are saved
 ```
 
 ##### Estimated run-time (for large dataset)
@@ -397,9 +427,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-24 20:50:23 UTC"
->> [1] "2025-11-24 20:50:23 UTC"
->> [1] Total time: 0.115095853805542
+>> [1] "2025-11-24 21:01:44 UTC"
+>> [1] "2025-11-24 21:01:44 UTC"
+>> [1] Total time: 0.108099222183228
 ```
 
 ## Saving Data
