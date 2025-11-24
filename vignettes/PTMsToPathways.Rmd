@@ -261,7 +261,7 @@ to retrieve PPI data as follows.
 First, create an input file for GeneMANIA using the `MakeDBInput` function provided within P2P
 (note that this creates a text file in your working directory):
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
@@ -282,9 +282,14 @@ by GeneMANIA itself. For example, we have saved `ex_gm_results.txt` as an
 example output file from GeneMANIA within the package. The following code
 shows how to use this file as input to the function. 
 
-```{r eval = TRUE, echo = FALSE}
+```{r eval = TRUE, echo = TRUE}
 gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsToPathways")
 genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
+```
+
+We can see an example of the GeneMANIA edges below:
+```{r eval = TRUE, echo = TRUE}
+genemania.edges[1:5,]
 ```
 
 ### 3. Phosphosite Plus
@@ -296,11 +301,11 @@ The `format.kinsub.table` function reads this downloaded data in and
 formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
-```{r eval = FALSE, echo = FALSE}
+```{r eval = TRUE, echo = TRUE}
 kinasesubstrate.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
 ```
 
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 kinsub.edges <- format.kinsub.table(kinasesubstrate.filename =
                                       "Kinase_Substrate_Dataset.txt",
                                     gene.cccn.nodes)
