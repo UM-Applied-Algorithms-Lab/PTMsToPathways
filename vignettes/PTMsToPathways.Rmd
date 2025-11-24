@@ -112,20 +112,21 @@ allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE
                           comment.char = "", stringsAsFactors = F)
 ```
 
-# Using Your Own Data
+## Using Your Own Data
 
-The MS data needs to be transformed into a data frame with PTMs as row
-names, experimental condition as column names, and numeric data as the
-entries to carry out the analysis using this vignette. Please refer to
+To use your own MS data, you will need
+to transform it into a dataframe with PTMs and row names, experimental
+conditions as column names, and numeric data as the entries.
+Please refer to
 the [vignette("RawDataProcessing")] for a tutorial showing all steps needed
 to transform an MS output file into a P2P package input dataframe.
 
-# The Pipeline
+# An example of the P2P Workflow
 
 ## Step 1: Make Cluster List
 
 MakeClusterList is the first step in the P2P process. This function
-takes the dataframe PTM table and runs it through three calculations of
+takes the dataframe `ptmtable` and runs it through three calculations of
 statistical measures of distance: Euclidean Distance, Spearman
 Dissimilarity (1- \|Spearman Correlation\|), and SED (the average of
 both Spearman Dissimilarity (1- Spearman Correlation) and Euclidean
@@ -135,10 +136,17 @@ of the data and is useful in pattern recognition. A correlation table---
 calculated for each pair of PTMs. The function then runs the matrices
 through t-SNE to generate clusters based on the previously calculated
 distance and provides you with a cluster list, `common.clusters`. The
-returned `adj.consensus` (which identifies which PTMs cluster together
+returned `adj.consensus.matrix` (which identifies which PTMs cluster together
 with a 'short distance' between them) and `ptm.correlation.matrix` are
 also used in the next step to create co-cluster correlation networks
 (CCCNs). These three outputs are returned as a list. 
+
+The `keeplength` paramter defines the minimum number of PTMs that must be in a
+cluster for it to be retained in the final output. The `toolong` parameter
+defines the maximum distance between two PTMs for them to be considered
+as clustering together.
+
+`MakeClusterList` can be run like so:
 
 ```{r eval = TRUE, echo = TRUE}
 set.seed(88)
@@ -149,7 +157,7 @@ The following unpacks the output into the separate objects discussed above:
 
 ```{r eval = TRUE, echo = TRUE}
 common.clusters <- clusterlist.data[[1]]
-adj.consensus <- clusterlist.data[[2]]
+adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
@@ -159,14 +167,16 @@ Now we can view the objects. First, here is an example of a cluster:
 common.clusters[1]
 ```
 
-Next, we look at a piece of the `adj.consensus` table. Ones represent a pair
+Next, we look at a piece of the adjacency matrix. Ones represent a pair
 that cluster and zeroes represent a pair that doesn't:
 
 ```{r eval = TRUE, echo = TRUE}
-adj.consensus[1:5, 1:2]
+adj.consensus.matrix[7:10, 7:10]
 ```
 
-Here is a part of the `ptm.correlation.matrix`.
+Here is a part of the PTM correlation matrix. Values for pairs of PTMs
+are Spearman correlation coefficients ranging from -1 to 1. If two PTMs had
+no experimental conditions in common, their correlation value will be NA.
 
 ```{r eval = TRUE, echo = TRUE}
 ptm.correlation.matrix[38:43, 1:2]
@@ -178,25 +188,40 @@ ptm.correlation.matrix[38:43, 1:2]
 
 ## Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)
 
-The cluster list generated in the previous step is next used to create a
+The data generated in the previous step is next used to create a
 new network of PTMs that have strong associations called the Co-cluster
 Correlation Network (CCCN). The Spearman correlations between
 co-clustered PTMs are used as edge-weights in this network. The
 MakeCorrelationNetwork function groups the PTM correlation matrices by
 PTMs that co-cluster together to create a PTM CCCN. It then defines a
 relationship between proteins modified by PTMs and creates a gene CCCN
-with sum of the PTM correlations serving as edge weights. The output of
-this function can be saved as an RData object.
+with sum of the PTM correlations serving as edge weights. 
 
 ```{r eval = TRUE, echo = TRUE}
-CCCN.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
-ptm.cccn.edges <- CCCN.data[[1]]  # PTM CCCN edge list
-gene.cccn.edges <- CCCN.data[[2]] # Gene CCCN edge list
-gene.cccn.nodes <- CCCN.data[[3]] # List of nodes in the CCCN
-                                  # used to gather PPI data from external databases
+CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
+ptm.cccn.edges <- CCCN.data[[1]]
+gene.cccn.edges <- CCCN.data[[2]]
+gene.cccn.nodes <- CCCN.data[[3]]
+```
+We can view a portion of the PTM CCCN edges:
+```{r eval = TRUE, echo = TRUE}
 ptm.cccn.edges[18:22,]
+```
+And a portion of the gene CCCN edges:
+```{r eval = TRUE, echo = TRUE}
 gene.cccn.edges[1:5,]
+```
+Finally, we can view a portion of the gene CCCN nodes, which are used
+to map to external PPI databases in the next step:
+```{r eval = TRUE, echo = TRUE} 
 gene.cccn.nodes[1:5]
+```
+
+Because this step can take a long time to run on larger datasets, the output
+may be saved as an RData object for later use. 
+
+```{r eval = FALSE, echo = TRUE}
+save.image(file = "filepath/name.RData") # All objects in the environment are saved
 ```
 
 #### Estimated run-time (for large dataset)
