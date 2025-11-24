@@ -118,7 +118,7 @@ To use your own MS data, you will need
 to transform it into a dataframe with PTMs and row names, experimental
 conditions as column names, and numeric data as the entries.
 Please refer to
-the [vignette("RawDataProcessing")] for a tutorial showing all steps needed
+the [Raw Data Processing vignette](articles/RawDataProcessing.html) for a tutorial showing all steps needed
 to transform an MS output file into a P2P package input dataframe.
 
 # An example of the P2P Workflow
