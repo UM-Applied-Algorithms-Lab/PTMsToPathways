@@ -306,9 +306,9 @@ kinasesubstrate.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt
 ```
 
 ```{r eval = TRUE, echo = TRUE}
-kinsub.edges <- formatKinsubTable(kinasesubstrate.filename =
-                                      "Kinase_Substrate_Dataset.txt",
-                                    gene.cccn.nodes)
+kinsub.edges <- formatKinsubTable(kinasesubtrate.filename =
+                                  kinasesubstrate.filename,
+                                  gene.cccn.nodes)
 ```
 
 ## Step 4: Build PPI Network and Cluster Filtered Network
