@@ -297,7 +297,7 @@ genemania.edges[1:5,]
 The kinase-substrate data can be downloaded from [Phosphosite
 Plus](https://www.phosphosite.org/staticDownloads) database. The users
 will be required to create an account and sign in to download the data.
-The `format.kinsub.table` function reads this downloaded data in and
+The `formatKinsubTable` function reads this downloaded data in and
 formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
@@ -306,7 +306,7 @@ kinasesubstrate.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt
 ```
 
 ```{r eval = TRUE, echo = TRUE}
-kinsub.edges <- format.kinsub.table(kinasesubstrate.filename =
+kinsub.edges <- formatKinsubTable(kinasesubstrate.filename =
                                       "Kinase_Substrate_Dataset.txt",
                                     gene.cccn.nodes)
 ```
