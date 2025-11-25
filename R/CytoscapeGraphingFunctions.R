@@ -528,8 +528,6 @@ mergeEdges <- function(edgefile) {
                   'combined_score', "merged", "intersect", "peptide", 'homology',
                   "Shared protein domains", "interacts-with")
 
-  require(plyr)
-
   # --- UNDIRECTED EDGES ---
   undir.edges <- edgefile[!(edgefile$interaction %in% directed_priority), ]
   # Sort node pairs for undirected edges
