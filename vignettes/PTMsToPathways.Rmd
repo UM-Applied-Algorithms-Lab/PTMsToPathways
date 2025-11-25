@@ -302,16 +302,15 @@ formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
 ```{r eval = TRUE, echo = TRUE}
-kinasesubstrate.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
 ```
 
 ```{r eval = TRUE, echo = TRUE}
-kinsub.edges <- formatKinsubTable(kinasesubtrate.filename =
-                                  kinasesubstrate.filename,
+kinsub.edges <- formatKinsubTable(input.filename,
                                   gene.cccn.nodes)
 ```
 
-## Step 4: Build PPI Network and Cluster Filtered Network
+# Step 4: Build PPI Network and Cluster Filtered Network
 
 The `BuildClusterFilteredNetwork` function allows the users to filter
 protein-protein interaction networks using the previously generated
