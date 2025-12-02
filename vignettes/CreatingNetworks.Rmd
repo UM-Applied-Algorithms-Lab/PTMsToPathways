@@ -344,7 +344,7 @@ combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
 
-To reduce clutter on graphs, the CFN edges can be merged:
+To reduce clutter on graphs, the CFN edges can be merged. This collapses two or more edges between two nodes into a single edge, combining edge names:
 
 ```{r eval = FALSE, echo = TRUE}
 cfn.merged <- mergeEdges(cfn)
