@@ -147,27 +147,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 12.89 secs total.
->> Spearman t-SNE calculation complete after 41.25 secs total.
->> Euclidean distance calculation complete after 41.29 secs total.
->> Euclidean t-SNE calculation complete after 1.13 mins total.
->> Combined distance calculation complete after 1.13 mins total.
->> SED t-SNE calculation complete after 1.57 mins total.
+>> Spearman correlation calculation complete after 13.37 secs total.
+>> Spearman t-SNE calculation complete after 42.87 secs total.
+>> Euclidean distance calculation complete after 42.91 secs total.
+>> Euclidean t-SNE calculation complete after 1.17 mins total.
+>> Combined distance calculation complete after 1.17 mins total.
+>> SED t-SNE calculation complete after 1.63 mins total.
 ```
 
 ![](plots/unnamed-chunk-8-1.png)
 
-    >> Clustering for Euclidean complete after 1.58 mins total.
+    >> Clustering for Euclidean complete after 1.64 mins total.
 
 ![](plots/unnamed-chunk-8-2.png)
 
-    >> Clustering for Spearman complete after 1.59 mins total.
+    >> Clustering for Spearman complete after 1.65 mins total.
 
 ![](plots/unnamed-chunk-8-3.png)
 
-    >> Clustering for SED complete after 1.59 mins total.
-    >> Consensus clustering complete after 1.6 mins total.
-    >> MakeClusterList complete after 1.6 mins total.
+    >> Clustering for SED complete after 1.65 mins total.
+    >> Consensus clustering complete after 1.66 mins total.
+    >> MakeClusterList complete after 1.66 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -239,9 +239,9 @@ with sum of the PTM correlations serving as edge weights.
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.15 secs total.
+>> PTM CCCN complete after 0.17 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.85 secs total.
+>> Gene CCCN complete after 1.91 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -307,8 +307,8 @@ to retrieve data from each of them below.
 the `STRINGdb` package. We wrap this query in a function called
 `GetSTRINGdb`, which queries only for the genes found in clusters in
 previous steps, and filters the returned by interaction type so only
-experimental, database, and experimental_transferred and
-database_transferred are retained. This ensures that only interactions
+`experimental`, `database`, `experimental_transferred`, and
+`database_transferred` are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.
 
 ``` r
@@ -356,72 +356,96 @@ produced by GeneMANIA itself. For example, we have saved
 package. The following code shows how to use this file as input to the
 function.
 
+``` r
+gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsToPathways")
+genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
+```
+
+We can see an example of the GeneMANIA edges below:
+
+``` r
+genemania.edges[1:5,]
+>>     source target           interaction      Weight
+>> 532    LCK PTPN11               Pathway 0.001251833
+>> 533    MET PTPN11               Pathway 0.001559102
+>> 547   VAV1    LCK               Pathway 0.002001705
+>> 548   VAV1 PTPN11               Pathway 0.001928108
+>> 549    LCK  PTPRK Physical Interactions 0.253717814
+```
+
 #### 3. Phosphosite Plus
 
 The kinase-substrate data can be downloaded from [Phosphosite
 Plus](https://www.phosphosite.org/staticDownloads) database. The users
 will be required to create an account and sign in to download the data.
-The `format.kinsub.table` function reads this downloaded data in and
+The `formatKinsubTable` function reads this downloaded data in and
 formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
 ``` r
-kinsub.edges <- format.kinsub.table(kinasesubstrate.filename =
-                                      "Kinase_Substrate_Dataset.txt",
-                                    gene.cccn.nodes)
+input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
 ```
 
-### Step 4: Build PPI Network and Cluster Filtered Network
+``` r
+kinsub.edges <- formatKinsubTable(input.filename,
+                                  gene.cccn.nodes)
+```
 
-The BuildClusterFilteredNetwork function allows the users to filter
+## Step 4: Build PPI Network and Cluster Filtered Network
+
+The `BuildClusterFilteredNetwork` function allows the users to filter
 protein-protein interaction networks using the previously generated
-cocluster correlation networks. PPIs are retained in the cluster
-filtered network (cfn) only if the interacting proteins share
+co-cluster correlation networks. PPIs are retained in the cluster
+filtered network (CFN) only if the interacting proteins share
 statistically correlated PTMs identified via t-SNE clusters. The
-BuildClusterFilteredNetwork function combines all the PPI data
+`BuildClusterFilteredNetwork` function combines all the PPI data
 downloaded in step 3 as efficiently as possible while retaining the
 desired edge weights. It then normalizes the weights on a scale of 0-1
 and gives an output cluster filter network that will only retain
 interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.
 
+We first run the function:
+
 ``` r
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
                                             genemania.edges, kinsub.edges = NULL,
                                             db.filepaths = c())
+```
+
+And then unpack the outputs into separate variables:
+
+``` r
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
 
-To reduce clutter on graphs, the cfn edges can be merged:
+To reduce clutter on graphs, the CFN edges can be merged:
 
 ``` r
 cfn.merged <- mergeEdges(cfn)
->> Loading required package: plyr
 ```
 
-### Step 5: Pathway Crosstalk Network
+## Step 5: Pathway Crosstalk Network
 
-**Note:** This step is directory sensitive. The user can check and set
-the working directory in R using getwd() and setwd(“yourdirectoryhere”)
-respectively. It needs a path to the bioplanet file and will put an
-edgelist file in the working directory or the otherwise given path. If
-the file cannot be found, please check the working directory first.
-
-Our final analysis step is the Pathway Crosstalk Network (PCN). This
-step requires input of an external database from [NCATS
-BioPlanet](https://tripod.nih.gov/bioplanet/download/pathway.csv), that
+The final step is the creation of the Pathway Crosstalk Network (PCN).
+This step requires input of an external database from [NCATS
+BioPlanet](https://tripod.nih.gov/bioplanet/download/pathway.csv) that
 contains groups of genes (proteins) involved in various cellular
-processes known as pathways. PCN turns this data file into a list of
-pathways and converts those pathways into a pathway x pathway edgelist
-(PCNedgelist) that possesses multiple weights, a jaccard similarity, and
-a score. The score is derived from Cluster-Pathway Evidence using the
-common clusters found in Make Correlation Network. Info about the
-Cluster-Pathway Evidence score can be found
+processes known as pathways. `BuildPathwayCrosstalkNetwork` turns this
+data file into a list of pathways and converts those pathways into a
+list of pathway-pathway edges, each of which is assigned a Jaccard
+similarity and a Cluster-Pathway Evidence score based on the common
+clusters found in the gene co-cluster correlation network. Info about
+the Cluster-Pathway Evidence score can be found
 [here](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690)
 For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
+
+``` r
+bioplanet.file <- system.file("extdata", "pathway.csv", package = "PTMsToPathways")
+```
 
 ``` r
 PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file,
@@ -430,9 +454,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-11-24 23:56:55 UTC"
->> [1] "2025-11-24 23:56:55 UTC"
->> [1] Total time: 0.106310844421387
+>> [1] "2025-12-02 17:59:47 UTC"
+>> [1] "2025-12-02 17:59:47 UTC"
+>> [1] Total time: 0.107651233673096
 ```
 
 ## Saving Data
