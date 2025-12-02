@@ -301,11 +301,11 @@ The `formatKinsubTable` function reads this downloaded data in and
 formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
 ```
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 kinsub.edges <- formatKinsubTable(input.filename,
                                   gene.cccn.nodes)
 ```
@@ -326,7 +326,7 @@ network created in step 2.
 
 We first run the function:
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
                                             genemania.edges, kinsub.edges = NULL,
                                             db.filepaths = c())
@@ -334,14 +334,14 @@ network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
 
 And then unpack the outputs into separate variables:
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
 
 To reduce clutter on graphs, the CFN edges can be merged:
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 cfn.merged <- mergeEdges(cfn)
 ```
 
