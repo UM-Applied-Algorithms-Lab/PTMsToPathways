@@ -2,10 +2,11 @@ pandoc: 3.6.3
 pkgdown: 2.1.3
 pkgdown_sha: ~
 articles:
+  CreatingNetworks: CreatingNetworks.html
   Cytoscape_Graphing: Cytoscape_Graphing.html
   PTMsToPathways: PTMsToPathways.html
   RawDataProcessing: RawDataProcessing.html
-last_built: 2025-11-12T05:23Z
+last_built: 2025-12-02T21:39Z
 urls:
   reference: https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference
   article: https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles
