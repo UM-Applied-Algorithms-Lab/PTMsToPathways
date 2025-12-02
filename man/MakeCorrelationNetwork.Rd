@@ -7,11 +7,11 @@
 MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
 }
 \arguments{
+\item{adj.consensus.matrix}{Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings}
+
 \item{ptm.correlation.matrix}{A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.}
 
 \item{common.clusters}{A list of clusters. Ideally the ones found by MakeClusterList in common_clusters}
-
-\item{adj.consensus}{Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings}
 }
 \value{
 A list containing the following data structures at the given index:

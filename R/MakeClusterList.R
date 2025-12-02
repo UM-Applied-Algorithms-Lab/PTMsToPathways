@@ -161,8 +161,8 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
 
     #Step 3: Build a Consensus Network (for Co-Clustering in All 3 Embeddings)
     #	Edges: Only keep edges where `adj.sum == 3` (meaning the PTM pair is in the same cluster in all three methods).
-    adj.consensus <- (adj.sum == 3) * 1 # This is a neat R trick to convert a logical matrix (`TRUE`/`FALSE`) to a numeric matrix (`1`/`0`) via multiplication.
-    g <- igraph::graph_from_adjacency_matrix(adj.consensus, mode="undirected", diag=FALSE)
+    adj.consensus.matrix <- (adj.sum == 3) * 1 # This is a neat R trick to convert a logical matrix (`TRUE`/`FALSE`) to a numeric matrix (`1`/`0`) via multiplication.
+    g <- igraph::graph_from_adjacency_matrix(adj.consensus.matrix, mode="undirected", diag=FALSE)
 
     # Step 4: Extract Cliques (Consensus Clusters): since clusters partitioned the graph, every clique is a connected component
     components <- igraph::components(g)
@@ -180,7 +180,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
 
     end_time <- Sys.time()
     message("Consensus clustering complete after ", round(end_time - start_time, 2), " ", units(end_time - start_time), " total.")
-    return(list(adj.consensus, clusters_in_all_three))
+    return(list(adj.consensus.matrix, clusters_in_all_three))
   }
 
   # Find common clusters from existing single-metric clusters
@@ -191,5 +191,5 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
   message("MakeClusterList complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
 
 
-  return(list(common.clusters, adj.consensus, ptm.correlation.matrix))
+  return(list(common.clusters, adj.consensus.matrix, ptm.correlation.matrix))
 }
