@@ -83,8 +83,11 @@ to be inspected locally.
 
 To see all data that is provided with the package, run:
 
-```{r eval = TRUE, echo = TRUE}
-print(data(package = "PTMsToPathways"))
+```{r eval = TRUE, echo = FALSE}
+as.data.frame(data(package = "PTMsToPathways")$results)
+```
+```{r eval = FALSE, echo = TRUE}
+data(package = "PTMsToPathways")
 ```
 
 If you are using the smaller dataset, use the following code to view the
