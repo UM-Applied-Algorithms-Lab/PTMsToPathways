@@ -53,31 +53,33 @@ To see all data that is provided with the package, run:
 data(package = "PTMsToPathways")
 ```
 
-| Dataset Name                                       | Description                         |
-|:---------------------------------------------------|:------------------------------------|
-| ex.CPE.matrix (CPE_matrix)                         | CPE matrix example                  |
-| ex.Jaccard.Full (Jaccard_Full)                     | Jaccard Example                     |
-| ex.PTPedgelist (PTPedgelist)                       | PTP Edgelist Example                |
-| ex.all.tsne.coords (all_tsne_coords)               | All Tsne Coords                     |
-| ex.bioplanet (bioplanet)                           | Bioplanet Example                   |
-| ex.cfn (cfn)                                       | Cluster Filtered Network Example    |
-| ex.clusters.list (clusters_list)                   | Clusters List Example               |
-| ex.common.clusters (common_clusters)               | List of Common Clusters Example     |
-| ex.funckey (funckey)                               | Funckey                             |
-| ex.gene.cccn (gene_cccn)                           | Gene CoCluster Network example      |
-| ex.gm.edges (gm_edges)                             | Full GeneMANIA Edges Example        |
-| ex.gm.network (gm_network)                         | Full GeneMANIA Network Example      |
-| ex.gm.nodes (gm_nodes)                             | GeneMANIA Nodes Example             |
-| ex.nodenames (nodenames)                           | Nodenames Example                   |
-| ex.pathways.list (pathways_list)                   | Pathways List Example               |
-| ex.ppi.network (ppi_network)                       | PPI Network Example                 |
-| ex.ptm.cccn (ptm_cccn)                             | Filtered Correlation Matrix example |
-| ex.ptm.correlation.matrix (ptm_correlation_matrix) | Correlation Matrix Example          |
-| ex.stringdb.edges (stringdb_edges)                 | STRINGdb Edges example              |
-| ex_adj_consensus                                   | Adj Consensus                       |
-| ex_full_ptm_table                                  | Full PTM Table Example              |
-| ex_small_ptm_table                                 | Small PTM Table Example             |
-| ex_tiny_ptm_table                                  |                                     |
+| Dataset Name                                             | Description                         |
+|:---------------------------------------------------------|:------------------------------------|
+| ex.CPE.matrix (CPE_matrix)                               | CPE matrix example                  |
+| ex.Jaccard.Full (Jaccard_Full)                           | Jaccard Example                     |
+| ex.PTPedgelist (PTPedgelist)                             | PTP Edgelist Example                |
+| ex.all.tsne.coords (all_tsne_coords)                     | All Tsne Coords                     |
+| ex.bioplanet (bioplanet)                                 | Bioplanet Example                   |
+| ex.cfn (cfn)                                             | Cluster Filtered Network Example    |
+| ex.clusters.list (clusters_list)                         | Clusters List Example               |
+| ex.common.clusters (common_clusters)                     | List of Common Clusters Example     |
+| ex.funckey (funckey)                                     | Funckey                             |
+| ex.gene.cccn (gene_cccn)                                 | Gene CoCluster Network example      |
+| ex.gm.edges (gm_edges)                                   | Full GeneMANIA Edges Example        |
+| ex.gm.network (gm_network)                               | Full GeneMANIA Network Example      |
+| ex.gm.nodes (gm_nodes)                                   | GeneMANIA Nodes Example             |
+| ex.nodenames (nodenames)                                 | Nodenames Example                   |
+| ex.ppi.network (ppi_network)                             | PPI Network Example                 |
+| ex.ptm.cccn (ptm_cccn)                                   | Filtered Correlation Matrix example |
+| ex.ptm.correlation.matrix (ptm_correlation_matrix)       | Correlation Matrix Example          |
+| ex.stringdb.edges (stringdb_edges)                       | STRINGdb Edges example              |
+| ex_PCNedgelist (PCNedgelist)                             |                                     |
+| ex_adj_consensus                                         | Adj Consensus                       |
+| ex_full_ptm_table                                        | Full PTM Table Example              |
+| ex_pathway_crosstalk_network (pathway_crosstalk_network) |                                     |
+| ex_pathways_list (pathways_list)                         |                                     |
+| ex_small_ptm_table                                       | Small PTM Table Example             |
+| ex_tiny_ptm_table                                        |                                     |
 
 If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
@@ -173,27 +175,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.23 secs total.
->> Spearman t-SNE calculation complete after 42.27 secs total.
->> Euclidean distance calculation complete after 42.31 secs total.
->> Euclidean t-SNE calculation complete after 1.15 mins total.
->> Combined distance calculation complete after 1.15 mins total.
->> SED t-SNE calculation complete after 1.61 mins total.
+>> Spearman correlation calculation complete after 12.82 secs total.
+>> Spearman t-SNE calculation complete after 41.58 secs total.
+>> Euclidean distance calculation complete after 41.62 secs total.
+>> Euclidean t-SNE calculation complete after 1.14 mins total.
+>> Combined distance calculation complete after 1.14 mins total.
+>> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.62 mins total.
+    >> Clustering for Euclidean complete after 1.6 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.63 mins total.
+    >> Clustering for Spearman complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.63 mins total.
-    >> Consensus clustering complete after 1.64 mins total.
-    >> MakeClusterList complete after 1.64 mins total.
+    >> Clustering for SED complete after 1.61 mins total.
+    >> Consensus clustering complete after 1.61 mins total.
+    >> MakeClusterList complete after 1.61 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -265,9 +267,9 @@ with sum of the PTM correlations serving as edge weights.
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.16 secs total.
+>> PTM CCCN complete after 0.15 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.9 secs total.
+>> Gene CCCN complete after 1.81 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -480,9 +482,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-12-02 18:40:52 UTC"
->> [1] "2025-12-02 18:40:52 UTC"
->> [1] Total time: 0.109464168548584
+>> [1] "2025-12-02 19:03:24 UTC"
+>> [1] "2025-12-02 19:03:24 UTC"
+>> [1] Total time: 0.106813669204712
 ```
 
 ## Saving Data
