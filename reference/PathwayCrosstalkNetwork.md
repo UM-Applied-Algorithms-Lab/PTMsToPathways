@@ -58,9 +58,9 @@ A list with these data structures at the given index:
 ``` r
 Example_Output <- PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
 #> [1] "Making PCN"
-#> [1] "2025-12-02 17:56:05 UTC"
-#> [1] "2025-12-02 17:56:05 UTC"
-#> [1] Total time: 0.0620510578155518
+#> [1] "2025-12-02 18:18:43 UTC"
+#> [1] "2025-12-02 18:18:43 UTC"
+#> [1] Total time: 0.0663995742797852
 Example_Output[[1]][[3,]]
 #> Error in `[[.data.frame`(Example_Output[[1]], 3, ): argument "..2" is missing, with no default
 Example_Output[[3]][[1:3]]
