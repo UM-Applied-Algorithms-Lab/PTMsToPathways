@@ -6,7 +6,7 @@
 #'
 #' @param common.clusters A list of clusters. Ideally the ones found by MakeClusterList in common_clusters
 #' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
-#' @param adj.consensus Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings
+#' @param adj.consensus.matrix Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings
 #' @return A list containing the following data structures at the given index:
 #' \enumerate{
 #' \item{The PTM CoCluster Correlation Network as an edgelist.}
@@ -26,14 +26,14 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
 
   start_time <- Sys.time()
 
-  MakePTMCCCN <- function(adj.consensus, ptm.correlation.matrix) {
+  MakePTMCCCN <- function(adj.consensus.matrix, ptm.correlation.matrix) {
     message("Making PTM CCCN")
-    # Use only PTM pairs that co-clustered in all three methods (adj.consensus == 1)
+    # Use only PTM pairs that co-clustered in all three methods (adj.consensus.matrix == 1)
     ptm.cccn <- ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)), sort(colnames(ptm.correlation.matrix))]
-    ptm.cccn.mask <- adj.consensus[sort(rownames(adj.consensus)), sort(colnames(adj.consensus))]
+    ptm.cccn.mask <- adj.consensus.matrix[sort(rownames(adj.consensus.matrix)), sort(colnames(adj.consensus.matrix))]
     # Find active ptms before setting 0 to NA
-    active_flags <- (rowSums(adj.consensus) > 0) | (colSums(adj.consensus) > 0)
-    active_ptms <- rownames(adj.consensus)[active_flags]
+    active_flags <- (rowSums(adj.consensus.matrix) > 0) | (colSums(adj.consensus.matrix) > 0)
+    active_ptms <- rownames(adj.consensus.matrix)[active_flags]
     ptm.cccn.mask[ptm.cccn.mask == 0] <- NA  # Set 0 to NA for masking
 
     # Apply mask to Spearman correlations
@@ -68,7 +68,7 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
     return(list(ptm.cccn0, ptm.cccn.g, ptm.cccn.edges))
   }
   #
-  ptm.cccn.list <- MakePTMCCCN(adj.consensus, ptm.correlation.matrix)
+  ptm.cccn.list <- MakePTMCCCN(adj.consensus.matrix, ptm.correlation.matrix)
   ptm.cccn <- ptm.cccn.list[[1]]
   ptm.cccn.g <- ptm.cccn.list[[2]]
   ptm.cccn.edges <- ptm.cccn.list[[3]]

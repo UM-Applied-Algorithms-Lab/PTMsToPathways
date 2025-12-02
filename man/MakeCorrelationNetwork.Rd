@@ -4,10 +4,10 @@
 \alias{MakeCorrelationNetwork}
 \title{Make Correlation Network}
 \usage{
-MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
+MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
 }
 \arguments{
-\item{adj.consensus}{Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings}
+\item{adj.consensus.matrix}{Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings}
 
 \item{ptm.correlation.matrix}{A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.}
 

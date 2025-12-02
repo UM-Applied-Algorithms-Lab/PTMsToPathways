@@ -3,7 +3,7 @@
 \docType{data}
 \name{ex.PTPedgelist}
 \alias{ex.PTPedgelist}
-\title{PTP Edgelist Example}
+\title{PTP edgelist Example}
 \format{
 Dataframe of 19 rows and 4 columns:
 \describe{
