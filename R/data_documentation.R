@@ -296,7 +296,7 @@
 
 
 
-#' PTP Edgelist Example
+#' PTP edgelist Example
 #'
 #' An edgelist filtered from the combination of every pathway based on nonzero Jaccard & PTP score
 #'
@@ -311,8 +311,8 @@
 #' }
 #' @source "Created in PathwayCrosstalkNetwork"
 #' @examples
-#' head(ex_PTPedgelist)
-"ex_PTPedgelist"
+#' head(ex.PTPedgelist)
+"ex.PTPedgelist"
 
 
 
@@ -448,3 +448,20 @@
 #' head(ex_pathway_crosstalk_network)
 "ex_pathway_crosstalk_network"
 
+#' Pathway Crosstalk Network Edgelist Example
+#'
+#' Similar to the Pathway Crosstalk Network but uses different weights.
+#'
+#' @keywords internal
+#'
+#' @format Matrix with 19 rows and 4 columns:
+#' \describe{
+#'   \item{V1}{Pathway One}
+#'   \item{V2}{Pathway Two}
+#'   \item{Jaccard Weight}{Jaccard Similarity between two pathways}
+#'   \item{PTM cluster evidence}{Similarity score based on clusters PTMs share}
+#' }
+#' @source "created by PathwayCrosstalkNetwork"
+#' @examples
+#' head(ex_PCNedgelist)
+"ex_PCNedgelist"
