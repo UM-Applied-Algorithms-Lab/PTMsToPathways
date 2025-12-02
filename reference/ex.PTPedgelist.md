@@ -1,4 +1,4 @@
-# PTP Edgelist Example
+# PTP edgelist Example
 
 An edgelist filtered from the combination of every pathway based on
 nonzero Jaccard & PTP score

@@ -9,12 +9,12 @@ proteins using the common clusters between the three distance metrics.
 ## Usage
 
 ``` r
-MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
+MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
 ```
 
 ## Arguments
 
-- adj.consensus:
+- adj.consensus.matrix:
 
   Adjacency matrix showing PTM co-cluster relationships from all three
   t-SNE embeddings
