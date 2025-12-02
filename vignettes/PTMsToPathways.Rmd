@@ -253,7 +253,7 @@ in previous steps, and filters the returned by interaction type so only
 with more substantial evidence are used in this analysis.
 
 ```{r eval = TRUE, echo = TRUE}
-stringdb.edges <- GetSTRINGdb(gene.cccn.edges, gene.cccn.nodes)
+stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes)
 stringdb.edges[1:5,]
 ```
 
@@ -372,7 +372,7 @@ bioplanet.file <- system.file("extdata", "pathway.csv", package = "PTMsToPathway
 ```
 
 ```{r eval = TRUE, echo = TRUE}
-PCN.data <- PathwayCrosstalkNetwork(common.clusters, bioplanet.file,
+PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                     createfile = FALSE)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
