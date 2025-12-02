@@ -1,4 +1,4 @@
-#' Pathway Crosstalk Network
+#' Build Pathway Crosstalk Network
 #'
 #' Converts Bioplanet pathways from (<https://tripod.nih.gov/bioplanet/>)  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.
 #'
@@ -13,7 +13,7 @@
 #' @export
 #'
 #' @examples
-#' Example_Output <- PathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
+#' Example_Output <- BuildPathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
 #' Example_Output[[1]][[3,]]
 #' Example_Output[[3]][[1:3]]
 BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd(), PCN.edgelist.name = "PCN_file"){
