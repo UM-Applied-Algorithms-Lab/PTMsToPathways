@@ -44,7 +44,7 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' # GetSTRINGdb(ex.gene.cccn)
 #' utils::head(ex.stringdb.edges)
 #' utils::head(ex.nodenames)
-GetSTRINGdb <- function(gene.cccn.edges, gene.cccn.nodes) {
+GetSTRINGdb.edges <- function(gene.cccn.edges, gene.cccn.nodes) {
   nodenames <- data.frame(Gene.Names = gene.cccn.nodes)
 
   if(!requireNamespace("STRINGdb", quietly = TRUE)){
@@ -166,7 +166,7 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
 #'
 #' @return An edgelist filtered by the gene cccn and nodenames
 #' @export
-formatKinsubTable <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
+GetKinsub.edges <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
   kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.

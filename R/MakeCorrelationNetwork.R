@@ -20,7 +20,7 @@
 #' Example_Output[[1]][1:5, 1:5]
 #' Example_Output[[2]][1:5, 1:5]
 #'
-MakeCorrelationNetwork <- function(adj.consensus, ptm.correlation.matrix){
+MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix){
   # Two nested functions for creating the PTM and gene CCCN, respectively
   # Use the consensus adjacency matrix to filter PTM correlations, then create a graph and edge files for PTMs and genes
 

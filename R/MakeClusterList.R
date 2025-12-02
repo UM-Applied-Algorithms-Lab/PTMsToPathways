@@ -185,7 +185,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
 
   # Find common clusters from existing single-metric clusters
   clusters.common.list <- FindCommonClusters(clusters.list, keeplength)
-  adj.consensus <- clusters.common.list[[1]]
+  adj.consensus.matrix <- clusters.common.list[[1]]
   common.clusters <- clusters.common.list[[2]]
 
   message("MakeClusterList complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
