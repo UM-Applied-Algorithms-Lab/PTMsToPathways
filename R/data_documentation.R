@@ -24,14 +24,14 @@
 #'
 #' @keywords internal
 #'
-#' @format List of 1657 elements:
+#' @format List of 9 elements:
 #' \describe{
 #'   \item{pathway}{A pathway name with the list of genes involved}
 #' }
 #' @source "created from a Bioplanet.csv file in PathwayCrosstalkNetwork"
 #' @examples
-#' head(ex.pathways.list)
-"ex.pathways.list"
+#' head(ex_pathways_list)
+"ex_pathways_list"
 
 
 
@@ -311,8 +311,8 @@
 #' }
 #' @source "Created in PathwayCrosstalkNetwork"
 #' @examples
-#' head(ex.PTPedgelist)
-"ex.PTPedgelist"
+#' head(ex_PTPedgelist)
+"ex_PTPedgelist"
 
 
 
@@ -428,3 +428,23 @@
 #' @examples
 #' head(ex.Jaccard.Full)
 "ex.Jaccard.Full"
+
+
+#' Pathway Crosstalk Network Example
+#'
+#' Contains pathway source-target columns and weight, along with the interaction type.
+#'
+#' @keywords internal
+#'
+#' @format Matrix with 37 rows and 4 columns:
+#' \describe{
+#'   \item{V1}{Pathway One}
+#'   \item{V2}{Pathway Two}
+#'   \item{Weight}
+#'   \item{Interaction}{Jaccard similarity between the two pathways}
+#' }
+#' @source "created by PathwayCrosstalkNetwork"
+#' @examples
+#' head(ex_pathway_crosstalk_network)
+"ex_pathway_crosstalk_network"
+
