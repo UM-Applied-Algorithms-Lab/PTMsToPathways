@@ -15,14 +15,25 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ### Top-down approach starting with pathways
 
-It is possible to graph the entire PCN, CFN, and CCCNs in their entirety, though very large graphs take a long time to graph. One approach to navigating these data structures is to select nodes from the large networks in Cytoscape (or in R using RCy3::selectNodes()) and select nearest neighbors or shortest paths and create a subnetwork in a new window (see the Cytoscape Manual <https://manual.cytoscape.org/en/stable/>).
+It is possible to graph the entire PCN, CFN, and CCCNs in their entirety, though
+very large graphs take a long time to graph. One approach to navigating these
+data structures is to select nodes from the large networks in Cytoscape (or in R
+using `RCy3::selectNodes`) and select nearest neighbors or shortest paths and
+create a subnetwork in a new window (see the [Cytoscape Manual](https://manual.cytoscape.org/en/stable/)).
 
-The alternative approach described below is to identify pathways, genes, and PTMs of interest in the R data objects, then make smaller, more interpretable graphs in Cytoscape using RCy3.
+The alternative approach described below is to identify pathways, genes, and
+PTMs of interest in the R data objects, then make smaller, more interpretable
+graphs in Cytoscape using RCy3.
 
-For example, we will find names of all pathways in Bioplanet that contain EGFR. The data object 'pathways.list' is a list, where the name of the list element is the name of a Bioplanet pathway and each element is a character vector of the genes in that pathway. Then we want to find interactions between the pathway "Transmembrane transport of small molecules" and those pathways. The utility functions used below are in CytoscapeGraphing.R
+For example, we will find names of all pathways in Bioplanet that contain EGFR.
+The data object `pathways.list` is a list, where the name of the list element is
+the name of a Bioplanet pathway and each element is a character vector of the
+genes in that pathway. Then we want to find interactions between the pathway
+"Transmembrane transport of small molecules" and those pathways. The utility
+functions used below are in CytoscapeGraphing.R
 
-```{r eval = FALSE}
-egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list),function(x){"EGFR" %in% pathways.list[[x]]})]
+```{r eval = TRUE}
+egfr_pathways <- names(ex.pathways.list)[sapply(1:length(pathways.list),function(x){"EGFR" %in% pathways.list[[x]]})]
 length(egfr_pathways) #83
 egfr_transporter.pcn <- filter.edges.between("Transmembrane transport of small molecules", egfr_pathways, PCNedgelist)
 egfr_transporter_pcn.cy <- filter.edges.between("Transmembrane transport of small molecules", egfr_pathways, pathway.crosstalk.network)
