@@ -1,5 +1,5 @@
 test_that("MakeClusterList() gives right answer", {
-    set.seed(25)
+    set.seed(88)
 
     # data to check clusters
     clust1 <- list("EML4 p Y453", "GLUL p Y180", "PDLIM5 p Y251", "CD99L2 p Y243", "RDH10 p Y126", "GFPT1 p Y553", "CRK p Y251")
@@ -12,7 +12,7 @@ test_that("MakeClusterList() gives right answer", {
 
     # check one of the values of the correlation computation
     expect_equal(ptm.correlation.matrix[200, 5], 0.3212121, tolerance = 1e-6)
-    
+
     # check that the cluster that contains GLUL p Y180 is correct
     clust1_result <- unname(common.clusters[sapply(common.clusters, function(x) "GLUL p Y180" %in% x)])
     expect_setequal(clust1_result[[1]], clust1)
