@@ -175,27 +175,27 @@ set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.34 secs total.
->> Spearman t-SNE calculation complete after 41.94 secs total.
->> Euclidean distance calculation complete after 41.98 secs total.
->> Euclidean t-SNE calculation complete after 1.14 mins total.
->> Combined distance calculation complete after 1.14 mins total.
+>> Spearman correlation calculation complete after 13.27 secs total.
+>> Spearman t-SNE calculation complete after 42 secs total.
+>> Euclidean distance calculation complete after 42.04 secs total.
+>> Euclidean t-SNE calculation complete after 1.15 mins total.
+>> Combined distance calculation complete after 1.15 mins total.
 >> SED t-SNE calculation complete after 1.6 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.61 mins total.
+    >> Clustering for Euclidean complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.61 mins total.
+    >> Clustering for Spearman complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.61 mins total.
-    >> Consensus clustering complete after 1.62 mins total.
-    >> MakeClusterList complete after 1.62 mins total.
+    >> Clustering for SED complete after 1.62 mins total.
+    >> Consensus clustering complete after 1.63 mins total.
+    >> MakeClusterList complete after 1.63 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -482,9 +482,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-12-02 23:19:25 UTC"
->> [1] "2025-12-02 23:19:25 UTC"
->> [1] Total time: 0.105324029922485
+>> [1] "2025-12-03 20:32:34 UTC"
+>> [1] "2025-12-03 20:32:35 UTC"
+>> [1] Total time: 0.109137058258057
 ```
 
 ## Saving Data
