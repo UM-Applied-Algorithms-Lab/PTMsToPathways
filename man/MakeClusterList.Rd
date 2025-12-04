@@ -19,14 +19,14 @@ MakeClusterList(
 
 \item{toolong}{A numeric threshold for cluster separation, defaults to 3.5.}
 
-\item{tsne_perplexity}{The perplexity parameter for Rtsne. Please read Rtsne documentation for more information.}
+\item{tsne_perplexity}{The perplexity parameter for \href{https://www.rdocumentation.org/packages/Rtsne/versions/0.17/topics/Rtsne}{Rtsne}.}
 
-\item{tsne_max_iter}{Number of iterations for Rtsne. Please read Rtsne documentation for more information.}
+\item{tsne_max_iter}{Number of iterations for \href{https://www.rdocumentation.org/packages/Rtsne/versions/0.17/topics/Rtsne}{Rtsne}.}
 }
 \value{
 A list with these data structures at the given index:
 \enumerate{
-\item{Clusters in all 3 distance metrices as a list.}
+\item{Clusters in all 3 distance matrices as a list.}
 \item{A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.}
 \item{A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal.}
 }
