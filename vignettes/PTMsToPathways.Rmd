@@ -15,7 +15,7 @@ output:
   word_document:
     toc: true
     toc_depth: '4'
-  VignetteIndexEntry: PTMsToPathways
+  VignetteIndexEntry: {PTMs To Pathways}
   VignetteEncoding: UTF-8
   VignetteEngine: knitr::rmarkdown
 editor_options:
@@ -23,7 +23,7 @@ editor_options:
     wrap: 72
 ---
 
-```{r setup, echo=FALSE}
+```{r setup, echo = FALSE}
 
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -35,6 +35,7 @@ knitr::opts_chunk$set(
   out.width = "100%",
   results = "hold"
 )
+
 ```
 
 This tutorial is
@@ -57,13 +58,13 @@ efficiently.
 You will need to install the devtools package, which can be installed
 with:
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 install.packages("devtools")
 ```
 
 Next, install the package with:
 
-```{r eval=FALSE}
+```{r eval = FALSE}
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 ```
 And load the package:
@@ -113,8 +114,8 @@ R using the following code:
 
 ```{r eval = FALSE, echo = TRUE}
 allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
-                          blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
-                          comment.char = "", stringsAsFactors = F)
+                          blank.lines.skip = T, fill = T, quote = "\"",
+                          dec = ".", comment.char = "", stringsAsFactors = F)
 ```
 
 ## Using Your Own Data
@@ -154,7 +155,8 @@ as clustering together.
 
 ```{r eval = TRUE, echo = TRUE}
 set.seed(88)
-clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
+clusterlist.data <- MakeClusterList(ex_small_ptm_table,
+                                    keeplength = 2, toolong = 3.5)
 ```
 
 The following unpacks the output into the separate objects discussed above:
@@ -225,7 +227,8 @@ Because this step can take a long time to run on larger datasets, the output
 may be saved as an RData object for later use. 
 
 ```{r eval = FALSE, echo = TRUE}
-save.image(file = "filepath/name.RData") # All objects in the environment are saved
+save.image(file = "filepath/name.RData")
+# All objects in the environment are saved
 ```
 
 #### Estimated run-time (for large dataset)
@@ -288,7 +291,8 @@ example output file from GeneMANIA within the package. The following code
 shows how to use this file as input to the function. 
 
 ```{r eval = TRUE, echo = TRUE}
-gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsToPathways")
+gm.results.path <- system.file("extdata", "ex_gm_results.txt",
+                               package = "PTMsToPathways")
 genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
 ```
 
@@ -307,7 +311,8 @@ formats it so that all the PPI edge data frames are in the same format
 for the next step.
 
 ```{r eval = FALSE, echo = TRUE}
-input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt",
+                              package = "PTMsToPathways")
 ```
 
 ```{r eval = FALSE, echo = TRUE}
@@ -368,7 +373,8 @@ similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
 ```{r eval = TRUE, echo = TRUE}
-bioplanet.file <- system.file("extdata", "pathway.csv", package = "PTMsToPathways")
+bioplanet.file <- system.file("extdata", "pathway.csv",
+                              package = "PTMsToPathways")
 ```
 
 ```{r eval = TRUE, echo = TRUE}
@@ -408,5 +414,6 @@ You may also save your entire Global Environment namespace using the
 save.image function as shown below:
 
 ```{r eval = FALSE, echo = TRUE}
-save.image(file = "filepath/name.RData") # All objects in the environment are saved
+save.image(file = "filepath/name.RData")
+# All objects in the environment are saved
 ```

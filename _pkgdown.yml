@@ -18,7 +18,7 @@ navbar:
         - text: "PTMs To Pathways"
           href: articles/PTMsToPathways.html
         - text: "Cytoscape Graphing"
-          href: articles/Cytoscape_Graphing.html
+          href: articles/CytoscapeGraphing.html
 
 articles:
 - title: Articles
@@ -26,5 +26,5 @@ articles:
   contents:
   - RawDataProcessing
   - PTMsToPathways
-  - Cytoscape_Graphing
+  - CytoscapeGraphing
   - CreatingNetworks
