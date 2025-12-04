@@ -42,19 +42,19 @@ MakeClusterList(
 
 - tsne_perplexity:
 
-  The perplexity parameter for Rtsne. Please read Rtsne documentation
-  for more information.
+  The perplexity parameter for
+  [Rtsne](https://www.rdocumentation.org/packages/Rtsne/versions/0.17/topics/Rtsne).
 
 - tsne_max_iter:
 
-  Number of iterations for Rtsne. Please read Rtsne documentation for
-  more information.
+  Number of iterations for
+  [Rtsne](https://www.rdocumentation.org/packages/Rtsne/versions/0.17/topics/Rtsne).
 
 ## Value
 
 A list with these data structures at the given index:
 
-1.  Clusters in all 3 distance metrices as a list.
+1.  Clusters in all 3 distance matrices as a list.
 
 2.  A matrix containing values of 0s and 1s depending on if the PTMs are
     cocluster with other PTMs, rows and columns are unamed.
@@ -74,19 +74,19 @@ Example_Output <- MakeClusterList(ex_tiny_ptm_table) #Run function
 #> Starting correlation calculations and t-SNE.
 #> This may take a few minutes or hours for large data sets.
 #> Spearman correlation calculation complete after 0.25 secs total.
-#> Spearman t-SNE calculation complete after 2 secs total.
-#> Euclidean distance calculation complete after 2 secs total.
-#> Euclidean t-SNE calculation complete after 3.97 secs total.
-#> Combined distance calculation complete after 3.97 secs total.
-#> SED t-SNE calculation complete after 5.84 secs total.
+#> Spearman t-SNE calculation complete after 2.01 secs total.
+#> Euclidean distance calculation complete after 2.01 secs total.
+#> Euclidean t-SNE calculation complete after 3.98 secs total.
+#> Combined distance calculation complete after 3.99 secs total.
+#> SED t-SNE calculation complete after 5.85 secs total.
 
-#> Clustering for Euclidean complete after 6.61 secs total.
+#> Clustering for Euclidean complete after 6.6 secs total.
 
-#> Clustering for Spearman complete after 6.62 secs total.
+#> Clustering for Spearman complete after 6.61 secs total.
 
-#> Clustering for SED complete after 6.62 secs total.
-#> Consensus clustering complete after 6.66 secs total.
-#> MakeClusterList complete after 6.66 secs total.
+#> Clustering for SED complete after 6.61 secs total.
+#> Consensus clustering complete after 6.65 secs total.
+#> MakeClusterList complete after 6.65 secs total.
 Example_Output[[1]][1:3] #Display data
 #> $ConsensusCluster1
 #>  [1] "RNPS1 p Y205"               "EML4 p Y453"               

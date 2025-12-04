@@ -35,11 +35,11 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto">
 <li class="nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
-<li class="nav-item dropdown">
+<li class="active nav-item dropdown">
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
 <li><a class="dropdown-item" href="../articles/RawDataProcessing.html">Raw Data Processing</a></li>
-    <li><a class="dropdown-item" href="../articles/PTMsToPathways.html">PTMs To Pathways</a></li>
+    <li><a class="dropdown-item" href="../articles/CreatingNetworks.html">Creating Networks</a></li>
     <li><a class="dropdown-item" href="../articles/CytoscapeGraphing.html">Cytoscape Graphing</a></li>
   </ul>
 </li>
@@ -307,20 +307,20 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table, <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.1</span> secs total.</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.81</span> secs total.</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.85</span> secs total.</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.14</span> mins total.</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.14</span> mins total.</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.6</span> mins total.</span></code></pre></div>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.3</span> secs total.</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.97</span> secs total.</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.01</span> secs total.</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.61</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-9-1.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.61 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.62 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-2.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.61 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.62 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-3.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.61 mins total.
-&gt;&gt; Consensus clustering complete after 1.62 mins total.
-&gt;&gt; MakeClusterList complete after 1.62 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.62 mins total.
+&gt;&gt; Consensus clustering complete after 1.63 mins total.
+&gt;&gt; MakeClusterList complete after 1.63 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -550,9 +550,9 @@ pathway.crosstalk.network.</p>
 <span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
 <span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PCN"</span></span>
-<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 21:15:25 UTC"</span></span>
-<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 21:15:25 UTC"</span></span>
-<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.108637094497681</span></span></code></pre></div>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 21:52:19 UTC"</span></span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 21:52:19 UTC"</span></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.107452392578125</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
