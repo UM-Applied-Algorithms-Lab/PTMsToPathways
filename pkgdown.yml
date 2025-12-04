@@ -3,10 +3,10 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   CreatingNetworks: CreatingNetworks.html
-  Cytoscape_Graphing: Cytoscape_Graphing.html
+  CytoscapeGraphing: CytoscapeGraphing.html
   PTMsToPathways: PTMsToPathways.html
   RawDataProcessing: RawDataProcessing.html
-last_built: 2025-12-04T21:00Z
+last_built: 2025-12-04T21:11Z
 urls:
   reference: https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference
   article: https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles

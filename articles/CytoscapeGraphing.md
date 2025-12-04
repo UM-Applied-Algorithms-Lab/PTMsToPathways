@@ -1,0 +1,339 @@
+# Cytoscape Graphing
+
+## 
+
+## Graphing Networks in Cytoscape
+
+### Top-down approach starting with pathways
+
+It is possible to graph the entire PCN, CFN, and CCCNs in their
+entirety, though very large graphs take a long time to graph. One
+approach to navigating these data structures is to select nodes from the
+large networks in Cytoscape (or in R using
+[`RCy3::selectNodes`](https://rdrr.io/pkg/RCy3/man/selectNodes.html))
+and select nearest neighbors or shortest paths and create a subnetwork
+in a new window (see the [Cytoscape
+Manual](https://manual.cytoscape.org/en/stable/)).
+
+The alternative approach described below is to identify pathways, genes,
+and PTMs of interest in the R data objects, then make smaller, more
+interpretable graphs in Cytoscape using RCy3.
+
+For example, we will find names of all pathways in Bioplanet that
+contain EGFR. The data object `pathways.list` is a list, where the name
+of the list element is the name of a Bioplanet pathway and each element
+is a character vector of the genes in that pathway. Then we want to find
+interactions between the pathway “Transmembrane transport of small
+molecules” and those pathways. The utility functions used below are in
+CytoscapeGraphing.R
+
+``` r
+egfr_pathways <- names(pathways_list)[sapply(1:length(pathways_list), function(x)
+  {"EGFR" %in% pathways_list[[x]]})]
+
+length(egfr_pathways) #83
+
+egfr_transporter.pcn <- filter.edges.between(
+  "Transmembrane transport of small molecules",
+  egfr_pathways, PCNedgelist)
+
+egfr_transporter_pcn.cy <- filter.edges.between(
+  "Transmembrane transport of small molecules",
+  egfr_pathways, pathway.crosstalk.network)
+
+head(egfr_transporter.pcn)
+```
+
+These two versions of the PCN show cluster evidence and Jaccard
+smilarity in adjacent columns (the first case) or as distinct edges (the
+second case, which can be used to plot this network in cytoscape).
+
+``` r
+# Graph PCN
+pcn.graph.1 <- cytoscape.graph.PCN.pathways(
+  PCN = egfr_transporter_pcn.cy,
+  net.name = "EGFR signaling and transmembrane transporters",
+  Jaccard.edges = TRUE)
+```
+
+Let’s zero in on interactions between proteins in the two pathways
+“EGF/EGFR signaling pathway” and “Transmembrane transport of small
+molecules” because they have no genes in common, yet the cluster
+evidence for their interaction is strong. First we extract a network of
+interactions between the genes in the two pathways. Then we generate a
+node file for cytoscape. In the following case we include the data
+extracted from the ptmtable. This is optional, useful if node size and
+color is used later to indicate values in data.
+
+``` r
+egfr_transporter.cfn <- filter.edges.0(c(
+  pathways_list[["EGF/EGFR signaling pathway"]],
+  pathways_list[["Transmembrane transport of small molecules"]]), cfn)
+
+egfr_transporter.nodes <- make.cytoscape.node.file(
+  egfr_transporter.cfn, funckey, ptmtable, include.gene.data = TRUE) 
+```
+
+The function GraphCfn creates a graph using the cluster filtered network
+in the Cytoscape app. When graphed, Cytoscape provides an interactive
+interface to view the data. This function requires the edge list file
+(egfr_transporter.cfn in the example), and node data file
+(egfr_transporter.nodes).
+
+#### Generating the graph and setting node size and color
+
+``` r
+GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes,
+         Network.title = "CFN", Network.collection = "PTMsToPathways")
+
+# Choose a ratio data column to show which proteins' PTMs were inhibited by a drug
+setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
+
+# There are a lot of edges! To simplify the graph, use the mergeEdges() function.
+# This can be done to the entire cfn:
+cfn.merged <- mergeEdges(cfn)
+
+# Or just to the cfn made above:
+egfr_transporter.cfn.merged <- mergeEdges(egfr_transporter.cfn)
+
+# Graph to compare:
+GraphCfn(cfn.edges = egfr_transporter.cfn.merged,
+         cfn.nodes = egfr_transporter.nodes,  Network.title = "CFN",
+         Network.collection = "PTMsToPathways")
+
+# Choose a ratio data column to show which proteins' PTMs were inhibited by a drug
+setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
+
+# Note that within Cytoscape you can change the column for node size and color
+# (two separate tings) in the "Styles" tab
+
+head(egfr_transporter.cfn.merged)
+```
+
+#### Asking questions about signaling pathways that connect proteins
+
+Another example of how to use the network is to ask, what are the paths
+between two nodes (two proteins)?. We use the function
+connectNodes.all() to identify all shortest paths between two nodes.
+
+Having identified the pathways, let’s also zoom in further on PTMs to
+examine which PTMs co-cluster, as indicated by yellow edges between
+them.
+
+``` r
+sp1 <- connectNodes.all(c("FYN", 'MET'), ig.graph=NULL,
+                        edgefile = cfn.merged, newgraph = TRUE) #. ***
+
+# To include co-clustered PTMs in the network an extra step is necessary:
+sp1_plus <- get.co.clustered.ptms(sp1)
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, funckey, ptmtable,
+                                           include.gene.data = TRUE,
+                                           include.coclustered.PTMs = TRUE) 
+
+# Now, graph in cytoscape
+GraphCfn(cfn.edges = sp1_plus, cfn.nodes = sp1_plus.nodes,
+         Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
+
+# Choose a ratio data column to show which proteins' PTMs were inhibited by a drug
+setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
+
+head(sp1_plus)
+```
+
+#### Bottom-up approach to investigate how dasatinib affects proteins invovled in focal adhesion
+
+Dasatinib exhibits strong binding and inhibitory effects on multiple
+focal adhesion-associated genes from the BioPlanet list:
+
+• SRC (proto-oncogene tyrosine-protein kinase Src)
+
+• FYN (tyrosine-protein kinase Fyn)
+
+• EGFR (epidermal growth factor receptor)
+
+• ERBB2 (receptor tyrosine-protein kinase erbB-2)
+
+All these genes are directly implicated in focal adhesion signaling
+regulation. We hypothesize that ptms on proteins involved in focal
+adhesion will be downregulated by dasatinib.
+
+``` r
+pt.sub <- ptmtable[, grep("DasatinibRatio", names (ptmtable))]
+pt.sub$Sum.Dasat <- rowSums(pt.sub, na.rm = TRUE)
+pt.sub <- pt.sub[order(pt.sub$Sum.Dasat, decreasing = FALSE), ]
+
+pt.sub$Gene.Name <- sapply(rownames(pt.sub), function(x){
+  unlist(strsplit(x, " ",  fixed=TRUE))[1]})
+
+fa.genes <- pathways.list[["Focal adhesion"]]
+pt.sub.fa <- pt.sub[pt.sub$Gene.Name %in% fa.genes,]
+pt.sub.fa.topz <- pt.sub.fa[pt.sub.fa$Sum.Dasat < -2,]
+ptms = rownames(pt.sub.fa.topz)
+
+# Employ a helper function to derive a CFN starting with a list of PTMs
+cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
+                                           include.gene.data = TRUE,
+                                           include.coclustered.PTMs = TRUE)
+
+# Let's see what it looks like.
+GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
+         Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
+
+# Choose a ratio data column to show which proteins' PTMs were inhibited by a dasatinib
+setNodeColorToRatios(plotcol="H366_DasatinibRatio")
+setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
+
+# Note that within Cytoscape you can change the column for node size and color
+# (two separate things) in the "Styles" tab
+```
+
+#### Node and Edge Key
+
+We adopt the following standards for visualizing nodes and edges in
+Cytoscape. The border and shape of the node represent the type of
+protein this gene is, based on the function key (funckey).
+
+Edges represent different types of interactions from PPI databases,
+correlations, or links between proteins and their PTMs. The thicker the
+edge is, the stronger the interaction weight.
+
+Node Size:
+
+- Greater the node size, larger the absolute value of the amount or
+  ratio
+
+Node Color:
+
+- Blue Node
+  - Negative amount or ratio  
+- Yellow Node
+  - Positive amount or ratio  
+- Green Node
+  - Approximately zero amount or ratio
+
+Node Shapes:
+
+- “ELLIPSE”
+  - unknown  
+- “ROUND_RECTANGLE”
+  - receptor tyrosine kinase  
+- “VEE”
+  - SH2 protein  
+  - SH2-SH3 protein  
+- “TRIANGLE”
+  - SH3 protein  
+- “HEXAGON”
+  - tyrosine kinase  
+- “DIAMOND”
+  - SRC-family kinase  
+- “OCTAGON”
+  - kinase  
+  - phosphatase  
+- “PARALLELOGRAM”
+  - transcription factor  
+- “RECTANGLE”
+  - RNA binding protein
+
+Node Border Colors:
+
+- Orange
+  - deacetylase  
+  - acetyltransferase  
+- Blue
+  - demethylase  
+  - methyltransferase  
+- Royal Purple
+  - membrane protein  
+- Red
+  - kinase  
+  - tyrosine kinase  
+  - SRC-family kinase  
+- Yellow
+  - phosphatase  
+  - tyrosine phosphatase  
+- Lilac
+  - G protein-coupled receptor  
+  - receptor tyrosine kinase  
+- Grey
+  - default
+
+Edge Colors:
+
+- Red
+  - Phosphorylation  
+  - pp  
+  - controls-phosphorylation-of  
+- Bright Magenta
+  - controls-expression-of  
+- Dull Magenta
+  - controls-transport-of  
+- Purple
+  - controls-state-change-of  
+- Blood Orange
+  - Acetylation  
+- Lime Green
+  - Physical interactions  
+- Green
+  - BioPlex  
+- Dull Green
+  - in-complex-with  
+- Seafoam Green
+  - experiments  
+  - experiments_transferred  
+- Cyan
+  - database  
+  - database_transferred  
+- Teal
+  - Pathway  
+  - Predicted  
+- Dark Turquoise
+  - Genetic interactions  
+- Yellow-Orange
+  - correlation  
+- Royal Blue
+  - negative correlation  
+- Bright Yellow
+  - positive correlation  
+- Grey
+  - combined_amount or ratio  
+- Dark Grey
+  - merged  
+- Light Grey
+  - intersect  
+- Black
+  - peptide  
+- Orange
+  - homology  
+- Dull Orange
+  - Shared protein domains  
+- White
+  - Default
+
+Arrow Types:
+
+- Arrow
+  - Phosphorylation  
+  - pp  
+  - controls-phosphorylation-of  
+  - controls-expression-of  
+  - controls-transport-of  
+  - controls-state-change-of  
+  - Acetylation  
+- No Arrow
+  - Default
+
+  These properties can be visualized in Cytoscape using the
+  NodeEdgeKey() function:
+
+``` r
+NodeEdgeKey()
+
+setEdgeLineWidthMapping('Weight')
+
+# The edges have different weights, large weights can be too thick and
+# smaller weights can result in very thin lines.
+# Edge widths can be adjusted using the following function.
+
+setEdgeWidths(ffactor = 6, log= FALSE)
+```
