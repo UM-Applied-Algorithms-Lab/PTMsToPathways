@@ -68,7 +68,7 @@ devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 ```
 
 And load the package:
-```{r eval = FALSE, echo = TRUE}
+```{r eval = TRUE, echo = TRUE}
 library(PTMsToPathways)
 ```
 
