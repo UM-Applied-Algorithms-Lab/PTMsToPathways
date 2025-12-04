@@ -265,8 +265,9 @@ dimensions and a snippet of the dataset:</p>
 <p>If you have downloaded the larger dataset locally, you can read it
 into R using the following code:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">allptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"AlldataPTMs.txt"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>, header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                          blank.lines.skip <span class="op">=</span> <span class="cn">T</span>, fill <span class="op">=</span> <span class="cn">T</span>, quote <span class="op">=</span> <span class="st">"\""</span>, dec <span class="op">=</span> <span class="st">"."</span>,</span>
+<code class="sourceCode R"><span><span class="va">allptmtable</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="st">"AlldataPTMs.txt"</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, skip <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>                          header <span class="op">=</span> <span class="cn">TRUE</span>, blank.lines.skip <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>                          fill <span class="op">=</span> <span class="cn">T</span>, quote <span class="op">=</span> <span class="st">"\""</span>, dec <span class="op">=</span> <span class="st">"."</span>,</span>
 <span>                          comment.char <span class="op">=</span> <span class="st">""</span>, stringsAsFactors <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="using-your-own-data">Using Your Own Data<a class="anchor" aria-label="anchor" href="#using-your-own-data"></a>
@@ -304,23 +305,24 @@ output. The <code>toolong</code> parameter defines the maximum distance
 between two PTMs for them to be considered as clustering together.</p>
 <p><code>MakeClusterList</code> can be run like so:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">88</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table, <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
-<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.3</span> secs total.</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.97</span> secs total.</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.01</span> secs total.</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.61</span> mins total.</span></code></pre></div>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>clusterlist.data <span class="ot">&lt;-</span> <span class="fu">MakeClusterList</span>(ex_small_ptm_table,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                    <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.08</span> secs total.</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.72</span> secs total.</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.77</span> secs total.</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.14</span> mins total.</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.14</span> mins total.</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.59</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-9-1.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.62 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.61 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-2.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.62 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.61 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-3.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.62 mins total.
-&gt;&gt; Consensus clustering complete after 1.63 mins total.
-&gt;&gt; MakeClusterList complete after 1.63 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.61 mins total.
+&gt;&gt; Consensus clustering complete after 1.62 mins total.
+&gt;&gt; MakeClusterList complete after 1.62 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -376,14 +378,15 @@ MakeCorrelationNetwork function groups the PTM correlation matrices by
 PTMs that co-cluster together to create a PTM CCCN. It then defines a
 relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of the PTM correlations serving as edge weights.</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix, ptm.correlation.matrix)</span>
-<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.16</span> secs total.</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.88</span> secs total.</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
-<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
-<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
+<span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
+<span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.16</span> secs total.</span>
+<span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.87</span> secs total.</span>
+<span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
+<span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
+<span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
 <p>We can view a portion of the PTM CCCN edges:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a>ptm.cccn.edges[<span class="dv">18</span><span class="sc">:</span><span class="dv">22</span>,]</span>
 <span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>           source        target     Weight          interaction</span>
@@ -407,7 +410,8 @@ to map to external PPI databases in the next step:</p>
 <p>Because this step can take a long time to run on larger datasets, the
 output may be saved as an RData object for later use.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span> <span class="co"># All objects in the environment are saved</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span>
+<span><span class="co"># All objects in the environment are saved</span></span></code></pre></div>
 <div class="section level5">
 <h5 id="estimated-run-time-for-large-dataset-1">Estimated run-time (for large dataset)<a class="anchor" aria-label="anchor" href="#estimated-run-time-for-large-dataset-1"></a>
 </h5>
@@ -471,7 +475,8 @@ output file produced by GeneMANIA itself. For example, we have saved
 within the package. The following code shows how to use this file as
 input to the function.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gm.results.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ex_gm_results.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">gm.results.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"ex_gm_results.txt"</span>,</span>
+<span>                               package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetGeneMANIA.edges.html">GetGeneMANIA.edges</a></span><span class="op">(</span><span class="va">gm.results.path</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
 <p>We can see an example of the GeneMANIA edges below:</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a>genemania.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
@@ -491,7 +496,8 @@ download the data. The <code>GetKinsub.edges</code> function reads this
 downloaded data in and formats it so that all the PPI edge data frames
 are in the same format for the next step.</p>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">input.filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Kinase_Substrate_Dataset.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">input.filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Kinase_Substrate_Dataset.txt"</span>,</span>
+<span>                              package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetKinsub.edges.html">GetKinsub.edges</a></span><span class="op">(</span><span class="va">input.filename</span>,</span>
 <span>                                  <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
@@ -513,8 +519,10 @@ interacting proteins whose genes are within the co-cluster correlation
 network created in step 2.</p>
 <p>We first run the function:</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>, <span class="va">stringdb.edges</span>,</span>
-<span>                                            <span class="va">genemania.edges</span>, kinsub.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>,</span>
+<span>                                            <span class="va">stringdb.edges</span>,</span>
+<span>                                            <span class="va">genemania.edges</span>,</span>
+<span>                                            kinsub.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>                                            db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And then unpack the outputs into separate variables:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
@@ -543,16 +551,17 @@ For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bioplanet.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"pathway.csv"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">bioplanet.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"pathway.csv"</span>,</span>
+<span>                              package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>                                    <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>                                         <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
 <span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PCN"</span></span>
-<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 21:52:19 UTC"</span></span>
-<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 21:52:19 UTC"</span></span>
-<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.107452392578125</span></span></code></pre></div>
+<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 22:16:58 UTC"</span></span>
+<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-04 22:16:58 UTC"</span></span>
+<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.113279104232788</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
@@ -575,7 +584,8 @@ than an .rda</p>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
 <div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span> <span class="co"># All objects in the environment are saved</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span>
+<span><span class="co"># All objects in the environment are saved</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

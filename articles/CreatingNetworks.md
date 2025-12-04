@@ -131,8 +131,9 @@ If you have downloaded the larger dataset locally, you can read it into
 R using the following code:
 
 ``` r
-allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0, header = TRUE,
-                          blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
+allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
+                          header = TRUE, blank.lines.skip = T,
+                          fill = T, quote = "\"", dec = ".",
                           comment.char = "", stringsAsFactors = F)
 ```
 
@@ -172,30 +173,31 @@ considered as clustering together.
 
 ``` r
 set.seed(88)
-clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
+clusterlist.data <- MakeClusterList(ex_small_ptm_table,
+                                    keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.3 secs total.
->> Spearman t-SNE calculation complete after 41.97 secs total.
->> Euclidean distance calculation complete after 42.01 secs total.
->> Euclidean t-SNE calculation complete after 1.15 mins total.
->> Combined distance calculation complete after 1.15 mins total.
->> SED t-SNE calculation complete after 1.61 mins total.
+>> Spearman correlation calculation complete after 13.08 secs total.
+>> Spearman t-SNE calculation complete after 41.72 secs total.
+>> Euclidean distance calculation complete after 41.77 secs total.
+>> Euclidean t-SNE calculation complete after 1.14 mins total.
+>> Combined distance calculation complete after 1.14 mins total.
+>> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.62 mins total.
+    >> Clustering for Euclidean complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.62 mins total.
+    >> Clustering for Spearman complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.62 mins total.
-    >> Consensus clustering complete after 1.63 mins total.
-    >> MakeClusterList complete after 1.63 mins total.
+    >> Clustering for SED complete after 1.61 mins total.
+    >> Consensus clustering complete after 1.62 mins total.
+    >> MakeClusterList complete after 1.62 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -265,11 +267,12 @@ relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of the PTM correlations serving as edge weights.
 
 ``` r
-CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
+CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
+                                    ptm.correlation.matrix)
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.16 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 1.88 secs total.
+>> Gene CCCN complete after 1.87 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -311,7 +314,8 @@ Because this step can take a long time to run on larger datasets, the
 output may be saved as an RData object for later use.
 
 ``` r
-save.image(file = "filepath/name.RData") # All objects in the environment are saved
+save.image(file = "filepath/name.RData")
+# All objects in the environment are saved
 ```
 
 ##### Estimated run-time (for large dataset)
@@ -385,7 +389,8 @@ package. The following code shows how to use this file as input to the
 function.
 
 ``` r
-gm.results.path <- system.file("extdata", "ex_gm_results.txt", package = "PTMsToPathways")
+gm.results.path <- system.file("extdata", "ex_gm_results.txt",
+                               package = "PTMsToPathways")
 genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
 ```
 
@@ -411,7 +416,8 @@ it so that all the PPI edge data frames are in the same format for the
 next step.
 
 ``` r
-input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt",
+                              package = "PTMsToPathways")
 ```
 
 ``` r
@@ -436,8 +442,10 @@ network created in step 2.
 We first run the function:
 
 ``` r
-network.list <- BuildClusterFilteredNetwork(gene.cccn.edges, stringdb.edges,
-                                            genemania.edges, kinsub.edges = NULL,
+network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
+                                            stringdb.edges,
+                                            genemania.edges,
+                                            kinsub.edges = NULL,
                                             db.filepaths = c())
 ```
 
@@ -474,19 +482,20 @@ similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
 ``` r
-bioplanet.file <- system.file("extdata", "pathway.csv", package = "PTMsToPathways")
+bioplanet.file <- system.file("extdata", "pathway.csv",
+                              package = "PTMsToPathways")
 ```
 
 ``` r
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
-                                    createfile = FALSE)
+                                         createfile = FALSE)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-12-04 21:52:19 UTC"
->> [1] "2025-12-04 21:52:19 UTC"
->> [1] Total time: 0.107452392578125
+>> [1] "2025-12-04 22:16:58 UTC"
+>> [1] "2025-12-04 22:16:58 UTC"
+>> [1] Total time: 0.113279104232788
 ```
 
 ## Saving Data
@@ -520,5 +529,6 @@ You may also save your entire Global Environment namespace using the
 save.image function as shown below:
 
 ``` r
-save.image(file = "filepath/name.RData") # All objects in the environment are saved
+save.image(file = "filepath/name.RData")
+# All objects in the environment are saved
 ```
