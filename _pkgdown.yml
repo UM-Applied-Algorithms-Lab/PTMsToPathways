@@ -15,8 +15,8 @@ navbar:
       menu:
         - text: "Raw Data Processing"
           href: articles/RawDataProcessing.html
-        - text: "PTMs To Pathways"
-          href: articles/PTMsToPathways.html
+        - text: "Creating Networks"
+          href: articles/CreatingNetworks.html
         - text: "Cytoscape Graphing"
           href: articles/CytoscapeGraphing.html
 
@@ -25,6 +25,5 @@ articles:
   navbar: ~
   contents:
   - RawDataProcessing
-  - PTMsToPathways
-  - CytoscapeGraphing
   - CreatingNetworks
+  - CytoscapeGraphing
