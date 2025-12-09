@@ -519,7 +519,7 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
 #' @export
 mergeEdges <- function(edgefile) {
   # Define edge type priorities for directed edges
-  directed_priority <- c("pp", "controls-phosphorylation-of", "controls-expression-of",
+  directed_priority <- c("psp", "controls-phosphorylation-of", "controls-expression-of",
                          "controls-transport-of", "controls-state-change-of",
                          "PHOSPHORYLATION", "METHYLATION", "ACETYLATION", "catalysis-precedes")
   undirected <- c("Physical interactions", "BioPlex", "in-complex-with",  'experiments',
@@ -662,7 +662,7 @@ setCorrEdgeAppearance <- function() {
   RCy3::setEdgeLineWidthMapping('Width', mapping.type = 'p', style.name = 'default')
   RCy3::setEdgeSelectionColorDefault("#FF69B4")  # hotpink
   edgecolors <- gplots::col2hex(c("red", "red", "red", "magenta", "violet", "purple", "darkorange1", "green", "green2", "green3", "aquamarine2", "aquamarine2", "cyan","cyan",  "turquoise2", "cyan2", "lightseagreen", "gold",  "blue", "yellow", "slategrey", "darkslategrey", "grey", "black", "orange", "orange2"))
-  edgeTypes <- c("PHOSPHORYLATION", "pp", "controls-phosphorylation-of", "controls-expression-of", "controls-transport-of",  "controls-state-change-of", "ACETYLATION", "Physical Interactions", "BioPlex", "in-complex-with",  'experimental', 'experimental_transferred',  'database', 'database_transferred',   "Pathway", "Predicted", "Genetic interactions", "correlation", "negative correlation", "positive correlation",  'combined_score', "merged" , "intersect", "peptide", 'homology', "Shared protein domains")
+  edgeTypes <- c("PHOSPHORYLATION", "psp", "controls-phosphorylation-of", "controls-expression-of", "controls-transport-of",  "controls-state-change-of", "ACETYLATION", "Physical Interactions", "BioPlex", "in-complex-with",  'experimental', 'experimental_transferred',  'database', 'database_transferred',   "Pathway", "Predicted", "Genetic interactions", "correlation", "negative correlation", "positive correlation",  'combined_score', "merged" , "intersect", "peptide", 'homology', "Shared protein domains")
   myarrows <- c ('Arrow', 'Arrow', 'Arrow', 'Arrow', 'Arrow', 'Arrow', "Arrow", 'None', 'None', 'None', 'None','None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None', 'None')
   edgevalues2 <- RCy3::getTableColumns('edge',c('interaction','SUID'))
   get_main_interaction <- function(intchar) {
@@ -805,7 +805,7 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   )
   n_nodes <- length(node_types)
   edge_types <- c(
-    "PHOSPHORYLATION", "pp", "controls-phosphorylation-of", "controls-expression-of", "controls-transport-of",
+    "PHOSPHORYLATION", "psp", "controls-phosphorylation-of", "controls-expression-of", "controls-transport-of",
     "controls-state-change-of", "ACETYLATION", "Physical Interactions", "BioPlex", "in-complex-with",
     "experimental", "experimental_transferred", "database", "database_transferred", "Pathway", "Predicted",
     "Genetic interactions", "correlation", "negative correlation", "positive correlation", "combined_score",
@@ -824,7 +824,7 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   edge_targets <- character(n_edges)
   for(i in seq_along(edge_types)) {
     et <- edge_types[i]
-    if(et == "PHOSPHORYLATION" || et == "pp") {
+    if(et == "PHOSPHORYLATION" || et == "psp") {
       edge_sources[i] <- kinase_node
       edge_targets[i] <- non_kinase_targets[i]
     } else {
