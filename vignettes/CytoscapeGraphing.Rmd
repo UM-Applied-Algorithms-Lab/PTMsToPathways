@@ -62,16 +62,22 @@ genes in that pathway. Then we want to find interactions between the pathway
 "Transmembrane transport of small molecules" and those pathways. The utility
 functions used below are in CytoscapeGraphing.R
 
-```{r eval = FALSE}
-egfr_pathways <- names(pathways_list)[sapply(1:length(pathways_list), function(x)
-  {"EGFR" %in% pathways_list[[x]]})]
+```{r eval = TRUE}
+egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
+  {"EGFR" %in% ex_pathways_list[[x]]})]
+```
 
-length(egfr_pathways) #83
-
+We expect 83 pathways that contain EGFR, so let's check:
+```{r eval = TRUE}  
+length(egfr_pathways)
+```
+```{r eval = TRUE}
 egfr_transporter.pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
-  egfr_pathways, PCNedgelist)
+  egfr_pathways, ex_PCNedgelist)
+ ```
 
+```{r eval = FALSE}
 egfr_transporter_pcn.cy <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, pathway.crosstalk.network)
@@ -79,7 +85,9 @@ egfr_transporter_pcn.cy <- filter.edges.between(
 head(egfr_transporter.pcn)
 ```
 
-These two versions of the PCN show cluster evidence and Jaccard smilarity in adjacent columns (the first case) or as distinct edges (the second case, which can be used to plot this network in cytoscape).
+These two versions of the PCN show cluster evidence and Jaccard smilarity in
+adjacent columns (the first case) or as distinct edges (the second case, which
+can be used to plot this network in cytoscape).
 
 ```{r eval = FALSE}
 # Graph PCN
