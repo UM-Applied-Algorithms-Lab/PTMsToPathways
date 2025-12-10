@@ -546,7 +546,7 @@ mergeEdges <- function(edgefile) {
   # --- DIRECTED EDGES ---
   dir.edges <- edgefile[edgefile$interaction %in% directed_priority, ]
   # For each directed edge (source, target), choose the top-priority interaction
-  dir.merged <- ddply(dir.edges, .(source, target), function(x) {
+  dir.merged <- plyr::ddply(dir.edges, c("source", "target"), function(x) {
     ints <- as.character(x$interaction)
     present <- intersect(directed_priority, ints)
     best <- if (length(present) > 0) present[1] else ints[1]

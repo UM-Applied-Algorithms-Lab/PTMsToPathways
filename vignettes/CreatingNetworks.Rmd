@@ -343,7 +343,7 @@ We first run the function:
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
                                             stringdb.edges,
                                             genemania.edges,
-                                            kinsub.edges = NULL,
+                                            kinsub.edges,
                                             db.filepaths = c())
 ```
 
