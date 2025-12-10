@@ -28,9 +28,6 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' @title Get STRINGdb PPI data
 #'
 #' @description This function finds protein-protein interaction weights by consulting utilizing the STRINGdb database.
-#' The package STRINGdb is required for this function. To download, run:
-#' - if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-#' - BiocManager::install("STRINGdb")
 #'
 #' @details The full example takes ~10 minutes to load, so it has been commented out and the results are displayed.
 #'
