@@ -68,7 +68,7 @@ devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 ```
 
 And load the package:
-```{r eval = TRUE, echo = TRUE}
+```{r eval = FALSE, echo = TRUE}
 library(PTMsToPathways)
 ```
 
@@ -252,7 +252,7 @@ how to retrieve data from each of them below.
 ### 1. STRINGdb
 
 [STRINGdb](https://string-db.org/) can be queried directly from R using the `STRINGdb` package.
-We wrap this query in a function called `GetSTRINGdb`, which queries only for the genes found in clusters 
+We wrap this query in a function called `GetSTRINGdb.edges`, which queries only for the genes found in clusters 
 in previous steps, and filters the returned by interaction type so only
 `experimental`, `database`, `experimental_transferred`, and
 `database_transferred` are retained. This ensures that only interactions
