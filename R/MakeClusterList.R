@@ -11,11 +11,11 @@
 #' @param ptmtable A dataset for post-translational modifications. Formatted with row's names containing PTM names. The column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
 #' @param keeplength Only keep clusters of ptms whose size is larger than this parameter. (I.e keeplength = 2 then keep ("AARS", "ARMS", "AGRS") but not ("AARS", "ARMS")); default is 2
 #' @param toolong A numeric threshold for cluster separation, defaults to 3.5.
-#' @param tsne_perplexity The perplexity parameter for Rtsne. Please read Rtsne documentation for more information.
-#' @param tsne_max_iter Number of iterations for Rtsne. Please read Rtsne documentation for more information.
+#' @param tsne_perplexity The perplexity parameter for [Rtsne](https://www.rdocumentation.org/packages/Rtsne/versions/0.17/topics/Rtsne).
+#' @param tsne_max_iter Number of iterations for [Rtsne](https://www.rdocumentation.org/packages/Rtsne/versions/0.17/topics/Rtsne).
 #' @return A list with these data structures at the given index:
 #' \enumerate{
-#' \item{Clusters in all 3 distance metrices as a list.}
+#' \item{Clusters in all 3 distance matrices as a list.}
 #' \item{A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.}
 #' \item{A data frame showing the correlation between ptms (as the rows and the columns) with NAs placed along the diagonal.}
 #' }

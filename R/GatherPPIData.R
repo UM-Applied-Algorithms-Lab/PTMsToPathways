@@ -167,7 +167,7 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
 #' @return An edgelist filtered by the gene cccn and nodenames
 #' @export
 GetKinsub.edges <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
-  # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt"
+  # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt" # from PhosphoSitePlus®, www.phosphosite.org
   kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
   kinasesubstrateraw -> kinsub
@@ -185,7 +185,7 @@ GetKinsub.edges <- function (kinasesubstrate.filename = "Kinase_Substrate_Datase
   nodenames <- gene.cccn.nodes
 
   kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
-  kinsub.edges$interaction <- "pp"
+  kinsub.edges$interaction <- "psp"
   kinsub.edges$Weight <- 1
   # We all know that many kinases can phosphorylate themselves, but this clutters the graph, so
   kinsub.edges <- remove.autophos(kinsub.edges)

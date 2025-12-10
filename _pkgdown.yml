@@ -25,5 +25,5 @@ articles:
   navbar: ~
   contents:
   - RawDataProcessing
-  - CytoscapeGraphing
   - CreatingNetworks
+  - CytoscapeGraphing
