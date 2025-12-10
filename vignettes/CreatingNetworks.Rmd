@@ -354,6 +354,11 @@ combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
 
+We can view a portion of the CFN below:
+```{r eval = TRUE, echo = TRUE}
+cfn[1:5,]
+```
+
 To reduce clutter on graphs, the CFN edges can be merged. This collapses two or more edges between two nodes into a single edge, combining edge names:
 
 ```{r eval = TRUE, echo = TRUE}
@@ -388,6 +393,15 @@ PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+```
+
+And we can see some of the pathway crosstalk network edges below:
+```{r eval = FALSE, echo = TRUE}
+pathway.crosstalk.network[1:5,]
+```
+```{r eval = TRUE, echo = TRUE}
+dat <- pathway.crosstalk.network[1:5,]
+knitr::kable(dat, align = 'l', digits = 2)
 ```
 
 # Saving Data
