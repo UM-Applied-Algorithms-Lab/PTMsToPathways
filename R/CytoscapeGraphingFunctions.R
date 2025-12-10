@@ -534,7 +534,7 @@ mergeEdges <- function(edgefile) {
   undir.edges[, 1:2] <- t(apply(undir.edges[, 1:2], 1, function(x) sort(x)))
 
   # Merge by source/target and make informative label
-  undir.merged <- ddply(undir.edges, .(source, target), function(x) {
+  undir.merged <- plyr::ddply(undir.edges, .(source, target), function(x) {
     data.frame(
       Weight = max(x$Weight, na.rm = TRUE),
       interaction = paste(sort(unique(as.character(x$interaction))), collapse = " | "),
