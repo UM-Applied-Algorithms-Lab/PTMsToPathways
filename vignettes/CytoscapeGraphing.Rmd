@@ -62,6 +62,10 @@ genes in that pathway. Then we want to find interactions between the pathway
 "Transmembrane transport of small molecules" and those pathways. The utility
 functions used below are in CytoscapeGraphing.R
 
+```{r eval = TRUE, echo = FALSE}
+library(PTMsToPathways)
+```
+
 ```{r eval = TRUE}
 egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
   {"EGFR" %in% ex_pathways_list[[x]]})]
@@ -71,11 +75,12 @@ We expect 83 pathways that contain EGFR, so let's check:
 ```{r eval = TRUE}  
 length(egfr_pathways)
 ```
+
 ```{r eval = TRUE}
 egfr_transporter.pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, ex_PCNedgelist)
- ```
+```
 
 ```{r eval = FALSE}
 egfr_transporter_pcn.cy <- filter.edges.between(
