@@ -309,20 +309,20 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                    <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">12.81</span> secs total.</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.45</span> secs total.</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.49</span> secs total.</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.14</span> mins total.</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.14</span> mins total.</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.59</span> mins total.</span></code></pre></div>
-<p><img src="plots/unnamed-chunk-9-1.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.6 mins total.</code></pre>
-<p><img src="plots/unnamed-chunk-9-2.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.6 mins total.</code></pre>
-<p><img src="plots/unnamed-chunk-9-3.png" class="r-plt" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.61 mins total.
-&gt;&gt; Consensus clustering complete after 1.61 mins total.
-&gt;&gt; MakeClusterList complete after 1.61 mins total.</code></pre>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.09</span> secs total.</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.05</span> secs total.</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.09</span> secs total.</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.61</span> mins total.</span></code></pre></div>
+<p><img src="plots/unnamed-chunk-9-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.62 mins total.</code></pre>
+<p><img src="plots/unnamed-chunk-9-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.63 mins total.</code></pre>
+<p><img src="plots/unnamed-chunk-9-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.63 mins total.
+&gt;&gt; Consensus clustering complete after 1.63 mins total.
+&gt;&gt; MakeClusterList complete after 1.63 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -381,7 +381,7 @@ with sum of the PTM correlations serving as edge weights.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.16</span> secs total.</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.04</span> secs total.</span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
 <span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">1.85</span> secs total.</span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
@@ -434,9 +434,9 @@ to retrieve data from each of them below.</p>
 </h4>
 <p><a href="https://string-db.org/" class="external-link">STRINGdb</a> can be queried directly
 from R using the <code>STRINGdb</code> package. We wrap this query in a
-function called <code>GetSTRINGdb</code>, which queries only for the
-genes found in clusters in previous steps, and filters the returned by
-interaction type so only <code>experimental</code>,
+function called <code>GetSTRINGdb.edges</code>, which queries only for
+the genes found in clusters in previous steps, and filters the returned
+by interaction type so only <code>experimental</code>,
 <code>database</code>, <code>experimental_transferred</code>, and
 <code>database_transferred</code> are retained. This ensures that only
 interactions with more substantial evidence are used in this
@@ -522,16 +522,24 @@ network created in step 2.</p>
 <code class="sourceCode R"><span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>,</span>
 <span>                                            <span class="va">stringdb.edges</span>,</span>
 <span>                                            <span class="va">genemania.edges</span>,</span>
-<span>                                            kinsub.edges <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>                                            <span class="va">kinsub.edges</span>,</span>
 <span>                                            db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>And then unpack the outputs into separate variables:</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<p>We can view a portion of the CFN below:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>cfn[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   source  target              interaction   Weight</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>   ABL1    IRS2 experimental_transferred <span class="fl">3.589744</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span> ADAM10   ANXA2 experimental_transferred <span class="fl">2.600733</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span> ADAM10    IRS2 experimental_transferred <span class="fl">2.857143</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>   AFDN PLEKHA5             experimental <span class="fl">2.747253</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>  AHNAK     LPP experimental_transferred <span class="fl">1.941392</span></span></code></pre></div>
 <p>To reduce clutter on graphs, the CFN edges can be merged. This
 collapses two or more edges between two nodes into a single edge,
 combining edge names:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cfn.merged</span> <span class="op">&lt;-</span> <span class="fu">mergeEdges</span><span class="op">(</span><span class="va">cfn</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -550,18 +558,77 @@ Cluster-Pathway Evidence score can be found <a href="https://journals.plos.org/p
 For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bioplanet.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"pathway.csv"</span>,</span>
 <span>                              package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
-<span id="cb31-2"><a href="#cb31-2" tabindex="-1"></a>                                         <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb31-3"><a href="#cb31-3" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
-<span id="cb31-4"><a href="#cb31-4" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
-<span id="cb31-5"><a href="#cb31-5" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
-<span id="cb31-6"><a href="#cb31-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PCN"</span></span>
-<span id="cb31-7"><a href="#cb31-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-10 18:17:57 UTC"</span></span>
-<span id="cb31-8"><a href="#cb31-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-10 18:17:57 UTC"</span></span>
-<span id="cb31-9"><a href="#cb31-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.106504201889038</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>                                         <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Making PCN"</span></span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-26 10:46:07 UTC"</span></span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"2025-12-26 10:46:08 UTC"</span></span>
+<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] Total time<span class="sc">:</span> <span class="fl">0.107765913009644</span></span></code></pre></div>
+<p>And we can see some of the pathway crosstalk network edges below:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pathway.crosstalk.network</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="va">pathway.crosstalk.network</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span></span>
+<span><span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">kable</a></span><span class="op">(</span><span class="va">dat</span>, align <span class="op">=</span> <span class="st">'l'</span>, digits <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
+<table class="table">
+<colgroup>
+<col width="2%">
+<col width="20%">
+<col width="43%">
+<col width="15%">
+<col width="18%">
+</colgroup>
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">source</th>
+<th align="left">target</th>
+<th align="left">Weight</th>
+<th align="left">interaction</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">4</td>
+<td align="left">Axon guidance</td>
+<td align="left">Validated nuclear estrogen receptor alpha network</td>
+<td align="left">1.27898550724638</td>
+<td align="left">PTM_cluster_evidence</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left">Axon guidance</td>
+<td align="left">ERBB signaling pathway</td>
+<td align="left">9.50912807669002</td>
+<td align="left">PTM_cluster_evidence</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left">Axon guidance</td>
+<td align="left">Lipid and lipoprotein metabolism</td>
+<td align="left">4.63387820142684</td>
+<td align="left">PTM_cluster_evidence</td>
+</tr>
+<tr class="even">
+<td align="left">5</td>
+<td align="left">ERBB signaling pathway</td>
+<td align="left">Lipid and lipoprotein metabolism</td>
+<td align="left">2.96007824348337</td>
+<td align="left">PTM_cluster_evidence</td>
+</tr>
+<tr class="odd">
+<td align="left">18</td>
+<td align="left">Selenium pathway</td>
+<td align="left">Vitamin B12 metabolism</td>
+<td align="left">0.866666666666667</td>
+<td align="left">PTM_cluster_evidence</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="saving-data">Saving Data<a class="anchor" aria-label="anchor" href="#saving-data"></a>
@@ -570,20 +637,20 @@ pathway.crosstalk.network.</p>
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
 <p>To save one object:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as an .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span></code></pre></div>
 <p>For multiple objects: Note the objects are saved as an .RData rather
 than an .rda</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object1</span>, <span class="va">object2</span>, <span class="va">object.ect</span>, filename<span class="op">=</span><span class="st">"NewFile.RData"</span><span class="op">)</span></span></code></pre></div>
 <p>To save one object as a csv:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span> <span class="co"># Saves object as a .csv</span></span>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span>
 <span><span class="co"># All objects in the environment are saved</span></span></code></pre></div>
 </div>

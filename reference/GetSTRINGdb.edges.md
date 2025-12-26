@@ -1,13 +1,7 @@
 # Get STRINGdb PPI data
 
 This function finds protein-protein interaction weights by consulting
-utilizing the STRINGdb database. The package STRINGdb is required for
-this function. To download, run:
-
-- if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-
-- BiocManager::install("STRINGdb")
+utilizing the STRINGdb database.
 
 ## Usage
 

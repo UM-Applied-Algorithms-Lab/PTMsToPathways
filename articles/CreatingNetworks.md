@@ -177,27 +177,27 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 12.81 secs total.
->> Spearman t-SNE calculation complete after 41.45 secs total.
->> Euclidean distance calculation complete after 41.49 secs total.
->> Euclidean t-SNE calculation complete after 1.14 mins total.
->> Combined distance calculation complete after 1.14 mins total.
->> SED t-SNE calculation complete after 1.59 mins total.
+>> Spearman correlation calculation complete after 13.09 secs total.
+>> Spearman t-SNE calculation complete after 42.05 secs total.
+>> Euclidean distance calculation complete after 42.09 secs total.
+>> Euclidean t-SNE calculation complete after 1.15 mins total.
+>> Combined distance calculation complete after 1.15 mins total.
+>> SED t-SNE calculation complete after 1.61 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.6 mins total.
+    >> Clustering for Euclidean complete after 1.62 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.6 mins total.
+    >> Clustering for Spearman complete after 1.63 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.61 mins total.
-    >> Consensus clustering complete after 1.61 mins total.
-    >> MakeClusterList complete after 1.61 mins total.
+    >> Clustering for SED complete after 1.63 mins total.
+    >> Consensus clustering complete after 1.63 mins total.
+    >> MakeClusterList complete after 1.63 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -270,7 +270,7 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.16 secs total.
+>> PTM CCCN complete after 0.04 secs total.
 >> Making Gene CCCN
 >> Gene CCCN complete after 1.85 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
@@ -337,8 +337,8 @@ to retrieve data from each of them below.
 
 [STRINGdb](https://string-db.org/) can be queried directly from R using
 the `STRINGdb` package. We wrap this query in a function called
-`GetSTRINGdb`, which queries only for the genes found in clusters in
-previous steps, and filters the returned by interaction type so only
+`GetSTRINGdb.edges`, which queries only for the genes found in clusters
+in previous steps, and filters the returned by interaction type so only
 `experimental`, `database`, `experimental_transferred`, and
 `database_transferred` are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.
@@ -445,7 +445,7 @@ We first run the function:
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
                                             stringdb.edges,
                                             genemania.edges,
-                                            kinsub.edges = NULL,
+                                            kinsub.edges,
                                             db.filepaths = c())
 ```
 
@@ -454,6 +454,18 @@ And then unpack the outputs into separate variables:
 ``` r
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
+```
+
+We can view a portion of the CFN below:
+
+``` r
+cfn[1:5,]
+>>   source  target              interaction   Weight
+>> 1   ABL1    IRS2 experimental_transferred 3.589744
+>> 2 ADAM10   ANXA2 experimental_transferred 2.600733
+>> 3 ADAM10    IRS2 experimental_transferred 2.857143
+>> 4   AFDN PLEKHA5             experimental 2.747253
+>> 5  AHNAK     LPP experimental_transferred 1.941392
 ```
 
 To reduce clutter on graphs, the CFN edges can be merged. This collapses
@@ -493,10 +505,29 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2025-12-10 18:17:57 UTC"
->> [1] "2025-12-10 18:17:57 UTC"
->> [1] Total time: 0.106504201889038
+>> [1] "2025-12-26 10:46:07 UTC"
+>> [1] "2025-12-26 10:46:08 UTC"
+>> [1] Total time: 0.107765913009644
 ```
+
+And we can see some of the pathway crosstalk network edges below:
+
+``` r
+pathway.crosstalk.network[1:5,]
+```
+
+``` r
+dat <- pathway.crosstalk.network[1:5,]
+knitr::kable(dat, align = 'l', digits = 2)
+```
+
+|     | source                 | target                                            | Weight            | interaction          |
+|:----|:-----------------------|:--------------------------------------------------|:------------------|:---------------------|
+| 4   | Axon guidance          | Validated nuclear estrogen receptor alpha network | 1.27898550724638  | PTM_cluster_evidence |
+| 2   | Axon guidance          | ERBB signaling pathway                            | 9.50912807669002  | PTM_cluster_evidence |
+| 3   | Axon guidance          | Lipid and lipoprotein metabolism                  | 4.63387820142684  | PTM_cluster_evidence |
+| 5   | ERBB signaling pathway | Lipid and lipoprotein metabolism                  | 2.96007824348337  | PTM_cluster_evidence |
+| 18  | Selenium pathway       | Vitamin B12 metabolism                            | 0.866666666666667 | PTM_cluster_evidence |
 
 ## Saving Data
 

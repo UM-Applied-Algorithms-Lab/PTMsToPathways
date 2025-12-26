@@ -28,15 +28,24 @@ molecules” and those pathways. The utility functions used below are in
 CytoscapeGraphing.R
 
 ``` r
-egfr_pathways <- names(pathways_list)[sapply(1:length(pathways_list), function(x)
-  {"EGFR" %in% pathways_list[[x]]})]
+egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
+  {"EGFR" %in% ex_pathways_list[[x]]})]
+```
 
-length(egfr_pathways) #83
+We expect 83 pathways that contain EGFR, so let’s check:
 
+``` r
+length(egfr_pathways)
+>> [1] 2
+```
+
+``` r
 egfr_transporter.pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
-  egfr_pathways, PCNedgelist)
+  egfr_pathways, ex_PCNedgelist)
+```
 
+``` r
 egfr_transporter_pcn.cy <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, pathway.crosstalk.network)
