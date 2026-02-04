@@ -92,7 +92,7 @@ head(egfr_transporter.pcn)
 
 These two versions of the PCN show cluster evidence and Jaccard smilarity in
 adjacent columns (the first case) or as distinct edges (the second case, which
-can be used to plot this network in cytoscape).
+can be used to plot this network in Cytoscape).
 
 ```{r eval = FALSE}
 # Graph PCN
@@ -102,7 +102,7 @@ pcn.graph.1 <- cytoscape.graph.PCN.pathways(
   Jaccard.edges = TRUE)
 ```
 
-Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common, yet the cluster evidence for their interaction is strong. First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data.
+Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common, yet the cluster evidence for their interaction is strong. First, we extract a network of interactions between the genes in the two pathways. Then, we generate a node file for Cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data.
 
 ```{r eval = FALSE}
 egfr_transporter.cfn <- filter.edges.0(c(
@@ -141,7 +141,7 @@ GraphCfn(cfn.edges = egfr_transporter.cfn.merged,
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 
 # Note that within Cytoscape you can change the column for node size and color
-# (two separate tings) in the "Styles" tab
+# (two separate things) in the "Styles" tab
 
 head(egfr_transporter.cfn.merged)
 ```
