@@ -1,176 +1,6 @@
-#' @title Graphing and Manipulating Cluster Filtered Network
-#'
-#' @description Creates a cytoscape graph of the cluster filtered network. Ensure that you have the Cytoscape app open and the RCy3 package downloaded.
-#' The package RCy3 is required for many of the functions in this script. To download, run:
-#' - if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-#' - BiocManager::install("RCy3")
-#' It is also recommended (but not required) that users load RCy3 with library(RCy3) to access its functions directly.
-#'
-#' @details Graph Key
-#' - Node Size
-#'   - Greater the node size, larger the absolute value of the score
-#' - Blue Node
-#'   - Negative score
-#' - Yellow Node
-#'   - Positive score
-#' - Green Node
-#'   - Approximately zero score
-#' Node Shapes:
-#' - "ELLIPSE"
-#'   - unknown
-#' - "ROUND_RECTANGLE"
-#'   - receptor tyrosine kinase
-#' - "VEE"
-#'   - SH2 protein
-#'   or
-#'   - SH2-SH3 protein
-#' - "TRIANGLE"
-#'   - SH3 protein
-#' - "HEXAGON"
-#'   - tyrosine kinase
-#' - "DIAMOND"
-#'   - SRC-family kinase
-#' - "OCTAGON"
-#'   - kinase
-#'   or
-#'   - phosphatase
-#' - "PARALLELOGRAM"
-#'   - transcription factor
-#' - "RECTANGLE"
-#'   - RNA binding protein
-#' Node Border Colors:
-#' - Orange
-#'   - deacetylase
-#'   or
-#'   - acetyltransferase
-#' - Blue
-#'   - demethylase
-#'   or
-#'   - methyltransferase
-#' - Royal Purple
-#'   - membrane protein
-#' - Red
-#'   - kinase
-#'   or
-#'   - tyrosine kinase
-#'   or
-#'   - SRC-family kinase
-#' - Yellow
-#'   - phosphatase
-#'   or
-#'   - tyrosine phosphatase
-#' - Lilac
-#'   - G protein-coupled receptor
-#'   or
-#'   - receptor tyrosine kinase
-#' - Grey
-#'   - default
-#' - Edge Thickness
-#'   - Stronger correlation
-#'Edge Colors:
-#' - Red
-#'   - Phosphorylation
-#'   or
-#'   - pp
-#'   or
-#'   - controls-phosphorylation-of
-#' - Bright Magenta
-#'   - controls-expression-of
-#' - Dull Magenta
-#'   - controls-transport-of
-#' - Purple
-#'   - controls-state-change-of
-#' - Blood Orange
-#'   - Acetylation
-#' - Lime Green
-#'   - Phystical interactions
-#' - Green
-#'   - BioPlex
-#' - Dull Green
-#'   - in-complex-with
-#' - Seafoam Green
-#'   - experiments
-#'   or
-#'   - experiments_transferred
-#' - Cyan
-#'   - database
-#'   or
-#'   - database_transferred
-#' - Teal
-#'   - Pathway
-#'   or
-#'   - Predicted
-#' - Dark Turquoise
-#'   - Genetic interactions
-#' - Yellow-Orange
-#'   - correlation
-#' - Royal Blue
-#'   - negative correlation
-#' - Bright Yellow
-#'   - positive correlation
-#' - Grey
-#'   - combined_score
-#' - Dark Grey
-#'   - merged
-#' - Light Grey
-#'   - intersect
-#' - Black
-#'   - peptide
-#' - Orange
-#'   - homology
-#' - Dull Orange
-#'   - Shared protein domains
-#' - White
-#'   - Default
-#' Arrow Types:
-#' - Arrow
-#'   - Phosphorylation
-#'   or
-#'   - pp
-#'   or
-#'   - controls-phosphorylation-of
-#'   or
-#'   - controls-expression-of
-#'   or
-#'   - controls-transport-of
-#'   or
-#'   - controls-state-change-of
-#'   or
-#'   - Acetylation
-#' - No Arrow
-#'   - Default
-#'
-#' @param cfn A version of ppi.network with only the edges that exist in cccn.matrix and have non-zero weights
-#' @param ptmtable A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
-#' @param funckey A table graphing gene names to type of protein; defaults to internal database at PTMsToPathways::ex.funckey
-#' @param Network.title Desired title for the created Cytoscape Network; defaults to "cfn"
-#' @param Network.collection Desired name for the collection created on Cytoscape in which the network will reside; defaults to "PTMsToPathways"
-#' @param visual.style.name Desired name for the visual style created on Cytoscape; defaults to "PTMsToPathways.style"
-#'
-#' @param background.color Hex code of background color of graph; defaults to '#fcf3cf'
-#' @param edge.label.color Hex code of edge label color of graph; defaults to '#17202a'
-#' @param node.label.color Hex code of node label color of graph; defaults to '#145a32'
-#'
-#' @param default.font Font style of edge and node names; defaults to "Times New Roman"
-#' @param node.font.size Font size of the node name; defaults to 12
-#' @param edge.font.size Font size of the edge name; defaults to 8
-#'
-#' @param edge.line.style Type of edge style; defaults to "SOLID"; options include: "PARALLEL_LINES", "MARQUEE_EQUAL", "DOT", "EQUAL_DASH", "LONG_DASH", "CONTIGUOUS_ARROW", "MARQUEE_DASH", "DASH_DOT", "BACKWARD_SLASH", "FORWARD_SLASH", "VERTICAL_SLASH", "SOLID", "SEPARATE_ARROW", "MARQUEE_DASH_DOT", "ZIGZAG", "SINEWAVE"
-#'
-#' @param edge.opacity Opacity of the edge line on a scale of 0 - 255 with 0 being transparent; defaults to 175
-#' @param edge.label.opacity Opacity of the edge label on a scale of 0 - 255 with 0 being transparent; defaults to 255
-#' @param border.opacity Opacity of the node border on a scale of 0 - 255 with 0 being transparent; defaults to 255
-#' @param node.label.opacity Opacity of the node label on a scale of 0 - 255 with 0 being transparent; defaults to 255
-#' @param node.fill.opacity Opacity of the node fill on a scale of 0 - 255 with 0 being transparent; defaults to 255
-#'
-#' @return A cytoscape graph of the cluster filtered network
-#' @export
-#'
-#' @examples
-#' # GraphCFN(ex.cfn)
-#' # See vignette for default graph
-#'
-#
+# VERY IMPORTANT TODO
+# fix all of the documentation. No roxygen skeleton actually has anything
+# slightly less important: helper functions should not be exported.
 
 # Import Function Key
 getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
@@ -193,13 +23,7 @@ getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
 }
 
 # helper functions for networks in R:
-
 # function to filter networks to include only selected nodes and those with edges to them
-#' @param nodenames
-#'
-#' @param edge.file
-#'
-#' @export
 filter.edges.0 <- function(nodenames, edge.file) {
   nodenames <-as.character(nodenames)
   a = as.character(edge.file[,1])
@@ -207,24 +31,6 @@ filter.edges.0 <- function(nodenames, edge.file) {
   edgefile.nodes <- unique(c(a,b))
   sel.edges <- edge.file[edge.file[,1] %in% nodenames & edge.file[,2] %in% nodenames,]
   if(dim(sel.edges)[1] == 0) {return(NA)} else return(sel.edges)
-}
-#
-#function to filter networks and to get first order connected nodes
-#' @param nodenames
-#'
-#' @param edge.file
-#'
-#' @export
-filter.edges.1 <- function(nodenames, edge.file) {
-  nodenames <-as.character(nodenames)
-  a = as.character(edge.file[,1])
-  b = as.character(edge.file[,2])
-  edgefile.nodes <- unique(c(a,b))
-  sel.edges.1 <- edge.file[edge.file[,1] %in% nodenames,]
-  sel.edges.2 <- edge.file[edge.file[,2] %in% nodenames,]
-  sel.edges <- rbind(sel.edges.1, sel.edges.2)
-  if(dim(sel.edges)[1] == 0) {return(NA)} else {
-    return(unique(sel.edges)) }
 }
 
 # This function narrows the search only for edges between two sets of nodes
@@ -259,14 +65,18 @@ connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	
   path.edges <- unique(plyr::ldply(edges.list))
   return(path.edges)
 }
+
+# MADDIE'S NOTE: DO WE REALLY NEED THIS?
 # This function names the edges the way Cytoscape does so they can be selected:
 #' @param edgefile
 #'
 #' @export
 getCyEdgeNames <- function(edgefile) {
-  cyedges <- mapply(paste, edgefile $source, " (", edgefile $interaction, ") ", edgefile $target, sep="")
+  cyedges <- mapply(paste, edgefile$source, " (", edgefile$interaction, ") ", edgefile$target, sep="")
   return(cyedges)
 }
+
+# MADDIE'S NOTE: DO WE NEED THIS WHAT IS IT FOR
 # Function to extract node names from, e.g.:
 #	"ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
 #' @param test
@@ -279,7 +89,7 @@ strip.cy.goo <- function(test) {
 }
 
 
-# For graphing Pathway Crosstalk Networks (PCNs) in cytoscape
+# For graphing Pathway Crosstalk Networks (PCNs) in Cytoscape
 #' @param PCN
 #'
 #' @param net.name
@@ -307,12 +117,7 @@ cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.na
   RCy3::setVisualStyle(style.name)
 }
 
-# Two linked functions to generate node file for Cytoscape:
-#' @param genes
-#'
-#' @param ptmtable
-#'
-#' @export
+# Helper function to generate node file for Cytoscape:
 make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -323,9 +128,9 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
       dplyr::across(where(is.numeric), ~sum(.x, na.rm = TRUE)),
       .groups = "drop"
     )
-
   return(as.data.frame(gene.data))  # Ensure base R class
 }
+
 #' @param edge.file
 #'
 #' @param funckey
@@ -380,30 +185,17 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
   }
   return(unique(node_file))
 }
-# To remove self-loops
-#' Title
-#'
-#' @param edgefile
-#'
-#' @returns
-#' @export
-#'
-#' @examples
-remove.autophos <-    function(edgefile)	{
+
+# Helper function to remove self-loops
+remove.autophos <- function(edgefile)	{
   auto <- which (as.character(edgefile$source) == as.character(edgefile$target))
   if (length(auto) > 0) {
     newedgefile <- edgefile[-auto,] } else newedgefile <- edgefile
     return (newedgefile)
 }
-# Helper functions for connecting PTMs (called "peptides" with their parent protein nodes (called Gene.Name))
-#' Title
-#'
-#' @param peptide.edgefile
-#'
-#' @returns
-#' @export
-#'
-#' @examples
+
+# Helper function for connecting PTMs
+# (called "peptides" with their parent protein nodes (called Gene.Name))
 make.genepep.edges <- function(peptide.edgefile) {
   peptides <- unique(c(peptide.edgefile$source, peptide.edgefile$target))
   genenames <- sapply(peptides,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
@@ -412,7 +204,10 @@ make.genepep.edges <- function(peptide.edgefile) {
   return(net.gpe)
 }
 
-# This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
+#' Get CoClustered PTMs
+#'
+#' This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
+#'
 #' @param edge.file
 #'
 #' @export
@@ -429,44 +224,9 @@ get.co.clustered.ptms <- function (edge.file) {
   return(edge.file.with.ptms)
 }
 
-
-#
-# helper functions
-
-#' Set difference for vectors using custom infix operator
-#'
-#' Returns the elements in vector x that are not in vector y.
-#'
-#' @param x A vector.
-#' @param y A vector to compare.
-#' @return Elements of x that are not in y.
-#' @export
-#' @examples
-#' 1:5 %w/o% c(2, 4)
-#' letters[1:5] %w/o% c("b", "d")
-"%w/o%" <- function(x, y) {
-  x[!x %in% y] # x without y
-}
-
-
-#' @param x
-#'
-#' @param y
-#'
-#' @export
-outersect <- function(x, y) {
-  sort(c(setdiff(x, y),
-         setdiff(y, x)))
-}
-
-# Function to harmonize gene and peptide data for networks
+# Helper function to harmonize gene and peptide data for networks
 #  - for graphing combined CFN/CCCN graphs
-# Enusres that for Cytoscape, "id" is used for node name columns#' @param edge.file.with.ptms
-#'
-#' @param genecf
-#' @param ptmtable
-#'
-#' @export
+# Ensures that for Cytoscape, "id" is used for node name columns
 harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
   if(!any(grepl("Gene.Name", names(genecf)))) {
     genecf.new <- data.frame(Gene.Name= genecf$id, genecf)} else {genecf.new = genecf}
@@ -512,8 +272,9 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
   return(cf)
 }
 
-# Function to merge edges to declutter networks
-
+#'Merge Edges
+#'
+#' Function to merge edges and declutter the Cytoscape network
 #' @param edgefile
 #'
 #' @export
@@ -618,9 +379,6 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
 #_____________________________________________________________________________
 # Vizprops helper functions:
 # Function to set shape and border color according to node type
-#' @param cf
-#'
-#' @export
 setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
   # require(RCy3)
   RCy3::setBackgroundColorDefault("#949494") # grey 58
@@ -642,14 +400,8 @@ setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
 }
 
 # Function to set edge appearance
-# # Use:  setCorrEdgeAppearance()  to change cytoscape front window
-#This is now modified to handle merged edges and match colors correctly
-#' Title
-#'
-#' @returns
-#' @export
-#'
-#' @examples
+# Use: setCorrEdgeAppearance() to change Cytoscape front window
+# This is now modified to handle merged edges and match colors correctly
 setCorrEdgeAppearance <- function() {
   # require(RCy3)
   RCy3::setEdgeLineWidthDefault(3)
@@ -682,10 +434,8 @@ setCorrEdgeAppearance <- function() {
   RCy3::setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
 
+# MADDIE'S NOTE: NEED THIS? NOT USED ANYWHERE NOR MENTIONED IN THE VIGNETTE
 # This function works well with node data that are normalized by row z-scores
-#' @param plotcol
-#'
-#' @export
 setNodeColorToRowz <- function(plotcol){
   cf <- getTableColumns('node')
   if(!(plotcol %in% getTableColumnNames('node'))){
@@ -732,7 +482,10 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
   RCy3::setVisualStyle(visual.style.name)
 }
 
-# # This helper function will make wider edges if they are two thin or narrow if to thick
+#' Set Edge Widths
+#'
+#' This helper function will make wider edges if they are two thin or narrow if to thick
+#'
 #' @param ffactor
 #'
 #' @param log
@@ -789,7 +542,10 @@ SetStandards <- function(visual.style.name,
 
 }
 
-# NodeEdgeKey function: Cytoscape legend for styles
+#' NodeEdgeKey
+#'
+#' Cytoscape legend for styles
+#'
 #' @param visual.style.name
 #'
 #' @export
