@@ -2,8 +2,8 @@ test_that("MakeClusterList() gives right answer", {
     set.seed(88)
 
     # data to check clusters
-    clust1 <- list("EML4 p Y453", "GLUL p Y180", "PDLIM5 p Y251", "CD99L2 p Y243", "RDH10 p Y126", "GFPT1 p Y553", "CRK p Y251")
-    clust2 <- list("SDC1 p Y309", "ARHGAP32 p Y1537", "ALK p Y1096", "APLP2 p Y755", "TIAL1 p Y140", "SNRPN p Y15; SNRPB p Y15")
+    clust1 <- list("RACK1 p T229", "ATP6V1H p Y388", "TNK2 p T829", "IRS2 p Y632")
+    clust2 <- list("EIF2S1 p Y147", "ACTG1 p T297; ACTB p T297", "PDLIM5 p T248", "LSR p S365", "DCP1A p Y64", "MAPK13 p T185", "ALK p S1509", "GAREM1 p S700")
 
     clusterlist.data <- MakeClusterList(ex_tiny_ptm_table, keeplength = 2, toolong = 3.5)
     common.clusters <- clusterlist.data[[1]]
@@ -11,17 +11,17 @@ test_that("MakeClusterList() gives right answer", {
     ptm.correlation.matrix <- clusterlist.data[[3]]
 
     # check one of the values of the correlation computation
-    expect_equal(ptm.correlation.matrix[200, 5], 0.3212121, tolerance = 1e-6)
+    expect_equal(ptm.correlation.matrix[58, 33], 0.9428571, tolerance = 1e-6)
 
     # check that the cluster that contains GLUL p Y180 is correct
-    clust1_result <- unname(common.clusters[sapply(common.clusters, function(x) "GLUL p Y180" %in% x)])
+    clust1_result <- unname(common.clusters[sapply(common.clusters, function(x) "ATP6V1H p Y388" %in% x)])
     expect_setequal(clust1_result[[1]], clust1)
 
     # check that the cluster that contains SNRPN p Y15; SNRPB p Y15 is correct
-    clust2_result <- unname(common.clusters[sapply(common.clusters, function(x) "SNRPN p Y15; SNRPB p Y15" %in% x)])
+    clust2_result <- unname(common.clusters[sapply(common.clusters, function(x) "ACTG1 p T297; ACTB p T297" %in% x)])
     expect_setequal(clust2_result[[1]], clust2)
 
     # check total clusters and total number of PTMs in clusters
-    expect_equal(length(common.clusters),  132)
-    expect_equal(sum(adj.consensus), 14664)
+    expect_equal(length(common.clusters),  11)
+    expect_equal(sum(adj.consensus), 2380)
 })
