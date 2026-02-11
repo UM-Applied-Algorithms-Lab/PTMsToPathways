@@ -5,7 +5,7 @@ test_that("MakeClusterList() gives right answer", {
     clust1 <- list("EML4 p Y453", "GLUL p Y180", "PDLIM5 p Y251", "CD99L2 p Y243", "RDH10 p Y126", "GFPT1 p Y553", "CRK p Y251")
     clust2 <- list("SDC1 p Y309", "ARHGAP32 p Y1537", "ALK p Y1096", "APLP2 p Y755", "TIAL1 p Y140", "SNRPN p Y15; SNRPB p Y15")
 
-    clusterlist.data <- MakeClusterList(ex_small_ptm_table, keeplength = 2, toolong = 3.5)
+    clusterlist.data <- MakeClusterList(ex_tiny_ptm_table, keeplength = 2, toolong = 3.5)
     common.clusters <- clusterlist.data[[1]]
     adj.consensus <- clusterlist.data[[2]]
     ptm.correlation.matrix <- clusterlist.data[[3]]
