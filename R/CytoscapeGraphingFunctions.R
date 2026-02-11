@@ -12,6 +12,8 @@
 
 
 
+# MADDIE'S NOTE: Not mentioned in vignette, but I think it should be
+# also probably needs documentation
 # Function to Import Function Key
 getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
   if (is.character(funckey.filename)) {
@@ -30,6 +32,20 @@ getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
     )
     return(funckey)
   }
+}
+
+# MADDIE'S NOTE: there's a .0 version that is used, but this is not referenced
+# Unneccessary?
+filter.edges.1 <- function(nodenames, edge.file) {
+  nodenames <-as.character(nodenames)
+  a = as.character(edge.file[,1])
+  b = as.character(edge.file[,2])
+  edgefile.nodes <- unique(c(a,b))
+  sel.edges.1 <- edge.file[edge.file[,1] %in% nodenames,]
+  sel.edges.2 <- edge.file[edge.file[,2] %in% nodenames,]
+  sel.edges <- rbind(sel.edges.1, sel.edges.2)
+  if(dim(sel.edges)[1] == 0) {return(NA)} else {
+    return(unique(sel.edges)) }
 }
 
 # MADDIE'S NOTE: DO WE REALLY NEED THIS?
@@ -111,6 +127,29 @@ setNodeColorToRowz <- function(plotcol){
   RCy3::lockNodeDimensions('TRUE')
   RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
   RCy3::setNodeSelectionColorDefault ( "#CC00FF")
+}
+
+# MADDIE'S NOTE: not used anywhere, very simple function, seems unneccessary
+# removed roxygen skeleton bc why are we exporting
+# Set difference for vectors using custom infix operator
+#
+# Returns the elements in vector x that are not in vector y.
+#
+# @param x A vector.
+# @param y A vector to compare.
+# @return Elements of x that are not in y.
+# @export
+# @examples
+# 1:5 %w/o% c(2, 4)
+# letters[1:5] %w/o% c("b", "d")
+"%w/o%" <- function(x, y) {
+  x[!x %in% y] # x without y
+}
+
+# MADDIE'S NOTE: again not used: what is it for? do we need? simple func
+outersect <- function(x, y) {
+  sort(c(setdiff(x, y),
+         setdiff(y, x)))
 }
 
 
