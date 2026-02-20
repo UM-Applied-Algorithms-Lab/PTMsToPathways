@@ -13,11 +13,11 @@ test_that("MakeClusterList() gives right answer", {
     # check one of the values of the correlation computation
     expect_equal(ptm.correlation.matrix[58, 33], 0.9428571, tolerance = 1e-6)
 
-    # check that the cluster that contains GLUL p Y180 is correct
+    # check that the cluster that contains ATP6V1H p Y388 is correct
     clust1_result <- unname(common.clusters[sapply(common.clusters, function(x) "ATP6V1H p Y388" %in% x)])
     expect_setequal(clust1_result[[1]], clust1)
 
-    # check that the cluster that contains SNRPN p Y15; SNRPB p Y15 is correct
+    # check that the cluster that contains ACTG1 p T297; ACTB p T297 is correct
     clust2_result <- unname(common.clusters[sapply(common.clusters, function(x) "ACTG1 p T297; ACTB p T297" %in% x)])
     expect_setequal(clust2_result[[1]], clust2)
 
