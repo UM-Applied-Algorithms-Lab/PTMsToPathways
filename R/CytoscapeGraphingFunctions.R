@@ -20,7 +20,7 @@ getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
     if (!file.exists(funckey.filename)) {
       stop(paste(funckey.filename, "not found. Please check your working directory."))
     }
-    funckey <- read.table(
+    funckey <- utils::read.table(
       file = funckey.filename,
       header = TRUE,
       sep = "\t",
