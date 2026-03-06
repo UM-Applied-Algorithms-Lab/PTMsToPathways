@@ -7,10 +7,10 @@
 \format{
 Dataframe of 205 rows and 4 columns:
 \describe{
-\item{Gene.1}{First gene interacting}
-\item{Gene.2}{Second gene interacting}
-\item{Interaction}{The type of interaction}
-\item{STRINGdb.combined_score}{The weight of the interaction between these two genes as described by STRINGdb}
+\item{source}{First gene interacting}
+\item{target}{Second gene interacting}
+\item{interaction}{The type of interaction}
+\item{Weight}{The weight of the interaction between these two genes as described by STRINGdb}
 }
 }
 \source{
