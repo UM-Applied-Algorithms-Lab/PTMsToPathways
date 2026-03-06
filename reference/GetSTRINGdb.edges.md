@@ -38,13 +38,13 @@ and the results are displayed.
 ``` r
 # GetSTRINGdb(ex.gene.cccn)
 utils::head(ex.stringdb.edges)
-#>     Gene.1 Gene.2              Interaction STRINGdb.combined_score
-#> 1     MYH9 PIK3R2 experimental_transferred                     216
-#> 11    MYH9 ABLIM1             experimental                     167
-#> 25   OXCT1 ZDHHC5             experimental                     292
-#> 27 SUPT16H ZDHHC5             experimental                     292
-#> 33   USP15 ZDHHC5             experimental                     292
-#> 35    MYH9 ATP5PO             experimental                     192
+#>     source target              interaction Weight
+#> 1     MYH9 PIK3R2 experimental_transferred    216
+#> 11    MYH9 ABLIM1             experimental    167
+#> 25   OXCT1 ZDHHC5             experimental    292
+#> 27 SUPT16H ZDHHC5             experimental    292
+#> 33   USP15 ZDHHC5             experimental    292
+#> 35    MYH9 ATP5PO             experimental    192
 utils::head(ex.nodenames)
 #>   Gene.Names
 #> 1     ABLIM1
