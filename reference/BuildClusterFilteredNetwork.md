@@ -57,7 +57,7 @@ A list containing the following data structures at the given index:
 ## Examples
 
 ``` r
-Example_Output <- BuildClusterFilteredNetwork("need example", ex.stringdb.edges, ex.gm.edges, "need example", "need example")
+Example_Output <- BuildClusterFilteredNetwork(ex.gene.cccn, ex.stringdb.edges, ex.gm.edges)
 #> Warning: no non-missing arguments to max; returning -Inf
 #> Error in `$<-.data.frame`(`*tmp*`, "Weight", value = numeric(0)): replacement has 0 rows, data has 241
 utils::head(Example_Output)

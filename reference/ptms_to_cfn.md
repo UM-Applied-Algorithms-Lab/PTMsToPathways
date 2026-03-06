@@ -34,7 +34,8 @@ Subnetwork object with co-clustered PTMs and genes
 ``` r
 # Example input objects
 ptms <- c("TP53 p S15", "BRCA1 p S123; BRCA1 p T124", "MDM2 p S200")
-# Example network (edge list with 'source', 'target', and cluster info, could be data.frame or igraph)
+# Example network
+# edge list with 'source', 'target', and cluster info, could be data.frame or igraph
 cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
                          target = c("BRCA1", "MDM2", "TP53", "TP53"),
                          cluster = c(1,1,2,1))
