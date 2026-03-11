@@ -15,9 +15,10 @@ output:
   word_document:
     toc: true
     toc_depth: '4'
-  VignetteIndexEntry: {Cytoscape Graphing}
-  VignetteEncoding: UTF-8
-  VignetteEngine: knitr::rmarkdown
+vignette: >
+  %\VignetteIndexEntry{Cytoscape Graphing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 editor_options:
   markdown:
     wrap: 72

@@ -14,9 +14,10 @@ output:
   word_document:
     toc: true
     toc_depth: '4'
-  VignetteIndexEntry: {Raw Data Processing}
-  VignetteEncoding: UTF-8
-  VignetteEngine: knitr::rmarkdown
+vignette: >
+  %\VignetteIndexEntry{Raw Data Processing}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 editor_options:
   markdown:
     wrap: 72
