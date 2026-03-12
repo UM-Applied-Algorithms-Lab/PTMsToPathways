@@ -7,7 +7,7 @@
 NodeEdgeKey(visual.style.name = "PTMsToPathways.style")
 }
 \arguments{
-\item{visual.style.name}{}
+\item{visual.style.name}{Name of the visual style that will be saved in the Cytoscape Interface}
 }
 \description{
 Cytoscape legend for styles

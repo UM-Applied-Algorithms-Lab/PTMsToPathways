@@ -7,9 +7,9 @@
 setEdgeWidths(ffactor = -1.2, log = TRUE)
 }
 \arguments{
-\item{ffactor}{}
+\item{ffactor}{PLACEHOLDER PARAMETER DESCRIPTION}
 
-\item{log}{}
+\item{log}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 This helper function will make wider edges if they are two thin or narrow if to thick

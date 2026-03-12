@@ -7,9 +7,13 @@
 filter.edges.between(nodes1, nodes2, edge.file, convert = FALSE)
 }
 \arguments{
-\item{nodes1}{}
+\item{nodes1}{PLACEHOLDER PARAMETER DESCRIPTION}
 
-\item{convert}{}
+\item{nodes2}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{edge.file}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{convert}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 This function narrows the search only for edges between two sets of nodes

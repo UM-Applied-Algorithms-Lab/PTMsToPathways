@@ -11,9 +11,11 @@ cytoscape.graph.PCN.pathways(
 )
 }
 \arguments{
-\item{PCN}{}
+\item{PCN}{PLACEHOLDER PARAMETER DESCRIPTION}
 
-\item{Jaccard.edges}{}
+\item{net.name}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{Jaccard.edges}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 For graphing Pathway Crosstalk Networks (PCNs) in Cytoscape

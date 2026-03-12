@@ -7,9 +7,13 @@
 connectNodes.all(nodepair, ig.graph = NULL, edgefile, newgraph = FALSE)
 }
 \arguments{
-\item{nodepair}{}
+\item{nodepair}{PLACEHOLDER PARAMETER DESCRIPTION}
 
-\item{newgraph}{}
+\item{ig.graph}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{edgefile}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{newgraph}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 Use all_shortest_paths and returns just the edge file

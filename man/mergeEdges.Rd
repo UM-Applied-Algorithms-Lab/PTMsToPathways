@@ -7,7 +7,7 @@
 mergeEdges(edgefile)
 }
 \arguments{
-\item{edgefile}{}
+\item{edgefile}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 Function to merge edges and declutter the Cytoscape network

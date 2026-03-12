@@ -49,21 +49,23 @@ filter.edges.1 <- function(nodenames, edge.file) {
 }
 
 # MADDIE'S NOTE: DO WE REALLY NEED THIS?
+# Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
 # This function names the edges the way Cytoscape does so they can be selected:
-#' @param edgefile
-#'
-#' @export
+# @param edgefile
+#
+# @export
 getCyEdgeNames <- function(edgefile) {
   cyedges <- mapply(paste, edgefile$source, " (", edgefile$interaction, ") ", edgefile$target, sep="")
   return(cyedges)
 }
 
 # MADDIE'S NOTE: DO WE NEED THIS WHAT IS IT FOR
+# Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
 # Function to extract node names from, e.g.:
 #	"ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
-#' @param test
-#'
-#' @export
+# @param test
+#
+# @export
 strip.cy.goo <- function(test) {
   t1 <- unlist(strsplit(test, "Object="))
   t2 <- sapply(t1[2:length(t1)], function (x) (strsplit(x, ", ")))
@@ -130,7 +132,7 @@ setNodeColorToRowz <- function(plotcol){
 }
 
 # MADDIE'S NOTE: not used anywhere, very simple function, seems unneccessary
-# removed roxygen skeleton bc why are we exporting
+# Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
 # Set difference for vectors using custom infix operator
 #
 # Returns the elements in vector x that are not in vector y.
@@ -161,11 +163,10 @@ outersect <- function(x, y) {
 #' Filter Edges Inbetween
 #'
 #' This function narrows the search only for edges between two sets of nodes
-#' @param nodes1
-#'
-#' @param nodes2
-#' @param edge.file
-#' @param convert
+#' @param nodes1 PLACEHOLDER PARAMETER DESCRIPTION
+#' @param nodes2 PLACEHOLDER PARAMETER DESCRIPTION
+#' @param edge.file PLACEHOLDER PARAMETER DESCRIPTION
+#' @param convert PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
@@ -179,11 +180,10 @@ filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
 #'
 #' Use all_shortest_paths and returns just the edge file
 #'
-#' @param nodepair
-#'
-#' @param ig.graph
-#' @param edgefile
-#' @param newgraph
+#' @param nodepair PLACEHOLDER PARAMETER DESCRIPTION
+#' @param ig.graph PLACEHOLDER PARAMETER DESCRIPTION
+#' @param edgefile PLACEHOLDER PARAMETER DESCRIPTION
+#' @param newgraph PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
@@ -200,10 +200,9 @@ connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	
 #' Graph Cytoscape PCN Pathways
 #'
 #' For graphing Pathway Crosstalk Networks (PCNs) in Cytoscape
-#' @param PCN
-#'
-#' @param net.name
-#' @param Jaccard.edges
+#' @param PCN PLACEHOLDER PARAMETER DESCRIPTION
+#' @param net.name PLACEHOLDER PARAMETER DESCRIPTION
+#' @param Jaccard.edges PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.name, Jaccard.edges=TRUE) {
@@ -231,12 +230,11 @@ cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.na
 #'
 #' Makes a nodefile to be entered into Cytoscape
 #'
-#' @param edge.file
-#'
-#' @param funckey
-#' @param ptmtable
-#' @param include.gene.data
-#' @param include.coclustered.PTMs
+#' @param edge.file PLACEHOLDER PARAMETER DESCRIPTION
+#' @param funckey PLACEHOLDER PARAMETER DESCRIPTION
+#' @param ptmtable PLACEHOLDER PARAMETER DESCRIPTION
+#' @param include.gene.data PLACEHOLDER PARAMETER DESCRIPTION
+#' @param include.coclustered.PTMs PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE) {
@@ -290,7 +288,7 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
 #'
 #' This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
 #'
-#' @param edge.file
+#' @param edge.file PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 get.co.clustered.ptms <- function (edge.file) {
@@ -309,7 +307,7 @@ get.co.clustered.ptms <- function (edge.file) {
 #' Merge Edges
 #'
 #' Function to merge edges and declutter the Cytoscape network
-#' @param edgefile
+#' @param edgefile PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 mergeEdges <- function(edgefile) {
@@ -411,13 +409,13 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   return(sub.cfn.cccn)
 }
 
-# This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
-#' @param cfn.edges
-#'
-#' @param cfn.nodes
-#' @param Network.title
-#' @param Network.collection
-#' @param visual.style.name
+#' Graph Cluster Filtered Network
+#' This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
+#' @param cfn.edges PLACEHOLDER PARAMETER DESCRIPTION
+#' @param cfn.nodes PLACEHOLDER PARAMETER DESCRIPTION
+#' @param Network.title PLACEHOLDER PARAMETER DESCRIPTION
+#' @param Network.collection PLACEHOLDER PARAMETER DESCRIPTION
+#' @param visual.style.name PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways", visual.style.name = "PTMsToPathways.style"){
@@ -440,9 +438,8 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
 #'
 #' This helper function will make wider edges if they are two thin or narrow if to thick
 #'
-#' @param ffactor
-#'
-#' @param log
+#' @param ffactor PLACEHOLDER PARAMETER DESCRIPTION
+#' @param log PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
 setEdgeWidths <- function (ffactor=-1.2, log=TRUE)	{
@@ -464,7 +461,7 @@ setEdgeWidths <- function (ffactor=-1.2, log=TRUE)	{
 #'
 #' Cytoscape legend for styles
 #'
-#' @param visual.style.name
+#' @param visual.style.name Name of the visual style that will be saved in the Cytoscape Interface
 #'
 #' @export
 NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {

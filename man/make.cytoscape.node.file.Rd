@@ -13,9 +13,15 @@ make.cytoscape.node.file(
 )
 }
 \arguments{
-\item{edge.file}{}
+\item{edge.file}{PLACEHOLDER PARAMETER DESCRIPTION}
 
-\item{include.coclustered.PTMs}{}
+\item{funckey}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{ptmtable}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{include.gene.data}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{include.coclustered.PTMs}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 Makes a nodefile to be entered into Cytoscape
