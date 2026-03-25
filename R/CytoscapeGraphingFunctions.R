@@ -111,9 +111,9 @@ SetStandards <- function(visual.style.name,
 # MADDIE'S NOTE: NEED THIS? NOT USED ANYWHERE NOR MENTIONED IN THE VIGNETTE
 # This function works well with node data that are normalized by row z-scores
 setNodeColorToRowz <- function(plotcol){
-  cf <- getTableColumns('node')
-  if(!(plotcol %in% getTableColumnNames('node'))){
-    print (getTableColumnNames('node'))
+  cf <- RCy3::getTableColumns('node')
+  if(!(plotcol %in% RCy3::getTableColumnNames('node'))){
+    print (RCy3::getTableColumnNames('node'))
     cat("\n","\n","\t", "Which attribute will set node size and color?")
     plotcol <- as.character(readLines(con = stdin(), n = 1))
   }
