@@ -18,6 +18,8 @@
   : Make Correlation Network
 - [`MakeDBInput()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeDBInput.md)
   : Make Database Input File
+- [`ex_pathways_list`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_pathways_list.md)
+  : Pathways list
 - [`getFuncKey()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/getFuncKey.md)
   : Graphing and Manipulating Cluster Filtered Network
 - [`` `%w/o%` ``](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/grapes-w-slash-o-grapes.md)

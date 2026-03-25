@@ -38,19 +38,7 @@ and the results are displayed.
 ``` r
 # GetSTRINGdb(ex.gene.cccn)
 utils::head(ex.stringdb.edges)
-#>     source target              interaction Weight
-#> 1     MYH9 PIK3R2 experimental_transferred    216
-#> 11    MYH9 ABLIM1             experimental    167
-#> 25   OXCT1 ZDHHC5             experimental    292
-#> 27 SUPT16H ZDHHC5             experimental    292
-#> 33   USP15 ZDHHC5             experimental    292
-#> 35    MYH9 ATP5PO             experimental    192
+#> Error: object 'ex.stringdb.edges' not found
 utils::head(ex.nodenames)
-#>   Gene.Names
-#> 1     ABLIM1
-#> 2        MET
-#> 3       PKP4
-#> 4       MYH9
-#> 5     SEC16A
-#> 6     ZDHHC5
+#> Error: object 'ex.nodenames' not found
 ```

@@ -1,7 +1,7 @@
-# Pathway Crosstalk Network Example
+# Pathway Crosstalk Network
 
-Contains pathway source-target columns and weight, along with the
-interaction type.
+Specific genes from the bioplanet file that we found in Common Clusters
+and their respective cell signaling pathway relationships
 
 ## Usage
 
@@ -11,49 +11,31 @@ ex_pathway_crosstalk_network
 
 ## Format
 
-Matrix with 37 rows and 4 columns:
+Dataframe of 37 rows and 4 columns
 
-- V1:
+- source:
 
-  Pathway One
+  The name of a pathway interacting
 
-- V2:
+- target:
 
-  Pathway Two
+  The name of the pathway the source interacts with
 
 - Weight:
 
-- Interaction:
+  Weight from Combined PPI
 
-  Jaccard similarity between the two pathways
+- interaction:
+
+  The type of interaction
 
 ## Source
 
-"created by PathwayCrosstalkNetwork"
+"Produced by BuildPathwayCrosstalkNetwork"
 
 ## Examples
 
 ``` r
-head(ex_pathway_crosstalk_network)
-#>                              source
-#> 4                     Axon guidance
-#> 2                     Axon guidance
-#> 3                     Axon guidance
-#> 5            ERBB signaling pathway
-#> 18                 Selenium pathway
-#> 10 Lipid and lipoprotein metabolism
-#>                                               target            Weight
-#> 4  Validated nuclear estrogen receptor alpha network  1.27898550724638
-#> 2                             ERBB signaling pathway  9.04082494558581
-#> 3                   Lipid and lipoprotein metabolism   4.5195031520412
-#> 5                   Lipid and lipoprotein metabolism  2.49443143149121
-#> 18                            Vitamin B12 metabolism 0.733333333333333
-#> 10                                  Selenium pathway               0.3
-#>             interaction
-#> 4  PTM_cluster_evidence
-#> 2  PTM_cluster_evidence
-#> 3  PTM_cluster_evidence
-#> 5  PTM_cluster_evidence
-#> 18 PTM_cluster_evidence
-#> 10 PTM_cluster_evidence
+head("ex_pathway_crosstalk_network")
+#> [1] "ex_pathway_crosstalk_network"
 ```

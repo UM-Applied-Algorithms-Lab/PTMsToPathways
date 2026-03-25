@@ -53,33 +53,25 @@ To see all data that is provided with the package, run:
 data(package = "PTMsToPathways")
 ```
 
-| Dataset Name                                             | Description                                |
-|:---------------------------------------------------------|:-------------------------------------------|
-| ex.CPE.matrix (CPE_matrix)                               | CPE matrix example                         |
-| ex.Jaccard.Full (Jaccard_Full)                           | Jaccard Example                            |
-| ex.PTPedgelist (PTPedgelist)                             | PTP edgelist Example                       |
-| ex.all.tsne.coords (all_tsne_coords)                     | All Tsne Coords                            |
-| ex.bioplanet (bioplanet)                                 | Bioplanet Example                          |
-| ex.cfn (cfn)                                             | Cluster Filtered Network Example           |
-| ex.clusters.list (clusters_list)                         | Clusters List Example                      |
-| ex.common.clusters (common_clusters)                     | List of Common Clusters Example            |
-| ex.funckey (funckey)                                     | Funckey                                    |
-| ex.gene.cccn (gene_cccn)                                 | Gene CoCluster Network example             |
-| ex.gm.edges (gm_edges)                                   | Full GeneMANIA Edges Example               |
-| ex.gm.network (gm_network)                               | Full GeneMANIA Network Example             |
-| ex.gm.nodes (gm_nodes)                                   | GeneMANIA Nodes Example                    |
-| ex.nodenames (nodenames)                                 | Nodenames Example                          |
-| ex.ppi.network (ppi_network)                             | PPI Network Example                        |
-| ex.ptm.cccn (ptm_cccn)                                   | Filtered Correlation Matrix example        |
-| ex.ptm.correlation.matrix (ptm_correlation_matrix)       | Correlation Matrix Example                 |
-| ex.stringdb.edges (stringdb_edges)                       | STRINGdb Edges example                     |
-| ex_PCNedgelist (PCNedgelist)                             | Pathway Crosstalk Network Edgelist Example |
-| ex_adj_consensus                                         | Adj Consensus                              |
-| ex_full_ptm_table                                        | Full PTM Table Example                     |
-| ex_pathway_crosstalk_network (pathway_crosstalk_network) | Pathway Crosstalk Network Example          |
-| ex_pathways_list (pathways_list)                         | Pathways List Example                      |
-| ex_small_ptm_table                                       | Small PTM Table Example                    |
-| ex_tiny_ptm_table                                        |                                            |
+| Dataset Name                 | Description                |
+|:-----------------------------|:---------------------------|
+| ex_PCNedgelist               | PCN Edge List              |
+| ex_adj_consensus             | Adjacency Consensus Matrix |
+| ex_bioplanet                 | Bioplanet                  |
+| ex_cfn                       | Cfn                        |
+| ex_combined_ppi              | Combined PPIs              |
+| ex_common_clusters           | Common Clusters            |
+| ex_full_ptm_table            | Full PTM Table Example     |
+| ex_gene_cccn_edges           | Gene CCCN Edgelist         |
+| ex_gene_cccn_nodes           | Gene list (nodes)          |
+| ex_genemania_edges           | Genemania Edges            |
+| ex_pathway_crosstalk_network | Pathway Crosstalk Network  |
+| ex_pathways_list             | Pathways list              |
+| ex_ptm_cccn_edges            | PTM CCCN Edgelist          |
+| ex_ptm_correlation_matrix    | Correlation Matrix         |
+| ex_small_ptm_table           | Small PTM Table Example    |
+| ex_stringdb_edges            | STRINGdb Edges             |
+| ex_tiny_ptm_table            | Tiny PTM Table Example     |
 
 If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
@@ -177,27 +169,27 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.44 secs total.
->> Spearman t-SNE calculation complete after 42.56 secs total.
->> Euclidean distance calculation complete after 42.6 secs total.
->> Euclidean t-SNE calculation complete after 1.16 mins total.
->> Combined distance calculation complete after 1.16 mins total.
->> SED t-SNE calculation complete after 1.62 mins total.
+>> Spearman correlation calculation complete after 13 secs total.
+>> Spearman t-SNE calculation complete after 41.78 secs total.
+>> Euclidean distance calculation complete after 41.82 secs total.
+>> Euclidean t-SNE calculation complete after 1.14 mins total.
+>> Combined distance calculation complete after 1.14 mins total.
+>> SED t-SNE calculation complete after 1.59 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.64 mins total.
+    >> Clustering for Euclidean complete after 1.6 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.64 mins total.
+    >> Clustering for Spearman complete after 1.61 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.64 mins total.
-    >> Consensus clustering complete after 1.64 mins total.
-    >> MakeClusterList complete after 1.64 mins total.
+    >> Clustering for SED complete after 1.61 mins total.
+    >> Consensus clustering complete after 1.61 mins total.
+    >> MakeClusterList complete after 1.61 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -505,9 +497,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2026-03-06 23:00:25 UTC"
->> [1] "2026-03-06 23:00:25 UTC"
->> [1] Total time: 0.107054710388184
+>> [1] "2026-03-25 23:09:54 UTC"
+>> [1] "2026-03-25 23:09:54 UTC"
+>> [1] Total time: 0.103747606277466
 ```
 
 And we can see some of the pathway crosstalk network edges below:

@@ -58,8 +58,7 @@ A list containing the following data structures at the given index:
 
 ``` r
 Example_Output <- BuildClusterFilteredNetwork(ex.gene.cccn, ex.stringdb.edges, ex.gm.edges)
-#> Warning: no non-missing arguments to max; returning -Inf
-#> Error in `$<-.data.frame`(`*tmp*`, "Weight", value = numeric(0)): replacement has 0 rows, data has 196
+#> Error: object 'ex.stringdb.edges' not found
 utils::head(Example_Output)
 #> Error: object 'Example_Output' not found
 ```
