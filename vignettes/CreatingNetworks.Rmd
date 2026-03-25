@@ -15,9 +15,10 @@ output:
   word_document:
     toc: true
     toc_depth: '4'
-  VignetteIndexEntry: PTMsToPathways
-  VignetteEncoding: UTF-8
-  VignetteEngine: knitr::rmarkdown
+vignette: >
+  %\VignetteIndexEntry{PTMsToPathways}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 editor_options:
   markdown:
     wrap: 72
