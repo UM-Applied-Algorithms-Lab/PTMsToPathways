@@ -116,8 +116,8 @@
 #' }
 #' @source "Produced by MakeCorrelationNetwork"
 #' @examples
-#' head(ex_ptm_cccn_edgelist)
-"ex_ptm_cccn_edgelist"
+#' head(ex_ptm_cccn_edges)
+"ex_ptm_cccn_edges"
 
 #' Gene CCCN Edgelist
 #' 
@@ -134,8 +134,8 @@
 #' }
 #' @source "Produced by MakeCorrelationNetwork"
 #' @examples
-#' head(ex_gene_cccn_edgelist)
-"ex_gene_cccn_edgelist"
+#' head(ex_gene_cccn_edges)
+"ex_gene_cccn_edges"
 
 #' Gene list (nodes)
 #' 
