@@ -1,3 +1,56 @@
+#' Tiny PTM Table Example
+#'
+#' Post-translational modification data under certain environmental conditions.
+#'
+#' @keywords internal
+#'
+#' @format Dataframe of 125 rows and 7 columns:
+#' \describe{
+#'   \item{row}{Number of PTMs}
+#'   \item{columns}{Names of drugs that were used on PTMs}
+#'   \item{values}{Expression as found by mass spectrometry}
+#' }
+#' @source "Sub-data frame of the small PTM table"
+#' @examples
+#' head(ex_small_ptm_table)
+"ex_tiny_ptm_table"
+
+#' Small PTM Table Example
+#'
+#' Post-translational modification data under certain environmental conditions.
+#'
+#' @keywords internal
+#'
+#' @format Dataframe of 908 rows and 18 columns:
+#' \describe{
+#'   \item{row}{Number of PTMs}
+#'   \item{columns}{Names of drugs that were used on PTMs}
+#'   \item{values}{Expression as found by mass spectrometry}
+#' }
+#' @source "An .rda version of phospho_cleaned_mapped.txt found in inst/extdata"
+#' @examples
+#' head(ex_small_ptm_table)
+"ex_small_ptm_table"
+
+#' Full PTM Table Example
+#'
+#' Post-translational modification data under certain environmental conditions.
+#'
+#' @keywords internal
+#'
+#' @format Dataframe of 9215 rows and 70 columns:
+#' \describe{
+#'   \item{row}{Number of PTMs}
+#'   \item{columns}{Names of drugs that were used on PTMs}
+#'   \item{values}{Expression as found by mass spectrometry}
+#' }
+#' @source "Mass Spectrometry Data"
+#' @examples
+#' head(ex_full_ptm_table)
+"ex_full_ptm_table"
+
+
+
 #' Common Clusters
 #'
 #' Clusters that contain PTMs that are found to cocluster in all 3 T-SNE lists.
@@ -247,4 +300,5 @@
 #' @examples
 #' head("ex_pathways_list")
 "ex_pathways_list"
+
 
