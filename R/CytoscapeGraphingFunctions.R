@@ -555,7 +555,7 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   gene.data <- subset.ptmtable %>%
     dplyr::group_by(.data$Gene.Name) %>%
     dplyr::summarise(
-      dplyr::across(where(is.numeric), ~sum(.x, na.rm = TRUE)),
+      dplyr::across(tidyselect::where(is.numeric), ~sum(.x, na.rm = TRUE)),
       .groups = "drop"
     )
   return(as.data.frame(gene.data))  # Ensure base R class
