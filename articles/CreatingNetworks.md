@@ -123,10 +123,9 @@ If you have downloaded the larger dataset locally, you can read it into
 R using the following code:
 
 ``` r
-allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
-                          header = TRUE, blank.lines.skip = T,
-                          fill = T, quote = "\"", dec = ".",
-                          comment.char = "", stringsAsFactors = F)
+allptmtable <- utils::read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
+                                 fill = T, quote = "\"", dec = ".",
+                                 comment.char = "", stringsAsFactors = F)
 ```
 
 ### Using Your Own Data
@@ -169,27 +168,27 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.36 secs total.
->> Spearman t-SNE calculation complete after 42.08 secs total.
->> Euclidean distance calculation complete after 42.12 secs total.
->> Euclidean t-SNE calculation complete after 1.14 mins total.
->> Combined distance calculation complete after 1.14 mins total.
->> SED t-SNE calculation complete after 1.6 mins total.
+>> Spearman correlation calculation complete after 13.22 secs total.
+>> Spearman t-SNE calculation complete after 40.59 secs total.
+>> Euclidean distance calculation complete after 40.63 secs total.
+>> Euclidean t-SNE calculation complete after 1.12 mins total.
+>> Combined distance calculation complete after 1.12 mins total.
+>> SED t-SNE calculation complete after 1.57 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.61 mins total.
+    >> Clustering for Euclidean complete after 1.58 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.61 mins total.
+    >> Clustering for Spearman complete after 1.59 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.61 mins total.
-    >> Consensus clustering complete after 1.62 mins total.
-    >> MakeClusterList complete after 1.62 mins total.
+    >> Clustering for SED complete after 1.59 mins total.
+    >> Consensus clustering complete after 1.59 mins total.
+    >> MakeClusterList complete after 1.59 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -262,9 +261,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.04 secs total.
+>> PTM CCCN complete after 0.03 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.68 secs total.
+>> Gene CCCN complete after 2.74 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -497,9 +496,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2026-03-25 23:15:43 UTC"
->> [1] "2026-03-25 23:15:43 UTC"
->> [1] Total time: 0.105401039123535
+>> [1] "2026-04-01 21:57:24 UTC"
+>> [1] "2026-04-01 21:57:24 UTC"
+>> [1] Total time: 0.106647968292236
 ```
 
 And we can see some of the pathway crosstalk network edges below:

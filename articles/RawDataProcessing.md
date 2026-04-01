@@ -142,9 +142,9 @@ line below.
 file_path <- system.file("extdata", "phospho_cleaned_mapped.txt",
                          package = "PTMsToPathways")
 
-newphos <- read.table(file_path, sep = "\t", skip = 0, header = TRUE,
-                      blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
-                      comment.char = "", stringsAsFactors = F)
+newphos <- utils::read.table(file_path, sep = "\t", skip = 0, header = TRUE,
+                             blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
+                             comment.char = "", stringsAsFactors = F)
 dim(newphos)
 >> [1] 933 170
 ```
