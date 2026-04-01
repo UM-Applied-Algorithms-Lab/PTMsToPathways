@@ -87,7 +87,7 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
     gene.cccn2 <- dplyr::summarise(
       dplyr::group_by(gene.cccn, .data$Gene.Name),
       dplyr::across(
-        where(is.numeric),
+        tidyselect::where(is.numeric),
         ~sum(.x, na.rm = TRUE)
       )
     )
@@ -101,7 +101,7 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
     gene.cccn3 <- dplyr::summarise(
       dplyr::group_by(gene.cccn2, .data$Gene),
       dplyr::across(
-        where(is.numeric),
+        tidyselect::where(is.numeric),
         ~sum(.x, na.rm = TRUE)
       )
     )
