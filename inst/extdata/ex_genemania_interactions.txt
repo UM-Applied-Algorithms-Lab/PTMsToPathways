@@ -1,0 +1,141 @@
+Gene 1	Gene 2	Weight	Type	Network
+PDGFRB	EFNA1	0.009280709	Co-expression	Wang-Maris-2006
+PDGFRB	CSPG4	0.008624977	Co-expression	Wang-Maris-2006
+PTPRG	ADGRL2	0.0338344	Co-expression	Wang-Maris-2006
+PTPRG	ADGRL2	0.015760668	Co-expression	Mallon-McKay-2013
+CSPG4	EPHA2	0.016413948	Co-expression	Ramaswamy-Golub-2001
+SFMBT1	EPHB1	0.0131929545	Co-expression	Ramaswamy-Golub-2001
+PTPRG	EPHB1	0.018102035	Co-expression	Ramaswamy-Golub-2001
+PTPRG	SFMBT1	0.018377176	Co-expression	Ramaswamy-Golub-2001
+PDGFRB	CSPG4	0.0053142277	Co-expression	Innocenti-Brown-2011
+ARHGAP35	ACP1	0.0070441025	Co-expression	Alizadeh-Staudt-2000
+RPL12	EFNA1	0.0062488513	Co-expression	Rieger-Chu-2004
+ARHGAP35	ACP1	0.008364001	Co-expression	Boldrick-Relman-2002
+PDGFRB	ADGRL2	0.0062491423	Co-expression	Arijs-Rutgeerts-2009
+PTPRG	ADGRL2	0.010717503	Co-expression	Perou-Botstein-2000
+PDGFRB	EFNA1	0.015200669	Co-expression	Chen-Brown-2002
+RPL12	SHANK1	0.0067810398	Co-expression	Wang-Cheung-2015
+PTPRG	ADGRL2	0.009655856	Co-localization	Johnson-Shoemaker-2003
+EP300	CTNNB1	0.03065844	Genetic Interactions	BIOGRID-SMALL-SCALE-STUDIES
+CTNNB1	PDGFRB	0.0008289816	Genetic Interactions	Lin-Smith-2010
+RPL12	ADGRL2	0.001282157	Genetic Interactions	Lin-Smith-2010
+RPL12	ACP1	0.0032941015	Genetic Interactions	Lin-Smith-2010
+RPL12	EPHB1	0.0014631499	Genetic Interactions	Lin-Smith-2010
+SSU72	ARHGAP35	0.00084785966	Genetic Interactions	Lin-Smith-2010
+SSU72	PDGFRB	0.0010101818	Genetic Interactions	Lin-Smith-2010
+PTPRG	EPHB1	0.00042152908	Genetic Interactions	Lin-Smith-2010
+PTPRG	SSU72	0.00041608317	Genetic Interactions	Lin-Smith-2010
+EP300	CTNNB1	0.0009256811	Genetic Interactions	Lin-Smith-2010
+EPHA2	ACP1	0.28541145	Pathway	Wu-Stein-2010
+EFNA1	ACP1	0.21172106	Pathway	Wu-Stein-2010
+EFNA1	EPHA2	0.053951785	Pathway	Wu-Stein-2010
+PDGFRB	ACP1	0.1125968	Pathway	Wu-Stein-2010
+EP300	CTNNB1	0.0016613166	Pathway	Wu-Stein-2010
+EPHA2	ACP1	0.2171439	Pathway	NCI_NATURE
+ARHGAP35	ACP1	0.469476	Pathway	NCI_NATURE
+ARHGAP35	EPHA2	0.1594356	Pathway	NCI_NATURE
+EFNA1	ACP1	0.1538823	Pathway	NCI_NATURE
+EFNA1	EPHA2	0.052258935	Pathway	NCI_NATURE
+EFNA1	ARHGAP35	0.112986445	Pathway	NCI_NATURE
+CTNNB1	EPHA2	0.011367559	Pathway	NCI_NATURE
+CTNNB1	EFNA1	0.008055793	Pathway	NCI_NATURE
+EP300	CTNNB1	0.0064686984	Pathway	NCI_NATURE
+EP300	ACP1	0.07580981	Physical Interactions	Raisner-Gascoigne-2018
+EP300	CTNNB1	0.00627933	Physical Interactions	IREF-reactome
+EP300	CTNNB1	0.00627933	Physical Interactions	Vastrik-Stein-2007
+PTPRG	PDGFRB	0.0393622	Physical Interactions	Barr-Knapp-2009
+PTPRG	CTNNB1	0.09176428	Physical Interactions	Barr-Knapp-2009
+EPHB1	ACP1	0.67332876	Physical Interactions	IREF-quickgo
+EFNA1	EPHA2	0.5497008	Physical Interactions	IREF-quickgo
+EP300	CTNNB1	0.005889977	Physical Interactions	IREF-quickgo
+EFNA1	EPHA2	0.31905872	Physical Interactions	IREF-dip
+CTNNB1	EPHA2	0.055033367	Physical Interactions	IREF-dip
+ABRACL	ACP1	0.5828446	Physical Interactions	Wan-Emili-2015
+RPL12	ACP1	0.30926996	Physical Interactions	Havugimana-Emili-2012
+RPL12	CTNNB1	0.0060956166	Physical Interactions	Rosenbluh-Hahn-2016
+EPHA2	ACP1	0.08593688	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+EPHB1	ACP1	0.14163059	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+SHANK1	ADGRL2	0.34436277	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+CTNNB1	ACP1	0.013501859	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+EP300	CTNNB1	0.00065797893	Physical Interactions	BIOGRID-SMALL-SCALE-STUDIES
+EP300	CTNNB1	0.01415049	Physical Interactions	IREF-innatedb
+EFNA1	EPHA2	0.19517724	Physical Interactions	IREF-mint
+SHANK1	ADGRL2	0.7962252	Physical Interactions	IREF-mint
+PTPRG	CTNNB1	0.23622823	Physical Interactions	IREF-mint
+EPHB1	ACP1	0.5652601	Physical Interactions	IREF-bind-translation
+EFNA1	EPHA2	0.18702589	Physical Interactions	IREF-bind-translation
+PDGFRB	EPHB1	0.08376066	Physical Interactions	IREF-bind-translation
+EPHB1	ACP1	0.6019039	Physical Interactions	IREF-bind
+EFNA1	EPHA2	0.29389262	Physical Interactions	IREF-bind
+PDGFRB	EPHB1	0.09132901	Physical Interactions	IREF-bind
+SFMBT1	ACP1	0.702804	Physical Interactions	Rual-Vidal-2005
+EFNA1	EPHA2	0.26714602	Physical Interactions	IREF-matrixdb
+SHANK1	ADGRL2	0.68592435	Physical Interactions	IREF-spike
+SFMBT1	ACP1	0.33007377	Physical Interactions	IREF-spike
+PTPRG	CTNNB1	0.03618818	Physical Interactions	IREF-spike
+EP300	CTNNB1	0.008373976	Physical Interactions	IREF-spike
+EPHB1	ACP1	0.06693435	Physical Interactions	IREF-biogrid
+ABRACL	ACP1	0.2121924	Physical Interactions	IREF-biogrid
+CTNNB1	ACP1	0.004539447	Physical Interactions	IREF-biogrid
+RPL12	ACP1	0.013252774	Physical Interactions	IREF-biogrid
+RPL12	CTNNB1	0.002088527	Physical Interactions	IREF-biogrid
+SFMBT1	ACP1	0.056460276	Physical Interactions	IREF-biogrid
+EP300	CTNNB1	0.0008096191	Physical Interactions	IREF-biogrid
+EFNA1	EPHB1	0.24167413	Predicted	Wu-Stein-2010
+CTNNB1	ACP1	0.22707391	Predicted	I2D-INNATEDB-Mouse2Human
+EP300	CTNNB1	0.018345926	Predicted	I2D-INNATEDB-Mouse2Human
+CTNNB1	ACP1	0.22908439	Predicted	I2D-BioGRID-Mouse2Human
+CSPG4	ADGRL2	1	Predicted	Stuart-Kim-2003
+EPHB1	EPHA2	0.03368178	Shared protein domains	INTERPRO
+SSU72P8	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72P4	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72P4	SSU72P8	0.14980672	Shared protein domains	INTERPRO
+SSU72P5	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72P5	SSU72P8	0.14980672	Shared protein domains	INTERPRO
+SSU72P5	SSU72P4	0.14980672	Shared protein domains	INTERPRO
+SSU72P2	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72P2	SSU72P8	0.14980672	Shared protein domains	INTERPRO
+SSU72P2	SSU72P4	0.14980672	Shared protein domains	INTERPRO
+SSU72P2	SSU72P5	0.14980672	Shared protein domains	INTERPRO
+SSU72P7	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72P7	SSU72P8	0.14980672	Shared protein domains	INTERPRO
+SSU72P7	SSU72P4	0.14980672	Shared protein domains	INTERPRO
+SSU72P7	SSU72P5	0.14980672	Shared protein domains	INTERPRO
+SSU72P7	SSU72P2	0.14980672	Shared protein domains	INTERPRO
+SSU72P3	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72P3	SSU72P8	0.14980672	Shared protein domains	INTERPRO
+SSU72P3	SSU72P4	0.14980672	Shared protein domains	INTERPRO
+SSU72P3	SSU72P5	0.14980672	Shared protein domains	INTERPRO
+SSU72P3	SSU72P2	0.14980672	Shared protein domains	INTERPRO
+SSU72P3	SSU72P7	0.14980672	Shared protein domains	INTERPRO
+SSU72	ACP1	0.12021387	Shared protein domains	INTERPRO
+SSU72	SSU72P8	0.14980672	Shared protein domains	INTERPRO
+SSU72	SSU72P4	0.14980672	Shared protein domains	INTERPRO
+SSU72	SSU72P5	0.14980672	Shared protein domains	INTERPRO
+SSU72	SSU72P2	0.14980672	Shared protein domains	INTERPRO
+SSU72	SSU72P7	0.14980672	Shared protein domains	INTERPRO
+SSU72	SSU72P3	0.14980672	Shared protein domains	INTERPRO
+EPHB1	EPHA2	0.04780555	Shared protein domains	PFAM
+SSU72P4	SSU72P8	0.16666667	Shared protein domains	PFAM
+SSU72P5	SSU72P8	0.16666667	Shared protein domains	PFAM
+SSU72P5	SSU72P4	0.16666667	Shared protein domains	PFAM
+SSU72P2	SSU72P8	0.16666667	Shared protein domains	PFAM
+SSU72P2	SSU72P4	0.16666667	Shared protein domains	PFAM
+SSU72P2	SSU72P5	0.16666667	Shared protein domains	PFAM
+SSU72P7	SSU72P8	0.16666667	Shared protein domains	PFAM
+SSU72P7	SSU72P4	0.16666667	Shared protein domains	PFAM
+SSU72P7	SSU72P5	0.16666667	Shared protein domains	PFAM
+SSU72P7	SSU72P2	0.16666667	Shared protein domains	PFAM
+SSU72P3	SSU72P8	0.16666667	Shared protein domains	PFAM
+SSU72P3	SSU72P4	0.16666667	Shared protein domains	PFAM
+SSU72P3	SSU72P5	0.16666667	Shared protein domains	PFAM
+SSU72P3	SSU72P2	0.16666667	Shared protein domains	PFAM
+SSU72P3	SSU72P7	0.16666667	Shared protein domains	PFAM
+SSU72	SSU72P8	0.16666667	Shared protein domains	PFAM
+SSU72	SSU72P4	0.16666667	Shared protein domains	PFAM
+SSU72	SSU72P5	0.16666667	Shared protein domains	PFAM
+SSU72	SSU72P2	0.16666667	Shared protein domains	PFAM
+SSU72	SSU72P7	0.16666667	Shared protein domains	PFAM
+SSU72	SSU72P3	0.16666667	Shared protein domains	PFAM
+
+Gene	GO ids

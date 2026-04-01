@@ -3,26 +3,26 @@
 \docType{data}
 \name{ex_PCNedgelist}
 \alias{ex_PCNedgelist}
-\title{Pathway Crosstalk Network Edgelist Example}
+\title{PCN Edge List}
 \format{
-Matrix with 19 rows and 4 columns:
+Dataframe of 19 rows and 4 columns
 \describe{
-\item{V1}{Pathway One}
-\item{V2}{Pathway Two}
-\item{Jaccard Weight}{Jaccard Similarity between two pathways}
-\item{PTM cluster evidence}{Similarity score based on clusters PTMs share}
+\item{source}{The name of a pathway interacting}
+\item{target}{The name of the pathway the source interacts with}
+\item{pathway_Jaccard_similarity}{A weight}
+\item{PTM_cluster_evidence}{A weight}
 }
 }
 \source{
-"created by PathwayCrosstalkNetwork"
+"Produced by BuildPathwayCrosstalkNetwork"
 }
 \usage{
 ex_PCNedgelist
 }
 \description{
-Similar to the Pathway Crosstalk Network but uses different weights.
+The Pathway Crosstalk Network but with direct values for both weight types
 }
 \examples{
-head(ex_PCNedgelist)
+head("ex_PCNedgelist")
 }
 \keyword{internal}

@@ -3,23 +3,23 @@
 \docType{data}
 \name{ex_pathways_list}
 \alias{ex_pathways_list}
-\title{Pathways List Example}
+\title{Pathways list}
 \format{
-List of 9 elements:
+list of 9 character vectors
 \describe{
-\item{pathway}{A pathway name with the list of genes involved}
+\item{Pathway name}{Genes in the pathway}
 }
 }
 \source{
-"created from a Bioplanet.csv file in PathwayCrosstalkNetwork"
+"Produced by BuildPathwayCrosstalkNetwork"
 }
 \usage{
 ex_pathways_list
 }
 \description{
-A named list with names of Pathways and string vectors that hold all the gene symbols from those pathways
+A list of pathway names and the genes that make them up
 }
 \examples{
-head(ex_pathways_list)
+head("ex_pathways_list")
 }
-\keyword{internal}
+\keyword{datasets}

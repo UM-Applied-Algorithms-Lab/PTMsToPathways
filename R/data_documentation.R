@@ -1,188 +1,19 @@
-#' Bioplanet Example
+#' Tiny PTM Table Example
 #'
-#' A data frame version of a small subset of the Bioplanet.csv database file
-#'
-#' @keywords internal
-#'
-#' @format Dataframe with 100 rows and 4 columns:
-#' \describe{
-#'   \item{PATHWAY_ID}{ID of the pathway in bioplanet}
-#'   \item{PATHWAY_NAME}{Common name of the pathway}
-#'   \item{GENE_ID}{ID of the gene in bioplanet}
-#'   \item{GENE_SYMBOL}{Common name of the gene}
-#' }
-#' @source \url{https://tripod.nih.gov/bioplanet/}
-#' @examples
-#' head(ex.bioplanet)
-"ex.bioplanet"
-
-
-
-#' Pathways List Example
-#'
-#' A named list with names of Pathways and string vectors that hold all the gene symbols from those pathways
+#' Post-translational modification data under certain environmental conditions.
 #'
 #' @keywords internal
 #'
-#' @format List of 9 elements:
+#' @format Dataframe of 125 rows and 7 columns:
 #' \describe{
-#'   \item{pathway}{A pathway name with the list of genes involved}
+#'   \item{row}{Number of PTMs}
+#'   \item{columns}{Names of drugs that were used on PTMs}
+#'   \item{values}{Expression as found by mass spectrometry}
 #' }
-#' @source "created from a Bioplanet.csv file in PathwayCrosstalkNetwork"
+#' @source "Sub-data frame of the small PTM table"
 #' @examples
-#' head(ex_pathways_list)
-"ex_pathways_list"
-
-
-
-#' Full GeneMANIA Edges Example
-#'
-#' Network of interactions from the GeneMANIA database.
-#'
-#' @keywords internal
-#'
-#' @format Dataframe of 601,552 rows and 10 columns:
-#' \describe{
-#'   \item{data.type}{Type of interaction; typically co-expression}
-#'   \item{highlight}{Internal flag}
-#'   \item{interaction}{Type of interaction}
-#'   \item{name}{The names of the two genes interacting as well as the data type}
-#'   \item{networks}{Source of information}
-#'   \item{normalized.max.weight}{raw.weights scaled to be consistent}
-#'   \item{raw.weights}{A number weighting the strength of the interaction}
-#'   \item{selected}{Internal flag}
-#'   \item{shared.interaction}{Type of interaction}
-#'   \item{shared.name}{The names of the two genes interacting as well as the data type}
-#' }
-#' @source \url{https://apps.cytoscape.org/apps/genemania}
-#' @examples
-#' head(ex.gm.edges)
-"ex.gm.edges"
-
-
-
-#' Full GeneMANIA Network Example
-#'
-#' Network of relationships between genes based on information from the GeneMANIA database.
-#'
-#' @keywords internal
-#'
-#' @format Dataframe of 601,552 rows and 4 columns:
-#' \describe{
-#'   \item{Gene.1}{The gene interacting with Gene.2}
-#'   \item{Gene.2}{The gene interacting with Gene.1}
-#'   \item{raw.weights}{Strength of the interaction}
-#'   \item{GM.weights}{Weights from Genemania file}
-#' }
-#' @source \url{https://apps.cytoscape.org/apps/genemania}
-#' @examples
-#' head(ex.gm.network)
-"ex.gm.network"
-
-
-
-#' GeneMANIA Nodes Example
-#'
-#' Dataframe from GeneMANIA relating GeneMANIA IDs to common gene names.
-#'
-#' @keywords internal
-#'
-#' @format Dataframe of 2762 rows and 16 columns:
-#' \describe{
-#'   \item{annotation.name}{Note about the gene}
-#'   \item{annotations}{Processes associated with this gene according to Gene Ontology}
-#'   \item{Ensembl.Gene.ID}{ID of the gene in Ensemble}
-#'   \item{Entrez.Gene.ID}{ID of the gene in Entrez}
-#'   \item{gene.name}{Common name fo the gene}
-#'   \item{log.score}{Association strength to the set of entered genes on a log scale}
-#'   \item{name}{Name of the gene in GeneMANIA}
-#'   \item{node.type}{Why the node is in the list}
-#'   \item{query.term}{What was searched for; typically the common name of the gene}
-#'   \item{RefSeq.Protein.ID}{ID of the gene in RefSeq}
-#'   \item{score}{Predicted association strength to the set of entered genes}
-#'   \item{selected}{Internal flag}
-#'   \item{shared.name}{Name of the gene in GeneMANIA}
-#'   \item{Synonym}{Gene synonym in another database}
-#'   \item{Uniprot.ID}{ID of the gene in Uniprot}
-#' }
-#' @source \url{https://apps.cytoscape.org/apps/genemania}
-#' @examples
-#' head(ex.gm.nodes)
-"ex.gm.nodes"
-
-
-
-#' List of Common Clusters Example
-#'
-#' Clusters that contain PTMs that are found to cocluster in all 3 T-SNE lists.
-#'
-#' @keywords internal
-#'
-#' @format List of 40 lists:
-#' \describe{
-#'   \item{list}{Common cluster between the three distance metrics}
-#' }
-#' @source "Created in MakeCorrelationNetwork, FindCommonClusters using 3 T-SNE lists"
-#' @examples
-#' head(ex.common.clusters)
-"ex.common.clusters"
-
-
-
-#' Nodenames Example
-#'
-#' List of gene names in dataset.
-#'
-#' @keywords internal
-#'
-#' @format Dataframe of 67 rows and 1 column:
-#' \describe{
-#'   \item{Gene.Names}{Name of the gene}
-#' }
-#' @source "created by MakeDBInput"
-#' @examples
-#' head(ex.nodenames)
-"ex.nodenames"
-
-
-
-#' PPI Network Example
-#'
-#' Network of relationships between genes based on PPI database STRINGdb.
-#'
-#' @keywords internal
-#'
-#' @format Dataframe of 1 row and 4 columns:
-#' \describe{
-#'   \item{Gene.1}{The gene interacting with Gene.2}
-#'   \item{Gene.2}{The gene interacting with Gene.1}
-#'   \item{Weight}{Strength of the interaction}
-#'   \item{edgeType}{Type of interaction between Gene.1 and Gene.2}
-#' }
-#' @source "created by FindPPIEdges"
-#' @examples
-#' head(ex.ppi.network)
-"ex.ppi.network"
-
-
-
-#' Correlation Matrix Example
-#'
-#' Matrix relating the correlation values between ptms based on Spearman Similarity.
-#'
-#' @keywords internal
-#'
-#' @format Square matrix of 497 rows and columns:
-#' \describe{
-#'   \item{rows and columns}{Ptm names}
-#'   \item{values}{Strength of correlation}
-#' }
-#' @source "created by MakeClusterList"
-#' @examples
-#' head(ex.ptm.correlation.matrix)
-"ex.ptm.correlation.matrix"
-
-
+#' head(ex_small_ptm_table)
+"ex_tiny_ptm_table"
 
 #' Small PTM Table Example
 #'
@@ -218,9 +49,26 @@
 #' head(ex_full_ptm_table)
 "ex_full_ptm_table"
 
-#' Adj Consensus
+
+
+#' Common Clusters
 #'
-#' A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.
+#' Clusters that contain PTMs that are found to cocluster in all 3 T-SNE lists.
+#'
+#' @keywords internal
+#'
+#' @format List of 140 lists:
+#' \describe{
+#'   \item{Cluster id}{Common clusters between the three distance metrics}
+#' }
+#' @source "Produced by MakeClusterList"
+#' @examples
+#' ex_common_clusters[0:3]
+"ex_common_clusters"
+
+#' Adjacency Consensus Matrix
+#'
+#' A matrix containing values of 0s and 1s depending on if the PTMs are in a cocluster with other PTMs.
 #'
 #' @keywords internal
 #'
@@ -235,233 +83,222 @@
 #' head(ex_adj_consensus)
 "ex_adj_consensus"
 
-
-
-#' Clusters List Example
+#' Correlation Matrix
 #'
-#' List of lists of dataframes containing PTMs that have been found to cluster based on their distance in 3D space for a specific distance metric
+#' Matrix relating the correlation values between ptms based on Spearman Similarity.
 #'
 #' @keywords internal
 #'
-#' @format List of 3 Distance metrics (Euclidean, Spearman, and the average of Spearman and Euclidean (SED)) and the clusters that form when they are run through tsne:
+#' @format Square matrix of 908 rows and columns:
 #' \describe{
-#'   \item{Euclidean}{A list of 54 clusters of ptms based on their Euclidean distance and positional distance determined by tsne}
-#'   \item{Spearman}{A list of 125 clusters of ptms based on their Spearman dissimilarity and positional distance determined by tsne}
-#'   \item{SED}{A list of 39 clusters of ptms based on the average of their Euclidean distance and Spearman Dissimilarity and positional distance determined by tsne}
+#'   \item{rows and columns}{Ptm names}
+#'   \item{values}{Strength of correlation}
 #' }
-#' @source "created by MakeClusterList"
+#' @source "Produced by MakeClusterList"
 #' @examples
-#' head(ex.clusters.list)
-"ex.clusters.list"
+#' head(ex_ptm_correlation_matrix)
+"ex_ptm_correlation_matrix"
 
 
 
-#' Cluster Filtered Network Example
-#'
-#' Subset of the PPI network in the cocluster correlation network.
-#'
+#' PTM CCCN Edgelist
+#' 
+#' PTM Co-Cluster Correlation Network as an Edgelist
+#' 
 #' @keywords internal
-#'
-#' @format Dataframe of 71 rows and 4 columns:
+#' 
+#' @format Data Frame of 5710 rows and 4 columns
 #' \describe{
-#'   \item{Gene.1}{First gene interacting}
-#'   \item{Gene.2}{Second gene interacting}
-#'   \item{Interaction}{The type of interaction}
-#'   \item{PPI.weight}{The weight of the interaction between these two genes as described by STRINGdb and GeneMANIA}
+#'  \item{source}{A PTM}
+#'  \item{target}{A PTM}
+#'  \item{Weight}{Value from -1 to 1}
+#'  \item{interaction}{Either correlation, positive correlation, or negative correlation}
 #' }
-#' @source "created by MakeDBInput"
+#' @source "Produced by MakeCorrelationNetwork"
 #' @examples
-#' head(ex.cfn)
-"ex.cfn"
+#' head(ex_ptm_cccn_edges)
+"ex_ptm_cccn_edges"
+
+#' Gene CCCN Edgelist
+#' 
+#' Gene Co-Cluster Correlation Network as an Edgelist
+#' 
+#' @keywords internal
+#' 
+#' @format Data Frame of 2279 rows and 4 columns
+#' \describe{
+#'  \item{source}{A Gene}
+#'  \item{target}{A Gene}
+#'  \item{Weight}{Value from -1 to 1}
+#'  \item{interaction}{Either correlation, positive correlation, or negative correlation}
+#' }
+#' @source "Produced by MakeCorrelationNetwork"
+#' @examples
+#' head(ex_gene_cccn_edges)
+"ex_gene_cccn_edges"
+
+#' Gene list (nodes)
+#' 
+#' List of Genes gotten from PTMs
+#' 
+#' @keywords internal
+#' 
+#' @format Character Vector of length 390
+#' \describe{
+#'  \item{String}{Gene}
+#' }
+#' @source "Produced by MakeCorrelationNetwork"
+#' @examples
+#' ex_gene_cccn_nodes[0:5]
+"ex_gene_cccn_nodes"
 
 
 
-#' STRINGdb Edges example
+
+#' STRINGdb Edges
 #'
 #' List of edges between genes in dataset.
 #'
 #' @keywords internal
 #'
-#' @format Dataframe of 205 rows and 4 columns:
+#' @format Dataframe of 8844 rows and 4 columns:
 #' \describe{
 #'   \item{source}{First gene interacting}
 #'   \item{target}{Second gene interacting}
 #'   \item{interaction}{The type of interaction}
 #'   \item{Weight}{The weight of the interaction between these two genes as described by STRINGdb}
 #' }
-#' @source "created by GetSTRINGdb"
+#' @source "Produced by GetSTRINGdb.edges"
 #' @examples
-#' head(ex.stringdb.edges)
-"ex.stringdb.edges"
+#' head(ex_stringdb_edges)
+"ex_stringdb_edges"
 
 
-
-#' PTP edgelist Example
-#'
-#' An edgelist filtered from the combination of every pathway based on nonzero Jaccard & PTP score
-#'
+#' Genemania Edges
+#' 
+#' Edges from gene_cccn_nodes that are also found within the Genemania database
+#' 
 #' @keywords internal
-#'
-#' @format Dataframe of 19 rows and 4 columns:
+#' 
+#' @format Dataframe of 5 rows and 4 columns
 #' \describe{
-#'   \item{V1}{A pathway}
-#'   \item{V2}{A pathway}
-#'   \item{jaccard.values}{The jaccard similarity of the two pathways sets of genes}
-#'   \item{PTPscore}{The sum of all CPEs for every cluster where both pathways have a nonzero score}
+#'  \item{source}{First gene interacting}
+#'  \item{target}{Second gene interacting}
+#'  \item{interaction}{The type of interaction}
+#'  \item{Weight}{The weight of the interaction between these two genes gotten from the Genemania database}
 #' }
-#' @source "Created in PathwayCrosstalkNetwork"
+#' @source "Produced by GetGeneMANIA.edges"
 #' @examples
-#' head(ex.PTPedgelist)
-"ex.PTPedgelist"
+#' head(ex_genemania_edges)
+"ex_genemania_edges"
+
+# DO KINSUB EDGES 
 
 
 
-#' Funckey
-#'
-#' DESCRIPTION
-#'
+#' Combined PPIs
+#' 
+#' Combines all Protein to Protein interaction data and combines their weights into one score from a range of 0 to 1
+#' 
 #' @keywords internal
-#'
-#' @format Dataframe of 24339 rows and 8 columns:
+#' 
+#' @format Dataframe of 8849 rows and 4 columns
 #' \describe{
-#'   \item{Gene.Name}{Name of the gene}
-#'   \item{Approved.Name}{Name of the protein}
-#'   \item{Hugo.Gene.Family}{Family of the gene}
-#'   \item{HPRD.Function}{Function of the protein}
-#'   \item{nodeType}{Type of protein}
-#'   \item{Domains}{Known domains of protein}
-#'   \item{Compartment}{Location of the protein}
-#'   \item{Compartment.Overview}{Alternate location of the protein}
+#'  \item{source}{First gene interacting}
+#'  \item{target}{Second gene interacting}
+#'  \item{interaction}{The type of interaction}
+#'  \item{Weight}{The normalized weight of the interaction between two genes from Genemania and StringDB}
 #' }
-#' @source ""
+#' @source "Produced by BuildClusterFilteredNetwork"
 #' @examples
-#' head(ex.funckey)
-"ex.funckey"
+#' head("ex_combined_ppi")
+"ex_combined_ppi"
 
-
-
-#' CPE matrix example
-#'
-#' Scores that represents how likely it is that a pathway interacts with a given cluster. Matrix of Clusters x Pathways.
-#'
+#' Cfn
+#' 
+#' The Cluster Filtered Network is a filtered version of the Combined PPIs but only for proteins found to interact via t-SNE clusters
+#' 
 #' @keywords internal
-#' @format Matrix of 40 rows and 9 columns
+#' 
+#' @format Dataframe of 196 rows and 4 columns
 #' \describe{
-#'   \item{rows}{Clusters}
-#'   \item{columns}{Pathways}
-#'   \item{values}{Cluster Pathway Evidence}
+#'  \item{source}{First gene interacting}
+#'  \item{target}{Second gene interacting}
+#'  \item{interaction}{The type of interaction}
+#'  \item{Weight}{Weight from Combined PPI}
 #' }
-#' @source "Made in PathwayCrosstalkNetwork"
+#' @source "Produced by BuildClusterFilteredNetwork"
 #' @examples
-#' ex.CPE.matrix[c(1,2) , c(1,2)]
-"ex.CPE.matrix"
+#' head("ex_cfn")
+"ex_cfn"
 
 
 
-#' Filtered Correlation Matrix example
-#'
-#' A version of the Correlation Matrix filtered by coclustering PTMs
-#'
+#' Bioplanet
+#' 
+#' A database file from the bioplanet website
+#' 
 #' @keywords internal
-#' @format Matrix of 329 rows and columns
+#' 
+#' @format Dataframe of 196 rows and 4 columns
 #' \describe{
-#'   \item{rows}{Select PTMs}
-#'   \item{columns}{Select PTMs}
-#'   \item{values}{Same as in Correlation Matrix}
+#'  \item{PATHWAY_ID}{The pathway a gene belongs to}
+#'  \item{PATHWAY_NAME}{The name of the pathway a gene belongs to}
+#'  \item{GENE_ID}{A unique gene ID}
+#'  \item{GENE_SYMBOL}{An abrivation for the name of the gene}
 #' }
-#' @source "Made in MakeCorrelationNetwork"
+#' @source "https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2019.00445/full"
 #' @examples
-#' ex.ptm.cccn[c(1,2) , c(1,2)]
-"ex.ptm.cccn"
+#' head("ex_bioplanet")
+"ex_bioplanet"
 
-
-
-#' Gene CoCluster Network example
-#'
-#' A version of the PTM cccn that works at the Gene level instead of the PTm level
-#'
+#' Pathway Crosstalk Network
+#' 
+#' Specific genes from the bioplanet file that we found in Common Clusters and their respective cell signaling pathway relationships
+#' 
 #' @keywords internal
-#' @format Matrix of 74 rows and columns
+#' 
+#' @format Dataframe of 37 rows and 4 columns
 #' \describe{
-#'   \item{rows}{Genes in PTM cccn}
-#'   \item{columns}{Genes in PTM cccn}
-#'   \item{values}{Sum of submatrices whose PTMs are on said gene}
+#'  \item{source}{The name of a pathway interacting}
+#'  \item{target}{The name of the pathway the source interacts with}
+#'  \item{Weight}{Weight from Combined PPI}
+#'  \item{interaction}{The type of interaction}
 #' }
-#' @source "Made in MakeCorrelationNetwork"
+#' @source "Produced by BuildPathwayCrosstalkNetwork"
 #' @examples
-#' ex.gene.cccn[c(1,2) , c(1,2)]
-"ex.gene.cccn"
-
-
-
-#' All Tsne Coords
-#'
-#' A list of Tsne coords for Euclidian, Spearman, and SED
-#'
-#' @keywords internal
-#' @format List of Euclidian, Spearman, and SED tsne coords
-#' \describe{
-#'   \item{First entry}{Data frame containing Euclidian Coords}
-#'   \item{Second entry}{Data frame containing Spearman coords}
-#'   \item{Third entry}{Data frame containing SED coords}
-#' }
-#' @source "Made in MakeClusterList"
-#' @examples
-#' ex.all.tsne.coords[1]
-"ex.all.tsne.coords"
-
-
-
-#' Jaccard Example
-#'
-#' A matrix measuring the Jaccard similarity between pairs of pathways
-#'
-#' @keywords internal
-#'
-#' @format Matrix with 36 rows and 3 columns:
-#' \describe{
-#'   \item{V1}{Pathway One}
-#'   \item{V2}{Pathway Two}
-#'   \item{jaccard.values}{Jaccard similarity between the two pathways}
-#' }
-#' @source "created by PathwayCrosstalkNetwork"
-#' @examples
-#' head(ex.Jaccard.Full)
-"ex.Jaccard.Full"
-
-
-#' Pathway Crosstalk Network Example
-#'
-#' Contains pathway source-target columns and weight, along with the interaction type.
-#'
-#' @keywords internal
-#'
-#' @format Matrix with 37 rows and 4 columns:
-#' \describe{
-#'   \item{V1}{Pathway One}
-#'   \item{V2}{Pathway Two}
-#'   \item{Weight}
-#'   \item{Interaction}{Jaccard similarity between the two pathways}
-#' }
-#' @source "created by PathwayCrosstalkNetwork"
-#' @examples
-#' head(ex_pathway_crosstalk_network)
+#' head("ex_pathway_crosstalk_network")
 "ex_pathway_crosstalk_network"
 
-#' Pathway Crosstalk Network Edgelist Example
-#'
-#' Similar to the Pathway Crosstalk Network but uses different weights.
-#'
+#' PCN Edge List
+#' 
+#' The Pathway Crosstalk Network but with direct values for both weight types
+#' 
 #' @keywords internal
-#'
-#' @format Matrix with 19 rows and 4 columns:
+#' 
+#' @format Dataframe of 19 rows and 4 columns
 #' \describe{
-#'   \item{V1}{Pathway One}
-#'   \item{V2}{Pathway Two}
-#'   \item{Jaccard Weight}{Jaccard Similarity between two pathways}
-#'   \item{PTM cluster evidence}{Similarity score based on clusters PTMs share}
+#'  \item{source}{The name of a pathway interacting}
+#'  \item{target}{The name of the pathway the source interacts with}
+#'  \item{pathway_Jaccard_similarity}{A weight}
+#'  \item{PTM_cluster_evidence}{A weight}
 #' }
-#' @source "created by PathwayCrosstalkNetwork"
+#' @source "Produced by BuildPathwayCrosstalkNetwork"
 #' @examples
-#' head(ex_PCNedgelist)
+#' head("ex_PCNedgelist")
 "ex_PCNedgelist"
+
+#' Pathways list
+#' 
+#' A list of pathway names and the genes that make them up
+#' 
+#' @format list of 9 character vectors
+#' \describe{
+#'  \item{Pathway name}{Genes in the pathway}
+#' }
+#' @source "Produced by BuildPathwayCrosstalkNetwork"
+#' @examples
+#' head("ex_pathways_list")
+"ex_pathways_list"
+
+
