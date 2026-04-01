@@ -289,9 +289,11 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
 #' This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
 #'
 #' @param edge.file PLACEHOLDER PARAMETER DESCRIPTION
+#' @param ptmtable PLACEHOLDER PARAMETER DESCRIPTION
+#' @param ptm.cccn.edges PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
-get.co.clustered.ptms <- function (edge.file) {
+get.co.clustered.ptms <- function (edge.file, ptmtable, ptm.cccn.edges) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -580,7 +582,7 @@ make.genepep.edges <- function(peptide.edgefile) {
 # Helper function to harmonize gene and peptide data for networks
 #  - for graphing combined CFN/CCCN graphs
 # Ensures that for Cytoscape, "id" is used for node name columns
-harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
+harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable, funckey) {
   if(!any(grepl("Gene.Name", names(genecf)))) {
     genecf.new <- data.frame(Gene.Name= genecf$id, genecf)} else {genecf.new = genecf}
   genecf.new$parent <- ""
