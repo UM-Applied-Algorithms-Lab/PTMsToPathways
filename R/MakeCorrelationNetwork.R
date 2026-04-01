@@ -4,9 +4,8 @@
 #' It groups the PTM correlation matrix based on the Genes of PTMs.
 #' By summing these submatrices, it also produces a gene by gene cocluster correlation network shows strength of relationships between proteins using the common clusters between the three distance metrics.
 #'
-#' @param common.clusters A list of clusters. Ideally the ones found by MakeClusterList in common_clusters
-#' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
 #' @param adj.consensus.matrix Adjacency matrix showing PTM co-cluster relationships from all three t-SNE embeddings
+#' @param ptm.correlation.matrix A data frame showing the correlation between ptms (as the rows and the columns). NAs are placed along the diagonal.
 #' @return A list containing the following data structures at the given index:
 #' \enumerate{
 #' \item{The PTM CoCluster Correlation Network as an edgelist.}
