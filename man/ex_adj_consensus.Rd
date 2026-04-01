@@ -3,7 +3,7 @@
 \docType{data}
 \name{ex_adj_consensus}
 \alias{ex_adj_consensus}
-\title{Adj Consensus}
+\title{Adjacency Consensus Matrix}
 \format{
 Dataframe of 908 rows and columns:
 \describe{
@@ -19,7 +19,7 @@ Dataframe of 908 rows and columns:
 ex_adj_consensus
 }
 \description{
-A matrix containing values of 0s and 1s depending on if the PTMs are cocluster with other PTMs, rows and columns are unamed.
+A matrix containing values of 0s and 1s depending on if the PTMs are in a cocluster with other PTMs.
 }
 \examples{
 head(ex_adj_consensus)

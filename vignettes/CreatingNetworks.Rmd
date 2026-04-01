@@ -115,10 +115,9 @@ If you have downloaded the larger dataset locally, you can read it into
 R using the following code:
 
 ```{r eval = FALSE, echo = TRUE}
-allptmtable <- read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
-                          header = TRUE, blank.lines.skip = T,
-                          fill = T, quote = "\"", dec = ".",
-                          comment.char = "", stringsAsFactors = F)
+allptmtable <- utils::read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
+                                 fill = T, quote = "\"", dec = ".",
+                                 comment.char = "", stringsAsFactors = F)
 ```
 
 ## Using Your Own Data

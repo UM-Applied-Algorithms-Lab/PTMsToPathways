@@ -3,26 +3,26 @@
 \docType{data}
 \name{ex_pathway_crosstalk_network}
 \alias{ex_pathway_crosstalk_network}
-\title{Pathway Crosstalk Network Example}
+\title{Pathway Crosstalk Network}
 \format{
-Matrix with 37 rows and 4 columns:
+Dataframe of 37 rows and 4 columns
 \describe{
-\item{V1}{Pathway One}
-\item{V2}{Pathway Two}
-\item{Weight}
-\item{Interaction}{Jaccard similarity between the two pathways}
+\item{source}{The name of a pathway interacting}
+\item{target}{The name of the pathway the source interacts with}
+\item{Weight}{Weight from Combined PPI}
+\item{interaction}{The type of interaction}
 }
 }
 \source{
-"created by PathwayCrosstalkNetwork"
+"Produced by BuildPathwayCrosstalkNetwork"
 }
 \usage{
 ex_pathway_crosstalk_network
 }
 \description{
-Contains pathway source-target columns and weight, along with the interaction type.
+Specific genes from the bioplanet file that we found in Common Clusters and their respective cell signaling pathway relationships
 }
 \examples{
-head(ex_pathway_crosstalk_network)
+head("ex_pathway_crosstalk_network")
 }
 \keyword{internal}
