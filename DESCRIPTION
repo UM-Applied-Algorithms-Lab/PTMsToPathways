@@ -24,7 +24,9 @@ Imports:
     STRINGdb,
     purrr,
     dplyr,
-    tidyselect
+    tidyselect,
+    gplots,
+    ggplot2
 Suggests: 
     BiocManager,
     knitr,
