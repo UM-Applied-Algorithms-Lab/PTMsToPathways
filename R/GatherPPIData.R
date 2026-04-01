@@ -135,7 +135,7 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
   network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
 
   # Read network into a data frame, tab-delimited
-  edgetable <- read.table(
+  edgetable <- utils::read.table(
     text = network_lines,
     header = TRUE,
     stringsAsFactors = FALSE,
@@ -165,7 +165,7 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
 #' @export
 GetKinsub.edges <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt" # from PhosphoSitePlus®, www.phosphosite.org
-  kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
+  kinasesubstrateraw <- utils::read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
   kinasesubstrateraw -> kinsub
   if (any(is.na(kinsub$GENE))) {

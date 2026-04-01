@@ -4,10 +4,14 @@
 \alias{get.co.clustered.ptms}
 \title{Get CoClustered PTMs}
 \usage{
-get.co.clustered.ptms(edge.file)
+get.co.clustered.ptms(edge.file, ptmtable, ptm.cccn.edges)
 }
 \arguments{
 \item{edge.file}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{ptmtable}{PLACEHOLDER PARAMETER DESCRIPTION}
+
+\item{ptm.cccn.edges}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
 \description{
 This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
