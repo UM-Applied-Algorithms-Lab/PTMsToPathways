@@ -35,6 +35,10 @@ BuildPathwayCrosstalkNetwork(
   The path of where to create the edgelist file. Defaults to the working
   directory, if FALSE is provided, a file will not be created.
 
+- PCN.edgelist.name:
+
+  Name of the PCN edgelist file to be created
+
 ## Value
 
 A list with these data structures at the given index:
@@ -54,7 +58,7 @@ A list with these data structures at the given index:
 ``` r
 Example_Output <- BuildPathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
 #> [1] "Making PCN"
-#> [1] "2026-04-01 21:53:33 UTC"
+#> [1] "2026-04-01 22:20:18 UTC"
 #> Error: object 'ex.bioplanet' not found
 Example_Output[[1]][[3,]]
 #> Error: object 'Example_Output' not found

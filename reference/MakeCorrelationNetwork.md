@@ -24,11 +24,6 @@ MakeCorrelationNetwork(adj.consensus.matrix, ptm.correlation.matrix)
   A data frame showing the correlation between ptms (as the rows and the
   columns). NAs are placed along the diagonal.
 
-- common.clusters:
-
-  A list of clusters. Ideally the ones found by MakeClusterList in
-  common_clusters
-
 ## Value
 
 A list containing the following data structures at the given index:
