@@ -143,13 +143,13 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
     comment.char = "#", na.strings='', quote = "",  fill=TRUE
   )
 
-  keeper <- edgetable$Type == "Pathway" | edgetable$Type == "Physical Interactions"   # which rows have these data types
-  edgetable <- edgetable[keeper,]                                                               # copy 'em over
+  keeper <- edgetable$Type == "Pathway" | edgetable$Type == "Physical Interactions"     # which rows have these data types
+  edgetable <- edgetable[keeper,]                                                       # copy 'em over
   # Cytoscape edge column names are c(source, target, interaction, Weight), so re-order columns to match StringDB edges
   edgetable <- edgetable[, c("Gene.1", "Gene.2", "Type", "Weight")]
   colnames(edgetable) <- c("source", "target", "interaction", "Weight")
-  keep <- edgetable$source %in% gene.cccn.nodes & edgetable$target %in% gene.cccn.nodes         # which rows are we keeping
-  genemania.edges <- edgetable[keep,]                                                 # copy 'em over
+  keep <- edgetable$source %in% gene.cccn.nodes & edgetable$target %in% gene.cccn.nodes # which rows are we keeping
+  genemania.edges <- edgetable[keep,]                                                   # copy 'em over
 
   return(genemania.edges)
 }
