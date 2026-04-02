@@ -23,7 +23,10 @@ Imports:
     RCy3,
     STRINGdb,
     purrr,
-    dplyr
+    dplyr,
+    tidyselect,
+    gplots,
+    ggplot2
 Suggests: 
     BiocManager,
     knitr,

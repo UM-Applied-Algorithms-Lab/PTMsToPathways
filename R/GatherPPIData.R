@@ -135,7 +135,7 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
   network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
 
   # Read network into a data frame, tab-delimited
-  edgetable <- read.table(
+  edgetable <- utils::read.table(
     text = network_lines,
     header = TRUE,
     stringsAsFactors = FALSE,
@@ -143,13 +143,13 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
     comment.char = "#", na.strings='', quote = "",  fill=TRUE
   )
 
-  keeper <- edgetable$Type == "Pathway" | edgetable$Type == "Physical Interactions"   # which rows have these data types
-  edgetable <- edgetable[keeper,]                                                               # copy 'em over
+  keeper <- edgetable$Type == "Pathway" | edgetable$Type == "Physical Interactions"     # which rows have these data types
+  edgetable <- edgetable[keeper,]                                                       # copy 'em over
   # Cytoscape edge column names are c(source, target, interaction, Weight), so re-order columns to match StringDB edges
   edgetable <- edgetable[, c("Gene.1", "Gene.2", "Type", "Weight")]
   colnames(edgetable) <- c("source", "target", "interaction", "Weight")
-  keep <- edgetable$source %in% gene.cccn.nodes & edgetable$target %in% gene.cccn.nodes         # which rows are we keeping
-  genemania.edges <- edgetable[keep,]                                                 # copy 'em over
+  keep <- edgetable$source %in% gene.cccn.nodes & edgetable$target %in% gene.cccn.nodes # which rows are we keeping
+  genemania.edges <- edgetable[keep,]                                                   # copy 'em over
 
   return(genemania.edges)
 }
@@ -165,7 +165,7 @@ GetGeneMANIA.edges <- function(gm.results.path, gene.cccn.nodes){
 #' @export
 GetKinsub.edges <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
   # kinasesubstrate.filename <- "Kinase_Substrate_Dataset.txt" # from PhosphoSitePlus®, www.phosphosite.org
-  kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
+  kinasesubstrateraw <- utils::read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
   #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
   kinasesubstrateraw -> kinsub
   if (any(is.na(kinsub$GENE))) {
