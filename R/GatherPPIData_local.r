@@ -37,7 +37,7 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz
 #' and pre-process it to HUGO symbols using the companion script string_to_hugo.R.
 #' The resulting file (string_hs_hugo.tsv) is the expected input for local mode.
-#'
+#' 'Group' is the interaction category (included: "Pathway", "Physical Interactions", "Predicted", "Genetic Interactions")
 #' @details The full example takes ~10 minutes to load in live mode, so it has been commented out and the results are displayed.
 #'
 #' @param gene.cccn.edges A dataframe showing interaction relationships between proteins using common PTM clusters derived from three distance metrics (Euclidean, Spearman, and Combined (SED))
