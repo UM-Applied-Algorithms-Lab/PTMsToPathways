@@ -35,7 +35,7 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #'
 #' For the local mode, download the full detailed network file for Homo sapiens from:
 #' https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz
-#' and pre-process it to HUGO symbols using the companion script string_to_hugo.R.
+#' and pre-process it to HUGO symbols using the companion script scripts/string_to_hugo.r.
 #' The resulting file (string_hs_hugo.tsv) is the expected input for local mode.
 #' 'Group' is the interaction category (included: "Pathway", "Physical Interactions", "Predicted", "Genetic Interactions")
 #' @details The full example takes ~10 minutes to load in live mode, so it has been commented out and the results are displayed.
@@ -43,7 +43,7 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' @param gene.cccn.edges A dataframe showing interaction relationships between proteins using common PTM clusters derived from three distance metrics (Euclidean, Spearman, and Combined (SED))
 #' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #' @param local Logical. If TRUE, reads from a pre-downloaded local file instead of querying the live STRINGdb API. Default is FALSE.
-#' @param string.local.path Path to the pre-processed local STRING file (string_hs_hugo.tsv produced by string_to_hugo.R).
+#' @param string.local.path Path to the pre-processed local STRING file (string_hs_hugo.tsv produced by scripts/string_to_hugo.r).
 #'   Only used when local = TRUE. Default is "string_hs_hugo.tsv".
 #' @param combined.score.threshold Integer (0–1000). Minimum combined_score to retain an edge when reading from the
 #'   local file. STRING thresholds: low = 150, medium = 400, high = 700, highest = 900. Default is 400.
@@ -70,7 +70,7 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     # ---- Local mode: read pre-downloaded HUGO-mapped file ----
     if (!file.exists(string.local.path))
       stop("Local STRING file not found: ", string.local.path,
-           "\nGenerate it with string_to_hugo.R or set local = FALSE to use the live API.")
+           "\nGenerate it with scripts/string_to_hugo.r or set local = FALSE to use the live API.")
 
     if (!requireNamespace("data.table", quietly = TRUE))
       stop("Please install data.table: install.packages('data.table')")
@@ -167,7 +167,7 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
 #' @param gm.results.path Path to GeneMANIA results text file (used when local = FALSE).
 #' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
 #' @param local Logical. If TRUE, reads from a pre-downloaded local file instead of a Cytoscape export. Default is FALSE.
-#' @param genemania.local.path Path to the pre-processed local GeneMANIA file (hs_interactions_hugo.tsv produced by genemania_hs_download.R).
+#' @param genemania.local.path Path to the pre-processed local GeneMANIA file (hs_interactions_hugo.tsv produced by scripts/genemania_hs_download.r).
 #'   Only used when local = TRUE. Default is "hs_interactions_hugo.tsv".
 #' @param gm.interaction.types Character vector of interaction group names to retain.
 #'   Only used when local = TRUE. Default retains Pathway and Physical Interactions,
@@ -181,7 +181,7 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
 #' The path to this file is the gm.results.path.
 #'
 #' Local mode: Download and process the full GeneMANIA Homo sapiens network using the
-#' companion script genemania_hs_download.R, which produces hs_interactions_hugo.tsv.
+#' companion script scripts/genemania_hs_download.r, which produces hs_interactions_hugo.tsv.
 #'
 #' @export
 #'
@@ -209,7 +209,7 @@ GetGeneMANIA.edges <- function(gm.results.path,
     # ---- Local mode: read pre-downloaded full network --------
     if (!file.exists(genemania.local.path))
       stop("Local GeneMANIA file not found: ", genemania.local.path,
-           "\nGenerate it with genemania_hs_download.R or set local = FALSE to use Cytoscape export.")
+           "\nGenerate it with scripts/genemania_hs_download.r or set local = FALSE to use Cytoscape export.")
 
     if (!requireNamespace("data.table", quietly = TRUE))
       stop("Please install data.table: install.packages('data.table')")
