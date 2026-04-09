@@ -689,7 +689,7 @@ setCorrEdgeAppearance <- function() {
 #' @export
 setNodeColorToRatios <- function(plotcol){
   require(RCy3)
-  cf <- getTableColumns('node')
+  cf <- RCy3::getTableColumns('node')
   if(!(plotcol %in% getTableColumnNames('node'))){
     print (getTableColumnNames('node'))
     cat("\n","\n","\t", "Which attribute will set node size and color?")
@@ -708,9 +708,14 @@ setNodeColorToRatios <- function(plotcol){
   }
   if(limits[2] > max(size.control.points)) {
     size.control.points = c (limits[1], -15.0, -5.0, 0.0, 5.0, 15.0, limits[2])
-    @@ -715,7 +716,7 @@
-      setNodeSelectionColorDefault ( "#CC00FF")
+    color.control.points = c (limits[1]-1, -10.0, -5.0, -2.25, 0.0, 2.25, 5.0, 10.0, limits[2]+1)
   }
+  ratio.colors = c ('#0099FF', '#007FFF','#00BFFF', '#00CCFF', '#00FFFF', '#00EE00', '#FFFF7E', '#FFFF00', '#FFE600', '#FFD700', '#FFCC00')
+  RCy3::setNodeColorMapping (names(cf[plotcol]), color.control.points, ratio.colors, 'c')
+  RCy3::lockNodeDimensions('TRUE')
+  RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
+  RCy3::setNodeSelectionColorDefault ( "#CC00FF")
+}
 
 # This function works well with node data that are normalized by row z-scores
 #' @param plotcol
