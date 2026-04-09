@@ -683,6 +683,35 @@ setCorrEdgeAppearance <- function() {
   RCy3::setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
 
+# Function to sent node size and color to match ratio data in the Cytoscape node table.
+#' @param plotcol
+#'
+#' @export
+setNodeColorToRatios <- function(plotcol){
+  require(RCy3)
+  cf <- getTableColumns('node')
+  if(!(plotcol %in% getTableColumnNames('node'))){
+    print (getTableColumnNames('node'))
+    cat("\n","\n","\t", "Which attribute will set node size and color?")
+    plotcol <- as.character(readLines(con = stdin(), n = 1))
+  }
+  limits <- range(cf[, plotcol])
+  node.sizes     = c (135, 130, 108, 75, 35, 75, 108, 130, 135)
+  #	RATIO is plotted
+  #	Blue is negative: Yellow positive, Green in middle
+  #
+  size.control.points = c (-100.0, -15.0, -5.0, 0.0, 5.0, 15.0, 100.0)
+  color.control.points = c (-100.0, -10.0, -5.0, -2.25, 0.0, 2.25, 5.0, 10.0, 100.0)
+  if(limits[1] < min(size.control.points)) {
+    size.control.points = c (limits[1], -15.0, -5.0, 0.0, 5.0, 15.0, 100.0)
+    color.control.points = c (limits[1]-1, -10.0, -5.0, -2.25, 0.0, 2.25, 5.0, 10.0, 100.0)
+  }
+  if(limits[2] > max(size.control.points)) {
+    size.control.points = c (limits[1], -15.0, -5.0, 0.0, 5.0, 15.0, limits[2])
+    @@ -715,7 +716,7 @@
+      setNodeSelectionColorDefault ( "#CC00FF")
+  }
+
 # This function works well with node data that are normalized by row z-scores
 #' @param plotcol
 #'
