@@ -4,9 +4,15 @@ This function outputs a file consisting entirely of gene names, each
 produced on a new line. This data can be copy and pasted into a database
 input in order to get protein-protein interaction data.
 
+This function outputs a file consisting entirely of gene names, each
+produced on a new line. This data can be copy and pasted into a database
+input in order to get protein-protein interaction data.
+
 ## Usage
 
 ``` r
+MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
+
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
@@ -27,9 +33,15 @@ MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 A file with all of the gene names which can be copy and pasted into the
 GeneMania cytoscape app, data frame of the names of the genes
 
+A file with all of the gene names which can be copy and pasted into the
+GeneMania cytoscape app, data frame of the names of the genes
+
 ## Examples
 
 ``` r
+#MakeDBInput(ex.nodenames)
+cat(ex.nodenames[[1]], sep = '\n')
+#> Error: object 'ex.nodenames' not found
 #MakeDBInput(ex.nodenames)
 cat(ex.nodenames[[1]], sep = '\n')
 #> Error: object 'ex.nodenames' not found
