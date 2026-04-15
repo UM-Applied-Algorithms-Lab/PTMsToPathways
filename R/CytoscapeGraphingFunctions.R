@@ -629,7 +629,10 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable, funckey) {
 }
 
 # Vizprops helper functions:
-# Function to set shape and border color according to node type
+#' Set Node Mapping
+#' Function to set shape and border color according to node type
+#' @param cf PLACEHOLDER PARAMETER DESCRIPTION
+#' @export
 setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
   # require(RCy3)
   RCy3::setBackgroundColorDefault("#949494") # grey 58
@@ -651,15 +654,11 @@ setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
 }
 
 
+# Set Correlation Edge Appearance
 # Function to set edge appearance
-# # Use:  setCorrEdgeAppearance()  to change cytoscape front window
-#This is now modified to handle merged edges and match colors correctly
-# Title
+# Use:  setCorrEdgeAppearance()  to change cytoscape front window
+# This is now modified to handle merged edges and match colors correctly
 #
-# @returns
-# @export
-#
-# @examples
 setCorrEdgeAppearance <- function() {
   # require(RCy3)
   RCy3::setEdgeLineWidthDefault(3)
@@ -692,10 +691,11 @@ setCorrEdgeAppearance <- function() {
   RCy3::setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
 
-# Function to sent node size and color to match ratio data in the Cytoscape node table.
-# @param plotcol
-#
-# @export
+#' Set Node Color Ratios
+#' Function to sent node size and color to match ratio data in the Cytoscape node table.
+#' @param plotcol PLACEHOLDER PARAMETER DESCRIPTION
+#'
+#' @export
 setNodeColorToRatios <- function(plotcol){
   require(RCy3)
   cf <- RCy3::getTableColumns('node')
@@ -726,10 +726,11 @@ setNodeColorToRatios <- function(plotcol){
   RCy3::setNodeSelectionColorDefault ( "#CC00FF")
 }
 
-# This function works well with node data that are normalized by row z-scores
-# @param plotcol
-#
-# @export
+#' Set Node Color Rows
+#' This function works well with node data that are normalized by row z-scores
+#' @param plotcol PLACEHOLDER PARAMETER DESCRIPTION
+#'
+#' @export
 setNodeColorToRowz <- function(plotcol){
   cf <- getTableColumns('node')
   if(!(plotcol %in% getTableColumnNames('node'))){
