@@ -1,3 +1,5 @@
+# NOTE THESE USE TINY PTM TABLE
+
 test_that("MakeClusterList() gives right answer", {
     set.seed(88)
 

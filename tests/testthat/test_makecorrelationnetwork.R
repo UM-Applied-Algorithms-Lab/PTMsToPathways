@@ -1,3 +1,5 @@
+# NOTE THESE USE TINY PTM TABLE
+
 test_that("MakeCorrelationNetwork() gives right answer", {
     # first we have to run MakeClusterList to get the inputs for MakeCorrelationNetwork
     set.seed(88)
