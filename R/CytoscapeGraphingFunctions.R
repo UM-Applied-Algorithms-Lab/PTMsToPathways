@@ -61,11 +61,11 @@ getCyEdgeNames <- function(edgefile) {
 
 # MADDIE'S NOTE: DO WE NEED THIS WHAT IS IT FOR
 # Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
-# Function to extract node names from, e.g.:
-#	"ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
-# @param test
-#
-# @export
+#' Strip Cytoscape Graphing Goo
+#' Function to extract node names from, e.g.: "ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
+#' @param test PLACEHOLDER PARAMETER DESCRIPTION
+#'
+#' @export
 strip.cy.goo <- function(test) {
   t1 <- unlist(strsplit(test, "Object="))
   t2 <- sapply(t1[2:length(t1)], function (x) (strsplit(x, ", ")))
@@ -411,6 +411,7 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   return(sub.cfn.cccn)
 }
 
+
 #' Graph Cluster Filtered Network
 #' This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
 #' @param cfn.edges PLACEHOLDER PARAMETER DESCRIPTION
@@ -649,9 +650,16 @@ setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
   RCy3::setNodeBorderWidthMapping(table.column="nodeType", table.column.values=molclasses, widths=nodeborderwidths, mapping.type = "d", default.width=2)
 }
 
-# Helper function to set edge appearance
-# Use: setCorrEdgeAppearance() to change Cytoscape front window
-# This is now modified to handle merged edges and match colors correctly
+
+# Function to set edge appearance
+# # Use:  setCorrEdgeAppearance()  to change cytoscape front window
+#This is now modified to handle merged edges and match colors correctly
+# Title
+#
+# @returns
+# @export
+#
+# @examples
 setCorrEdgeAppearance <- function() {
   # require(RCy3)
   RCy3::setEdgeLineWidthDefault(3)
@@ -683,3 +691,70 @@ setCorrEdgeAppearance <- function() {
   RCy3::matchArrowColorToEdge('TRUE')
   RCy3::setEdgeColorMapping('main_interaction', edgeTypes, edgecolors, 'd', default.color="#FFFFFF")
 }
+
+# Function to sent node size and color to match ratio data in the Cytoscape node table.
+# @param plotcol
+#
+# @export
+setNodeColorToRatios <- function(plotcol){
+  require(RCy3)
+  cf <- RCy3::getTableColumns('node')
+  if(!(plotcol %in% getTableColumnNames('node'))){
+    print (getTableColumnNames('node'))
+    cat("\n","\n","\t", "Which attribute will set node size and color?")
+    plotcol <- as.character(readLines(con = stdin(), n = 1))
+  }
+  limits <- range(cf[, plotcol])
+  node.sizes     = c (135, 130, 108, 75, 35, 75, 108, 130, 135)
+  #	RATIO is plotted
+  #	Blue is negative: Yellow positive, Green in middle
+  #
+  size.control.points = c (-100.0, -15.0, -5.0, 0.0, 5.0, 15.0, 100.0)
+  color.control.points = c (-100.0, -10.0, -5.0, -2.25, 0.0, 2.25, 5.0, 10.0, 100.0)
+  if(limits[1] < min(size.control.points)) {
+    size.control.points = c (limits[1], -15.0, -5.0, 0.0, 5.0, 15.0, 100.0)
+    color.control.points = c (limits[1]-1, -10.0, -5.0, -2.25, 0.0, 2.25, 5.0, 10.0, 100.0)
+  }
+  if(limits[2] > max(size.control.points)) {
+    size.control.points = c (limits[1], -15.0, -5.0, 0.0, 5.0, 15.0, limits[2])
+    color.control.points = c (limits[1]-1, -10.0, -5.0, -2.25, 0.0, 2.25, 5.0, 10.0, limits[2]+1)
+  }
+  ratio.colors = c ('#0099FF', '#007FFF','#00BFFF', '#00CCFF', '#00FFFF', '#00EE00', '#FFFF7E', '#FFFF00', '#FFE600', '#FFD700', '#FFCC00')
+  RCy3::setNodeColorMapping (names(cf[plotcol]), color.control.points, ratio.colors, 'c')
+  RCy3::lockNodeDimensions('TRUE')
+  RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
+  RCy3::setNodeSelectionColorDefault ( "#CC00FF")
+}
+
+# This function works well with node data that are normalized by row z-scores
+# @param plotcol
+#
+# @export
+setNodeColorToRowz <- function(plotcol){
+  cf <- getTableColumns('node')
+  if(!(plotcol %in% getTableColumnNames('node'))){
+    print (getTableColumnNames('node'))
+    cat("\n","\n","\t", "Which attribute will set node size and color?")
+    plotcol <- as.character(readLines(con = stdin(), n = 1))
+  }
+  limits <- range(cf[, plotcol])
+  node.sizes     = c (135, 130, 108, 75, 35, 75, 108, 130, 135)
+  #	Row z-score data is plotted
+  #	Blue is negative: Yellow positive, Green in middle
+  #
+  size.control.points = c (-log2(100.0), -log2(15.0), -log2(5.0), 0.0, log2(5.0), log2(15.0), log2(100.0))
+  color.control.points = c (-log2(100.0), -log2(10.0), -log2(5.0), -log2(2.25), 0.0, log2(2.25), log2(5.0), log2(10.0), log2(100.0))
+  ratio.colors = c ('#0099FF', '#007FFF','#00BFFF', '#00CCFF', '#00FFFF', '#00EE00', '#FFFF7E', '#FFFF00', '#FFE600', '#FFD700', '#FFCC00')
+  RCy3::setNodeColorMapping (names(cf[plotcol]), color.control.points, ratio.colors, 'c')
+  RCy3::lockNodeDimensions('TRUE')
+  RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
+  RCy3::setNodeSelectionColorDefault ( "#CC00FF")
+}
+
+# This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
+#' @param cfn.edges
+#'
+#' @param cfn.nodes
+#' @param Network.title
+#' @param Network.collection
+#' @param visual.style.name
