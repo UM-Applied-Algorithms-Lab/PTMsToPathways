@@ -416,7 +416,7 @@ make.genepep.edges <- function(peptide.edgefile) {
 #' @param edge.file
 #'
 #' @export
-get.co.clustered.ptms <- function (edge.file) {
+get.co.clustered.ptms <- function (edge.file, ptm.cccn.edges) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -761,9 +761,9 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
     stop("Could not connect to Cytoscape. Please ensure the Cytoscape app is open and running. Wait until fully loaded, then run RCy3::cytoscapePing() to verify connection.")
   })
   cyscape <- RCy3::createNetworkFromDataFrames(cfn.nodes, cfn.edges, title = Network.title, collection = Network.collection)
-  RCy3::copyVisualStyle("default", visual.style.name)
   setNodeMapping()
   setCorrEdgeAppearance()
+  RCy3::copyVisualStyle("default", visual.style.name)
   RCy3::setVisualStyle(visual.style.name)
 }
 
