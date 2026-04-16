@@ -764,7 +764,7 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
   setNodeMapping()
   setCorrEdgeAppearance()
   RCy3::copyVisualStyle("default", visual.style.name)
-  RCy3::setVisualStyle(visual.style.name)
+  # RCy3::setVisualStyle(visual.style.name)
 }
 
 # # This helper function will make wider edges if they are two thin or narrow if to thick
