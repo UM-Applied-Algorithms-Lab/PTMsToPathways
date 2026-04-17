@@ -168,9 +168,9 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.52 secs total.
->> Spearman t-SNE calculation complete after 42.61 secs total.
->> Euclidean distance calculation complete after 42.65 secs total.
+>> Spearman correlation calculation complete after 13.38 secs total.
+>> Spearman t-SNE calculation complete after 42.52 secs total.
+>> Euclidean distance calculation complete after 42.56 secs total.
 >> Euclidean t-SNE calculation complete after 1.16 mins total.
 >> Combined distance calculation complete after 1.16 mins total.
 >> SED t-SNE calculation complete after 1.62 mins total.
@@ -178,7 +178,7 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.64 mins total.
+    >> Clustering for Euclidean complete after 1.63 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
@@ -263,7 +263,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.16 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.8 secs total.
+>> Gene CCCN complete after 2.74 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -496,9 +496,9 @@ pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 >> [1] "Making PCN"
->> [1] "2026-04-16 22:34:15 UTC"
->> [1] "2026-04-16 22:34:16 UTC"
->> [1] Total time: 0.105067729949951
+>> [1] "2026-04-17 19:22:42 UTC"
+>> [1] "2026-04-17 19:22:42 UTC"
+>> [1] Total time: 0.103652954101562
 ```
 
 And we can see some of the pathway crosstalk network edges below:
