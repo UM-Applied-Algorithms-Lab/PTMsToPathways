@@ -274,7 +274,7 @@ g3 <- GraphCfn(cfn.edges = cdksubs.cfn.cccn, cfn.nodes = cdksubs.cfn.cccn.nodes,
                Network.title = "CFN/CCCN All PTMs 6", Network.collection = "PTMsToPathways")
 ```
 
-Each of these graphs can be modified to set node size and shape using the following P2P functions that act on the front window in Cytoscape.
+Each of these graphs can be modified to set node size and shape using the following P2P functions that act on the front window in Cytoscape. Note the differences that reflect activation of different cell signaling pathways in tumors with different mutations: X02BR011 (AKT1 missense mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense and MLLT4 frameshift mutants). 
 
 ```{r eval = TRUE}
 setNodeColorToRatios(plotcol="X03BR011")
