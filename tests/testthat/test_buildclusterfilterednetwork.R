@@ -1,3 +1,5 @@
+# THESE USE DATA GENERATED FROM THE SMALL PTM TABLE 
+
 test_that("BuildClusterFilteredNetwork() gives right answer", {
   
   # Run the function to test
