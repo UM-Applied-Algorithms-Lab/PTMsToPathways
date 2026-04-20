@@ -284,6 +284,6 @@ setNodeColorToRowz(plotcol="X21BR010")
 setNodeColorToRatios(plotcol="X05BR045")
 setNodeColorToRowz(plotcol="X05BR045")
 
-Note that different samples have dramatically different differences in PTMs that are up or down, which is reflected also in total in gene nodes.
+# Note that different samples have dramatically different differences in PTMs that are up or down, which is reflected also in total in gene nodes.
 
 ```
