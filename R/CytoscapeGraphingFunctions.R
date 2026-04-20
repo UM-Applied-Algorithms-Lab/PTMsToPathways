@@ -372,7 +372,7 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
   node_file <- cbind(data.frame(id = node_file$Gene.Name), node_file)
   # Step 4: Optionally merge PTM CCCN and data
   if (include.coclustered.PTMs == TRUE) {
-    edge.file.with.ptms <- get.co.clustered.ptms(edge.file)
+    edge.file.with.ptms <- get.co.clustered.ptms(edge.file, ptm.cccn.edges)
     if(length (peptides) > 0)  {
       edge.file.with.ptms <- unique(rbind(edge.file.with.ptms, edge.file[which(edge.file$interaction == "peptide"), ]))
     }
@@ -416,7 +416,7 @@ make.genepep.edges <- function(peptide.edgefile) {
 #' @param edge.file
 #'
 #' @export
-get.co.clustered.ptms <- function (edge.file) {
+get.co.clustered.ptms <- function (edge.file, ptm.cccn.edges) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -612,7 +612,7 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   }
 
   sub.cfn <- filter.edges.0(all_genes, cfn.merged)
-  sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn)
+  sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn, ptm.cccn.edges)
   return(sub.cfn.cccn)
 }
 
@@ -761,10 +761,10 @@ GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.colle
     stop("Could not connect to Cytoscape. Please ensure the Cytoscape app is open and running. Wait until fully loaded, then run RCy3::cytoscapePing() to verify connection.")
   })
   cyscape <- RCy3::createNetworkFromDataFrames(cfn.nodes, cfn.edges, title = Network.title, collection = Network.collection)
-  RCy3::copyVisualStyle("default", visual.style.name)
   setNodeMapping()
   setCorrEdgeAppearance()
-  RCy3::setVisualStyle(visual.style.name)
+  RCy3::copyVisualStyle("default", visual.style.name)
+  # RCy3::setVisualStyle(visual.style.name)
 }
 
 # # This helper function will make wider edges if they are two thin or narrow if to thick
