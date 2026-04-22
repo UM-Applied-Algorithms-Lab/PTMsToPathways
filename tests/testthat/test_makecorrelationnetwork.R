@@ -9,7 +9,7 @@ test_that("MakeCorrelationNetwork() gives right answer", {
     ptm_correlation_matrix <- clusterlist_data[[3]]
 
     # now run MakeCorrelationNetwork
-    correlationnetwork.data <- MakeCorrelationNetwork(adj.consensus, ptm.correlation.matrix)
+    correlationnetwork_data <- MakeCorrelationNetwork(adj_consensus, ptm_correlation_matrix)
     ptm_cccn_edges <- correlationnetwork_data[[1]]
     gene_cccn_edges <- correlationnetwork_data[[2]]
     gene_cccn_nodes <- correlationnetwork_data[[3]]
@@ -17,7 +17,7 @@ test_that("MakeCorrelationNetwork() gives right answer", {
     # check some values in the PTM CCCN edge list
     expect_equal(nrow(ptm_cccn_edges),  1116)
     expect_equal(nrow(gene_cccn_edges),  473)
-    expect_equal(length(gene_cccn_edges),  96)
+    expect_equal(length(gene_cccn_nodes),  96)
     expect_equal(sum(gene_cccn_edges$Weight),  18.94286, tolerance = 1e-6)
     expect_equal(sum(ptm_cccn_edges$Weight),  76.24286, tolerance = 1e-6)
 
