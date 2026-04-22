@@ -1,15 +1,9 @@
 # NOTE THESE USE TINY PTM TABLE
 
 test_that("MakeCorrelationNetwork() gives right answer", {
-    # first we have to run MakeClusterList to get the inputs for MakeCorrelationNetwork
-    set.seed(88)
-    clusterlist_data <- MakeClusterList(ex_tiny_ptm_table, keeplength = 2, toolong = 3.5)
-    common_clusters <- clusterlist_data[[1]]
-    adj_consensus <- clusterlist_data[[2]]
-    ptm_correlation_matrix <- clusterlist_data[[3]]
 
     # now run MakeCorrelationNetwork
-    correlationnetwork_data <- MakeCorrelationNetwork(adj_consensus, ptm_correlation_matrix)
+    correlationnetwork_data <- MakeCorrelationNetwork(ex_adj_consensus, ex_ptm_correlation_matrix)
     ptm_cccn_edges <- correlationnetwork_data[[1]]
     gene_cccn_edges <- correlationnetwork_data[[2]]
     gene_cccn_nodes <- correlationnetwork_data[[3]]
