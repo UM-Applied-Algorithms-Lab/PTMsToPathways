@@ -1,6 +1,8 @@
+# THESE USE DATA GENERATED FROM THE SMALL PTM TABLE 
+
 test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   
-  output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_bioplanet, createfile = FALSE)
+  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_bioplanet, createfile = FALSE))
   
   pathway_crosstalk_network <- output[[1]]
   

@@ -1,0 +1,289 @@
+---
+title: "BRCANetworks"
+date: "2026-04-10"
+
+author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
+  Williams, Mark Grimes
+output:
+  html_document: 
+    toc: true
+    toc_float: true
+    toc_depth: 4
+    theme: cosmo
+    highlight: tango
+  pdf_document:
+    toc: true
+    toc_depth: '4'
+  word_document:
+    toc: true
+    toc_depth: '4'
+vignette: >
+  %\VignetteIndexEntry{PTMsToPathways}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r setup, echo = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = ">>",
+  fig.align = "center",
+  fig.path = "plots/",
+  fig.width = 8,
+  fig.height = 6,
+  out.width = "100%",
+  results = "hold"
+)
+```
+
+This tutorial will load and create networks from the breast cancer cohort (BRCA, N = 122; Krug, K., Jaehnig, E. J., Satpathy, S., Blumenberg, L., Karpova, A., Anurag, M., et al. (2020) Proteogenomic landscape of breast cancer tumorigenesis and targeted therapy. Cell 183, 1436–1456.e31) downloaded from Supplmental Data S2 from	Schraink, T., Blumenberg, L., Hussey, G., George, S., Miller, B., Mathew, N., Gonzalez-Robles, T.J., Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al. (2023). PhosphoDisco: A Toolkit for Co-regulated Phosphorylation Module Discovery in Phosphoproteomic Data. Mol Cell Proteomics 22, 100596. 10.1016/j.mcpro.2023.100596.
+
+Note that we will use the complete PPI and BioPlanet edgefiles available in "/Data_repository_path/" for this vignette. 
+
+First, read in the data table and create columns for naming phosphoyrlation sites using the name.peptide function. 
+
+```{r eval = TRUE}
+library(PTMsToPathways)
+Data_repository_path <- "/Data_repository_path/"
+file_name <- "PhosphoDiscoData_mmc9.txt"
+file_path <- paste0(Data_repository_path, file_name)
+newphos <- utils::read.table(file_path, header = TRUE,
+                               stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
+                               na.strings = "", quote = "", fill = TRUE)
+ newphos.head$Amino.Acid <- sapply(newphos.head$variable_sites_names, function(x) substring (x, 1, 1))
+ newphos.head$Site <- trimws(substring(newphos.head$variable_sites_names, 2))
+ newphos.head$Site <- sub("[a-z]$", "", newphos.head$Site)
+
+ newphos.head$Site[1:10]
+ # "6" "1783" "93" "178" "96" "215" "287" "177" "73" "130"
+ newphos.head$Peptide.Name <- mapply(
+   name.peptide, genes = newphos.head$gene_symbol,
+   sites =  newphos.head$Site, aa = newphos.head$Amino.Acid)
+
+phosdata <- newphos[, 3:ncol(newphos)]
+rownames(phosdata) <- newphos.head$Peptide.Name
+
+ptmtable <- phosdata
+
+```
+
+Next, create clusters and networks from those clusters as in the Creating Networks vignette.
+
+```{r eval = TRUE}
+set.seed(88)
+clusterlist.data <- MakeClusterList(ptmtable,
+                                    keeplength = 3, toolong = 3.5)
+# Separate out elements of results list
+common.clusters <- clusterlist.data[[1]]
+adj.consensus.matrix <- clusterlist.data[[2]]
+ptm.correlation.matrix <- clusterlist.data[[3]]
+
+# Make CCCNs
+CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
+                                    ptm.correlation.matrix)
+
+# Separate out elements of results list
+ptm.cccn.edges <- CCCN.data[[1]]
+gene.cccn.edges <- CCCN.data[[2]]
+gene.cccn.nodes <- CCCN.data[[3]]
+length(common.clusters)
+# [1] 231
+cclength <- sapply(common.clusters, length)
+# If desired, the clusters can be trimmed to those > 4. 
+common.clusters4 <- common.clusters[which(cclength>3)] # now 202 clusters
+
+# Visualize these in a large heatmap that is saved to the disk.
+library(gplots)
+res <- graph.ptm.by.cluster(
+     ptmtable         = ptmtable,
+     common.clusters  = common.clusters4,          # use all clusters > 4
+     filename         = "ptm_all_clusters_l4.pdf",
+     legend.filename  = "ptm_legend4.pdf",
+     heatkey.filename = "ptm_heatkey4.pdf",
+     order.rows       = "slope",
+     zlim             = 3,
+     show.row.labels  = FALSE,
+     show.col.labels  = TRUE,
+     col_cex          = 0.7
+   )
+```
+
+For PPI edges, here we will demonstrate how to get the STRING-db and GeneMANIA edges from the static downloaded networks provided in "Data_repository_path".
+
+```{r eval = TRUE}
+string_db_filename <- "string_hs_hugo.tsv"
+string.all.edges.path <- paste0(Data_repository_path, string_db_filename)
+
+# Use local = TRUE in the following function
+
+stringdb.edges <- GetSTRINGdb.edges (gene.cccn.edges,
+                              gene.cccn.nodes,
+                              local                  = TRUE,
+                              string.local.path      = string.all.edges.path,
+                              combined.score.threshold = 0)
+
+# Similary for GeneMANIA edges
+genemania_filename <- "hs_interactions_hugo.tsv"
+gm.all.edges.path <- paste0(Data_repository_path, genemania_filename)
+
+# This file contains the following types of interactions:
+# "Genetic Interactions"  "Pathway" "Physical Interactions" "Predicted"
+# We choose all but "Genetic Interactions" to include in the following function. 
+genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
+                                gene.cccn.nodes,
+                                local                = TRUE,
+                                genemania.local.path = gm.all.edges.path,
+                                gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
+
+# Kinsub edges obtained as previously using the Kinase Substrate data from PhosphoSitePlus.
+input.filename <- "Kinase_Substrate_Dataset.txt"
+kinsub.all.edges.path <- paste0(Data_repository_path, input.filename)
+kinsub.edges <- GetKinsub.edges(input.filename, gene.cccn.nodes)
+
+# Now we can build the CFN.
+network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
+                                            stringdb.edges,
+                                            genemania.edges,
+                                            kinsub.edges,
+                                            db.filepaths = c())
+
+combined.PPIs <- network.list[[1]]
+cfn <- network.list[[2]]
+# 67376 edges
+cfn.merged <- mergeEdges(cfn)
+# 27048 edges
+```
+
+We build the PCN from the BioPlanet pathways as done previously. 
+```{r eval = TRUE}
+bioplanet_filename <- "bioplanet_pathway_June2025.csv"
+bioplanet.pathways.path <- paste0(Data_repository_path, bioplanet_filename)
+PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
+                                         createfile = FALSE)
+pathway.crosstalk.network <- PCN.data[[1]] # 679707 edges
+PCNedgelist <- PCN.data[[2]]
+pathways.list <- PCN.data[[3]]
+```
+
+Now we can explore these networks. 
+
+We will examine the modules from Schraink, et al., 2023, Supplemental Table S4
+
+```{r eval = TRUE}
+# Read in PhosphoDisco Modules file.
+PD_module.file <- paste0(paperpath, "PhosDiscoModules_mmc11.txt")
+
+PD_module.df <- utils::read.table(PD_module.file, header = TRUE,
+                  stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
+                  na.strings = "", quote = "", fill = TRUE)
+# Note these have trailing spaces as do the rownames(ptmtable)
+# Column names: geneSymbol, variableSites, HDBSCAN.min_cluster_size.4
+# 1017 rows
+# Note differences from the PTM table imported above.
+length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
+length(intersect(newphos$gene_symbol, PD_module.df$geneSymbol)) # 161
+
+# Make peptide names as above
+
+PD_module.df$Amino.Acid <- sapply(PD_module.df$variableSites, function(x) substring (x, 1, 1))
+PD_module.df$Site <- trimws(substring(PD_module.df$variableSites, 2))
+PD_module.df$Site <- sub("[a-z]$", "", PD_module.df$Site)
+
+PD_module.df$Peptide.Name <- mapply(
+  name.peptide, genes = PD_module.df$geneSymbol,
+  sites =  PD_module.df$Site, aa = PD_module.df$Amino.Acid)
+
+# Treat modules like our clusters
+PD_module.df2 <- PD_module.df[,c("Peptide.Name", "HDBSCAN.min_cluster_size.4")]
+PD_module.list <- dlply(
+  PD_module.df2,
+  .(HDBSCAN.min_cluster_size.4),
+  function(x) x$Peptide.Name
+)
+PD_module.genes.unique <- lapply(
+  PD_module.list,
+  function(x) unique(sub(" .*", "", x)))
+
+# P2P identified different clusters than these modules.
+
+mod63.interesct <- sapply(common.clusters, function(x) intersect(x, PD_module.list$`63`))
+
+# Interesctions were found in common.clusters$ConsensusCluster1; common.clusters$ConsensusCluster3; common.clusters$ConsensusCluster4; common.clusters$ConsensusCluster5; common.clusters$ConsensusCluster6
+
+# First, consider all ptms from major clusters that intersect with module 63
+mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1, common.clusters$ConsensusCluster3, common.clusters$ConsensusCluster4, common.clusters$ConsensusCluster5, common.clusters$ConsensusCluster6))
+
+# This code graphs the CFN/CCCN from all these PTMs:
+funckey <- getFuncKey(paste0(Data_repository_path, "FunctionKey.txt"))
+cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, pepsep = ";")
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
+                                           include.gene.data = TRUE,
+                                           include.coclustered.PTMs = TRUE)
+g1 <- GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
+               Network.title = "CFN/CCCN All PTMs 1", Network.collection = "PTMsToPathways")
+ 
+```
+
+This is a complex graph that shows PTMs clusters as cliques connected by yellow correlation edges surrounding a CFN of interconnected gene nodes. 
+
+Let's focus on CDK1 substrates to complement the work done in Schraink, et al., 2023.
+
+```{r eval = TRUE}
+cdk1.kinsub <- filter.edges.1("CDK1", kinsub.edges) # 82 edges
+
+cdk1.substrates <- cdk1.kinsub [which(cdk1.kinsub$source=="CDK1"), "target"]
+
+cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.substrates, ]
+
+```
+
+Two ways to select for CDK1 substrates are presented.
+```{r eval = TRUE}
+# Method 1: Using RCy3.
+selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
+selectEdgesConnectingSelectedNodes()
+
+createSubnetwork(nodes = getSelectedNodes(), edges = getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
+
+# Method 2: Using P2P functions.
+
+cfn_cccn.nodes.cdksubs.edges <- filter.edges.0(nodenames = cfn_cccn.nodes.cdksubs$id, edge.file = cfn.cccn)
+
+g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges, cfn.nodes = cfn_cccn.nodes.cdksubs,
+               Network.title = "CFN/CCCN All PTMs 5", Network.collection = "PTMsToPathways")
+
+# Gives the exact same network.
+```
+
+Now further simplify the graph to show only CCCN PTMs.
+```{r eval = TRUE}
+
+cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.substrates, ] # repeat of above to make this stand alone
+
+cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$Gene.Name)
+cdksubs.cfn <- filter.edges.0(cfn_cccn.nodes.cdksubs.genes, cfn.merged)
+cdksubs.cfn.cccn <- get.co.clustered.ptms(cdksubs.cfn, ptm.cccn.edges=ptm.cccn.edges)
+cdksubs.cfn.cccn.nodes <- make.cytoscape.node.file(cdksubs.cfn.cccn, funckey, ptmtable,
+                                           include.gene.data = TRUE,
+                                           include.coclustered.PTMs = TRUE)
+g3 <- GraphCfn(cfn.edges = cdksubs.cfn.cccn, cfn.nodes = cdksubs.cfn.cccn.nodes,
+               Network.title = "CFN/CCCN All PTMs 6", Network.collection = "PTMsToPathways")
+```
+
+Each of these graphs can be modified to set node size and shape using the following P2P functions that act on the front window in Cytoscape. Note the differences that reflect activation of different cell signaling pathways in tumors with different mutations: X02BR011 (AKT1 missense mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense and MLLT4 frameshift mutants). 
+
+```{r eval = TRUE}
+setNodeColorToRatios(plotcol="X03BR011")
+setNodeColorToRowz(plotcol="X03BR011")  # This exaggerates the node size and shape somewhat. 
+setNodeColorToRatios(plotcol="X21BR010")
+setNodeColorToRowz(plotcol="X21BR010")    
+setNodeColorToRatios(plotcol="X05BR045")
+setNodeColorToRowz(plotcol="X05BR045")
+
+# Note that different samples have dramatically different differences in PTMs that are up or down, which is reflected also in total in gene nodes.
+
+```

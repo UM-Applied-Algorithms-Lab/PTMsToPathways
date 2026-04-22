@@ -1,3 +1,5 @@
+# THESE USE DATA GENERATED FROM THE SMALL PTM TABLE 
+
 test_that("GetGeneMANIA.edges() gives right answer", {
   # set.seed(88) # Perhaps unnecessary
   
