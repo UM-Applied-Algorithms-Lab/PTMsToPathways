@@ -3,6 +3,7 @@
 export("%w/o%")
 export(BuildClusterFilteredNetwork)
 export(BuildPathwayCrosstalkNetwork)
+export(EvaluateClusters)
 export(GetGeneMANIA.edges)
 export(GetKinsub.edges)
 export(GetSTRINGdb.edges)
