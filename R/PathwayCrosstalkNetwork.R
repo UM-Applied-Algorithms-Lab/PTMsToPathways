@@ -27,9 +27,9 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
       cellv.new <- gsub(fixgenes[fixgenes %in% cellv], corrects[fixgenes %in% cellv], cellv)
       return (paste(cellv.new, collapse="; "))
     } else return(cell)    }
-  print("Making PCN")
+  message("Making PCN")
   start_time <- Sys.time()
-  print(start_time)
+  message(start_time)
   if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
 
   #### Read file in, converts to dataframe like with rows like: PATHWAY_ID | PATHWAY_NAME | GENE_ID | GENE_SYMBOL ###
@@ -194,10 +194,10 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
     setwd(saved.dir)
   }
   end_time <- Sys.time()
-  print(end_time)
+  message(end_time)
   #calculate difference between start and end time
   total_time <- end_time - start_time
-  print(noquote(paste("Total time: ", total_time, sep="")))
+  message(noquote(paste("Total time: ", total_time, sep="")))
   return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))
 }
 
