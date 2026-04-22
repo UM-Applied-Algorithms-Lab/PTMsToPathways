@@ -414,6 +414,7 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
 
 #' Graph Cluster Filtered Network
 #' This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
+#'
 #' @param cfn.edges PLACEHOLDER PARAMETER DESCRIPTION
 #' @param cfn.nodes PLACEHOLDER PARAMETER DESCRIPTION
 #' @param Network.title PLACEHOLDER PARAMETER DESCRIPTION
@@ -751,11 +752,3 @@ setNodeColorToRowz <- function(plotcol){
   RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
   RCy3::setNodeSelectionColorDefault ( "#CC00FF")
 }
-
-# This function wraps RCy3 graphing in Cytoscape and sets node and edge visual properties
-#' @param cfn.edges
-#'
-#' @param cfn.nodes
-#' @param Network.title
-#' @param Network.collection
-#' @param visual.style.name
