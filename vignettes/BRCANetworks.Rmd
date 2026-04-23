@@ -110,6 +110,19 @@ res <- graph.ptm.by.cluster(
      show.col.labels  = TRUE,
      col_cex          = 0.7
    )
+
+# The EvaluateClusters function evaluates clusters based on 
+#   `intensity` = total signal after removing the NA fraction
+#   `realsamples` = samples that are not single-gene/PTM samples
+#   `cleargenes` = genes/PTMs that fit a pattern that ranks by decreasing total signal
+#   `percent.NA` = percentage of missing values in the cluster sub-table
+
+eval_brca <- EvaluateClusters(
+   brca_clusters, brca_tbl,
+   data.type  = "ratio",
+   use.slope  = FALSE,
+   index.mode = "density"
+ )
 ```
 
 For PPI edges, here we will demonstrate how to get the STRING-db and GeneMANIA edges from the static downloaded networks provided in "Data_repository_path".
