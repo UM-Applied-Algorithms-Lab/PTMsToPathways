@@ -288,11 +288,10 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
 #' This function takes an edge file, retrieves only co-clustered PTM CCCN edges and links them to their gene nodes, returning an edge file
 #'
 #' @param edge.file PLACEHOLDER PARAMETER DESCRIPTION
-#' @param ptmtable PLACEHOLDER PARAMETER DESCRIPTION
 #' @param ptm.cccn.edges PLACEHOLDER PARAMETER DESCRIPTION
 #'
 #' @export
-get.co.clustered.ptms <- function (edge.file, ptmtable, ptm.cccn.edges) {
+get.co.clustered.ptms <- function (edge.file, ptm.cccn.edges) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -574,7 +573,7 @@ remove.autophos <- function(edgefile)	{
 # (called "peptides" with their parent protein nodes (called Gene.Name))
 make.genepep.edges <- function(peptide.edgefile) {
   peptides <- unique(c(peptide.edgefile$source, peptide.edgefile$target))
-  genenames <- sapply(peptides,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
+  genenames <- sapply(peptides, function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
   net.gpe <- data.frame(source=genenames, target=peptides, Weight=0.25, interaction="peptide")
   net.gpe <- remove.autophos(net.gpe)
   return(net.gpe)
