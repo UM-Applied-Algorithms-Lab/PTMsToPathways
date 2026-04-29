@@ -317,9 +317,9 @@ mergeEdges <- function(edgefile) {
                          "controls-transport-of", "controls-state-change-of",
                          "PHOSPHORYLATION", "METHYLATION", "ACETYLATION", "catalysis-precedes")
   undirected <- c("Physical interactions", "BioPlex", "in-complex-with",  'experiments',
-                  'database',   "Pathway", "Predicted", "Genetic interactions",
+                  "database",   "Pathway", "Predicted", "Genetic interactions",
                   "correlation", "negative correlation", "positive correlation",
-                  'combined_score', "merged", "intersect", "peptide", 'homology',
+                  "combined_score", "merged", "intersect", "peptide", "homology",
                   "Shared protein domains", "interacts-with")
 
   # --- UNDIRECTED EDGES ---
