@@ -130,7 +130,7 @@ setNodeColorToRowz <- function(plotcol){
   RCy3::setNodeSelectionColorDefault ( "#CC00FF")
 }
 
-# MADDIE'S NOTE: not used anywhere, very simple function, seems unneccessary
+# MADDIE'S NOTE: very simple function, seems unneccessary
 # Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
 # Set difference for vectors using custom infix operator
 #
@@ -148,6 +148,7 @@ setNodeColorToRowz <- function(plotcol){
 }
 
 # MADDIE'S NOTE: again not used: what is it for? do we need? simple func
+# NOT CALLED.
 outersect <- function(x, y) {
   sort(c(setdiff(x, y),
          setdiff(y, x)))
@@ -582,7 +583,7 @@ make.genepep.edges <- function(peptide.edgefile) {
 # Helper function to harmonize gene and peptide data for networks
 #  - for graphing combined CFN/CCCN graphs
 # Ensures that for Cytoscape, "id" is used for node name columns
-harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable, funckey) {
+harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
   if(!any(grepl("Gene.Name", names(genecf)))) {
     genecf.new <- data.frame(Gene.Name= genecf$id, genecf)} else {genecf.new = genecf}
   genecf.new$parent <- ""
