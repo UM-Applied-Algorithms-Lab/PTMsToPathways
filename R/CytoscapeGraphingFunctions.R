@@ -18,7 +18,7 @@
 getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
   if (is.character(funckey.filename)) {
     if (!file.exists(funckey.filename)) {
-      stop(paste(funckey.filename, "not found. Please check your working directory."))
+      stop(paste(funckey.filename, " not found. Please check your working directory."))
     }
     funckey <- utils::read.table(
       file = funckey.filename,
@@ -37,7 +37,7 @@ getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
 # MADDIE'S NOTE: there's a .0 version that is used, but this is not referenced
 # Unneccessary?
 filter.edges.1 <- function(nodenames, edge.file) {
-  nodenames <-as.character(nodenames)
+  nodenames <- as.character(nodenames)
   a = as.character(edge.file[,1])
   b = as.character(edge.file[,2])
   edgefile.nodes <- unique(c(a,b))
@@ -51,7 +51,7 @@ filter.edges.1 <- function(nodenames, edge.file) {
 # MADDIE'S NOTE: DO WE REALLY NEED THIS?
 # Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
 # This function names the edges the way Cytoscape does so they can be selected:
-# @param edgefile
+# @param edgefile PLACEHOLDER PARAMETER DESCRIPTION
 #
 # @export
 getCyEdgeNames <- function(edgefile) {
@@ -60,7 +60,6 @@ getCyEdgeNames <- function(edgefile) {
 }
 
 # MADDIE'S NOTE: DO WE NEED THIS WHAT IS IT FOR
-# Temporarily removed roxygen skeleton -- Needs a name if reinstated and do we need to export?
 #' Strip Cytoscape Graphing Goo
 #' Function to extract node names from, e.g.: "ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
 #' @param test PLACEHOLDER PARAMETER DESCRIPTION
@@ -189,7 +188,7 @@ filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
 connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
   if (newgraph==TRUE) {
     ig.graph <- igraph::graph_from_data_frame(edgefile, directed=FALSE) }
-  sp <- igraph::all_shortest_paths(graph= ig.graph, from=nodepair[1], to=nodepair[2], mode="all")
+  sp <- igraph::all_shortest_paths(graph=ig.graph, from=nodepair[1], to=nodepair[2], mode="all")
   path.nodeslist <-  unique(lapply(sp[[1]], names))
   edges.list <- lapply(path.nodeslist, filter.edges.0, edge.file=edgefile)
   path.edges <- unique(plyr::ldply(edges.list))
@@ -207,19 +206,19 @@ connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	
 #' @export
 cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.name, Jaccard.edges=TRUE) {
   PCN.df <- data.frame(id=unique(c(PCN$source, PCN$target)))
-  if (Jaccard.edges== FALSE) {PCN = PCN[-which (PCN$interaction=="pathway Jaccard similarity"),]}
+  if (Jaccard.edges == FALSE) {PCN = PCN[-which (PCN$interaction=="pathway Jaccard similarity"),]}
   # Get rid of zero weight edges
   PCN.edges <- PCN[PCN$Weight>0, ]
   no.windows <- length(RCy3::getNetworkList())
   PCN.suid <- RCy3::createNetworkFromDataFrames(PCN.df, PCN.edges, title=paste(net.name, "PCN", (1+no.windows), sep=" "), collection = "Pathway Interactions")
-  RCy3::setEdgeSelectionColorDefault (gplots::col2hex("chartreuse")) # still doesn't work
+  RCy3::setEdgeSelectionColorDefault("#80FF00") # chartreuse
   RCy3::setNodeColorDefault("#33FFFF" ) # bright Cyan
   # edgeColors <- c(col2hex(alpha("purple",0.33333)), col2hex(alpha("magenta",0.33333)), col2hex("green"))
   # edgeColors <- c("#9966FF", col2hex("green"))
   edgeColors <- c(gplots::col2hex(ggplot2::alpha("darkorchid1",0.33333)), gplots::col2hex(ggplot2::alpha("tomato", 0.25)), gplots::col2hex("green"))
   # edgeColors <- c("#9966FF", col2hex("green"))
   edgeTypes <- c("PTM_cluster_evidence", "Protein_cluster_evidence", "pathway_Jaccard_similarity")
-  RCy3::setEdgeColorMapping( 'interaction', edgeTypes, edgeColors, 'd', default.color="#FFFFFF")
+  RCy3::setEdgeColorMapping('interaction', edgeTypes, edgeColors, 'd', default.color="#FFFFFF")
   setEdgeWidths(ffactor = -1.2, log=TRUE) # Finally works!
   style.name <- paste("PCN style", (1+no.windows), sep=" ")
   RCy3::copyVisualStyle('default', style.name)
@@ -541,7 +540,7 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
 # helper functions for networks in R:
 # function to filter networks to include only selected nodes and those with edges to them
 filter.edges.0 <- function(nodenames, edge.file) {
-  nodenames <-as.character(nodenames)
+  nodenames <- as.character(nodenames)
   a = as.character(edge.file[,1])
   b = as.character(edge.file[,2])
   edgefile.nodes <- unique(c(a,b))
