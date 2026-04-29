@@ -4,12 +4,10 @@
 \alias{get.co.clustered.ptms}
 \title{Get CoClustered PTMs}
 \usage{
-get.co.clustered.ptms(edge.file, ptmtable, ptm.cccn.edges)
+get.co.clustered.ptms(edge.file, ptm.cccn.edges)
 }
 \arguments{
 \item{edge.file}{PLACEHOLDER PARAMETER DESCRIPTION}
-
-\item{ptmtable}{PLACEHOLDER PARAMETER DESCRIPTION}
 
 \item{ptm.cccn.edges}{PLACEHOLDER PARAMETER DESCRIPTION}
 }
