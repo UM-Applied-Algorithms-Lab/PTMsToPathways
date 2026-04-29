@@ -376,11 +376,12 @@ mergeEdges <- function(edgefile) {
 #' # Example input objects
 #' ptms <- c("TP53 p S15", "BRCA1 p S123; BRCA1 p T124", "MDM2 p S200")
 #' # Example network
-#' # edge list with 'source', 'target', and cluster info, could be data.frame or igraph
+#' # edge list with 'source', 'target', and cluster info
+#' # could be data.frame or igraph
 #' cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
 #'                          target = c("BRCA1", "MDM2", "TP53", "TP53"),
 #'                          cluster = c(1,1,2,1))
-#' # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
+#' # Suppose filter.edges.0 and get.co.clustered.ptms are defined and loaded
 #' # The following returns the gene/PTM subnetwork
 #' res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
 #' print(res)
@@ -389,7 +390,7 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
   if (length(ambig.ptms) > 0) {
 
     sub.ptms <- ptms %w/o% ambig.ptms
-    all_genes <- unique(sapply(sub.ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
+    all_genes <- unique(sapply(sub.ptms, function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
 
     for (i in 1:length(ambig.ptms) ) {
       # Normalize spacing
@@ -402,7 +403,7 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
       all_genes <- unique(c(all_genes, ambig.genes))
     }
   } else {
-    all_genes  <- unique(sapply(ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
+    all_genes  <- unique(sapply(ptms, function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
   }
 
   sub.cfn <- filter.edges.0(all_genes, cfn.merged)
