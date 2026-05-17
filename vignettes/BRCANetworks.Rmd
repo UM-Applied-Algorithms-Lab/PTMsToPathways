@@ -39,30 +39,44 @@ knitr::opts_chunk$set(
   results = "hold"
 )
 ```
+Note that we will use the complete PPI and BioPlanet edgefiles available in "/Data_repository_path/" for this vignette.
+Lucy todo: these can come with the package
 
-This tutorial will load and create networks from the breast cancer cohort (BRCA, N = 122; Krug, K., Jaehnig, E. J., Satpathy, S., Blumenberg, L., Karpova, A., Anurag, M., et al. (2020) Proteogenomic landscape of breast cancer tumorigenesis and targeted therapy. Cell 183, 1436–1456.e31) downloaded from Supplmental Data S2 from	Schraink, T., Blumenberg, L., Hussey, G., George, S., Miller, B., Mathew, N., Gonzalez-Robles, T.J., Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al. (2023). PhosphoDisco: A Toolkit for Co-regulated Phosphorylation Module Discovery in Phosphoproteomic Data. Mol Cell Proteomics 22, 100596. 10.1016/j.mcpro.2023.100596.
 
-Note that we will use the complete PPI and BioPlanet edgefiles available in "/Data_repository_path/" for this vignette. 
+This tutorial will load and create networks from the breast cancer cohort (BRCA, N = 122), produced by
 
-First, read in the data table.
+> **Proteogenomic landscape of breast cancer tumorigenesis and targeted therapy**
+   Krug, K., Jaehnig, E. J., Satpathy, S., Blumenberg, L., Karpova, A., Anurag, M., et al.
+   *Cell* 183, 1436–1456.e31
 
+And downloaded from Supplemental data S2 from
+
+> **PhosphoDisco: A Toolkit for Co-regulated Phosphorylation Module Discovery in Phosphoproteomic Data**
+   Schraink, T., Blumenberg, L., Hussey, G., George, S., Miller, B., Mathew, N., Gonzalez-Robles, T.J., Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al.
+   *Mol Cell Proteomics* 22, 100596. 10.1016/j.mcpro.2023.100596
+
+### Data preprocessing
+
+The BRCA data table described above is provided with the PTMsToPathways package and and can be read in as follows:
 ```{r eval = TRUE}
 file_path <- system.file("extdata", "PhosphoDiscoData_mmc9.txt", package = "PTMsToPathways")
 newphos <- utils::read.table(file_path, header = TRUE,
                                stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
                                na.strings = "", quote = "", fill = TRUE)
 ```
-It should have 4237 rows and 124 columns:
+It has 4237 rows and 124 columns representing 4237 phosphosites and 122 samples
+with phosphoproteomic data.
 ```{r eval = TRUE}
 dim(newphos)
 ```
-The first two columns are `gene_symbol` and `variable_sites_names` that we will
-use to create row names for the PTM table, and the remaining columns are samples
-with phosphoproteomic data. Here are the first few rows and columns of the data frame:
+The first two columns are `gene_symbol` and `variable_sites_names` which we will
+use to create row names for the PTM table to match the expected input format for
+the PTMsToPathways functions. The [Raw Data Processing vignette](RawDataProcessing.html) gives another
+example of how to process raw data tables to create the expected input format for the PTMsToPathways functions.
+Here are the first few rows and columns of the data frame:
 ```{r eval = TRUE}
 head(newphos[, 1:5])
 ```
-
 Now we will process the first two columns to create row names for the PTM table.
 We extract the amino acid and the site number from the `variable_sites_names` column.
 ```{r eval = TRUE}
@@ -71,18 +85,15 @@ We extract the amino acid and the site number from the `variable_sites_names` co
  newphos$Site <- sub("[a-z]$", "", newphos$Site)
  head(newphos[, c("gene_symbol", "variable_sites_names", "Amino.Acid", "Site")])
 ```
-
 Now use the PTMsToPathways function `name.peptide` to create peptide names for
 the row names of the PTM table.
-<!-- it is confusing how this works, since name.peptide is in RawDatProcessing.R, but we don't export that function -->
-
 ```{r eval = TRUE} 
  newphos$Peptide.Name <- mapply(
    name.peptide, genes = newphos$gene_symbol,
    sites =  newphos$Site, aa = newphos$Amino.Acid)
 ```
-
-Create `ptmtable` with PTMs as rows and samples as columns for use in the next steps, and remove the columns we used to create the row names.
+Create `ptmtable` with PTMs as rows and samples as columns for use in the next
+steps, and remove the columns we used to create the row names.
 ```{r eval = TRUE}
 phosdata <- newphos[, 3:ncol(newphos), ]
 rownames(phosdata) <- newphos$Peptide.Name
@@ -90,10 +101,11 @@ phosdata <- phosdata[, !(names(phosdata) %in% c("gene_symbol", "variable_sites_n
 ptmtable <- phosdata
 head(ptmtable[, 1:5])
 ```
+Next, we create clusters and networks from those clusters as in the [Creating Networks vignette](CreatingNetworks.html).
 
-Next, create clusters and networks from those clusters as in the Creating Networks vignette.
+### Create Clusters and Co-Cluster Correlation Networks (CCCNs)
 This takes about 10 minutes on a laptop, so we provide both the code and the pre-computed results for this step.
-
+To re-run the analysis, run, the following:
 ```{r eval = FALSE}
 set.seed(88)
 clusterlist.data <- MakeClusterList(ptmtable,
@@ -101,13 +113,11 @@ clusterlist.data <- MakeClusterList(ptmtable,
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 ```
-
-Load in pre-computed results:
+Or load in pre-computed results from within the PTMsToPathways package:
 ```{r eval = TRUE}
 clusterlist.data <- brca_clusterlist_data
 CCCN.data <- brca_CCCN_data
 ```
-
 Whether computed or loaded, the results are lists that contain the following elements:
 ```{r eval = TRUE}
 # Separate out elements of results list
@@ -119,12 +129,10 @@ ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
 ```
-
 We expect 231 common clusters:
 ```{r eval = TRUE}
 length(common.clusters)
 ```
-
 If desired, the clusters can be trimmed to those > 4. 
 ```{r eval = TRUE}
 cclength <- sapply(common.clusters, length)
@@ -132,27 +140,25 @@ common.clusters4 <- common.clusters[which(cclength>3)]
 length(common.clusters4)
 # should be 202
 ```
-
-
-Visualize these in a large heatmap that is saved to the disk.
-<!-- Lucy note: I don't know where brca_clusters, brca_tbl, came from -->
-<!-- Lucy note: for the vignette, can we just print these to the screen instead of saving? -->
-
-```{r eval = FALSE}
-library(gplots)
+We can visualize these in a large heatmap that is saved to the disk. To demonstrate,
+let's look at the output for the first 3 clusters.
+```{r eval = TRUE}
 res <- graph.ptm.by.cluster(
      ptmtable         = ptmtable,
-     common.clusters  = common.clusters4,          # use all clusters > 4
-     filename         = "ptm_all_clusters_l4.pdf",
-     legend.filename  = "ptm_legend4.pdf",
-     heatkey.filename = "ptm_heatkey4.pdf",
+     common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
+     filename         = "plots/ptm_all_clusters_l4.pdf",
+     legend.filename  = "plots/ptm_legend4.pdf",
+     heatkey.filename = "plots/ptm_heatkey4.pdf",
      order.rows       = "slope",
      zlim             = 3,
      show.row.labels  = FALSE,
      show.col.labels  = TRUE,
      col_cex          = 0.7
    )
-
+knitr::include_graphics("plots/ptm_all_clusters_l4.pdf")
+```
+We can evaluate the clusters.
+```{r eval = TRUE}
 # The EvaluateClusters function evaluates clusters based on 
 #   `intensity` = total signal after removing the NA fraction
 #   `realsamples` = samples that are not single-gene/PTM samples
@@ -160,12 +166,15 @@ res <- graph.ptm.by.cluster(
 #   `percent.NA` = percentage of missing values in the cluster sub-table
 
 eval_brca <- EvaluateClusters(
-   brca_clusters, brca_tbl,
+   common.clusters4, ptmtable,
    data.type  = "ratio",
    use.slope  = FALSE,
-   index.mode = "density"
+   index.mode = "density",
+   verbose    = FALSE
  )
+head(eval_brca)
 ```
+### Build Cluster Filtered Networks (CFNs) and Pathway Crosstalk Networks (PCNs)
 
 For PPI edges, here we will demonstrate how to get the STRING-db and GeneMANIA edges from the static downloaded networks provided in "Data_repository_path".
 
