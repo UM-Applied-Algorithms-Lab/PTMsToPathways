@@ -3,17 +3,9 @@
 Include kinase substrate dataset from PhosphoSitePlus
 https://www.phosphosite.org/staticDownloads
 
-Include kinase substrate dataset from PhosphoSitePlus
-https://www.phosphosite.org/staticDownloads
-
 ## Usage
 
 ``` r
-GetKinsub.edges(
-  kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
-  gene.cccn.nodes
-)
-
 GetKinsub.edges(
   kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
   gene.cccn.nodes
@@ -34,7 +26,5 @@ GetKinsub.edges(
   (Euclidean, Spearman, and Combined (SED))
 
 ## Value
-
-An edgelist filtered by the gene cccn and nodenames
 
 An edgelist filtered by the gene cccn and nodenames

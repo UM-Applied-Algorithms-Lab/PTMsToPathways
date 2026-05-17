@@ -57,9 +57,11 @@ our data table, the relevant column names are:
 
 **modification** = “Modification.Type”
 
-We provide a helper function `name.peptide()` to make a PTM name using
-these columns. This function concatenates ambiguous modification sites
-and ignores NA values that are present in cells or ambiguous gene names.
+We provide a helper function
+[`name.peptide()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/name.peptide.md)
+to make a PTM name using these columns. This function concatenates
+ambiguous modification sites and ignores NA values that are present in
+cells or ambiguous gene names.
 
 Note that it is very important that the rownames are the names of
 post-translational modifications. All of their respective columns are
@@ -74,9 +76,10 @@ Many investigators will examine their data in Microsoft Excel, which can
 export the spreadsheet in tab- or comma-delimited format. Unfortunately,
 Excel inescapably turns some gene names into dates when present in a
 cell by themselves. We reverse this with an example helper function,
-`fix.excel()`:
+[`fix.excel()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/fix.excel.md):
 
 ``` r
+
 fix.excel <- function(cell) {
   fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep",
                "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct",
@@ -105,12 +108,14 @@ fix.excel <- function(cell) {
   }
 ```
 
-We provide another example helper function, `name.peptide()`, to handle
-ambiguous modification sites (a modification site whose peptide sequence
-is the same in more than one protein) separated by “;” or another
-separator.
+We provide another example helper function,
+[`name.peptide()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/name.peptide.md),
+to handle ambiguous modification sites (a modification site whose
+peptide sequence is the same in more than one protein) separated by “;”
+or another separator.
 
 ``` r
+
 name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")   {
   genes.v <- unlist(strsplit(genes, pepsep, fixed = TRUE))
   genes.v[which(genes.v == "NA")] <- NA
@@ -160,12 +165,14 @@ dim(newphos)
 If there are dates in the `AllGeneSymbols` column, use:
 
 ``` r
+
 newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
 ```
 
 Next, identify the columns that will be used to name the PTM
 
 ``` r
+
 headercols <- c("AllGeneSymbols", "Amino.Acid",
                 "Positions.Within.Proteins", "Modification.Type")
 ```
@@ -173,12 +180,14 @@ headercols <- c("AllGeneSymbols", "Amino.Acid",
 Make a separate data frame using these columns.
 
 ``` r
+
 newphos.head <- newphos[,headercols]
 ```
 
 Now create a unique PTM name (peptide name)
 
 ``` r
+
 newphos.head$Peptide.Name <- mapply(
   name.peptide, genes = newphos.head$AllGeneSymbols,
   sites =  newphos.head$Positions.Within.Proteins, aa = newphos.head$Amino.Acid)
@@ -193,6 +202,7 @@ as the user ensures that any special character (such as \$ or @) have a
 “\\ in front of them.
 
 ``` r
+
 patterns <- c("\\~", "\\#", "/", "\\$", "\\@", "\\|")
 patterns <- patterns[order(nchar(patterns), patterns, decreasing = TRUE)]
 
@@ -247,6 +257,7 @@ averaging values detected in both, using the function, *merge2cols()*.
 … & similar for other drugs
 
 ``` r
+
 phosdata <- newphos[,grep("Intensity", names(newphos))]
 phosdata <- phosdata[,grep("pTyr", names(phosdata))]
 ```
@@ -254,6 +265,7 @@ phosdata <- phosdata[,grep("pTyr", names(phosdata))]
 Now simplify column names:
 
 ``` r
+
 names(phosdata) <- sapply(names(phosdata), function(x){
   unlist(strsplit(x, "Intensity."))[2]
   })
@@ -264,6 +276,7 @@ confident that zero means actual zero, which is possible with certain
 technical advances like DIA.)
 
 ``` r
+
 zer0 <- which(phosdata==0, arr.ind = TRUE)
 phosdata <- replace (phosdata, zer0, NA)
 ```
@@ -271,6 +284,7 @@ phosdata <- replace (phosdata, zer0, NA)
 Define technical replicates:
 
 ``` r
+
 tr1.opt <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
 tr2.opt <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
 ```
@@ -280,6 +294,7 @@ NA values in either column and takes the average in the case where there
 are two values.
 
 ``` r
+
 merge2cols <- function (colv1, colv2) {
   newcolv=NA
   if (is.na(colv1) & is.na(colv2)) {
@@ -306,6 +321,7 @@ names(phosdata.merged) <- sapply(tr1.opt, function(x){
 Merge with header:
 
 ``` r
+
 phosdatafile <- cbind(newphos.head, phosdata.merged)
 ```
 
@@ -313,6 +329,7 @@ This file could be saved for reference using
 [`write.table()`](https://rdrr.io/r/utils/write.table.html):
 
 ``` r
+
 write.table(phosdatafile, file = "phosdatafile.txt",
             row.names = FALSE, sep = "\t")
 ```
@@ -321,6 +338,7 @@ For subsequent steps, we make a dataframe withjust the data with
 individual PTMs as rownames:
 
 ``` r
+
 rownames(phosdatafile) <- phosdatafile$Peptide.Name
 phosdata.df <- phosdatafile[,6:23]
 ```
@@ -328,6 +346,7 @@ phosdata.df <- phosdatafile[,6:23]
 Log base 2 transformation improves clustering.
 
 ``` r
+
 log2phosdata <- log2(phosdata.df)
 ```
 
@@ -335,6 +354,7 @@ The following vignettes show how to use the functions provided in
 PTMsToPathways to analyze data stored in a variable called `ptmtable`.
 
 ``` r
+
 # ptmtable <- log2phosdata
 ```
 
@@ -348,6 +368,7 @@ that enhance focus on the changes in response to drug treatments.
 Simplify column names first:
 
 ``` r
+
 names(phosdata.df) <- sapply(names(phosdata.df), function(x){
   paste(unlist(strsplit(x, "SEPTM_pTyr"))[1],
         unlist(strsplit(x, "SEPTM_pTyr"))[2], sep = "")
@@ -357,6 +378,7 @@ names(phosdata.df) <- sapply(names(phosdata.df), function(x){
 Explore using ratios where control=rowMeans (D1, D2, D3):
 
 ``` r
+
 H3122control <- rowMeans(phosdata.df[, names(phosdata.df)
                                      [grep("H3122.D", names(phosdata.df))]],
                          na.rm=TRUE)
@@ -365,6 +387,7 @@ H3122control <- rowMeans(phosdata.df[, names(phosdata.df)
 Change NaN to NA
 
 ``` r
+
 H3122control[is.nan(H3122control)] <- NA
 
 PC9control <- rowMeans(phosdata.df[, names(phosdata.df)
@@ -377,6 +400,7 @@ PC9control[is.nan(PC9control)] <- NA
 Calculate treatment/control ratios
 
 ``` r
+
 # H3122 cells
 H3122.C1.ratio <- phosdata.df$H3122.C1/H3122control
 H3122.C2.ratio <- phosdata.df$H3122.C2/H3122control
@@ -397,6 +421,7 @@ PC9.PR3.ratio <- phosdata.df$PC9.PR3/PC9control
 Put these columns in a data frame:
 
 ``` r
+
 phos_ratios <- data.frame(H3122.C1.ratio, H3122.C2.ratio, H3122.C3.ratio,
                           H3122.PR1.ratio, H3122.PR2.ratio, H3122.PR3.ratio,
                           PC9.E1.ratio, PC9.E2.ratio, PC9.E3.ratio,
@@ -415,6 +440,7 @@ clustering, and a ratio of 1000 is biologically not really functional
 different than a ratio of 100.
 
 ``` r
+
 hi.ratio <- which(phos_ratios >= 100, arr.ind = TRUE)
 low.ratio <- which(phos_ratios <= 1/100, arr.ind = TRUE)
 phos_ratios.lim <- replace (phos_ratios, hi.ratio, 100) 
@@ -424,6 +450,7 @@ phos_ratios.lim <- replace (phos_ratios.lim, low.ratio, 1/100)
 log2 transformation improves clustering:
 
 ``` r
+
 phos_ratios.lim.log2 <- log2(phos_ratios.lim)
 phosdata_plus_ratios <- cbind(log2phosdata, phos_ratios.lim.log2)
 ```
@@ -431,6 +458,7 @@ phosdata_plus_ratios <- cbind(log2phosdata, phos_ratios.lim.log2)
 And plot to check:
 
 ``` r
+
 boxplot(phosdata_plus_ratios)
 ```
 
@@ -444,6 +472,7 @@ identical(rownames(phos_ratios.lim.log2), rownames(log2phosdata))
 This can be used as the example ptmtable for subsequent testing.
 
 ``` r
+
 # ptmtable <- phosdata_plus_ratios
 ```
 
@@ -463,6 +492,7 @@ in `ubidata.df`, both formatted as above for phosphorylation data in
 First, make sure the column names are the same:
 
 ``` r
+
 kgp <- phosdata.df
 kga <- ackdata.df
 kgu <- ubidata.df
@@ -488,18 +518,21 @@ identical(names(kgp), names(kga)) # Check TRUE
 Then `rbind` them:
 
 ``` r
+
 ptmdata <- rbind (kgp, kga, kgu) 
 ```
 
 Reorder:
 
 ``` r
+
 ptmdata <- ptmdata[order(rownames(ptmdata)),]
 ```
 
 This optional step improves clustering in our hands:
 
 ``` r
+
 log2ptmdata <- log2(ptmdata)
 ```
 
@@ -507,5 +540,6 @@ Finally, this dataframe could be used as the example `ptmtable` for the
 P2P functions.
 
 ``` r
+
 # ptmtable <- log2ptmdata
 ```

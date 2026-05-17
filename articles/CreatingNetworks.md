@@ -20,18 +20,21 @@ You will need to install the devtools package, which can be installed
 with:
 
 ``` r
+
 install.packages("devtools")
 ```
 
 Next, install the package with:
 
 ``` r
+
 devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
 ```
 
 And load the package:
 
 ``` r
+
 library(PTMsToPathways)
 ```
 
@@ -50,28 +53,31 @@ to be inspected locally.
 To see all data that is provided with the package, run:
 
 ``` r
+
 data(package = "PTMsToPathways")
 ```
 
-| Dataset Name                 | Description                |
-|:-----------------------------|:---------------------------|
-| ex_PCNedgelist               | PCN Edge List              |
-| ex_adj_consensus             | Adjacency Consensus Matrix |
-| ex_bioplanet                 | Bioplanet                  |
-| ex_cfn                       | Cfn                        |
-| ex_combined_ppi              | Combined PPIs              |
-| ex_common_clusters           | Common Clusters            |
-| ex_full_ptm_table            | Full PTM Table Example     |
-| ex_gene_cccn_edges           | Gene CCCN Edgelist         |
-| ex_gene_cccn_nodes           | Gene list (nodes)          |
-| ex_genemania_edges           | Genemania Edges            |
-| ex_pathway_crosstalk_network | Pathway Crosstalk Network  |
-| ex_pathways_list             | Pathways list              |
-| ex_ptm_cccn_edges            | PTM CCCN Edgelist          |
-| ex_ptm_correlation_matrix    | Correlation Matrix         |
-| ex_small_ptm_table           | Small PTM Table Example    |
-| ex_stringdb_edges            | STRINGdb Edges             |
-| ex_tiny_ptm_table            | Tiny PTM Table Example     |
+| Dataset Name | Description |
+|:---|:---|
+| brca_CCCN_data | Output of MakeCorrelationNetwork on the BRCA data |
+| brca_clusterlist_data | BRCA Cluster List Data |
+| ex_PCNedgelist | PCN Edge List |
+| ex_adj_consensus | Adjacency Consensus Matrix |
+| ex_bioplanet | Bioplanet |
+| ex_cfn | Cfn |
+| ex_combined_ppi | Combined PPIs |
+| ex_common_clusters | Common Clusters |
+| ex_full_ptm_table | Full PTM Table Example |
+| ex_gene_cccn_edges | Gene CCCN Edgelist |
+| ex_gene_cccn_nodes | Gene list (nodes) |
+| ex_genemania_edges | Genemania Edges |
+| ex_pathway_crosstalk_network | Pathway Crosstalk Network |
+| ex_pathways_list | Pathways list |
+| ex_ptm_cccn_edges | PTM CCCN Edgelist |
+| ex_ptm_correlation_matrix | Correlation Matrix |
+| ex_small_ptm_table | Small PTM Table Example |
+| ex_stringdb_edges | STRINGdb Edges |
+| ex_tiny_ptm_table | Tiny PTM Table Example |
 
 If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
@@ -123,6 +129,7 @@ If you have downloaded the larger dataset locally, you can read it into
 R using the following code:
 
 ``` r
+
 allptmtable <- utils::read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
                                  fill = T, quote = "\"", dec = ".",
                                  comment.char = "", stringsAsFactors = F)
@@ -168,32 +175,33 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.38 secs total.
->> Spearman t-SNE calculation complete after 42.52 secs total.
->> Euclidean distance calculation complete after 42.56 secs total.
->> Euclidean t-SNE calculation complete after 1.16 mins total.
->> Combined distance calculation complete after 1.16 mins total.
->> SED t-SNE calculation complete after 1.62 mins total.
+>> Spearman correlation calculation complete after 12.4 secs total.
+>> Spearman t-SNE calculation complete after 39.76 secs total.
+>> Euclidean distance calculation complete after 39.79 secs total.
+>> Euclidean t-SNE calculation complete after 1.09 mins total.
+>> Combined distance calculation complete after 1.09 mins total.
+>> SED t-SNE calculation complete after 1.52 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.63 mins total.
+    >> Clustering for Euclidean complete after 1.53 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.64 mins total.
+    >> Clustering for Spearman complete after 1.54 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.64 mins total.
-    >> Consensus clustering complete after 1.65 mins total.
-    >> MakeClusterList complete after 1.65 mins total.
+    >> Clustering for SED complete after 1.54 mins total.
+    >> Consensus clustering complete after 1.55 mins total.
+    >> MakeClusterList complete after 1.55 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
 
 ``` r
+
 common.clusters <- clusterlist.data[[1]]
 adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
@@ -261,9 +269,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.16 secs total.
+>> PTM CCCN complete after 0.19 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.74 secs total.
+>> Gene CCCN complete after 2.8 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -305,6 +313,7 @@ Because this step can take a long time to run on larger datasets, the
 output may be saved as an RData object for later use.
 
 ``` r
+
 save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
 ```
@@ -356,6 +365,7 @@ function provided within P2P (note that this creates a text file in your
 working directory):
 
 ``` r
+
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
@@ -380,6 +390,7 @@ package. The following code shows how to use this file as input to the
 function.
 
 ``` r
+
 gm.results.path <- system.file("extdata", "ex_gm_results.txt",
                                package = "PTMsToPathways")
 genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
@@ -407,11 +418,13 @@ it so that all the PPI edge data frames are in the same format for the
 next step.
 
 ``` r
+
 input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt",
                               package = "PTMsToPathways")
 ```
 
 ``` r
+
 kinsub.edges <- GetKinsub.edges(input.filename,
                                   gene.cccn.nodes)
 ```
@@ -433,6 +446,7 @@ network created in step 2.
 We first run the function:
 
 ``` r
+
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
                                             stringdb.edges,
                                             genemania.edges,
@@ -443,6 +457,7 @@ network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
 And then unpack the outputs into separate variables:
 
 ``` r
+
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
@@ -464,6 +479,7 @@ two or more edges between two nodes into a single edge, combining edge
 names:
 
 ``` r
+
 cfn.merged <- mergeEdges(cfn)
 ```
 
@@ -485,6 +501,7 @@ similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
 ``` r
+
 bioplanet.file <- system.file("extdata", "pathway.csv",
                               package = "PTMsToPathways")
 ```
@@ -492,33 +509,35 @@ bioplanet.file <- system.file("extdata", "pathway.csv",
 ``` r
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
+>> Making PCN
+>> 2026-05-17 20:01:19.366122
+>> 2026-05-17 20:01:19.474977
+>> Total time: 0.108855247497559
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
->> [1] "Making PCN"
->> [1] "2026-04-17 19:22:42 UTC"
->> [1] "2026-04-17 19:22:42 UTC"
->> [1] Total time: 0.103652954101562
 ```
 
 And we can see some of the pathway crosstalk network edges below:
 
 ``` r
+
 pathway.crosstalk.network[1:5,]
 ```
 
 ``` r
+
 dat <- pathway.crosstalk.network[1:5,]
 knitr::kable(dat, align = 'l', digits = 2)
 ```
 
-|     | source                 | target                                            | Weight            | interaction          |
-|:----|:-----------------------|:--------------------------------------------------|:------------------|:---------------------|
-| 4   | Axon guidance          | Validated nuclear estrogen receptor alpha network | 1.27898550724638  | PTM_cluster_evidence |
-| 2   | Axon guidance          | ERBB signaling pathway                            | 9.50912807669002  | PTM_cluster_evidence |
-| 3   | Axon guidance          | Lipid and lipoprotein metabolism                  | 4.63387820142684  | PTM_cluster_evidence |
-| 5   | ERBB signaling pathway | Lipid and lipoprotein metabolism                  | 2.96007824348337  | PTM_cluster_evidence |
-| 18  | Selenium pathway       | Vitamin B12 metabolism                            | 0.866666666666667 | PTM_cluster_evidence |
+|  | source | target | Weight | interaction |
+|:---|:---|:---|:---|:---|
+| 4 | Axon guidance | Validated nuclear estrogen receptor alpha network | 1.27898550724638 | PTM_cluster_evidence |
+| 2 | Axon guidance | ERBB signaling pathway | 9.50912807669002 | PTM_cluster_evidence |
+| 3 | Axon guidance | Lipid and lipoprotein metabolism | 4.63387820142684 | PTM_cluster_evidence |
+| 5 | ERBB signaling pathway | Lipid and lipoprotein metabolism | 2.96007824348337 | PTM_cluster_evidence |
+| 18 | Selenium pathway | Vitamin B12 metabolism | 0.866666666666667 | PTM_cluster_evidence |
 
 ## Saving Data
 
@@ -529,6 +548,7 @@ file with the write.csv function.
 To save one object:
 
 ``` r
+
 save(object, filename = "filepath/name.rda") # Saves object as an .rda
 load("filepath/name.rda")                    # Loads object saved to a file
 ```
@@ -537,12 +557,14 @@ For multiple objects: Note the objects are saved as an .RData rather
 than an .rda
 
 ``` r
+
 save(object1, object2, object.ect, filename="NewFile.RData")
 ```
 
 To save one object as a csv:
 
 ``` r
+
 utils::write.csv(object, file = "filepath/name.csv") # Saves object as a .csv
 utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 ```
@@ -551,6 +573,7 @@ You may also save your entire Global Environment namespace using the
 save.image function as shown below:
 
 ``` r
+
 save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
 ```

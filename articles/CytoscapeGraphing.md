@@ -28,6 +28,7 @@ molecules” and those pathways. The utility functions used below are in
 CytoscapeGraphing.R
 
 ``` r
+
 egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
   {"EGFR" %in% ex_pathways_list[[x]]})]
 ```
@@ -40,12 +41,14 @@ length(egfr_pathways)
 ```
 
 ``` r
+
 egfr_transporter.pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, ex_PCNedgelist)
 ```
 
 ``` r
+
 egfr_transporter_pcn.cy <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, pathway.crosstalk.network)
@@ -58,6 +61,7 @@ smilarity in adjacent columns (the first case) or as distinct edges (the
 second case, which can be used to plot this network in cytoscape).
 
 ``` r
+
 # Graph PCN
 pcn.graph.1 <- cytoscape.graph.PCN.pathways(
   PCN = egfr_transporter_pcn.cy,
@@ -75,6 +79,7 @@ extracted from the ptmtable. This is optional, useful if node size and
 color is used later to indicate values in data.
 
 ``` r
+
 egfr_transporter.cfn <- filter.edges.0(c(
   pathways_list[["EGF/EGFR signaling pathway"]],
   pathways_list[["Transmembrane transport of small molecules"]]), cfn)
@@ -92,6 +97,7 @@ interface to view the data. This function requires the edge list file
 #### Generating the graph and setting node size and color
 
 ``` r
+
 GraphCfn(cfn.edges = egfr_transporter.cfn, cfn.nodes = egfr_transporter.nodes,
          Network.title = "CFN", Network.collection = "PTMsToPathways")
 
@@ -130,6 +136,7 @@ examine which PTMs co-cluster, as indicated by yellow edges between
 them.
 
 ``` r
+
 sp1 <- connectNodes.all(c("FYN", 'MET'), ig.graph=NULL,
                         edgefile = cfn.merged, newgraph = TRUE) #. ***
 
@@ -167,6 +174,7 @@ regulation. We hypothesize that ptms on proteins involved in focal
 adhesion will be downregulated by dasatinib.
 
 ``` r
+
 pt.sub <- ptmtable[, grep("DasatinibRatio", names (ptmtable))]
 pt.sub$Sum.Dasat <- rowSums(pt.sub, na.rm = TRUE)
 pt.sub <- pt.sub[order(pt.sub$Sum.Dasat, decreasing = FALSE), ]
@@ -336,6 +344,7 @@ Arrow Types:
   NodeEdgeKey() function:
 
 ``` r
+
 NodeEdgeKey()
 
 setEdgeLineWidthMapping('Weight')

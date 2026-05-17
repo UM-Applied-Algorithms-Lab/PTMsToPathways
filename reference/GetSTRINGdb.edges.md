@@ -1,9 +1,6 @@
 # Get STRINGdb PPI data
 
 This function finds protein-protein interaction weights by consulting
-utilizing the STRINGdb database.
-
-This function finds protein-protein interaction weights by consulting
 the STRINGdb database, either live via the STRINGdb R package or from a
 locally pre-downloaded flat file. The package STRINGdb is required for
 the live mode. To download, run:
@@ -25,13 +22,6 @@ Interactions")
 ## Usage
 
 ``` r
-GetSTRINGdb.edges(
-  gene.cccn.edges,
-  gene.cccn.nodes,
-  local = FALSE,
-  string.local.path = "string_hs_hugo.tsv"
-)
-
 GetSTRINGdb.edges(
   gene.cccn.edges,
   gene.cccn.nodes,
@@ -76,13 +66,7 @@ GetSTRINGdb.edges(
 Data frame of consisting of the network of interactions from the genes
 of study pulled from the STRINGdb database and a list of gene names
 
-Data frame of consisting of the network of interactions from the genes
-of study pulled from the STRINGdb database and a list of gene names
-
 ## Details
-
-The full example takes ~10 minutes to load, so it has been commented out
-and the results are displayed.
 
 The full example takes ~10 minutes to load in live mode, so it has been
 commented out and the results are displayed.
@@ -90,11 +74,6 @@ commented out and the results are displayed.
 ## Examples
 
 ``` r
-# GetSTRINGdb(ex.gene.cccn)
-utils::head(ex.stringdb.edges)
-#> Error: object 'ex.stringdb.edges' not found
-utils::head(ex.nodenames)
-#> Error: object 'ex.nodenames' not found
 # Live mode (original behaviour):
 # GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes)
 

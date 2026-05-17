@@ -1,6 +1,7 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/404.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/LICENSE.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/BRCANetworks.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CytoscapeGraphing.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/RawDataProcessing.html</loc></url>
@@ -9,12 +10,15 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildClusterFilteredNetwork.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BuildPathwayCrosstalkNetwork.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/EvaluateClusters.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIA.edges.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetKinsub.edges.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetSTRINGdb.edges.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeClusterList.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeCorrelationNetwork.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeDBInput.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/brca_CCCN_data.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/brca_clusterlist_data.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_PCNedgelist.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_adj_consensus.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_bioplanet.html</loc></url>
@@ -32,12 +36,17 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_small_ptm_table.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_stringdb_edges.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_tiny_ptm_table.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/fix.excel.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/getFuncKey.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/grapes-w-slash-o-grapes.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/graph.ptm.by.cluster.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/make.genepep.edges.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/merge2cols.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/name.peptide.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ptms_to_cfn.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/remove.autophos.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/setCorrEdgeAppearance.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/setNodeSizeColorIndependently.html</loc></url>
 </urlset>
 
