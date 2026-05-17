@@ -301,4 +301,18 @@
 #' head("ex_pathways_list")
 "ex_pathways_list"
 
+#' BRCA Cluster List Data
+#' 
+#' Output of MakeClusterList on the BRCA data
+#' 
+#' @keywords internal
+"brca_clusterlist_data"
+
+'# BRCA CCCN Data
+#' 
+#' Output of MakeCorrelationNetwork on the BRCA data
+#' 
+#' @keywords internal
+"brca_CCCN_data"
+
 
