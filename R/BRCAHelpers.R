@@ -7,6 +7,61 @@
 #  - Cluster side-bar colors are high-contrast, non-rainbow
 # ============================================================
 
+#' Heatmap of Phosphopeptides Grouped by Cluster
+#'
+#' Creates a large phosphopeptide heatmap colored by signal intensity, grouped
+#' by consensus cluster with high-contrast cluster color bars. Supports custom
+#' row ordering and optional legend/heatkey output files.
+#'
+#' @param ptmtable A numeric matrix with PTMs as rows and samples as columns.
+#' @param common.clusters A named list where each element is a character vector
+#'   of PTM identifiers belonging to that cluster.
+#' @param filename Output filename for the main heatmap PDF. Defaults to
+#'   `"ptm_by_cluster_heatmap.pdf"`.
+#' @param legend.filename Optional filename for a separate PDF cluster legend.
+#'   If `NULL`, no legend file is written.
+#' @param heatkey.filename Optional filename for a separate PDF color scale key.
+#'   If `NULL`, no heatkey file is written.
+#' @param cluster.order Character vector specifying the order in which clusters
+#'   are displayed. Defaults to `names(common.clusters)`.
+#' @param order.rows Method to order rows within clusters: `"as.is"` (no reordering),
+#'   `"mean"` (by row-wise mean), `"slope"` (by linear trend), or `"hclust"`
+#'   (hierarchical clustering). Defaults to `"as.is"`.
+#' @param cluster.cols Logical; if `TRUE`, columns are also hierarchically
+#'   clustered. Defaults to `FALSE`.
+#' @param zlim Numeric; the upper/lower limit for the heatmap color scale
+#'   (values are clipped to `[-zlim, zlim]`). Defaults to `3`.
+#' @param min.shared Minimum number of shared finite values required to compute
+#'   distance between two samples. Defaults to `2`.
+#' @param show.row.labels Logical; show row labels (PTM identifiers).
+#'   Defaults to `FALSE`.
+#' @param show.col.labels Logical; show column labels (sample names).
+#'   Defaults to `TRUE`.
+#' @param row_cex Character expansion factor for row labels. Defaults to `0.2`.
+#' @param col_cex Character expansion factor for column labels. Defaults to `0.8`.
+#' @param main Plot title. Defaults to `"Phosphopeptides grouped by cluster"`.
+#'
+#' @return Invisibly returns a list containing:
+#'   - `mat`: The clustered expression matrix.
+#'   - `blocks`: List of ordered sub-matrices, one per cluster.
+#'   - `rowsep`: Row indices separating clusters.
+#'   - `cluster.palette`: Named vector of cluster colors.
+#'
+#' @export
+#'
+#' @examples
+#' \dontrun{
+#' res <- graph.ptm.by.cluster(
+#'   ptmtable = ptmtable,
+#'   common.clusters = common.clusters,
+#'   filename = "ptm_heatmap.pdf",
+#'   order.rows = "hclust"
+#' )
+#' }
+#'
+#' @importFrom gplots heatmap.2
+#' @importFrom grDevices hcl colorRampPalette
+#'
 graph.ptm.by.cluster <- function(
     ptmtable,
     common.clusters,
