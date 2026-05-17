@@ -12,6 +12,19 @@
 
 
 # Helper functions
+#' Correct Excel-Converted Gene Symbols
+#'
+#' Replaces gene symbols that are commonly converted into date-like strings by
+#' spreadsheet software with their expected HUGO symbols.
+#'
+#' @param cell A character string containing one or more gene symbols, separated
+#'   by `"; "`.
+#'
+#' @return A character string with corrected gene symbols.
+#' @export
+#'
+#' @examples
+#' fix.excel("1-Sep; CDC2")
 # Function to change dates back into gene names - Excel changes many genes into dates and this can't be turned off!
 fix.excel <- function(cell) {
   fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep", "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct", "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar", "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar", "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',  'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
@@ -21,6 +34,26 @@ fix.excel <- function(cell) {
     cellv.new <- gsub(fixgenes[fixgenes %in% cellv], corrects[fixgenes %in% cellv], cellv)
     return (paste(cellv.new, collapse="; "))
   } else return(cell)    }
+
+#' Create PTM Peptide Names
+#'
+#' Builds standardized PTM peptide names from gene symbols, modification type,
+#' amino acid, and site information. Supports ambiguous entries separated by a
+#' delimiter.
+#'
+#' @param genes A character string of one or more gene symbols.
+#' @param modification A character string indicating modification shorthand.
+#'   Defaults to `"p"`.
+#' @param sites A character string of one or more site positions.
+#' @param aa A character string containing the amino acid code.
+#' @param pepsep A separator used in `genes` and `sites` for ambiguous entries.
+#'   Defaults to `";"`.
+#'
+#' @return A character string containing unique peptide names.
+#' @export
+#'
+#' @examples
+#' name.peptide("MAPK1; MAPK3", sites = "185; 204", aa = "T")
 # This function will handle ambiguous modification sites (a modification site whose peptide sequence is the same in more than one protein) separated by ";" or another separator
 # Make peptide names using this function:
 name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
@@ -35,6 +68,22 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
   Peptide <- paste(unique(Peptide.v), collapse="; ")
   return(Peptide)
 }
+
+#' Merge Technical Replicate Values
+#'
+#' Merges two numeric values from technical replicates by returning `NA` when
+#' both are missing, returning the observed value when one is missing, or
+#' returning their mean when both are present.
+#'
+#' @param colv1 A numeric value from replicate 1.
+#' @param colv2 A numeric value from replicate 2.
+#'
+#' @return A numeric value or `NA`.
+#' @export
+#'
+#' @examples
+#' merge2cols(10, 14)
+#' merge2cols(NA, 14)
 # Use this function to average technical replicates. This function ignores NA values in either column and takes the average in the case where there are two values.
 merge2cols <- function (colv1, colv2) {
   newcolv=NA
