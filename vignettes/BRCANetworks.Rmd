@@ -33,7 +33,7 @@ knitr::opts_chunk$set(
   comment = ">>",
   fig.align = "center",
   fig.path = "plots/",
-  fig.width = 8,
+  fig.widthplots/ = 8,
   fig.height = 6,
   out.width = "100%",
   results = "hold"
@@ -89,7 +89,7 @@ Now use the PTMsToPathways function `name.peptide` to create peptide names for
 the row names of the PTM table.
 ```{r eval = TRUE} 
  newphos$Peptide.Name <- mapply(
-   name.peptide, genes = newphos$gene_symbol,
+   PTMsToPathways::name.peptide, genes = newphos$gene_symbol,
    sites =  newphos$Site, aa = newphos$Amino.Acid)
 ```
 Create `ptmtable` with PTMs as rows and samples as columns for use in the next
