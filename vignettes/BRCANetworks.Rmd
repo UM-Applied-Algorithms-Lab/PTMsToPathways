@@ -146,6 +146,7 @@ length(common.clusters4)
 We can visualize these in a large heatmap that is saved to the disk. To demonstrate,
 let's look at the output for the first 3 clusters.
 ```{r eval = TRUE}
+dir.create("plots", recursive = TRUE, showWarnings = FALSE)
 res <- graph.ptm.by.cluster(
      ptmtable         = ptmtable,
      common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
