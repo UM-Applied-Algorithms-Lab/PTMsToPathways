@@ -56,7 +56,10 @@ And downloaded from Supplemental data S2 from
    *Mol Cell Proteomics* 22, 100596. 10.1016/j.mcpro.2023.100596
 
 ### Data preprocessing
-
+First, let's load the PTMsToPathways package so its functions are available:
+```{r eval = TRUE}
+library(PTMsToPathways)
+```
 The BRCA data table described above is provided with the PTMsToPathways package and and can be read in as follows:
 ```{r eval = TRUE}
 file_path <- system.file("extdata", "PhosphoDiscoData_mmc9.txt", package = "PTMsToPathways")
