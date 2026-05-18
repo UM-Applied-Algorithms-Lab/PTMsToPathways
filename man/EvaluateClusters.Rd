@@ -96,22 +96,12 @@ Two index modes are available, selected with \code{index.mode}:
 \describe{
 \item{\code{"size"} (original \code{nbclust.eval} / \code{clust.eval})}{
 Rewards large, information-dense clusters.
-\deqn{
-      \text{Index} = \text{intensity}
-        \times (1 + \text{realsamples})
-        \times (1 + \text{cleargenes})
-        \;/\; (1 + \text{percent.NA})
-    }
+\code{Index = intensity * (1 + realsamples) * (1 + cleargenes) / (1 + percent.NA)}
 }
 \item{\code{"density"} (original \code{lincsclust.eval}; recommended default)}{
 Rewards data density per gene.  Compact, information-rich clusters
 score higher than large but diffuse ones.
-\deqn{
-      \text{Index} =
-        (1 + \text{realsamples})
-        \times (1 + \text{cleargenes})
-        \;/\; ((1 + \text{percent.NA}) \times \text{no.genes})
-    }
+\code{Index = (1 + realsamples) * (1 + cleargenes) / ((1 + percent.NA) * no.genes)}
 }
 }
 
