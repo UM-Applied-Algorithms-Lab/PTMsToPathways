@@ -38,109 +38,33 @@ vignette (downloadable
 or load directly into R using the commands below) contains only
 phosphorylation sites.
 
-- “Amino Acid” has the modified amino acid, e.g. S,T, etc.
-- “Positions Within Proteins” is the amino acid number in the protein
-  sequence.
-- Ambiguous modification sites (a modification site whose peptide
-  sequence is the same in more than one protein) have multiple possible
-  postions separated by “;”.
-- “Modification Type” has Phosphorylation” etc.
+The key columns are:
 
-Note that R converts spaces in column names to periods. After reading in
-our data table, the relevant column names are:
+- `Amino Acid`: the modified amino acid, such as S or T
+- `Positions Within Proteins`: the amino acid number in the protein
+  sequence
+- Ambiguous modification sites: multiple possible positions separated by
+  `;`
+- `Modification Type`: the PTM class, such as phosphorylation
 
-**genes** = “AllGeneSymbols”
+R converts spaces in column names to periods, so the relevant columns
+after import are:
 
-**positions** = “Positions.Within.Proteins”
+- `genes` = `"AllGeneSymbols"`
+- `positions` = `"Positions.Within.Proteins"`
+- `aa` = `"Amino.Acid"`
+- `modification` = `"Modification.Type"`
 
-**aa** = “Amino.Acid”
+For input to PTMsToPathways, it important that the row names are PTM
+identifiers and that the columns represent experimental conditions. The
+numeric values are the mass spectrometer output, and NAs represent
+missing data rather than zeroes. Ambiguous PTMs, where a PTM could match
+several proteins, are separated by semicolons (for example,
+`"AARS ubi k747; AMBLIL p U123"`).
 
-**modification** = “Modification.Type”
-
-We provide a helper function
-[`name.peptide()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/name.peptide.md)
-to make a PTM name using these columns. This function concatenates
-ambiguous modification sites and ignores NA values that are present in
-cells or ambiguous gene names.
-
-Note that it is very important that the rownames are the names of
-post-translational modifications. All of their respective columns are
-the experimental conditions under which the post-translational
-modifications occurred. The numeric values are data output by the mass
-spectrometer. NAs – which are importantly not zeroes – represent missing
-data. Ambigious PTMs, cases where a PTM could be any one of several
-PTMs, are separated by semicolons. (e.g. “AARS ubi k747; AMBLIL p
-U123”).
-
-Many investigators will examine their data in Microsoft Excel, which can
-export the spreadsheet in tab- or comma-delimited format. Unfortunately,
-Excel inescapably turns some gene names into dates when present in a
-cell by themselves. We reverse this with an example helper function,
-[`fix.excel()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/fix.excel.md):
-
-``` r
-
-fix.excel <- function(cell) {
-  fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep",
-               "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct",
-               "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar",
-               "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar",
-               "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',
-               'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
-  
-  corrects = c("CDK1", "SEPT1", "SEPT2", "SEPT3", "SEPT4", "SEPT5", "SEPT7",
-               "SEPT8", "SEPT9", "SEPT10", "SEPT11", "SEPT15", "SEPT6",
-               "POU2F1", "POU2F2", "POU5F1", "POU5F1", "POU3F1", "POU3F2",
-               "POU2F3", "MARCH1", "MARCH2", "MARCH3", "MARCH4", "MARCH5",
-               "MARCH6", "MARCH7", "MARCH8", "MARCH9", "MARCH10", "MARCH11",
-               "SMAP", "EFCAB13", "BRK1", "NYAP1", "LAMTOR1", 'AP1AR', "DEC1",
-               "SEPT14")
-  
-  cellv <- unlist(strsplit(as.character(cell), "; "))
-  
-  if (any(fixgenes %in% cellv)) {
-    
-    cellv.new <- gsub(fixgenes[fixgenes %in% cellv],
-                      corrects[fixgenes %in% cellv], cellv)
-    return (paste(cellv.new, collapse="; "))
-    
-  } else return(cell)
-  }
-```
-
-We provide another example helper function,
-[`name.peptide()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/name.peptide.md),
-to handle ambiguous modification sites (a modification site whose
-peptide sequence is the same in more than one protein) separated by “;”
-or another separator.
-
-``` r
-
-name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")   {
-  genes.v <- unlist(strsplit(genes, pepsep, fixed = TRUE))
-  genes.v[which(genes.v == "NA")] <- NA
-  genes.v <- genes.v[!is.na(genes.v)]
-  
-  sites.v <- unlist(strsplit(sites, pepsep, fixed = TRUE))
-  sites.v[which(sites.v == "NA")] <- NA
-  sites.v <- sites.v[!is.na(sites.v)]
-  sites.v <- sapply(sites.v, function (x) paste (aa, x, sep=""))
-  
-  Peptide.v <- as.character(noquote(paste(
-    genes.v[1:length(genes.v)], modification,
-    sites.v[1:length(sites.v)], sep=" ")))
-  
-  Peptide <- paste(unique(Peptide.v), collapse="; ")
-  
-  return(Peptide)
-}
-```
-
-Read in data file that is output from mass spectrometry. If you have
-installed the PTMsToPathways package, you can use the example data file
-included in the package as below. To use your own data file, replace
-`file_path` variable with your own path to file, as in the commented
-line below.
+To prepare data for input to PTMsTo pathways, we first read in the data
+file. To use your own data file, replace `file_path` variable with your
+own path to file, as in the commented line below.
 
 ``` r
 # file_path <- "path/to/your/file.txt"
@@ -162,6 +86,11 @@ dim(newphos)
 >> [1] 908 170
 ```
 
+Many investigators inspect data in Microsoft Excel, which can export
+tab- or comma-delimited files. Unfortunately, Excel can silently convert
+some gene names into dates when they appear in a cell by themselves. We
+reverse that with the helper function
+[`fix.excel()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/fix.excel.md).
 If there are dates in the `AllGeneSymbols` column, use:
 
 ``` r
@@ -184,7 +113,11 @@ Make a separate data frame using these columns.
 newphos.head <- newphos[,headercols]
 ```
 
-Now create a unique PTM name (peptide name)
+We provide another helper function,
+[`name.peptide()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/name.peptide.md),
+to handle ambiguous modification sites (a modification site whose
+peptide sequence is the same in more than one protein) separated by “;”
+or another separator.
 
 ``` r
 
@@ -228,7 +161,8 @@ were run twice. Due to the stochastic selection of peptides for
 detection, the pattern of missing values is slightly different between
 technical replicates. We therefore merge the technical replicates taking
 the value of either replicate where it’s missing in the other, and
-averaging values detected in both, using the function, *merge2cols()*.
+averaging values detected in both, using the PTMsToPathways function
+[merge2cols()](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/merge2cols.md).
 
 ## Key for column names
 
@@ -289,24 +223,14 @@ tr1.opt <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
 tr2.opt <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
 ```
 
-Use this function to average technical replicates. This function ignores
-NA values in either column and takes the average in the case where there
-are two values.
+Use
+[`merge2cols()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/merge2cols.md)
+to average technical replicates. This function ignores NA values in
+either column and takes the average in the case where there are two
+values.
 
 ``` r
 
-merge2cols <- function (colv1, colv2) {
-  newcolv=NA
-  if (is.na(colv1) & is.na(colv2)) {
-    newcolv=NA
-    return(newcolv)} else
-      if (is.na(colv1) | is.na(colv2)) {
-        newcolv <- sum(colv1, colv2, na.rm=TRUE)
-        return(newcolv) } else
-          newcolv <- (colv1 + colv2)/2
-        return(newcolv) }
-
-# Use merge2cols() function to average technical replicates:
 phosdata.merged <- data.frame(matrix(nrow=nrow(phosdata), ncol=18))
 for(i in 1:length(tr1.opt)) {
   phosdata.merged[,i] <- mapply(merge2cols,
@@ -350,12 +274,14 @@ Log base 2 transformation improves clustering.
 log2phosdata <- log2(phosdata.df)
 ```
 
-The following vignettes show how to use the functions provided in
-PTMsToPathways to analyze data stored in a variable called `ptmtable`.
+The [Creating Networks
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/vignettes/CreatingNetworks.md)
+show how to use the functions provided in PTMsToPathways to analyze data
+stored in a variable called `ptmtable`.
 
 ``` r
 
-# ptmtable <- log2phosdata
+ptmtable <- log2phosdata
 ```
 
 ## Optional data processing steps
@@ -462,7 +388,7 @@ And plot to check:
 boxplot(phosdata_plus_ratios)
 ```
 
-![](plots/unnamed-chunk-24-1.png) And do one more check:
+![](plots/unnamed-chunk-23-1.png) And do one more check:
 
 ``` r
 identical(rownames(phos_ratios.lim.log2), rownames(log2phosdata)) 
