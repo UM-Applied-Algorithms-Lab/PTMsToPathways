@@ -269,6 +269,7 @@ Now we can explore these networks.
 ### Preprocess modules from Shraink et al.
 
 We will examine the modules from Schraink, et al., 2023, Supplemental Table S4.
+Per their description, the `HDBSCAN;min_cluster_size-4` column assigns a module number to each phosphosite.
 
 ```{r eval = TRUE}
 PD_module.file <- system.file("extdata", "PhosDiscoModules_mmc11.txt", package = "PTMsToPathways")
@@ -301,16 +302,17 @@ head(PD_module.df)
 ```
 Treat modules like our clusters:
 
-```{r eval=FALSE}
-PD_module.df2 <- PD_module.df[,c("Peptide.Name", "HDBSCAN.min_cluster_size.4")]
-PD_module.list <- dlply(
-  PD_module.df2,
-  .(HDBSCAN.min_cluster_size.4),
-  function(x) x$Peptide.Name
-)
-PD_module.genes.unique <- lapply(
-  PD_module.list,
+```{r eval=TRUE}
+PD.module.list <- split(PD_module.df$Peptide.Name, PD_module.df$HDBSCAN.min_cluster_size.4)
+length(PD.module.list)
+PD.module.list[[69]] # this one has multiple for the same gene
+```
+Let's get the unique genes in each module to compare to the unique genes in our clusters.
+```{r eval = TRUE}
+PD.module.genes.unique <- lapply(
+  PD.module.list,
   function(x) unique(sub(" .*", "", x)))
+PD.module.genes.unique[[69]]
 ```
 
 ### Compare P2P clusters and Schraink, et al. modules
