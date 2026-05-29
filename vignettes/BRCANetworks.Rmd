@@ -230,12 +230,9 @@ unique(genemania.edges$interaction)
 We choose all but "Genetic Interactions" to include in the following function. 
 [todo: where is this filtering actually done?]
 
-```{r eval = FALSE}
-
-# Kinsub edges obtained as previously using the Kinase Substrate data from PhosphoSitePlus.
-input.filename <- "~/Downloads/Kinase_Substrate_Dataset.txt"
-kinsub.all.edges.path <- paste0(Data_repository_path, input.filename)
-kinsub.edges <- GetKinsub.edges(input.filename, gene.cccn.nodes)
+```{r eval = TRUE}
+file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+kinsub.edges <- GetKinsub.edges(file_path, gene.cccn.nodes)
 
 # Now we can build the CFN.
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
@@ -246,20 +243,27 @@ network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
 
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
-# 67376 edges
+dim(cfn)
+# 67376 edges [todo, these are off, is it a problem?]
 cfn.merged <- mergeEdges(cfn)
+dim(cfn.merged)
 # 27048 edges
 ```
 
-We build the PCN from the BioPlanet pathways as done previously. 
+We build the PCN from the BioPlanet pathways as done previously. This takes about a few minutes, so we provide both the code and the pre-computed results for this step.
+To re-run the analysis, run the following:
 ```{r eval = FALSE}
-bioplanet_filename <- "bioplanet_pathway_June2025.csv"
-bioplanet.pathways.path <- paste0(Data_repository_path, bioplanet_filename)
+bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
+```
+Or load in pre-computed results from within the PTMsToPathways package:
+```{r eval = TRUE}
+PCN.data <- BRCA_PCN.data
 pathway.crosstalk.network <- PCN.data[[1]] # 679707 edges
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+dim(pathway.crosstalk.network)
 ```
 
 Now we can explore these networks. 

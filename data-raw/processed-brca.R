@@ -44,3 +44,10 @@ BRCA_genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
 usethis::use_data(BRCA_genemania.edges, overwrite = TRUE)
 
+# Make PCN
+bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+# clusters are already made in brca_clusterlist_data, so we can just use those
+common.clusters <- brca_clusterlist_data[[1]]
+BRCA_PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
+                                         createfile = FALSE)
+usethis::use_data(BRCA_PCN.data, overwrite = TRUE)

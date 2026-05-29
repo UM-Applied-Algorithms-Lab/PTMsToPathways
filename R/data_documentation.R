@@ -328,3 +328,10 @@
 #' 
 #' @keywords internal
 "BRCA_genemania.edges"
+
+#' BRCA PCN Data
+#' 
+#' Output of BuildPathwayCrosstalkNetwork on the BRCA data
+#' 
+#' @keywords internal
+"BRCA_PCN.data"
