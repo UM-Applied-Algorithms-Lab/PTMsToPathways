@@ -59,6 +59,7 @@ data(package = "PTMsToPathways")
 
 | Dataset Name | Description |
 |:---|:---|
+| BRCA_stringdb.edges | BRCA STRINGdb Edges |
 | brca_CCCN_data | Output of MakeCorrelationNetwork on the BRCA data |
 | brca_clusterlist_data | BRCA Cluster List Data |
 | ex_PCNedgelist | PCN Edge List |
@@ -175,9 +176,9 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.37 secs total.
->> Spearman t-SNE calculation complete after 42.15 secs total.
->> Euclidean distance calculation complete after 42.18 secs total.
+>> Spearman correlation calculation complete after 13.24 secs total.
+>> Spearman t-SNE calculation complete after 42.25 secs total.
+>> Euclidean distance calculation complete after 42.29 secs total.
 >> Euclidean t-SNE calculation complete after 1.16 mins total.
 >> Combined distance calculation complete after 1.16 mins total.
 >> SED t-SNE calculation complete after 1.62 mins total.
@@ -269,9 +270,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.17 secs total.
+>> PTM CCCN complete after 0.18 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.78 secs total.
+>> Gene CCCN complete after 2.76 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -510,9 +511,9 @@ bioplanet.file <- system.file("extdata", "pathway.csv",
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
 >> Making PCN
->> 2026-05-18 18:04:51.903409
->> 2026-05-18 18:04:52.017084
->> Total time: 0.113675355911255
+>> 2026-05-29 17:58:08.570187
+>> 2026-05-29 17:58:08.682093
+>> Total time: 0.111906051635742
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]

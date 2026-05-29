@@ -20,7 +20,7 @@ And downloaded from Supplemental data S2 from
 > Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al. *Mol
 > Cell Proteomics* 22, 100596. 10.1016/j.mcpro.2023.100596
 
-### Data preprocessing
+### Preprocess data for PTMsToPathways functions
 
 First, let’s load the PTMsToPathways package so its functions are
 available:
@@ -70,7 +70,8 @@ head(newphos[, 1:5])
 
 Now we will process the first two columns to create row names for the
 PTM table. We extract the amino acid and the site number from the
-`variable_sites_names` column.
+`variable_sites_names` column and remove trailing letters from the site
+number if they exist.
 
 ``` r
  newphos$Amino.Acid <- sapply(newphos$variable_sites_names, function(x) substring (x, 1, 1))
@@ -141,16 +142,14 @@ clusterlist.data <- brca_clusterlist_data
 CCCN.data <- brca_CCCN_data
 ```
 
-Whether computed or loaded, the results are lists that contain the
-following elements:
+Whether computed or loaded, the `cluster.data` and `CCCN.data` are lists
+that contain the following elements:
 
 ``` r
 
-# Separate out elements of results list
 common.clusters <- clusterlist.data[[1]]
 adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
-# Separate out elements of results list
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -163,48 +162,58 @@ length(common.clusters)
 >> [1] 231
 ```
 
-If desired, the clusters can be trimmed to those \> 4.
+If desired, the clusters can be trimmed to those \> 4. This reduces the
+number of clusters from 231 to 204.
 
 ``` r
 cclength <- sapply(common.clusters, length)
 common.clusters4 <- common.clusters[which(cclength>3)]
 length(common.clusters4)
-# should be 202
 >> [1] 204
 ```
 
-We can visualize these in a large heatmap that is saved to the disk. To
-demonstrate, let’s look at the output for the first 3 clusters.
+We can use
+[graph.ptm.by.cluster](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/references/graph.ptm.by.cluster.md)
+to visualize these in a heatmap. To demonstrate, let’s look at the
+output for the first 3 clusters. PTMs are rows and samples are columns,
+and color represents the value of the PTM in that sample. Black
+indicates missing values.
+
+
+    ``` r
+    fig_dir <- knitr::opts_current$get("fig.path")
+    dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+    output <- file.path(fig_dir, "ptm_all_clusters_l4.pdf")
+    res <- graph.ptm.by.cluster(
+         ptmtable         = ptmtable,
+         common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
+         filename         = output,
+         order.rows       = "slope",
+         zlim             = 3,
+         show.row.labels  = FALSE,
+         show.col.labels  = TRUE,
+         col_cex          = 0.7
+       )
+    >> Heatmap written to: plots//ptm_all_clusters_l4.pdf
+    knitr::include_graphics(output)
+
+PTMsToPathways provides the function
+[`EvaluateClusters`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/references/EvaluateClusters.md)
+which computes the following for each cluster:
+
+- `intensity` = total signal after removing the NA fraction of samples
+  for this cluster
+- `realsamples` = samples that are not single-gene/PTM samples for this
+  cluster
+- `cleargenes` = genes/PTMs that fit a pattern that ranks by decreasing
+  total signal
+- `percent.NA` = percentage of missing values in the cluster sub-table
+
+It also computes an `index` value for every cluster, which is a
+composite value computed from the above. The output is ordered by this
+`index` value, so we examine the top 10 clusters here:
 
 ``` r
-dir.create("plots", recursive = TRUE, showWarnings = FALSE)
-res <- graph.ptm.by.cluster(
-     ptmtable         = ptmtable,
-     common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
-     filename         = "plots/ptm_all_clusters_l4.pdf",
-     legend.filename  = "plots/ptm_legend4.pdf",
-     heatkey.filename = "plots/ptm_heatkey4.pdf",
-     order.rows       = "slope",
-     zlim             = 3,
-     show.row.labels  = FALSE,
-     show.col.labels  = TRUE,
-     col_cex          = 0.7
-   )
->> Heatmap written to: plots/ptm_all_clusters_l4.pdf
->> Cluster legend written to: plots/ptm_legend4.pdf
->> Heat key written to: plots/ptm_heatkey4.pdf
-knitr::include_graphics("plots/ptm_all_clusters_l4.pdf")
-```
-
-We can evaluate the clusters.
-
-``` r
-# The EvaluateClusters function evaluates clusters based on 
-#   `intensity` = total signal after removing the NA fraction
-#   `realsamples` = samples that are not single-gene/PTM samples
-#   `cleargenes` = genes/PTMs that fit a pattern that ranks by decreasing total signal
-#   `percent.NA` = percentage of missing values in the cluster sub-table
-
 eval_brca <- EvaluateClusters(
    common.clusters4, ptmtable,
    data.type  = "ratio",
@@ -212,7 +221,8 @@ eval_brca <- EvaluateClusters(
    index.mode = "density",
    verbose    = FALSE
  )
-head(eval_brca)
+eval_brca[1:10, ]
+
 >>     Group no.genes culled.by.slope percent.singlesamplegenes no.samples
 >> 201   201        5               0                         0        122
 >> 204   204        5               0                         0        122
@@ -220,41 +230,71 @@ head(eval_brca)
 >> 13     13        4               0                         0        105
 >> 194   194        4               0                         0        105
 >> 145   145       13               0                         0        122
+>> 103   103       17               0                         0        122
+>> 86     86       20               0                         0        122
+>> 71     71       52               0                         0        122
+>> 59     59       10               0                         0        122
 >>     percent.singlegenesamples total.signal percent.NA intensity    Index
->> 201                         0     407.1629          0  407.1629 147.6000
->> 204                         0     630.5927          0  630.5927 147.6000
->> 130                         0     785.0943          0  785.0943 134.1818
->> 13                          0     565.5595          0  565.5595 132.5000
->> 194                         0     532.2606          0  532.2606 132.5000
->> 145                         0    1453.0472          0 1453.0472 132.4615
+>> 201                         0     407.1629 0.00000000  407.1629 147.6000
+>> 204                         0     630.5927 0.00000000  630.5927 147.6000
+>> 130                         0     785.0943 0.00000000  785.0943 134.1818
+>> 13                          0     565.5595 0.00000000  565.5595 132.5000
+>> 194                         0     532.2606 0.00000000  532.2606 132.5000
+>> 145                         0    1453.0472 0.00000000 1453.0472 132.4615
+>> 103                         0    1769.5302 0.00000000 1769.5302 130.2353
+>> 86                          0    1807.7815 0.00000000 1807.7815 129.1500
+>> 71                          0    4704.2481 0.00000000 4704.2481 125.3654
+>> 59                          0    1388.7363 0.08196721 1387.5980 125.0500
 ```
 
 ### Build Cluster Filtered Networks (CFNs) and Pathway Crosstalk Networks (PCNs)
 
-For PPI edges, here we will demonstrate how to get the STRING-db and
+For PPI edges, the code below demonstrates how to get the STRING-db and
 GeneMANIA edges from the static downloaded networks provided in
-“Data_repository_path”.
+“Data_repository_path”. Alternatively, the resulting edges can be loaded
+from within the package.
 
 ``` r
 
-string_db_filename <- "string_hs_hugo.tsv"
-string.all.edges.path <- paste0(Data_repository_path, string_db_filename)
+string_db_filepath <- "your/filepath/here.tsv"
 
-# Use local = TRUE in the following function
-
-stringdb.edges <- GetSTRINGdb.edges (gene.cccn.edges,
+stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
                               gene.cccn.nodes,
                               local                  = TRUE,
-                              string.local.path      = string.all.edges.path,
-                              combined.score.threshold = 0)
+                              string.local.path      = string_db_filepath
+)
+```
 
-# Similary for GeneMANIA edges
-genemania_filename <- "hs_interactions_hugo.tsv"
-gm.all.edges.path <- paste0(Data_repository_path, genemania_filename)
+Here we just read from within the package:
 
-# This file contains the following types of interactions:
-# "Genetic Interactions"  "Pathway" "Physical Interactions" "Predicted"
-# We choose all but "Genetic Interactions" to include in the following function. 
+``` r
+stringdb.edges <- BRCA_stringdb.edges
+head(stringdb.edges)
+>>      source target  interaction Weight
+>> 3197   AAK1  ACTR2 experimental    232
+>> 3206   AAK1   ANLN experimental    198
+>> 3232   AAK1 BCLAF1 experimental     45
+>> 3237   AAK1  CAMK4 experimental    178
+>> 3242   AAK1  CDK13 experimental     93
+>> 3243   AAK1  CDK19 experimental     59
+```
+
+Similary for GeneMANIA edges:
+
+``` r
+
+genemania_filename <- "~/Downloads/hs_interactions_hugo.tsv"
+# gm.all.edges.path <- paste0(Data_repository_path, genemania_filename)
+```
+
+This file contains the following types of interactions: \* “Genetic
+Interactions” \* “Pathway” \* “Physical Interactions” \* “Predicted”
+
+We choose all but “Genetic Interactions” to include in the following
+function.
+
+``` r
+
 genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gene.cccn.nodes,
                                 local                = TRUE,
@@ -262,7 +302,7 @@ genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
 
 # Kinsub edges obtained as previously using the Kinase Substrate data from PhosphoSitePlus.
-input.filename <- "Kinase_Substrate_Dataset.txt"
+input.filename <- "~/Downloads/Kinase_Substrate_Dataset.txt"
 kinsub.all.edges.path <- paste0(Data_repository_path, input.filename)
 kinsub.edges <- GetKinsub.edges(input.filename, gene.cccn.nodes)
 
@@ -294,6 +334,8 @@ pathways.list <- PCN.data[[3]]
 ```
 
 Now we can explore these networks.
+
+### Preprocess modules from Shraink et al.
 
 We will examine the modules from Schraink, et al., 2023, Supplemental
 Table S4
@@ -333,8 +375,14 @@ PD_module.list <- dlply(
 PD_module.genes.unique <- lapply(
   PD_module.list,
   function(x) unique(sub(" .*", "", x)))
+```
 
-# P2P identified different clusters than these modules.
+### Compare P2P clusters and Schraink, et al. modules
+
+P2P identified different clusters than these modules.
+
+``` r
+
 
 mod63.interesct <- sapply(common.clusters, function(x) intersect(x, PD_module.list$`63`))
 

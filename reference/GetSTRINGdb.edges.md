@@ -2,13 +2,7 @@
 
 This function finds protein-protein interaction weights by consulting
 the STRINGdb database, either live via the STRINGdb R package or from a
-locally pre-downloaded flat file. The package STRINGdb is required for
-the live mode. To download, run:
-
-- if (!require("BiocManager", quietly = TRUE))
-  install.packages("BiocManager")
-
-- BiocManager::install("STRINGdb")
+locally pre-downloaded flat file.
 
 For the local mode, download the full detailed network file for Homo
 sapiens from:
