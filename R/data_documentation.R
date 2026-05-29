@@ -308,7 +308,7 @@
 #' @keywords internal
 "brca_clusterlist_data"
 
-'# BRCA CCCN Data
+# BRCA CCCN Data
 #' 
 #' Output of MakeCorrelationNetwork on the BRCA data
 #' 
@@ -321,3 +321,17 @@
 #' 
 #' @keywords internal
 "BRCA_stringdb.edges"
+
+#' BRCA Genemania Edges
+#' 
+#' Edges from the Genemania database for the genes in the BRCA dataset
+#' 
+#' @keywords internal
+"BRCA_genemania.edges"
+
+#' BRCA PCN Data
+#' 
+#' Output of BuildPathwayCrosstalkNetwork on the BRCA data
+#' 
+#' @keywords internal
+"BRCA_PCN.data"
