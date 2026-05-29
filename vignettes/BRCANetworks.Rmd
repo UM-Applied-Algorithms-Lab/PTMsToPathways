@@ -1,6 +1,6 @@
 ---
-title: "BRCANetworks"
-date: "2026-04-10"
+title: "BRCA Networks"
+date: "2026-05-29"
 
 author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
   Williams, Mark Grimes
@@ -39,9 +39,6 @@ knitr::opts_chunk$set(
   results = "hold"
 )
 ```
-Note that we will use the complete PPI and BioPlanet edgefiles available in "/Data_repository_path/" for this vignette.
-Lucy todo: these can come with the package
-
 
 This tutorial will load and create networks from the breast cancer cohort (BRCA, N = 122), produced by
 
@@ -55,11 +52,12 @@ And downloaded from Supplemental data S2 from
    Schraink, T., Blumenberg, L., Hussey, G., George, S., Miller, B., Mathew, N., Gonzalez-Robles, T.J., Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al.
    *Mol Cell Proteomics* 22, 100596. 10.1016/j.mcpro.2023.100596
 
-### Preprocess data for PTMsToPathways functions
 First, let's load the PTMsToPathways package so its functions are available:
 ```{r eval = TRUE}
 library(PTMsToPathways)
 ```
+
+### Preprocess data for PTMsToPathways functions
 The BRCA data table described above is provided with the PTMsToPathways package and and can be read in as follows:
 ```{r eval = TRUE}
 file_path <- system.file("extdata", "PhosphoDiscoData_mmc9.txt", package = "PTMsToPathways")
@@ -105,9 +103,9 @@ phosdata <- phosdata[, !(names(phosdata) %in% c("gene_symbol", "variable_sites_n
 ptmtable <- phosdata
 head(ptmtable[, 1:5])
 ```
-Next, we create clusters and networks from those clusters as in the [Creating Networks vignette](CreatingNetworks.html).
 
 ### Create Clusters and Co-Cluster Correlation Networks (CCCNs)
+Next, we create clusters and networks from those clusters as in the [Creating Networks vignette](CreatingNetworks.html).
 This takes about 10 minutes on a laptop, so we provide both the code and the pre-computed results for this step.
 To re-run the analysis, run, the following:
 ```{r eval = FALSE}
