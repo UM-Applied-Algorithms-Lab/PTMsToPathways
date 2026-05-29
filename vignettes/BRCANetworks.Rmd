@@ -186,8 +186,9 @@ eval_brca[1:10, ]
 ```
 ### Build Cluster Filtered Networks (CFNs) and Pathway Crosstalk Networks (PCNs)
 
-For PPI edges, the code below demonstrates how to get the STRING-db and GeneMANIA edges from the static downloaded networks provided in "Data_repository_path".
-Alternatively, the resulting edges can be loaded from within the package.
+For PPI edges, the code below demonstrates how to get the STRING-db and GeneMANIA edges from the static downloaded networks.
+[todo: instructions to download once these are available.]
+Alternatively, the resulting data can be loaded from within the package.
 
 ```{r eval = FALSE}
 string_db_filepath <- "your/filepath/here.tsv"
@@ -199,7 +200,7 @@ stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
 )
 ```
 
-Here we just read from within the package:
+To avoid downloading the STRINGdb edges, they can be loaded from within the package:
 ```{r eval = TRUE}
 stringdb.edges <- BRCA_stringdb.edges
 head(stringdb.edges)
@@ -207,23 +208,29 @@ head(stringdb.edges)
 
 Similary for GeneMANIA edges:
 ```{r eval = FALSE}  
-genemania_filename <- "~/Downloads/hs_interactions_hugo.tsv"
-# gm.all.edges.path <- paste0(Data_repository_path, genemania_filename)
-```
-This file contains the following types of interactions:
-* "Genetic Interactions"
-* "Pathway"
-* "Physical Interactions"
-* "Predicted"
-
-We choose all but "Genetic Interactions" to include in the following function. 
-
-```{r eval = FALSE}
+genemania_db_filepath <- "your/filepath/here.tsv"
 genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gene.cccn.nodes,
                                 local                = TRUE,
-                                genemania.local.path = gm.all.edges.path,
+                                genemania.local.path = genemania_db_filepath,
                                 gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
+```
+
+And again, to avoid downloading the GeneMANIA edges, they can be loaded from within the package:
+```{r eval = TRUE}
+genemania.edges <- BRCA_genemania.edges
+head(genemania.edges)
+```
+
+This file contains the following types of interactions:
+```{r eval = TRUE}
+unique(genemania.edges$interaction)
+```
+
+We choose all but "Genetic Interactions" to include in the following function. 
+[todo: where is this filtering actually done?]
+
+```{r eval = FALSE}
 
 # Kinsub edges obtained as previously using the Kinase Substrate data from PhosphoSitePlus.
 input.filename <- "~/Downloads/Kinase_Substrate_Dataset.txt"

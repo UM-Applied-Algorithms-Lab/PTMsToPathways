@@ -34,3 +34,13 @@ BRCA_stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
                               string.local.path      = string_db_filepath
 )
 usethis::use_data(BRCA_stringdb.edges, overwrite = TRUE)
+
+# Get GeneMania data from local file.
+genemania_db_filepath <- "~/Downloads/hs_interactions_hugo.tsv"
+BRCA_genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
+                                gene.cccn.nodes,
+                                local                = TRUE,
+                                genemania.local.path = genemania_db_filepath,
+                                gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
+usethis::use_data(BRCA_genemania.edges, overwrite = TRUE)
+

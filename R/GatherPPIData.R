@@ -202,27 +202,20 @@ GetGeneMANIA.edges <- function(gm.results.path,
       stop("Local GeneMANIA file not found: ", genemania.local.path,
            "\nGenerate it with scripts/genemania_hs_download.r or set local = FALSE to use Cytoscape export.")
 
-    if (!requireNamespace("data.table", quietly = TRUE))
-      stop("Please install data.table: install.packages('data.table')")
-
     message("Reading local GeneMANIA file: ", genemania.local.path)
-    dt <- data.table::fread(genemania.local.path, sep = "\t")
+    dt <- utils::read.delim(genemania.local.path)
     # Expected columns: Gene1 Gene2 Weight Network Source Group
     # 'Group' is the interaction category (e.g. "Pathway", "Physical Interactions")
 
     # Filter to requested interaction types
-    dt <- dt[Group %in% gm.interaction.types]
+    dt <- dt[dt$Group %in% gm.interaction.types, ]
 
     # Filter to nodes present in gene.cccn.nodes (both ends must be in the set)
-    dt <- dt[Gene1 %in% gene.cccn.nodes & Gene2 %in% gene.cccn.nodes]
+    dt <- dt[dt$Gene1 %in% gene.cccn.nodes & dt$Gene2 %in% gene.cccn.nodes, ]
 
-    # Return columns matching the live-mode output
-    genemania.edges <- as.data.frame(dt[, .(
-      source      = Gene1,
-      target      = Gene2,
-      interaction = Group,
-      Weight
-    )])
+    dt <- dt[, c("Gene1", "Gene2", "Group", "Weight")]
+    colnames(dt) <- c("source", "target", "interaction", "Weight")
+    genemania.edges <- dt
 
   } else {
     # ---- Live mode: original Cytoscape export behaviour ------
