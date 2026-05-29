@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>BRCANetworks • PTMsToPathways</title>
+<title>BRCA Networks • PTMsToPathways</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
 <link rel="icon" type="”image/svg+xml”" href="../favicon.svg">
 <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
@@ -15,7 +15,7 @@
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="BRCANetworks">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="BRCA Networks">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -61,12 +61,12 @@
 
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>BRCANetworks</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>BRCA Networks</h1>
                         <h4 data-toc-skip class="author">Nagashree
 Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
 Williams, Mark Grimes</h4>
             
-            <h4 data-toc-skip class="date">2026-04-10</h4>
+            <h4 data-toc-skip class="date">2026-05-29</h4>
       
 
       <div class="d-none name"><code>BRCANetworks.Rmd</code></div>
@@ -74,9 +74,6 @@ Williams, Mark Grimes</h4>
 
     
     
-<p>Note that we will use the complete PPI and BioPlanet edgefiles
-available in “/Data_repository_path/” for this vignette. Lucy todo:
-these can come with the package</p>
 <p>This tutorial will load and create networks from the breast cancer
 cohort (BRCA, N = 122), produced by</p>
 <blockquote>
@@ -94,13 +91,13 @@ Gonzalez-Robles, T.J., Sviderskiy, V., Papagiannakopoulos, T.,
 Possemato, R., et al. <em>Mol Cell Proteomics</em> 22, 100596.
 10.1016/j.mcpro.2023.100596</p>
 </blockquote>
-<div class="section level3">
-<h3 id="preprocess-data-for-ptmstopathways-functions">Preprocess data for PTMsToPathways functions<a class="anchor" aria-label="anchor" href="#preprocess-data-for-ptmstopathways-functions"></a>
-</h3>
 <p>First, let’s load the PTMsToPathways package so its functions are
 available:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://um-applied-algorithms-lab.github.io/PTMsToPathways/">PTMsToPathways</a></span><span class="op">)</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="preprocess-data-for-ptmstopathways-functions">Preprocess data for PTMsToPathways functions<a class="anchor" aria-label="anchor" href="#preprocess-data-for-ptmstopathways-functions"></a>
+</h3>
 <p>The BRCA data table described above is provided with the
 PTMsToPathways package and and can be read in as follows:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -164,15 +161,15 @@ row names.</p>
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> C12orf45 p S178  <span class="sc">-</span><span class="fl">3.6418</span>   <span class="fl">0.3764</span>  <span class="sc">-</span><span class="fl">1.4522</span>   <span class="fl">0.1373</span>  <span class="sc">-</span><span class="fl">0.2151</span></span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> C17orf49 p S96   <span class="sc">-</span><span class="fl">1.1685</span>   <span class="fl">0.2572</span>   <span class="fl">0.1649</span>   <span class="fl">1.8283</span>  <span class="sc">-</span><span class="fl">1.0399</span></span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> C6orf106 p S215  <span class="sc">-</span><span class="fl">2.7001</span>   <span class="fl">0.2895</span>  <span class="sc">-</span><span class="fl">2.7325</span>   <span class="fl">1.6096</span>  <span class="sc">-</span><span class="fl">1.7117</span></span></code></pre></div>
-<p>Next, we create clusters and networks from those clusters as in the
-<a href="CreatingNetworks.html">Creating Networks vignette</a>.</p>
 </div>
 <div class="section level3">
 <h3 id="create-clusters-and-co-cluster-correlation-networks-cccns">Create Clusters and Co-Cluster Correlation Networks (CCCNs)<a class="anchor" aria-label="anchor" href="#create-clusters-and-co-cluster-correlation-networks-cccns"></a>
 </h3>
-<p>This takes about 10 minutes on a laptop, so we provide both the code
-and the pre-computed results for this step. To re-run the analysis, run,
-the following:</p>
+<p>Next, we create clusters and networks from those clusters as in the
+<a href="CreatingNetworks.html">Creating Networks vignette</a>. This
+takes about 10 minutes on a laptop, so we provide both the code and the
+pre-computed results for this step. To re-run the analysis, run, the
+following:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">88</span><span class="op">)</span></span>
 <span><span class="va">clusterlist.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/MakeClusterList.html">MakeClusterList</a></span><span class="op">(</span><span class="va">ptmtable</span>,</span>
@@ -282,9 +279,9 @@ here:</p>
 Networks (PCNs)<a class="anchor" aria-label="anchor" href="#build-cluster-filtered-networks-cfns-and-pathway-crosstalk-networks-pcns"></a>
 </h3>
 <p>For PPI edges, the code below demonstrates how to get the STRING-db
-and GeneMANIA edges from the static downloaded networks provided in
-“Data_repository_path”. Alternatively, the resulting edges can be loaded
-from within the package.</p>
+and GeneMANIA edges from the static downloaded networks. [todo:
+instructions to download once these are available.] Alternatively, the
+resulting data can be loaded from within the package.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">string_db_filepath</span> <span class="op">&lt;-</span> <span class="st">"your/filepath/here.tsv"</span></span>
 <span></span>
@@ -293,7 +290,8 @@ from within the package.</p>
 <span>                              local                  <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                              string.local.path      <span class="op">=</span> <span class="va">string_db_filepath</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Here we just read from within the package:</p>
+<p>To avoid downloading the STRINGdb edges, they can be loaded from
+within the package:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>stringdb.edges <span class="ot">&lt;-</span> BRCA_stringdb.edges</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a><span class="fu">head</span>(stringdb.edges)</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>      source target  interaction Weight</span>
@@ -305,92 +303,147 @@ from within the package.</p>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3243</span>   AAK1  CDK19 experimental     <span class="dv">59</span></span></code></pre></div>
 <p>Similary for GeneMANIA edges:</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genemania_filename</span> <span class="op">&lt;-</span> <span class="st">"~/Downloads/hs_interactions_hugo.tsv"</span></span>
-<span><span class="co"># gm.all.edges.path &lt;- paste0(Data_repository_path, genemania_filename)</span></span></code></pre></div>
-<p>This file contains the following types of interactions: * “Genetic
-Interactions” * “Pathway” * “Physical Interactions” * “Predicted”</p>
-<p>We choose all but “Genetic Interactions” to include in the following
-function.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetGeneMANIA.edges.html">GetGeneMANIA.edges</a></span> <span class="op">(</span><span class="va">gm.all.edges.path</span>,</span>
+<code class="sourceCode R"><span><span class="va">genemania_db_filepath</span> <span class="op">&lt;-</span> <span class="st">"your/filepath/here.tsv"</span></span>
+<span><span class="va">genemania.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetGeneMANIA.edges.html">GetGeneMANIA.edges</a></span> <span class="op">(</span><span class="va">gm.all.edges.path</span>,</span>
 <span>                                <span class="va">gene.cccn.nodes</span>,</span>
 <span>                                local                <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                genemania.local.path <span class="op">=</span> <span class="va">gm.all.edges.path</span>,</span>
-<span>                                gm.interaction.types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Pathway"</span>, <span class="st">"Physical Interactions"</span>, <span class="st">"Predicted"</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Kinsub edges obtained as previously using the Kinase Substrate data from PhosphoSitePlus.</span></span>
-<span><span class="va">input.filename</span> <span class="op">&lt;-</span> <span class="st">"~/Downloads/Kinase_Substrate_Dataset.txt"</span></span>
-<span><span class="va">kinsub.all.edges.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">Data_repository_path</span>, <span class="va">input.filename</span><span class="op">)</span></span>
-<span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetKinsub.edges.html">GetKinsub.edges</a></span><span class="op">(</span><span class="va">input.filename</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Now we can build the CFN.</span></span>
-<span><span class="va">network.list</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildClusterFilteredNetwork.html">BuildClusterFilteredNetwork</a></span><span class="op">(</span><span class="va">gene.cccn.edges</span>,</span>
-<span>                                            <span class="va">stringdb.edges</span>,</span>
-<span>                                            <span class="va">genemania.edges</span>,</span>
-<span>                                            <span class="va">kinsub.edges</span>,</span>
-<span>                                            db.filepaths <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">combined.PPIs</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="co"># 67376 edges</span></span>
-<span><span class="va">cfn.merged</span> <span class="op">&lt;-</span> <span class="fu">mergeEdges</span><span class="op">(</span><span class="va">cfn</span><span class="op">)</span></span>
-<span><span class="co"># 27048 edges</span></span></code></pre></div>
-<p>We build the PCN from the BioPlanet pathways as done previously.</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">bioplanet_filename</span> <span class="op">&lt;-</span> <span class="st">"bioplanet_pathway_June2025.csv"</span></span>
-<span><span class="va">bioplanet.pathways.path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">Data_repository_path</span>, <span class="va">bioplanet_filename</span><span class="op">)</span></span>
+<span>                                genemania.local.path <span class="op">=</span> <span class="va">genemania_db_filepath</span>,</span>
+<span>                                gm.interaction.types <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Pathway"</span>, <span class="st">"Physical Interactions"</span>, <span class="st">"Predicted"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p>And again, to avoid downloading the GeneMANIA edges, they can be
+loaded from within the package:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" tabindex="-1"></a>genemania.edges <span class="ot">&lt;-</span> BRCA_genemania.edges</span>
+<span id="cb18-2"><a href="#cb18-2" tabindex="-1"></a><span class="fu">head</span>(genemania.edges)</span>
+<span id="cb18-3"><a href="#cb18-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>          source  target interaction Weight</span>
+<span id="cb18-4"><a href="#cb18-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4815149</span>  CAMK2B  CAMK2D     Pathway   <span class="fl">0.50</span></span>
+<span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4815150</span>  CAMK2B  MAP3K7     Pathway   <span class="fl">0.50</span></span>
+<span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4815191</span> CSNK2A1  CSNK2B     Pathway   <span class="fl">0.42</span></span>
+<span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4815192</span> CSNK2A2 CSNK2A1     Pathway   <span class="fl">0.55</span></span>
+<span id="cb18-8"><a href="#cb18-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4815193</span> CSNK2A2  CSNK2B     Pathway   <span class="fl">0.42</span></span>
+<span id="cb18-9"><a href="#cb18-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4815223</span>    EGFR  MAP2K1     Pathway   <span class="fl">0.13</span></span></code></pre></div>
+<p>This file contains the following types of interactions:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">unique</span>(genemania.edges<span class="sc">$</span>interaction)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Pathway"</span>               <span class="st">"Physical Interactions"</span> <span class="st">"Predicted"</span></span></code></pre></div>
+<p>We choose all but “Genetic Interactions” to include in the following
+function. [todo: where is this filtering actually done?]</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" tabindex="-1"></a>file_path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"Kinase_Substrate_Dataset.txt"</span>, <span class="at">package =</span> <span class="st">"PTMsToPathways"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" tabindex="-1"></a>kinsub.edges <span class="ot">&lt;-</span> <span class="fu">GetKinsub.edges</span>(file_path, gene.cccn.nodes)</span>
+<span id="cb20-3"><a href="#cb20-3" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" tabindex="-1"></a><span class="co"># Now we can build the CFN.</span></span>
+<span id="cb20-5"><a href="#cb20-5" tabindex="-1"></a>network.list <span class="ot">&lt;-</span> <span class="fu">BuildClusterFilteredNetwork</span>(gene.cccn.edges,</span>
+<span id="cb20-6"><a href="#cb20-6" tabindex="-1"></a>                                            stringdb.edges,</span>
+<span id="cb20-7"><a href="#cb20-7" tabindex="-1"></a>                                            genemania.edges,</span>
+<span id="cb20-8"><a href="#cb20-8" tabindex="-1"></a>                                            kinsub.edges,</span>
+<span id="cb20-9"><a href="#cb20-9" tabindex="-1"></a>                                            <span class="at">db.filepaths =</span> <span class="fu">c</span>())</span>
+<span id="cb20-10"><a href="#cb20-10" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" tabindex="-1"></a>combined.PPIs <span class="ot">&lt;-</span> network.list[[<span class="dv">1</span>]]</span>
+<span id="cb20-12"><a href="#cb20-12" tabindex="-1"></a>cfn <span class="ot">&lt;-</span> network.list[[<span class="dv">2</span>]]</span>
+<span id="cb20-13"><a href="#cb20-13" tabindex="-1"></a><span class="fu">dim</span>(cfn)</span>
+<span id="cb20-14"><a href="#cb20-14" tabindex="-1"></a><span class="co"># 67376 edges [todo, these are off, is it a problem?]</span></span>
+<span id="cb20-15"><a href="#cb20-15" tabindex="-1"></a>cfn.merged <span class="ot">&lt;-</span> <span class="fu">mergeEdges</span>(cfn)</span>
+<span id="cb20-16"><a href="#cb20-16" tabindex="-1"></a><span class="fu">dim</span>(cfn.merged)</span>
+<span id="cb20-17"><a href="#cb20-17" tabindex="-1"></a><span class="co"># 27048 edges</span></span>
+<span id="cb20-18"><a href="#cb20-18" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">67139</span>     <span class="dv">4</span></span>
+<span id="cb20-19"><a href="#cb20-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">25896</span>     <span class="dv">4</span></span></code></pre></div>
+<p>We build the PCN from the BioPlanet pathways as done previously. This
+takes about a few minutes, so we provide both the code and the
+pre-computed results for this step. To re-run the analysis, run the
+following:</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">bioplanet.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bioplanet_pathway_June2025.csv"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildPathwayCrosstalkNetwork.html">BuildPathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">bioplanet.file</span>,</span>
-<span>                                         createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span><span class="va">pathway.crosstalk.network</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span> <span class="co"># 679707 edges</span></span>
-<span><span class="va">PCNedgelist</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">pathways.list</span> <span class="op">&lt;-</span> <span class="va">PCN.data</span><span class="op">[[</span><span class="fl">3</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
+<span>                                         createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<p>Or load in pre-computed results from within the PTMsToPathways
+package:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> BRCA_PCN.data</span>
+<span id="cb22-2"><a href="#cb22-2" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]] <span class="co"># 679707 edges</span></span>
+<span id="cb22-3"><a href="#cb22-3" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
+<span id="cb22-4"><a href="#cb22-4" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
+<span id="cb22-5"><a href="#cb22-5" tabindex="-1"></a><span class="fu">dim</span>(pathway.crosstalk.network)</span>
+<span id="cb22-6"><a href="#cb22-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">680540</span>      <span class="dv">4</span></span></code></pre></div>
 <p>Now we can explore these networks.</p>
 </div>
 <div class="section level3">
 <h3 id="preprocess-modules-from-shraink-et-al-">Preprocess modules from Shraink et al.<a class="anchor" aria-label="anchor" href="#preprocess-modules-from-shraink-et-al-"></a>
 </h3>
 <p>We will examine the modules from Schraink, et al., 2023, Supplemental
-Table S4</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Read in PhosphoDisco Modules file.</span></span>
-<span><span class="va">PD_module.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">paperpath</span>, <span class="st">"PhosDiscoModules_mmc11.txt"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">PD_module.df</span> <span class="op">&lt;-</span> <span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.table</a></span><span class="op">(</span><span class="va">PD_module.file</span>, header <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                  stringsAsFactors <span class="op">=</span> <span class="cn">FALSE</span>, sep <span class="op">=</span> <span class="st">"\t"</span>, comment.char <span class="op">=</span> <span class="st">"#"</span>,</span>
-<span>                  na.strings <span class="op">=</span> <span class="st">""</span>, quote <span class="op">=</span> <span class="st">""</span>, fill <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="co"># Note these have trailing spaces as do the rownames(ptmtable)</span></span>
-<span><span class="co"># Column names: geneSymbol, variableSites, HDBSCAN.min_cluster_size.4</span></span>
-<span><span class="co"># 1017 rows</span></span>
-<span><span class="co"># Note differences from the PTM table imported above.</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">$</span><span class="va">variable_sites_names</span>, <span class="va">PD_module.df</span><span class="op">$</span><span class="va">variableSites</span><span class="op">)</span><span class="op">)</span> <span class="co"># 530</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">newphos</span><span class="op">$</span><span class="va">gene_symbol</span>, <span class="va">PD_module.df</span><span class="op">$</span><span class="va">geneSymbol</span><span class="op">)</span><span class="op">)</span> <span class="co"># 161</span></span>
-<span></span>
-<span><span class="co"># Make peptide names as above</span></span>
-<span></span>
-<span><span class="va">PD_module.df</span><span class="op">$</span><span class="va">Amino.Acid</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">PD_module.df</span><span class="op">$</span><span class="va">variableSites</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substring</a></span> <span class="op">(</span><span class="va">x</span>, <span class="fl">1</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">PD_module.df</span><span class="op">$</span><span class="va">Site</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/trimws.html" class="external-link">trimws</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/substr.html" class="external-link">substring</a></span><span class="op">(</span><span class="va">PD_module.df</span><span class="op">$</span><span class="va">variableSites</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
-<span><span class="va">PD_module.df</span><span class="op">$</span><span class="va">Site</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">"[a-z]$"</span>, <span class="st">""</span>, <span class="va">PD_module.df</span><span class="op">$</span><span class="va">Site</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">PD_module.df</span><span class="op">$</span><span class="va">Peptide.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/mapply.html" class="external-link">mapply</a></span><span class="op">(</span></span>
-<span>  <span class="va">name.peptide</span>, genes <span class="op">=</span> <span class="va">PD_module.df</span><span class="op">$</span><span class="va">geneSymbol</span>,</span>
-<span>  sites <span class="op">=</span>  <span class="va">PD_module.df</span><span class="op">$</span><span class="va">Site</span>, aa <span class="op">=</span> <span class="va">PD_module.df</span><span class="op">$</span><span class="va">Amino.Acid</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Treat modules like our clusters</span></span>
-<span><span class="va">PD_module.df2</span> <span class="op">&lt;-</span> <span class="va">PD_module.df</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Peptide.Name"</span>, <span class="st">"HDBSCAN.min_cluster_size.4"</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">PD_module.list</span> <span class="op">&lt;-</span> <span class="fu">dlply</span><span class="op">(</span></span>
-<span>  <span class="va">PD_module.df2</span>,</span>
-<span>  <span class="fu">.</span><span class="op">(</span><span class="va">HDBSCAN.min_cluster_size.4</span><span class="op">)</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="va">x</span><span class="op">$</span><span class="va">Peptide.Name</span></span>
-<span><span class="op">)</span></span>
-<span><span class="va">PD_module.genes.unique</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span></span>
-<span>  <span class="va">PD_module.list</span>,</span>
-<span>  <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">sub</a></span><span class="op">(</span><span class="st">" .*"</span>, <span class="st">""</span>, <span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+Table S4. Per their description, the
+<code>HDBSCAN;min_cluster_size-4</code> column assigns a module number
+to each phosphosite.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a>PD_module.file <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"PhosDiscoModules_mmc11.txt"</span>, <span class="at">package =</span> <span class="st">"PTMsToPathways"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>PD_module.df <span class="ot">&lt;-</span> utils<span class="sc">::</span><span class="fu">read.table</span>(PD_module.file, <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb23-4"><a href="#cb23-4" tabindex="-1"></a>                  <span class="at">stringsAsFactors =</span> <span class="cn">FALSE</span>, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">comment.char =</span> <span class="st">"#"</span>,</span>
+<span id="cb23-5"><a href="#cb23-5" tabindex="-1"></a>                  <span class="at">na.strings =</span> <span class="st">""</span>, <span class="at">quote =</span> <span class="st">""</span>, <span class="at">fill =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" tabindex="-1"></a><span class="fu">dim</span>(PD_module.df) <span class="co"># should be 1017 rows</span></span>
+<span id="cb23-7"><a href="#cb23-7" tabindex="-1"></a><span class="fu">head</span>(PD_module.df)</span>
+<span id="cb23-8"><a href="#cb23-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">1017</span>    <span class="dv">3</span></span>
+<span id="cb23-9"><a href="#cb23-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   geneSymbol variableSites HDBSCAN.min_cluster_size<span class="fl">.4</span></span>
+<span id="cb23-10"><a href="#cb23-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>      ABCC1        S930s                          <span class="dv">66</span></span>
+<span id="cb23-11"><a href="#cb23-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>      ACBD3        S316s                          <span class="dv">54</span></span>
+<span id="cb23-12"><a href="#cb23-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>      ACIN1  S655s S657s                          <span class="dv">61</span></span>
+<span id="cb23-13"><a href="#cb23-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>      ACIN1        S863s                          <span class="dv">36</span></span>
+<span id="cb23-14"><a href="#cb23-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>      ACTN1          S6s                          <span class="dv">12</span></span>
+<span id="cb23-15"><a href="#cb23-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>       ADD1  N462n S465s                          <span class="dv">13</span></span></code></pre></div>
+<p>Note differences from the PTM table imported above. To compare, we
+need to make them match.</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">intersect</span>(newphos<span class="sc">$</span>variable_sites_names, PD_module.df<span class="sc">$</span>variableSites)) <span class="co"># 530</span></span>
+<span id="cb24-2"><a href="#cb24-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">530</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a><span class="fu">length</span>(<span class="fu">intersect</span>(newphos<span class="sc">$</span>gene_symbol, PD_module.df<span class="sc">$</span>geneSymbol)) <span class="co"># 161</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">161</span></span></code></pre></div>
+<p>Make peptide names as above:</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" tabindex="-1"></a></span>
+<span id="cb26-2"><a href="#cb26-2" tabindex="-1"></a>PD_module.df<span class="sc">$</span>Amino.Acid <span class="ot">&lt;-</span> <span class="fu">sapply</span>(PD_module.df<span class="sc">$</span>variableSites, <span class="cf">function</span>(x) <span class="fu">substring</span> (x, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb26-3"><a href="#cb26-3" tabindex="-1"></a>PD_module.df<span class="sc">$</span>Site <span class="ot">&lt;-</span> <span class="fu">trimws</span>(<span class="fu">substring</span>(PD_module.df<span class="sc">$</span>variableSites, <span class="dv">2</span>))</span>
+<span id="cb26-4"><a href="#cb26-4" tabindex="-1"></a>PD_module.df<span class="sc">$</span>Site <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"[a-z]$"</span>, <span class="st">""</span>, PD_module.df<span class="sc">$</span>Site)</span>
+<span id="cb26-5"><a href="#cb26-5" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" tabindex="-1"></a>PD_module.df<span class="sc">$</span>Peptide.Name <span class="ot">&lt;-</span> <span class="fu">mapply</span>(</span>
+<span id="cb26-7"><a href="#cb26-7" tabindex="-1"></a>  name.peptide, <span class="at">genes =</span> PD_module.df<span class="sc">$</span>geneSymbol,</span>
+<span id="cb26-8"><a href="#cb26-8" tabindex="-1"></a>  <span class="at">sites =</span>  PD_module.df<span class="sc">$</span>Site, <span class="at">aa =</span> PD_module.df<span class="sc">$</span>Amino.Acid)</span>
+<span id="cb26-9"><a href="#cb26-9" tabindex="-1"></a><span class="fu">head</span>(PD_module.df)</span>
+<span id="cb26-10"><a href="#cb26-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   geneSymbol variableSites HDBSCAN.min_cluster_size<span class="fl">.4</span> Amino.Acid      Site</span>
+<span id="cb26-11"><a href="#cb26-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>      ABCC1        S930s                          <span class="dv">66</span>          S       <span class="dv">930</span></span>
+<span id="cb26-12"><a href="#cb26-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>      ACBD3        S316s                          <span class="dv">54</span>          S       <span class="dv">316</span></span>
+<span id="cb26-13"><a href="#cb26-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>      ACIN1  S655s S657s                          <span class="dv">61</span>          S <span class="dv">655</span>s S657</span>
+<span id="cb26-14"><a href="#cb26-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>      ACIN1        S863s                          <span class="dv">36</span>          S       <span class="dv">863</span></span>
+<span id="cb26-15"><a href="#cb26-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>      ACTN1          S6s                          <span class="dv">12</span>          S         <span class="dv">6</span></span>
+<span id="cb26-16"><a href="#cb26-16" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>       ADD1  N462n S465s                          <span class="dv">13</span>          N <span class="dv">462</span>n S465</span>
+<span id="cb26-17"><a href="#cb26-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>         Peptide.Name</span>
+<span id="cb26-18"><a href="#cb26-18" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>       ABCC1 p S930</span>
+<span id="cb26-19"><a href="#cb26-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span>       ACBD3 p S316</span>
+<span id="cb26-20"><a href="#cb26-20" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span> ACIN1 p S655s S657</span>
+<span id="cb26-21"><a href="#cb26-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>       ACIN1 p S863</span>
+<span id="cb26-22"><a href="#cb26-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>         ACTN1 p S6</span>
+<span id="cb26-23"><a href="#cb26-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">6</span>  ADD1 p N462n S465</span></code></pre></div>
+<p>Treat modules like our clusters:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>PD.module.list <span class="ot">&lt;-</span> <span class="fu">split</span>(PD_module.df<span class="sc">$</span>Peptide.Name, PD_module.df<span class="sc">$</span>HDBSCAN.min_cluster_size<span class="fl">.4</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">length</span>(PD.module.list)</span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>PD.module.list[[<span class="dv">69</span>]] <span class="co"># this one has multiple for the same gene</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">69</span></span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">1</span>] <span class="st">"ARHGAP5 p S1218"</span>           <span class="st">"C2CD5 p S295"</span>             </span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">3</span>] <span class="st">"CHAMP1 p S282s S284s S286"</span> <span class="st">"CHAMP1 p S286s S297"</span>      </span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">5</span>] <span class="st">"CHAMP1 p S378s S379s S382"</span> <span class="st">"CHAMP1 p S603"</span>            </span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">7</span>] <span class="st">"EIF2S2 p S105"</span>             <span class="st">"EIF2S2 p T111"</span>            </span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">9</span>] <span class="st">"KIAA0930 p S309"</span>           <span class="st">"LIG1 p S36s S46"</span>          </span>
+<span id="cb27-10"><a href="#cb27-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">11</span>] <span class="st">"NIPBL p S350"</span>              <span class="st">"PKP3 p S253"</span>              </span>
+<span id="cb27-11"><a href="#cb27-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">13</span>] <span class="st">"PSIP1 p T141"</span>              <span class="st">"RBM15B p T551"</span>            </span>
+<span id="cb27-12"><a href="#cb27-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">15</span>] <span class="st">"RRAGC p S2s S15"</span>           <span class="st">"SCAF11 p S796s S802"</span>      </span>
+<span id="cb27-13"><a href="#cb27-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">17</span>] <span class="st">"SF3B1 p S129s T142"</span>        <span class="st">"TOP1 p S112"</span>              </span>
+<span id="cb27-14"><a href="#cb27-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">19</span>] <span class="st">"WIZ p S180"</span>                <span class="st">"WIZ p S196s S201"</span></span></code></pre></div>
+<p>Let’s get the unique genes in each module to compare to the unique
+genes in our clusters.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>PD.module.genes.unique <span class="ot">&lt;-</span> <span class="fu">lapply</span>(</span>
+<span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  PD.module.list,</span>
+<span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="fu">unique</span>(<span class="fu">sub</span>(<span class="st">" .*"</span>, <span class="st">""</span>, x)))</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>PD.module.genes.unique[[<span class="dv">69</span>]]</span>
+<span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">1</span>] <span class="st">"ARHGAP5"</span>  <span class="st">"C2CD5"</span>    <span class="st">"CHAMP1"</span>   <span class="st">"EIF2S2"</span>   <span class="st">"KIAA0930"</span> <span class="st">"LIG1"</span>    </span>
+<span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">7</span>] <span class="st">"NIPBL"</span>    <span class="st">"PKP3"</span>     <span class="st">"PSIP1"</span>    <span class="st">"RBM15B"</span>   <span class="st">"RRAGC"</span>    <span class="st">"SCAF11"</span>  </span>
+<span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">13</span>] <span class="st">"SF3B1"</span>    <span class="st">"TOP1"</span>     <span class="st">"WIZ"</span></span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="compare-p2p-clusters-and-schraink-et-al--modules">Compare P2P clusters and Schraink, et al. modules<a class="anchor" aria-label="anchor" href="#compare-p2p-clusters-and-schraink-et-al--modules"></a>
 </h3>
 <p>P2P identified different clusters than these modules.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">mod63.interesct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">PD_module.list</span><span class="op">$</span><span class="va">`63`</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -413,14 +466,14 @@ by yellow correlation edges surrounding a CFN of interconnected gene
 nodes.</p>
 <p>Let’s focus on CDK1 substrates to complement the work done in
 Schraink, et al., 2023.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cdk1.kinsub</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.1</span><span class="op">(</span><span class="st">"CDK1"</span>, <span class="va">kinsub.edges</span><span class="op">)</span> <span class="co"># 82 edges</span></span>
 <span></span>
 <span><span class="va">cdk1.substrates</span> <span class="op">&lt;-</span> <span class="va">cdk1.kinsub</span> <span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">cdk1.kinsub</span><span class="op">$</span><span class="va">source</span><span class="op">==</span><span class="st">"CDK1"</span><span class="op">)</span>, <span class="st">"target"</span><span class="op">]</span></span>
 <span></span>
 <span><span class="va">cfn_cccn.nodes.cdksubs</span> <span class="op">&lt;-</span> <span class="va">cfn_cccn.nodes</span><span class="op">[</span><span class="va">cfn_cccn.nodes</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">cdk1.substrates</span>, <span class="op">]</span></span></code></pre></div>
 <p>Two ways to select for CDK1 substrates are presented.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Method 1: Using RCy3.</span></span>
 <span><span class="fu">selectNodes</span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, by <span class="op">=</span> <span class="st">"id"</span>, preserve<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu">selectEdgesConnectingSelectedNodes</span><span class="op">(</span><span class="op">)</span></span>
@@ -436,7 +489,7 @@ Schraink, et al., 2023.</p>
 <span></span>
 <span><span class="co"># Gives the exact same network.</span></span></code></pre></div>
 <p>Now further simplify the graph to show only CCCN PTMs.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
 <span><span class="va">cfn_cccn.nodes.cdksubs</span> <span class="op">&lt;-</span> <span class="va">cfn_cccn.nodes</span><span class="op">[</span><span class="va">cfn_cccn.nodes</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">cdk1.substrates</span>, <span class="op">]</span> <span class="co"># repeat of above to make this stand alone</span></span>
 <span></span>
@@ -454,7 +507,7 @@ Note the differences that reflect activation of different cell signaling
 pathways in tumors with different mutations: X02BR011 (AKT1 missense
 mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense
 and MLLT4 frameshift mutants).</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span></span>
 <span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span>  <span class="co"># This exaggerates the node size and shape somewhat. </span></span>
 <span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span></span>

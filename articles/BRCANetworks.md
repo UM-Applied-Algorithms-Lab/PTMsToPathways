@@ -1,8 +1,4 @@
-# BRCANetworks
-
-Note that we will use the complete PPI and BioPlanet edgefiles available
-in “/Data_repository_path/” for this vignette. Lucy todo: these can come
-with the package
+# BRCA Networks
 
 This tutorial will load and create networks from the breast cancer
 cohort (BRCA, N = 122), produced by
@@ -20,8 +16,6 @@ And downloaded from Supplemental data S2 from
 > Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al. *Mol
 > Cell Proteomics* 22, 100596. 10.1016/j.mcpro.2023.100596
 
-### Preprocess data for PTMsToPathways functions
-
 First, let’s load the PTMsToPathways package so its functions are
 available:
 
@@ -29,6 +23,8 @@ available:
 
 library(PTMsToPathways)
 ```
+
+### Preprocess data for PTMsToPathways functions
 
 The BRCA data table described above is provided with the PTMsToPathways
 package and and can be read in as follows:
@@ -115,12 +111,11 @@ head(ptmtable[, 1:5])
 >> C6orf106 p S215  -2.7001   0.2895  -2.7325   1.6096  -1.7117
 ```
 
+### Create Clusters and Co-Cluster Correlation Networks (CCCNs)
+
 Next, we create clusters and networks from those clusters as in the
 [Creating Networks
 vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md).
-
-### Create Clusters and Co-Cluster Correlation Networks (CCCNs)
-
 This takes about 10 minutes on a laptop, so we provide both the code and
 the pre-computed results for this step. To re-run the analysis, run, the
 following:
@@ -250,9 +245,9 @@ eval_brca[1:10, ]
 ### Build Cluster Filtered Networks (CFNs) and Pathway Crosstalk Networks (PCNs)
 
 For PPI edges, the code below demonstrates how to get the STRING-db and
-GeneMANIA edges from the static downloaded networks provided in
-“Data_repository_path”. Alternatively, the resulting edges can be loaded
-from within the package.
+GeneMANIA edges from the static downloaded networks. \[todo:
+instructions to download once these are available.\] Alternatively, the
+resulting data can be loaded from within the package.
 
 ``` r
 
@@ -265,7 +260,8 @@ stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
 )
 ```
 
-Here we just read from within the package:
+To avoid downloading the STRINGdb edges, they can be loaded from within
+the package:
 
 ``` r
 stringdb.edges <- BRCA_stringdb.edges
@@ -283,28 +279,42 @@ Similary for GeneMANIA edges:
 
 ``` r
 
-genemania_filename <- "~/Downloads/hs_interactions_hugo.tsv"
-# gm.all.edges.path <- paste0(Data_repository_path, genemania_filename)
-```
-
-This file contains the following types of interactions: \* “Genetic
-Interactions” \* “Pathway” \* “Physical Interactions” \* “Predicted”
-
-We choose all but “Genetic Interactions” to include in the following
-function.
-
-``` r
-
+genemania_db_filepath <- "your/filepath/here.tsv"
 genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gene.cccn.nodes,
                                 local                = TRUE,
-                                genemania.local.path = gm.all.edges.path,
+                                genemania.local.path = genemania_db_filepath,
                                 gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
+```
 
-# Kinsub edges obtained as previously using the Kinase Substrate data from PhosphoSitePlus.
-input.filename <- "~/Downloads/Kinase_Substrate_Dataset.txt"
-kinsub.all.edges.path <- paste0(Data_repository_path, input.filename)
-kinsub.edges <- GetKinsub.edges(input.filename, gene.cccn.nodes)
+And again, to avoid downloading the GeneMANIA edges, they can be loaded
+from within the package:
+
+``` r
+genemania.edges <- BRCA_genemania.edges
+head(genemania.edges)
+>>          source  target interaction Weight
+>> 4815149  CAMK2B  CAMK2D     Pathway   0.50
+>> 4815150  CAMK2B  MAP3K7     Pathway   0.50
+>> 4815191 CSNK2A1  CSNK2B     Pathway   0.42
+>> 4815192 CSNK2A2 CSNK2A1     Pathway   0.55
+>> 4815193 CSNK2A2  CSNK2B     Pathway   0.42
+>> 4815223    EGFR  MAP2K1     Pathway   0.13
+```
+
+This file contains the following types of interactions:
+
+``` r
+unique(genemania.edges$interaction)
+>> [1] "Pathway"               "Physical Interactions" "Predicted"
+```
+
+We choose all but “Genetic Interactions” to include in the following
+function. \[todo: where is this filtering actually done?\]
+
+``` r
+file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+kinsub.edges <- GetKinsub.edges(file_path, gene.cccn.nodes)
 
 # Now we can build the CFN.
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
@@ -315,22 +325,36 @@ network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
 
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
-# 67376 edges
+dim(cfn)
+# 67376 edges [todo, these are off, is it a problem?]
 cfn.merged <- mergeEdges(cfn)
+dim(cfn.merged)
 # 27048 edges
+>> [1] 67139     4
+>> [1] 25896     4
 ```
 
-We build the PCN from the BioPlanet pathways as done previously.
+We build the PCN from the BioPlanet pathways as done previously. This
+takes about a few minutes, so we provide both the code and the
+pre-computed results for this step. To re-run the analysis, run the
+following:
 
 ``` r
 
-bioplanet_filename <- "bioplanet_pathway_June2025.csv"
-bioplanet.pathways.path <- paste0(Data_repository_path, bioplanet_filename)
+bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
+```
+
+Or load in pre-computed results from within the PTMsToPathways package:
+
+``` r
+PCN.data <- BRCA_PCN.data
 pathway.crosstalk.network <- PCN.data[[1]] # 679707 edges
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+dim(pathway.crosstalk.network)
+>> [1] 680540      4
 ```
 
 Now we can explore these networks.
@@ -338,24 +362,43 @@ Now we can explore these networks.
 ### Preprocess modules from Shraink et al.
 
 We will examine the modules from Schraink, et al., 2023, Supplemental
-Table S4
+Table S4. Per their description, the `HDBSCAN;min_cluster_size-4` column
+assigns a module number to each phosphosite.
 
 ``` r
-
-# Read in PhosphoDisco Modules file.
-PD_module.file <- paste0(paperpath, "PhosDiscoModules_mmc11.txt")
+PD_module.file <- system.file("extdata", "PhosDiscoModules_mmc11.txt", package = "PTMsToPathways")
 
 PD_module.df <- utils::read.table(PD_module.file, header = TRUE,
                   stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
                   na.strings = "", quote = "", fill = TRUE)
-# Note these have trailing spaces as do the rownames(ptmtable)
-# Column names: geneSymbol, variableSites, HDBSCAN.min_cluster_size.4
-# 1017 rows
-# Note differences from the PTM table imported above.
-length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
-length(intersect(newphos$gene_symbol, PD_module.df$geneSymbol)) # 161
+dim(PD_module.df) # should be 1017 rows
+head(PD_module.df)
+>> [1] 1017    3
+>>   geneSymbol variableSites HDBSCAN.min_cluster_size.4
+>> 1      ABCC1        S930s                          66
+>> 2      ACBD3        S316s                          54
+>> 3      ACIN1  S655s S657s                          61
+>> 4      ACIN1        S863s                          36
+>> 5      ACTN1          S6s                          12
+>> 6       ADD1  N462n S465s                          13
+```
 
-# Make peptide names as above
+Note differences from the PTM table imported above. To compare, we need
+to make them match.
+
+``` r
+length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
+>> [1] 530
+```
+
+``` r
+length(intersect(newphos$gene_symbol, PD_module.df$geneSymbol)) # 161
+>> [1] 161
+```
+
+Make peptide names as above:
+
+``` r
 
 PD_module.df$Amino.Acid <- sapply(PD_module.df$variableSites, function(x) substring (x, 1, 1))
 PD_module.df$Site <- trimws(substring(PD_module.df$variableSites, 2))
@@ -364,17 +407,53 @@ PD_module.df$Site <- sub("[a-z]$", "", PD_module.df$Site)
 PD_module.df$Peptide.Name <- mapply(
   name.peptide, genes = PD_module.df$geneSymbol,
   sites =  PD_module.df$Site, aa = PD_module.df$Amino.Acid)
+head(PD_module.df)
+>>   geneSymbol variableSites HDBSCAN.min_cluster_size.4 Amino.Acid      Site
+>> 1      ABCC1        S930s                          66          S       930
+>> 2      ACBD3        S316s                          54          S       316
+>> 3      ACIN1  S655s S657s                          61          S 655s S657
+>> 4      ACIN1        S863s                          36          S       863
+>> 5      ACTN1          S6s                          12          S         6
+>> 6       ADD1  N462n S465s                          13          N 462n S465
+>>         Peptide.Name
+>> 1       ABCC1 p S930
+>> 2       ACBD3 p S316
+>> 3 ACIN1 p S655s S657
+>> 4       ACIN1 p S863
+>> 5         ACTN1 p S6
+>> 6  ADD1 p N462n S465
+```
 
-# Treat modules like our clusters
-PD_module.df2 <- PD_module.df[,c("Peptide.Name", "HDBSCAN.min_cluster_size.4")]
-PD_module.list <- dlply(
-  PD_module.df2,
-  .(HDBSCAN.min_cluster_size.4),
-  function(x) x$Peptide.Name
-)
-PD_module.genes.unique <- lapply(
-  PD_module.list,
+Treat modules like our clusters:
+
+``` r
+PD.module.list <- split(PD_module.df$Peptide.Name, PD_module.df$HDBSCAN.min_cluster_size.4)
+length(PD.module.list)
+PD.module.list[[69]] # this one has multiple for the same gene
+>> [1] 69
+>>  [1] "ARHGAP5 p S1218"           "C2CD5 p S295"             
+>>  [3] "CHAMP1 p S282s S284s S286" "CHAMP1 p S286s S297"      
+>>  [5] "CHAMP1 p S378s S379s S382" "CHAMP1 p S603"            
+>>  [7] "EIF2S2 p S105"             "EIF2S2 p T111"            
+>>  [9] "KIAA0930 p S309"           "LIG1 p S36s S46"          
+>> [11] "NIPBL p S350"              "PKP3 p S253"              
+>> [13] "PSIP1 p T141"              "RBM15B p T551"            
+>> [15] "RRAGC p S2s S15"           "SCAF11 p S796s S802"      
+>> [17] "SF3B1 p S129s T142"        "TOP1 p S112"              
+>> [19] "WIZ p S180"                "WIZ p S196s S201"
+```
+
+Let’s get the unique genes in each module to compare to the unique genes
+in our clusters.
+
+``` r
+PD.module.genes.unique <- lapply(
+  PD.module.list,
   function(x) unique(sub(" .*", "", x)))
+PD.module.genes.unique[[69]]
+>>  [1] "ARHGAP5"  "C2CD5"    "CHAMP1"   "EIF2S2"   "KIAA0930" "LIG1"    
+>>  [7] "NIPBL"    "PKP3"     "PSIP1"    "RBM15B"   "RRAGC"    "SCAF11"  
+>> [13] "SF3B1"    "TOP1"     "WIZ"
 ```
 
 ### Compare P2P clusters and Schraink, et al. modules
