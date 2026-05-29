@@ -29,9 +29,6 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #'
 #' @description This function finds protein-protein interaction weights by consulting the STRINGdb database,
 #' either live via the STRINGdb R package or from a locally pre-downloaded flat file.
-#' The package STRINGdb is required for the live mode. To download, run:
-#' - if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-#' - BiocManager::install("STRINGdb")
 #'
 #' For the local mode, download the full detailed network file for Homo sapiens from:
 #' https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz
@@ -72,17 +69,14 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
       stop("Local STRING file not found: ", string.local.path,
            "\nGenerate it with scripts/string_to_hugo.r or set local = FALSE to use the live API.")
 
-    if (!requireNamespace("data.table", quietly = TRUE))
-      stop("Please install data.table: install.packages('data.table')")
-
     message("Reading local STRING file: ", string.local.path)
-    dt <- data.table::fread(string.local.path, sep = "\t")
+    dt <- utils::read.delim(string.local.path)
     # Expected columns: source target interaction Weight neighborhood fusion
     #                   cooccurence coexpression experimental database
     #                   textmining combined_score
 
     # Filter to nodes present in gene.cccn.nodes (both ends must be in the set)
-    dt <- dt[source %in% gene.cccn.nodes & target %in% gene.cccn.nodes]
+    dt <- dt[dt$source %in% gene.cccn.nodes & dt$target %in% gene.cccn.nodes, ]
     # note experimental not experiments and no "transferred" in this file
     str.e <- dt[dt$experimental > 0, ]
     #str.et <- interactions[interactions$experiments_transferred >  0, ]
@@ -100,14 +94,11 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     stringdb.edges <- combined_interactions[, c("source", "target", "edgeType", "Weight")]
     colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
     # Return columns matching the live-mode output
-    stringdb.edges <- as.data.frame(dt[, .(source, target, interaction, Weight)])
+    # stringdb.edges <- as.data.frame(dt[, .(source, target, interaction, Weight)])
 
   } else {
     # ---- Live mode: original STRINGdb API behaviour ----------
     nodenames <- data.frame(Gene.Names = gene.cccn.nodes)
-
-    if (!requireNamespace("STRINGdb", quietly = TRUE))
-      stop("In order to use this function, please download STRINGdb as described in the vignette, the readme, and the function documentation.")
 
     # Initialize the STRING database object
     string.db <- STRINGdb::STRINGdb$new(version = "12.0", species = 9606,

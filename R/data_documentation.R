@@ -315,4 +315,9 @@
 #' @keywords internal
 "brca_CCCN_data"
 
-
+#' BRCA STRINGdb Edges
+#' 
+#' Edges from the STRINGdb database for the genes in the BRCA dataset
+#' 
+#' @keywords internal
+"BRCA_stringdb.edges"
