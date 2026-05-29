@@ -268,23 +268,27 @@ Now we can explore these networks.
 
 ### Preprocess modules from Shraink et al.
 
-We will examine the modules from Schraink, et al., 2023, Supplemental Table S4
+We will examine the modules from Schraink, et al., 2023, Supplemental Table S4.
 
-```{r eval = FALSE}
-# Read in PhosphoDisco Modules file.
-PD_module.file <- paste0(paperpath, "PhosDiscoModules_mmc11.txt")
+```{r eval = TRUE}
+PD_module.file <- system.file("extdata", "PhosDiscoModules_mmc11.txt", package = "PTMsToPathways")
 
 PD_module.df <- utils::read.table(PD_module.file, header = TRUE,
                   stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
                   na.strings = "", quote = "", fill = TRUE)
-# Note these have trailing spaces as do the rownames(ptmtable)
-# Column names: geneSymbol, variableSites, HDBSCAN.min_cluster_size.4
-# 1017 rows
-# Note differences from the PTM table imported above.
+dim(PD_module.df) # should be 1017 rows
+head(PD_module.df)
+```
+Note differences from the PTM table imported above. To compare, we need to make them match.
+```{r eval = TRUE}
 length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
+```
+```{r eval = TRUE}
 length(intersect(newphos$gene_symbol, PD_module.df$geneSymbol)) # 161
+```
 
-# Make peptide names as above
+Make peptide names as above:
+```{r eval = TRUE}
 
 PD_module.df$Amino.Acid <- sapply(PD_module.df$variableSites, function(x) substring (x, 1, 1))
 PD_module.df$Site <- trimws(substring(PD_module.df$variableSites, 2))
@@ -293,8 +297,11 @@ PD_module.df$Site <- sub("[a-z]$", "", PD_module.df$Site)
 PD_module.df$Peptide.Name <- mapply(
   name.peptide, genes = PD_module.df$geneSymbol,
   sites =  PD_module.df$Site, aa = PD_module.df$Amino.Acid)
+head(PD_module.df)
+```
+Treat modules like our clusters:
 
-# Treat modules like our clusters
+```{r eval=FALSE}
 PD_module.df2 <- PD_module.df[,c("Peptide.Name", "HDBSCAN.min_cluster_size.4")]
 PD_module.list <- dlply(
   PD_module.df2,
