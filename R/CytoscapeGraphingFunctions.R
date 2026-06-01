@@ -317,8 +317,8 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
   subset.ptmtable <- ptmtable.temp[ptmtable.temp$Gene.Name %in% unique(genes), ]
-  gene.data <- subset.ptmtable %>%
-    dplyr::group_by(.data$Gene.Name) %>%
+  gene.data <- subset.ptmtable |>
+    dplyr::group_by(.data$Gene.Name) |>
     dplyr::summarise(
       dplyr::across(where(is.numeric), ~sum(.x, na.rm = TRUE)),
       .groups = "drop"
