@@ -390,7 +390,7 @@ g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges, cfn.nodes = cfn_cccn.no
 ```
 Both methods give the same result, which looks like this:
 ```{r eval = TRUE, echo = FALSE}
-knitr::include_graphics("vig_figs/Mod63_AllPTMs_X03BR011.png")
+knitr::include_graphics("vig_figs/CDKsub63_allPTMs_X03BR011.png")
 ```
 
 Now further simplify the graph to show only CCCN PTMs.
