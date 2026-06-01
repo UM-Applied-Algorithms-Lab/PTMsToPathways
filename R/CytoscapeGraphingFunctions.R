@@ -142,7 +142,7 @@
 #'
 #' @param cfn A version of ppi.network with only the edges that exist in cccn.matrix and have non-zero weights
 #' @param ptmtable A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
-#' @param funckey A table graphing gene names to type of protein; defaults to internal database at PTMsToPathways::ex.funckey
+#' @param funckey A table graphing gene names to type of protein; defaults to the internal dataset `PTMsToPathways::function_key`
 #' @param Network.title Desired title for the created Cytoscape Network; defaults to "cfn"
 #' @param Network.collection Desired name for the collection created on Cytoscape in which the network will reside; defaults to "PTMsToPathways"
 #' @param visual.style.name Desired name for the visual style created on Cytoscape; defaults to "PTMsToPathways.style"
@@ -171,26 +171,6 @@
 #' # See vignette for default graph
 #'
 #
-
-# Import Function Key
-getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
-  if (is.character(funckey.filename)) {
-    if (!file.exists(funckey.filename)) {
-      stop(paste(funckey.filename, "not found. Please check your working directory."))
-    }
-    funckey <- read.table(
-      file = funckey.filename,
-      header = TRUE,
-      sep = "\t",
-      comment.char = "#",
-      na.strings = "",
-      quote = "",
-      stringsAsFactors = FALSE,
-      fill = TRUE
-    )
-    return(funckey)
-  }
-}
 
 # helper functions for networks in R:
 
