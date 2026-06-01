@@ -77,10 +77,12 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
   : Make Database Input File
 - [`ex_pathways_list`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_pathways_list.md)
   : Pathways list
+- [`filter.edges.0()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/filter.edges.0.md)
+  : Graphing and Manipulating Cluster Filtered Network
 - [`fix.excel()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/fix.excel.md)
   : Correct Excel-Converted Gene Symbols
-- [`getFuncKey()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/getFuncKey.md)
-  : Graphing and Manipulating Cluster Filtered Network
+- [`function_key`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/function_key.md)
+  : Function Key Example
 - [`` `%w/o%` ``](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/grapes-w-slash-o-grapes.md)
   : Set difference for vectors using custom infix operator
 - [`graph.ptm.by.cluster()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/graph.ptm.by.cluster.md)

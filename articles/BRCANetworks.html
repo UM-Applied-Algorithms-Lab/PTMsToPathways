@@ -498,8 +498,7 @@ common.clusters$ConsensusCluster6</p>
 <p>P2P provides functions to prepare visualizations of these PTMs in
 Cytoscape. This code graphs the CFN/CCCN from all these PTMs:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"FunctionKey.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
-<span><span class="va">funckey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getFuncKey.html">getFuncKey</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span></span>
+<code class="sourceCode R"><span> <span class="va">funckey</span> <span class="op">&lt;-</span> <span class="va">function_key</span></span>
 <span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">mod63.clust.ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
 <span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
@@ -540,16 +539,16 @@ RCy3.</p>
 <span><span class="fu">createSubnetwork</span><span class="op">(</span>nodes <span class="op">=</span> <span class="fu">getSelectedNodes</span><span class="op">(</span><span class="op">)</span>, edges <span class="op">=</span> <span class="fu">getSelectedEdges</span><span class="op">(</span><span class="op">)</span>, nodes.by.col <span class="op">=</span> <span class="st">"id"</span>, edges.by.col <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span></code></pre></div>
 <p>Method 2: Using P2P functions.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cfn_cccn.nodes.cdksubs.edges</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.0</span><span class="op">(</span>nodenames <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, edge.file <span class="op">=</span> <span class="va">cfn.cccn</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">cfn_cccn.nodes.cdksubs.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.0.html">filter.edges.0</a></span><span class="op">(</span>nodenames <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, edge.file <span class="op">=</span> <span class="va">cfn.cccn</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs.edges</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span>,</span>
 <span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 5"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 <p>Both methods give the same result, which looks like this:
-<img src="vig_figs/Mod63_AllPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<img src="vig_figs/CDKsub63_allPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>Now further simplify the graph to show only CCCN PTMs.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cdksubs.genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">Gene.Name</span><span class="op">)</span></span>
-<span><span class="va">cdksubs.cfn</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.0</span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs.genes</span>, <span class="va">cfn.merged</span><span class="op">)</span></span>
+<span><span class="va">cdksubs.cfn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.0.html">filter.edges.0</a></span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs.genes</span>, <span class="va">cfn.merged</span><span class="op">)</span></span>
 <span><span class="va">cdksubs.cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu">get.co.clustered.ptms</span><span class="op">(</span><span class="va">cdksubs.cfn</span>, ptm.cccn.edges<span class="op">=</span><span class="va">ptm.cccn.edges</span><span class="op">)</span></span>
 <span><span class="va">cdksubs.cfn.cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cdksubs.cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>

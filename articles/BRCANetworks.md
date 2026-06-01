@@ -523,8 +523,7 @@ Cytoscape. This code graphs the CFN/CCCN from all these PTMs:
 
 ``` r
 
-file_path <- system.file("extdata", "FunctionKey.txt", package = "PTMsToPathways")
-funckey <- getFuncKey(file_path)
+ funckey <- function_key
 cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
@@ -592,7 +591,7 @@ g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges, cfn.nodes = cfn_cccn.no
 ```
 
 Both methods give the same result, which looks like this:
-![](vig_figs/Mod63_AllPTMs_X03BR011.png)
+![](vig_figs/CDKsub63_allPTMs_X03BR011.png)
 
 Now further simplify the graph to show only CCCN PTMs.
 
