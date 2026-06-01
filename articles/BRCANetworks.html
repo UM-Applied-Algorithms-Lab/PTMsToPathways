@@ -205,23 +205,20 @@ visualize these in a heatmap. To demonstrate, let’s look at the output
 for the first 3 clusters. PTMs are rows and samples are columns, and
 color represents the value of the PTM in that sample. Black indicates
 missing values.</p>
-<pre><code>
-``` r
-fig_dir &lt;- knitr::opts_current$get("fig.path")
-dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
-output &lt;- file.path(fig_dir, "ptm_all_clusters_l4.pdf")
-res &lt;- graph.ptm.by.cluster(
-     ptmtable         = ptmtable,
-     common.clusters  = common.clusters4[1:3],          # use all clusters &gt; 4, only first 3
-     filename         = output,
-     order.rows       = "slope",
-     zlim             = 3,
-     show.row.labels  = FALSE,
-     show.col.labels  = TRUE,
-     col_cex          = 0.7
-   )
-&gt;&gt; Heatmap written to: plots//ptm_all_clusters_l4.pdf
-knitr::include_graphics(output)</code></pre>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">dir.create</span>(fig_dir, <span class="at">recursive =</span> <span class="cn">TRUE</span>, <span class="at">showWarnings =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>output <span class="ot">&lt;-</span> <span class="fu">file.path</span>(fig_dir, <span class="st">"ptm_all_clusters_l4.pdf"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">graph.ptm.by.cluster</span>(</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>     <span class="at">ptmtable         =</span> ptmtable,</span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>     <span class="at">common.clusters  =</span> common.clusters4[<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>],          <span class="co"># use all clusters &gt; 4, only first 3</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>     <span class="at">filename         =</span> output,</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>     <span class="at">order.rows       =</span> <span class="st">"slope"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>     <span class="at">zlim             =</span> <span class="dv">3</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>     <span class="at">show.row.labels  =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a>     <span class="at">show.col.labels  =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a>     <span class="at">col_cex          =</span> <span class="fl">0.7</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>   )</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Heatmap written to<span class="sc">:</span> plots<span class="sc">/</span><span class="er">/</span>ptm_all_clusters_l4.pdf</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">include_graphics</span>(output)</span></code></pre></div>
 <embed src="plots//ptm_all_clusters_l4.pdf" width="100%" style="display: block; margin: auto;" type="application/pdf"></embed><p>PTMsToPathways provides the function <a href="references/EvaluateClusters.html"><code>EvaluateClusters</code></a>
 which computes the following for each cluster:</p>
 <ul>
@@ -417,7 +414,7 @@ need to make them match.</p>
 <p>Treat modules like our clusters:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>PD.module.list <span class="ot">&lt;-</span> <span class="fu">split</span>(PD_module.df<span class="sc">$</span>Peptide.Name, PD_module.df<span class="sc">$</span>HDBSCAN.min_cluster_size<span class="fl">.4</span>)</span>
 <span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a><span class="fu">length</span>(PD.module.list)</span>
-<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>PD.module.list[[<span class="dv">69</span>]] <span class="co"># this one has multiple for the same gene</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>PD.module.list<span class="sc">$</span><span class="st">`</span><span class="at">68</span><span class="st">`</span> <span class="co"># this one has multiple for the same gene</span></span>
 <span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">69</span></span>
 <span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">1</span>] <span class="st">"ARHGAP5 p S1218"</span>           <span class="st">"C2CD5 p S295"</span>             </span>
 <span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">3</span>] <span class="st">"CHAMP1 p S282s S284s S286"</span> <span class="st">"CHAMP1 p S286s S297"</span>      </span>
@@ -434,7 +431,7 @@ genes in our clusters.</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" tabindex="-1"></a>PD.module.genes.unique <span class="ot">&lt;-</span> <span class="fu">lapply</span>(</span>
 <span id="cb28-2"><a href="#cb28-2" tabindex="-1"></a>  PD.module.list,</span>
 <span id="cb28-3"><a href="#cb28-3" tabindex="-1"></a>  <span class="cf">function</span>(x) <span class="fu">unique</span>(<span class="fu">sub</span>(<span class="st">" .*"</span>, <span class="st">""</span>, x)))</span>
-<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>PD.module.genes.unique[[<span class="dv">69</span>]]</span>
+<span id="cb28-4"><a href="#cb28-4" tabindex="-1"></a>PD.module.genes.unique<span class="sc">$</span><span class="st">`</span><span class="at">68</span><span class="st">`</span></span>
 <span id="cb28-5"><a href="#cb28-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">1</span>] <span class="st">"ARHGAP5"</span>  <span class="st">"C2CD5"</span>    <span class="st">"CHAMP1"</span>   <span class="st">"EIF2S2"</span>   <span class="st">"KIAA0930"</span> <span class="st">"LIG1"</span>    </span>
 <span id="cb28-6"><a href="#cb28-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">7</span>] <span class="st">"NIPBL"</span>    <span class="st">"PKP3"</span>     <span class="st">"PSIP1"</span>    <span class="st">"RBM15B"</span>   <span class="st">"RRAGC"</span>    <span class="st">"SCAF11"</span>  </span>
 <span id="cb28-7"><a href="#cb28-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">13</span>] <span class="st">"SF3B1"</span>    <span class="st">"TOP1"</span>     <span class="st">"WIZ"</span></span></code></pre></div>
@@ -442,58 +439,116 @@ genes in our clusters.</p>
 <div class="section level3">
 <h3 id="compare-p2p-clusters-and-schraink-et-al--modules">Compare P2P clusters and Schraink, et al. modules<a class="anchor" aria-label="anchor" href="#compare-p2p-clusters-and-schraink-et-al--modules"></a>
 </h3>
-<p>P2P identified different clusters than these modules.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">mod63.interesct</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span> <span class="fu"><a href="https://rdrr.io/r/base/sets.html" class="external-link">intersect</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">PD_module.list</span><span class="op">$</span><span class="va">`63`</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Interesctions were found in common.clusters$ConsensusCluster1; common.clusters$ConsensusCluster3; common.clusters$ConsensusCluster4; common.clusters$ConsensusCluster5; common.clusters$ConsensusCluster6</span></span>
-<span></span>
-<span><span class="co"># First, consider all ptms from major clusters that intersect with module 63</span></span>
-<span><span class="va">mod63.clust.ptms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="va">common.clusters</span><span class="op">$</span><span class="va">ConsensusCluster1</span>, <span class="va">common.clusters</span><span class="op">$</span><span class="va">ConsensusCluster3</span>, <span class="va">common.clusters</span><span class="op">$</span><span class="va">ConsensusCluster4</span>, <span class="va">common.clusters</span><span class="op">$</span><span class="va">ConsensusCluster5</span>, <span class="va">common.clusters</span><span class="op">$</span><span class="va">ConsensusCluster6</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># This code graphs the CFN/CCCN from all these PTMs:</span></span>
-<span><span class="va">funckey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getFuncKey.html">getFuncKey</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="va">Data_repository_path</span>, <span class="st">"FunctionKey.txt"</span><span class="op">)</span><span class="op">)</span></span>
+<p>Let’s see which of our clusters have intersections with module 63. We
+will use this as an example to show how to explore the networks around a
+particular module of interest.</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>mod63.intersect <span class="ot">&lt;-</span> <span class="fu">Filter</span>(length, <span class="fu">Map</span>(intersect, common.clusters, <span class="fu">list</span>(PD.module.list<span class="sc">$</span><span class="st">`</span><span class="at">63</span><span class="st">`</span>)))</span>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a>mod63.intersect</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="er">$</span>ConsensusCluster1</span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"BRCA2 p S93"</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster2</span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"C12orf45 p S178"</span> <span class="st">"MICAL3 p S1704"</span>  <span class="st">"RANBP2 p S2606"</span> </span>
+<span id="cb29-8"><a href="#cb29-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-9"><a href="#cb29-9" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster3</span>
+<span id="cb29-10"><a href="#cb29-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"CENPC p S177"</span>       <span class="st">"DPF2 p T176"</span>        <span class="st">"FKBP3 p S152"</span>      </span>
+<span id="cb29-11"><a href="#cb29-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">4</span>] <span class="st">"NOLC1 p T617t T620"</span></span>
+<span id="cb29-12"><a href="#cb29-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-13"><a href="#cb29-13" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster4</span>
+<span id="cb29-14"><a href="#cb29-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"CENPC p T130"</span> <span class="st">"WRN p S1133"</span> </span>
+<span id="cb29-15"><a href="#cb29-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-16"><a href="#cb29-16" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster5</span>
+<span id="cb29-17"><a href="#cb29-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"FLNB p S983"</span>        <span class="st">"FOXK1 p S213s S223"</span> <span class="st">"HEBP2 p S181"</span>      </span>
+<span id="cb29-18"><a href="#cb29-18" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">4</span>] <span class="st">"HIST1H1E p T4"</span>      <span class="st">"MEPCE p S254"</span>       <span class="st">"RSF1 p S397"</span>       </span>
+<span id="cb29-19"><a href="#cb29-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-20"><a href="#cb29-20" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster6</span>
+<span id="cb29-21"><a href="#cb29-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"DOT1L p S834"</span> <span class="st">"EHD1 p T468"</span>  <span class="st">"ILF3 p T592"</span>  <span class="st">"TCOF1 p T249"</span> <span class="st">"XRCC6 p T455"</span></span>
+<span id="cb29-22"><a href="#cb29-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-23"><a href="#cb29-23" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster7</span>
+<span id="cb29-24"><a href="#cb29-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"HMGA1 p T39t T53"</span> <span class="st">"TPR p T1672"</span>     </span>
+<span id="cb29-25"><a href="#cb29-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-26"><a href="#cb29-26" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster9</span>
+<span id="cb29-27"><a href="#cb29-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"HMGA1 p T42"</span></span>
+<span id="cb29-28"><a href="#cb29-28" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-29"><a href="#cb29-29" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster10</span>
+<span id="cb29-30"><a href="#cb29-30" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"HNRNPK p S216"</span> <span class="st">"MBD2 p S181"</span>  </span>
+<span id="cb29-31"><a href="#cb29-31" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-32"><a href="#cb29-32" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster11</span>
+<span id="cb29-33"><a href="#cb29-33" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"LIG3 p T209"</span></span>
+<span id="cb29-34"><a href="#cb29-34" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-35"><a href="#cb29-35" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster14</span>
+<span id="cb29-36"><a href="#cb29-36" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"NOLC1 p S518"</span></span>
+<span id="cb29-37"><a href="#cb29-37" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-38"><a href="#cb29-38" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster15</span>
+<span id="cb29-39"><a href="#cb29-39" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"NUP98 p S822"</span></span>
+<span id="cb29-40"><a href="#cb29-40" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb29-41"><a href="#cb29-41" tabindex="-1"></a><span class="er">&gt;&gt;</span> <span class="er">$</span>ConsensusCluster16</span>
+<span id="cb29-42"><a href="#cb29-42" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"ZC3HC1 p S24s T28"</span></span></code></pre></div>
+<p>Interesctions were found in
+common.clusters<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>u</mi><mi>s</mi><mi>C</mi><mi>l</mi><mi>u</mi><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mn>1</mn><mo>;</mo><mi>c</mi><mi>o</mi><mi>m</mi><mi>m</mi><mi>o</mi><mi>n</mi><mi>.</mi><mi>c</mi><mi>l</mi><mi>u</mi><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ConsensusCluster1;
+common.clusters</annotation></semantics></math>ConsensusCluster3;
+common.clusters<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>o</mi><mi>n</mi><mi>s</mi><mi>e</mi><mi>n</mi><mi>s</mi><mi>u</mi><mi>s</mi><mi>C</mi><mi>l</mi><mi>u</mi><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mn>4</mn><mo>;</mo><mi>c</mi><mi>o</mi><mi>m</mi><mi>m</mi><mi>o</mi><mi>n</mi><mi>.</mi><mi>c</mi><mi>l</mi><mi>u</mi><mi>s</mi><mi>t</mi><mi>e</mi><mi>r</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">ConsensusCluster4;
+common.clusters</annotation></semantics></math>ConsensusCluster5;
+common.clusters$ConsensusCluster6</p>
+<p>There are 204 PTMs in the P2P clusters that intersect with module
+63:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>mod63.clust.ptms <span class="ot">&lt;-</span> <span class="fu">unlist</span>(<span class="fu">c</span>(common.clusters<span class="sc">$</span>ConsensusCluster1, common.clusters<span class="sc">$</span>ConsensusCluster3, common.clusters<span class="sc">$</span>ConsensusCluster4, common.clusters<span class="sc">$</span>ConsensusCluster5, common.clusters<span class="sc">$</span>ConsensusCluster6))</span>
+<span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="fu">length</span>(mod63.clust.ptms)</span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">204</span></span></code></pre></div>
+<p>P2P provides functions to prepare visualizations of these PTMs in
+Cytoscape. This code graphs the CFN/CCCN from all these PTMs:</p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">file_path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"FunctionKey.txt"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
+<span><span class="va">funckey</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/getFuncKey.html">getFuncKey</a></span><span class="op">(</span><span class="va">file_path</span><span class="op">)</span></span>
 <span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">mod63.clust.ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
 <span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>
+<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>To graph in Cytoscape:</p>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>
 <span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 1"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span> </span></code></pre></div>
+<p>The above would create a graph using Cytoscape, which would look
+like:
+<img src="vig_figs/Mod63_AllPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>This is a complex graph that shows PTMs clusters as cliques connected
 by yellow correlation edges surrounding a CFN of interconnected gene
 nodes.</p>
 <p>Let’s focus on CDK1 substrates to complement the work done in
-Schraink, et al., 2023.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">cdk1.kinsub</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.1</span><span class="op">(</span><span class="st">"CDK1"</span>, <span class="va">kinsub.edges</span><span class="op">)</span> <span class="co"># 82 edges</span></span>
-<span></span>
-<span><span class="va">cdk1.substrates</span> <span class="op">&lt;-</span> <span class="va">cdk1.kinsub</span> <span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">cdk1.kinsub</span><span class="op">$</span><span class="va">source</span><span class="op">==</span><span class="st">"CDK1"</span><span class="op">)</span>, <span class="st">"target"</span><span class="op">]</span></span>
-<span></span>
+Schraink, et al., 2023. There are 82 CDK1 edges.</p>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a>cdk1.kinsub <span class="ot">&lt;-</span> <span class="fu">filter.edges.1</span>(<span class="st">"CDK1"</span>, kinsub.edges)</span>
+<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="fu">dim</span>(cdk1.kinsub)</span>
+<span id="cb33-3"><a href="#cb33-3" tabindex="-1"></a><span class="fu">head</span>(cdk1.kinsub)</span>
+<span id="cb33-4"><a href="#cb33-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">82</span>  <span class="dv">4</span></span>
+<span id="cb33-5"><a href="#cb33-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>      source  target interaction Weight</span>
+<span id="cb33-6"><a href="#cb33-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7309</span>   CDK1   CHEK1          pp      <span class="dv">1</span></span>
+<span id="cb33-7"><a href="#cb33-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7310</span>   CDK1  CLASP2          pp      <span class="dv">1</span></span>
+<span id="cb33-8"><a href="#cb33-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7311</span>   CDK1   NOLC1          pp      <span class="dv">1</span></span>
+<span id="cb33-9"><a href="#cb33-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7319</span>   CDK1   SRRM2          pp      <span class="dv">1</span></span>
+<span id="cb33-10"><a href="#cb33-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7328</span>   CDK1    PAK1          pp      <span class="dv">1</span></span>
+<span id="cb33-11"><a href="#cb33-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7329</span>   CDK1 RPS6KB1          pp      <span class="dv">1</span></span></code></pre></div>
+<p>Now let’s get the needed information about these edges:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cdk1.substrates</span> <span class="op">&lt;-</span> <span class="va">cdk1.kinsub</span> <span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">cdk1.kinsub</span><span class="op">$</span><span class="va">source</span><span class="op">==</span><span class="st">"CDK1"</span><span class="op">)</span>, <span class="st">"target"</span><span class="op">]</span></span>
 <span><span class="va">cfn_cccn.nodes.cdksubs</span> <span class="op">&lt;-</span> <span class="va">cfn_cccn.nodes</span><span class="op">[</span><span class="va">cfn_cccn.nodes</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">cdk1.substrates</span>, <span class="op">]</span></span></code></pre></div>
-<p>Two ways to select for CDK1 substrates are presented.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Method 1: Using RCy3.</span></span>
-<span><span class="fu">selectNodes</span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, by <span class="op">=</span> <span class="st">"id"</span>, preserve<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
+<p>Two ways to select for CDK1 substrates are presented. Method 1: Using
+RCy3.</p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">selectNodes</span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, by <span class="op">=</span> <span class="st">"id"</span>, preserve<span class="op">=</span><span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="fu">selectEdgesConnectingSelectedNodes</span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">createSubnetwork</span><span class="op">(</span>nodes <span class="op">=</span> <span class="fu">getSelectedNodes</span><span class="op">(</span><span class="op">)</span>, edges <span class="op">=</span> <span class="fu">getSelectedEdges</span><span class="op">(</span><span class="op">)</span>, nodes.by.col <span class="op">=</span> <span class="st">"id"</span>, edges.by.col <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Method 2: Using P2P functions.</span></span>
-<span></span>
-<span><span class="va">cfn_cccn.nodes.cdksubs.edges</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.0</span><span class="op">(</span>nodenames <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, edge.file <span class="op">=</span> <span class="va">cfn.cccn</span><span class="op">)</span></span>
+<span><span class="fu">createSubnetwork</span><span class="op">(</span>nodes <span class="op">=</span> <span class="fu">getSelectedNodes</span><span class="op">(</span><span class="op">)</span>, edges <span class="op">=</span> <span class="fu">getSelectedEdges</span><span class="op">(</span><span class="op">)</span>, nodes.by.col <span class="op">=</span> <span class="st">"id"</span>, edges.by.col <span class="op">=</span> <span class="st">"name"</span><span class="op">)</span></span></code></pre></div>
+<p>Method 2: Using P2P functions.</p>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cfn_cccn.nodes.cdksubs.edges</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.0</span><span class="op">(</span>nodenames <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, edge.file <span class="op">=</span> <span class="va">cfn.cccn</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs.edges</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span>,</span>
-<span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 5"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Gives the exact same network.</span></span></code></pre></div>
+<span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 5"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
+<p>Both methods give the same result, which looks like this:
+<img src="vig_figs/Mod63_AllPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>Now further simplify the graph to show only CCCN PTMs.</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span><span class="va">cfn_cccn.nodes.cdksubs</span> <span class="op">&lt;-</span> <span class="va">cfn_cccn.nodes</span><span class="op">[</span><span class="va">cfn_cccn.nodes</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">cdk1.substrates</span>, <span class="op">]</span> <span class="co"># repeat of above to make this stand alone</span></span>
-<span></span>
-<span><span class="va">cdksubs.genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">Gene.Name</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cdksubs.genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">Gene.Name</span><span class="op">)</span></span>
 <span><span class="va">cdksubs.cfn</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.0</span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs.genes</span>, <span class="va">cfn.merged</span><span class="op">)</span></span>
 <span><span class="va">cdksubs.cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu">get.co.clustered.ptms</span><span class="op">(</span><span class="va">cdksubs.cfn</span>, ptm.cccn.edges<span class="op">=</span><span class="va">ptm.cccn.edges</span><span class="op">)</span></span>
 <span><span class="va">cdksubs.cfn.cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cdksubs.cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
@@ -501,21 +556,24 @@ Schraink, et al., 2023.</p>
 <span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cdksubs.cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cdksubs.cfn.cccn.nodes</span>,</span>
 <span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 6"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
+<p>This gives the following graph:
+<img src="vig_figs/CDKsub63_CCPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <p>Each of these graphs can be modified to set node size and shape using
 the following P2P functions that act on the front window in Cytoscape.
 Note the differences that reflect activation of different cell signaling
 pathways in tumors with different mutations: X02BR011 (AKT1 missense
 mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense
 and MLLT4 frameshift mutants).</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span></span>
 <span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span>  <span class="co"># This exaggerates the node size and shape somewhat. </span></span>
 <span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span></span>
 <span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span>    </span>
 <span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span>
-<span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Note that different samples have dramatically different differences in PTMs that are up or down, which is reflected also in total in gene nodes.</span></span></code></pre></div>
+<span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span></code></pre></div>
+<p>Note that different samples have dramatically different differences
+in PTMs that are up or down, which is reflected also in total in gene
+nodes.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

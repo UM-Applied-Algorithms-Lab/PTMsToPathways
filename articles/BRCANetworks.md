@@ -174,23 +174,22 @@ output for the first 3 clusters. PTMs are rows and samples are columns,
 and color represents the value of the PTM in that sample. Black
 indicates missing values.
 
-
-    ``` r
-    fig_dir <- knitr::opts_current$get("fig.path")
-    dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
-    output <- file.path(fig_dir, "ptm_all_clusters_l4.pdf")
-    res <- graph.ptm.by.cluster(
-         ptmtable         = ptmtable,
-         common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
-         filename         = output,
-         order.rows       = "slope",
-         zlim             = 3,
-         show.row.labels  = FALSE,
-         show.col.labels  = TRUE,
-         col_cex          = 0.7
-       )
-    >> Heatmap written to: plots//ptm_all_clusters_l4.pdf
-    knitr::include_graphics(output)
+``` r
+dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
+output <- file.path(fig_dir, "ptm_all_clusters_l4.pdf")
+res <- graph.ptm.by.cluster(
+     ptmtable         = ptmtable,
+     common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
+     filename         = output,
+     order.rows       = "slope",
+     zlim             = 3,
+     show.row.labels  = FALSE,
+     show.col.labels  = TRUE,
+     col_cex          = 0.7
+   )
+>> Heatmap written to: plots//ptm_all_clusters_l4.pdf
+knitr::include_graphics(output)
+```
 
 PTMsToPathways provides the function
 [`EvaluateClusters`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/references/EvaluateClusters.md)
@@ -429,7 +428,7 @@ Treat modules like our clusters:
 ``` r
 PD.module.list <- split(PD_module.df$Peptide.Name, PD_module.df$HDBSCAN.min_cluster_size.4)
 length(PD.module.list)
-PD.module.list[[69]] # this one has multiple for the same gene
+PD.module.list$`68` # this one has multiple for the same gene
 >> [1] 69
 >>  [1] "ARHGAP5 p S1218"           "C2CD5 p S295"             
 >>  [3] "CHAMP1 p S282s S284s S286" "CHAMP1 p S286s S297"      
@@ -450,7 +449,7 @@ in our clusters.
 PD.module.genes.unique <- lapply(
   PD.module.list,
   function(x) unique(sub(" .*", "", x)))
-PD.module.genes.unique[[69]]
+PD.module.genes.unique$`68`
 >>  [1] "ARHGAP5"  "C2CD5"    "CHAMP1"   "EIF2S2"   "KIAA0930" "LIG1"    
 >>  [7] "NIPBL"    "PKP3"     "PSIP1"    "RBM15B"   "RRAGC"    "SCAF11"  
 >> [13] "SF3B1"    "TOP1"     "WIZ"
@@ -458,70 +457,146 @@ PD.module.genes.unique[[69]]
 
 ### Compare P2P clusters and Schraink, et al. modules
 
-P2P identified different clusters than these modules.
+Let’s see which of our clusters have intersections with module 63. We
+will use this as an example to show how to explore the networks around a
+particular module of interest.
+
+``` r
+mod63.intersect <- Filter(length, Map(intersect, common.clusters, list(PD.module.list$`63`)))
+mod63.intersect
+>> $ConsensusCluster1
+>> [1] "BRCA2 p S93"
+>> 
+>> $ConsensusCluster2
+>> [1] "C12orf45 p S178" "MICAL3 p S1704"  "RANBP2 p S2606" 
+>> 
+>> $ConsensusCluster3
+>> [1] "CENPC p S177"       "DPF2 p T176"        "FKBP3 p S152"      
+>> [4] "NOLC1 p T617t T620"
+>> 
+>> $ConsensusCluster4
+>> [1] "CENPC p T130" "WRN p S1133" 
+>> 
+>> $ConsensusCluster5
+>> [1] "FLNB p S983"        "FOXK1 p S213s S223" "HEBP2 p S181"      
+>> [4] "HIST1H1E p T4"      "MEPCE p S254"       "RSF1 p S397"       
+>> 
+>> $ConsensusCluster6
+>> [1] "DOT1L p S834" "EHD1 p T468"  "ILF3 p T592"  "TCOF1 p T249" "XRCC6 p T455"
+>> 
+>> $ConsensusCluster7
+>> [1] "HMGA1 p T39t T53" "TPR p T1672"     
+>> 
+>> $ConsensusCluster9
+>> [1] "HMGA1 p T42"
+>> 
+>> $ConsensusCluster10
+>> [1] "HNRNPK p S216" "MBD2 p S181"  
+>> 
+>> $ConsensusCluster11
+>> [1] "LIG3 p T209"
+>> 
+>> $ConsensusCluster14
+>> [1] "NOLC1 p S518"
+>> 
+>> $ConsensusCluster15
+>> [1] "NUP98 p S822"
+>> 
+>> $ConsensusCluster16
+>> [1] "ZC3HC1 p S24s T28"
+```
+
+Interesctions were found in common.clusters$`ConsensusCluster1;
+common.clusters`$ConsensusCluster3; common.clusters$`ConsensusCluster4;
+common.clusters`$ConsensusCluster5; common.clusters\$ConsensusCluster6
+
+There are 204 PTMs in the P2P clusters that intersect with module 63:
+
+``` r
+mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1, common.clusters$ConsensusCluster3, common.clusters$ConsensusCluster4, common.clusters$ConsensusCluster5, common.clusters$ConsensusCluster6))
+length(mod63.clust.ptms)
+>> [1] 204
+```
+
+P2P provides functions to prepare visualizations of these PTMs in
+Cytoscape. This code graphs the CFN/CCCN from all these PTMs:
 
 ``` r
 
-
-mod63.interesct <- sapply(common.clusters, function(x) intersect(x, PD_module.list$`63`))
-
-# Interesctions were found in common.clusters$ConsensusCluster1; common.clusters$ConsensusCluster3; common.clusters$ConsensusCluster4; common.clusters$ConsensusCluster5; common.clusters$ConsensusCluster6
-
-# First, consider all ptms from major clusters that intersect with module 63
-mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1, common.clusters$ConsensusCluster3, common.clusters$ConsensusCluster4, common.clusters$ConsensusCluster5, common.clusters$ConsensusCluster6))
-
-# This code graphs the CFN/CCCN from all these PTMs:
-funckey <- getFuncKey(paste0(Data_repository_path, "FunctionKey.txt"))
+file_path <- system.file("extdata", "FunctionKey.txt", package = "PTMsToPathways")
+funckey <- getFuncKey(file_path)
 cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE)
+```
+
+To graph in Cytoscape:
+
+``` r
+
 g1 <- GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
                Network.title = "CFN/CCCN All PTMs 1", Network.collection = "PTMsToPathways")
  
 ```
 
+The above would create a graph using Cytoscape, which would look like:
+![](vig_figs/Mod63_AllPTMs_X03BR011.png)
+
 This is a complex graph that shows PTMs clusters as cliques connected by
 yellow correlation edges surrounding a CFN of interconnected gene nodes.
 
 Let’s focus on CDK1 substrates to complement the work done in Schraink,
-et al., 2023.
+et al., 2023. There are 82 CDK1 edges.
+
+``` r
+cdk1.kinsub <- filter.edges.1("CDK1", kinsub.edges)
+dim(cdk1.kinsub)
+head(cdk1.kinsub)
+>> [1] 82  4
+>>      source  target interaction Weight
+>> 7309   CDK1   CHEK1          pp      1
+>> 7310   CDK1  CLASP2          pp      1
+>> 7311   CDK1   NOLC1          pp      1
+>> 7319   CDK1   SRRM2          pp      1
+>> 7328   CDK1    PAK1          pp      1
+>> 7329   CDK1 RPS6KB1          pp      1
+```
+
+Now let’s get the needed information about these edges:
 
 ``` r
 
-cdk1.kinsub <- filter.edges.1("CDK1", kinsub.edges) # 82 edges
-
 cdk1.substrates <- cdk1.kinsub [which(cdk1.kinsub$source=="CDK1"), "target"]
-
 cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.substrates, ]
 ```
 
-Two ways to select for CDK1 substrates are presented.
+Two ways to select for CDK1 substrates are presented. Method 1: Using
+RCy3.
 
 ``` r
 
-# Method 1: Using RCy3.
 selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
 selectEdgesConnectingSelectedNodes()
-
 createSubnetwork(nodes = getSelectedNodes(), edges = getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
+```
 
-# Method 2: Using P2P functions.
+Method 2: Using P2P functions.
+
+``` r
 
 cfn_cccn.nodes.cdksubs.edges <- filter.edges.0(nodenames = cfn_cccn.nodes.cdksubs$id, edge.file = cfn.cccn)
 
 g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges, cfn.nodes = cfn_cccn.nodes.cdksubs,
                Network.title = "CFN/CCCN All PTMs 5", Network.collection = "PTMsToPathways")
-
-# Gives the exact same network.
 ```
+
+Both methods give the same result, which looks like this:
+![](vig_figs/Mod63_AllPTMs_X03BR011.png)
 
 Now further simplify the graph to show only CCCN PTMs.
 
 ``` r
-
-
-cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.substrates, ] # repeat of above to make this stand alone
 
 cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$Gene.Name)
 cdksubs.cfn <- filter.edges.0(cfn_cccn.nodes.cdksubs.genes, cfn.merged)
@@ -532,6 +607,9 @@ cdksubs.cfn.cccn.nodes <- make.cytoscape.node.file(cdksubs.cfn.cccn, funckey, pt
 g3 <- GraphCfn(cfn.edges = cdksubs.cfn.cccn, cfn.nodes = cdksubs.cfn.cccn.nodes,
                Network.title = "CFN/CCCN All PTMs 6", Network.collection = "PTMsToPathways")
 ```
+
+This gives the following graph:
+![](vig_figs/CDKsub63_CCPTMs_X03BR011.png)
 
 Each of these graphs can be modified to set node size and shape using
 the following P2P functions that act on the front window in Cytoscape.
@@ -548,6 +626,8 @@ setNodeColorToRatios(plotcol="X21BR010")
 setNodeColorToRowz(plotcol="X21BR010")    
 setNodeColorToRatios(plotcol="X05BR045")
 setNodeColorToRowz(plotcol="X05BR045")
-
-# Note that different samples have dramatically different differences in PTMs that are up or down, which is reflected also in total in gene nodes.
 ```
+
+Note that different samples have dramatically different differences in
+PTMs that are up or down, which is reflected also in total in gene
+nodes.

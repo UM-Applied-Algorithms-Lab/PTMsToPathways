@@ -186,20 +186,20 @@ for generating the cluster list input.
 cl <- MakeClusterList(ex_tiny_ptm_table)
 #> Starting correlation calculations and t-SNE.
 #> This may take a few minutes or hours for large data sets.
-#> Spearman correlation calculation complete after 0.24 secs total.
-#> Spearman t-SNE calculation complete after 1.76 secs total.
-#> Euclidean distance calculation complete after 1.76 secs total.
-#> Euclidean t-SNE calculation complete after 3.5 secs total.
-#> Combined distance calculation complete after 3.5 secs total.
-#> SED t-SNE calculation complete after 5.16 secs total.
+#> Spearman correlation calculation complete after 0.27 secs total.
+#> Spearman t-SNE calculation complete after 1.79 secs total.
+#> Euclidean distance calculation complete after 1.79 secs total.
+#> Euclidean t-SNE calculation complete after 3.53 secs total.
+#> Combined distance calculation complete after 3.53 secs total.
+#> SED t-SNE calculation complete after 5.19 secs total.
 
-#> Clustering for Euclidean complete after 5.85 secs total.
+#> Clustering for Euclidean complete after 6.14 secs total.
 
-#> Clustering for Spearman complete after 5.85 secs total.
+#> Clustering for Spearman complete after 6.14 secs total.
 
-#> Clustering for SED complete after 5.86 secs total.
-#> Consensus clustering complete after 5.9 secs total.
-#> MakeClusterList complete after 5.9 secs total.
+#> Clustering for SED complete after 6.15 secs total.
+#> Consensus clustering complete after 6.19 secs total.
+#> MakeClusterList complete after 6.19 secs total.
 eval_df <- EvaluateClusters(cl[[1]], ex_tiny_ptm_table, data.type = "ratio")
 #> Starting Group 1
 #>   9 gene(s) culled by slope filter.
