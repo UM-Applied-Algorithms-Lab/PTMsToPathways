@@ -14,15 +14,15 @@ merge2cols(colv1, colv2)
 
 - colv1:
 
-  A numeric value from replicate 1.
+  A numeric value or vector from replicate 1.
 
 - colv2:
 
-  A numeric value from replicate 2.
+  A numeric value or vector from replicate 2.
 
 ## Value
 
-A numeric value or `NA`.
+A numeric value/vector or `NA`.
 
 ## Examples
 
@@ -31,4 +31,6 @@ merge2cols(10, 14)
 #> [1] 12
 merge2cols(NA, 14)
 #> [1] 14
+merge2cols(c(NA, 2, 4), c(3, NA, 6))
+#> [1] 3 2 5
 ```
