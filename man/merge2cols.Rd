@@ -7,12 +7,12 @@
 merge2cols(colv1, colv2)
 }
 \arguments{
-\item{colv1}{A numeric value from replicate 1.}
+\item{colv1}{A numeric value or vector from replicate 1.}
 
-\item{colv2}{A numeric value from replicate 2.}
+\item{colv2}{A numeric value or vector from replicate 2.}
 }
 \value{
-A numeric value or \code{NA}.
+A numeric value/vector or \code{NA}.
 }
 \description{
 Merges two numeric values from technical replicates by returning \code{NA} when
@@ -22,4 +22,5 @@ returning their mean when both are present.
 \examples{
 merge2cols(10, 14)
 merge2cols(NA, 14)
+merge2cols(c(NA, 2, 4), c(3, NA, 6))
 }

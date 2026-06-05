@@ -75,26 +75,35 @@ name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
 #' both are missing, returning the observed value when one is missing, or
 #' returning their mean when both are present.
 #'
-#' @param colv1 A numeric value from replicate 1.
-#' @param colv2 A numeric value from replicate 2.
+#' @param colv1 A numeric value or vector from replicate 1.
+#' @param colv2 A numeric value or vector from replicate 2.
 #'
-#' @return A numeric value or `NA`.
+#' @return A numeric value/vector or `NA`.
 #' @export
 #'
 #' @examples
 #' merge2cols(10, 14)
 #' merge2cols(NA, 14)
+#' merge2cols(c(NA, 2, 4), c(3, NA, 6))
 # Use this function to average technical replicates. This function ignores NA values in either column and takes the average in the case where there are two values.
 merge2cols <- function (colv1, colv2) {
-  newcolv=NA
-  if (is.na(colv1) & is.na(colv2)) {
-    newcolv=NA
-    return(newcolv)} else
-      if (is.na(colv1) | is.na(colv2)) {
-        newcolv <- sum(colv1, colv2, na.rm=TRUE)
-        return(newcolv) } else
-          newcolv <- (colv1 + colv2)/2
-        return(newcolv) }
+  if (length(colv1) != length(colv2)) {
+    stop("colv1 and colv2 must have the same length.")
+  }
+
+  colv1 <- as.numeric(colv1)
+  colv2 <- as.numeric(colv2)
+
+  out <- (colv1 + colv2) / 2
+  na1 <- is.na(colv1)
+  na2 <- is.na(colv2)
+
+  out[na1 & !na2] <- colv2[na1 & !na2]
+  out[!na1 & na2] <- colv1[!na1 & na2]
+  out[na1 & na2] <- NA_real_
+
+  out
+}
 
 # _________________________________________________________________________________
 # # Example data file /Users/markgrimes/Library/CloudStorage/Dropbox/_Work/R_/_LINCS/_KarenGuolin/unnormalized_separate_septm/phospho_cleaned_mapped.txt
