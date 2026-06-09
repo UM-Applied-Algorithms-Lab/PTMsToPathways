@@ -1,9 +1,64 @@
+#' Read Bioplanet File
+#'
+#' Reads a Bioplanet CSV file and converts it into a named list of pathways,
+#' where each list element is a character vector of gene symbols.
+#'
+#' @param bioplanet.file Path to a delimited Bioplanet text file.
+#'   Common delimiters such as comma, tab, semicolon, and pipe are supported.
+#'
+#' @return A named list of pathways and associated gene symbols.
+#' @export
+ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
+  required.cols <- c("PATHWAY_ID", "PATHWAY_NAME", "GENE_ID", "GENE_SYMBOL")
+
+  if (!is.character(bioplanet.file) || length(bioplanet.file) != 1L || is.na(bioplanet.file) || !nzchar(bioplanet.file)) {
+    stop("bioplanet.file must be a single non-empty file path string.")
+  }
+  if (!file.exists(bioplanet.file)) {
+    stop(paste(bioplanet.file, "not found. Please check your working directory."))
+  }
+
+  read_attempts <- list(
+    function(path) utils::read.csv(path, stringsAsFactors = FALSE),
+    function(path) utils::read.delim(path, stringsAsFactors = FALSE),
+    function(path) utils::read.table(path, sep = ";", header = TRUE, stringsAsFactors = FALSE),
+    function(path) utils::read.table(path, sep = "|", header = TRUE, stringsAsFactors = FALSE)
+  )
+
+  bioplanet <- NULL
+  for (reader in read_attempts) {
+    parsed <- tryCatch(reader(bioplanet.file), error = function(e) NULL)
+    if (!is.null(parsed) && is.data.frame(parsed)) {
+      missing.cols <- setdiff(required.cols, names(parsed))
+      if (length(missing.cols) == 0) {
+        bioplanet <- parsed
+        break
+      }
+    }
+  }
+
+  if (is.null(bioplanet)) {
+    stop("Could not parse bioplanet.file with a supported delimiter or required columns are missing.")
+  }
+
+  # Correct errors from Excel
+  bioplanet[, "GENE_SYMBOL"] <- sapply(bioplanet$GENE_SYMBOL, fix.excel)
+
+  # Turn Bioplanet table into list of pathways (character vectors of gene symbols)
+  PATHWAY_NAME <- NULL
+  pathways.list <- plyr::dlply(bioplanet, plyr::.(PATHWAY_NAME))
+  pathways.list <- lapply(pathways.list, `[`, "GENE_SYMBOL")
+  pathways.list <- lapply(pathways.list, unlist, use.names = FALSE)
+
+  pathways.list
+}
+
 #' Build Pathway Crosstalk Network
 #'
 #' Converts Bioplanet pathways from (<https://tripod.nih.gov/bioplanet/>)  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.
 #'
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
-#' @param bioplanet.file Either the name of the bioplanet pathway .csv file OR a dataframe. Lines of bioplanet should possess 4 values in the order "PATHWAY_ID","PATHWAY_NAME","GENE_ID","GENE_SYMBOL". Users not well versed in R should only pass in "yourfilename.csv"
+#' @param bioplanet.file Either the path to a delimited Bioplanet file, or a named list of pathways where each list element is a character vector of gene symbols.
 #' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
 #' @param PCN.edgelist.name Name of the PCN edgelist file to be created
 #' @return A list with these data structures at the given index: \enumerate{
@@ -14,7 +69,7 @@
 #' @export
 #'
 #' @examples
-#' Example_Output <- BuildPathwayCrosstalkNetwork(ex.common.clusters, ex.bioplanet, createfile = FALSE)
+#' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE)
 #' Example_Output[[1]][[3,]]
 #' Example_Output[[3]][[1:3]]
 BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd(), PCN.edgelist.name = "PCN_file"){
@@ -23,22 +78,19 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   message(start_time)
   if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
 
-  #### Read file in, converts to dataframe like with rows like: PATHWAY_ID | PATHWAY_NAME | GENE_ID | GENE_SYMBOL ###
-  if(is.character(bioplanet.file)){ #If Path to a .csv file (string input)
-    if(!file.exists(bioplanet.file)) stop(paste(bioplanet.file, "not found. Plese check your working directory."))
-    bioplanet <- utils::read.csv(bioplanet.file, stringsAsFactors = F) #Reads the file and turns it into a dataframe
+  # Accept either a file path or pre-built pathways.list
+  if (is.character(bioplanet.file)) {
+    pathways.list <- ReadBioplanetFile(bioplanet.file)
+  } else if (is.list(bioplanet.file) && !is.data.frame(bioplanet.file)) {
+    pathways.list <- bioplanet.file
+  } else {
+    stop(paste(class(bioplanet.file), "is not a supported file type. Please provide a file path or a named list of pathways."))
+  }
 
-  }else if(is.data.frame(bioplanet.file)){ bioplanet <- bioplanet.file #If data frame input
-
-  }else {stop(paste(class(bioplanet.file), "is not a supported file type. Please make sure you input a path to a .csv file or a data frame"))} #If unsupported
-
-  # Correct errors from Excel
-  bioplanet[, "GENE_SYMBOL"] <- sapply(bioplanet$GENE_SYMBOL, fix.excel)
-  ### Turn bioplanet into a list of pathways. Pathways are character vectors comprised of gene names ###
-  PATHWAY_NAME <- NULL #Gets rid of no binding note
-  pathways.list <- plyr::dlply(bioplanet, plyr::.(PATHWAY_NAME)) #Turn the bioplanet .csv into a list of data frames. Each data frame stores genes with the same PATHWAY_ID
-  pathways.list <- lapply(pathways.list, `[`, 4) #Modifies all data frames in the list to only have the GENE_SYMBOL column. Uses [] as a function, which I did not know you could do in R. Very cool.
-  pathways.list <- lapply(pathways.list, unlist, use.names = FALSE) #Since data frames are 1 row, turn data frames into character vectors
+  if (is.null(names(pathways.list)) || any(names(pathways.list) == "")) {
+    stop("pathways.list must be a named list with pathway names.")
+  }
+  pathways.list <- lapply(pathways.list, as.character)
 
 
   ### Functions to help caluclate the jaccard similarity ###
@@ -68,7 +120,8 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   rownames(CPE.matrix) <- names(common.clusters) #Names
   colnames(CPE.matrix) <- names(pathways.list)
 
-  pathways.temp <- as.data.frame(table(bioplanet$GENE_SYMBOL)) #Create table for how many times each gene appears in the pathways list. Needs to be converted into a named vector for efficent runtime.
+  #pathways.temp <- as.data.frame(table(bioplanet$GENE_SYMBOL)) #Create table for how many times each gene appears in the pathways list. Needs to be converted into a named vector for efficent runtime.
+  pathways.temp <- as.data.frame(table(unlist(pathways.list))) #Create table for how many times each gene appears in the pathways list. Needs to be converted into a named vector for efficent runtime.
   pathgene.count <- pathways.temp$Freq #Transform into a named vector
   names(pathgene.count) <- pathways.temp$Var1 #Now any string vector of genes like pathways.hash[[c("AARS", "ABCA1")]] will return the frequency of how many times those genes appear in the pathway list *in constant time*. Sum() to return the total
   get_weighted_gene_counts <- function(ptm_vec, pepsep = ";") {
