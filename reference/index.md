@@ -20,6 +20,8 @@
   : Make Correlation Network
 - [`MakeDBInput()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeDBInput.md)
   : Make Database Input File
+- [`ReadBioplanetFile()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ReadBioplanetFile.md)
+  : Read Bioplanet File
 - [`ex_pathways_list`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_pathways_list.md)
   : Pathways list
 - [`filter.edges.0()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/filter.edges.0.md)
