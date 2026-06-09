@@ -1,6 +1,6 @@
 Package: PTMsToPathways
 Title: Filtered CoCluster Correlation Network Guide
-Version: 0.0.0.9000
+Version: 0.99.0
 Authors@R: c(
     person("Mark", "Grimes", email = "first.last@example.com", role = c("aut", "cre")),
     person("Mikhail", "Ukrainetz", email = "first.last@example.com", role = c("aut")),
