@@ -179,11 +179,11 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.37 secs total.
->> Spearman t-SNE calculation complete after 42.47 secs total.
->> Euclidean distance calculation complete after 42.5 secs total.
->> Euclidean t-SNE calculation complete after 1.16 mins total.
->> Combined distance calculation complete after 1.16 mins total.
+>> Spearman correlation calculation complete after 13.27 secs total.
+>> Spearman t-SNE calculation complete after 42.71 secs total.
+>> Euclidean distance calculation complete after 42.75 secs total.
+>> Euclidean t-SNE calculation complete after 1.17 mins total.
+>> Combined distance calculation complete after 1.17 mins total.
 >> SED t-SNE calculation complete after 1.63 mins total.
 ```
 
@@ -197,7 +197,7 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.64 mins total.
+    >> Clustering for SED complete after 1.65 mins total.
     >> Consensus clustering complete after 1.65 mins total.
     >> MakeClusterList complete after 1.65 mins total.
 
@@ -273,9 +273,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.05 secs total.
+>> PTM CCCN complete after 0.06 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.81 secs total.
+>> Gene CCCN complete after 2.86 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -336,6 +336,12 @@ databases: STRING, GeneMANIA, and PhosphoSite Plus. Other databases can
 also be downloaded and added to the PPI network. All three external
 databases have different interfaces for downloading data, so we show how
 to retrieve data from each of them below.
+
+For this tutorial, we query STRINGdb and GeneMANIA directly. We also
+provide the option (using the switch local = TRUE) to retrive edges from
+human PPIs from these sources in pre-assembled files; the *BRCANetworks*
+vignette demonstrates how to get the STRING-db and GeneMANIA edges from
+the static downloaded networks.
 
 #### 1. STRINGdb
 
@@ -514,9 +520,9 @@ bioplanet.file <- system.file("extdata", "pathway.csv",
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
 >> Making PCN
->> 2026-06-09 18:36:46.016309
->> 2026-06-09 18:36:46.140679
->> Total time: 0.124369859695435
+>> 2026-06-09 20:04:12.875037
+>> 2026-06-09 20:04:12.988375
+>> Total time: 0.113338470458984
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]

@@ -5,7 +5,7 @@ cohort (BRCA, N = 122), produced by
 
 > **Proteogenomic landscape of breast cancer tumorigenesis and targeted
 > therapy** Krug, K., Jaehnig, E. J., Satpathy, S., Blumenberg, L.,
-> Karpova, A., Anurag, M., et al. *Cell* 183,
+> Karpova, A., Anurag, M., et al. *Cell* 183,
 > 1436PTMsToPathways::name6.e31
 
 And downloaded from Supplemental data S2 from
@@ -13,7 +13,7 @@ And downloaded from Supplemental data S2 from
 > **PhosphoDisco: A Toolkit for Co-regulated Phosphorylation Module
 > Discovery in Phosphoproteomic Data** Schraink, T., Blumenberg, L.,
 > Hussey, G., George, S., Miller, B., Mathew, N., Gonzalez-Robles, T.J.,
-> Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al. *Mol
+> Sviderskiy, V., Papagiannakopoulos, T., Possemato, R., et al. *Mol
 > Cell Proteomics* 22, 100596. 10.1016/j.mcpro.2023.100596
 
 First, let’s load the PTMsToPathways package so its functions are
@@ -244,9 +244,11 @@ eval_brca[1:10, ]
 ### Build Cluster Filtered Networks (CFNs) and Pathway Crosstalk Networks (PCNs)
 
 For PPI edges, the code below demonstrates how to get the STRING-db and
-GeneMANIA edges from the static downloaded networks. \[todo:
-instructions to download once these are available.\] Alternatively, the
-resulting data can be loaded from within the package.
+GeneMANIA edges from the static human PPI data downloaded as local
+files. \[todo: instructions to download once these are available.\]
+Alternatively, the PPI data can be obtained from STRINGdb and GeneMANIA
+websites as demonstrated in the [Creating Networks
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md).
 
 ``` r
 
@@ -259,8 +261,8 @@ stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
 )
 ```
 
-To avoid downloading the STRINGdb edges, they can be loaded from within
-the package:
+To avoid downloading the large STRINGdb edge file, edges from the BRCA
+gene set can be loaded from within the package:
 
 ``` r
 stringdb.edges <- BRCA_stringdb.edges
@@ -274,7 +276,12 @@ head(stringdb.edges)
 >> 3243   AAK1  CDK19 experimental     59
 ```
 
-Similary for GeneMANIA edges:
+The GeneMANIA human PPI edge file contains the following types of
+interactions: “Genetic Interactions”, “Pathway”, “Physical
+Interactions”, and “Predicted.”
+
+We choose all but “Genetic Interactions” to include using
+gm.interaction.types in the following function.
 
 ``` r
 
@@ -286,8 +293,8 @@ genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
 ```
 
-And again, to avoid downloading the GeneMANIA edges, they can be loaded
-from within the package:
+And again, to avoid downloading the large GeneMANIA edge file, BRCA gene
+edges can be loaded from within the package:
 
 ``` r
 genemania.edges <- BRCA_genemania.edges
@@ -301,15 +308,10 @@ head(genemania.edges)
 >> 4815223    EGFR  MAP2K1     Pathway   0.13
 ```
 
-This file contains the following types of interactions:
-
-``` r
-unique(genemania.edges$interaction)
->> [1] "Pathway"               "Physical Interactions" "Predicted"
-```
-
-We choose all but “Genetic Interactions” to include in the following
-function. \[todo: where is this filtering actually done?\]
+Next, we retrieve kinase-substrate edges, then obain the cluster
+filtered network, retaining PPIs only for proteins whose PTMs
+co-cluster, as demonstrated in the [Creating Networks
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md).
 
 ``` r
 file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
@@ -325,10 +327,9 @@ network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 dim(cfn)
-# 67376 edges [todo, these are off, is it a problem?]
+
 cfn.merged <- mergeEdges(cfn)
 dim(cfn.merged)
-# 27048 edges
 >> [1] 67139     4
 >> [1] 25896     4
 ```
@@ -382,8 +383,8 @@ head(PD_module.df)
 >> 6       ADD1  N462n S465s                          13
 ```
 
-Note differences from the PTM table imported above. To compare, we need
-to make them match.
+We note that there are differences from the PTM table imported above. We
+will work with those sites that match between ptmtable and PD_module.df
 
 ``` r
 length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
@@ -506,9 +507,8 @@ mod63.intersect
 >> [1] "ZC3HC1 p S24s T28"
 ```
 
-Interesctions were found in common.clusters$`ConsensusCluster1;
-common.clusters`$ConsensusCluster3; common.clusters$`ConsensusCluster4;
-common.clusters`$ConsensusCluster5; common.clusters\$ConsensusCluster6
+Interesctions of more than one PTM were found in ConsensusClusters 2, 3,
+4, 5, 6, 7, and 10.
 
 There are 204 PTMs in the P2P clusters that intersect with module 63:
 
@@ -540,6 +540,7 @@ g1 <- GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
 ```
 
 The above would create a graph using Cytoscape, which would look like:
+
 ![](vig_figs/Mod63_AllPTMs_X03BR011.png)
 
 This is a complex graph that shows PTMs clusters as cliques connected by
@@ -591,6 +592,7 @@ g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges, cfn.nodes = cfn_cccn.no
 ```
 
 Both methods give the same result, which looks like this:
+
 ![](vig_figs/CDKsub63_allPTMs_X03BR011.png)
 
 Now further simplify the graph to show only CCCN PTMs.
@@ -608,6 +610,7 @@ g3 <- GraphCfn(cfn.edges = cdksubs.cfn.cccn, cfn.nodes = cdksubs.cfn.cccn.nodes,
 ```
 
 This gives the following graph:
+
 ![](vig_figs/CDKsub63_CCPTMs_X03BR011.png)
 
 Each of these graphs can be modified to set node size and shape using
