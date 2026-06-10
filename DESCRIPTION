@@ -35,8 +35,7 @@ Suggests:
 VignetteBuilder:
     knitr
 Depends: 
-    R (>= 3.5)
-LazyData: true
+    R (>= 4.5.0)
 URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
 Config/testthat/edition: 3
 Additional_repositories: https://bioconductor.org/packages/3.21/bioc
