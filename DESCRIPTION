@@ -37,6 +37,7 @@ VignetteBuilder:
 Depends: 
     R (>= 4.5.0)
 URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
+BugReports: https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/issues/new
 Config/testthat/edition: 3
 Additional_repositories: https://bioconductor.org/packages/3.21/bioc
 biocViews: Software, Proteomics, MassSpectrometry, Pathways, Network
