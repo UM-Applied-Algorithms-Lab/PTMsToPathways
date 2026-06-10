@@ -49,8 +49,7 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' @export
 #'
 #' @examples
-#' # Live mode (original behaviour):
-#' # GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes)
+#' # GetSTRINGdb.edges(ex_gene_cccn_edges, ex_gene_cccn_nodes)
 #'
 #' # Local mode (future-proof, no internet required):
 #' # GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes,
@@ -83,7 +82,7 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     str.d <- dt[dt$database > 0, ]
     # str.dt <- interactions[interactions$database_transferred >  0, ]
     combined_interactions <- unique(rbind(str.e, str.d))
-    combined_interactions$edgeType <- "STRINGdb"
+    combined_interactions$edgeType <- "STRINGdb" # this throws an error if no interactions found
     combined_interactions[combined_interactions$experimental >
                             0, "edgeType"] <- "experimental"
 
@@ -106,15 +105,19 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
                                         link_data = 'full', input_directory = "")
 
     # Retrieve the proteins from the STRING database
+    message("Querying STRINGdb API for interactions between ", length(gene.cccn.nodes), " genes. This may take several minutes...")
     string.proteins <- string.db$get_proteins()
 
     # Map the genes to STRING IDs
+    message("Mapping genes to STRING IDs...")
     mapped.genes <- string.db$map(nodenames, "Gene.Names", removeUnmappedRows = TRUE)
 
     # Retrieve the interactions for the mapped genes
+    message("Retrieving interactions for mapped genes...")
     interactions <- string.db$get_interactions(mapped.genes$STRING_id)
 
     # Convert protein IDs to gene names
+    message("Formatting...")
     interactions$Gene.1 <- sapply(interactions$from, function(x)
       string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"])
     interactions$Gene.2 <- sapply(interactions$to, function(x)
@@ -256,7 +259,7 @@ GetGeneMANIA.edges <- function(gm.results.path,
   return(genemania.edges)
 }
 
-#' Format Kinsub Table
+#' Get Kinase-Substrate Edges
 #'
 #' Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
 #'
