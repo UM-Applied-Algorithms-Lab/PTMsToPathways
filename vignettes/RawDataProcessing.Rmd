@@ -177,8 +177,8 @@ file_path <- system.file("extdata", "phospho_cleaned_mapped.txt",
                          package = "PTMsToPathways")
 
 newphos <- utils::read.table(file_path, sep = "\t", skip = 0, header = TRUE,
-                             blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
-                             comment.char = "", stringsAsFactors = F)
+                             blank.lines.skip = TRUE, fill = TRUE, quote = "\"", dec = ".",
+                             comment.char = "", stringsAsFactors = FALSE)
 dim(newphos)
 ```
 
