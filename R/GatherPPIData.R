@@ -124,9 +124,9 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     interactions <- string.db$get_interactions(mapped.genes$STRING_id)
 
     # Convert protein IDs to gene names
-    interactions$Gene.1 <- sapply(interactions$from, function(x)
+    interactions$Gene.1 <- vapply(interactions$from, function(x)
       string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"])
-    interactions$Gene.2 <- sapply(interactions$to, function(x)
+    interactions$Gene.2 <- vapply(interactions$to, function(x)
       string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"])
 
     # Filter interactions based on evidence types
