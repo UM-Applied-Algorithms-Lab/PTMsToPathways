@@ -39,19 +39,11 @@ BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, 
   if(!is.null(db.filepaths)){
     for(path in db.filepaths){
       db.edges <- utils::read.table(path)
-      if(colnames(db.edges) != c("source", "target", "interaction", "Weight")){                        # Ensure the column names are the same
-        stop("WARNING: incorrect column names in the file " + path + ". Ensure the column names are as follows: source, target, interaction, Weight")
-      } else {
-        db.edges$Weight <- 100 * db.edges$Weight / max(db.edges$Weight, na.rm = TRUE)                  # return a range of 0 to 100
-        combined.PPIs <- rbind(combined.PPIs, db.edges)                                                # add it to combined.PPIs
-      }
+      db.edges$Weight <- 100 * db.edges$Weight / max(db.edges$Weight, na.rm = TRUE)                  # return a range of 0 to 100
+      combined.PPIs <- rbind(combined.PPIs, db.edges)                                                # add it to combined.PPIs
+      
     }
   }
-
-  # Check that all edge data objects are not NULL
-  if(is.null(combined.PPIs)){
-    stop("WARNING: no PPI edges found to create cluster filtered network!")
-    }
 
   cfn1 <- merge(gene.cccn.edges[,c("source", "target")], combined.PPIs, by=c("source", "target"))
 
