@@ -520,13 +520,13 @@ Schraink, et al., 2023. There are 82 CDK1 edges.</p>
 <span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="fu">dim</span>(cdk1.kinsub)</span>
 <span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="fu">head</span>(cdk1.kinsub)</span>
 <span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">82</span>  <span class="dv">4</span></span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>      source  target interaction Weight</span>
-<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7309</span>   CDK1   CHEK1          pp      <span class="dv">1</span></span>
-<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7310</span>   CDK1  CLASP2          pp      <span class="dv">1</span></span>
-<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7311</span>   CDK1   NOLC1          pp      <span class="dv">1</span></span>
-<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7319</span>   CDK1   SRRM2          pp      <span class="dv">1</span></span>
-<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7328</span>   CDK1    PAK1          pp      <span class="dv">1</span></span>
-<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">7329</span>   CDK1 RPS6KB1          pp      <span class="dv">1</span></span></code></pre></div>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>     source  target interaction Weight</span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">483</span>   CDK1   CHEK1          pp      <span class="dv">1</span></span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">484</span>   CDK1  CLASP2          pp      <span class="dv">1</span></span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">485</span>   CDK1   NOLC1          pp      <span class="dv">1</span></span>
+<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">486</span>   CDK1   SRRM2          pp      <span class="dv">1</span></span>
+<span id="cb32-10"><a href="#cb32-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">487</span>   CDK1    PAK1          pp      <span class="dv">1</span></span>
+<span id="cb32-11"><a href="#cb32-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">488</span>   CDK1 RPS6KB1          pp      <span class="dv">1</span></span></code></pre></div>
 <p>Now let’s get the needed information about these edges:</p>
 <div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cdk1.substrates</span> <span class="op">&lt;-</span> <span class="va">cdk1.kinsub</span> <span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/which.html" class="external-link">which</a></span><span class="op">(</span><span class="va">cdk1.kinsub</span><span class="op">$</span><span class="va">source</span><span class="op">==</span><span class="st">"CDK1"</span><span class="op">)</span>, <span class="st">"target"</span><span class="op">]</span></span>

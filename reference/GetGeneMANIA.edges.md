@@ -68,8 +68,7 @@ produces hs_interactions_hugo.tsv.
 # Live mode (original behaviour):
 ex.gm.results.path <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
 example.GeneMANIA.edges <- GetGeneMANIA.edges(ex.gm.results.path, ex.gene.cccn.nodes)
-#> Warning: file("") only supports open = "w+" and open = "w+b": using the former
-#> Error in start_line[1]:(end_line[1] - 1): NA/NaN argument
+#> Error: object 'ex.gene.cccn.nodes' not found
 
 # Local mode (future-proof, no internet required):
 # example.GeneMANIA.edges <- GetGeneMANIA.edges(

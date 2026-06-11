@@ -554,13 +554,13 @@ cdk1.kinsub <- filter.edges.1("CDK1", kinsub.edges)
 dim(cdk1.kinsub)
 head(cdk1.kinsub)
 >> [1] 82  4
->>      source  target interaction Weight
->> 7309   CDK1   CHEK1          pp      1
->> 7310   CDK1  CLASP2          pp      1
->> 7311   CDK1   NOLC1          pp      1
->> 7319   CDK1   SRRM2          pp      1
->> 7328   CDK1    PAK1          pp      1
->> 7329   CDK1 RPS6KB1          pp      1
+>>     source  target interaction Weight
+>> 483   CDK1   CHEK1          pp      1
+>> 484   CDK1  CLASP2          pp      1
+>> 485   CDK1   NOLC1          pp      1
+>> 486   CDK1   SRRM2          pp      1
+>> 487   CDK1    PAK1          pp      1
+>> 488   CDK1 RPS6KB1          pp      1
 ```
 
 Now let’s get the needed information about these edges:
