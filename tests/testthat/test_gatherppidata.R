@@ -3,8 +3,10 @@
 test_that("GetGeneMANIA.edges() gives right answer", {
   # set.seed(88) # Perhaps unnecessary
   
+  gene_cccn_nodes <- PTMsToPathways::ex_gene_cccn_nodes
+  
   path <- system.file('extdata/ex_genemania_interactions.txt', package='PTMsToPathways') # Accesses the path to this file even run on github or devtools::test
-  genemania_edges <- GetGeneMANIA.edges(path, ex_gene_cccn_nodes) # Run function and filter data
+  genemania_edges <- GetGeneMANIA.edges(path, gene_cccn_nodes) # Run function and filter data
   col_1 <- as.list(genemania_edges[,1])
   row_2 <- as.list(genemania_edges[2,])
   
