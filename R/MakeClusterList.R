@@ -71,7 +71,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
   ptmtable.dist <- as.matrix(stats::dist(ptmtable, method = "euclidean"))
 
   # Compute the maximum distance in the matrix, excluding NA values #
-  max.dist = max(ptmtable.dist, na.rm = TRUE)
+  max.dist <- max(ptmtable.dist, na.rm = TRUE)
 
   # Replace NA values in the distance matrix with 100 times the maximum distance #
   ptmtable.dist[is.na(ptmtable.dist)] <- 100 * max.dist
