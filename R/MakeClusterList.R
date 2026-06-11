@@ -35,7 +35,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
   # Add if statement here to make sure functions are formatted correctly #
   # Ensure ptmtable is a data frame with numeric values #
   PTMnames <- rownames(ptmtable)
-  if (!all(sapply(ptmtable, is.numeric))) {
+  if (!all(vapply(ptmtable, is.numeric, FUN.VALUE = logical(1) ))) {
     stop("All columns in 'ptmtable' must be numeric.")
   }
 
