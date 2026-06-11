@@ -79,7 +79,7 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
     # ptm.cccn  was returned above
     gene.cccn <- data.frame(ptm.cccn, row.names = rownames(ptm.cccn), check.rows=TRUE, check.names=FALSE, fix.empty.names = FALSE)
     # Check: identical(rownames(gene.cccn), colnames(gene.cccn)) # TRUE
-    gene.cccn$Gene.Name <- sapply(rownames(gene.cccn), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
+    gene.cccn$Gene.Name <- vapply(rownames(gene.cccn), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1], FUN.VALUE = character(1))
     # Use only upper triangle so correlations are not duplicated during the next step
     gene.cccn[lower.tri(gene.cccn)] <- NA
 
@@ -96,7 +96,7 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
     gene.cccn2 <- gene.cccn2[, 2:ncol(gene.cccn2)]
     # Transform to do the other dimension
     gene.cccn2 <- data.frame(t(gene.cccn2))
-    gene.cccn2$Gene <- sapply(rownames(gene.cccn2), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1])
+    gene.cccn2$Gene <- vapply(rownames(gene.cccn2), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1], FUN.VALUE = character(1))
     # Now sum the other dimension
     gene.cccn3 <- dplyr::summarise(
       dplyr::group_by(gene.cccn2, .data$Gene),
