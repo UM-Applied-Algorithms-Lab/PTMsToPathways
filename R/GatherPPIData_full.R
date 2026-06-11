@@ -226,14 +226,14 @@ GetSTRINGdbEdgesFull <- function(gene.cccn.edges,
 
     required.cols <- c(
       "source", "target",
-      "experimental", "database",
+      "experiments", "database",
       "combined_score"
     )
 
     if (include.transferred) {
       required.cols <- c(
         required.cols,
-        "experimental_transferred",
+        "experiments_transferred",
         "database_transferred"
       )
     }
@@ -256,12 +256,12 @@ GetSTRINGdbEdgesFull <- function(gene.cccn.edges,
     }
 
     if (include.transferred) {
-      keep <- dt$experimental > 0 |
-        dt$experimental_transferred > 0 |
+      keep <- dt$experiments > 0 |
+        dt$experiments_transferred > 0 |
         dt$database > 0 |
         dt$database_transferred > 0
     } else {
-      keep <- dt$experimental > 0 | dt$database > 0
+      keep <- dt$experiments > 0 | dt$database > 0
     }
 
     dt <- dt[keep, ]
@@ -276,22 +276,29 @@ GetSTRINGdbEdgesFull <- function(gene.cccn.edges,
     if (include.transferred) {
       dt[dt$database_transferred > 0, "edgeType"] <- "database_transferred"
       dt[dt$database > 0, "edgeType"] <- "database"
-      dt[dt$experimental_transferred > 0, "edgeType"] <- "experimental_transferred"
-      dt[dt$experimental > 0, "edgeType"] <- "experimental"
+      dt[dt$experiments_transferred > 0, "edgeType"] <- "experiments_transferred"
+      dt[dt$experiments > 0, "edgeType"] <- "experiments"
       dt$Weight <- rowSums(
-        dt[, c("experimental", "experimental_transferred",
+        dt[, c("experiments", "experiments_transferred",
                "database", "database_transferred"), drop = FALSE]
       )
     } else {
       dt[dt$database > 0, "edgeType"] <- "database"
-      dt[dt$experimental > 0, "edgeType"] <- "experimental"
+      dt[dt$experiments > 0, "edgeType"] <- "experiments"
       dt$Weight <- rowSums(
-        dt[, c("experimental", "database"), drop = FALSE]
+        dt[, c("experiments", "database"), drop = FALSE]
       )
     }
+    # After computing dt$edgeType and dt$Weight
 
-    stringdb.edges <- unique(dt[, c("source", "target", "edgeType", "Weight")])
+    # Canonicalize undirected edges: sort endpoints within each row
+    dt$u <- pmin(dt$source, dt$target)
+    dt$v <- pmax(dt$source, dt$target)
+
+    stringdb.edges <- unique(dt[, c("u", "v", "edgeType", "Weight")])
     colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
+    stringdb.edges$source <- as.character(stringdb.edges$source)
+    stringdb.edges$target <- as.character(stringdb.edges$target)
     rownames(stringdb.edges) <- NULL
     return(stringdb.edges)
   }
@@ -378,8 +385,8 @@ GetSTRINGdbEdgesFull <- function(gene.cccn.edges,
   if (include.transferred) {
     combined_interactions[combined_interactions$database_transferred > 0, "edgeType"] <- "database_transferred"
     combined_interactions[combined_interactions$database > 0, "edgeType"] <- "database"
-    combined_interactions[combined_interactions$experiments_transferred > 0, "edgeType"] <- "experimental_transferred"
-    combined_interactions[combined_interactions$experiments > 0, "edgeType"] <- "experimental"
+    combined_interactions[combined_interactions$experiments_transferred > 0, "edgeType"] <- "experiments_transferred"
+    combined_interactions[combined_interactions$experiments > 0, "edgeType"] <- "experiments"
 
     combined_interactions$Weight <- rowSums(
       combined_interactions[, c("experiments", "experiments_transferred",
@@ -387,7 +394,7 @@ GetSTRINGdbEdgesFull <- function(gene.cccn.edges,
     )
   } else {
     combined_interactions[combined_interactions$database > 0, "edgeType"] <- "database"
-    combined_interactions[combined_interactions$experiments > 0, "edgeType"] <- "experimental"
+    combined_interactions[combined_interactions$experiments > 0, "edgeType"] <- "experiments"
 
     combined_interactions$Weight <- rowSums(
       combined_interactions[, c("experiments", "database"), drop = FALSE]
