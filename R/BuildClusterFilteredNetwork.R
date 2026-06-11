@@ -58,7 +58,7 @@ BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, 
   # Undirected edges may be reversed in their order so merge the other way around.
   reversed <- combined.PPIs
   reversed <- reversed[ , c("target", "source", setdiff(names(gene.cccn.edges), c("source", "target")))]
-  colnames(reversed)[1:2] <- c("source", "target")  # Rename for merge compatibility
+  colnames(reversed)[seq_len(2)] <- c("source", "target")  # Rename for merge compatibility
   cfn2 <- merge(reversed[,c("source", "target")], combined.PPIs, by=c("source", "target"))
 
   # Combine both (removing redundant rows if needed)
