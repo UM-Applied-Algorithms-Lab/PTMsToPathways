@@ -17,7 +17,7 @@ Dataframe of 196 rows and 4 columns
 "Produced by BuildClusterFilteredNetwork"
 }
 \usage{
-data(ex_cfn)
+ex_cfn
 }
 \description{
 The Cluster Filtered Network is a filtered version of the Combined PPIs but only for proteins found to interact via t-SNE clusters

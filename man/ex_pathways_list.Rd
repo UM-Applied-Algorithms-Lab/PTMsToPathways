@@ -14,7 +14,7 @@ list of 9 character vectors
 "Produced by BuildPathwayCrosstalkNetwork"
 }
 \usage{
-data(ex_pathways_list)
+ex_pathways_list
 }
 \description{
 A list of pathway names and the genes that make them up
