@@ -16,7 +16,7 @@ Dataframe of 125 rows and 7 columns:
 "Sub-data frame of the small PTM table"
 }
 \usage{
-ex_tiny_ptm_table
+data(ex_tiny_ptm_table)
 }
 \description{
 Post-translational modification data under certain environmental conditions.

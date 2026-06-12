@@ -14,7 +14,7 @@ List of 140 lists:
 "Produced by MakeClusterList"
 }
 \usage{
-ex_common_clusters
+data(ex_common_clusters)
 }
 \description{
 Clusters that contain PTMs that are found to cocluster in all 3 T-SNE lists.

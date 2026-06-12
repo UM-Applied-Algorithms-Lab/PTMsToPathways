@@ -2,21 +2,36 @@
 % Please edit documentation in R/GatherPPIData.R
 \name{GetKinsub.edges}
 \alias{GetKinsub.edges}
-\title{Format Kinsub Table}
+\title{Get Kinase-Substrate Edges}
 \usage{
 GetKinsub.edges(
   kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
-  gene.cccn.nodes
+  gene.cccn.nodes,
+  symbol.map = NULL
 )
 }
 \arguments{
-\item{kinasesubstrate.filename}{The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads}
+\item{kinasesubstrate.filename}{Path to the kinase substrate database file.}
 
-\item{gene.cccn.nodes}{A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
+\item{gene.cccn.nodes}{Character vector of CCCN node symbols.}
+
+\item{symbol.map}{Optional data frame produced by \code{StandardizeGeneSymbols()}.
+If supplied, \code{gene.cccn.nodes} will be converted to \code{standard_symbol}
+before filtering.}
 }
 \value{
-An edgelist filtered by the gene cccn and nodenames
+Data frame with columns: source, target, interaction, Weight
 }
 \description{
-Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
+Read a kinase-substrate dataset from PhosphoSitePlus and return an edge list
+filtered to the supplied node set. Optionally standardizes the node list using
+a precomputed symbol map.
+}
+\examples{
+# sym.map <- StandardizeGeneSymbols(ex.gene.cccn.nodes)
+# ks.edges <- GetKinsub.edges(
+#   kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
+#   gene.cccn.nodes = ex.gene.cccn.nodes,
+#   symbol.map = sym.map
+# )
 }
