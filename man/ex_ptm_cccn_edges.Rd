@@ -17,7 +17,7 @@ Data Frame of 5710 rows and 4 columns
 "Produced by MakeCorrelationNetwork"
 }
 \usage{
-data(ex_ptm_cccn_edges)
+ex_ptm_cccn_edges
 }
 \description{
 PTM Co-Cluster Correlation Network as an Edgelist

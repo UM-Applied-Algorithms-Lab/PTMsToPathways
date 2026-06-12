@@ -14,7 +14,7 @@ Character Vector of length 390
 "Produced by MakeCorrelationNetwork"
 }
 \usage{
-data(ex_gene_cccn_nodes)
+ex_gene_cccn_nodes
 }
 \description{
 List of Genes gotten from PTMs

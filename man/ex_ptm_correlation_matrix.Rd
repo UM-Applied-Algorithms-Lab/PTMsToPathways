@@ -15,7 +15,7 @@ Square matrix of 908 rows and columns:
 "Produced by MakeClusterList"
 }
 \usage{
-data(ex_ptm_correlation_matrix)
+ex_ptm_correlation_matrix
 }
 \description{
 Matrix relating the correlation values between ptms based on Spearman Similarity.
