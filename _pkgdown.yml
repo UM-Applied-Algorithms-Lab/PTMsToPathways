@@ -19,6 +19,8 @@ navbar:
           href: articles/CreatingNetworks.html
         - text: "Cytoscape Graphing"
           href: articles/CytoscapeGraphing.html
+        - text: "BRCA Networks"
+          href: articles/BRCANetworks.html
 
 articles:
 - title: Articles
@@ -27,3 +29,4 @@ articles:
   - RawDataProcessing
   - CreatingNetworks
   - CytoscapeGraphing
+  - BRCANetworks

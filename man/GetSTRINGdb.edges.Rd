@@ -30,11 +30,6 @@ Data frame of consisting of the network of interactions from the genes of study 
 \description{
 This function finds protein-protein interaction weights by consulting the STRINGdb database,
 either live via the STRINGdb R package or from a locally pre-downloaded flat file.
-The package STRINGdb is required for the live mode. To download, run:
-\itemize{
-\item if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-\item BiocManager::install("STRINGdb")
-}
 
 For the local mode, download the full detailed network file for Homo sapiens from:
 https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz

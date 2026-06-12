@@ -1,3 +1,113 @@
+#' Standardize Gene Symbols
+#'
+#' @description
+#' Standardize a vector of gene symbols to STRING preferred names for Homo sapiens.
+#' This is intended as a one-time workflow helper so downstream network retrieval
+#' functions can use a consistent symbol vocabulary across STRING, GeneMANIA,
+#' and kinase-substrate resources.
+#'
+#' @param genes Character vector of gene symbols.
+#' @param species NCBI taxonomy ID. Default is 9606 (Homo sapiens).
+#' @param string.version STRING version. Default is "12.0".
+#' @param keep.unmapped Logical. If TRUE, unmapped input symbols are retained as-is
+#'   in the `standard_symbol` column. Default is TRUE.
+#'
+#' @return
+#' A data frame with columns:
+#' \describe{
+#'   \item{input_symbol}{Original supplied symbol}
+#'   \item{STRING_id}{Mapped STRING protein identifier, if available}
+#'   \item{standard_symbol}{STRING preferred_name when mapped; otherwise input symbol if keep.unmapped = TRUE}
+#'   \item{mapped}{Logical indicating whether a STRING mapping was found}
+#' }
+#'
+#' @export
+#'
+#' @examples
+#' # sym.map <- StandardizeGeneSymbols(c("EPRS", "QARS", "DDR1", "DDR2"))
+#' # unique(sym.map$standard_symbol)
+StandardizeGeneSymbols <- function(genes,
+                                   species = 9606,
+                                   string.version = "12.0",
+                                   keep.unmapped = TRUE) {
+
+  if (!requireNamespace("STRINGdb", quietly = TRUE)) {
+    stop("Please install STRINGdb: BiocManager::install('STRINGdb')")
+  }
+
+  if (!is.character(genes) || length(genes) == 0) {
+    stop("`genes` must be a non-empty character vector.")
+  }
+
+  genes <- unique(as.character(genes))
+  input.df <- data.frame(Gene.Names = genes, stringsAsFactors = FALSE)
+
+  string.db <- STRINGdb::STRINGdb$new(
+    version = string.version,
+    species = species,
+    score_threshold = 0,
+    network_type = "full",
+    link_data = "full",
+    input_directory = ""
+  )
+
+  mapped <- string.db$map(input.df, "Gene.Names", removeUnmappedRows = FALSE)
+
+  out <- data.frame(
+    input_symbol = mapped$Gene.Names,
+    STRING_id = if ("STRING_id" %in% colnames(mapped)) mapped$STRING_id else NA_character_,
+    standard_symbol = if ("preferred_name" %in% colnames(mapped)) mapped$preferred_name else NA_character_,
+    mapped = !is.na(if ("STRING_id" %in% colnames(mapped)) mapped$STRING_id else NA_character_),
+    stringsAsFactors = FALSE
+  )
+
+  if (keep.unmapped) {
+    out$standard_symbol[is.na(out$standard_symbol)] <- out$input_symbol[is.na(out$standard_symbol)]
+  }
+
+  out
+}
+
+
+#' Map input nodes with a precomputed symbol map
+#'
+#' @description
+#' Internal helper that converts a character vector of input node symbols to
+#' standardized symbols using a data frame produced by
+#' `StandardizeGeneSymbols()`. Unmapped symbols are retained as originally
+#' supplied.
+#'
+#' @param gene.cccn.nodes Character vector of node symbols.
+#' @param symbol.map Optional data frame containing at least the columns
+#'   `input_symbol` and `standard_symbol`, typically produced by
+#'   `StandardizeGeneSymbols()`. If `NULL`, `gene.cccn.nodes` is returned
+#'   unchanged.
+#'
+#' @return Character vector of unique standardized node symbols.
+#'
+#' @keywords internal
+.map_nodes_with_symbol_map <- function(gene.cccn.nodes, symbol.map = NULL) {
+  nodes <- unique(as.character(gene.cccn.nodes))
+
+  if (is.null(symbol.map)) {
+    return(nodes)
+  }
+
+  required.map.cols <- c("input_symbol", "standard_symbol")
+  missing.map.cols <- setdiff(required.map.cols, colnames(symbol.map))
+  if (length(missing.map.cols) > 0) {
+    stop(
+      "`symbol.map` is missing required columns: ",
+      paste(missing.map.cols, collapse = ", ")
+    )
+  }
+
+  idx <- match(nodes, symbol.map$input_symbol)
+  mapped.nodes <- symbol.map$standard_symbol[idx]
+  mapped.nodes[is.na(mapped.nodes)] <- nodes[is.na(mapped.nodes)]
+
+  unique(mapped.nodes)
+}
 #' Make Database Input File
 #'
 #' This function outputs a file consisting entirely of gene names, each produced on a new line. This data can be copy and pasted into
@@ -14,9 +124,7 @@
 #' cat(ex.nodenames[[1]], sep = '\n')
 MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
   utils::write.table(unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
-  }
-
-
+}
 # Pulls nodenames from the gene.cccn
 #
 # This helper function pulls the gene names from the gene.cccn into a list 'nodenames'
@@ -25,288 +133,463 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 # @return data frame of the names of the genes
 
 
-#' @title Get STRINGdb PPI data
+#' Get STRINGdb PPI data from full local or live source
 #'
-#' @description This function finds protein-protein interaction weights by consulting the STRINGdb database,
-#' either live via the STRINGdb R package or from a locally pre-downloaded flat file.
-#' The package STRINGdb is required for the live mode. To download, run:
-#' - if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-#' - BiocManager::install("STRINGdb")
+#' @description
+#' Retrieve STRINGdb protein-protein interaction edges for a supplied gene set,
+#' either from a precomputed local file derived from protein.links.full.v12.0.txt.gz
+#' or live via the STRINGdb R package.
 #'
-#' For the local mode, download the full detailed network file for Homo sapiens from:
-#' https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz
-#' and pre-process it to HUGO symbols using the companion script scripts/string_to_hugo.r.
-#' The resulting file (string_hs_hugo.tsv) is the expected input for local mode.
-#' 'Group' is the interaction category (included: "Pathway", "Physical Interactions", "Predicted", "Genetic Interactions")
-#' @details The full example takes ~10 minutes to load in live mode, so it has been commented out and the results are displayed.
+#' In local mode, this function performs no web/API queries. To avoid symbol
+#' mismatches, users are encouraged to standardize their node list in advance
+#' with `StandardizeGeneSymbols()`.
 #'
-#' @param gene.cccn.edges A dataframe showing interaction relationships between proteins using common PTM clusters derived from three distance metrics (Euclidean, Spearman, and Combined (SED))
-#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
-#' @param local Logical. If TRUE, reads from a pre-downloaded local file instead of querying the live STRINGdb API. Default is FALSE.
-#' @param string.local.path Path to the pre-processed local STRING file (string_hs_hugo.tsv produced by scripts/string_to_hugo.r).
-#'   Only used when local = TRUE. Default is "string_hs_hugo.tsv".
-#' @param combined.score.threshold Integer (0–1000). Minimum combined_score to retain an edge when reading from the
-#'   local file. STRING thresholds: low = 150, medium = 400, high = 700, highest = 900. Default is 400.
+#' @param gene.cccn.edges Data frame of CCCN edges (currently unused; retained
+#'   for compatibility with older package API).
+#' @param gene.cccn.nodes Character vector of gene symbols to retain.
+#' @param local Logical. If TRUE, read only from a local precomputed file and do
+#'   not query STRINGdb online. Default is FALSE.
+#' @param string.local.path Path to local TSV produced from protein.links.full
+#'   with transferred columns included. Default is "string_hs_hugo_full.tsv".
+#' @param combined.score.threshold Integer (0-1000). Minimum combined_score to
+#'   retain an edge. Default is 400.
+#' @param include.transferred Logical. If TRUE, include *_transferred evidence
+#'   channels. If FALSE, omit them. Default is TRUE.
+#' @param symbol.map Optional data frame produced by `StandardizeGeneSymbols()`.
+#'   If supplied, `gene.cccn.nodes` will be converted to `standard_symbol`
+#'   before filtering. Useful for keeping local mode fully offline.
 #'
-#' @return Data frame of consisting of the network of interactions from the genes of study pulled from the STRINGdb database and a list of gene names
+#' @return Data frame with columns: source, target, interaction, Weight
 #' @export
 #'
 #' @examples
-#' # Live mode (original behaviour):
-#' # GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes)
-#'
-#' # Local mode (future-proof, no internet required):
-#' # GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes,
-#' #                   local = TRUE, string.local.path = "string_hs_hugo.tsv")
-#'
-#' utils::head(ex.stringdb.edges)
-#' utils::head(ex.nodenames)
+#' # sym.map <- StandardizeGeneSymbols(ex.gene.cccn.nodes)
+#' # x <- GetSTRINGdbEdgesFull(
+#' #   ex.gene.cccn.edges,
+#' #   ex.gene.cccn.nodes,
+#' #   local = TRUE,
+#' #   string.local.path = "string_hs_hugo_full.tsv",
+#' #   combined.score.threshold = 400,
+#' #   include.transferred = TRUE,
+#' #   symbol.map = sym.map
+#' # )
 GetSTRINGdb.edges <- function(gene.cccn.edges,
-                               gene.cccn.nodes,
-                               local                  = FALSE,
-                               string.local.path      = "string_hs_hugo.tsv") {
+                                 gene.cccn.nodes,
+                                 local = FALSE,
+                                 string.local.path = "string_hs_hugo_full.tsv",
+                                 combined.score.threshold = 400,
+                                 include.transferred = TRUE,
+                                 symbol.map = NULL) {
 
+  if (!is.character(gene.cccn.nodes) || length(gene.cccn.nodes) == 0) {
+    stop("`gene.cccn.nodes` must be a non-empty character vector.")
+  }
+
+  if (!is.numeric(combined.score.threshold) ||
+      length(combined.score.threshold) != 1 ||
+      is.na(combined.score.threshold) ||
+      combined.score.threshold < 0 ||
+      combined.score.threshold > 1000) {
+    stop("`combined.score.threshold` must be a single number between 0 and 1000.")
+  }
+
+  # --------------------------------------------------------------------------
+  # Standardize nodes if a symbol map is supplied
+  # --------------------------------------------------------------------------
+  nodes <- .map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map)
+
+
+  # --------------------------------------------------------------------------
+  # Helper for empty returns
+  # --------------------------------------------------------------------------
+  .empty_edges <- function() {
+    data.frame(
+      source = character(0),
+      target = character(0),
+      interaction = character(0),
+      Weight = numeric(0),
+      stringsAsFactors = FALSE
+    )
+  }
+
+  # --------------------------------------------------------------------------
+  # Local mode: fully offline
+  # --------------------------------------------------------------------------
   if (local) {
-    # ---- Local mode: read pre-downloaded HUGO-mapped file ----
-    if (!file.exists(string.local.path))
+    if (!file.exists(string.local.path)) {
       stop("Local STRING file not found: ", string.local.path,
-           "\nGenerate it with scripts/string_to_hugo.r or set local = FALSE to use the live API.")
-
-    if (!requireNamespace("data.table", quietly = TRUE))
-      stop("Please install data.table: install.packages('data.table')")
+           "\nGenerate it from protein.links.full.v12.0.txt.gz first.")
+    }
 
     message("Reading local STRING file: ", string.local.path)
-    dt <- data.table::fread(string.local.path, sep = "\t")
-    # Expected columns: source target interaction Weight neighborhood fusion
-    #                   cooccurence coexpression experimental database
-    #                   textmining combined_score
+    dt <- utils::read.delim(string.local.path, stringsAsFactors = FALSE)
 
-    # Filter to nodes present in gene.cccn.nodes (both ends must be in the set)
-    dt <- dt[source %in% gene.cccn.nodes & target %in% gene.cccn.nodes]
-    # note experimental not experiments and no "transferred" in this file
-    str.e <- dt[dt$experimental > 0, ]
-    #str.et <- interactions[interactions$experiments_transferred >  0, ]
-    str.d <- dt[dt$database > 0, ]
-    # str.dt <- interactions[interactions$database_transferred >  0, ]
-    combined_interactions <- unique(rbind(str.e, str.d))
-    combined_interactions$edgeType <- "STRINGdb"
-    combined_interactions[combined_interactions$experimental >
-                            0, "edgeType"] <- "experimental"
+    required.cols <- c(
+      "source", "target",
+      "experiments", "database",
+      "combined_score"
+    )
 
-    combined_interactions[combined_interactions$database > 0,
-                          "edgeType"] <- "database"
+    if (include.transferred) {
+      required.cols <- c(
+        required.cols,
+        "experiments_transferred",
+        "database_transferred"
+      )
+    }
 
-    combined_interactions$Weight <- rowSums(combined_interactions[, c("experimental", "database")])
-    stringdb.edges <- combined_interactions[, c("source", "target", "edgeType", "Weight")]
+    missing.cols <- setdiff(required.cols, colnames(dt))
+    if (length(missing.cols) > 0) {
+      stop("Local STRING file is missing required columns: ",
+           paste(missing.cols, collapse = ", "))
+    }
+
+    dt <- dt[
+      dt$combined_score >= combined.score.threshold &
+        dt$source %in% nodes &
+        dt$target %in% nodes,
+    ]
+
+    if (nrow(dt) == 0) {
+      warning("No local STRING edges passed the filters.")
+      return(.empty_edges())
+    }
+
+    if (include.transferred) {
+      keep <- dt$experiments > 0 |
+        dt$experiments_transferred > 0 |
+        dt$database > 0 |
+        dt$database_transferred > 0
+    } else {
+      keep <- dt$experiments > 0 | dt$database > 0
+    }
+
+    dt <- dt[keep, ]
+
+    if (nrow(dt) == 0) {
+      warning("No local STRING edges with selected evidence types passed the filters.")
+      return(.empty_edges())
+    }
+
+    dt$edgeType <- "STRINGdb"
+
+    if (include.transferred) {
+      dt[dt$database_transferred > 0, "edgeType"] <- "database_transferred"
+      dt[dt$database > 0, "edgeType"] <- "database"
+      dt[dt$experiments_transferred > 0, "edgeType"] <- "experiments_transferred"
+      dt[dt$experiments > 0, "edgeType"] <- "experiments"
+      dt$Weight <- rowSums(
+        dt[, c("experiments", "experiments_transferred",
+               "database", "database_transferred"), drop = FALSE]
+      )
+    } else {
+      dt[dt$database > 0, "edgeType"] <- "database"
+      dt[dt$experiments > 0, "edgeType"] <- "experiments"
+      dt$Weight <- rowSums(
+        dt[, c("experiments", "database"), drop = FALSE]
+      )
+    }
+    # After computing dt$edgeType and dt$Weight
+
+    # Canonicalize undirected edges: sort endpoints within each row
+    dt$u <- pmin(dt$source, dt$target)
+    dt$v <- pmax(dt$source, dt$target)
+
+    stringdb.edges <- unique(dt[, c("u", "v", "edgeType", "Weight")])
     colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
-    # Return columns matching the live-mode output
-    stringdb.edges <- as.data.frame(dt[, .(source, target, interaction, Weight)])
+    stringdb.edges$source <- as.character(stringdb.edges$source)
+    stringdb.edges$target <- as.character(stringdb.edges$target)
+    rownames(stringdb.edges) <- NULL
+    return(stringdb.edges)
+  }
 
-  } else {
-    # ---- Live mode: original STRINGdb API behaviour ----------
-    nodenames <- data.frame(Gene.Names = gene.cccn.nodes)
+  # --------------------------------------------------------------------------
+  # Live mode
+  # --------------------------------------------------------------------------
+  if (!requireNamespace("STRINGdb", quietly = TRUE)) {
+    stop("Please install STRINGdb: BiocManager::install('STRINGdb')")
+  }
 
-    if (!requireNamespace("STRINGdb", quietly = TRUE))
-      stop("In order to use this function, please download STRINGdb as described in the vignette, the readme, and the function documentation.")
+  nodenames <- data.frame(Gene.Names = nodes, stringsAsFactors = FALSE)
 
-    # Initialize the STRING database object
-    string.db <- STRINGdb::STRINGdb$new(version = "12.0", species = 9606,
-                                        score_threshold = 0, network_type = "full",
-                                        link_data = 'full', input_directory = "")
+  string.db <- STRINGdb::STRINGdb$new(
+    version = "12.0",
+    species = 9606,
+    score_threshold = 0,
+    network_type = "full",
+    link_data = "full",
+    input_directory = ""
+  )
 
-    # Retrieve the proteins from the STRING database
-    string.proteins <- string.db$get_proteins()
+  message("Querying STRINGdb for interactions between ", length(nodes), " genes...")
+  string.proteins <- string.db$get_proteins()
 
-    # Map the genes to STRING IDs
-    mapped.genes <- string.db$map(nodenames, "Gene.Names", removeUnmappedRows = TRUE)
+  message("Mapping genes to STRING IDs...")
+  mapped.genes <- string.db$map(nodenames, "Gene.Names", removeUnmappedRows = TRUE)
 
-    # Retrieve the interactions for the mapped genes
-    interactions <- string.db$get_interactions(mapped.genes$STRING_id)
+  if (nrow(mapped.genes) == 0) {
+    warning("No input genes could be mapped to STRING.")
+    return(.empty_edges())
+  }
 
-    # Convert protein IDs to gene names
-    interactions$Gene.1 <- vapply(interactions$from, function(x)
-      string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"], FUN.VALUE=character(1))
-    interactions$Gene.2 <- vapply(interactions$to, function(x)
-      string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"], FUN.VALUE=character(1))
+  message("Retrieving interactions for mapped genes...")
+  interactions <- string.db$get_interactions(mapped.genes$STRING_id)
 
-    # Filter interactions based on evidence types
+  if (nrow(interactions) == 0) {
+    warning("STRINGdb returned no interactions.")
+    return(.empty_edges())
+  }
+
+  message("Formatting...")
+  interactions$Gene.1 <- vapply(interactions$from, function(x) {
+    string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
+  }, FUN.VALUE=character(1))
+  interactions$Gene.2 <- vapply(interactions$to, function(x) {
+    string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
+  }, FUN.VALUE=character(1))
+
+  if (!"combined_score" %in% colnames(interactions)) {
+    stop("Live STRINGdb interactions did not include a `combined_score` column.")
+  }
+
+  interactions <- interactions[
+    interactions$combined_score >= combined.score.threshold &
+      interactions$Gene.1 %in% nodes &
+      interactions$Gene.2 %in% nodes,
+  ]
+
+  if (nrow(interactions) == 0) {
+    warning("No live STRING edges passed the filters.")
+    return(.empty_edges())
+  }
+
+  if (include.transferred) {
     str.e  <- interactions[interactions$experiments > 0, ]
     str.et <- interactions[interactions$experiments_transferred > 0, ]
     str.d  <- interactions[interactions$database > 0, ]
     str.dt <- interactions[interactions$database_transferred > 0, ]
-
-    # Combine filtered interactions
     combined_interactions <- unique(rbind(str.e, str.et, str.d, str.dt))
-
-    # Assign edge types
-    combined_interactions$edgeType <- "STRINGdb"
-    combined_interactions[combined_interactions$experiments > 0,             "edgeType"] <- "experimental"
-    combined_interactions[combined_interactions$experiments_transferred > 0, "edgeType"] <- "experimental_transferred"
-    combined_interactions[combined_interactions$database > 0,                "edgeType"] <- "database"
-    combined_interactions[combined_interactions$database_transferred > 0,    "edgeType"] <- "database_transferred"
-
-    # Calculate weights
-    combined_interactions$Weight <- rowSums(combined_interactions[,
-      c("experiments", "experiments_transferred", "database", "database_transferred")])
-
-    # Create the final edges dataframe from STRINGdb
-    stringdb.edges <- combined_interactions[, c("Gene.1", "Gene.2", "edgeType", "Weight")]
-    colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
+  } else {
+    str.e <- interactions[interactions$experiments > 0, ]
+    str.d <- interactions[interactions$database > 0, ]
+    combined_interactions <- unique(rbind(str.e, str.d))
   }
 
-  return(stringdb.edges)
+  if (nrow(combined_interactions) == 0) {
+    warning("No live STRING edges with selected evidence types passed the filters.")
+    return(.empty_edges())
+  }
+
+  combined_interactions$edgeType <- "STRINGdb"
+
+  if (include.transferred) {
+    combined_interactions[combined_interactions$database_transferred > 0, "edgeType"] <- "database_transferred"
+    combined_interactions[combined_interactions$database > 0, "edgeType"] <- "database"
+    combined_interactions[combined_interactions$experiments_transferred > 0, "edgeType"] <- "experiments_transferred"
+    combined_interactions[combined_interactions$experiments > 0, "edgeType"] <- "experiments"
+
+    combined_interactions$Weight <- rowSums(
+      combined_interactions[, c("experiments", "experiments_transferred",
+                                "database", "database_transferred"), drop = FALSE]
+    )
+  } else {
+    combined_interactions[combined_interactions$database > 0, "edgeType"] <- "database"
+    combined_interactions[combined_interactions$experiments > 0, "edgeType"] <- "experiments"
+
+    combined_interactions$Weight <- rowSums(
+      combined_interactions[, c("experiments", "database"), drop = FALSE]
+    )
+  }
+
+  stringdb.edges <- unique(combined_interactions[, c("Gene.1", "Gene.2", "edgeType", "Weight")])
+  colnames(stringdb.edges) <- c("source", "target", "interaction", "Weight")
+  rownames(stringdb.edges) <- NULL
+
+  stringdb.edges
 }
 
 
 #' Get GeneMANIA Edges
 #'
-#' This function returns a filtered GeneMANIA edge list, either by parsing a
-#' GeneMANIA Cytoscape export file (original behaviour) or by reading a
-#' pre-downloaded full Homo sapiens network (local mode).
+#' @description
+#' Return a filtered GeneMANIA edge list, either by parsing a GeneMANIA
+#' Cytoscape export file (original behaviour) or by reading a pre-downloaded
+#' full Homo sapiens network (local mode). Optionally standardizes the node list
+#' using a precomputed symbol map.
 #'
 #' @param gm.results.path Path to GeneMANIA results text file (used when local = FALSE).
-#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
-#' @param local Logical. If TRUE, reads from a pre-downloaded local file instead of a Cytoscape export. Default is FALSE.
-#' @param genemania.local.path Path to the pre-processed local GeneMANIA file (hs_interactions_hugo.tsv produced by scripts/genemania_hs_download.r).
+#' @param gene.cccn.nodes Character vector of CCCN node symbols.
+#' @param local Logical. If TRUE, reads from a pre-downloaded local file instead
+#'   of a Cytoscape export. Default is FALSE.
+#' @param genemania.local.path Path to the pre-processed local GeneMANIA file
+#'   (hs_interactions_hugo.tsv produced by scripts/genemania_hs_download.r).
 #'   Only used when local = TRUE. Default is "hs_interactions_hugo.tsv".
 #' @param gm.interaction.types Character vector of interaction group names to retain.
-#'   Only used when local = TRUE. Default retains Pathway and Physical Interactions,
-#'   matching the filter applied in the original live mode.
+#'   Default retains Pathway and Physical Interactions.
+#' @param symbol.map Optional data frame produced by `StandardizeGeneSymbols()`.
+#'   If supplied, `gene.cccn.nodes` will be converted to `standard_symbol`
+#'   before filtering.
 #'
-#' @return Data frame of consisting of the network of interactions from the genes of study
-#'
-#' @details
-#' Live mode: To get the GeneMANIA results text file, click on the three lines in the upper
-#' right corner of the GeneMANIA side window beside the species. Click "Export Results".
-#' The path to this file is the gm.results.path.
-#'
-#' Local mode: Download and process the full GeneMANIA Homo sapiens network using the
-#' companion script scripts/genemania_hs_download.r, which produces hs_interactions_hugo.tsv.
-#'
+#' @return Data frame with columns: source, target, interaction, Weight
 #' @export
-#'
 #' @examples
-#' # Live mode (original behaviour):
-#' ex.gm.results.path <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
-#' example.GeneMANIA.edges <- GetGeneMANIA.edges(ex.gm.results.path, ex.gene.cccn.nodes)
-#'
-#' # Local mode (future-proof, no internet required):
-#' # example.GeneMANIA.edges <- GetGeneMANIA.edges(
-#' #   gm.results.path    = NULL,
-#' #   gene.cccn.nodes    = ex.gene.cccn.nodes,
-#' #   local              = TRUE,
-#' #   genemania.local.path = "hs_interactions_hugo.tsv"
+#' # sym.map <- StandardizeGeneSymbols(ex.gene.cccn.nodes)
+#' # gm.edges <- GetGeneMANIA.edges(
+#' #   gm.results.path = ex.gm.results.path,
+#' #   gene.cccn.nodes = ex.gene.cccn.nodes,
+#' #   symbol.map = sym.map
 #' # )
-#'
-#' utils::head(example.GeneMANIA.edges)
 GetGeneMANIA.edges <- function(gm.results.path,
-                                gene.cccn.nodes,
-                                local                = FALSE,
-                                genemania.local.path = "hs_interactions_hugo.tsv",
-                                gm.interaction.types = c("Pathway", "Physical Interactions")) {
+                               gene.cccn.nodes,
+                               local = FALSE,
+                               genemania.local.path = "hs_interactions_hugo.tsv",
+                               gm.interaction.types = c("Pathway", "Physical Interactions"),
+                               symbol.map = NULL) {
+
+  nodes <- .map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map)
 
   if (local) {
-    # ---- Local mode: read pre-downloaded full network --------
-    if (!file.exists(genemania.local.path))
+    if (!file.exists(genemania.local.path)) {
       stop("Local GeneMANIA file not found: ", genemania.local.path,
-           "\nGenerate it with scripts/genemania_hs_download.r or set local = FALSE to use Cytoscape export.")
-
-    if (!requireNamespace("data.table", quietly = TRUE))
-      stop("Please install data.table: install.packages('data.table')")
+           "\nGenerate it with scripts/genemania_hs_download.r or set local = FALSE.")
+    }
 
     message("Reading local GeneMANIA file: ", genemania.local.path)
-    dt <- data.table::fread(genemania.local.path, sep = "\t")
-    # Expected columns: Gene1 Gene2 Weight Network Source Group
-    # 'Group' is the interaction category (e.g. "Pathway", "Physical Interactions")
+    dt <- utils::read.delim(genemania.local.path, stringsAsFactors = FALSE)
 
-    # Filter to requested interaction types
-    dt <- dt[Group %in% gm.interaction.types]
+    required.cols <- c("Gene1", "Gene2", "Group", "Weight")
+    missing.cols <- setdiff(required.cols, colnames(dt))
+    if (length(missing.cols) > 0) {
+      stop("Local GeneMANIA file is missing required columns: ",
+           paste(missing.cols, collapse = ", "))
+    }
 
-    # Filter to nodes present in gene.cccn.nodes (both ends must be in the set)
-    dt <- dt[Gene1 %in% gene.cccn.nodes & Gene2 %in% gene.cccn.nodes]
+    dt <- dt[dt$Group %in% gm.interaction.types, ]
+    dt <- dt[dt$Gene1 %in% nodes & dt$Gene2 %in% nodes, ]
 
-    # Return columns matching the live-mode output
-    genemania.edges <- as.data.frame(dt[, .(
-      source      = Gene1,
-      target      = Gene2,
-      interaction = Group,
-      Weight
-    )])
+    if (nrow(dt) == 0) {
+      warning("No local GeneMANIA edges passed the filters.")
+      return(data.frame(
+        source = character(0),
+        target = character(0),
+        interaction = character(0),
+        Weight = numeric(0),
+        stringsAsFactors = FALSE
+      ))
+    }
 
-  } else {
-    # ---- Live mode: original Cytoscape export behaviour ------
-
-    # Note: The column names may change in future releases of GeneMANIA.
-
-    # Read all lines
-    all_lines <- readLines(gm.results.path)
-
-    # Locate start: line exactly matching the header for your network section
-    start_line <- grep("Weight\tType", all_lines)
-    # Locate end: first occurrence of the footer/different table (e.g., GO ids table)
-    end_line <- grep("^Gene\\s+GO ids", all_lines)
-
-    # Defensive: Stop at the last line if there is no footer
-    if (length(end_line) == 0) end_line <- length(all_lines) + 1
-
-    # Extract: lines containing just the table (from header through end of last row)
-    network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
-
-    # Read network into a data frame, tab-delimited
-    edgetable <- read.table(
-      text = network_lines,
-      header = TRUE,
-      stringsAsFactors = FALSE,
-      sep = "\t",
-      comment.char = "#", na.strings = '', quote = "", fill = TRUE
-    )
-
-    keeper <- edgetable$Type %in% gm.interaction.types
-    edgetable <- edgetable[keeper, ]
-    edgetable <- edgetable[, c("Gene.1", "Gene.2", "Type", "Weight")]
-    colnames(edgetable) <- c("source", "target", "interaction", "Weight")
-    keep <- edgetable$source %in% gene.cccn.nodes & edgetable$target %in% gene.cccn.nodes
-    genemania.edges <- edgetable[keep, ]
+    dt <- unique(dt[, c("Gene1", "Gene2", "Group", "Weight")])
+    colnames(dt) <- c("source", "target", "interaction", "Weight")
+    rownames(dt) <- NULL
+    return(dt)
   }
 
+  # ---- Live mode: original Cytoscape export behaviour ----
+
+  all_lines <- readLines(gm.results.path)
+
+  start_line <- grep("Weight\\tType", all_lines)
+  end_line <- grep("^Gene\\s+GO ids", all_lines)
+  if (length(end_line) == 0) end_line <- length(all_lines) + 1
+
+  network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
+
+  edgetable <- read.table(
+    text = network_lines,
+    header = TRUE,
+    stringsAsFactors = FALSE,
+    sep = "\t",
+    comment.char = "#",
+    na.strings = "",
+    quote = "",
+    fill = TRUE
+  )
+
+  keeper <- edgetable$Type %in% gm.interaction.types
+  edgetable <- edgetable[keeper, ]
+  edgetable <- edgetable[, c("Gene.1", "Gene.2", "Type", "Weight")]
+  colnames(edgetable) <- c("source", "target", "interaction", "Weight")
+
+  keep <- edgetable$source %in% nodes & edgetable$target %in% nodes
+  genemania.edges <- unique(edgetable[keep, ])
+
+  if (nrow(genemania.edges) == 0) {
+    warning("No GeneMANIA edges passed the filters.")
+  }
+
+  rownames(genemania.edges) <- NULL
   return(genemania.edges)
 }
 
-#' Format Kinsub Table
+#' Get Kinase-Substrate Edges
 #'
-#' Include kinase substrate dataset from PhosphoSitePlus https://www.phosphosite.org/staticDownloads
+#' @description
+#' Read a kinase-substrate dataset from PhosphoSitePlus and return an edge list
+#' filtered to the supplied node set. Optionally standardizes the node list using
+#' a precomputed symbol map.
 #'
-#' @param kinasesubstrate.filename The path to the kinase substrate database file from https://www.phosphosite.org/staticDownloads
-#' @param gene.cccn.nodes A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
+#' @param kinasesubstrate.filename Path to the kinase substrate database file.
+#' @param gene.cccn.nodes Character vector of CCCN node symbols.
+#' @param symbol.map Optional data frame produced by `StandardizeGeneSymbols()`.
+#'   If supplied, `gene.cccn.nodes` will be converted to `standard_symbol`
+#'   before filtering.
 #'
-#' @return An edgelist filtered by the gene cccn and nodenames
+#' @return Data frame with columns: source, target, interaction, Weight
 #' @export
-GetKinsub.edges <- function (kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt", gene.cccn.nodes) {
-  kinasesubstrateraw <- read.table(kinasesubstrate.filename, header=TRUE, skip=3, stringsAsFactors =FALSE, sep = "\t", na.strings='', fill=TRUE)
-  #  make this generic: assume if there is a relationship in one species, it is conserved in humans.
-  kinasesubstrateraw -> kinsub
+#' @examples
+#' # sym.map <- StandardizeGeneSymbols(ex.gene.cccn.nodes)
+#' # ks.edges <- GetKinsub.edges(
+#' #   kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
+#' #   gene.cccn.nodes = ex.gene.cccn.nodes,
+#' #   symbol.map = sym.map
+#' # )
+GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
+                            gene.cccn.nodes,
+                            symbol.map = NULL) {
+
+  nodes <- toupper(.map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map))
+
+  kinasesubstrateraw <- read.table(
+    kinasesubstrate.filename,
+    header = TRUE,
+    skip = 3,
+    stringsAsFactors = FALSE,
+    sep = "\t",
+    na.strings = "",
+    fill = TRUE
+  )
+
+  kinsub <- kinasesubstrateraw
+
   if (any(is.na(kinsub$GENE))) {
-    kinsub[which(is.na(kinsub$GENE)),"GENE"] <- as.character(kinsub[which(is.na(kinsub$GENE)),"KINASE"]) }
+    kinsub[which(is.na(kinsub$GENE)), "GENE"] <-
+      as.character(kinsub[which(is.na(kinsub$GENE)), "KINASE"])
+  }
+
   if (any(is.na(kinsub$SUB_GENE))) {
-    kinsub[which(is.na(kinsub$SUB_GENE)),"SUB_GENE"] <- as.character(kinsub[which(is.na(kinsub$SUB_GENE)),"SUBSTRATE"])	}
+    kinsub[which(is.na(kinsub$SUB_GENE)), "SUB_GENE"] <-
+      as.character(kinsub[which(is.na(kinsub$SUB_GENE)), "SUBSTRATE"])
+  }
+
   kinase <- toupper(kinsub$GENE)
   substrate <- toupper(kinsub$SUB_GENE)
-  kinsub <- data.frame(kinase,substrate)
-  kinsub <- unique(kinsub)
-  names(kinsub) <- c("source", "target")
-  # Prune kinase-substrate to genes in data
 
-  nodenames <- gene.cccn.nodes
+  kinsub <- unique(data.frame(
+    source = kinase,
+    target = substrate,
+    stringsAsFactors = FALSE
+  ))
 
-  kinsub.edges <- kinsub[kinsub$source %in% nodenames & kinsub$target %in% nodenames, ]
+  kinsub.edges <- kinsub[kinsub$source %in% nodes & kinsub$target %in% nodes, ]
   kinsub.edges$interaction <- "pp"
   kinsub.edges$Weight <- 1
-  # We all know that many kinases can phosphorylate themselves, but this clutters the graph, so
+
   kinsub.edges <- remove.autophos(kinsub.edges)
+
+  if (nrow(kinsub.edges) == 0) {
+    warning("No kinase-substrate edges passed the filters.")
+  }
+
+  rownames(kinsub.edges) <- NULL
   return(kinsub.edges)
 }
-
-
-# NOTE: Other PPI network sources are:
-  # Pathway Commons: www.pathwaycommons.org
-  # BioPlex: https://bioplex.hms.harvard.edu

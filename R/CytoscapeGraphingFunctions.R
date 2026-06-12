@@ -142,7 +142,7 @@
 #'
 #' @param cfn A version of ppi.network with only the edges that exist in cccn.matrix and have non-zero weights
 #' @param ptmtable A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.
-#' @param funckey A table graphing gene names to type of protein; defaults to internal database at PTMsToPathways::ex.funckey
+#' @param funckey A table graphing gene names to type of protein; defaults to the internal dataset `PTMsToPathways::function_key`
 #' @param Network.title Desired title for the created Cytoscape Network; defaults to "cfn"
 #' @param Network.collection Desired name for the collection created on Cytoscape in which the network will reside; defaults to "PTMsToPathways"
 #' @param visual.style.name Desired name for the visual style created on Cytoscape; defaults to "PTMsToPathways.style"
@@ -171,26 +171,6 @@
 #' # See vignette for default graph
 #'
 #
-
-# Import Function Key
-getFuncKey <- function(funckey.filename = "FunctionKey.txt") {
-  if (is.character(funckey.filename)) {
-    if (!file.exists(funckey.filename)) {
-      stop(paste(funckey.filename, "not found. Please check your working directory."))
-    }
-    funckey <- read.table(
-      file = funckey.filename,
-      header = TRUE,
-      sep = "\t",
-      comment.char = "#",
-      na.strings = "",
-      quote = "",
-      stringsAsFactors = FALSE,
-      fill = TRUE
-    )
-    return(funckey)
-  }
-}
 
 # helper functions for networks in R:
 
@@ -317,8 +297,8 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
   subset.ptmtable <- ptmtable.temp[ptmtable.temp$Gene.Name %in% unique(genes), ]
-  gene.data <- subset.ptmtable %>%
-    dplyr::group_by(.data$Gene.Name) %>%
+  gene.data <- subset.ptmtable |>
+    dplyr::group_by(.data$Gene.Name) |>
     dplyr::summarise(
       dplyr::across(where(is.numeric), ~sum(.x, na.rm = TRUE)),
       .groups = "drop"
@@ -739,6 +719,114 @@ setNodeColorToRowz <- function(plotcol){
   RCy3::setNodeColorMapping (names(cf[plotcol]), color.control.points, ratio.colors, 'c')
   RCy3::lockNodeDimensions('TRUE')
   RCy3::setNodeSizeMapping (names(cf[plotcol]), size.control.points, node.sizes, 'c')
+  RCy3::setNodeSelectionColorDefault ( "#CC00FF")
+}
+
+#' Set node size and color from independent Cytoscape node attributes
+#'
+#' Apply independent continuous visual mappings for node size and node color
+#' in the active Cytoscape network using columns from the node table.
+#' This helper is intended for PTMsToPathways-style networks where one node
+#' attribute controls size and a different attribute controls color.
+#'
+#' If either requested column is not present in the Cytoscape node table, the
+#' user is prompted to choose a valid column name interactively. For non-ratio
+#' data, color and size control points are derived from the observed ranges of
+#' the selected columns. For ratio-style data, fixed log2-based control points
+#' are used.
+#'
+#' @param sizeplotcol A character string naming the node table column to use
+#'   for node size mapping.
+#' @param colorplotcol A character string naming the node table column to use
+#'   for node color mapping.
+#' @param ratio Logical; if `TRUE`, use predefined log2 ratio control points
+#'   and ratio color palette. If `FALSE`, compute control points from the
+#'   observed ranges of `sizeplotcol` and `colorplotcol`.
+#'
+#' @details
+#' For `ratio = FALSE`, this function builds separate continuous mappings for
+#' node color and node size based on the minimum and maximum values observed
+#' in the selected Cytoscape node table columns. Blue-to-white-to-yellow color
+#' gradients are used for color mapping.
+#'
+#' For `ratio = TRUE`, the function assumes ratio-like values centered on zero
+#' and applies fixed log2-scaled control points for both node size and node
+#' color. In this mode, a blue-to-green-to-yellow palette is used.
+#'
+#' The function also locks node width and height and sets the default node
+#' selection color to magenta.
+#'
+#' @return
+#' This function is called for its side effects in Cytoscape and returns
+#' `NULL` invisibly.
+#'
+#' @seealso
+#' [RCy3::setNodeColorMapping()], [RCy3::setNodeSizeMapping()],
+#' [RCy3::lockNodeDimensions()], [RCy3::getTableColumns()]
+#'
+#' @examples
+#' \dontrun{
+#' setNodeSizeColorIndependently(
+#'   sizeplotcol = "mean_expression",
+#'   colorplotcol = "logFC",
+#'   ratio = FALSE
+#' )
+#'
+#' setNodeSizeColorIndependently(
+#'   sizeplotcol = "abundance_ratio",
+#'   colorplotcol = "abundance_ratio",
+#'   ratio = TRUE
+#' )
+#' }
+#'
+#' @export
+setNodeSizeColorIndependently <- function(sizeplotcol, colorplotcol, ratio=FALSE){
+  cf <- RCy3::getTableColumns('node')
+  if(!(sizeplotcol %in% RCy3::getTableColumnNames('node'))){
+    print (RCy3::getTableColumnNames('node'))
+    cat("\n","\n","\t", "Which attribute will set node size?")
+    sizeplotcol <- as.character(readLines(con = stdin(), n = 1))
+  }
+  if(!(colorplotcol %in% RCy3::getTableColumnNames('node'))){
+    print (RCy3::getTableColumnNames('node'))
+    cat("\n","\n","\t", "Which attribute will set node color?")
+    colorplotcol <- as.character(readLines(con = stdin(), n = 1))
+  }
+  limits <- range(cf[, sizeplotcol])
+  node.sizes     = c (135, 130, 108, 75, 35, 75, 108, 130, 135)
+  if (ratio == FALSE) {
+    Intensity.Values.Color <- cf[, colorplotcol]  # set to intensity or normalized intensity
+    maxint.col <- max(Intensity.Values.Color, na.rm=TRUE)
+    minint.col <- min(Intensity.Values.Color, na.rm=TRUE)
+    Intensity.Values.Size <- cf[, sizeplotcol]  # set to intensity or normalized intensity
+    maxint.size <- max(Intensity.Values.Size, na.rm=TRUE)
+    minint.size <- min(Intensity.Values.Size, na.rm=TRUE)
+    icolors <- c('#0099FF', '#007FFF','#00BFFF', '#00CCFF', '#00FFFF', '#FFFFFF', '#FFFF7E', '#FFFF00', '#FFE600', '#FFD700', '#FFCC00')
+    if (maxint.col>=abs(minint.col)) {
+      color.control.points <- c(-(maxint.col+1), -(maxint.col/5), -(maxint.col/10), -(maxint.col/15), 0.0, (maxint.col/15), (maxint.col/10), (maxint.col/5), (maxint.col+1))
+      RCy3::setNodeColorMapping (names(cf[colorplotcol]),  color.control.points, icolors)
+    }
+    if (maxint.col<abs(minint.col)) {
+      color.control.points <- c((minint.col-1), (minint.col/5), (minint.col/10), (minint.col/15), 0.0, -(minint.col/15), -(minint.col/10), -(minint.col/5), -(minint.col-1))
+      RCy3::setNodeColorMapping (names(cf[colorplotcol]), color.control.points, icolors)
+    }
+    if (maxint.size>=abs(minint.size)) {
+      size.control.points = c (-(maxint.size+1), -(maxint.size*0.3), -(maxint.size/10), 0.0, (maxint.size/10), (maxint.size*0.3), (maxint.size+1))
+      RCy3::setNodeSizeMapping (names(cf[sizeplotcol]), size.control.points, node.sizes, 'c')
+    }
+    if (maxint.size<abs(minint.size)) {
+      size.control.points = c ((minint.size-1), (minint.size*0.3), (minint.size/10), 0.0, -(minint.size/10), -(minint.size*0.3), abs(minint.size-1))
+      RCy3::setNodeSizeMapping (names(cf[sizeplotcol]), size.control.points, node.sizes, 'c')
+    }
+  }
+  if (ratio == TRUE) {
+    ratio.colors = c ('#0099FF', '#007FFF','#00BFFF', '#00CCFF', '#00FFFF', '#00EE00', '#FFFF7E', '#FFFF00', '#FFE600', '#FFD700', '#FFCC00')
+    size.control.points = c (-log2(100.0), -log2(15.0), -log2(5.0), 0.0, log2(5.0), log2(15.0), log2(100.0))
+    color.control.points = c (-log2(100.0), -log2(10.0), -log2(5.0), -log2(2.25), 0.0, log2(2.25), log2(5.0), log2(10.0), log2(100.0))
+    RCy3::setNodeColorMapping (names(cf[colorplotcol]), color.control.points, ratio.colors, 'c')
+    RCy3::setNodeSizeMapping (names(cf[sizeplotcol]), size.control.points, node.sizes, 'c')
+  }
+  RCy3::lockNodeDimensions('TRUE')
   RCy3::setNodeSelectionColorDefault ( "#CC00FF")
 }
 

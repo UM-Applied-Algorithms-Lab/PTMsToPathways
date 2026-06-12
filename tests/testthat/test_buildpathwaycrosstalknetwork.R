@@ -2,7 +2,7 @@
 
 test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   
-  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_bioplanet, createfile = FALSE))
+  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE))
   
   pathway_crosstalk_network <- output[[1]]
   
@@ -43,4 +43,14 @@ test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   expect_false("ALB" %in% pathways_list$'Mitochondrial fatty acid beta-oxidation')
    
   
+})
+
+test_that("ReadBioplanetFile() gives right answer", {
+  # read pathways.csv from inst/extdata and compare to ex_pathways_list
+  bioplanet_pathways <- ReadBioplanetFile(system.file("extdata", "pathway.csv", package = "PTMsToPathways"))
+  expect_equal(length(bioplanet_pathways), length(ex_pathways_list))
+  for (pathway_name in names(ex_pathways_list)) {
+    expect_true(pathway_name %in% names(bioplanet_pathways))
+    expect_equal(sort(bioplanet_pathways[[pathway_name]]), sort(ex_pathways_list[[pathway_name]]))
+  }
 })

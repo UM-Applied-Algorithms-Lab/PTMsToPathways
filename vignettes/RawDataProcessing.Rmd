@@ -1,5 +1,5 @@
 ---
-title: "Analyzing Pathways from PTMs: A Guide"
+title: "Processing Raw Data for PTMsToPathways"
 author: "Lucia Williams, Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Mark Grimes"
 output:
   html_document: 
@@ -35,15 +35,17 @@ knitr::opts_chunk$set(
   out.width = "100%",
   results = "hold"
 )
-
 ```
 
 ## Purpose
 
 This vignette intends to help
-users produce a matrix with PTM names as row names (e.g. FYN p Y411) and
-numeric data in all the columns, which can be used as input to the PTMsToPathways
-functions.
+users produce a matrix with PTM names as row names (e.g. `FYN p Y411`) and
+numeric data in the columns.
+The numeric values are the mass
+spectrometer output, and `NA`s represent missing data rather than zeroes.
+Ambiguous PTMs, where a PTM could match several proteins, must be separated by
+semicolons (for example, `"AARS ubi k747; AMBLIL p U123"`).
 
 Mass spectrometry data output will vary depending on the experimental
 design, source of data, and software used to process the raw spectra. R
@@ -65,110 +67,20 @@ data will dictate the names of modifications.
 * *Arginine methylation* = "rme"
 * *Ubiquitination* = "ubi"
 
-## Data input
+## Preprocessing data
 
-Investigators will need to identify which columns contain key
-information for analysis of PTMs. The example raw data file for this
+First, let's load the P2P package, since it contains some helpful pre-processing functions.
+```{r eval = TRUE}
+library(PTMsToPathways)
+```
+
+The example raw data file for this
 vignette (downloadable [here](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/raw/refs/heads/main/inst/extdata/phospho_cleaned_mapped.txt),
 or load directly into R using the commands below)
 contains only phosphorylation sites.
 
-* "Amino Acid" has the modified amino acid, e.g. S,T, etc.
-* "Positions Within Proteins" is the amino acid number in the protein
-sequence.
-* Ambiguous modification sites (a modification site whose peptide sequence
-is the same in more than one protein) have multiple possible postions
-separated by ";".
-* "Modification Type" has Phosphorylation" etc.
-
-Note that R converts spaces in column names to periods. After reading in
-our data table, the relevant column names are:
-
-**genes** = "AllGeneSymbols"
-
-**positions** = "Positions.Within.Proteins"
-
-**aa** = "Amino.Acid"
-
-**modification** = "Modification.Type"
-
-We provide a helper function `name.peptide()` to make a PTM name using
-these columns. This function concatenates ambiguous modification sites
-and ignores NA values that are present in cells or ambiguous gene names.
-
-Note that it is very important that the rownames are the names of
-post-translational modifications. All of their respective columns are
-the experimental conditions under which the post-translational
-modifications occurred. The numeric values are data output by the mass
-spectrometer. NAs -- which are importantly not zeroes -- represent
-missing data. Ambigious PTMs, cases where a PTM could be any one of
-several PTMs, are separated by semicolons. (e.g. "AARS ubi k747; AMBLIL
-p U123").
-
-Many investigators will examine their data in Microsoft Excel, which can
-export the spreadsheet in tab- or comma-delimited format. Unfortunately,
-Excel inescapably turns some gene names into dates when present in a
-cell by themselves. We reverse this with an example helper function,
-`fix.excel()`:
-
-```{r read in first data sets for multiple PTMs}
-fix.excel <- function(cell) {
-  fixgenes = c("CDC2", "1-Sep", "2-Sep", "3-Sep", "4-Sep", "5-Sep", "7-Sep",
-               "8-Sep", "9-Sep", "10-Sep", "11-Sep", "15-Sep", "6-Sep", "1-Oct",
-               "2-Oct", "3-Oct", "4-Oct", "6-Oct", "7-Oct", "11-Oct", "1-Mar",
-               "2-Mar", "3-Mar", "4-Mar", "5-Mar", "6-Mar", "7-Mar", "8-Mar",
-               "9-Mar", "10-Mar", "11-Mar", "C11orf58", 'C17orf57', 'C3orf10',
-               'C7orf51', "C11orf59", "C4orf16", "1-Dec", "14-Sep")
-  
-  corrects = c("CDK1", "SEPT1", "SEPT2", "SEPT3", "SEPT4", "SEPT5", "SEPT7",
-               "SEPT8", "SEPT9", "SEPT10", "SEPT11", "SEPT15", "SEPT6",
-               "POU2F1", "POU2F2", "POU5F1", "POU5F1", "POU3F1", "POU3F2",
-               "POU2F3", "MARCH1", "MARCH2", "MARCH3", "MARCH4", "MARCH5",
-               "MARCH6", "MARCH7", "MARCH8", "MARCH9", "MARCH10", "MARCH11",
-               "SMAP", "EFCAB13", "BRK1", "NYAP1", "LAMTOR1", 'AP1AR', "DEC1",
-               "SEPT14")
-  
-  cellv <- unlist(strsplit(as.character(cell), "; "))
-  
-  if (any(fixgenes %in% cellv)) {
-    
-    cellv.new <- gsub(fixgenes[fixgenes %in% cellv],
-                      corrects[fixgenes %in% cellv], cellv)
-    return (paste(cellv.new, collapse="; "))
-    
-  } else return(cell)
-  }
-```
-
-We provide another example helper function, `name.peptide()`,
-to handle ambiguous modification sites (a modification site
-whose peptide sequence is the same in more than one protein) separated by ";" or
-another separator.
-
-```{r}
-name.peptide <- function (genes, modification="p", sites, aa, pepsep=";")	{
-  genes.v <- unlist(strsplit(genes, pepsep, fixed = TRUE))
-  genes.v[which(genes.v == "NA")] <- NA
-  genes.v <- genes.v[!is.na(genes.v)]
-  
-  sites.v <- unlist(strsplit(sites, pepsep, fixed = TRUE))
-  sites.v[which(sites.v == "NA")] <- NA
-  sites.v <- sites.v[!is.na(sites.v)]
-  sites.v <- sapply(sites.v, function (x) paste (aa, x, sep=""))
-  
-  Peptide.v <- as.character(noquote(paste(
-    genes.v[1:length(genes.v)], modification,
-    sites.v[1:length(sites.v)], sep=" ")))
-  
-  Peptide <- paste(unique(Peptide.v), collapse="; ")
-  
-  return(Peptide)
-}
-```
-
-Read in data file that is output from mass spectrometry.
-If you have installed the PTMsToPathways package, you can use the example data file included in the package
-as below. To use your own data file,
+To prepare data for input to PTMsTo pathways, we first read in the data file.
+To use your own data file,
 replace `file_path` variable with your own path to file, as in the commented line below.
 
 ```{r}
@@ -182,153 +94,152 @@ newphos <- utils::read.table(file_path, sep = "\t", skip = 0, header = TRUE,
 dim(newphos)
 ```
 
-First remove internal control rows (reverse sequences).
+As we can see, this table has 933 rows and 170 columns.
+
+First remove internal control rows (reverse sequences), which should yield 908 remaining rows.
 
 ```{r}
 newphos <- newphos[!is.na(newphos$AllGeneSymbols),]
 dim(newphos)
 ```
 
-If there are dates in the `AllGeneSymbols` column, use:
+Many investigators inspect data in Microsoft Excel, which can export
+tab- or comma-delimited files. Unfortunately, Excel can silently convert
+some gene names into dates when they appear in a cell by themselves. We
+reverse that with the P2P helper function [`fix.excel()`](reference/fix.excel.html).
+If there are dates in the `AllGeneSymbols` column, we can apply the `fix.excel()` function
+to each of them to convert them back to gene names.
 ```{r}
 newphos$AllGeneSymbols <- sapply(newphos$AllGeneSymbols, fix.excel)
 ```
+Investigators will need to identify which columns contain key
+information for analysis of PTMs. 
 
-Next, identify the columns that will be used to name the PTM
+In this example, the key columns are:
 
+- `Amino.Acid`: the modified amino acid, such as S or T
+- `Positions.Within.Proteins`: the amino acid number in the protein sequence
+- `Modification.Type`: the PTM class, such as phosphorylation
+- `AllGeneSymbols`: the HUGO gene name(s) of the protein(s) containing the PTM, separated by ";" if more than one
+
+```{r eval = TRUE}
+newphos.header <- newphos[,c("AllGeneSymbols", "Amino.Acid",
+                "Positions.Within.Proteins", "Modification.Type")]
+
+head(newphos.header)
+```
+We provide another helper function, [`name.peptide()`](reference/name.peptide.html),
+to handle ambiguous modification sites (a modification site
+whose peptide sequence is the same in more than one protein) separated by ";" or
+another separator.
 ```{r}
-headercols <- c("AllGeneSymbols", "Amino.Acid",
-                "Positions.Within.Proteins", "Modification.Type")
+newphos.header$Peptide.Name <- mapply(
+  name.peptide, genes = newphos$AllGeneSymbols,
+  sites =  newphos$Positions.Within.Proteins, aa = newphos$Amino.Acid)
+head(newphos.header)
 ```
 
-Make a separate data frame using these columns. 
-```{r}
-newphos.head <- newphos[,headercols]
-```
+### Data columns
 
-Now create a unique PTM name (peptide name)
-```{r}
-newphos.head$Peptide.Name <- mapply(
-  name.peptide, genes = newphos.head$AllGeneSymbols,
-  sites =  newphos.head$Positions.Within.Proteins, aa = newphos.head$Amino.Acid)
-```
-
-#### Replacing Patterns
-
-If the list of PTMs possesses symbols that are unnecessary such as "AARS
-\~K ubi K747", this command will remove all strings included in the
-"patterns" vector from the rownames. Any pattern can be chosen so long
-as the user ensures that any special character (such as \$ or \@) have a
-"\\" in front of them.
-
-```{r}
-patterns <- c("\\~", "\\#", "/", "\\$", "\\@", "\\|")
-patterns <- patterns[order(nchar(patterns), patterns, decreasing = TRUE)]
-
-rownames(newphos) <- sapply(rownames(newphos), function(x){
-  for(p in patterns) x <- gsub(p, "", x); return(x)
-  })
-```
-
-#### Data columns
-
-Next we identify the data columns, which contain the string "Intensity."
+Next we identify the data columns, which contain the string `Intensity`.
 The example data file is from a multi-PTM study and the data in this
 table are from just the phosphorylation pulldown (other tables are for
 other PTM types). The optimal pulldown columns are straightforward to
-identify by the pulldown strings present in the sample names, "pTyr" in
+identify by the pulldown strings present in the sample names, `pTyr` in
 this case. They are also identifiable by zooming out and looking at the
 patterns of missing data, the optimal pulldowns, as a group, have the
-least missing data. The second step is to select colums that have
-"pTyr."
+least missing data. In this data, the following abbreviations are used:
+**C** = Crizotinib,
+**D** = DMSO,
+**E** = Erlotinib,
+**Pr** = PR171.
+So for example the first four columns can be interpreted as:
+```{r eval = TRUE}
+names(newphos)[grep("Intensity", names(newphos))][1]
+```
+*C1.1*: Crizotinib biological replicate 1- technical replicate 1
+```{r eval = TRUE}
+names(newphos)[grep("Intensity", names(newphos))][2]
+```
+*C1.2*: Crizotinib biological replicate 1- technical replicate 2
+```{r eval = TRUE}
+names(newphos)[grep("Intensity", names(newphos))][3]
+```
+*C2.1*: Crizotinib biological replicate 2- technical replicate 1
+```{r eval = TRUE}
+names(newphos)[grep("Intensity", names(newphos))][4]
+```
+*C2.2*: Crizotinib biological replicate 2- technical replicate 2
+
+So, we first select columns that contain the string `Intensity`. There should be 108 of these:
+```{r eval = TRUE}
+data.cols <- newphos[,grep("Intensity", names(newphos))]
+dim(data.cols)
+```
+And then select colums that have `pTyr`. There should be 36 of these:
+```{r eval = TRUE}
+data.cols <- newphos[,grep("pTyr", names(newphos))]
+dim(data.cols)
+```
+
+Now simplify column names (remove `Intensity`):
+```{r eval = TRUE}
+names(data.cols) <- sapply(names(data.cols), function(x){
+  unlist(strsplit(x, "Intensity."))[2]
+  })
+head(names(data.cols))
+``` 
+
+Make zero into `NA`, which it is. (Note that this may not apply if you are
+confident that zero means actual zero, which is possible with certain technical
+advances like DIA.) We should have 16265 `NA` values.
+```{r eval = TRUE}
+zer0 <- which(data.cols==0, arr.ind = TRUE)
+data.cols <- replace (data.cols, zer0, NA)
+sum(is.na(data.cols))
+```
+
+### Merge techincal replicates
 
 These data have technical replicates, which means that the same samples
 were run twice. Due to the stochastic selection of peptides for
 detection, the pattern of missing values is slightly different between
 technical replicates. We therefore merge the technical replicates taking
 the value of either replicate where it's missing in the other, and
-averaging values detected in both, using the function, *merge2cols()*.
-
-## Key for column names
-
-**C** = Crizotinib
-
-**D** = DMSO
-
-**E** = Erlotinib
-
-**Pr** = PR171
-
-***For Intensity columns***
-
-*C1-1*: Crizotinib biological replicate 1- technical replicate 1
-
-*C1-2*: Crizotinib biological replicate 1- technical replicate 2
-
-*C2-1*: Crizotinib biological replicate 2- technical replicate 1
-
-*C2-2*: Crizotinib biological replicate 2- technical replicate 2
-
-*C3-1*: Crizotinib biological replicate 3- technical replicate 1
-
-*C3-2*: Crizotinib biological replicate 3- technical replicate 2
-
-... & similar for other drugs
-
-```{r reformat data sets for multiple PTMs}
-phosdata <- newphos[,grep("Intensity", names(newphos))]
-phosdata <- phosdata[,grep("pTyr", names(phosdata))]
-```
-
-Now simplify column names:
-```{r}
-names(phosdata) <- sapply(names(phosdata), function(x){
-  unlist(strsplit(x, "Intensity."))[2]
-  })
-``` 
-
-Make zero into NA, which it is. (Note that this may not apply if you are
-confident that zero means actual zero, which is possible with certain technical
-advances like DIA.) 
-```{r}
-zer0 <- which(phosdata==0, arr.ind = TRUE)
-phosdata <- replace (phosdata, zer0, NA)
-```
+averaging values detected in both, using the P2P function [merge2cols()](reference/merge2cols.html).
 
 Define technical replicates:
-```{r}
-tr1.opt <- names(phosdata)[grep(".1", names(phosdata), fixed=TRUE)]
-tr2.opt <- names(phosdata)[grep(".2", names(phosdata), fixed=TRUE)]
+```{r eval = TRUE}
+tr1.opt <- names(data.cols)[grep(".1", names(data.cols), fixed=TRUE)]
+tr2.opt <- names(data.cols)[grep(".2", names(data.cols), fixed=TRUE)]
+tr1.opt[1]
+tr2.opt[1]
 ```
 
-Use this function to average technical replicates. This function ignores NA values in either column and takes the average in the case where there are two values.
-```{r}
-merge2cols <- function (colv1, colv2) {
-  newcolv=NA
-  if (is.na(colv1) & is.na(colv2)) {
-    newcolv=NA
-    return(newcolv)} else
-      if (is.na(colv1) | is.na(colv2)) {
-        newcolv <- sum(colv1, colv2, na.rm=TRUE)
-        return(newcolv) } else
-          newcolv <- (colv1 + colv2)/2
-        return(newcolv) }
+Use `merge2cols()` to average technical replicates. This function ignores NA
+values in either column and takes the average in the case where there are two
+values. In this case, the resulting data frame should have 18 total columns, one for each biological replicate.
+```{r eval = TRUE}
+phosdata.merged <- data.frame(matrix(nrow = nrow(data.cols), ncol = length(tr1.opt)))
+for (i in seq_along(tr1.opt)) {
+phosdata.merged[, i] <- merge2cols(
+data.cols[, tr1.opt[i]],
+data.cols[, tr2.opt[i]]
+)}
+dim(phosdata.merged)
 
-# Use merge2cols() function to average technical replicates:
-phosdata.merged <- data.frame(matrix(nrow=nrow(phosdata), ncol=18))
-for(i in 1:length(tr1.opt)) {
-  phosdata.merged[,i] <- mapply(merge2cols,
-                                colv1 = as.numeric(phosdata[, tr1.opt[i]]),
-                                colv2=as.numeric(phosdata[,tr2.opt[i]]))}
-
+```
+And fix up the names of the merged columns to remove the technical replicate numbers:
+```{r eval = TRUE}
 names(phosdata.merged) <- sapply(tr1.opt, function(x){
   substr(x, start=1, stop=nchar(x)-2)
   })
+names(phosdata.merged)[1]
 ```
-
-Merge with header:
-```{r}
-phosdatafile <- cbind(newphos.head, phosdata.merged)
+Merge the header and the data together to make a complete data set:
+```{r eval = TRUE}
+phosdatafile <- cbind(newphos.header, phosdata.merged)
+dim(phosdatafile)
 ```
 This file could be saved for reference using `write.table()`:
 ```{r  eval = FALSE}
@@ -336,21 +247,28 @@ write.table(phosdatafile, file = "phosdatafile.txt",
             row.names = FALSE, sep = "\t")
 ```
 
-For subsequent steps, we make a dataframe withjust the data with individual PTMs as rownames:
-```{r}  
-rownames(phosdatafile) <- phosdatafile$Peptide.Name
-phosdata.df <- phosdatafile[,6:23]
+For input into P2P, we want the row names to be the PTM names and the columns
+just to be the merged technical replicate columns, so we just use that data and set the row names to
+the `Peptide.Name` column:
+```{r eval = TRUE}  
+phosdata.df <- phosdata.merged
+rownames(phosdata.df) <- phosdatafile$Peptide.Name
+```
+Notice that this data is the same as the `ex_small_ptm_table` that is provided with the package (though the column names are slightly
+different):
+```{r eval = TRUE}
+all.equal(setNames(phosdata.df, NULL), setNames(ex_small_ptm_table, NULL))
 ```
 
 Log base 2 transformation improves clustering.
-```{r  Log2 transformation}
-log2phosdata <- log2(phosdata.df)
+```{r  eval = TRUE}
+log2phosdata <- log2(phosdata.merged)
 ```
 
-The following vignettes show how to use the functions provided in PTMsToPathways to analyze
+The [Creating Networks vignette](vignettes/CreatingNetworks.html) show how to use the functions provided in PTMsToPathways to analyze
 data stored in a variable called `ptmtable`.
-```{r}
-# ptmtable <- log2phosdata
+```{r eval = FALSE}
+ptmtable <- log2phosdata
 ```
 
 ## Optional data processing steps

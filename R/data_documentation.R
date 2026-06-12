@@ -50,6 +50,27 @@
 "ex_full_ptm_table"
 
 
+#' Function Key Example
+#'
+#' Gene-level annotation data used to build Cytoscape node metadata.
+#'
+#' @format Data frame with 24339 rows and 8 columns:
+#' \describe{
+#'   \item{Gene.Name}{HGNC gene symbol.}
+#'   \item{Approved.Name}{Approved gene name.}
+#'   \item{Hugo.Gene.Family}{Gene family annotation.}
+#'   \item{HPRD.Function}{Functional annotation from HPRD.}
+#'   \item{nodeType}{Node classification used for Cytoscape styling.}
+#'   \item{Domains}{Protein domain annotations.}
+#'   \item{Compartment}{Subcellular compartment labels.}
+#'   \item{Compartment.Overview}{Simplified compartment grouping.}
+#' }
+#' @source `FunctionKey.txt` processed into a package data object.
+#' @examples
+#' head(function_key)
+"function_key"
+
+
 
 #' Common Clusters
 #'
@@ -301,4 +322,37 @@
 #' head("ex_pathways_list")
 "ex_pathways_list"
 
+#' BRCA Cluster List Data
+#' 
+#' Output of MakeClusterList on the BRCA data
+#' 
+#' @keywords internal
+"brca_clusterlist_data"
 
+# BRCA CCCN Data
+#' 
+#' Output of MakeCorrelationNetwork on the BRCA data
+#' 
+#' @keywords internal
+"brca_CCCN_data"
+
+#' BRCA STRINGdb Edges
+#' 
+#' Edges from the STRINGdb database for the genes in the BRCA dataset
+#' 
+#' @keywords internal
+"BRCA_stringdb.edges"
+
+#' BRCA Genemania Edges
+#' 
+#' Edges from the Genemania database for the genes in the BRCA dataset
+#' 
+#' @keywords internal
+"BRCA_genemania.edges"
+
+#' BRCA PCN Data
+#' 
+#' Output of BuildPathwayCrosstalkNetwork on the BRCA data
+#' 
+#' @keywords internal
+"BRCA_PCN.data"
