@@ -179,27 +179,27 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.02 secs total.
->> Spearman t-SNE calculation complete after 42.12 secs total.
->> Euclidean distance calculation complete after 42.16 secs total.
->> Euclidean t-SNE calculation complete after 1.15 mins total.
->> Combined distance calculation complete after 1.15 mins total.
->> SED t-SNE calculation complete after 1.61 mins total.
+>> Spearman correlation calculation complete after 13.39 secs total.
+>> Spearman t-SNE calculation complete after 42.77 secs total.
+>> Euclidean distance calculation complete after 42.82 secs total.
+>> Euclidean t-SNE calculation complete after 1.17 mins total.
+>> Combined distance calculation complete after 1.17 mins total.
+>> SED t-SNE calculation complete after 1.63 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.63 mins total.
+    >> Clustering for Euclidean complete after 1.64 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.63 mins total.
+    >> Clustering for Spearman complete after 1.64 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.63 mins total.
-    >> Consensus clustering complete after 1.64 mins total.
-    >> MakeClusterList complete after 1.64 mins total.
+    >> Clustering for SED complete after 1.64 mins total.
+    >> Consensus clustering complete after 1.65 mins total.
+    >> MakeClusterList complete after 1.65 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -273,9 +273,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.05 secs total.
+>> PTM CCCN complete after 0.06 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.72 secs total.
+>> Gene CCCN complete after 2.84 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -339,9 +339,10 @@ to retrieve data from each of them below.
 
 For this tutorial, we query STRINGdb and GeneMANIA directly. We also
 provide the option (using the switch local = TRUE) to retrive edges from
-human PPIs from these sources in pre-assembled files; the *BRCANetworks*
-vignette demonstrates how to get the STRING-db and GeneMANIA edges from
-the static downloaded networks.
+human PPIs from these sources in pre-assembled files; the [BRCANetworks
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/BCRANetworks.md)
+demonstrates how to get the STRING-db and GeneMANIA edges from the
+static downloaded networks.
 
 #### 1. STRINGdb
 
@@ -355,17 +356,17 @@ with more substantial evidence are used in this analysis.
 
 ``` r
 stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes)
->> Querying STRINGdb API for interactions between 390 genes. This may take several minutes...
+>> Querying STRINGdb for interactions between 390 genes...
 >> Mapping genes to STRING IDs...
 >> Retrieving interactions for mapped genes...
 >> Formatting...
 stringdb.edges[1:5,]
->> Warning:  we couldn't map to STRING 0% of your identifiers   source target              interaction Weight
->> 21 MAPK13 MAPK12                 database   1128
->> 31 MAPK12  MAPK1                 database   1182
->> 35 GPRC5A   MYH9             experimental    164
->> 41   MISP   MYH9             experimental    148
->> 71   MYH9 PIK3R2 experimental_transferred    216
+>> Warning:  we couldn't map to STRING 0% of your identifiers    source target interaction Weight
+>> 1   MAPK13 MAPK12 experiments   1128
+>> 2   MAPK12  MAPK1 experiments   1182
+>> 3 BAIAP2L1   WASL experiments    866
+>> 4      VCL   PFN1 experiments   1024
+>> 5     WASL   PFN1 experiments    619
 ```
 
 #### 2. GeneMANIA
@@ -480,12 +481,12 @@ We can view a portion of the CFN below:
 
 ``` r
 cfn[1:5,]
->>   source  target              interaction   Weight
->> 1   ABL1    IRS2 experimental_transferred 3.589744
->> 2 ADAM10   ANXA2 experimental_transferred 2.600733
->> 3 ADAM10    IRS2 experimental_transferred 2.857143
->> 4   AFDN PLEKHA5             experimental 2.747253
->> 5  AHNAK     LPP experimental_transferred 1.941392
+>>   source target             interaction    Weight
+>> 1   ABL1   IRS2 experiments_transferred  3.589744
+>> 2 AKR1B1  PRKCD experiments_transferred  1.684982
+>> 3   ANK3  HDAC1 experiments_transferred  3.443223
+>> 4   ATIC   EML4                database 27.326007
+>> 5   ATIC   ITPA                database 32.967033
 ```
 
 To reduce clutter on graphs, the CFN edges can be merged. This collapses
@@ -524,9 +525,9 @@ bioplanet.file <- system.file("extdata", "pathway.csv",
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
 >> Making PCN
->> 2026-06-11 21:00:34.992306
->> 2026-06-11 21:00:35.104014
->> Total time: 0.11170768737793
+>> 2026-06-12 16:38:49.512043
+>> 2026-06-12 16:38:49.628015
+>> Total time: 0.115971565246582
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]

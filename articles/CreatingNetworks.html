@@ -300,20 +300,20 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                    <span class="at">keeplength =</span> <span class="dv">2</span>, <span class="at">toolong =</span> <span class="fl">3.5</span>)</span>
 <span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Starting correlation calculations and t<span class="sc">-</span>SNE.</span>
 <span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> This may take a few minutes or hours <span class="cf">for</span> large data sets.</span>
-<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.02</span> secs total.</span>
-<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.12</span> secs total.</span>
-<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.16</span> secs total.</span>
-<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.15</span> mins total.</span>
-<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.15</span> mins total.</span>
-<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.61</span> mins total.</span></code></pre></div>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.39</span> secs total.</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.77</span> secs total.</span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.82</span> secs total.</span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.17</span> mins total.</span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.17</span> mins total.</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.63</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-9-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.63 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.64 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.63 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.64 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.63 mins total.
-&gt;&gt; Consensus clustering complete after 1.64 mins total.
-&gt;&gt; MakeClusterList complete after 1.64 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.64 mins total.
+&gt;&gt; Consensus clustering complete after 1.65 mins total.
+&gt;&gt; MakeClusterList complete after 1.65 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -372,9 +372,9 @@ with sum of the PTM correlations serving as edge weights.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.05</span> secs total.</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.06</span> secs total.</span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.72</span> secs total.</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.84</span> secs total.</span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -422,9 +422,9 @@ databases have different interfaces for downloading data, so we show how
 to retrieve data from each of them below.</p>
 <p>For this tutorial, we query STRINGdb and GeneMANIA directly. We also
 provide the option (using the switch local = TRUE) to retrive edges from
-human PPIs from these sources in pre-assembled files; the
-<em>BRCANetworks</em> vignette demonstrates how to get the STRING-db and
-GeneMANIA edges from the static downloaded networks.</p>
+human PPIs from these sources in pre-assembled files; the <a href="BCRANetworks.html">BRCANetworks vignette</a> demonstrates how to
+get the STRING-db and GeneMANIA edges from the static downloaded
+networks.</p>
 <div class="section level4">
 <h4 id="stringdb">1. STRINGdb<a class="anchor" aria-label="anchor" href="#stringdb"></a>
 </h4>
@@ -438,17 +438,17 @@ by interaction type so only <code>experimental</code>,
 interactions with more substantial evidence are used in this
 analysis.</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a>stringdb.edges <span class="ot">&lt;-</span> <span class="fu">GetSTRINGdb.edges</span>(gene.cccn.edges, gene.cccn.nodes)</span>
-<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Querying STRINGdb API <span class="cf">for</span> interactions between <span class="dv">390</span> genes. This may take several minutes...</span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Querying STRINGdb <span class="cf">for</span> interactions between <span class="dv">390</span> genes...</span>
 <span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Mapping genes to STRING IDs...</span>
 <span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Retrieving interactions <span class="cf">for</span> mapped genes...</span>
 <span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Formatting...</span>
 <span id="cb21-6"><a href="#cb21-6" tabindex="-1"></a>stringdb.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
-<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning<span class="sc">:</span>  we couldn<span class="st">'t map to STRING 0% of your identifiers   source target              interaction Weight</span></span>
-<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="st">&gt;&gt; 21 MAPK13 MAPK12                 database   1128</span></span>
-<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="st">&gt;&gt; 31 MAPK12  MAPK1                 database   1182</span></span>
-<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="st">&gt;&gt; 35 GPRC5A   MYH9             experimental    164</span></span>
-<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="st">&gt;&gt; 41   MISP   MYH9             experimental    148</span></span>
-<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="st">&gt;&gt; 71   MYH9 PIK3R2 experimental_transferred    216</span></span></code></pre></div>
+<span id="cb21-7"><a href="#cb21-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning<span class="sc">:</span>  we couldn<span class="st">'t map to STRING 0% of your identifiers    source target interaction Weight</span></span>
+<span id="cb21-8"><a href="#cb21-8" tabindex="-1"></a><span class="st">&gt;&gt; 1   MAPK13 MAPK12 experiments   1128</span></span>
+<span id="cb21-9"><a href="#cb21-9" tabindex="-1"></a><span class="st">&gt;&gt; 2   MAPK12  MAPK1 experiments   1182</span></span>
+<span id="cb21-10"><a href="#cb21-10" tabindex="-1"></a><span class="st">&gt;&gt; 3 BAIAP2L1   WASL experiments    866</span></span>
+<span id="cb21-11"><a href="#cb21-11" tabindex="-1"></a><span class="st">&gt;&gt; 4      VCL   PFN1 experiments   1024</span></span>
+<span id="cb21-12"><a href="#cb21-12" tabindex="-1"></a><span class="st">&gt;&gt; 5     WASL   PFN1 experiments    619</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="genemania">2. GeneMANIA<a class="anchor" aria-label="anchor" href="#genemania"></a>
@@ -530,12 +530,12 @@ network created in step 2.</p>
 <span><span class="va">cfn</span> <span class="op">&lt;-</span> <span class="va">network.list</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span></span></code></pre></div>
 <p>We can view a portion of the CFN below:</p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" tabindex="-1"></a>cfn[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
-<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   source  target              interaction   Weight</span>
-<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>   ABL1    IRS2 experimental_transferred <span class="fl">3.589744</span></span>
-<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span> ADAM10   ANXA2 experimental_transferred <span class="fl">2.600733</span></span>
-<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span> ADAM10    IRS2 experimental_transferred <span class="fl">2.857143</span></span>
-<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>   AFDN PLEKHA5             experimental <span class="fl">2.747253</span></span>
-<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>  AHNAK     LPP experimental_transferred <span class="fl">1.941392</span></span></code></pre></div>
+<span id="cb29-2"><a href="#cb29-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   source target             interaction    Weight</span>
+<span id="cb29-3"><a href="#cb29-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">1</span>   ABL1   IRS2 experiments_transferred  <span class="fl">3.589744</span></span>
+<span id="cb29-4"><a href="#cb29-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2</span> AKR1B1  PRKCD experiments_transferred  <span class="fl">1.684982</span></span>
+<span id="cb29-5"><a href="#cb29-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">3</span>   ANK3  HDAC1 experiments_transferred  <span class="fl">3.443223</span></span>
+<span id="cb29-6"><a href="#cb29-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">4</span>   ATIC   EML4                database <span class="fl">27.326007</span></span>
+<span id="cb29-7"><a href="#cb29-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">5</span>   ATIC   ITPA                database <span class="fl">32.967033</span></span></code></pre></div>
 <p>To reduce clutter on graphs, the CFN edges can be merged. This
 collapses two or more edges between two nodes into a single edge,
 combining edge names:</p>
@@ -564,9 +564,9 @@ pathway.crosstalk.network.</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
 <span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>                                         <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
 <span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PCN</span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-11</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">00</span><span class="sc">:</span><span class="fl">34.992306</span></span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-11</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">00</span><span class="sc">:</span><span class="fl">35.104014</span></span>
-<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.11170768737793</span></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-12</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">38</span><span class="sc">:</span><span class="fl">49.512043</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-12</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">38</span><span class="sc">:</span><span class="fl">49.628015</span></span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.115971565246582</span></span>
 <span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span></code></pre></div>

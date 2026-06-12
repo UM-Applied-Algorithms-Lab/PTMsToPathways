@@ -125,8 +125,6 @@ following:
 set.seed(88)
 clusterlist.data <- MakeClusterList(ptmtable,
                                     keeplength = 3, toolong = 3.5)
-CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
-                                    ptm.correlation.matrix)
 ```
 
 Or load in pre-computed results from within the PTMsToPathways package:
@@ -145,12 +143,23 @@ that contain the following elements:
 common.clusters <- clusterlist.data[[1]]
 adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
+```
+
+These are required for the next step.
+
+``` r
+CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
+                                    ptm.correlation.matrix)
+>> Making PTM CCCN
+>> PTM CCCN complete after 0.89 secs total.
+>> Making Gene CCCN
+>> Gene CCCN complete after 18.15 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
 ```
 
-We expect 231 common clusters:
+We expect \>200 common clusters:
 
 ``` r
 length(common.clusters)
@@ -254,11 +263,19 @@ vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/Cr
 
 string_db_filepath <- "your/filepath/here.tsv"
 
-stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
-                              gene.cccn.nodes,
-                              local                  = TRUE,
-                              string.local.path      = string_db_filepath
-)
+# optional check that the nodenames are consistent with STRINGdb
+sym.map <- StandardizeGeneSymbols(gene.cccn.nodes)
+identical (unique(sym.map$standard_symbol), gene.cccn.nodes) 
+# TRUE so no further action is required.
+# If there were differences, replace symbol.map = NULL with symbol.map = sym.map
+ 
+stringdb.edges <- GetSTRINGdb.edges(        gene.cccn.edges,
+                                            gene.cccn.nodes,
+                                            local = TRUE,
+                                            string.local.path = string_db_filepath,
+                                            combined.score.threshold = 400,
+                                            include.transferred = TRUE,
+                                            symbol.map = NULL)
 ```
 
 To avoid downloading the large STRINGdb edge file, edges from the BRCA
@@ -267,13 +284,13 @@ gene set can be loaded from within the package:
 ``` r
 stringdb.edges <- BRCA_stringdb.edges
 head(stringdb.edges)
->>      source target  interaction Weight
->> 3197   AAK1  ACTR2 experimental    232
->> 3206   AAK1   ANLN experimental    198
->> 3232   AAK1 BCLAF1 experimental     45
->> 3237   AAK1  CAMK4 experimental    178
->> 3242   AAK1  CDK13 experimental     93
->> 3243   AAK1  CDK19 experimental     59
+>>   source target             interaction Weight
+>> 1   AAK1  AGFG1                database    500
+>> 2   AAK1    GAK             experiments    411
+>> 3   AAK1  ITSN1                database    500
+>> 4   AAK1  NUMBL experiments_transferred    322
+>> 5   AAK1  STK11 experiments_transferred     46
+>> 6   ABL1   ABL2             experiments   1431
 ```
 
 The GeneMANIA human PPI edge file contains the following types of
@@ -286,6 +303,7 @@ gm.interaction.types in the following function.
 ``` r
 
 genemania_db_filepath <- "your/filepath/here.tsv"
+
 genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
                                 gene.cccn.nodes,
                                 local                = TRUE,
@@ -330,8 +348,8 @@ dim(cfn)
 
 cfn.merged <- mergeEdges(cfn)
 dim(cfn.merged)
->> [1] 67139     4
->> [1] 25896     4
+>> [1] 9965    4
+>> [1] 2810    4
 ```
 
 We build the PCN from the BioPlanet pathways as done previously. This
@@ -429,7 +447,7 @@ Treat modules like our clusters:
 ``` r
 PD.module.list <- split(PD_module.df$Peptide.Name, PD_module.df$HDBSCAN.min_cluster_size.4)
 length(PD.module.list)
-PD.module.list$`68` # this one has multiple for the same gene
+PD.module.list$`68` 
 >> [1] 69
 >>  [1] "ARHGAP5 p S1218"           "C2CD5 p S295"             
 >>  [3] "CHAMP1 p S282s S284s S286" "CHAMP1 p S286s S297"      
@@ -507,10 +525,10 @@ mod63.intersect
 >> [1] "ZC3HC1 p S24s T28"
 ```
 
-Interesctions of more than one PTM were found in ConsensusClusters 2, 3,
-4, 5, 6, 7, and 10.
+Interesctions of more than one PTM were found in several
+ConsensusClusters.
 
-There are 204 PTMs in the P2P clusters that intersect with module 63:
+There are \>200 PTMs in the P2P clusters that intersect with module 63:
 
 ``` r
 mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1, common.clusters$ConsensusCluster3, common.clusters$ConsensusCluster4, common.clusters$ConsensusCluster5, common.clusters$ConsensusCluster6))
@@ -576,6 +594,7 @@ RCy3.
 
 ``` r
 
+library(RCy3)
 selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
 selectEdgesConnectingSelectedNodes()
 createSubnetwork(nodes = getSelectedNodes(), edges = getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
@@ -599,8 +618,8 @@ Now further simplify the graph to show only CCCN PTMs.
 
 ``` r
 
-cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$Gene.Name)
-cdksubs.cfn <- filter.edges.0(cfn_cccn.nodes.cdksubs.genes, cfn.merged)
+cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$id)
+cdksubs.cfn <- filter.edges.0(cdksubs.genes, cfn.merged)
 cdksubs.cfn.cccn <- get.co.clustered.ptms(cdksubs.cfn, ptm.cccn.edges=ptm.cccn.edges)
 cdksubs.cfn.cccn.nodes <- make.cytoscape.node.file(cdksubs.cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
@@ -622,6 +641,7 @@ and MLLT4 frameshift mutants).
 
 ``` r
 
+library(RCy3)
 setNodeColorToRatios(plotcol="X03BR011")
 setNodeColorToRowz(plotcol="X03BR011")  # This exaggerates the node size and shape somewhat. 
 setNodeColorToRatios(plotcol="X21BR010")
