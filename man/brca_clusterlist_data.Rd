@@ -25,6 +25,5 @@ Output of MakeClusterList on the BRCA data
 head("brca_clusterlist_data[[1]]")
 head("brca_clusterlist_data[[2]]")
 head("brca_clusterlist_data[[3]]")
-
 }
 \keyword{internal}
