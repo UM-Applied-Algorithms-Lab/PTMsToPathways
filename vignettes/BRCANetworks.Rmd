@@ -137,8 +137,7 @@ results for this step. To re-run the analysis, run, the following:
 set.seed(88)
 clusterlist.data <- MakeClusterList(ptmtable,
                                     keeplength = 3, toolong = 3.5)
-CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
-                                    ptm.correlation.matrix)
+
 ```
 
 Or load in pre-computed results from within the PTMsToPathways package:
@@ -155,12 +154,19 @@ that contain the following elements:
 common.clusters <- clusterlist.data[[1]]
 adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
+```
+
+These are required for the next step.
+
+```{r eval = TRUE}
+CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
+                                    ptm.correlation.matrix)
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
 ```
 
-We expect 231 common clusters:
+We expect >200 common clusters:
 
 ```{r eval = TRUE}
 length(common.clusters)
@@ -238,18 +244,26 @@ can be obtained from STRINGdb and GeneMANIA websites as demonstrated in the [Cre
 
 ```{r eval = FALSE}
 string_db_filepath <- "your/filepath/here.tsv"
+# optional check that the nodenames are consistent with STRINGdb
+sym.map <- StandardizeGeneSymbols(gene.cccn.nodes)
+identical (unique(sym.map$standard_symbol), gene.cccn.nodes) 
+# TRUE so no further action is required.
+# If there were differences, replace symbol.map = NULL with symbol.map = sym.map
+# 
+stringdb.edges <- GetSTRINGdb.edges(        gene.cccn.edges,
+                                            gene.cccn.nodes,
+                                            local = TRUE,
+                                            string.local.path = string_db_filepath2,
+                                            combined.score.threshold = 400,
+                                            include.transferred = TRUE,
+                                            symbol.map = NULL)
 
-stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
-                              gene.cccn.nodes,
-                              local                  = TRUE,
-                              string.local.path      = string_db_filepath
-)
 ```
 
 To avoid downloading the large STRINGdb edge file, edges from the BRCA gene set can be loaded from within the package:
 
 ```{r eval = TRUE}
-stringdb.edges <- BRCA_stringdb.edges
+# stringdb.edges <- BRCA_stringdb.edges
 head(stringdb.edges)
 ```
 
@@ -364,7 +378,7 @@ Treat modules like our clusters:
 ```{r eval=TRUE}
 PD.module.list <- split(PD_module.df$Peptide.Name, PD_module.df$HDBSCAN.min_cluster_size.4)
 length(PD.module.list)
-PD.module.list$`68` # this one has multiple for the same gene
+PD.module.list$`68` 
 ```
 
 Let's get the unique genes in each module to compare to the unique genes
@@ -388,9 +402,9 @@ mod63.intersect <- Filter(length, Map(intersect, common.clusters, list(PD.module
 mod63.intersect
 ```
 
-Interesctions of more than one PTM were found in ConsensusClusters 2, 3, 4, 5, 6, 7, and 10. 
+Interesctions of more than one PTM were found in several ConsensusClusters. 
 
-There are 204 PTMs in the P2P clusters that intersect with module 63:
+There are >200 PTMs in the P2P clusters that intersect with module 63:
 
 ```{r eval = TRUE}
 mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1, common.clusters$ConsensusCluster3, common.clusters$ConsensusCluster4, common.clusters$ConsensusCluster5, common.clusters$ConsensusCluster6))
@@ -446,6 +460,7 @@ Two ways to select for CDK1 substrates are presented. Method 1: Using
 RCy3.
 
 ```{r eval = FALSE}
+library(RCy3)
 selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
 selectEdgesConnectingSelectedNodes()
 createSubnetwork(nodes = getSelectedNodes(), edges = getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
@@ -469,8 +484,8 @@ knitr::include_graphics("vig_figs/CDKsub63_allPTMs_X03BR011.png")
 Now further simplify the graph to show only CCCN PTMs.
 
 ```{r eval = FALSE}
-cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$Gene.Name)
-cdksubs.cfn <- filter.edges.0(cfn_cccn.nodes.cdksubs.genes, cfn.merged)
+cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$id)
+cdksubs.cfn <- filter.edges.0(cdksubs.genes, cfn.merged)
 cdksubs.cfn.cccn <- get.co.clustered.ptms(cdksubs.cfn, ptm.cccn.edges=ptm.cccn.edges)
 cdksubs.cfn.cccn.nodes <- make.cytoscape.node.file(cdksubs.cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
@@ -493,6 +508,7 @@ mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense
 and MLLT4 frameshift mutants).
 
 ```{r eval = FALSE}
+library(RCy3)
 setNodeColorToRatios(plotcol="X03BR011")
 setNodeColorToRowz(plotcol="X03BR011")  # This exaggerates the node size and shape somewhat. 
 setNodeColorToRatios(plotcol="X21BR010")

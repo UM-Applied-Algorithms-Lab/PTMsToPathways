@@ -259,7 +259,7 @@ also be downloaded and added to the PPI network. All three external
 databases have different interfaces for downloading data, so we show how
 to retrieve data from each of them below.
 
-For this tutorial, we query STRINGdb and GeneMANIA directly. We also provide the option (using the switch local = TRUE) to retrive edges from human PPIs from these sources in pre-assembled files; the *BRCANetworks* vignette demonstrates how to get the STRING-db and GeneMANIA edges from the static downloaded networks.
+For this tutorial, we query STRINGdb and GeneMANIA directly. We also provide the option (using the switch local = TRUE) to retrive edges from human PPIs from these sources in pre-assembled files; the [BRCANetworks vignette](BCRANetworks.html) demonstrates how to get the STRING-db and GeneMANIA edges from the static downloaded networks.
 
 ### 1. STRINGdb
 
