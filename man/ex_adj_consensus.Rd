@@ -16,7 +16,7 @@ Dataframe of 908 rows and columns:
 "Produced by MakeClusterList"
 }
 \usage{
-ex_adj_consensus
+data(ex_adj_consensus)
 }
 \description{
 A matrix containing values of 0s and 1s depending on if the PTMs are in a cocluster with other PTMs.

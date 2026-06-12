@@ -16,7 +16,7 @@ Dataframe of 9215 rows and 70 columns:
 "Mass Spectrometry Data"
 }
 \usage{
-ex_full_ptm_table
+data(ex_full_ptm_table)
 }
 \description{
 Post-translational modification data under certain environmental conditions.

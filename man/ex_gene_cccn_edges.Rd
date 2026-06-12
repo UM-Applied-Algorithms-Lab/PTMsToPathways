@@ -17,7 +17,7 @@ Data Frame of 2279 rows and 4 columns
 "Produced by MakeCorrelationNetwork"
 }
 \usage{
-ex_gene_cccn_edges
+data(ex_gene_cccn_edges)
 }
 \description{
 Gene Co-Cluster Correlation Network as an Edgelist
