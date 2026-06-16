@@ -31,7 +31,7 @@ test_that("GetSTRINGdb.edges() gives right answer with local file", {
 
 test_that("GetKinsub.edges() gives right answer", {
 
-   path <- system.file('extdata/Kinase_Substrate_Dataset.txt', package='PTMsToPathways')
+  path <- system.file('extdata/Kinase_Substrate_Dataset.txt', package='PTMsToPathways')
   kinsub_edges <- GetKinsub.edges(path, ex_gene_cccn_nodes)
   
   # Expected values

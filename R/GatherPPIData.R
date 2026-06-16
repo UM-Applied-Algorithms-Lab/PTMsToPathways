@@ -341,12 +341,12 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
   }
 
   message("Formatting...")
-  interactions$Gene.1 <- sapply(interactions$from, function(x) {
+  interactions$Gene.1 <- vapply(interactions$from, function(x) {
     string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
-  })
-  interactions$Gene.2 <- sapply(interactions$to, function(x) {
+  }, FUN.VALUE=character(1))
+  interactions$Gene.2 <- vapply(interactions$to, function(x) {
     string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
-  })
+  }, FUN.VALUE=character(1))
 
   if (!"combined_score" %in% colnames(interactions)) {
     stop("Live STRINGdb interactions did not include a `combined_score` column.")

@@ -5,7 +5,7 @@
 \alias{BRCA_stringdb.edges}
 \title{BRCA STRINGdb Edges}
 \format{
-An object of class \code{data.frame} with 51286 rows and 4 columns.
+An object of class \code{data.frame} with 6095 rows and 4 columns.
 }
 \usage{
 BRCA_stringdb.edges

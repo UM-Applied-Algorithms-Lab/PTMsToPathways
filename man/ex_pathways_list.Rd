@@ -22,4 +22,4 @@ A list of pathway names and the genes that make them up
 \examples{
 head("ex_pathways_list")
 }
-\keyword{datasets}
+\keyword{internal}

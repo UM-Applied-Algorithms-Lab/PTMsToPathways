@@ -5,12 +5,25 @@
 \alias{brca_clusterlist_data}
 \title{BRCA Cluster List Data}
 \format{
-An object of class \code{list} of length 3.
+list containing the 3 outputs of MakeClusterList
+\describe{
+\item{Common Clusters}{231 lists of PTMs found to cluster, see Common Clusters}
+\item{Adjacency Matrix}{4237 x 4237, see Adjacency Consensus Matrix}
+\item{PTM correlation matrix}{4237 x 4237, see Correlation Matrix}
+}
+}
+\source{
+"MakeClusterList on the BRCA data"
 }
 \usage{
 brca_clusterlist_data
 }
 \description{
 Output of MakeClusterList on the BRCA data
+}
+\examples{
+head("brca_clusterlist_data[[1]]")
+head("brca_clusterlist_data[[2]]")
+head("brca_clusterlist_data[[3]]")
 }
 \keyword{internal}
