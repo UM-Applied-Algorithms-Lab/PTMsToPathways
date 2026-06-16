@@ -20,10 +20,6 @@ filter.edges.0(nodenames, edge.file)
 
 ## Arguments
 
-- nodenames:
-
-- edge.file:
-
 - cfn:
 
   A version of ppi.network with only the edges that exist in cccn.matrix

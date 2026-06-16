@@ -179,27 +179,43 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
 >> Starting correlation calculations and t-SNE.
 >> This may take a few minutes or hours for large data sets.
->> Spearman correlation calculation complete after 13.39 secs total.
->> Spearman t-SNE calculation complete after 42.77 secs total.
->> Euclidean distance calculation complete after 42.82 secs total.
->> Euclidean t-SNE calculation complete after 1.17 mins total.
->> Combined distance calculation complete after 1.17 mins total.
->> SED t-SNE calculation complete after 1.63 mins total.
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
+>> "spearman"): the standard deviation is zero
+>> Spearman correlation calculation complete after 13.19 secs total.
+>> Spearman t-SNE calculation complete after 40.77 secs total.
+>> Euclidean distance calculation complete after 40.82 secs total.
+>> Euclidean t-SNE calculation complete after 1.11 mins total.
+>> Combined distance calculation complete after 1.11 mins total.
+>> SED t-SNE calculation complete after 1.54 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.64 mins total.
+    >> Clustering for Euclidean complete after 1.56 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.64 mins total.
+    >> Clustering for Spearman complete after 1.56 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.64 mins total.
-    >> Consensus clustering complete after 1.65 mins total.
-    >> MakeClusterList complete after 1.65 mins total.
+    >> Clustering for SED complete after 1.56 mins total.
+    >> Consensus clustering complete after 1.57 mins total.
+    >> MakeClusterList complete after 1.57 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -275,7 +291,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.06 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.84 secs total.
+>> Gene CCCN complete after 2.89 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -525,9 +541,9 @@ bioplanet.file <- system.file("extdata", "pathway.csv",
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
 >> Making PCN
->> 2026-06-12 16:38:49.512043
->> 2026-06-12 16:38:49.628015
->> Total time: 0.115971565246582
+>> 2026-06-16 18:32:43.638153
+>> 2026-06-16 18:32:43.749005
+>> Total time: 0.110851764678955
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]

@@ -7,7 +7,3 @@ Title
 ``` r
 make.genepep.edges(peptide.edgefile)
 ```
-
-## Arguments
-
-- peptide.edgefile:

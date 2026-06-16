@@ -16,15 +16,18 @@
 
 ## Citation
 
+Source:
+[`DESCRIPTION`](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/blob/main/DESCRIPTION)
+
 Grimes M, Ukrainetz M, Smith G, Moffett M, Avabhrath N, Williams L
 (2026). *PTMsToPathways: Filtered CoCluster Correlation Network Guide*.
-R package version 0.0.0.9000,
+R package version 0.99.0,
 <https://um-applied-algorithms-lab.github.io/PTMsToPathways/>.
 
     @Manual{,
       title = {PTMsToPathways: Filtered CoCluster Correlation Network Guide},
       author = {Mark Grimes and Mikhail Ukrainetz and Grant Smith and Madison Moffett and Nagashree Avabhrath and Lucia Williams},
       year = {2026},
-      note = {R package version 0.0.0.9000},
+      note = {R package version 0.99.0},
       url = {https://um-applied-algorithms-lab.github.io/PTMsToPathways/},
     }

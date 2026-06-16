@@ -66,9 +66,9 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
 - [`GetGeneMANIA.edges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetGeneMANIA.edges.md)
   : Get GeneMANIA Edges
 - [`GetKinsub.edges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetKinsub.edges.md)
-  : Format Kinsub Table
+  : Get Kinase-Substrate Edges
 - [`GetSTRINGdb.edges()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/GetSTRINGdb.edges.md)
-  : Get STRINGdb PPI data
+  : Get STRINGdb PPI data from full local or live source
 - [`MakeClusterList()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeClusterList.md)
   : Build Clusters Based on PTM Data Under Like Conditions
 - [`MakeCorrelationNetwork()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeCorrelationNetwork.md)
@@ -77,8 +77,8 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
   : Make Database Input File
 - [`ReadBioplanetFile()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ReadBioplanetFile.md)
   : Read Bioplanet File
-- [`ex_pathways_list`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_pathways_list.md)
-  : Pathways list
+- [`StandardizeGeneSymbols()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.md)
+  : Standardize Gene Symbols
 - [`filter.edges.0()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/filter.edges.0.md)
   : Graphing and Manipulating Cluster Filtered Network
 - [`fix.excel()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/fix.excel.md)

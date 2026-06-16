@@ -7,7 +7,3 @@ Title
 ``` r
 remove.autophos(edgefile)
 ```
-
-## Arguments
-
-- edgefile:

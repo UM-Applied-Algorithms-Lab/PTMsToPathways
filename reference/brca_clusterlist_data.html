@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">PTMsToPathways</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.99.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,7 +33,7 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>BRCA Cluster List Data</h1>
-
+      <small class="dont-index">Source: <a href="https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/blob/main/R/data_documentation.R" class="external-link"><code>R/data_documentation.R</code></a></small>
       <div class="d-none name"><code>brca_clusterlist_data.Rd</code></div>
     </div>
 
@@ -48,9 +48,32 @@
 
     <div class="section level2">
     <h2 id="format">Format<a class="anchor" aria-label="anchor" href="#format"></a></h2>
-    <p>An object of class <code>list</code> of length 3.</p>
+    <p>list containing the 3 outputs of MakeClusterList</p><dl><dt>Common Clusters</dt>
+<dd><p>231 lists of PTMs found to cluster, see Common Clusters</p></dd>
+
+<dt>Adjacency Matrix</dt>
+<dd><p>4237 x 4237, see Adjacency Consensus Matrix</p></dd>
+
+<dt>PTM correlation matrix</dt>
+<dd><p>4237 x 4237, see Correlation Matrix</p></dd>
+
+
+</dl></div>
+    <div class="section level2">
+    <h2 id="source">Source<a class="anchor" aria-label="anchor" href="#source"></a></h2>
+    <p>"MakeClusterList on the BRCA data"</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="st">"brca_clusterlist_data[[1]]"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "brca_clusterlist_data[[1]]"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="st">"brca_clusterlist_data[[2]]"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "brca_clusterlist_data[[2]]"</span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="st">"brca_clusterlist_data[[3]]"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "brca_clusterlist_data[[3]]"</span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 

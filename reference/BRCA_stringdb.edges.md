@@ -10,4 +10,4 @@ BRCA_stringdb.edges
 
 ## Format
 
-An object of class `data.frame` with 51286 rows and 4 columns.
+An object of class `data.frame` with 6095 rows and 4 columns.

@@ -1,17 +1,13 @@
-# Get STRINGdb PPI data
+# Get STRINGdb PPI data from full local or live source
 
-This function finds protein-protein interaction weights by consulting
-the STRINGdb database, either live via the STRINGdb R package or from a
-locally pre-downloaded flat file.
+Retrieve STRINGdb protein-protein interaction edges for a supplied gene
+set, either from a precomputed local file derived from
+protein.links.full.v12.0.txt.gz or live via the STRINGdb R package.
 
-For the local mode, download the full detailed network file for Homo
-sapiens from:
-https://stringdb-downloads.org/download/protein.links.detailed.v12.0/9606.protein.links.detailed.v12.0.txt.gz
-and pre-process it to HUGO symbols using the companion script
-scripts/string_to_hugo.r. The resulting file (string_hs_hugo.tsv) is the
-expected input for local mode. 'Group' is the interaction category
-(included: "Pathway", "Physical Interactions", "Predicted", "Genetic
-Interactions")
+In local mode, this function performs no web/API queries. To avoid
+symbol mismatches, users are encouraged to standardize their node list
+in advance with
+[`StandardizeGeneSymbols()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.md).
 
 ## Usage
 
@@ -20,7 +16,10 @@ GetSTRINGdb.edges(
   gene.cccn.edges,
   gene.cccn.nodes,
   local = FALSE,
-  string.local.path = "string_hs_hugo.tsv"
+  string.local.path = "string_hs_hugo_full.tsv",
+  combined.score.threshold = 400,
+  include.transferred = TRUE,
+  symbol.map = NULL
 )
 ```
 
@@ -28,55 +27,55 @@ GetSTRINGdb.edges(
 
 - gene.cccn.edges:
 
-  A dataframe showing interaction relationships between proteins using
-  common PTM clusters derived from three distance metrics (Euclidean,
-  Spearman, and Combined (SED))
+  Data frame of CCCN edges (currently unused; retained for compatibility
+  with older package API).
 
 - gene.cccn.nodes:
 
-  A list of nodes that are in the Gene CoCluster Correlation Network
-  derived from common clusters between the three distance metrics
-  (Euclidean, Spearman, and Combined (SED))
+  Character vector of gene symbols to retain.
 
 - local:
 
-  Logical. If TRUE, reads from a pre-downloaded local file instead of
-  querying the live STRINGdb API. Default is FALSE.
+  Logical. If TRUE, read only from a local precomputed file and do not
+  query STRINGdb online. Default is FALSE.
 
 - string.local.path:
 
-  Path to the pre-processed local STRING file (string_hs_hugo.tsv
-  produced by scripts/string_to_hugo.r). Only used when local = TRUE.
-  Default is "string_hs_hugo.tsv".
+  Path to local TSV produced from protein.links.full with transferred
+  columns included. Default is "string_hs_hugo_full.tsv".
 
 - combined.score.threshold:
 
-  Integer (0–1000). Minimum combined_score to retain an edge when
-  reading from the local file. STRING thresholds: low = 150, medium =
-  400, high = 700, highest = 900. Default is 400.
+  Integer (0-1000). Minimum combined_score to retain an edge. Default is
+  400.
+
+- include.transferred:
+
+  Logical. If TRUE, include \*\_transferred evidence channels. If FALSE,
+  omit them. Default is TRUE.
+
+- symbol.map:
+
+  Optional data frame produced by
+  [`StandardizeGeneSymbols()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.md).
+  If supplied, `gene.cccn.nodes` will be converted to `standard_symbol`
+  before filtering. Useful for keeping local mode fully offline.
 
 ## Value
 
-Data frame of consisting of the network of interactions from the genes
-of study pulled from the STRINGdb database and a list of gene names
-
-## Details
-
-The full example takes ~10 minutes to load in live mode, so it has been
-commented out and the results are displayed.
+Data frame with columns: source, target, interaction, Weight
 
 ## Examples
 
 ``` r
-# Live mode (original behaviour):
-# GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes)
-
-# Local mode (future-proof, no internet required):
-# GetSTRINGdb.edges(ex.gene.cccn.edges, ex.gene.cccn.nodes,
-#                   local = TRUE, string.local.path = "string_hs_hugo.tsv")
-
-utils::head(ex.stringdb.edges)
-#> Error: object 'ex.stringdb.edges' not found
-utils::head(ex.nodenames)
-#> Error: object 'ex.nodenames' not found
+# sym.map <- StandardizeGeneSymbols(ex.gene.cccn.nodes)
+# x <- GetSTRINGdbEdgesFull(
+#   ex.gene.cccn.edges,
+#   ex.gene.cccn.nodes,
+#   local = TRUE,
+#   string.local.path = "string_hs_hugo_full.tsv",
+#   combined.score.threshold = 400,
+#   include.transferred = TRUE,
+#   symbol.map = sym.map
+# )
 ```

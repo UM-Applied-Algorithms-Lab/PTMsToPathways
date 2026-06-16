@@ -8,6 +8,7 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/authors.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/index.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/news/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BRCA_PCN.data.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BRCA_genemania.edges.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/BRCA_stringdb.edges.html</loc></url>
@@ -21,8 +22,10 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeCorrelationNetwork.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeDBInput.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ReadBioplanetFile.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/brca_CCCN_data.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/brca_clusterlist_data.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/dot-map_nodes_with_symbol_map.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_PCNedgelist.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_adj_consensus.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ex_bioplanet.html</loc></url>
