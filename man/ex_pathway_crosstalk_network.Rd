@@ -17,7 +17,7 @@ Dataframe of 37 rows and 4 columns
 "Produced by BuildPathwayCrosstalkNetwork"
 }
 \usage{
-ex_pathway_crosstalk_network
+data(ex_pathway_crosstalk_network)
 }
 \description{
 Specific genes from the bioplanet file that we found in Common Clusters and their respective cell signaling pathway relationships

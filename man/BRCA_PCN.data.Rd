@@ -8,7 +8,7 @@
 An object of class \code{list} of length 3.
 }
 \usage{
-BRCA_PCN.data
+data(BRCA_PCN.data)
 }
 \description{
 Output of BuildPathwayCrosstalkNetwork on the BRCA data
