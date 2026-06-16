@@ -2,10 +2,11 @@
 
 test_that("MakeCorrelationNetwork() gives right answer", {
 
-    # now run MakeCorrelationNetwork
+    # Get data from package
     adj_consensus <- PTMsToPathways::ex_adj_consensus
     ptm_correlation_matrix <- PTMsToPathways::ex_ptm_correlation_matrix
     
+    # Run the function and get results
     correlationnetwork_data <- suppressMessages(MakeCorrelationNetwork(adj_consensus, ptm_correlation_matrix))
     ptm_cccn_edges <- correlationnetwork_data[[1]]
     gene_cccn_edges <- correlationnetwork_data[[2]]

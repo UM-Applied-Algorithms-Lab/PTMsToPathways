@@ -1,5 +1,6 @@
 # THESE USE DATA GENERATED FROM THE SMALL PTM TABLE 
 
+# Get data from package
 gene_cccn_edges <- PTMsToPathways::ex_gene_cccn_edges
 gene_cccn_nodes <- PTMsToPathways::ex_gene_cccn_nodes
 
