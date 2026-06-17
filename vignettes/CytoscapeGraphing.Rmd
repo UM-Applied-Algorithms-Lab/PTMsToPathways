@@ -65,9 +65,9 @@ functions used below are in CytoscapeGraphing.R
 
 ```{r eval = TRUE, echo = FALSE}
 library(PTMsToPathways)
-funckey <- function_key
 data_names <- data(package = "PTMsToPathways")$results[, "Item"]
 data(list = data_names, package = "PTMsToPathways")
+funckey <- function_key
 ```
 
 ```{r eval = TRUE}
