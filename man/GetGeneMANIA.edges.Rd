@@ -9,51 +9,43 @@ GetGeneMANIA.edges(
   gene.cccn.nodes,
   local = FALSE,
   genemania.local.path = "hs_interactions_hugo.tsv",
-  gm.interaction.types = c("Pathway", "Physical Interactions")
+  gm.interaction.types = c("Pathway", "Physical Interactions"),
+  symbol.map = NULL
 )
 }
 \arguments{
 \item{gm.results.path}{Path to GeneMANIA results text file (used when local = FALSE).}
 
-\item{gene.cccn.nodes}{A list of nodes that are in the Gene CoCluster Correlation Network derived from common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))}
+\item{gene.cccn.nodes}{Character vector of CCCN node symbols.}
 
-\item{local}{Logical. If TRUE, reads from a pre-downloaded local file instead of a Cytoscape export. Default is FALSE.}
+\item{local}{Logical. If TRUE, reads from a pre-downloaded local file instead
+of a Cytoscape export. Default is FALSE.}
 
-\item{genemania.local.path}{Path to the pre-processed local GeneMANIA file (hs_interactions_hugo.tsv produced by scripts/genemania_hs_download.r).
+\item{genemania.local.path}{Path to the pre-processed local GeneMANIA file
+(hs_interactions_hugo.tsv produced by scripts/genemania_hs_download.r).
 Only used when local = TRUE. Default is "hs_interactions_hugo.tsv".}
 
 \item{gm.interaction.types}{Character vector of interaction group names to retain.
-Only used when local = TRUE. Default retains Pathway and Physical Interactions,
-matching the filter applied in the original live mode.}
+Default retains Pathway and Physical Interactions.}
+
+\item{symbol.map}{Optional data frame produced by \code{StandardizeGeneSymbols()}.
+If supplied, \code{gene.cccn.nodes} will be converted to \code{standard_symbol}
+before filtering.}
 }
 \value{
-Data frame of consisting of the network of interactions from the genes of study
+Data frame with columns: source, target, interaction, Weight
 }
 \description{
-This function returns a filtered GeneMANIA edge list, either by parsing a
-GeneMANIA Cytoscape export file (original behaviour) or by reading a
-pre-downloaded full Homo sapiens network (local mode).
-}
-\details{
-Live mode: To get the GeneMANIA results text file, click on the three lines in the upper
-right corner of the GeneMANIA side window beside the species. Click "Export Results".
-The path to this file is the gm.results.path.
-
-Local mode: Download and process the full GeneMANIA Homo sapiens network using the
-companion script scripts/genemania_hs_download.r, which produces hs_interactions_hugo.tsv.
+Return a filtered GeneMANIA edge list, either by parsing a GeneMANIA
+Cytoscape export file (original behaviour) or by reading a pre-downloaded
+full Homo sapiens network (local mode). Optionally standardizes the node list
+using a precomputed symbol map.
 }
 \examples{
-# Live mode (original behaviour):
-ex.gm.results.path <- system.file("extdata/ex_gm_edgetable.csv", package = "PTMsToPathways")
-example.GeneMANIA.edges <- GetGeneMANIA.edges(ex.gm.results.path, ex.gene.cccn.nodes)
-
-# Local mode (future-proof, no internet required):
-# example.GeneMANIA.edges <- GetGeneMANIA.edges(
-#   gm.results.path    = NULL,
-#   gene.cccn.nodes    = ex.gene.cccn.nodes,
-#   local              = TRUE,
-#   genemania.local.path = "hs_interactions_hugo.tsv"
+# sym.map <- StandardizeGeneSymbols(ex.gene.cccn.nodes)
+# gm.edges <- GetGeneMANIA.edges(
+#   gm.results.path = ex.gm.results.path,
+#   gene.cccn.nodes = ex.gene.cccn.nodes,
+#   symbol.map = sym.map
 # )
-
-utils::head(example.GeneMANIA.edges)
 }

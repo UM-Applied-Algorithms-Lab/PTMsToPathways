@@ -35,14 +35,14 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
   # Add if statement here to make sure functions are formatted correctly #
   # Ensure ptmtable is a data frame with numeric values #
   PTMnames <- rownames(ptmtable)
-  if (!all(sapply(ptmtable, is.numeric))) {
+  if (!all(vapply(ptmtable, is.numeric, FUN.VALUE = logical(1) ))) {
     stop("All columns in 'ptmtable' must be numeric.")
   }
 
   # SPEARMAN CALCULATION
 
   # Calculate Spearman correlation #
-  ptm.correlation.matrix <- suppressWarnings(stats::cor(t(ptmtable), use = "pairwise.complete.obs", method = "spearman"))
+  ptm.correlation.matrix <- stats::cor(t(ptmtable), use = "pairwise.complete.obs", method = "spearman")
   # Note: this is the slowest step. We found  use = "pairwise.complete.obs",
   # method = "spearman" to perform the best according to evaluations with data
   # with missing values, but it takes longer.
@@ -68,10 +68,10 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
   #EUCLIDEAN CALCULATION
 
   # Convert the dataframe to a distance matrix using Euclidean distance #
-  ptmtable.dist = as.matrix(stats::dist(ptmtable, method = "euclidean"))
+  ptmtable.dist <- as.matrix(stats::dist(ptmtable, method = "euclidean"))
 
   # Compute the maximum distance in the matrix, excluding NA values #
-  max.dist = max(ptmtable.dist, na.rm = TRUE)
+  max.dist <- max(ptmtable.dist, na.rm = TRUE)
 
   # Replace NA values in the distance matrix with 100 times the maximum distance #
   ptmtable.dist[is.na(ptmtable.dist)] <- 100 * max.dist

@@ -3,8 +3,13 @@
 test_that("BuildClusterFilteredNetwork() gives right answer", {
   
   # Run the function to test
-  output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges, ex_stringdb_edges, ex_genemania_edges, NULL)
   
+  gene_cccn_edges <- PTMsToPathways::ex_gene_cccn_edges
+  stringdb_edges <- PTMsToPathways::ex_stringdb_edges
+  genemania_edges <- PTMsToPathways::ex_genemania_edges
+  
+  output <- BuildClusterFilteredNetwork(gene_cccn_edges, stringdb_edges, genemania_edges, NULL)
+
   # Test the combined PPI output
   combined_ppi <- output[[1]]
   

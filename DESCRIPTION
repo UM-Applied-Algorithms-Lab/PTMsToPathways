@@ -1,6 +1,6 @@
 Package: PTMsToPathways
 Title: Filtered CoCluster Correlation Network Guide
-Version: 0.0.0.9000
+Version: 0.99.0
 Authors@R: c(
     person("Mark", "Grimes", email = "first.last@example.com", role = c("aut", "cre")),
     person("Mikhail", "Ukrainetz", email = "first.last@example.com", role = c("aut")),
@@ -13,7 +13,7 @@ Description: A collection of functions in order to process mass spectrometry dat
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.3
+RoxygenNote: 8.0.0
 Imports:
     Rtsne,
     plyr,
@@ -35,8 +35,10 @@ Suggests:
 VignetteBuilder:
     knitr
 Depends: 
-    R (>= 3.5)
-LazyData: true
+    R (>= 4.5.0)
 URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
+BugReports: https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/issues/new
+LazyData: true
 Config/testthat/edition: 3
 Additional_repositories: https://bioconductor.org/packages/3.21/bioc
+biocViews: Software, Proteomics, PostTranslationalModifications, Pathways, Network

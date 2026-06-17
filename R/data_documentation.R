@@ -313,6 +313,8 @@
 #' 
 #' A list of pathway names and the genes that make them up
 #' 
+#' @keywords internal
+#' 
 #' @format list of 9 character vectors
 #' \describe{
 #'  \item{Pathway name}{Genes in the pathway}
@@ -327,6 +329,19 @@
 #' Output of MakeClusterList on the BRCA data
 #' 
 #' @keywords internal
+#' 
+#' @format list containing the 3 outputs of MakeClusterList
+#' \describe{
+#'  \item{Common Clusters}{231 lists of PTMs found to cluster, see Common Clusters}
+#'  \item{Adjacency Matrix}{4237 x 4237, see Adjacency Consensus Matrix}
+#'  \item{PTM correlation matrix}{4237 x 4237, see Correlation Matrix}
+#' }   
+#' 
+#' @source "MakeClusterList on the BRCA data"
+#' @examples
+#' head("brca_clusterlist_data[[1]]")
+#' head("brca_clusterlist_data[[2]]")
+#' head("brca_clusterlist_data[[3]]")
 "brca_clusterlist_data"
 
 # BRCA CCCN Data
