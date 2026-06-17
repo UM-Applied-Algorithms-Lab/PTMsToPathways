@@ -1,9 +1,5 @@
 # Cytoscape Graphing
 
-## 
-
-## Graphing Networks in Cytoscape
-
 ### Top-down approach starting with pathways
 
 It is possible to graph the entire PCN, CFN, and CCCNs in their
@@ -20,25 +16,36 @@ and PTMs of interest in the R data objects, then make smaller, more
 interpretable graphs in Cytoscape using RCy3.
 
 For example, we will find names of all pathways in Bioplanet that
-contain EGFR. The data object `pathways.list` is a list, where the name
-of the list element is the name of a Bioplanet pathway and each element
-is a character vector of the genes in that pathway. Then we want to find
-interactions between the pathway “Transmembrane transport of small
-molecules” and those pathways. The utility functions used below are in
-CytoscapeGraphing.R
+contain EGFR. To get started, load the PTMsToPathways package and read
+the Bioplanet file using the built-in P2P function
+[ReadBioplanetFile()](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/ReadBioplanetFile.md).
+
+The data object `pathways.list` is a list, where the name of the list
+element is the name of a Bioplanet pathway and each element is a
+character vector of the genes in that pathway.
 
 ``` r
 
-egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
-  {"EGFR" %in% ex_pathways_list[[x]]})]
+egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list), function(x)
+  {"EGFR" %in% pathways.list[[x]]})]
 ```
 
 We expect 83 pathways that contain EGFR, so let’s check:
 
 ``` r
+head(egfr_pathways)
 length(egfr_pathways)
->> [1] 2
+>> [1] "Actin cytoskeleton regulation"                                         
+>> [2] "Adherens junction cell adhesion"                                       
+>> [3] "Adrenergic pathway"                                                    
+>> [4] "Agrin in postsynaptic differentiation"                                 
+>> [5] "Alpha-6 beta-1 and alpha-6 beta-4 integrin signaling"                  
+>> [6] "Androgen receptor signaling, proteolysis, and transcription regulation"
+>> [1] 83
 ```
+
+Then we want to find interactions between the pathway “Transmembrane
+transport of small molecules” and those pathways.
 
 ``` r
 
@@ -142,7 +149,7 @@ sp1 <- connectNodes.all(c("FYN", 'MET'), ig.graph=NULL,
 
 # To include co-clustered PTMs in the network an extra step is necessary:
 sp1_plus <- get.co.clustered.ptms(sp1)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, funckey, ptmtable,
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 

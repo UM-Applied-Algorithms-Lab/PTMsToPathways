@@ -195,11 +195,11 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 >> "spearman"): the standard deviation is zero
 >> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
 >> "spearman"): the standard deviation is zero
->> Spearman correlation calculation complete after 13.56 secs total.
->> Spearman t-SNE calculation complete after 42.84 secs total.
->> Euclidean distance calculation complete after 42.88 secs total.
->> Euclidean t-SNE calculation complete after 1.17 mins total.
->> Combined distance calculation complete after 1.17 mins total.
+>> Spearman correlation calculation complete after 13.54 secs total.
+>> Spearman t-SNE calculation complete after 42.65 secs total.
+>> Euclidean distance calculation complete after 42.69 secs total.
+>> Euclidean t-SNE calculation complete after 1.16 mins total.
+>> Combined distance calculation complete after 1.16 mins total.
 >> SED t-SNE calculation complete after 1.63 mins total.
 ```
 
@@ -213,7 +213,7 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.65 mins total.
+    >> Clustering for SED complete after 1.64 mins total.
     >> Consensus clustering complete after 1.65 mins total.
     >> MakeClusterList complete after 1.65 mins total.
 
@@ -289,9 +289,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.06 secs total.
+>> PTM CCCN complete after 0.07 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.73 secs total.
+>> Gene CCCN complete after 2.93 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -516,37 +516,56 @@ cfn.merged <- mergeEdges(cfn)
 
 ## Step 5: Pathway Crosstalk Network
 
-The final step is the creation of the Pathway Crosstalk Network (PCN).
-This step requires input of an external database from [NCATS
+The final step is the creation of the Pathway Crosstalk Network (PCN),
+which creates a set of pathway-pathway edges that have two weights: a
+Jaccard similarity and a Cluster-Pathway Evidence score. This step
+requires input of an external database from [NCATS
 BioPlanet](https://tripod.nih.gov/bioplanet/download/pathway.csv) that
 contains groups of genes (proteins) involved in various cellular
-processes known as pathways. `BuildPathwayCrosstalkNetwork` turns this
-data file into a list of pathways and converts those pathways into a
-list of pathway-pathway edges, each of which is assigned a Jaccard
-similarity and a Cluster-Pathway Evidence score based on the common
-clusters found in the gene co-cluster correlation network. Info about
-the Cluster-Pathway Evidence score can be found
-[here](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690)
-For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
-similarity edges are listed separately in the edgelist called
-pathway.crosstalk.network.
+processes known as pathways. P2P provides a function
+[`ReadBioplanetFile`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/references/ReadBioplanetFile.md)
+that reads in the BioPlanet file and converts it into a list of
+pathways. The first pathways is displayed below:
 
 ``` r
-
 bioplanet.file <- system.file("extdata", "pathway.csv",
                               package = "PTMsToPathways")
+pathways.list <- ReadBioplanetFile(bioplanet.file)
+pathways.list[[5]]
+>>  [1] "ACADL"    "ACADM"    "ACADS"    "ACADVL"   "SLC25A20" "CPT1A"   
+>>  [7] "CPT2"     "ECI1"     "DECR1"    "ECHS1"    "EHHADH"   "ACSL1"   
+>> [13] "ACSL3"    "ACSL4"    "HADHA"    "HADHB"    "HADH"     "MUT"     
+>> [19] "PCCA"     "PCCB"     "SCP2"     "PECR"     "MCEE"
 ```
+
+The function
+[`BuildPathwayCrosstalkNetwork`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/references/BuildPathwayCrosstalkNetwork.md)
+takes the list of pathways (or a path to the pathway file) and the list
+of clusters generated in step 1 and returns the relationships between
+pathways in two forms: a dataframe of edges that can be uploaded to
+Cytoscape (the first element of the returned list) and a dataframe with
+columns for the two edge weights (the second element of the returned
+list). The third element of the returned list is the list of pathways
+(in case the user provided a path to the pathway file rather than a list
+of pathways). The function can be run as follows:
 
 ``` r
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
                                          createfile = FALSE)
 >> Making PCN
->> 2026-06-17 16:57:28.255243
->> 2026-06-17 16:57:28.37042
->> Total time: 0.115176916122437
+>> 2026-06-17 22:11:14.796861
+>> 2026-06-17 22:11:14.908093
+>> Total time: 0.111231565475464
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+```
+
+The required columns for Cytoscape are:
+
+``` r
+names(pathway.crosstalk.network)
+>> [1] "source"      "target"      "Weight"      "interaction"
 ```
 
 And we can see some of the pathway crosstalk network edges below:
@@ -556,12 +575,6 @@ And we can see some of the pathway crosstalk network edges below:
 pathway.crosstalk.network[1:5,]
 ```
 
-``` r
-
-dat <- pathway.crosstalk.network[1:5,]
-knitr::kable(dat, align = 'l', digits = 2)
-```
-
 |  | source | target | Weight | interaction |
 |:---|:---|:---|:---|:---|
 | 4 | Axon guidance | Validated nuclear estrogen receptor alpha network | 1.27898550724638 | PTM_cluster_evidence |
@@ -569,6 +582,147 @@ knitr::kable(dat, align = 'l', digits = 2)
 | 3 | Axon guidance | Lipid and lipoprotein metabolism | 4.63387820142684 | PTM_cluster_evidence |
 | 5 | ERBB signaling pathway | Lipid and lipoprotein metabolism | 2.96007824348337 | PTM_cluster_evidence |
 | 18 | Selenium pathway | Vitamin B12 metabolism | 0.866666666666667 | PTM_cluster_evidence |
+
+To understand the edge weights calculations, let’s consider a pair of
+pathways, `Axon Guidance` and `ERBB signaling pathway`. We’ll look at
+the `PCNedgelist` dataframe this time.
+
+``` r
+
+PCNedgelist[PCNedgelist$source == "Axon guidance" & PCNedgelist$target == "ERBB signaling pathway", ]
+```
+
+|  | source | target | pathway_Jaccard_similarity | PTM_cluster_evidence |
+|:---|:---|:---|:---|:---|
+| 2 | Axon guidance | ERBB signaling pathway | 0.07 | 9.51 |
+
+### Metric calculations
+
+#### Jaccard Similarity
+
+The Jaccard similarity is defined as the size of the intersection of the
+two pathways (the number of genes that are in both pathways) divided by
+the size of the union of the two pathways (the total number of unique
+genes that are in either pathway).
+
+``` r
+size_union <- length(union(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
+size_union
+size_intersection <- length(intersect(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
+size_intersection
+jaccard_similarity <- size_intersection / size_union
+jaccard_similarity
+>> [1] 391
+>> [1] 28
+>> [1] 0.07161125
+```
+
+Notice that the found value is the same as the
+`pathway_Jaccard_similarity` value in the `PCNedgelist` dataframe.
+
+#### Cluster-Pathway Evidence (CPE) Score
+
+For a given pathway $`j`$ ($`pw_j`$) and a given cluster $`i`$
+($`cl_i`$), we define the Cluster-Pathway Evidence (CPE),
+``` math
+CPE(i,j) = \Sigma_{pro_k \in pw_j} \frac{|\{PTM_x: PTM_x \in pro_k \land PTM_x \in cl_i\}|}{|\{pw_y : pro_k \in pw_y\}| \cdot |cl_i|}
+```
+where $`pro_k`$ is a protein in pathway $`j`$ and $`PTM_x`$ is a PTM.
+
+(Note that $`\in`$ means “in” and $`\land`$ means “and”.)
+
+Let’s break down the CPE calculation single cluster $`i`$, the first
+cluster found, and a single pathway $`j`$, the `Axon guidance` pathway.
+
+``` r
+c_i <- common.clusters[[1]]
+p_j <- pathways.list[["Axon guidance"]]
+length(c_i)
+length(p_j)
+>> [1] 8
+>> [1] 325
+```
+
+Notice that the numerator of the summands in $`CPE(i,j)`$ counts the
+number of PTMs that are in both the protein and the cluster.
+Intuitively, if a pathway contains many proteins that have PTMs in this
+cluster, then this sum will be larger. Of the 325 proteins in the
+`Axon guidance` pathway, only `MYH9` and `PTK2` have PTMs that occur in
+the first cluster, so out of the 325 summands in $`CPE(i,j)`$, only two
+are non-zero. And in fact, both numerators are 1, since there is only
+one PTM on `MYH9` in our cluster:
+
+``` r
+c_i[grepl("MYH9", c_i)]
+>> [1] "MYH9 p Y1408"
+```
+
+And also only one PTM on`PTK2`:
+
+``` r
+c_i[grepl("PTK2", c_i)]
+>> [1] "PTK2 p Y925"
+```
+
+The denominators of the summands in $`CPE(i,j)`$ are the product of the
+number of pathways that the protein is in and the number of PTMs in the
+cluster. From above, there are 8 PTMs in this cluster. `MYH9` is in 1
+pathway and `PTK2` is in 2 pathways, as seen below:
+
+``` r
+sum(sapply(pathways.list, function(x) "MYH9" %in% x))
+sum(sapply(pathways.list, function(x) "PTK2" %in% x))
+>> [1] 1
+>> [1] 2
+```
+
+(Note that the `pathways.list` here is a smaller version of the full
+BioPlanet pathways list.)
+
+So CPE for the first cluster and the `Axon guidance` pathway is:
+
+``` r
+1/(1*8) + 1/(2*8)
+>> [1] 0.1875
+```
+
+Overall, two pathways are considered to be related if they both have
+positive CPE with the same cluster. In that case, the CPE score for the
+edge between those two pathways is the sum of the CPE scores for all
+clusters that contain
+
+For example, here are the number of clusters that contain PTMs on one or
+more proteins in the `Axon guidance` pathway:
+
+``` r
+ag_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["Axon guidance"]], grepl,x=x)))
+sum(ag_clusts)
+>> [1] 66
+```
+
+And here are the number of clusters that contain PTMs on one or more
+proteins in the `ERBB signaling pathway`:
+
+``` r
+erbb_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["ERBB signaling pathway"]], grepl,x=x)))
+sum(erbb_clusts)
+>> [1] 49
+```
+
+And overall, here are the number of clustesr that contain PTMs on at
+least one protein from both the `Axon guidance` pathway and the
+`ERBB signaling pathway`:
+
+``` r
+sum(ag_clusts & erbb_clusts)
+>> [1] 43
+```
+
+The CPE scores from these clusters to the two pathways would be summed
+to get the final CPE score for the edge between the two pathways.
+
+For more detail on the CPE calculation, see [“Ross et al.,
+2023”](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690).
 
 ## Saving Data
 
