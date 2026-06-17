@@ -16,7 +16,7 @@ list containing the 3 outputs of MakeClusterList
 "MakeClusterList on the BRCA data"
 }
 \usage{
-data(brca_clusterlist_data)
+brca_clusterlist_data
 }
 \description{
 Output of MakeClusterList on the BRCA data

@@ -1,13 +1,9 @@
 # THESE USE DATA GENERATED FROM THE SMALL PTM TABLE 
 
-# Get data from package
-gene_cccn_edges <- PTMsToPathways::ex_gene_cccn_edges
-gene_cccn_nodes <- PTMsToPathways::ex_gene_cccn_nodes
-
 test_that("GetGeneMANIA.edges() gives right answer", {
   
   path <- system.file('extdata/ex_genemania_interactions.txt', package='PTMsToPathways') # Accesses the path to this file even run on github or devtools::test
-  genemania_edges <- GetGeneMANIA.edges(path, gene_cccn_nodes) # Run function and filter data
+  genemania_edges <- GetGeneMANIA.edges(path, ex_gene_cccn_nodes) # Run function and filter data
   col_1 <- as.list(genemania_edges[,1])
   row_2 <- as.list(genemania_edges[2,])
   
@@ -23,7 +19,7 @@ test_that("GetGeneMANIA.edges() gives right answer", {
 test_that("GetSTRINGdb.edges() gives right answer with local file", {
   
   path <- system.file('extdata/small_string_hs_hugo.tsv', package='PTMsToPathways')
-  stringdb_edges <- suppressMessages(GetSTRINGdb.edges(gene_cccn_edges, gene_cccn_nodes, local = TRUE, string.local.path = path))
+  stringdb_edges <- suppressMessages(GetSTRINGdb.edges(ex_gene_cccn_edges, ex_gene_cccn_nodes, local = TRUE, string.local.path = path))
   
   # Expected values
   exp_row_100 <- data.frame(source = "PLEKHA7", target = "EPB41L2", interaction = "experimental", Weight = 292) 
@@ -36,7 +32,7 @@ test_that("GetSTRINGdb.edges() gives right answer with local file", {
 test_that("GetKinsub.edges() gives right answer", {
 
   path <- system.file('extdata/Kinase_Substrate_Dataset.txt', package='PTMsToPathways')
-  kinsub_edges <- GetKinsub.edges(path, gene_cccn_nodes)
+  kinsub_edges <- GetKinsub.edges(path, ex_gene_cccn_nodes)
   
   # Expected values
   exp_row_1 <- data.frame(source = "EGFR", target = "PLCG1", interaction = "pp", Weight = 1) 
