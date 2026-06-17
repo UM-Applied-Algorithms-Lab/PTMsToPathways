@@ -8,7 +8,7 @@
 An object of class \code{data.frame} with 18836 rows and 4 columns.
 }
 \usage{
-data(BRCA_genemania.edges)
+BRCA_genemania.edges
 }
 \description{
 Edges from the Genemania database for the genes in the BRCA dataset

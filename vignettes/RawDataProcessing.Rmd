@@ -72,8 +72,6 @@ data will dictate the names of modifications.
 First, let's load the P2P package, since it contains some helpful pre-processing functions.
 ```{r eval = TRUE}
 library(PTMsToPathways)
-data_names <- data(package = "PTMsToPathways")$results[, "Item"]
-data(list = data_names, package = "PTMsToPathways")
 ```
 
 The example raw data file for this
