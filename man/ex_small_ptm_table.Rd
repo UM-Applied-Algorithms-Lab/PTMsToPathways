@@ -16,7 +16,7 @@ Dataframe of 908 rows and 18 columns:
 "An .rda version of phospho_cleaned_mapped.txt found in inst/extdata"
 }
 \usage{
-ex_small_ptm_table
+data(ex_small_ptm_table)
 }
 \description{
 Post-translational modification data under certain environmental conditions.

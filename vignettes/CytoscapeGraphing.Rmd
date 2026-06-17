@@ -58,6 +58,9 @@ built-in P2P function [ReadBioplanetFile()](reference/ReadBioplanetFile.html).
 
 ```{r eval = TRUE, echo = FALSE}
 library(PTMsToPathways)
+data_names <- data(package = "PTMsToPathways")$results[, "Item"]
+data(list = data_names, package = "PTMsToPathways")
+funckey <- function_key
 pathways.list <- ReadBioplanetFile(system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways"))
 ```
 

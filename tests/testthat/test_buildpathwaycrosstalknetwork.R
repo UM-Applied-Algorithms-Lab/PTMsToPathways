@@ -1,8 +1,13 @@
 # THESE USE DATA GENERATED FROM THE SMALL PTM TABLE 
 
+# Get data from package
+common_clusters <- PTMsToPathways::ex_common_clusters
+pathways_list <- PTMsToPathways::ex_pathways_list
+
+
 test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
-  
-  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE))
+
+  output <- suppressMessages(BuildPathwayCrosstalkNetwork(common_clusters, pathways_list, createfile = FALSE))
   
   pathway_crosstalk_network <- output[[1]]
   
@@ -48,9 +53,9 @@ test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
 test_that("ReadBioplanetFile() gives right answer", {
   # read pathways.csv from inst/extdata and compare to ex_pathways_list
   bioplanet_pathways <- ReadBioplanetFile(system.file("extdata", "pathway.csv", package = "PTMsToPathways"))
-  expect_equal(length(bioplanet_pathways), length(ex_pathways_list))
-  for (pathway_name in names(ex_pathways_list)) {
+  expect_equal(length(bioplanet_pathways), length(pathways_list))
+  for (pathway_name in names(pathways_list)) {
     expect_true(pathway_name %in% names(bioplanet_pathways))
-    expect_equal(sort(bioplanet_pathways[[pathway_name]]), sort(ex_pathways_list[[pathway_name]]))
+    expect_equal(sort(bioplanet_pathways[[pathway_name]]), sort(pathways_list[[pathway_name]]))
   }
 })

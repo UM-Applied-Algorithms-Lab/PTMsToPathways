@@ -17,7 +17,7 @@ Dataframe of 19 rows and 4 columns
 "Produced by BuildPathwayCrosstalkNetwork"
 }
 \usage{
-ex_PCNedgelist
+data(ex_PCNedgelist)
 }
 \description{
 The Pathway Crosstalk Network but with direct values for both weight types

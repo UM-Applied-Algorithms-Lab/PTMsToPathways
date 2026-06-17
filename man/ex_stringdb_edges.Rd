@@ -17,7 +17,7 @@ Dataframe of 8844 rows and 4 columns:
 "Produced by GetSTRINGdb.edges"
 }
 \usage{
-ex_stringdb_edges
+data(ex_stringdb_edges)
 }
 \description{
 List of edges between genes in dataset.

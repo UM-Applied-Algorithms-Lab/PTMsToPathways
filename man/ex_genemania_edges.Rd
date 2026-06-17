@@ -17,7 +17,7 @@ Dataframe of 5 rows and 4 columns
 "Produced by GetGeneMANIA.edges"
 }
 \usage{
-ex_genemania_edges
+data(ex_genemania_edges)
 }
 \description{
 Edges from gene_cccn_nodes that are also found within the Genemania database
