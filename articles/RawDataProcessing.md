@@ -40,6 +40,8 @@ pre-processing functions.
 ``` r
 
 library(PTMsToPathways)
+data_names <- data(package = "PTMsToPathways")$results[, "Item"]
+data(list = data_names, package = "PTMsToPathways")
 ```
 
 The example raw data file for this vignette (downloadable

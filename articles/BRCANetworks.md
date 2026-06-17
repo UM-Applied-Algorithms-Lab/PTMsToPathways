@@ -22,6 +22,8 @@ available:
 ``` r
 
 library(PTMsToPathways)
+data_names <- data(package = "PTMsToPathways")$results[, "Item"]
+data(list = data_names, package = "PTMsToPathways")
 ```
 
 ### Preprocess data for PTMsToPathways functions
@@ -151,9 +153,9 @@ These are required for the next step.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.88 secs total.
+>> PTM CCCN complete after 1.65 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 18.27 secs total.
+>> Gene CCCN complete after 21.22 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]

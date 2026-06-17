@@ -6,7 +6,7 @@ types
 ## Usage
 
 ``` r
-ex_PCNedgelist
+data(ex_PCNedgelist)
 ```
 
 ## Format

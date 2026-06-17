@@ -6,7 +6,7 @@ weights into one score from a range of 0 to 1
 ## Usage
 
 ``` r
-ex_combined_ppi
+data(ex_combined_ppi)
 ```
 
 ## Format

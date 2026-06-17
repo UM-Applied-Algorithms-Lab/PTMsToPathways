@@ -5,7 +5,7 @@ A database file from the bioplanet website
 ## Usage
 
 ``` r
-ex_bioplanet
+data(ex_bioplanet)
 ```
 
 ## Format

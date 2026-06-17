@@ -5,7 +5,7 @@ Output of BuildPathwayCrosstalkNetwork on the BRCA data
 ## Usage
 
 ``` r
-BRCA_PCN.data
+data(BRCA_PCN.data)
 ```
 
 ## Format

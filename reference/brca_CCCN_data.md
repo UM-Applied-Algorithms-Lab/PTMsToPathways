@@ -5,7 +5,7 @@ Output of MakeCorrelationNetwork on the BRCA data
 ## Usage
 
 ``` r
-brca_CCCN_data
+data(brca_CCCN_data)
 ```
 
 ## Format

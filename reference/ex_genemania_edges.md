@@ -6,7 +6,7 @@ database
 ## Usage
 
 ``` r
-ex_genemania_edges
+data(ex_genemania_edges)
 ```
 
 ## Format
@@ -38,10 +38,5 @@ Dataframe of 5 rows and 4 columns
 
 ``` r
 head(ex_genemania_edges)
-#>      source target           interaction     Weight
-#> 28    EPHA2   ACP1               Pathway 0.28541145
-#> 33    EPHA2   ACP1               Pathway 0.21714390
-#> 34 ARHGAP35   ACP1               Pathway 0.46947600
-#> 35 ARHGAP35  EPHA2               Pathway 0.15943560
-#> 55    EPHA2   ACP1 Physical Interactions 0.08593688
+#> Error: object 'ex_genemania_edges' not found
 ```

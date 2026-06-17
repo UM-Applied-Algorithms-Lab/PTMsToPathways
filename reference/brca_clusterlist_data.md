@@ -5,7 +5,7 @@ Output of MakeClusterList on the BRCA data
 ## Usage
 
 ``` r
-brca_clusterlist_data
+data(brca_clusterlist_data)
 ```
 
 ## Format

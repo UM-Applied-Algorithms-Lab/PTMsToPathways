@@ -6,7 +6,7 @@ and their respective cell signaling pathway relationships
 ## Usage
 
 ``` r
-ex_pathway_crosstalk_network
+data(ex_pathway_crosstalk_network)
 ```
 
 ## Format
