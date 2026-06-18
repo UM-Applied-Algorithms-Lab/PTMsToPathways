@@ -63,6 +63,7 @@ ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
 #' \item{Contains pathway source-target columns, along with the interaction type.}
 #' \item{Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score.}
 #' \item{All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.}
+#' \item{The cluster-by-pathway CPE matrix used to compute PTM cluster weights.}
 #' }
 #' @export
 #'
@@ -70,6 +71,7 @@ ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
 #' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
 #' Example_Output[[1]][[3,]]
 #' Example_Output[[3]][[1:3]]
+#' Example_Output[[4]][1:3, 1:3]
 BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv"){
   message("Making PCN")
   start_time <- Sys.time()
@@ -231,5 +233,5 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   #calculate difference between start and end time
   total_time <- end_time - start_time
   message(noquote(paste("Total time: ", total_time, sep="")))
-  return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))
+  return(list(pathway.crosstalk.network, PCNedgelist, pathways.list, CPE.matrix))
 }

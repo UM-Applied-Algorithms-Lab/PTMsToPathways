@@ -412,12 +412,14 @@ The function [`BuildPathwayCrosstalkNetwork`](references/BuildPathwayCrosstalkNe
 takes the list of pathways (or a path to the pathway file) and the list of clusters generated in step 1 and returns
 the relationships between pathways in two forms: a dataframe of edges that can be uploaded to Cytoscape (the first element of the returned list)
 and a dataframe with columns for the two edge weights (the second element of the returned list). The third element of the returned list is the list of pathways
-(in case the user provided a path to the pathway file rather than a list of pathways). The function can be run as follows:
+(in case the user provided a path to the pathway file rather than a list of pathways). The fourth element is the cluster-by-pathway
+CPE matrix used for the PTM cluster weight calculations. The function can be run as follows:
 ```{r eval = TRUE, echo = TRUE}
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+CPE.matrix <- PCN.data[[4]]
 ```
 
 If you want to save the Cytoscape-ready edgefile, save the returned

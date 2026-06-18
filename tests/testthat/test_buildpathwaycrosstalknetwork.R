@@ -41,6 +41,14 @@ test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   expect_true("CRP" %in% pathways_list$'Selenium pathway')
   expect_true("FAM120B" %in% pathways_list$'RXR/VDR pathway')
   expect_false("ALB" %in% pathways_list$'Mitochondrial fatty acid beta-oxidation')
+
+  cpe_matrix <- output[[4]]
+
+  expect_true(is.matrix(cpe_matrix))
+  expect_equal(nrow(cpe_matrix), length(ex_common_clusters))
+  expect_equal(ncol(cpe_matrix), length(ex_pathways_list))
+  expect_equal(rownames(cpe_matrix), names(ex_common_clusters))
+  expect_equal(colnames(cpe_matrix), names(ex_pathways_list))
    
   
 })

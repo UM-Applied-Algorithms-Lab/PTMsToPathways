@@ -4,34 +4,27 @@
 \alias{BuildPathwayCrosstalkNetwork}
 \title{Build Pathway Crosstalk Network}
 \usage{
-BuildPathwayCrosstalkNetwork(
-  common.clusters,
-  bioplanet.file = "bioplanet.csv",
-  createfile = getwd(),
-  PCN.edgelist.name = "PCN_file"
-)
+BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file = "bioplanet.csv")
 }
 \arguments{
 \item{common.clusters}{The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork}
 
 \item{bioplanet.file}{Either the path to a delimited Bioplanet file, or a named list of pathways where each list element is a character vector of gene symbols.}
-
-\item{createfile}{The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.}
-
-\item{PCN.edgelist.name}{Name of the PCN edgelist file to be created}
 }
 \value{
 A list with these data structures at the given index: \enumerate{
 \item{Contains pathway source-target columns, along with the interaction type.}
 \item{Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score.}
 \item{All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.}
+\item{The cluster-by-pathway CPE matrix used to compute PTM cluster weights.}
 }
 }
 \description{
 Converts Bioplanet pathways from (\url{https://tripod.nih.gov/bioplanet/})  into a list of pathways whose elements are the genes in each pathway. Edge weights are either the PTM Cluster Weight or according to the Jaccard Similarity.
 }
 \examples{
-Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE)
+Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
 Example_Output[[1]][[3,]]
 Example_Output[[3]][[1:3]]
+Example_Output[[4]][1:3, 1:3]
 }
