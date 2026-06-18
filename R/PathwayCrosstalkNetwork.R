@@ -181,7 +181,8 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   # Get a matrix of all the PTM Cluster Weights for every pair of pathways using the CPE
   # weights. For a pathway-pathway PTM Cluster Weight to be non-NA, both pathways must
   # have at least one non-NA CPE weight for the same cluster. Then, the PTM Cluster Weight
-  # is the sum of the CPE weights for all clusters that both pathways have a modified protein in.
+  # is the sum of the CPE weights for all clusters that both pathways have a modified protein in,
+  # which is just the clusters that both pathways have non-NA CPE weights for.
 
   PTMCW <- apply(PCNedgelist[,1:2], 1, function(x) {
     rows <- rowSums(!is.na(CPE.matrix[, x])) == 2
