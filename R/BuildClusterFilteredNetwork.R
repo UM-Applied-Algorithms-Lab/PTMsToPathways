@@ -20,43 +20,42 @@
 #' @examples
 #' Example_Output <- BuildClusterFilteredNetwork(ex.gene.cccn, ex.stringdb.edges, ex.gm.edges)
 #' utils::head(Example_Output)
-
 BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, genemania.edges = NULL, kinsub.edges = NULL, db.filepaths = c(NULL)) {
+    # Combine PPIs from different databases
+    # First Normalize Weights
+    if (!is.null(stringdb.edges)) {
+        stringdb.edges$Weight <- 100 * stringdb.edges$Weight / max(stringdb.edges$Weight, na.rm = TRUE)
+    } #  this returns a range of 0 to 100
+    if (!is.null(genemania.edges)) {
+        genemania.edges$Weight <- 100 * genemania.edges$Weight / max(genemania.edges$Weight, na.rm = TRUE)
+    } #  this returns a range of 0 to 100
 
-  # Combine PPIs from different databases
-  # First Normalize Weights
-  if (!is.null(stringdb.edges)) {
-    stringdb.edges$Weight <- 100 * stringdb.edges$Weight / max(stringdb.edges$Weight, na.rm = TRUE) } #  this returns a range of 0 to 100
-  if (!is.null(genemania.edges)) {
-    genemania.edges$Weight <- 100 * genemania.edges$Weight / max(genemania.edges$Weight, na.rm = TRUE) } #  this returns a range of 0 to 100
+    # Note: if additional PPI data is desired, duplicate the normalization of Weights above and add the additional edge file(s) here (and in the function header)
+    # Done see below
 
-  # Note: if additional PPI data is desired, duplicate the normalization of Weights above and add the additional edge file(s) here (and in the function header)
-  # Done see below
+    # Combine gathered PPI edges into one data frame
+    combined.PPIs <- rbind(stringdb.edges, genemania.edges, kinsub.edges)
 
-  # Combine gathered PPI edges into one data frame
-  combined.PPIs <- rbind(stringdb.edges, genemania.edges, kinsub.edges)
-
-  if(!is.null(db.filepaths)){
-    for(path in db.filepaths){
-      db.edges <- utils::read.table(path)
-      db.edges$Weight <- 100 * db.edges$Weight / max(db.edges$Weight, na.rm = TRUE)                  # return a range of 0 to 100
-      combined.PPIs <- rbind(combined.PPIs, db.edges)                                                # add it to combined.PPIs
-      
+    if (!is.null(db.filepaths)) {
+        for (path in db.filepaths) {
+            db.edges <- utils::read.table(path)
+            db.edges$Weight <- 100 * db.edges$Weight / max(db.edges$Weight, na.rm = TRUE) # return a range of 0 to 100
+            combined.PPIs <- rbind(combined.PPIs, db.edges) # add it to combined.PPIs
+        }
     }
-  }
 
-  cfn1 <- merge(gene.cccn.edges[,c("source", "target")], combined.PPIs, by=c("source", "target"))
+    cfn1 <- merge(gene.cccn.edges[, c("source", "target")], combined.PPIs, by = c("source", "target"))
 
-  # Undirected edges may be reversed in their order so merge the other way around.
-  reversed <- combined.PPIs
-  reversed <- reversed[ , c("target", "source", setdiff(names(gene.cccn.edges), c("source", "target")))]
-  colnames(reversed)[seq_len(2)] <- c("source", "target")  # Rename for merge compatibility
-  cfn2 <- merge(reversed[,c("source", "target")], combined.PPIs, by=c("source", "target"))
+    # Undirected edges may be reversed in their order so merge the other way around.
+    reversed <- combined.PPIs
+    reversed <- reversed[, c("target", "source", setdiff(names(gene.cccn.edges), c("source", "target")))]
+    colnames(reversed)[seq_len(2)] <- c("source", "target") # Rename for merge compatibility
+    cfn2 <- merge(reversed[, c("source", "target")], combined.PPIs, by = c("source", "target"))
 
-  # Combine both (removing redundant rows if needed)
-  cfn <- rbind(cfn1, cfn2)
-  cfn <- unique(cfn)
+    # Combine both (removing redundant rows if needed)
+    cfn <- rbind(cfn1, cfn2)
+    cfn <- unique(cfn)
 
-  return(list(combined.PPIs, cfn))
+    return(list(combined.PPIs, cfn))
 }
-#______________________________________________________________________________________________________________________________
+# ______________________________________________________________________________________________________________________________

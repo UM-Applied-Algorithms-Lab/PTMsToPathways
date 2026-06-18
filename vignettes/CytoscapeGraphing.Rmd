@@ -40,6 +40,10 @@ knitr::opts_chunk$set(
 
 ```
 
+## 
+
+## Graphing Networks in Cytoscape
+
 ### Top-down approach starting with pathways
 
 It is possible to graph the entire PCN, CFN, and CCCNs in their entirety, though
@@ -53,30 +57,26 @@ PTMs of interest in the R data objects, then make smaller, more interpretable
 graphs in Cytoscape using RCy3.
 
 For example, we will find names of all pathways in Bioplanet that contain EGFR.
-To get started, load the PTMsToPathways package and read the Bioplanet file using the 
-built-in P2P function [ReadBioplanetFile()](reference/ReadBioplanetFile.html).
+The data object `pathways.list` is a list, where the name of the list element is
+the name of a Bioplanet pathway and each element is a character vector of the
+genes in that pathway. Then we want to find interactions between the pathway
+"Transmembrane transport of small molecules" and those pathways. The utility
+functions used below are in CytoscapeGraphing.R
 
 ```{r eval = TRUE, echo = FALSE}
 library(PTMsToPathways)
-pathways.list <- ReadBioplanetFile(system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways"))
+funckey <- function_key
 ```
 
-The data object `pathways.list` is a list, where the name of the list element is
-the name of a Bioplanet pathway and each element is a character vector of the
-genes in that pathway. 
-
 ```{r eval = TRUE}
-egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list), function(x)
-  {"EGFR" %in% pathways.list[[x]]})]
+egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
+  {"EGFR" %in% ex_pathways_list[[x]]})]
 ```
 
 We expect 83 pathways that contain EGFR, so let's check:
 ```{r eval = TRUE}  
-head(egfr_pathways)
 length(egfr_pathways)
 ```
-Then we want to find interactions between the pathway
-"Transmembrane transport of small molecules" and those pathways.
 
 ```{r eval = TRUE}
 egfr_transporter.pcn <- filter.edges.between(
@@ -160,7 +160,7 @@ sp1 <- connectNodes.all(c("FYN", 'MET'), ig.graph=NULL,
 
 # To include co-clustered PTMs in the network an extra step is necessary:
 sp1_plus <- get.co.clustered.ptms(sp1)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ptmtable,
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, funckey, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 

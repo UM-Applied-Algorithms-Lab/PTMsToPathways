@@ -7,6 +7,10 @@
 filter.edges.0(nodenames, edge.file)
 }
 \arguments{
+\item{nodenames}{}
+
+\item{edge.file}{}
+
 \item{cfn}{A version of ppi.network with only the edges that exist in cccn.matrix and have non-zero weights}
 
 \item{ptmtable}{A dataset for post-translational modifications. Formatted with numbered rows, and the first column containing PTM names. The rest of the column names should be drugs. Values are numeric values that represent how much the PTM has reacted to the drug.}

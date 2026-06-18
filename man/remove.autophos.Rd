@@ -6,6 +6,9 @@
 \usage{
 remove.autophos(edgefile)
 }
+\arguments{
+\item{edgefile}{}
+}
 \description{
 Title
 }
