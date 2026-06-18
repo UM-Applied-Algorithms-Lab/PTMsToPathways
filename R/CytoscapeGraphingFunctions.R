@@ -279,7 +279,7 @@ cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.na
   # edgeColors <- c("#9966FF", col2hex("green"))
   edgeColors <- c(gplots::col2hex(ggplot2::alpha("darkorchid1",0.33333)), gplots::col2hex(ggplot2::alpha("tomato", 0.25)), gplots::col2hex("green"))
   # edgeColors <- c("#9966FF", col2hex("green"))
-  edgeTypes <- c("PTM_cluster_evidence", "Protein_cluster_evidence", "pathway_Jaccard_similarity")
+  edgeTypes <- c("PTM_cluster_weights", "Protein_cluster_evidence", "pathway_Jaccard_similarity")
   RCy3::setEdgeColorMapping( 'interaction', edgeTypes, edgeColors, 'd', default.color="#FFFFFF")
   setEdgeWidths(ffactor = -1.2, log=TRUE) # Finally works!
   style.name <- paste("PCN style", (1+no.windows), sep=" ")

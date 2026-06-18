@@ -9,7 +9,7 @@ test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   row_7 <- as.list(pathway_crosstalk_network[7,])
   row_25 <- as.list(pathway_crosstalk_network[25,])
   
-  exp_row_7 <- list("Lipid and lipoprotein metabolism", "Vitamin B12 metabolism", 0.3, "PTM_cluster_evidence")
+  exp_row_7 <- list("Lipid and lipoprotein metabolism", "Vitamin B12 metabolism", 0.3, "PTM_cluster_weights")
   exp_row_25 <- list("ERBB signaling pathway", "Validated nuclear estrogen receptor alpha network", 0.025974025974026, "pathway_Jaccard_similarity")
   
   expect_setequal(row_7, exp_row_7)

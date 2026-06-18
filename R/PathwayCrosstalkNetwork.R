@@ -194,31 +194,31 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   PCNedgelist <- cbind(PCNedgelist, PTPscore) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
   PCNedgelist <- PCNedgelist[rowSums(is.na(PCNedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
   PCNedgelist <- as.data.frame(PCNedgelist)
-  names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_evidence")
-  # Sort by the highest PTM cluster evidence
-  # PCNedgelist <- PCNedgelist[order(PCNedgelist$PTM_cluster_evidence, decreasing = TRUE),]
+  names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_weights")
+  # Sort by the highest PTM cluster weights
+  # PCNedgelist <- PCNedgelist[order(PCNedgelist$PTM_cluster_weights, decreasing = TRUE),]
   PCNedgelist$pathway_Jaccard_similarity <- as.numeric(PCNedgelist$pathway_Jaccard_similarity)
-  PCNedgelist$PTM_cluster_evidence <- as.numeric(PCNedgelist$PTM_cluster_evidence)
+  PCNedgelist$PTM_cluster_weights <- as.numeric(PCNedgelist$PTM_cluster_weights)
   # Convert NA to 0
   PCNedgelist[is.na(PCNedgelist)] <- 0
   # Subset data frames
   zero_jaccard <- PCNedgelist[PCNedgelist$pathway_Jaccard_similarity == 0, ]
   nonzero_jaccard <- PCNedgelist[PCNedgelist$pathway_Jaccard_similarity > 0, ]
 
-  # Sort both by PTM_cluster_evidence in decreasing order
-  zero_jaccard <- zero_jaccard[order(zero_jaccard$PTM_cluster_evidence, decreasing=TRUE), ]
-  nonzero_jaccard <- nonzero_jaccard[order(nonzero_jaccard$PTM_cluster_evidence, decreasing=TRUE), ]
+  # Sort both by PTM_cluster_weights in decreasing order
+  zero_jaccard <- zero_jaccard[order(zero_jaccard$PTM_cluster_weights, decreasing=TRUE), ]
+  nonzero_jaccard <- nonzero_jaccard[order(nonzero_jaccard$PTM_cluster_weights, decreasing=TRUE), ]
 
   # Combine results: zero-jaccard block on top, then nonzero-jaccard block
   PCNedgelist <- rbind(zero_jaccard, nonzero_jaccard)
 
   # For Cytoscape graphing
   #Remove all rows that only have NA values for  CPE values
-  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM_cluster_evidence"]), c("source", "target", "PTM_cluster_evidence")]
+  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM_cluster_weights"]), c("source", "target", "PTM_cluster_weights")]
   # For Cytoscape it's useful to have both types of edges for plotting in different colors
 
   # Assign interaction, required for Cytoscape
-  bioplanetCPEedges$interaction <- "PTM_cluster_evidence"
+  bioplanetCPEedges$interaction <- "PTM_cluster_weights"
   # Create pathway crosstalk network with individual cluster and bioplanet edges
   jaccard.net <- bioplanetjaccardedges
   names(jaccard.net) <- c("source", "target", "Weight", "interaction")
