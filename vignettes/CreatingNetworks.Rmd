@@ -537,6 +537,8 @@ rows <- rowSums(!is.na(CPE.matrix[, cols])) == 2
 CPE.matrix[rows, cols]
 ```
 ```{r eval = TRUE, echo = FALSE}
+cols <- c("Axon guidance", "ERBB signaling pathway")
+rows <- rowSums(!is.na(CPE.matrix[, cols])) == 2
 dat <- CPE.matrix[rows, cols]
 knitr::kable(dat, align = 'l', digits = 2)
 ```
