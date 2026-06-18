@@ -198,8 +198,7 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   PCNedgelist <- PCNedgelist[rowSums(is.na(PCNedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
   PCNedgelist <- as.data.frame(PCNedgelist)
   names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_weights")
-  # Sort by the highest PTM cluster weights
-  # PCNedgelist <- PCNedgelist[order(PCNedgelist$PTM_cluster_weights, decreasing = TRUE),]
+
   PCNedgelist$pathway_Jaccard_similarity <- as.numeric(PCNedgelist$pathway_Jaccard_similarity)
   PCNedgelist$PTM_cluster_weights <- as.numeric(PCNedgelist$PTM_cluster_weights)
   # Convert NA to 0
@@ -247,6 +246,3 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   message(noquote(paste("Total time: ", total_time, sep="")))
   return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))
 }
-
-
-
