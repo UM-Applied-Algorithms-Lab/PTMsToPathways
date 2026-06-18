@@ -25,7 +25,7 @@ Dataframe of 19 rows and 4 columns
 
   A weight
 
-- PTM_cluster_evidence:
+- PTM_cluster_weights:
 
   A weight
 

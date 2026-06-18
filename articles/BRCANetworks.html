@@ -190,9 +190,9 @@ elements:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.87</span> secs total.</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.9</span> secs total.</span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">17.95</span> secs total.</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">18.33</span> secs total.</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -364,8 +364,7 @@ pre-computed results for this step. To re-run the analysis, run the
 following:</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">bioplanet.file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"bioplanet_pathway_June2025.csv"</span>, package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
-<span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildPathwayCrosstalkNetwork.html">BuildPathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">bioplanet.file</span>,</span>
-<span>                                         createfile <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">PCN.data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/BuildPathwayCrosstalkNetwork.html">BuildPathwayCrosstalkNetwork</a></span><span class="op">(</span><span class="va">common.clusters</span>, <span class="va">bioplanet.file</span><span class="op">)</span></span></code></pre></div>
 <p>Or load in pre-computed results from within the PTMsToPathways
 package:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> BRCA_PCN.data</span>

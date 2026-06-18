@@ -151,9 +151,9 @@ These are required for the next step.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.87 secs total.
+>> PTM CCCN complete after 0.9 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 17.95 secs total.
+>> Gene CCCN complete after 18.33 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -360,8 +360,7 @@ following:
 ``` r
 
 bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
-PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
-                                         createfile = FALSE)
+PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 ```
 
 Or load in pre-computed results from within the PTMsToPathways package:

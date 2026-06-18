@@ -316,9 +316,9 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
 <span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning <span class="cf">in</span> stats<span class="sc">::</span><span class="fu">cor</span>(<span class="fu">t</span>(ptmtable), <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>, <span class="at">method =</span></span>
 <span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.16</span> secs total.</span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.41</span> secs total.</span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.45</span> secs total.</span>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.73</span> secs total.</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.67</span> secs total.</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.71</span> secs total.</span>
 <span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.16</span> mins total.</span>
 <span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.16</span> mins total.</span>
 <span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.62</span> mins total.</span></code></pre></div>
@@ -390,7 +390,7 @@ with sum of the PTM correlations serving as edge weights.</p>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
 <span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.06</span> secs total.</span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.68</span> secs total.</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.79</span> secs total.</span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -585,29 +585,37 @@ Cytoscape (the first element of the returned list) and a dataframe with
 columns for the two edge weights (the second element of the returned
 list). The third element of the returned list is the list of pathways
 (in case the user provided a path to the pathway file rather than a list
-of pathways). The function can be run as follows:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file,</span>
-<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a>                                         <span class="at">createfile =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PCN</span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-18</span> <span class="dv">00</span><span class="sc">:</span><span class="dv">05</span><span class="sc">:</span><span class="fl">18.927525</span></span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-18</span> <span class="dv">00</span><span class="sc">:</span><span class="dv">05</span><span class="sc">:</span><span class="fl">19.040174</span></span>
-<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.112648725509644</span></span>
-<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
-<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
-<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
+of pathways). The fourth element is the cluster-by-pathway CPE matrix
+used for the PTM cluster weight calculations. The function can be run as
+follows:</p>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file)</span>
+<span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PCN</span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-18</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">05</span><span class="sc">:</span><span class="fl">20.363904</span></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-18</span> <span class="dv">21</span><span class="sc">:</span><span class="dv">05</span><span class="sc">:</span><span class="fl">20.479982</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.11607837677002</span></span>
+<span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
+<span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
+<span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
+<span id="cb32-9"><a href="#cb32-9" tabindex="-1"></a>CPE.matrix <span class="ot">&lt;-</span> PCN.data[[<span class="dv">4</span>]]</span></code></pre></div>
+<p>If you want to save the Cytoscape-ready edgefile, save the returned
+<code>pathway.crosstalk.network</code> dataframe explicitly:</p>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">pathway.crosstalk.network</span>,</span>
+<span>                 file <span class="op">=</span> <span class="st">"PCN_file.csv"</span>,</span>
+<span>                 row.names <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
 <p>The required columns for Cytoscape are:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">names</span>(pathway.crosstalk.network)</span>
-<span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"source"</span>      <span class="st">"target"</span>      <span class="st">"Weight"</span>      <span class="st">"interaction"</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" tabindex="-1"></a><span class="fu">names</span>(pathway.crosstalk.network)</span>
+<span id="cb34-2"><a href="#cb34-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"source"</span>      <span class="st">"target"</span>      <span class="st">"Weight"</span>      <span class="st">"interaction"</span></span></code></pre></div>
 <p>And we can see some of the pathway crosstalk network edges below:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pathway.crosstalk.network</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span>,<span class="op">]</span></span></code></pre></div>
-<table class="table">
+<table style="width:100%;" class="table">
 <colgroup>
 <col width="2%">
 <col width="20%">
 <col width="43%">
 <col width="15%">
-<col width="18%">
+<col width="17%">
 </colgroup>
 <thead><tr class="header">
 <th align="left"></th>
@@ -622,35 +630,35 @@ of pathways). The function can be run as follows:</p>
 <td align="left">Axon guidance</td>
 <td align="left">Validated nuclear estrogen receptor alpha network</td>
 <td align="left">1.27898550724638</td>
-<td align="left">PTM_cluster_evidence</td>
+<td align="left">PTM_cluster_weights</td>
 </tr>
 <tr class="even">
 <td align="left">2</td>
 <td align="left">Axon guidance</td>
 <td align="left">ERBB signaling pathway</td>
 <td align="left">9.50912807669002</td>
-<td align="left">PTM_cluster_evidence</td>
+<td align="left">PTM_cluster_weights</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
 <td align="left">Axon guidance</td>
 <td align="left">Lipid and lipoprotein metabolism</td>
 <td align="left">4.63387820142684</td>
-<td align="left">PTM_cluster_evidence</td>
+<td align="left">PTM_cluster_weights</td>
 </tr>
 <tr class="even">
 <td align="left">5</td>
 <td align="left">ERBB signaling pathway</td>
 <td align="left">Lipid and lipoprotein metabolism</td>
 <td align="left">2.96007824348337</td>
-<td align="left">PTM_cluster_evidence</td>
+<td align="left">PTM_cluster_weights</td>
 </tr>
 <tr class="odd">
 <td align="left">18</td>
 <td align="left">Selenium pathway</td>
 <td align="left">Vitamin B12 metabolism</td>
 <td align="left">0.866666666666667</td>
-<td align="left">PTM_cluster_evidence</td>
+<td align="left">PTM_cluster_weights</td>
 </tr>
 </tbody>
 </table>
@@ -658,22 +666,22 @@ of pathways). The function can be run as follows:</p>
 pathways, <code>Axon Guidance</code> and
 <code>ERBB signaling pathway</code>. We’ll look at the
 <code>PCNedgelist</code> dataframe this time.</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">PCNedgelist</span><span class="op">[</span><span class="va">PCNedgelist</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="st">"Axon guidance"</span> <span class="op">&amp;</span> <span class="va">PCNedgelist</span><span class="op">$</span><span class="va">target</span> <span class="op">==</span> <span class="st">"ERBB signaling pathway"</span>, <span class="op">]</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="3%">
-<col width="15%">
+<col width="16%">
 <col width="26%">
-<col width="30%">
-<col width="23%">
+<col width="31%">
+<col width="22%">
 </colgroup>
 <thead><tr class="header">
 <th align="left"></th>
 <th align="left">source</th>
 <th align="left">target</th>
 <th align="left">pathway_Jaccard_similarity</th>
-<th align="left">PTM_cluster_evidence</th>
+<th align="left">PTM_cluster_weights</th>
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">2</td>
@@ -684,7 +692,7 @@ pathways, <code>Axon Guidance</code> and
 </tr></tbody>
 </table>
 <div class="section level3">
-<h3 id="metric-calculations">Metric calculations<a class="anchor" aria-label="anchor" href="#metric-calculations"></a>
+<h3 id="pathway-pathway-weight-calculations">Pathway-pathway weight calculations<a class="anchor" aria-label="anchor" href="#pathway-pathway-weight-calculations"></a>
 </h3>
 <div class="section level4">
 <h4 id="jaccard-similarity">Jaccard Similarity<a class="anchor" aria-label="anchor" href="#jaccard-similarity"></a>
@@ -693,22 +701,20 @@ pathways, <code>Axon Guidance</code> and
 the two pathways (the number of genes that are in both pathways) divided
 by the size of the union of the two pathways (the total number of unique
 genes that are in either pathway).</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" tabindex="-1"></a>size_union <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">union</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
-<span id="cb36-2"><a href="#cb36-2" tabindex="-1"></a>size_union</span>
-<span id="cb36-3"><a href="#cb36-3" tabindex="-1"></a>size_intersection <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">intersect</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
-<span id="cb36-4"><a href="#cb36-4" tabindex="-1"></a>size_intersection</span>
-<span id="cb36-5"><a href="#cb36-5" tabindex="-1"></a>jaccard_similarity <span class="ot">&lt;-</span> size_intersection <span class="sc">/</span> size_union</span>
-<span id="cb36-6"><a href="#cb36-6" tabindex="-1"></a>jaccard_similarity</span>
-<span id="cb36-7"><a href="#cb36-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">391</span></span>
-<span id="cb36-8"><a href="#cb36-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">28</span></span>
-<span id="cb36-9"><a href="#cb36-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.07161125</span></span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>size_union <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">union</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
+<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>size_intersection <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">intersect</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
+<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a>jaccard_similarity <span class="ot">&lt;-</span> size_intersection <span class="sc">/</span> size_union</span>
+<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a>jaccard_similarity</span>
+<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.07161125</span></span></code></pre></div>
 <p>Notice that the found value is the same as the
 <code>pathway_Jaccard_similarity</code> value in the
 <code>PCNedgelist</code> dataframe.</p>
 </div>
 <div class="section level4">
-<h4 id="cluster-pathway-evidence-cpe-score">Cluster-Pathway Evidence (CPE) Score<a class="anchor" aria-label="anchor" href="#cluster-pathway-evidence-cpe-score"></a>
+<h4 id="ptm-cluster-weight">PTM Cluster Weight<a class="anchor" aria-label="anchor" href="#ptm-cluster-weight"></a>
 </h4>
+<p>P2P also calculates a PTM cluster based weight between pathways
+(<code>pathway_cluster_weight</code>).</p>
 <p>For a given pathway
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>
 (<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><msub><mi>w</mi><mi>j</mi></msub></mrow><annotation encoding="application/x-tex">pw_j</annotation></semantics></math>)
@@ -735,12 +741,12 @@ means “and”.)</p>
 the first cluster found, and a single pathway
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>j</mi><annotation encoding="application/x-tex">j</annotation></semantics></math>,
 the <code>Axon guidance</code> pathway.</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" tabindex="-1"></a>c_i <span class="ot">&lt;-</span> common.clusters[[<span class="dv">1</span>]]</span>
-<span id="cb37-2"><a href="#cb37-2" tabindex="-1"></a>p_j <span class="ot">&lt;-</span> pathways.list[[<span class="st">"Axon guidance"</span>]]</span>
-<span id="cb37-3"><a href="#cb37-3" tabindex="-1"></a><span class="fu">length</span>(c_i)</span>
-<span id="cb37-4"><a href="#cb37-4" tabindex="-1"></a><span class="fu">length</span>(p_j)</span>
-<span id="cb37-5"><a href="#cb37-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">8</span></span>
-<span id="cb37-6"><a href="#cb37-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">325</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>c_i <span class="ot">&lt;-</span> common.clusters[[<span class="dv">1</span>]]</span>
+<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a>p_j <span class="ot">&lt;-</span> pathways.list[[<span class="st">"Axon guidance"</span>]]</span>
+<span id="cb38-3"><a href="#cb38-3" tabindex="-1"></a><span class="fu">length</span>(c_i)</span>
+<span id="cb38-4"><a href="#cb38-4" tabindex="-1"></a><span class="fu">length</span>(p_j)</span>
+<span id="cb38-5"><a href="#cb38-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">8</span></span>
+<span id="cb38-6"><a href="#cb38-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">325</span></span></code></pre></div>
 <p>Notice that the numerator of the summands in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>P</mi><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">CPE(i,j)</annotation></semantics></math>
 counts the number of PTMs that are in both the protein and the cluster.
@@ -752,50 +758,235 @@ the 325 summands in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>P</mi><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">CPE(i,j)</annotation></semantics></math>,
 only two are non-zero. And in fact, both numerators are 1, since there
 is only one PTM on <code>MYH9</code> in our cluster:</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" tabindex="-1"></a>c_i[<span class="fu">grepl</span>(<span class="st">"MYH9"</span>, c_i)]</span>
-<span id="cb38-2"><a href="#cb38-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"MYH9 p Y1408"</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>c_i[<span class="fu">grepl</span>(<span class="st">"MYH9"</span>, c_i)]</span>
+<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"MYH9 p Y1408"</span></span></code></pre></div>
 <p>And also only one PTM on<code>PTK2</code>:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" tabindex="-1"></a>c_i[<span class="fu">grepl</span>(<span class="st">"PTK2"</span>, c_i)]</span>
-<span id="cb39-2"><a href="#cb39-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"PTK2 p Y925"</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a>c_i[<span class="fu">grepl</span>(<span class="st">"PTK2"</span>, c_i)]</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"PTK2 p Y925"</span></span></code></pre></div>
 <p>The denominators of the summands in
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mi>P</mi><mi>E</mi><mo stretchy="false" form="prefix">(</mo><mi>i</mi><mo>,</mo><mi>j</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">CPE(i,j)</annotation></semantics></math>
 are the product of the number of pathways that the protein is in and the
 number of PTMs in the cluster. From above, there are 8 PTMs in this
 cluster. <code>MYH9</code> is in 1 pathway and <code>PTK2</code> is in 2
 pathways, as seen below:</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sapply</span>(pathways.list, <span class="cf">function</span>(x) <span class="st">"MYH9"</span> <span class="sc">%in%</span> x))</span>
-<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sapply</span>(pathways.list, <span class="cf">function</span>(x) <span class="st">"PTK2"</span> <span class="sc">%in%</span> x))</span>
-<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">1</span></span>
-<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sapply</span>(pathways.list, <span class="cf">function</span>(x) <span class="st">"MYH9"</span> <span class="sc">%in%</span> x))</span>
+<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">sapply</span>(pathways.list, <span class="cf">function</span>(x) <span class="st">"PTK2"</span> <span class="sc">%in%</span> x))</span>
+<span id="cb41-3"><a href="#cb41-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">1</span></span>
+<span id="cb41-4"><a href="#cb41-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
 <p>(Note that the <code>pathways.list</code> here is a smaller version
 of the full BioPlanet pathways list.)</p>
 <p>So CPE for the first cluster and the <code>Axon guidance</code>
 pathway is:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">*</span><span class="dv">8</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span><span class="dv">8</span>)</span>
-<span id="cb41-2"><a href="#cb41-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.1875</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a><span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">*</span><span class="dv">8</span>) <span class="sc">+</span> <span class="dv">1</span><span class="sc">/</span>(<span class="dv">2</span><span class="sc">*</span><span class="dv">8</span>)</span>
+<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.1875</span></span></code></pre></div>
+<p>We can see that this is the same value as the CPE score for the first
+cluster and the <code>Axon guidance</code> pathway in the
+<code>CPE.matrix</code>:</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>CPE.matrix[<span class="dv">1</span>, <span class="st">"Axon guidance"</span>]</span>
+<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.1875</span></span></code></pre></div>
 <p>Overall, two pathways are considered to be related if they both have
-positive CPE with the same cluster. In that case, the CPE score for the
-edge between those two pathways is the sum of the CPE scores for all
-clusters that contain</p>
-<p>For example, here are the number of clusters that contain PTMs on one
-or more proteins in the <code>Axon guidance</code> pathway:</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" tabindex="-1"></a>ag_clusts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(common.clusters, <span class="cf">function</span>(x) <span class="fu">any</span>(<span class="fu">sapply</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], grepl,<span class="at">x=</span>x)))</span>
-<span id="cb42-2"><a href="#cb42-2" tabindex="-1"></a><span class="fu">sum</span>(ag_clusts)</span>
-<span id="cb42-3"><a href="#cb42-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">66</span></span></code></pre></div>
-<p>And here are the number of clusters that contain PTMs on one or more
-proteins in the <code>ERBB signaling pathway</code>:</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" tabindex="-1"></a>erbb_clusts <span class="ot">&lt;-</span> <span class="fu">sapply</span>(common.clusters, <span class="cf">function</span>(x) <span class="fu">any</span>(<span class="fu">sapply</span>(pathways.list[[<span class="st">"ERBB signaling pathway"</span>]], grepl,<span class="at">x=</span>x)))</span>
-<span id="cb43-2"><a href="#cb43-2" tabindex="-1"></a><span class="fu">sum</span>(erbb_clusts)</span>
-<span id="cb43-3"><a href="#cb43-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">49</span></span></code></pre></div>
-<p>And overall, here are the number of clustesr that contain PTMs on at
-least one protein from both the <code>Axon guidance</code> pathway and
-the <code>ERBB signaling pathway</code>:</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" tabindex="-1"></a><span class="fu">sum</span>(ag_clusts <span class="sc">&amp;</span> erbb_clusts)</span>
-<span id="cb44-2"><a href="#cb44-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">43</span></span></code></pre></div>
-<p>The CPE scores from these clusters to the two pathways would be
-summed to get the final CPE score for the edge between the two
-pathways.</p>
-<p>For more detail on the CPE calculation, see <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link">“Ross
+positive CPE with at least one cluster. In that case, the PTM cluster
+weight for the two pathways is the sum of the CPE scores for all
+clusters that have positive CPE with both pathways. So if a cluster has
+positive CPE with both pathways, it contributes to the PTM cluster
+weight between those two pathways.</p>
+<p>For the <code>Axon guidance</code> and
+<code>ERBB signaling pathway</code> pair, we can see all of those
+clusters and their CPE scores with both pathways in the
+<code>CPE.matrix</code>:</p>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cols</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Axon guidance"</span>, <span class="st">"ERBB signaling pathway"</span><span class="op">)</span></span>
+<span><span class="va">rows</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html" class="external-link">is.na</a></span><span class="op">(</span><span class="va">CPE.matrix</span><span class="op">[</span>, <span class="va">cols</span><span class="op">]</span><span class="op">)</span><span class="op">)</span> <span class="op">==</span> <span class="fl">2</span></span>
+<span><span class="va">CPE.matrix</span><span class="op">[</span><span class="va">rows</span>, <span class="va">cols</span><span class="op">]</span></span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left"></th>
+<th align="left">Axon guidance</th>
+<th align="left">ERBB signaling pathway</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">ConsensusCluster1</td>
+<td align="left">0.19</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster2</td>
+<td align="left">0.07</td>
+<td align="left">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster6</td>
+<td align="left">0.12</td>
+<td align="left">0.12</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster7</td>
+<td align="left">0.12</td>
+<td align="left">0.12</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster8</td>
+<td align="left">0.19</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster9</td>
+<td align="left">0.21</td>
+<td align="left">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster10</td>
+<td align="left">0.05</td>
+<td align="left">0.22</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster12</td>
+<td align="left">0.15</td>
+<td align="left">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster20</td>
+<td align="left">0.19</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster21</td>
+<td align="left">0.05</td>
+<td align="left">0.15</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster22</td>
+<td align="left">0.07</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster26</td>
+<td align="left">0.12</td>
+<td align="left">0.12</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster35</td>
+<td align="left">0.05</td>
+<td align="left">0.05</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster36</td>
+<td align="left">0.07</td>
+<td align="left">0.04</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster41</td>
+<td align="left">0.08</td>
+<td align="left">0.08</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster43</td>
+<td align="left">0.15</td>
+<td align="left">0.03</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster46</td>
+<td align="left">0.12</td>
+<td align="left">0.12</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster49</td>
+<td align="left">0.05</td>
+<td align="left">0.05</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster50</td>
+<td align="left">0.19</td>
+<td align="left">0.06</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster55</td>
+<td align="left">0.17</td>
+<td align="left">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster56</td>
+<td align="left">0.17</td>
+<td align="left">0.17</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster60</td>
+<td align="left">0.17</td>
+<td align="left">0.17</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster61</td>
+<td align="left">0.50</td>
+<td align="left">0.17</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster69</td>
+<td align="left">0.07</td>
+<td align="left">0.07</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster70</td>
+<td align="left">0.11</td>
+<td align="left">0.03</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster78</td>
+<td align="left">0.10</td>
+<td align="left">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster80</td>
+<td align="left">0.20</td>
+<td align="left">0.20</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster81</td>
+<td align="left">0.10</td>
+<td align="left">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster82</td>
+<td align="left">0.09</td>
+<td align="left">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster87</td>
+<td align="left">0.12</td>
+<td align="left">0.25</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster96</td>
+<td align="left">0.12</td>
+<td align="left">0.12</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster97</td>
+<td align="left">0.38</td>
+<td align="left">0.12</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster103</td>
+<td align="left">0.18</td>
+<td align="left">0.04</td>
+</tr>
+<tr class="even">
+<td align="left">ConsensusCluster116</td>
+<td align="left">0.30</td>
+<td align="left">0.10</td>
+</tr>
+<tr class="odd">
+<td align="left">ConsensusCluster130</td>
+<td align="left">0.50</td>
+<td align="left">0.50</td>
+</tr>
+</tbody>
+</table>
+<p>And the total is the same as the <code>pathway_cluster_weight</code>
+for this pair above.</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a><span class="fu">sum</span>(CPE.matrix[rows, cols])</span>
+<span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">9.509128</span></span></code></pre></div>
+<p>For more detail on the PTM cluster weight calculation, see <a href="https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690" class="external-link">“Ross
 et al., 2023”</a>.</p>
 </div>
 </div>
@@ -807,20 +998,20 @@ et al., 2023”</a>.</p>
 either be exported with the save function and loaded later or saved to a
 csv file with the write.csv function.</p>
 <p>To save one object:</p>
-<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object</span>, filename <span class="op">=</span> <span class="st">"filepath/name.rda"</span><span class="op">)</span> <span class="co"># Saves object as an .rda</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/load.html" class="external-link">load</a></span><span class="op">(</span><span class="st">"filepath/name.rda"</span><span class="op">)</span>                    <span class="co"># Loads object saved to a file</span></span></code></pre></div>
 <p>For multiple objects: Note the objects are saved as an .RData rather
 than an .rda</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save</a></span><span class="op">(</span><span class="va">object1</span>, <span class="va">object2</span>, <span class="va">object.ect</span>, filename<span class="op">=</span><span class="st">"NewFile.RData"</span><span class="op">)</span></span></code></pre></div>
 <p>To save one object as a csv:</p>
-<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/write.table.html" class="external-link">write.csv</a></span><span class="op">(</span><span class="va">object</span>, file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span> <span class="co"># Saves object as a .csv</span></span>
 <span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.csv"</span><span class="op">)</span>          <span class="co"># Loads object from .csv</span></span></code></pre></div>
 <p>You may also save your entire Global Environment namespace using the
 save.image function as shown below:</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/save.html" class="external-link">save.image</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"filepath/name.RData"</span><span class="op">)</span></span>
 <span><span class="co"># All objects in the environment are saved</span></span></code></pre></div>
 </div>

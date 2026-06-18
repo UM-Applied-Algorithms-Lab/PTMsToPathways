@@ -8,12 +8,7 @@ Jaccard Similarity.
 ## Usage
 
 ``` r
-BuildPathwayCrosstalkNetwork(
-  common.clusters,
-  bioplanet.file = "bioplanet.csv",
-  createfile = getwd(),
-  PCN.edgelist.name = "PCN_file"
-)
+BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file = "bioplanet.csv")
 ```
 
 ## Arguments
@@ -29,15 +24,6 @@ BuildPathwayCrosstalkNetwork(
   pathways where each list element is a character vector of gene
   symbols.
 
-- createfile:
-
-  The path of where to create the edgelist file. Defaults to the working
-  directory, if FALSE is provided, a file will not be created.
-
-- PCN.edgelist.name:
-
-  Name of the PCN edgelist file to be created
-
 ## Value
 
 A list with these data structures at the given index:
@@ -52,16 +38,28 @@ A list with these data structures at the given index:
     string vectors. Each vector is a pathway with strings associated
     with the genes in that pathway.
 
+4.  The cluster-by-pathway CPE matrix used to compute PTM cluster
+    weights.
+
 ## Examples
 
 ``` r
-Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE)
+Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
 #> Making PCN
-#> 2026-06-18 00:00:45.654701
-#> 2026-06-18 00:00:45.764364
-#> Total time: 0.109662771224976
+#> 2026-06-18 21:00:42.992337
+#> 2026-06-18 21:00:43.10042
+#> Total time: 0.108083009719849
 Example_Output[[1]][[3,]]
 #> Error in `[[.data.frame`(Example_Output[[1]], 3, ): argument "..2" is missing, with no default
 Example_Output[[3]][[1:3]]
 #> Error in Example_Output[[3]][[1:3]]: recursive indexing failed at level 2
+Example_Output[[4]][1:3, 1:3]
+#>                   Axon guidance Class A GPCRs (rhodopsin-like)
+#> ConsensusCluster1    0.18750000                             NA
+#> ConsensusCluster2    0.07142857                             NA
+#> ConsensusCluster3            NA                             NA
+#>                   ERBB signaling pathway
+#> ConsensusCluster1             0.06250000
+#> ConsensusCluster2             0.07142857
+#> ConsensusCluster3                     NA
 ```

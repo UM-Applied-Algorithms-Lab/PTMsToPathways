@@ -195,9 +195,9 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 >> "spearman"): the standard deviation is zero
 >> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
 >> "spearman"): the standard deviation is zero
->> Spearman correlation calculation complete after 13.16 secs total.
->> Spearman t-SNE calculation complete after 42.41 secs total.
->> Euclidean distance calculation complete after 42.45 secs total.
+>> Spearman correlation calculation complete after 13.73 secs total.
+>> Spearman t-SNE calculation complete after 42.67 secs total.
+>> Euclidean distance calculation complete after 42.71 secs total.
 >> Euclidean t-SNE calculation complete after 1.16 mins total.
 >> Combined distance calculation complete after 1.16 mins total.
 >> SED t-SNE calculation complete after 1.62 mins total.
@@ -291,7 +291,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.06 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.68 secs total.
+>> Gene CCCN complete after 2.79 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -547,18 +547,30 @@ Cytoscape (the first element of the returned list) and a dataframe with
 columns for the two edge weights (the second element of the returned
 list). The third element of the returned list is the list of pathways
 (in case the user provided a path to the pathway file rather than a list
-of pathways). The function can be run as follows:
+of pathways). The fourth element is the cluster-by-pathway CPE matrix
+used for the PTM cluster weight calculations. The function can be run as
+follows:
 
 ``` r
-PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
-                                         createfile = FALSE)
+PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 >> Making PCN
->> 2026-06-18 00:05:18.927525
->> 2026-06-18 00:05:19.040174
->> Total time: 0.112648725509644
+>> 2026-06-18 21:05:20.363904
+>> 2026-06-18 21:05:20.479982
+>> Total time: 0.11607837677002
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
+CPE.matrix <- PCN.data[[4]]
+```
+
+If you want to save the Cytoscape-ready edgefile, save the returned
+`pathway.crosstalk.network` dataframe explicitly:
+
+``` r
+
+utils::write.csv(pathway.crosstalk.network,
+                 file = "PCN_file.csv",
+                 row.names = FALSE)
 ```
 
 The required columns for Cytoscape are:
@@ -577,11 +589,11 @@ pathway.crosstalk.network[1:5,]
 
 |  | source | target | Weight | interaction |
 |:---|:---|:---|:---|:---|
-| 4 | Axon guidance | Validated nuclear estrogen receptor alpha network | 1.27898550724638 | PTM_cluster_evidence |
-| 2 | Axon guidance | ERBB signaling pathway | 9.50912807669002 | PTM_cluster_evidence |
-| 3 | Axon guidance | Lipid and lipoprotein metabolism | 4.63387820142684 | PTM_cluster_evidence |
-| 5 | ERBB signaling pathway | Lipid and lipoprotein metabolism | 2.96007824348337 | PTM_cluster_evidence |
-| 18 | Selenium pathway | Vitamin B12 metabolism | 0.866666666666667 | PTM_cluster_evidence |
+| 4 | Axon guidance | Validated nuclear estrogen receptor alpha network | 1.27898550724638 | PTM_cluster_weights |
+| 2 | Axon guidance | ERBB signaling pathway | 9.50912807669002 | PTM_cluster_weights |
+| 3 | Axon guidance | Lipid and lipoprotein metabolism | 4.63387820142684 | PTM_cluster_weights |
+| 5 | ERBB signaling pathway | Lipid and lipoprotein metabolism | 2.96007824348337 | PTM_cluster_weights |
+| 18 | Selenium pathway | Vitamin B12 metabolism | 0.866666666666667 | PTM_cluster_weights |
 
 To understand the edge weights calculations, let’s consider a pair of
 pathways, `Axon Guidance` and `ERBB signaling pathway`. We’ll look at
@@ -592,11 +604,11 @@ the `PCNedgelist` dataframe this time.
 PCNedgelist[PCNedgelist$source == "Axon guidance" & PCNedgelist$target == "ERBB signaling pathway", ]
 ```
 
-|  | source | target | pathway_Jaccard_similarity | PTM_cluster_evidence |
+|  | source | target | pathway_Jaccard_similarity | PTM_cluster_weights |
 |:---|:---|:---|:---|:---|
 | 2 | Axon guidance | ERBB signaling pathway | 0.07 | 9.51 |
 
-### Metric calculations
+### Pathway-pathway weight calculations
 
 #### Jaccard Similarity
 
@@ -607,20 +619,19 @@ genes that are in either pathway).
 
 ``` r
 size_union <- length(union(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
-size_union
 size_intersection <- length(intersect(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
-size_intersection
 jaccard_similarity <- size_intersection / size_union
 jaccard_similarity
->> [1] 391
->> [1] 28
 >> [1] 0.07161125
 ```
 
 Notice that the found value is the same as the
 `pathway_Jaccard_similarity` value in the `PCNedgelist` dataframe.
 
-#### Cluster-Pathway Evidence (CPE) Score
+#### PTM Cluster Weight
+
+P2P also calculates a PTM cluster based weight between pathways
+(`pathway_cluster_weight`).
 
 For a given pathway $`j`$ ($`pw_j`$) and a given cluster $`i`$
 ($`cl_i`$), we define the Cluster-Pathway Evidence (CPE),
@@ -686,42 +697,80 @@ So CPE for the first cluster and the `Axon guidance` pathway is:
 >> [1] 0.1875
 ```
 
+We can see that this is the same value as the CPE score for the first
+cluster and the `Axon guidance` pathway in the `CPE.matrix`:
+
+``` r
+CPE.matrix[1, "Axon guidance"]
+>> [1] 0.1875
+```
+
 Overall, two pathways are considered to be related if they both have
-positive CPE with the same cluster. In that case, the CPE score for the
-edge between those two pathways is the sum of the CPE scores for all
-clusters that contain
+positive CPE with at least one cluster. In that case, the PTM cluster
+weight for the two pathways is the sum of the CPE scores for all
+clusters that have positive CPE with both pathways. So if a cluster has
+positive CPE with both pathways, it contributes to the PTM cluster
+weight between those two pathways.
 
-For example, here are the number of clusters that contain PTMs on one or
-more proteins in the `Axon guidance` pathway:
-
-``` r
-ag_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["Axon guidance"]], grepl,x=x)))
-sum(ag_clusts)
->> [1] 66
-```
-
-And here are the number of clusters that contain PTMs on one or more
-proteins in the `ERBB signaling pathway`:
+For the `Axon guidance` and `ERBB signaling pathway` pair, we can see
+all of those clusters and their CPE scores with both pathways in the
+`CPE.matrix`:
 
 ``` r
-erbb_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["ERBB signaling pathway"]], grepl,x=x)))
-sum(erbb_clusts)
->> [1] 49
+
+cols <- c("Axon guidance", "ERBB signaling pathway")
+rows <- rowSums(!is.na(CPE.matrix[, cols])) == 2
+CPE.matrix[rows, cols]
 ```
 
-And overall, here are the number of clustesr that contain PTMs on at
-least one protein from both the `Axon guidance` pathway and the
-`ERBB signaling pathway`:
+|                     | Axon guidance | ERBB signaling pathway |
+|:--------------------|:--------------|:-----------------------|
+| ConsensusCluster1   | 0.19          | 0.06                   |
+| ConsensusCluster2   | 0.07          | 0.07                   |
+| ConsensusCluster6   | 0.12          | 0.12                   |
+| ConsensusCluster7   | 0.12          | 0.12                   |
+| ConsensusCluster8   | 0.19          | 0.06                   |
+| ConsensusCluster9   | 0.21          | 0.07                   |
+| ConsensusCluster10  | 0.05          | 0.22                   |
+| ConsensusCluster12  | 0.15          | 0.05                   |
+| ConsensusCluster20  | 0.19          | 0.06                   |
+| ConsensusCluster21  | 0.05          | 0.15                   |
+| ConsensusCluster22  | 0.07          | 0.06                   |
+| ConsensusCluster26  | 0.12          | 0.12                   |
+| ConsensusCluster35  | 0.05          | 0.05                   |
+| ConsensusCluster36  | 0.07          | 0.04                   |
+| ConsensusCluster41  | 0.08          | 0.08                   |
+| ConsensusCluster43  | 0.15          | 0.03                   |
+| ConsensusCluster46  | 0.12          | 0.12                   |
+| ConsensusCluster49  | 0.05          | 0.05                   |
+| ConsensusCluster50  | 0.19          | 0.06                   |
+| ConsensusCluster55  | 0.17          | 0.17                   |
+| ConsensusCluster56  | 0.17          | 0.17                   |
+| ConsensusCluster60  | 0.17          | 0.17                   |
+| ConsensusCluster61  | 0.50          | 0.17                   |
+| ConsensusCluster69  | 0.07          | 0.07                   |
+| ConsensusCluster70  | 0.11          | 0.03                   |
+| ConsensusCluster78  | 0.10          | 0.10                   |
+| ConsensusCluster80  | 0.20          | 0.20                   |
+| ConsensusCluster81  | 0.10          | 0.10                   |
+| ConsensusCluster82  | 0.09          | 0.04                   |
+| ConsensusCluster87  | 0.12          | 0.25                   |
+| ConsensusCluster96  | 0.12          | 0.12                   |
+| ConsensusCluster97  | 0.38          | 0.12                   |
+| ConsensusCluster103 | 0.18          | 0.04                   |
+| ConsensusCluster116 | 0.30          | 0.10                   |
+| ConsensusCluster130 | 0.50          | 0.50                   |
+
+And the total is the same as the `pathway_cluster_weight` for this pair
+above.
 
 ``` r
-sum(ag_clusts & erbb_clusts)
->> [1] 43
+sum(CPE.matrix[rows, cols])
+>> [1] 9.509128
 ```
 
-The CPE scores from these clusters to the two pathways would be summed
-to get the final CPE score for the edge between the two pathways.
-
-For more detail on the CPE calculation, see [“Ross et al.,
+For more detail on the PTM cluster weight calculation, see [“Ross et
+al.,
 2023”](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690).
 
 ## Saving Data
