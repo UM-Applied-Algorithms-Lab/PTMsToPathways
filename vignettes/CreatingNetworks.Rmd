@@ -459,7 +459,7 @@ dat <- PCNedgelist[PCNedgelist$source == "Axon guidance" & PCNedgelist$target ==
 knitr::kable(dat, align = 'l', digits = 2)
 ```
 
-## Metric calculations
+## Pathway-pathway weight calculations
 
 ### Jaccard Similarity
  The Jaccard similarity is defined as the size of
@@ -469,16 +469,16 @@ of unique genes that are in either pathway).
 
 ```{r eval = TRUE, echo = TRUE}
 size_union <- length(union(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
-size_union
 size_intersection <- length(intersect(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
-size_intersection
 jaccard_similarity <- size_intersection / size_union
 jaccard_similarity
 ```
 
 Notice that the found value is the same as the `pathway_Jaccard_similarity` value in the `PCNedgelist` dataframe.
 
-### Cluster-Pathway Evidence (CPE) Score
+### PTM Cluster Weight 
+
+P2P also calculates a PTM cluster based weight between pathways (`pathway_cluster_weight`). 
 
 For a given pathway $j$ ($pw_j$) and a given cluster $i$ ($cl_i$), we define the Cluster-Pathway Evidence (CPE),
 $$
@@ -519,28 +519,34 @@ So CPE for the first cluster and the `Axon guidance` pathway is:
 ```{r eval = TRUE, echo = TRUE}
 1/(1*8) + 1/(2*8)
 ```
-
-Overall, two pathways are considered to be related if they both have positive CPE with the same cluster.
-In that case, the CPE score for the edge between those two pathways is the sum of the CPE scores for all
-clusters that contain 
-
-For example, here are the number of clusters that contain PTMs on one or more proteins in the `Axon guidance` pathway:
+We can see that this is the same value as the CPE score for the first cluster and the `Axon guidance` pathway in the `CPE.matrix`:
 ```{r eval = TRUE, echo = TRUE}
-ag_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["Axon guidance"]], grepl,x=x)))
-sum(ag_clusts)
+CPE.matrix[1, "Axon guidance"]
 ```
-And here are the number of clusters that contain PTMs on one or more proteins in the `ERBB signaling pathway`:
-```{r eval = TRUE, echo = TRUE}
-erbb_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["ERBB signaling pathway"]], grepl,x=x)))
-sum(erbb_clusts)
-```
-And overall, here are the number of clusters that contain PTMs on at least one protein from both the `Axon guidance` pathway and the `ERBB signaling pathway`:
-```{r eval = TRUE, echo = TRUE}
-sum(ag_clusts & erbb_clusts)
-```
-The CPE scores from these clusters to the two pathways would be summed to get the final CPE score for the edge between the two pathways:
 
-For more detail on the CPE calculation, see ["Ross et al.,
+Overall, two pathways are considered to be related if they both have positive CPE with at least one cluster.
+In that case, the PTM cluster weight for the two pathways is the sum of the CPE
+scores for all clusters that have positive CPE with both pathways. So if a
+cluster has positive CPE with both pathways, it contributes to the PTM cluster
+weight between those two pathways.
+
+For the `Axon guidance` and `ERBB signaling pathway` pair, we can see all of those clusters and their CPE scores with both pathways in the `CPE.matrix`:
+```{r eval = FALSE, echo = TRUE}
+cols <- c("Axon guidance", "ERBB signaling pathway")
+rows <- rowSums(!is.na(CPE.matrix[, cols])) == 2
+CPE.matrix[rows, cols]
+```
+```{r eval = TRUE, echo = FALSE}
+dat <- CPE.matrix[rows, cols]
+knitr::kable(dat, align = 'l', digits = 2)
+```
+And the total is the same as the `pathway_cluster_weight` for this pair above.
+
+```{r eval= TRUE, echo = TRUE}
+sum(CPE.matrix[rows, cols])
+```
+
+For more detail on the PTM cluster weight calculation, see ["Ross et al.,
 2023"](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690).
 
 # Saving Data
