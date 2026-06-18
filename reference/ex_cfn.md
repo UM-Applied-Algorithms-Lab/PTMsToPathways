@@ -6,7 +6,7 @@ but only for proteins found to interact via t-SNE clusters
 ## Usage
 
 ``` r
-data(ex_cfn)
+ex_cfn
 ```
 
 ## Format

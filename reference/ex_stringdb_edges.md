@@ -5,7 +5,7 @@ List of edges between genes in dataset.
 ## Usage
 
 ``` r
-data(ex_stringdb_edges)
+ex_stringdb_edges
 ```
 
 ## Format
@@ -37,5 +37,11 @@ Dataframe of 8844 rows and 4 columns:
 
 ``` r
 head(ex_stringdb_edges)
-#> Error: object 'ex_stringdb_edges' not found
+#>      source target              interaction Weight
+#> 21   MAPK13 MAPK12                 database   1128
+#> 31   MAPK12  MAPK1                 database   1182
+#> 35   GPRC5A   MYH9             experimental    164
+#> 41     MISP   MYH9             experimental    148
+#> 71     MYH9 PIK3R2 experimental_transferred    216
+#> 75 BAIAP2L1   WASL             experimental    866
 ```

@@ -5,7 +5,7 @@ Edges from the Genemania database for the genes in the BRCA dataset
 ## Usage
 
 ``` r
-data(BRCA_genemania.edges)
+BRCA_genemania.edges
 ```
 
 ## Format

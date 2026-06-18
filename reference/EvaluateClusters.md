@@ -186,11 +186,54 @@ for generating the cluster list input.
 cl <- MakeClusterList(ex_tiny_ptm_table)
 #> Starting correlation calculations and t-SNE.
 #> This may take a few minutes or hours for large data sets.
-#> Error: object 'ex_tiny_ptm_table' not found
+#> Spearman correlation calculation complete after 0.27 secs total.
+#> Spearman t-SNE calculation complete after 1.82 secs total.
+#> Euclidean distance calculation complete after 1.82 secs total.
+#> Euclidean t-SNE calculation complete after 3.63 secs total.
+#> Combined distance calculation complete after 3.63 secs total.
+#> SED t-SNE calculation complete after 5.34 secs total.
+
+#> Clustering for Euclidean complete after 6.23 secs total.
+
+#> Clustering for Spearman complete after 6.24 secs total.
+
+#> Clustering for SED complete after 6.24 secs total.
+#> Consensus clustering complete after 6.29 secs total.
+#> MakeClusterList complete after 6.29 secs total.
 eval_df <- EvaluateClusters(cl[[1]], ex_tiny_ptm_table, data.type = "ratio")
-#> Error: object 'cl' not found
+#> Starting Group 1
+#>   9 gene(s) culled by slope filter.
+#> Starting Group 2
+#>   12 gene(s) culled by slope filter.
+#> Starting Group 3
+#> Starting Group 4
+#> Starting Group 5
+#>   3 gene(s) culled by slope filter.
+#> Starting Group 6
+#>   2 gene(s) culled by slope filter.
+#> Starting Group 7
+#>   2 gene(s) culled by slope filter.
+#> Starting Group 8
+#> Starting Group 9
+#>   2 gene(s) culled by slope filter.
+#> Starting Group 10
+#>   2 gene(s) culled by slope filter.
+#> Starting Group 11
 head(eval_df)
-#> Error: object 'eval_df' not found
+#>    Group no.genes culled.by.slope percent.singlesamplegenes no.samples
+#> 2      2       37              12                         0          7
+#> 1      1       23               9                         0          2
+#> 6      6       14               2                         0          5
+#> 10    10        6               2                         0          6
+#> 7      7       13               2                         0          7
+#> 4      4        4               4                       100          1
+#>    percent.singlegenesamples total.signal percent.NA  intensity     Index
+#> 2                          0   1140700979  0.7722008 1131892477 3.1721133
+#> 1                          0    236814856  0.0000000  236814856 1.9565217
+#> 6                          0    102773686 10.0000000   92496317 0.5064935
+#> 10                         0     75786818 11.1111111   67366060 0.4816514
+#> 7                          0    336783191 27.4725275  244260336 0.2593593
+#> 4                        100     11377195  0.0000000   11377195 0.2500000
 
 # Unordered cohort data (e.g. BRCA): disable slope filter
 eval_brca <- EvaluateClusters(

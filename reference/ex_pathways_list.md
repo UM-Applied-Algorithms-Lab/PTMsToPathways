@@ -5,7 +5,7 @@ A list of pathway names and the genes that make them up
 ## Usage
 
 ``` r
-data(ex_pathways_list)
+ex_pathways_list
 ```
 
 ## Format

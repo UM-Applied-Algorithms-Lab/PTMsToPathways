@@ -5,7 +5,7 @@ Edges from the STRINGdb database for the genes in the BRCA dataset
 ## Usage
 
 ``` r
-data(BRCA_stringdb.edges)
+BRCA_stringdb.edges
 ```
 
 ## Format
