@@ -2,12 +2,12 @@
 
 test_that("BuildClusterFilteredNetwork() gives right answer", {
   
-  # Get example data
+  # Run the function to test
+  
   gene_cccn_edges <- PTMsToPathways::ex_gene_cccn_edges
   stringdb_edges <- PTMsToPathways::ex_stringdb_edges
   genemania_edges <- PTMsToPathways::ex_genemania_edges
-
-  # Run the function to test
+  
   output <- BuildClusterFilteredNetwork(gene_cccn_edges, stringdb_edges, genemania_edges, NULL)
 
   # Test the combined PPI output

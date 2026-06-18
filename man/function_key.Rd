@@ -21,7 +21,7 @@ Data frame with 24339 rows and 8 columns:
 \code{FunctionKey.txt} processed into a package data object.
 }
 \usage{
-data(function_key)
+function_key
 }
 \description{
 Gene-level annotation data used to build Cytoscape node metadata.

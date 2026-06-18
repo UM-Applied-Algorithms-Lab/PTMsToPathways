@@ -17,7 +17,7 @@ Dataframe of 8849 rows and 4 columns
 "Produced by BuildClusterFilteredNetwork"
 }
 \usage{
-data(ex_combined_ppi)
+ex_combined_ppi
 }
 \description{
 Combines all Protein to Protein interaction data and combines their weights into one score from a range of 0 to 1

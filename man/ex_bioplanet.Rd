@@ -17,7 +17,7 @@ Dataframe of 196 rows and 4 columns
 "https://www.frontiersin.org/journals/pharmacology/articles/10.3389/fphar.2019.00445/full"
 }
 \usage{
-data(ex_bioplanet)
+ex_bioplanet
 }
 \description{
 A database file from the bioplanet website
