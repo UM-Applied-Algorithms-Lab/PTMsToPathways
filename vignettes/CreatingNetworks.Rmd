@@ -414,12 +414,21 @@ the relationships between pathways in two forms: a dataframe of edges that can b
 and a dataframe with columns for the two edge weights (the second element of the returned list). The third element of the returned list is the list of pathways
 (in case the user provided a path to the pathway file rather than a list of pathways). The function can be run as follows:
 ```{r eval = TRUE, echo = TRUE}
-PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
-                                         createfile = FALSE)
+PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
 ```
+
+If you want to save the Cytoscape-ready edgefile, save the returned
+`pathway.crosstalk.network` dataframe explicitly:
+
+```{r eval = FALSE, echo = TRUE}
+utils::write.csv(pathway.crosstalk.network,
+                 file = "PCN_file.csv",
+                 row.names = FALSE)
+```
+
 The required columns for Cytoscape are:
 ```{r eval = TRUE, echo = TRUE}
 names(pathway.crosstalk.network)
@@ -523,11 +532,11 @@ And here are the number of clusters that contain PTMs on one or more proteins in
 erbb_clusts <- sapply(common.clusters, function(x) any(sapply(pathways.list[["ERBB signaling pathway"]], grepl,x=x)))
 sum(erbb_clusts)
 ```
-And overall, here are the number of clustesr that contain PTMs on at least one protein from both the `Axon guidance` pathway and the `ERBB signaling pathway`:
+And overall, here are the number of clusters that contain PTMs on at least one protein from both the `Axon guidance` pathway and the `ERBB signaling pathway`:
 ```{r eval = TRUE, echo = TRUE}
 sum(ag_clusts & erbb_clusts)
 ```
-The CPE scores from these clusters to the two pathways would be summed to get the final CPE score for the edge between the two pathways.
+The CPE scores from these clusters to the two pathways would be summed to get the final CPE score for the edge between the two pathways:
 
 For more detail on the CPE calculation, see ["Ross et al.,
 2023"](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690).

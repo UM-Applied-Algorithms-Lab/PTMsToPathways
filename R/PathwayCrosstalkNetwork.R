@@ -59,8 +59,6 @@ ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
 #'
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
 #' @param bioplanet.file Either the path to a delimited Bioplanet file, or a named list of pathways where each list element is a character vector of gene symbols.
-#' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
-#' @param PCN.edgelist.name Name of the PCN edgelist file to be created
 #' @return A list with these data structures at the given index: \enumerate{
 #' \item{Contains pathway source-target columns, along with the interaction type.}
 #' \item{Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score.}
@@ -69,14 +67,13 @@ ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
 #' @export
 #'
 #' @examples
-#' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE)
+#' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
 #' Example_Output[[1]][[3,]]
 #' Example_Output[[3]][[1:3]]
-BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd(), PCN.edgelist.name = "PCN_file"){
+BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv"){
   message("Making PCN")
   start_time <- Sys.time()
   message(start_time)
-  if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
 
   # Accept either a file path or pre-built pathways.list
   if (is.character(bioplanet.file)) {
@@ -229,17 +226,6 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   names(CPE.net) <- c("source", "target", "Weight", "interaction")
   pathway.crosstalk.network <- rbind(CPE.net, jaccard.net)
 
-  ### Save edgefile for cytoscape plotting ###
-
-  if(is.character(createfile)){ #Don't need to check if directory exists since was done above
-    saved.dir <- getwd()
-    setwd(createfile)
-    filename <- paste(PCN.edgelist.name, ".csv", sep="") #Name of the file created with .csv appended
-    utils::write.csv(pathway.crosstalk.network, file = filename, row.names = FALSE) #Save to files for cytoscape...
-
-    cat(filename, "made in directory:", getwd()) #Tell the user where their files got put
-    setwd(saved.dir)
-  }
   end_time <- Sys.time()
   message(end_time)
   #calculate difference between start and end time

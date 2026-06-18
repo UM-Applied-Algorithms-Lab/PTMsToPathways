@@ -2,7 +2,7 @@
 
 test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   
-  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE))
+  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list))
   
   pathway_crosstalk_network <- output[[1]]
   
