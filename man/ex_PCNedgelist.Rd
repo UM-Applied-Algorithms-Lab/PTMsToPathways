@@ -10,7 +10,7 @@ Dataframe of 19 rows and 4 columns
 \item{source}{The name of a pathway interacting}
 \item{target}{The name of the pathway the source interacts with}
 \item{pathway_Jaccard_similarity}{A weight}
-\item{PTM_cluster_evidence}{A weight}
+\item{PTM_cluster_weights}{A weight}
 }
 }
 \source{

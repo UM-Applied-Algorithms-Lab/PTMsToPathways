@@ -59,24 +59,23 @@ ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
 #'
 #' @param common.clusters The list of common clusters between all three distance metrics (Euclidean, Spearman, and SED). Can be made in MakeCorrelationNetwork
 #' @param bioplanet.file Either the path to a delimited Bioplanet file, or a named list of pathways where each list element is a character vector of gene symbols.
-#' @param createfile The path of where to create the edgelist file. Defaults to the working directory, if FALSE is provided, a file will not be created.
-#' @param PCN.edgelist.name Name of the PCN edgelist file to be created
 #' @return A list with these data structures at the given index: \enumerate{
 #' \item{Contains pathway source-target columns, along with the interaction type.}
 #' \item{Contains pathway source-target columns, with edge weights of their jaccard similarity and their Pathway-Pathway Evidence score.}
 #' \item{All pathways in the bioplanet database as a named list containing string vectors. Each vector is a pathway with strings associated with the genes in that pathway.}
+#' \item{The cluster-by-pathway CPE matrix used to compute PTM cluster weights.}
 #' }
 #' @export
 #'
 #' @examples
-#' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE)
+#' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
 #' Example_Output[[1]][[3,]]
 #' Example_Output[[3]][[1:3]]
-BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv", createfile = getwd(), PCN.edgelist.name = "PCN_file"){
+#' Example_Output[[4]][1:3, 1:3]
+BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv"){
   message("Making PCN")
   start_time <- Sys.time()
   message(start_time)
-  if(is.character(createfile) && !dir.exists(createfile)) stop(paste("Could not find directory", createfile)) #If createfile is a path but an incorrect one
 
   # Accept either a file path or pre-built pathways.list
   if (is.character(bioplanet.file)) {
@@ -178,9 +177,13 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   }
 
   ### Generate PCN network ###
-  # Get a vector of all the PTP weights for every pair of pathways using the CPE weights to filter. For a PTP weight to be non-NA, the PTP weight will be the sum of all clusters both pathways have nonzero CPEs in.
+  # Get a matrix of all the PTM Cluster Weights for every pair of pathways using the CPE
+  # weights. For a pathway-pathway PTM Cluster Weight to be non-NA, both pathways must
+  # have at least one non-NA CPE weight for the same cluster. Then, the PTM Cluster Weight
+  # is the sum of the CPE weights for all clusters that both pathways have a modified protein in,
+  # which is just the clusters that both pathways have non-NA CPE weights for.
 
-  PTPscore <- apply(PCNedgelist[,1:2], 1, function(x) {
+  PTMCW <- apply(PCNedgelist[,1:2], 1, function(x) {
     rows <- rowSums(!is.na(CPE.matrix[, x])) == 2
     if (any(rows)) {
       sum(CPE.matrix[rows, x], na.rm = TRUE)
@@ -189,36 +192,35 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
     }})
 
 
-  PTPscore[PTPscore== 0] <- NA # Safety check: Turn all 0s created in above line into NAs
+  PTMCW[PTMCW== 0] <- NA # Safety check: Turn all 0s created in above line into NAs
 
-  PCNedgelist <- cbind(PCNedgelist, PTPscore) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
+  PCNedgelist <- cbind(PCNedgelist, PTMCW) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
   PCNedgelist <- PCNedgelist[rowSums(is.na(PCNedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
   PCNedgelist <- as.data.frame(PCNedgelist)
-  names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_evidence")
-  # Sort by the highest PTM cluster evidence
-  # PCNedgelist <- PCNedgelist[order(PCNedgelist$PTM_cluster_evidence, decreasing = TRUE),]
+  names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_weights")
+
   PCNedgelist$pathway_Jaccard_similarity <- as.numeric(PCNedgelist$pathway_Jaccard_similarity)
-  PCNedgelist$PTM_cluster_evidence <- as.numeric(PCNedgelist$PTM_cluster_evidence)
+  PCNedgelist$PTM_cluster_weights <- as.numeric(PCNedgelist$PTM_cluster_weights)
   # Convert NA to 0
   PCNedgelist[is.na(PCNedgelist)] <- 0
   # Subset data frames
   zero_jaccard <- PCNedgelist[PCNedgelist$pathway_Jaccard_similarity == 0, ]
   nonzero_jaccard <- PCNedgelist[PCNedgelist$pathway_Jaccard_similarity > 0, ]
 
-  # Sort both by PTM_cluster_evidence in decreasing order
-  zero_jaccard <- zero_jaccard[order(zero_jaccard$PTM_cluster_evidence, decreasing=TRUE), ]
-  nonzero_jaccard <- nonzero_jaccard[order(nonzero_jaccard$PTM_cluster_evidence, decreasing=TRUE), ]
+  # Sort both by PTM_cluster_weights in decreasing order
+  zero_jaccard <- zero_jaccard[order(zero_jaccard$PTM_cluster_weights, decreasing=TRUE), ]
+  nonzero_jaccard <- nonzero_jaccard[order(nonzero_jaccard$PTM_cluster_weights, decreasing=TRUE), ]
 
   # Combine results: zero-jaccard block on top, then nonzero-jaccard block
   PCNedgelist <- rbind(zero_jaccard, nonzero_jaccard)
 
   # For Cytoscape graphing
   #Remove all rows that only have NA values for  CPE values
-  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM_cluster_evidence"]), c("source", "target", "PTM_cluster_evidence")]
+  bioplanetCPEedges <- PCNedgelist[!is.na(PCNedgelist[,"PTM_cluster_weights"]), c("source", "target", "PTM_cluster_weights")]
   # For Cytoscape it's useful to have both types of edges for plotting in different colors
 
   # Assign interaction, required for Cytoscape
-  bioplanetCPEedges$interaction <- "PTM_cluster_evidence"
+  bioplanetCPEedges$interaction <- "PTM_cluster_weights"
   # Create pathway crosstalk network with individual cluster and bioplanet edges
   jaccard.net <- bioplanetjaccardedges
   names(jaccard.net) <- c("source", "target", "Weight", "interaction")
@@ -226,24 +228,10 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   names(CPE.net) <- c("source", "target", "Weight", "interaction")
   pathway.crosstalk.network <- rbind(CPE.net, jaccard.net)
 
-  ### Save edgefile for cytoscape plotting ###
-
-  if(is.character(createfile)){ #Don't need to check if directory exists since was done above
-    saved.dir <- getwd()
-    setwd(createfile)
-    filename <- paste(PCN.edgelist.name, ".csv", sep="") #Name of the file created with .csv appended
-    utils::write.csv(pathway.crosstalk.network, file = filename, row.names = FALSE) #Save to files for cytoscape...
-
-    cat(filename, "made in directory:", getwd()) #Tell the user where their files got put
-    setwd(saved.dir)
-  }
   end_time <- Sys.time()
   message(end_time)
   #calculate difference between start and end time
   total_time <- end_time - start_time
   message(noquote(paste("Total time: ", total_time, sep="")))
-  return(list(pathway.crosstalk.network, PCNedgelist, pathways.list))
+  return(list(pathway.crosstalk.network, PCNedgelist, pathways.list, CPE.matrix))
 }
-
-
-
