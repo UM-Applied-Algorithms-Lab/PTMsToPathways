@@ -178,9 +178,12 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
   }
 
   ### Generate PCN network ###
-  # Get a vector of all the PTP weights for every pair of pathways using the CPE weights to filter. For a PTP weight to be non-NA, the PTP weight will be the sum of all clusters both pathways have nonzero CPEs in.
+  # Get a matrix of all the PTM Cluster Weights for every pair of pathways using the CPE
+  # weights. For a pathway-pathway PTM Cluster Weight to be non-NA, both pathways must
+  # have at least one non-NA CPE weight for the same cluster. Then, the PTM Cluster Weight
+  # is the sum of the CPE weights for all clusters that both pathways have a modified protein in.
 
-  PTPscore <- apply(PCNedgelist[,1:2], 1, function(x) {
+  PTMCW <- apply(PCNedgelist[,1:2], 1, function(x) {
     rows <- rowSums(!is.na(CPE.matrix[, x])) == 2
     if (any(rows)) {
       sum(CPE.matrix[rows, x], na.rm = TRUE)
@@ -189,9 +192,9 @@ BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "biop
     }})
 
 
-  PTPscore[PTPscore== 0] <- NA # Safety check: Turn all 0s created in above line into NAs
+  PTMCW[PTMCW== 0] <- NA # Safety check: Turn all 0s created in above line into NAs
 
-  PCNedgelist <- cbind(PCNedgelist, PTPscore) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
+  PCNedgelist <- cbind(PCNedgelist, PTMCW) #Bind all the columns together. Now Data structure is PATHWAY | PATHWAY | Jaccard | CPE
   PCNedgelist <- PCNedgelist[rowSums(is.na(PCNedgelist)) != 2, ] #Remove all rows that only have NA values for the jaccard and CPE values
   PCNedgelist <- as.data.frame(PCNedgelist)
   names(PCNedgelist) <- c("source", "target", "pathway_Jaccard_similarity", "PTM_cluster_weights")
