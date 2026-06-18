@@ -19,134 +19,136 @@
 #' Example_Output[[1]][1:5, 1:5]
 #' Example_Output[[2]][1:5, 1:5]
 #'
-MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix){
-  # Two nested functions for creating the PTM and gene CCCN, respectively
-  # Use the consensus adjacency matrix to filter PTM correlations, then create a graph and edge files for PTMs and genes
+MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix) {
+    # Two nested functions for creating the PTM and gene CCCN, respectively
+    # Use the consensus adjacency matrix to filter PTM correlations, then create a graph and edge files for PTMs and genes
 
-  start_time <- Sys.time()
+    start_time <- Sys.time()
 
-  MakePTMCCCN <- function(adj.consensus.matrix, ptm.correlation.matrix) {
-    message("Making PTM CCCN")
-    # Use only PTM pairs that co-clustered in all three methods (adj.consensus.matrix == 1)
-    ptm.cccn <- ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)), sort(colnames(ptm.correlation.matrix))]
-    ptm.cccn.mask <- adj.consensus.matrix[sort(rownames(adj.consensus.matrix)), sort(colnames(adj.consensus.matrix))]
-    # Find active ptms before setting 0 to NA
-    active_flags <- (rowSums(adj.consensus.matrix) > 0) | (colSums(adj.consensus.matrix) > 0)
-    active_ptms <- rownames(adj.consensus.matrix)[active_flags]
-    ptm.cccn.mask[ptm.cccn.mask == 0] <- NA  # Set 0 to NA for masking
+    MakePTMCCCN <- function(adj.consensus.matrix, ptm.correlation.matrix) {
+        message("Making PTM CCCN")
+        # Use only PTM pairs that co-clustered in all three methods (adj.consensus.matrix == 1)
+        ptm.cccn <- ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)), sort(colnames(ptm.correlation.matrix))]
+        ptm.cccn.mask <- adj.consensus.matrix[sort(rownames(adj.consensus.matrix)), sort(colnames(adj.consensus.matrix))]
+        # Find active ptms before setting 0 to NA
+        active_flags <- (rowSums(adj.consensus.matrix) > 0) | (colSums(adj.consensus.matrix) > 0)
+        active_ptms <- rownames(adj.consensus.matrix)[active_flags]
+        ptm.cccn.mask[ptm.cccn.mask == 0] <- NA # Set 0 to NA for masking
 
-    # Apply mask to Spearman correlations
-    ptm.cccn[is.na(ptm.cccn.mask)] <- NA
+        # Apply mask to Spearman correlations
+        ptm.cccn[is.na(ptm.cccn.mask)] <- NA
 
-    # Subset the adjacency matrix to include only active PTMs
-    ptm.cccn.active <- ptm.cccn[active_ptms, active_ptms, drop=FALSE]
+        # Subset the adjacency matrix to include only active PTMs
+        ptm.cccn.active <- ptm.cccn[active_ptms, active_ptms, drop = FALSE]
 
-    # Remove self-loops
-    if(any(!is.na(diag(ptm.cccn)))) {diag(ptm.cccn) <- NA}
-    ptm.cccn <- ptm.cccn.active
+        # Remove self-loops
+        if (any(!is.na(diag(ptm.cccn)))) {
+            diag(ptm.cccn) <- NA
+        }
+        ptm.cccn <- ptm.cccn.active
 
-    # Make edglist file:
-    # Replace NA with 0 for igraph compatibility
-    ptm.cccn0 <- ptm.cccn
-    ptm.cccn0[is.na(ptm.cccn0)] <- 0
+        # Make edglist file:
+        # Replace NA with 0 for igraph compatibility
+        ptm.cccn0 <- ptm.cccn
+        ptm.cccn0[is.na(ptm.cccn0)] <- 0
 
-    # Create igraph object from correlation matrix
-    ptm.cccn.g <- igraph::graph_from_adjacency_matrix(ptm.cccn0, mode = "lower", diag = FALSE, weighted = TRUE)
+        # Create igraph object from correlation matrix
+        ptm.cccn.g <- igraph::graph_from_adjacency_matrix(ptm.cccn0, mode = "lower", diag = FALSE, weighted = TRUE)
 
-    # Extract edge list as data.frame
-    ptm.cccn.edges <- as.data.frame(igraph::as_edgelist(ptm.cccn.g))
-    names(ptm.cccn.edges) <- c("source", "target")
-    ptm.cccn.edges$Weight <- igraph::edge_attr(ptm.cccn.g, "weight")
+        # Extract edge list as data.frame
+        ptm.cccn.edges <- as.data.frame(igraph::as_edgelist(ptm.cccn.g))
+        names(ptm.cccn.edges) <- c("source", "target")
+        ptm.cccn.edges$Weight <- igraph::edge_attr(ptm.cccn.g, "weight")
 
-    # Classify interaction by correlation value
-    ptm.cccn.edges$interaction <- "correlation"
-    ptm.cccn.edges$interaction[ptm.cccn.edges$Weight <= -0.5] <- "negative correlation"
-    ptm.cccn.edges$interaction[ptm.cccn.edges$Weight >=  0.5] <- "positive correlation"
+        # Classify interaction by correlation value
+        ptm.cccn.edges$interaction <- "correlation"
+        ptm.cccn.edges$interaction[ptm.cccn.edges$Weight <= -0.5] <- "negative correlation"
+        ptm.cccn.edges$interaction[ptm.cccn.edges$Weight >= 0.5] <- "positive correlation"
 
-    message("PTM CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
-    return(list(ptm.cccn0, ptm.cccn.g, ptm.cccn.edges))
-  }
-  #
-  ptm.cccn.list <- MakePTMCCCN(adj.consensus.matrix, ptm.correlation.matrix)
-  ptm.cccn <- ptm.cccn.list[[1]]
-  ptm.cccn.g <- ptm.cccn.list[[2]]
-  ptm.cccn.edges <- ptm.cccn.list[[3]]
-  # Build the Gene CCCN
-  # Start from igraph object saved from MakePTMCCCN()
-  # Double ddply Summing: By grouping and summing in both directions, you ensure the aggregation is performed for both genes in each pair, producing a correctly shaped and labeled gene–gene matrix.
-  MakeGeneCCCN <- function(ptm.cccn){
-    message("Making Gene CCCN")
-    # ptm.cccn  was returned above
-    gene.cccn <- data.frame(ptm.cccn, row.names = rownames(ptm.cccn), check.rows=TRUE, check.names=FALSE, fix.empty.names = FALSE)
-    # Check: identical(rownames(gene.cccn), colnames(gene.cccn)) # TRUE
-    gene.cccn$Gene.Name <- vapply(rownames(gene.cccn), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1], FUN.VALUE = character(1))
-    # Use only upper triangle so correlations are not duplicated during the next step
-    gene.cccn[lower.tri(gene.cccn)] <- NA
+        message("PTM CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+        return(list(ptm.cccn0, ptm.cccn.g, ptm.cccn.edges))
+    }
+    #
+    ptm.cccn.list <- MakePTMCCCN(adj.consensus.matrix, ptm.correlation.matrix)
+    ptm.cccn <- ptm.cccn.list[[1]]
+    ptm.cccn.g <- ptm.cccn.list[[2]]
+    ptm.cccn.edges <- ptm.cccn.list[[3]]
+    # Build the Gene CCCN
+    # Start from igraph object saved from MakePTMCCCN()
+    # Double ddply Summing: By grouping and summing in both directions, you ensure the aggregation is performed for both genes in each pair, producing a correctly shaped and labeled gene–gene matrix.
+    MakeGeneCCCN <- function(ptm.cccn) {
+        message("Making Gene CCCN")
+        # ptm.cccn  was returned above
+        gene.cccn <- data.frame(ptm.cccn, row.names = rownames(ptm.cccn), check.rows = TRUE, check.names = FALSE, fix.empty.names = FALSE)
+        # Check: identical(rownames(gene.cccn), colnames(gene.cccn)) # TRUE
+        gene.cccn$Gene.Name <- vapply(rownames(gene.cccn), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1], FUN.VALUE = character(1))
+        # Use only upper triangle so correlations are not duplicated during the next step
+        gene.cccn[lower.tri(gene.cccn)] <- NA
 
-    # Sum correlations in one dimension, then the other dimension
-    gene.cccn2 <- dplyr::summarise(
-      dplyr::group_by(gene.cccn, .data$Gene.Name),
-      dplyr::across(
-        tidyselect::where(is.numeric),
-        ~sum(.x, na.rm = TRUE)
-      )
-    )
-    gene.cccn2 <- as.data.frame(gene.cccn2)
-    rownames(gene.cccn2) <- gene.cccn2$Gene.Name
-    gene.cccn2 <- gene.cccn2[, 2:ncol(gene.cccn2)]
-    # Transform to do the other dimension
-    gene.cccn2 <- data.frame(t(gene.cccn2))
-    gene.cccn2$Gene <- vapply(rownames(gene.cccn2), function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1], FUN.VALUE = character(1))
-    # Now sum the other dimension
-    gene.cccn3 <- dplyr::summarise(
-      dplyr::group_by(gene.cccn2, .data$Gene),
-      dplyr::across(
-        tidyselect::where(is.numeric),
-        ~sum(.x, na.rm = TRUE)
-      )
-    )
-    # R likes to put dots in column names, which is a problem for ambiguous gene names and gene names with hyphens
-    #  so just work around the problem (once satisfied that the gene names actually match).
-    names(gene.cccn3)[2:ncol(gene.cccn3)] <- gene.cccn3$Gene
-    gene.cccn3 <- as.data.frame(gene.cccn3)
-    rownames(gene.cccn3) <- gene.cccn3$Gene
-    gene.cccn.matrix <- as.matrix(gene.cccn3[,2:ncol(gene.cccn3)])
-    # Replace 0 with NA in the correlation matrix
-    gene.cccn.matrix[gene.cccn.matrix==0] <- NA
-    # Remove self-loops by setting diagonal to NA; diag() requires a matrix
-    diag(gene.cccn.matrix) <- NA
-    gene.cccn0 <- gene.cccn.matrix
-    gene.cccn0[is.na(gene.cccn0)] <- 0 #  igraph doesn't like NAs
-    # For Graphing and making edge lists
-    gene.cccn.g <- igraph::graph_from_adjacency_matrix(gene.cccn0, mode = "lower", diag = FALSE, weighted = TRUE)
-    # Extract edge list as data.frame
-    gene.cccn.edges <- as.data.frame(igraph::as_edgelist(gene.cccn.g))
-    names(gene.cccn.edges) <- c("source", "target")
-    gene.cccn.edges$Weight <- igraph::edge_attr(gene.cccn.g, "weight")
+        # Sum correlations in one dimension, then the other dimension
+        gene.cccn2 <- dplyr::summarise(
+            dplyr::group_by(gene.cccn, .data$Gene.Name),
+            dplyr::across(
+                tidyselect::where(is.numeric),
+                ~ sum(.x, na.rm = TRUE)
+            )
+        )
+        gene.cccn2 <- as.data.frame(gene.cccn2)
+        rownames(gene.cccn2) <- gene.cccn2$Gene.Name
+        gene.cccn2 <- gene.cccn2[, 2:ncol(gene.cccn2)]
+        # Transform to do the other dimension
+        gene.cccn2 <- data.frame(t(gene.cccn2))
+        gene.cccn2$Gene <- vapply(rownames(gene.cccn2), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1], FUN.VALUE = character(1))
+        # Now sum the other dimension
+        gene.cccn3 <- dplyr::summarise(
+            dplyr::group_by(gene.cccn2, .data$Gene),
+            dplyr::across(
+                tidyselect::where(is.numeric),
+                ~ sum(.x, na.rm = TRUE)
+            )
+        )
+        # R likes to put dots in column names, which is a problem for ambiguous gene names and gene names with hyphens
+        #  so just work around the problem (once satisfied that the gene names actually match).
+        names(gene.cccn3)[2:ncol(gene.cccn3)] <- gene.cccn3$Gene
+        gene.cccn3 <- as.data.frame(gene.cccn3)
+        rownames(gene.cccn3) <- gene.cccn3$Gene
+        gene.cccn.matrix <- as.matrix(gene.cccn3[, 2:ncol(gene.cccn3)])
+        # Replace 0 with NA in the correlation matrix
+        gene.cccn.matrix[gene.cccn.matrix == 0] <- NA
+        # Remove self-loops by setting diagonal to NA; diag() requires a matrix
+        diag(gene.cccn.matrix) <- NA
+        gene.cccn0 <- gene.cccn.matrix
+        gene.cccn0[is.na(gene.cccn0)] <- 0 #  igraph doesn't like NAs
+        # For Graphing and making edge lists
+        gene.cccn.g <- igraph::graph_from_adjacency_matrix(gene.cccn0, mode = "lower", diag = FALSE, weighted = TRUE)
+        # Extract edge list as data.frame
+        gene.cccn.edges <- as.data.frame(igraph::as_edgelist(gene.cccn.g))
+        names(gene.cccn.edges) <- c("source", "target")
+        gene.cccn.edges$Weight <- igraph::edge_attr(gene.cccn.g, "weight")
 
-    # Classify interaction by correlation value
-    gene.cccn.edges$interaction <- "correlation"
-    gene.cccn.edges$interaction[gene.cccn.edges$Weight <= -0.5] <- "negative correlation"
-    gene.cccn.edges$interaction[gene.cccn.edges$Weight >=  0.5] <- "positive correlation"
+        # Classify interaction by correlation value
+        gene.cccn.edges$interaction <- "correlation"
+        gene.cccn.edges$interaction[gene.cccn.edges$Weight <= -0.5] <- "negative correlation"
+        gene.cccn.edges$interaction[gene.cccn.edges$Weight >= 0.5] <- "positive correlation"
 
-    message("Gene CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
-    return(list(gene.cccn.g, gene.cccn.edges, gene.cccn.matrix))
-  }
+        message("Gene CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+        return(list(gene.cccn.g, gene.cccn.edges, gene.cccn.matrix))
+    }
 
-  gene.cccn.list <- MakeGeneCCCN(ptm.cccn)
-  gene.cccn.g <- gene.cccn.list[[1]]
-  gene.cccn.edges <- gene.cccn.list[[2]]
-  gene.cccn <- gene.cccn.list[[3]]
+    gene.cccn.list <- MakeGeneCCCN(ptm.cccn)
+    gene.cccn.g <- gene.cccn.list[[1]]
+    gene.cccn.edges <- gene.cccn.list[[2]]
+    gene.cccn <- gene.cccn.list[[3]]
 
-  # Make a list of nodes for gathering PPI data
-  gene.cccn.nodes <-  unique(c(gene.cccn.edges$source, gene.cccn.edges$target))
-  if(length(gene.cccn.nodes) == 0) stop("No genes found (gene.cccn.nodes is empty)")
+    # Make a list of nodes for gathering PPI data
+    gene.cccn.nodes <- unique(c(gene.cccn.edges$source, gene.cccn.edges$target))
+    if (length(gene.cccn.nodes) == 0) stop("No genes found (gene.cccn.nodes is empty)")
 
-  ### Return Final Data Structure ###
-  return (list(ptm.cccn.edges, gene.cccn.edges, gene.cccn.nodes))
+    ### Return Final Data Structure ###
+    return(list(ptm.cccn.edges, gene.cccn.edges, gene.cccn.nodes))
 
-  ### Graphing ###
-  # graph <- igraph::graph_from_adjacency_matrix(gene.cccn, mode = "lower", diag = FALSE, weighted = "Weight")
-  # plot(graph)
-  # Note: Cytoscape is recommended for graphing networks
+    ### Graphing ###
+    # graph <- igraph::graph_from_adjacency_matrix(gene.cccn, mode = "lower", diag = FALSE, weighted = "Weight")
+    # plot(graph)
+    # Note: Cytoscape is recommended for graphing networks
 }

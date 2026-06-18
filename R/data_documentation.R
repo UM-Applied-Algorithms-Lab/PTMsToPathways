@@ -123,11 +123,11 @@
 
 
 #' PTM CCCN Edgelist
-#' 
+#'
 #' PTM Co-Cluster Correlation Network as an Edgelist
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Data Frame of 5710 rows and 4 columns
 #' \describe{
 #'  \item{source}{A PTM}
@@ -141,11 +141,11 @@
 "ex_ptm_cccn_edges"
 
 #' Gene CCCN Edgelist
-#' 
+#'
 #' Gene Co-Cluster Correlation Network as an Edgelist
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Data Frame of 2279 rows and 4 columns
 #' \describe{
 #'  \item{source}{A Gene}
@@ -159,11 +159,11 @@
 "ex_gene_cccn_edges"
 
 #' Gene list (nodes)
-#' 
+#'
 #' List of Genes gotten from PTMs
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Character Vector of length 390
 #' \describe{
 #'  \item{String}{Gene}
@@ -196,11 +196,11 @@
 
 
 #' Genemania Edges
-#' 
+#'
 #' Edges from gene_cccn_nodes that are also found within the Genemania database
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Dataframe of 5 rows and 4 columns
 #' \describe{
 #'  \item{source}{First gene interacting}
@@ -213,16 +213,15 @@
 #' head(ex_genemania_edges)
 "ex_genemania_edges"
 
-# DO KINSUB EDGES 
-
+# DO KINSUB EDGES
 
 
 #' Combined PPIs
-#' 
+#'
 #' Combines all Protein to Protein interaction data and combines their weights into one score from a range of 0 to 1
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Dataframe of 8849 rows and 4 columns
 #' \describe{
 #'  \item{source}{First gene interacting}
@@ -236,11 +235,11 @@
 "ex_combined_ppi"
 
 #' Cfn
-#' 
+#'
 #' The Cluster Filtered Network is a filtered version of the Combined PPIs but only for proteins found to interact via t-SNE clusters
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Dataframe of 196 rows and 4 columns
 #' \describe{
 #'  \item{source}{First gene interacting}
@@ -256,11 +255,11 @@
 
 
 #' Bioplanet
-#' 
+#'
 #' A database file from the bioplanet website
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Dataframe of 196 rows and 4 columns
 #' \describe{
 #'  \item{PATHWAY_ID}{The pathway a gene belongs to}
@@ -274,11 +273,11 @@
 "ex_bioplanet"
 
 #' Pathway Crosstalk Network
-#' 
+#'
 #' Specific genes from the bioplanet file that we found in Common Clusters and their respective cell signaling pathway relationships
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Dataframe of 37 rows and 4 columns
 #' \describe{
 #'  \item{source}{The name of a pathway interacting}
@@ -292,11 +291,11 @@
 "ex_pathway_crosstalk_network"
 
 #' PCN Edge List
-#' 
+#'
 #' The Pathway Crosstalk Network but with direct values for both weight types
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format Dataframe of 19 rows and 4 columns
 #' \describe{
 #'  \item{source}{The name of a pathway interacting}
@@ -310,11 +309,11 @@
 "ex_PCNedgelist"
 
 #' Pathways list
-#' 
+#'
 #' A list of pathway names and the genes that make them up
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format list of 9 character vectors
 #' \describe{
 #'  \item{Pathway name}{Genes in the pathway}
@@ -325,18 +324,18 @@
 "ex_pathways_list"
 
 #' BRCA Cluster List Data
-#' 
+#'
 #' Output of MakeClusterList on the BRCA data
-#' 
+#'
 #' @keywords internal
-#' 
+#'
 #' @format list containing the 3 outputs of MakeClusterList
 #' \describe{
 #'  \item{Common Clusters}{231 lists of PTMs found to cluster, see Common Clusters}
 #'  \item{Adjacency Matrix}{4237 x 4237, see Adjacency Consensus Matrix}
 #'  \item{PTM correlation matrix}{4237 x 4237, see Correlation Matrix}
-#' }   
-#' 
+#' }
+#'
 #' @source "MakeClusterList on the BRCA data"
 #' @examples
 #' head("brca_clusterlist_data[[1]]")
@@ -345,29 +344,29 @@
 "brca_clusterlist_data"
 
 # BRCA CCCN Data
-#' 
+#'
 #' Output of MakeCorrelationNetwork on the BRCA data
-#' 
+#'
 #' @keywords internal
 "brca_CCCN_data"
 
 #' BRCA STRINGdb Edges
-#' 
+#'
 #' Edges from the STRINGdb database for the genes in the BRCA dataset
-#' 
+#'
 #' @keywords internal
 "BRCA_stringdb.edges"
 
 #' BRCA Genemania Edges
-#' 
+#'
 #' Edges from the Genemania database for the genes in the BRCA dataset
-#' 
+#'
 #' @keywords internal
 "BRCA_genemania.edges"
 
 #' BRCA PCN Data
-#' 
+#'
 #' Output of BuildPathwayCrosstalkNetwork on the BRCA data
-#' 
+#'
 #' @keywords internal
 "BRCA_PCN.data"
