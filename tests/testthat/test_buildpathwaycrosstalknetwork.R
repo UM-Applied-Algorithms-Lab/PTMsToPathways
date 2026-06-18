@@ -2,14 +2,14 @@
 
 test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   
-  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list, createfile = FALSE))
+  output <- suppressMessages(BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list))
   
   pathway_crosstalk_network <- output[[1]]
   
   row_7 <- as.list(pathway_crosstalk_network[7,])
   row_25 <- as.list(pathway_crosstalk_network[25,])
   
-  exp_row_7 <- list("Lipid and lipoprotein metabolism", "Vitamin B12 metabolism", 0.3, "PTM_cluster_evidence")
+  exp_row_7 <- list("Lipid and lipoprotein metabolism", "Vitamin B12 metabolism", 0.3, "PTM_cluster_weights")
   exp_row_25 <- list("ERBB signaling pathway", "Validated nuclear estrogen receptor alpha network", 0.025974025974026, "pathway_Jaccard_similarity")
   
   expect_setequal(row_7, exp_row_7)
@@ -41,6 +41,14 @@ test_that("BuildPathwayCrosstalkNetwork() gives right answer", {
   expect_true("CRP" %in% pathways_list$'Selenium pathway')
   expect_true("FAM120B" %in% pathways_list$'RXR/VDR pathway')
   expect_false("ALB" %in% pathways_list$'Mitochondrial fatty acid beta-oxidation')
+
+  cpe_matrix <- output[[4]]
+
+  expect_true(is.matrix(cpe_matrix))
+  expect_equal(nrow(cpe_matrix), length(ex_common_clusters))
+  expect_equal(ncol(cpe_matrix), length(ex_pathways_list))
+  expect_equal(rownames(cpe_matrix), names(ex_common_clusters))
+  expect_equal(colnames(cpe_matrix), names(ex_pathways_list))
    
   
 })

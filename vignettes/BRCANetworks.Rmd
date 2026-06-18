@@ -319,8 +319,7 @@ following:
 
 ```{r eval = FALSE}
 bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
-PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file,
-                                         createfile = FALSE)
+PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 ```
 
 Or load in pre-computed results from within the PTMsToPathways package:
