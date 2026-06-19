@@ -136,19 +136,19 @@ head(eval_df)
 
 # Unordered cohort data (e.g. BRCA): disable slope filter
 eval_brca <- EvaluateClusters(
-  brca_clusters, brca_tbl,
-  data.type  = "ratio",
-  use.slope  = FALSE,
-  index.mode = "density"
+    brca_clusters, brca_tbl,
+    data.type = "ratio",
+    use.slope = FALSE,
+    index.mode = "density"
 )
 
 # LINCS data with ratio columns to strip, size-based index:
 eval_lincs <- EvaluateClusters(
-  lincs_clusters, lincs_tbl,
-  data.type          = "ratio",
-  index.mode         = "size",
-  use.slope          = TRUE,
-  ratio.col.pattern  = "to"
+    lincs_clusters, lincs_tbl,
+    data.type = "ratio",
+    index.mode = "size",
+    use.slope = TRUE,
+    ratio.col.pattern = "to"
 )
 }
 \seealso{
