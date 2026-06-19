@@ -70,24 +70,24 @@ the same results, set.seed(#) must be called.
 ## Examples
 
 ``` r
-Example_Output <- MakeClusterList(ex_tiny_ptm_table) #Run function
+Example_Output <- MakeClusterList(ex_tiny_ptm_table) # Run function
 #> Starting correlation calculations and t-SNE.
 #> This may take a few minutes or hours for large data sets.
-#> Spearman correlation calculation complete after 0.24 secs total.
-#> Spearman t-SNE calculation complete after 1.84 secs total.
-#> Euclidean distance calculation complete after 1.85 secs total.
-#> Euclidean t-SNE calculation complete after 3.42 secs total.
-#> Combined distance calculation complete after 3.42 secs total.
-#> SED t-SNE calculation complete after 5.17 secs total.
+#> Spearman correlation calculation complete after 0.22 secs total.
+#> Spearman t-SNE calculation complete after 1.68 secs total.
+#> Euclidean distance calculation complete after 1.68 secs total.
+#> Euclidean t-SNE calculation complete after 3.11 secs total.
+#> Combined distance calculation complete after 3.11 secs total.
+#> SED t-SNE calculation complete after 4.69 secs total.
 
-#> Clustering for Euclidean complete after 5.17 secs total.
+#> Clustering for Euclidean complete after 4.69 secs total.
 
-#> Clustering for Spearman complete after 5.18 secs total.
+#> Clustering for Spearman complete after 4.7 secs total.
 
-#> Clustering for SED complete after 5.18 secs total.
-#> Consensus clustering complete after 5.19 secs total.
-#> MakeClusterList complete after 5.19 secs total.
-Example_Output[[1]][1:3] #Display data
+#> Clustering for SED complete after 4.7 secs total.
+#> Consensus clustering complete after 4.71 secs total.
+#> MakeClusterList complete after 4.71 secs total.
+Example_Output[[1]][1:3] # Display data
 #> $ConsensusCluster1
 #>  [1] "RNPS1 p Y205"               "EML4 p Y453"               
 #>  [3] "DDX5 p Y442"                "DCBLD2 p Y732"             
@@ -129,8 +129,8 @@ Example_Output[[1]][1:3] #Display data
 #> [5] "DCP1A p Y64"               "MAPK13 p T185"            
 #> [7] "ALK p S1509"               "GAREM1 p S700"            
 #> 
-#Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.
-utils::head(Example_Output[[3]][, c(1,2,3,4,5)]) #Display data
+# Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.
+utils::head(Example_Output[[3]][, c(1, 2, 3, 4, 5)]) # Display data
 #>                           RNPS1 p Y205 PTPN6 p Y536 EIF2S1 p Y147
 #> RNPS1 p Y205                        NA            1            NA
 #> PTPN6 p Y536                         1           NA            NA

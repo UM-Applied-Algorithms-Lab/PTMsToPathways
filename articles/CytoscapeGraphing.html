@@ -73,6 +73,12 @@ Grimes</h4>
 
     
     
+<div class="section level2">
+<h2 id="section"></h2>
+</div>
+<div class="section level2">
+<h2 id="graphing-networks-in-cytoscape">Graphing Networks in Cytoscape<a class="anchor" aria-label="anchor" href="#graphing-networks-in-cytoscape"></a>
+</h2>
 <div class="section level3">
 <h3 id="top-down-approach-starting-with-pathways">Top-down approach starting with pathways<a class="anchor" aria-label="anchor" href="#top-down-approach-starting-with-pathways"></a>
 </h3>
@@ -87,26 +93,18 @@ Manual</a>).</p>
 genes, and PTMs of interest in the R data objects, then make smaller,
 more interpretable graphs in Cytoscape using RCy3.</p>
 <p>For example, we will find names of all pathways in Bioplanet that
-contain EGFR. To get started, load the PTMsToPathways package and read
-the Bioplanet file using the built-in P2P function <a href="reference/ReadBioplanetFile.html">ReadBioplanetFile()</a>.</p>
-<p>The data object <code>pathways.list</code> is a list, where the name
-of the list element is the name of a Bioplanet pathway and each element
-is a character vector of the genes in that pathway.</p>
+contain EGFR. The data object <code>pathways.list</code> is a list,
+where the name of the list element is the name of a Bioplanet pathway
+and each element is a character vector of the genes in that pathway.
+Then we want to find interactions between the pathway “Transmembrane
+transport of small molecules” and those pathways. The utility functions
+used below are in CytoscapeGraphing.R</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">egfr_pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">pathways.list</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">pathways.list</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
-<span>  <span class="op">{</span><span class="st">"EGFR"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">pathways.list</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">}</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">egfr_pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ex_pathways_list</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ex_pathways_list</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span>  <span class="op">{</span><span class="st">"EGFR"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">ex_pathways_list</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">}</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>We expect 83 pathways that contain EGFR, so let’s check:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">head</span>(egfr_pathways)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="fu">length</span>(egfr_pathways)</span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="st">"Actin cytoskeleton regulation"</span>                                         </span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">2</span>] <span class="st">"Adherens junction cell adhesion"</span>                                       </span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">3</span>] <span class="st">"Adrenergic pathway"</span>                                                    </span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">4</span>] <span class="st">"Agrin in postsynaptic differentiation"</span>                                 </span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">5</span>] <span class="st">"Alpha-6 beta-1 and alpha-6 beta-4 integrin signaling"</span>                  </span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">6</span>] <span class="st">"Androgen receptor signaling, proteolysis, and transcription regulation"</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">83</span></span></code></pre></div>
-<p>Then we want to find interactions between the pathway “Transmembrane
-transport of small molecules” and those pathways.</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">length</span>(egfr_pathways)</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_transporter.pcn</span> <span class="op">&lt;-</span> <span class="fu">filter.edges.between</span><span class="op">(</span></span>
 <span>  <span class="st">"Transmembrane transport of small molecules"</span>,</span>
@@ -191,7 +189,7 @@ them.</p>
 <span></span>
 <span><span class="co"># To include co-clustered PTMs in the network an extra step is necessary:</span></span>
 <span><span class="va">sp1_plus</span> <span class="op">&lt;-</span> <span class="fu">get.co.clustered.ptms</span><span class="op">(</span><span class="va">sp1</span><span class="op">)</span></span>
-<span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>,</span>
+<span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
 <span></span>
@@ -578,6 +576,7 @@ function:</li>
 <span><span class="co"># Edge widths can be adjusted using the following function.</span></span>
 <span></span>
 <span><span class="fu">setEdgeWidths</span><span class="op">(</span>ffactor <span class="op">=</span> <span class="fl">6</span>, log<span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

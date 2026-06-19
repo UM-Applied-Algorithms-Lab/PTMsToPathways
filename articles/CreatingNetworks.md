@@ -195,27 +195,27 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 >> "spearman"): the standard deviation is zero
 >> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
 >> "spearman"): the standard deviation is zero
->> Spearman correlation calculation complete after 13.73 secs total.
->> Spearman t-SNE calculation complete after 42.67 secs total.
->> Euclidean distance calculation complete after 42.71 secs total.
->> Euclidean t-SNE calculation complete after 1.16 mins total.
->> Combined distance calculation complete after 1.16 mins total.
->> SED t-SNE calculation complete after 1.62 mins total.
+>> Spearman correlation calculation complete after 12.08 secs total.
+>> Spearman t-SNE calculation complete after 39.42 secs total.
+>> Euclidean distance calculation complete after 39.46 secs total.
+>> Euclidean t-SNE calculation complete after 1.09 mins total.
+>> Combined distance calculation complete after 1.09 mins total.
+>> SED t-SNE calculation complete after 1.52 mins total.
 ```
 
 ![](plots/unnamed-chunk-9-1.png)
 
-    >> Clustering for Euclidean complete after 1.63 mins total.
+    >> Clustering for Euclidean complete after 1.54 mins total.
 
 ![](plots/unnamed-chunk-9-2.png)
 
-    >> Clustering for Spearman complete after 1.63 mins total.
+    >> Clustering for Spearman complete after 1.54 mins total.
 
 ![](plots/unnamed-chunk-9-3.png)
 
-    >> Clustering for SED complete after 1.63 mins total.
-    >> Consensus clustering complete after 1.64 mins total.
-    >> MakeClusterList complete after 1.64 mins total.
+    >> Clustering for SED complete after 1.54 mins total.
+    >> Consensus clustering complete after 1.55 mins total.
+    >> MakeClusterList complete after 1.55 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -291,7 +291,7 @@ CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
 >> Making PTM CCCN
 >> PTM CCCN complete after 0.06 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.79 secs total.
+>> Gene CCCN complete after 2.7 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -516,26 +516,25 @@ cfn.merged <- mergeEdges(cfn)
 
 ## Step 5: Pathway Crosstalk Network
 
-The final step is the creation of the Pathway Crosstalk Network (PCN),
-which creates a set of pathway-pathway edges that have two weights: a
-Jaccard similarity and a Cluster-Pathway Evidence score. This step
-requires input of an external database from [NCATS
+The final step is the creation of the Pathway Crosstalk Network (PCN).
+This step requires input of an external database from [NCATS
 BioPlanet](https://tripod.nih.gov/bioplanet/download/pathway.csv) that
 contains groups of genes (proteins) involved in various cellular
-processes known as pathways. P2P provides a function
-[`ReadBioplanetFile`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/references/ReadBioplanetFile.md)
-that reads in the BioPlanet file and converts it into a list of
-pathways. The first pathways is displayed below:
+processes known as pathways. `BuildPathwayCrosstalkNetwork` turns this
+data file into a list of pathways and converts those pathways into a
+list of pathway-pathway edges, each of which is assigned a Jaccard
+similarity and a Cluster-Pathway Evidence score based on the common
+clusters found in the gene co-cluster correlation network. Info about
+the Cluster-Pathway Evidence score can be found
+[here](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010690)
+For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
+similarity edges are listed separately in the edgelist called
+pathway.crosstalk.network.
 
 ``` r
+
 bioplanet.file <- system.file("extdata", "pathway.csv",
                               package = "PTMsToPathways")
-pathways.list <- ReadBioplanetFile(bioplanet.file)
-pathways.list[[5]]
->>  [1] "ACADL"    "ACADM"    "ACADS"    "ACADVL"   "SLC25A20" "CPT1A"   
->>  [7] "CPT2"     "ECI1"     "DECR1"    "ECHS1"    "EHHADH"   "ACSL1"   
->> [13] "ACSL3"    "ACSL4"    "HADHA"    "HADHB"    "HADH"     "MUT"     
->> [19] "PCCA"     "PCCB"     "SCP2"     "PECR"     "MCEE"
 ```
 
 The function
@@ -554,9 +553,9 @@ follows:
 ``` r
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 >> Making PCN
->> 2026-06-18 21:05:20.363904
->> 2026-06-18 21:05:20.479982
->> Total time: 0.11607837677002
+>> 2026-06-19 00:15:18.739061
+>> 2026-06-19 00:15:18.84591
+>> Total time: 0.106849193572998
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
@@ -585,6 +584,12 @@ And we can see some of the pathway crosstalk network edges below:
 ``` r
 
 pathway.crosstalk.network[1:5,]
+```
+
+``` r
+
+dat <- pathway.crosstalk.network[1:5,]
+knitr::kable(dat, align = 'l', digits = 2)
 ```
 
 |  | source | target | Weight | interaction |
