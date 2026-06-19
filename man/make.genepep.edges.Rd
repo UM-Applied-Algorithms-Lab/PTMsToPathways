@@ -6,9 +6,6 @@
 \usage{
 make.genepep.edges(peptide.edgefile)
 }
-\arguments{
-\item{peptide.edgefile}{}
-}
 \description{
 Title
 }
