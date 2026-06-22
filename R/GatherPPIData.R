@@ -124,12 +124,6 @@ StandardizeGeneSymbols <- function(genes,
 MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
     utils::write.table(unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
 }
-# Pulls nodenames from the gene.cccn
-#
-# This helper function pulls the gene names from the gene.cccn into a list 'nodenames'
-#
-# @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
-# @return data frame of the names of the genes
 
 
 #' Get STRINGdb PPI data from full local or live source
