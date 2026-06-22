@@ -119,8 +119,9 @@ StandardizeGeneSymbols <- function(genes,
 #' @export
 #'
 #' @examples
-#' # MakeDBInput(ex.nodenames)
-#' cat(ex.nodenames[[1]], sep = "\n")
+#' \dontrun{
+#' # MakeDBInput(ex_gene_cccn_nodes, file.path.name = "db_nodes.txt")
+#' }
 MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
     utils::write.table(unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
 }
