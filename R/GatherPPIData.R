@@ -498,7 +498,7 @@ GetGeneMANIA.edges <- function(gm.results.path,
 
     network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
 
-    edgetable <- read.table(
+    edgetable <- utils::read.table(
         text = network_lines,
         header = TRUE,
         stringsAsFactors = FALSE,
@@ -552,7 +552,7 @@ GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset
     symbol.map = NULL) {
     nodes <- toupper(.map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map))
 
-    kinasesubstrateraw <- read.table(
+    kinasesubstrateraw <- utils::read.table(
         kinasesubstrate.filename,
         header = TRUE,
         skip = 3,

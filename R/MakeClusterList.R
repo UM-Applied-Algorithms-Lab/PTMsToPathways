@@ -138,7 +138,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
         #  2.	For each cluster, set all PTM–PTM pairs in the cluster to 1 (indicating co-membership).
         #  3.	The final matrix for a method has 1 for PTM pairs co-clustered in that method; 0 otherwise.
 
-        co_membership_matrix <- function(clusters, all_ptms) {
+        co_membership_matrix <- function(clusters) {
             # 1. square matrix of all PTMs
             mat <- matrix(0,
                 nrow = length(PTMnames), ncol = length(PTMnames),
@@ -155,7 +155,7 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
             return(mat)
         }
 
-        adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix, all_ptms = all_ptms)
+        adjacency_matrices <- purrr::map(clusters.list, co_membership_matrix)
 
         # Step 2: Sum the Co-Membership Matrices Across Methods
         adj.sum <- Reduce("+", adjacency_matrices) # values: 0 (never), 1, 2, 3 (co-clustered in all 3 methods)

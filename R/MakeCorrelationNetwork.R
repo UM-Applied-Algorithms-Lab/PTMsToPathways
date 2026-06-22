@@ -87,7 +87,7 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
 
         # Sum correlations in one dimension, then the other dimension
         gene.cccn2 <- dplyr::summarise(
-            dplyr::group_by(gene.cccn, .data$Gene.Name),
+            dplyr::group_by(gene.cccn, Gene.Name),
             dplyr::across(
                 tidyselect::where(is.numeric),
                 ~ sum(.x, na.rm = TRUE)
