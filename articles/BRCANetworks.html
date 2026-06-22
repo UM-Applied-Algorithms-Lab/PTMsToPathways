@@ -190,9 +190,9 @@ elements:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.93</span> secs total.</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.86</span> secs total.</span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">18.48</span> secs total.</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">17.73</span> secs total.</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -513,12 +513,12 @@ Cytoscape. This code graphs the CFN/CCCN from all these PTMs:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">funckey</span> <span class="op">&lt;-</span> <span class="va">function_key</span></span>
 <span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">mod63.clust.ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
-<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
+<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>To graph in Cytoscape:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>
+<code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>
 <span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 1"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span> </span></code></pre></div>
 <p>The above would create a graph using Cytoscape, which would look
@@ -555,7 +555,7 @@ RCy3.</p>
 <div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cfn_cccn.nodes.cdksubs.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.0.html">filter.edges.0</a></span><span class="op">(</span>nodenames <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span>, edge.file <span class="op">=</span> <span class="va">cfn.cccn</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs.edges</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span>,</span>
+<span><span class="va">g2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs.edges</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes.cdksubs</span>,</span>
 <span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 5"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 <p>Both methods give the same result, which looks like this:</p>
 <p><img src="vig_figs/CDKsub63_allPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
@@ -563,11 +563,11 @@ RCy3.</p>
 <div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">cdksubs.genes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">cfn_cccn.nodes.cdksubs</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></span>
 <span><span class="va">cdksubs.cfn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.0.html">filter.edges.0</a></span><span class="op">(</span><span class="va">cdksubs.genes</span>, <span class="va">cfn.merged</span><span class="op">)</span></span>
-<span><span class="va">cdksubs.cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu">get.co.clustered.ptms</span><span class="op">(</span><span class="va">cdksubs.cfn</span>, ptm.cccn.edges<span class="op">=</span><span class="va">ptm.cccn.edges</span><span class="op">)</span></span>
-<span><span class="va">cdksubs.cfn.cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu">make.cytoscape.node.file</span><span class="op">(</span><span class="va">cdksubs.cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
+<span><span class="va">cdksubs.cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get.co.clustered.ptms.html">get.co.clustered.ptms</a></span><span class="op">(</span><span class="va">cdksubs.cfn</span>, ptm.cccn.edges<span class="op">=</span><span class="va">ptm.cccn.edges</span><span class="op">)</span></span>
+<span><span class="va">cdksubs.cfn.cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cdksubs.cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu">GraphCfn</span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cdksubs.cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cdksubs.cfn.cccn.nodes</span>,</span>
+<span><span class="va">g3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cdksubs.cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cdksubs.cfn.cccn.nodes</span>,</span>
 <span>               Network.title <span class="op">=</span> <span class="st">"CFN/CCCN All PTMs 6"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 <p>This gives the following graph:</p>
 <p><img src="vig_figs/CDKsub63_CCPTMs_X03BR011.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
@@ -579,12 +579,12 @@ mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense
 and MLLT4 frameshift mutants).</p>
 <div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/cytoscape/RCy3" class="external-link">RCy3</a></span><span class="op">)</span></span>
-<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span></span>
-<span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span>  <span class="co"># This exaggerates the node size and shape somewhat. </span></span>
-<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span></span>
-<span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span>    </span>
-<span><span class="fu">setNodeColorToRatios</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span>
-<span><span class="fu">setNodeColorToRowz</span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/setNodeColorToRowz.html">setNodeColorToRowz</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X03BR011"</span><span class="op">)</span>  <span class="co"># This exaggerates the node size and shape somewhat. </span></span>
+<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/setNodeColorToRowz.html">setNodeColorToRowz</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X21BR010"</span><span class="op">)</span>    </span>
+<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/setNodeColorToRowz.html">setNodeColorToRowz</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"X05BR045"</span><span class="op">)</span></span></code></pre></div>
 <p>Note that different samples have dramatically different differences
 in PTMs that are up or down, which is reflected also in total in gene
 nodes.</p>

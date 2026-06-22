@@ -30,7 +30,7 @@ GeneMania cytoscape app, data frame of the names of the genes
 ## Examples
 
 ``` r
-# MakeDBInput(ex.nodenames)
-cat(ex.nodenames[[1]], sep = "\n")
-#> Error: object 'ex.nodenames' not found
+if (FALSE) { # \dontrun{
+# MakeDBInput(ex_gene_cccn_nodes, file.path.name = "db_nodes.txt")
+} # }
 ```

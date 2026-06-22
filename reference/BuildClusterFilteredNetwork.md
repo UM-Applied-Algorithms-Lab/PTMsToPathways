@@ -57,8 +57,13 @@ A list containing the following data structures at the given index:
 ## Examples
 
 ``` r
-Example_Output <- BuildClusterFilteredNetwork(ex.gene.cccn, ex.stringdb.edges, ex.gm.edges)
-#> Error: object 'ex.stringdb.edges' not found
-utils::head(Example_Output)
-#> Error: object 'Example_Output' not found
+Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges, ex_stringdb_edges, ex_genemania_edges)
+utils::head(Example_Output[[2]])
+#>   source  target              interaction   Weight
+#> 1   ABL1    IRS2 experimental_transferred 3.589744
+#> 2 ADAM10   ANXA2 experimental_transferred 2.600733
+#> 3 ADAM10    IRS2 experimental_transferred 2.857143
+#> 4   AFDN PLEKHA5             experimental 2.747253
+#> 5  AHNAK     LPP experimental_transferred 1.941392
+#> 6  AHNAK   NEDD9 experimental_transferred 3.772894
 ```

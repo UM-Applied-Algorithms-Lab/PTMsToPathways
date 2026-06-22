@@ -186,20 +186,20 @@ for generating the cluster list input.
 cl <- MakeClusterList(ex_tiny_ptm_table)
 #> Starting correlation calculations and t-SNE.
 #> This may take a few minutes or hours for large data sets.
-#> Spearman correlation calculation complete after 0.25 secs total.
-#> Spearman t-SNE calculation complete after 1.75 secs total.
-#> Euclidean distance calculation complete after 1.75 secs total.
-#> Euclidean t-SNE calculation complete after 3.48 secs total.
-#> Combined distance calculation complete after 3.48 secs total.
-#> SED t-SNE calculation complete after 5.12 secs total.
+#> Spearman correlation calculation complete after 0.26 secs total.
+#> Spearman t-SNE calculation complete after 1.87 secs total.
+#> Euclidean distance calculation complete after 1.87 secs total.
+#> Euclidean t-SNE calculation complete after 3.71 secs total.
+#> Combined distance calculation complete after 3.71 secs total.
+#> SED t-SNE calculation complete after 5.46 secs total.
 
-#> Clustering for Euclidean complete after 6.14 secs total.
+#> Clustering for Euclidean complete after 6.36 secs total.
 
-#> Clustering for Spearman complete after 6.14 secs total.
+#> Clustering for Spearman complete after 6.36 secs total.
 
-#> Clustering for SED complete after 6.14 secs total.
-#> Consensus clustering complete after 6.19 secs total.
-#> MakeClusterList complete after 6.19 secs total.
+#> Clustering for SED complete after 6.37 secs total.
+#> Consensus clustering complete after 6.41 secs total.
+#> MakeClusterList complete after 6.41 secs total.
 eval_df <- EvaluateClusters(cl[[1]], ex_tiny_ptm_table, data.type = "ratio")
 #> Starting Group 1
 #>   9 gene(s) culled by slope filter.
@@ -236,15 +236,17 @@ head(eval_df)
 #> 4                        100     11377195  0.0000000   11377195 0.2500000
 
 # Unordered cohort data (e.g. BRCA): disable slope filter
+if (FALSE) { # \dontrun{
 eval_brca <- EvaluateClusters(
     brca_clusters, brca_tbl,
     data.type = "ratio",
     use.slope = FALSE,
     index.mode = "density"
 )
-#> Error: object 'brca_clusters' not found
+} # }
 
 # LINCS data with ratio columns to strip, size-based index:
+if (FALSE) { # \dontrun{
 eval_lincs <- EvaluateClusters(
     lincs_clusters, lincs_tbl,
     data.type = "ratio",
@@ -252,5 +254,5 @@ eval_lincs <- EvaluateClusters(
     use.slope = TRUE,
     ratio.col.pattern = "to"
 )
-#> Error: object 'lincs_clusters' not found
+} # }
 ```

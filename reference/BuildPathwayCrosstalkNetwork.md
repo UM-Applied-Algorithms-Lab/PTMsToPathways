@@ -46,20 +46,29 @@ A list with these data structures at the given index:
 ``` r
 Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
 #> Making PCN
-#> 2026-06-22 17:52:12.37611
-#> 2026-06-22 17:52:12.483889
-#> Total time: 0.107779264450073
-Example_Output[[1]][[3,]]
-#> Error in `[[.data.frame`(Example_Output[[1]], 3, ): argument "..2" is missing, with no default
-Example_Output[[3]][[1:3]]
-#> Error in Example_Output[[3]][[1:3]]: recursive indexing failed at level 2
-Example_Output[[4]][1:3, 1:3]
-#>                   Axon guidance Class A GPCRs (rhodopsin-like)
-#> ConsensusCluster1    0.18750000                             NA
-#> ConsensusCluster2    0.07142857                             NA
-#> ConsensusCluster3            NA                             NA
-#>                   ERBB signaling pathway
-#> ConsensusCluster1             0.06250000
-#> ConsensusCluster2             0.07142857
-#> ConsensusCluster3                     NA
+#> 2026-06-22 22:31:47.611513
+#> 2026-06-22 22:31:47.713641
+#> Total time: 0.102128267288208
+head(Example_Output[[1]])
+#>                              source
+#> 4                     Axon guidance
+#> 2                     Axon guidance
+#> 3                     Axon guidance
+#> 5            ERBB signaling pathway
+#> 18                 Selenium pathway
+#> 10 Lipid and lipoprotein metabolism
+#>                                               target            Weight
+#> 4  Validated nuclear estrogen receptor alpha network  1.27898550724638
+#> 2                             ERBB signaling pathway  9.50912807669002
+#> 3                   Lipid and lipoprotein metabolism  4.63387820142684
+#> 5                   Lipid and lipoprotein metabolism  2.96007824348337
+#> 18                            Vitamin B12 metabolism 0.866666666666667
+#> 10                                  Selenium pathway               0.3
+#>            interaction
+#> 4  PTM_cluster_weights
+#> 2  PTM_cluster_weights
+#> 3  PTM_cluster_weights
+#> 5  PTM_cluster_weights
+#> 18 PTM_cluster_weights
+#> 10 PTM_cluster_weights
 ```

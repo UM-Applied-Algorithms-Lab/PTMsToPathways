@@ -41,8 +41,8 @@ cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
                          cluster = c(1,1,2,1))
 # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
 # The following returns the gene/PTM subnetwork
+if (FALSE) { # \dontrun{
 res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
-#> Error in ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";"): object 'cfn.merged' not found
 print(res)
-#> Error: object 'res' not found
+} # }
 ```
