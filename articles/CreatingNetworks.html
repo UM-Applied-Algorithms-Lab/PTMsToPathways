@@ -316,20 +316,20 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb8-19"><a href="#cb8-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
 <span id="cb8-20"><a href="#cb8-20" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning <span class="cf">in</span> stats<span class="sc">::</span><span class="fu">cor</span>(<span class="fu">t</span>(ptmtable), <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>, <span class="at">method =</span></span>
 <span id="cb8-21"><a href="#cb8-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
-<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.07</span> secs total.</span>
-<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">41.16</span> secs total.</span>
-<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">41.19</span> secs total.</span>
-<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.13</span> mins total.</span>
-<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.13</span> mins total.</span>
-<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.58</span> mins total.</span></code></pre></div>
+<span id="cb8-22"><a href="#cb8-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">10.08</span> secs total.</span>
+<span id="cb8-23"><a href="#cb8-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">30.92</span> secs total.</span>
+<span id="cb8-24"><a href="#cb8-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">30.95</span> secs total.</span>
+<span id="cb8-25"><a href="#cb8-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">50.66</span> secs total.</span>
+<span id="cb8-26"><a href="#cb8-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">50.66</span> secs total.</span>
+<span id="cb8-27"><a href="#cb8-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.18</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-9-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.59 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.19 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.6 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.19 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-9-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.6 mins total.
-&gt;&gt; Consensus clustering complete after 1.61 mins total.
-&gt;&gt; MakeClusterList complete after 1.61 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.19 mins total.
+&gt;&gt; Consensus clustering complete after 1.2 mins total.
+&gt;&gt; MakeClusterList complete after 1.2 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -388,9 +388,9 @@ with sum of the PTM correlations serving as edge weights.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb16-2"><a href="#cb16-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb16-3"><a href="#cb16-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.17</span> secs total.</span>
+<span id="cb16-4"><a href="#cb16-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.18</span> secs total.</span>
 <span id="cb16-5"><a href="#cb16-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.71</span> secs total.</span>
+<span id="cb16-6"><a href="#cb16-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.28</span> secs total.</span>
 <span id="cb16-7"><a href="#cb16-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb16-8"><a href="#cb16-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb16-9"><a href="#cb16-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -590,9 +590,9 @@ used for the PTM cluster weight calculations. The function can be run as
 follows:</p>
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file)</span>
 <span id="cb32-2"><a href="#cb32-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PCN</span>
-<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-22</span> <span class="dv">22</span><span class="sc">:</span><span class="dv">36</span><span class="sc">:</span><span class="fl">13.855624</span></span>
-<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-22</span> <span class="dv">22</span><span class="sc">:</span><span class="dv">36</span><span class="sc">:</span><span class="fl">13.967578</span></span>
-<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.1119544506073</span></span>
+<span id="cb32-3"><a href="#cb32-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-22</span> <span class="dv">23</span><span class="sc">:</span><span class="dv">03</span><span class="sc">:</span><span class="fl">07.18369</span></span>
+<span id="cb32-4"><a href="#cb32-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-22</span> <span class="dv">23</span><span class="sc">:</span><span class="dv">03</span><span class="sc">:</span><span class="fl">07.269255</span></span>
+<span id="cb32-5"><a href="#cb32-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.0855648517608643</span></span>
 <span id="cb32-6"><a href="#cb32-6" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb32-7"><a href="#cb32-7" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb32-8"><a href="#cb32-8" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
