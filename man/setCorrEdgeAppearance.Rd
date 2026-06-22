@@ -2,10 +2,15 @@
 % Please edit documentation in R/CytoscapeGraphingFunctions.R
 \name{setCorrEdgeAppearance}
 \alias{setCorrEdgeAppearance}
-\title{Title}
+\title{Apply edge visual mappings in the active Cytoscape network}
 \usage{
 setCorrEdgeAppearance()
 }
+\value{
+Called for its side effects in Cytoscape.
+}
 \description{
-Title
+Sets edge line widths (log-scaled from correlation weights), colors, and
+arrow types based on the \code{interaction} column. Handles merged edge
+labels by extracting the primary interaction type before applying mappings.
 }

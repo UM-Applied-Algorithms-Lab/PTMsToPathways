@@ -135,14 +135,17 @@ eval_df <- EvaluateClusters(cl[[1]], ex_tiny_ptm_table, data.type = "ratio")
 head(eval_df)
 
 # Unordered cohort data (e.g. BRCA): disable slope filter
+\dontrun{
 eval_brca <- EvaluateClusters(
     brca_clusters, brca_tbl,
     data.type = "ratio",
     use.slope = FALSE,
     index.mode = "density"
 )
+}
 
 # LINCS data with ratio columns to strip, size-based index:
+\dontrun{
 eval_lincs <- EvaluateClusters(
     lincs_clusters, lincs_tbl,
     data.type = "ratio",
@@ -150,6 +153,7 @@ eval_lincs <- EvaluateClusters(
     use.slope = TRUE,
     ratio.col.pattern = "to"
 )
+}
 }
 \seealso{
 \code{\link[=MakeClusterList]{MakeClusterList()}} for generating the cluster list input.

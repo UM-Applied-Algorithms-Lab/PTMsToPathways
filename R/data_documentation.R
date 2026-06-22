@@ -12,7 +12,7 @@
 #' }
 #' @source "Sub-data frame of the small PTM table"
 #' @examples
-#' head(ex_small_ptm_table)
+#' head(ex_tiny_ptm_table)
 "ex_tiny_ptm_table"
 
 #' Small PTM Table Example
