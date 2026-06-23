@@ -234,7 +234,7 @@
 #' head("ex_combined_ppi")
 "ex_combined_ppi"
 
-#' Cfn
+#' CFN
 #'
 #' The Cluster Filtered Network is a filtered version of the Combined PPIs but only for proteins found to interact via t-SNE clusters
 #'

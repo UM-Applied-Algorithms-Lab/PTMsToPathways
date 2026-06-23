@@ -3,7 +3,7 @@
 \docType{data}
 \name{ex_cfn}
 \alias{ex_cfn}
-\title{Cfn}
+\title{CFN}
 \format{
 Dataframe of 196 rows and 4 columns
 \describe{
