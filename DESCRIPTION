@@ -26,7 +26,8 @@ Imports:
     dplyr,
     tidyselect,
     gplots,
-    ggplot2
+    ggplot2,
+    rlang
 Suggests: 
     BiocManager,
     knitr,
