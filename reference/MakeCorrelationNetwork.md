@@ -39,9 +39,9 @@ A list containing the following data structures at the given index:
 ``` r
 Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex_ptm_correlation_matrix)
 #> Making PTM CCCN
-#> PTM CCCN complete after 0.25 secs total.
+#> PTM CCCN complete after 0.27 secs total.
 #> Making Gene CCCN
-#> Gene CCCN complete after 2.27 secs total.
+#> Gene CCCN complete after 2.76 secs total.
 head(Example_Output[[1]])
 #>                                                                              source
 #> 1                                                                       SHC1 p S426
