@@ -7,7 +7,7 @@ and ambiguous PTM entries, then returns the co-clustered subnetwork.
 ## Usage
 
 ``` r
-ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+ptms_to_cfn(ptms, cfn, ptm.cccn.edges, ptmtable, pepsep = ";")
 ```
 
 ## Arguments
@@ -20,6 +20,16 @@ ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
 
   List or data frame representing the cluster filtered network (default:
   global cfn.merged)
+
+- ptm.cccn.edges:
+
+  A data frame of PTM co-expression correlation network edges with PTM
+  identifiers as node names
+
+- ptmtable:
+
+  A data frame containing PTM identifiers as row names and numeric
+  condition columns
 
 - pepsep:
 
@@ -42,7 +52,8 @@ cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
 # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
 # The following returns the gene/PTM subnetwork
 if (FALSE) { # \dontrun{
-res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+res <- ptms_to_cfn(ptms, cfn = cfn.merged,
+  ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 print(res)
 } # }
 ```

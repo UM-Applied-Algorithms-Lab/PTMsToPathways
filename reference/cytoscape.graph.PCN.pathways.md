@@ -7,11 +7,7 @@ open and `RCy3` to be installed.
 ## Usage
 
 ``` r
-cytoscape.graph.PCN.pathways(
-  PCN = pathway.crosstalk.network,
-  net.name,
-  Jaccard.edges = TRUE
-)
+cytoscape.graph.PCN.pathways(PCN, net.name, Jaccard.edges = TRUE)
 ```
 
 ## Arguments

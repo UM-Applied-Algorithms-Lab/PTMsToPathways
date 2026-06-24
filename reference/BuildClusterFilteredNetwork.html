@@ -93,7 +93,8 @@ This new, cluster filtered network is then assigned to the global namespace.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">BuildClusterFilteredNetwork</span><span class="op">(</span><span class="va">ex_gene_cccn_edges</span>, <span class="va">ex_stringdb_edges</span>, <span class="va">ex_genemania_edges</span><span class="op">)</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">Example_Output</span> <span class="op">&lt;-</span> <span class="fu">BuildClusterFilteredNetwork</span><span class="op">(</span><span class="va">ex_gene_cccn_edges</span>,</span></span>
+<span class="r-in"><span>  <span class="va">ex_stringdb_edges</span>, <span class="va">ex_genemania_edges</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">Example_Output</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   source  target              interaction   Weight</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> 1   ABL1    IRS2 experimental_transferred 3.589744</span>

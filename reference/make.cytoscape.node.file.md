@@ -9,10 +9,11 @@ co-clustered PTM nodes.
 ``` r
 make.cytoscape.node.file(
   edge.file,
-  funckey,
+  funckey = PTMsToPathways::function_key,
   ptmtable,
   include.gene.data = FALSE,
-  include.coclustered.PTMs = FALSE
+  include.coclustered.PTMs = FALSE,
+  ptm.cccn.edges = NULL
 )
 ```
 
@@ -42,6 +43,12 @@ make.cytoscape.node.file(
 
   Logical; if `TRUE`, add co-clustered PTM nodes and their edges to the
   output. Defaults to `FALSE`.
+
+- ptm.cccn.edges:
+
+  A data frame of PTM co-expression correlation network edges with PTM
+  identifiers as node names, required if
+  `include.coclustered.PTMs = TRUE`.
 
 ## Value
 

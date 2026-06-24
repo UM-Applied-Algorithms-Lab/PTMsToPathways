@@ -151,9 +151,9 @@ These are required for the next step.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.91 secs total.
+>> PTM CCCN complete after 0.86 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 18.06 secs total.
+>> Gene CCCN complete after 17.67 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -541,10 +541,11 @@ Cytoscape. This code graphs the CFN/CCCN from all these PTMs:
 ``` r
 
  funckey <- function_key
-cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, pepsep = ";")
+cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE)
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 ```
 
 To graph in Cytoscape:

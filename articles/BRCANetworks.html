@@ -190,9 +190,9 @@ elements:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.91</span> secs total.</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.86</span> secs total.</span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">18.06</span> secs total.</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">17.67</span> secs total.</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -512,10 +512,11 @@ ConsensusClusters.</p>
 Cytoscape. This code graphs the CFN/CCCN from all these PTMs:</p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span> <span class="va">funckey</span> <span class="op">&lt;-</span> <span class="va">function_key</span></span>
-<span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">mod63.clust.ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
+<span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">mod63.clust.ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, ptm.cccn.edges <span class="op">=</span> <span class="va">ptm.cccn.edges</span>, ptmtable <span class="op">=</span> <span class="va">ptmtable</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
 <span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                           ptm.cccn.edges <span class="op">=</span> <span class="va">ptm.cccn.edges</span><span class="op">)</span></span></code></pre></div>
 <p>To graph in Cytoscape:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">g1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>

@@ -7,7 +7,7 @@ directly used as an extended edge list in Cytoscape.
 ## Usage
 
 ``` r
-get.co.clustered.ptms(edge.file, ptm.cccn.edges)
+get.co.clustered.ptms(edge.file, ptm.cccn.edges, ptmtable)
 ```
 
 ## Arguments
@@ -20,6 +20,11 @@ get.co.clustered.ptms(edge.file, ptm.cccn.edges)
 
   A data frame of PTM co-expression correlation network edges with PTM
   identifiers as node names.
+
+- ptmtable:
+
+  A PTM data frame with PTM identifiers as row names and numeric
+  condition columns.
 
 ## Value
 

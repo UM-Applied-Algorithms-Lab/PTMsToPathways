@@ -57,7 +57,8 @@ A list containing the following data structures at the given index:
 ## Examples
 
 ``` r
-Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges, ex_stringdb_edges, ex_genemania_edges)
+Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges,
+  ex_stringdb_edges, ex_genemania_edges)
 utils::head(Example_Output[[2]])
 #>   source  target              interaction   Weight
 #> 1   ABL1    IRS2 experimental_transferred 3.589744
