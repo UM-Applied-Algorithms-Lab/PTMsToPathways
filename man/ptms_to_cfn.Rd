@@ -36,7 +36,8 @@ cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
 # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
 # The following returns the gene/PTM subnetwork
 \dontrun{
-res <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
+res <- ptms_to_cfn(ptms, cfn = cfn.merged,
+  ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 print(res)
 }
 }
