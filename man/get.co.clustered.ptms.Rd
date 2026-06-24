@@ -4,13 +4,15 @@
 \alias{get.co.clustered.ptms}
 \title{Retrieve co-clustered PTM CCCN edges for genes in an edge file}
 \usage{
-get.co.clustered.ptms(edge.file, ptm.cccn.edges)
+get.co.clustered.ptms(edge.file, ptm.cccn.edges, ptmtable)
 }
 \arguments{
 \item{edge.file}{A data frame edge list whose nodes are gene names.}
 
 \item{ptm.cccn.edges}{A data frame of PTM co-expression correlation network
 edges with PTM identifiers as node names.}
+
+\item{ptmtable}{A PTM data frame with PTM identifiers as row names and numeric condition columns.}
 }
 \value{
 An edge data frame combining the original gene edges, co-clustered

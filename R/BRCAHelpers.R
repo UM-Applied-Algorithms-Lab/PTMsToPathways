@@ -88,7 +88,7 @@ graph.ptm.by.cluster <- function(
   safe_dist2 <- function(m, min.shared = 2) {
     m  <- as.matrix(m)
     nr <- nrow(m)
-    if (nr <= 1) return(as.dist(matrix(0, nr, nr)))
+    if (nr <= 1) return(stats::as.dist(matrix(0, nr, nr)))
     dmat      <- matrix(0, nr, nr)
     rownames(dmat) <- colnames(dmat) <- rownames(m)
     for (i in seq_len(nr - 1)) {
@@ -102,14 +102,14 @@ graph.ptm.by.cluster <- function(
     fallback <- if (length(fv)) 2 * max(fv) else 1
     dmat[!is.finite(dmat)] <- fallback
     diag(dmat) <- 0
-    as.dist(dmat)
+    stats::as.dist(dmat)
   }
 
   ## row-wise linear slope helper for order.rows = "slope"
   row_slope <- function(v) {
     ok <- which(is.finite(v))
     if (length(ok) < 2) return(NA_real_)
-    coef(lm(v[ok] ~ ok))[2]
+    stats::coef(stats::lm(v[ok] ~ ok))[2]
   }
 
   ## high-contrast qualitative palette for cluster sidebar
@@ -154,13 +154,13 @@ graph.ptm.by.cluster <- function(
   write_cluster_legend <- function(cluster.palette, filename, cex = 0.9) {
     n    <- length(cluster.palette)
     ncol <- if (n > 18) 2L else 1L
-    pdf(filename,
+    grDevices::pdf(filename,
         width  = max(5, 3 * ncol),
         height = max(4, 0.32 * ceiling(n / ncol) + 1))
-    on.exit(dev.off())
-    par(mar = c(0.3, 0.3, 0.3, 0.3), xpd = NA)
-    plot.new()
-    legend("topleft",
+    on.exit(grDevices::dev.off())
+    grDevices::par(mar = c(0.3, 0.3, 0.3, 0.3), xpd = NA)
+    grDevices::plot.new()
+    grDevices::legend("topleft",
            inset  = 0.01,
            legend = names(cluster.palette),
            fill   = cluster.palette,
@@ -180,16 +180,16 @@ graph.ptm.by.cluster <- function(
     brks  <- seq(-zlim, zlim, length.out = n + 1L)
     z     <- matrix(seq_len(n), nrow = 1L, ncol = n)  # 1 x n
 
-    pdf(filename, width = 1.8, height = 4.5)
-    on.exit(dev.off())
+    grDevices::pdf(filename, width = 1.8, height = 4.5)
+    on.exit(grDevices::dev.off())
     # left margin wide enough for the bar; right margin for axis labels
-    par(mar = c(2, 1.0, 1.5, 2.8))
+    grDevices::par(mar = c(2, 1.0, 1.5, 2.8))
     # x: 2 breakpoints = 1 column; y: n+1 breakpoints = n rows
-    image(x = c(0, 1), y = brks, z = z,
+    grDevices::image(x = c(0, 1), y = brks, z = z,
           col = cols, xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-    axis(4, at = pretty(c(-zlim, zlim)), las = 2, cex.axis = 0.85)
-    mtext("Signal", side = 4, line = 1.8, cex = 0.85)
-    box()
+    grDevices::axis(4, at = pretty(c(-zlim, zlim)), las = 2, cex.axis = 0.85)
+    grDevices::mtext("Signal", side = 4, line = 1.8, cex = 0.85)
+    grDevices::box()
   }
 
   # ---- data prep -----------------------------------------------------
@@ -218,7 +218,7 @@ graph.ptm.by.cluster <- function(
         mean  = subm[order(rowMeans(subm, na.rm=TRUE), decreasing=TRUE, na.last=TRUE), , drop=FALSE],
         slope = { sl <- apply(subm, 1, row_slope)
                   subm[order(sl, decreasing=TRUE, na.last=TRUE), , drop=FALSE] },
-        hclust = subm[hclust(safe_dist2(subm, min.shared))$order, , drop=FALSE],
+        hclust = subm[stats::hclust(safe_dist2(subm, min.shared))$order, , drop=FALSE],
         subm   # "as.is"
       )
     }
@@ -232,7 +232,7 @@ graph.ptm.by.cluster <- function(
   mat <- do.call(rbind, ordered.blocks)
 
   if (cluster.cols && ncol(mat) > 1) {
-    mat <- mat[, hclust(safe_dist2(t(mat), min.shared))$order, drop=FALSE]
+    mat <- mat[, stats::hclust(safe_dist2(t(mat), min.shared))$order, drop=FALSE]
   }
 
   cluster.sizes <- sapply(ordered.blocks, nrow)
@@ -257,7 +257,7 @@ graph.ptm.by.cluster <- function(
 
   # ---- heatmap (key = FALSE → no internal key panel) ---------------
 
-  pdf(filename, width = pdf.w, height = pdf.h)
+  grDevices::pdf(filename, width = pdf.w, height = pdf.h)
   gplots::heatmap.2(
     mat,
     Rowv        = FALSE,
@@ -285,7 +285,7 @@ graph.ptm.by.cluster <- function(
     margins     = c(10, 6),
     main        = main
   )
-  dev.off()
+  grDevices::dev.off()
   message("Heatmap written to: ", filename)
 
   # ---- optional legend files ----------------------------------------

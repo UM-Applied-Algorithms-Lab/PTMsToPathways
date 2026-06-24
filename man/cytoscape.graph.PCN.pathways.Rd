@@ -4,11 +4,7 @@
 \alias{cytoscape.graph.PCN.pathways}
 \title{Graph a Pathway Crosstalk Network in Cytoscape}
 \usage{
-cytoscape.graph.PCN.pathways(
-  PCN = pathway.crosstalk.network,
-  net.name,
-  Jaccard.edges = TRUE
-)
+cytoscape.graph.PCN.pathways(PCN, net.name, Jaccard.edges = TRUE)
 }
 \arguments{
 \item{PCN}{A data frame representing the pathway crosstalk network with columns
