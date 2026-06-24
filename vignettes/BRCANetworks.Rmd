@@ -18,7 +18,7 @@ output:
     toc: true
     toc_depth: '4'
 vignette: >
-  %\VignetteIndexEntry{PTMsToPathways}
+  %\VignetteIndexEntry{BRCANetworks}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 editor_options:
@@ -417,10 +417,11 @@ Cytoscape. This code graphs the CFN/CCCN from all these PTMs:
 
 ```{r eval = TRUE}
  funckey <- function_key
-cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, pepsep = ";")
+cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE)
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 ```
 
 To graph in Cytoscape:

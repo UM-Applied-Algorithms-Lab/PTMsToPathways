@@ -4,12 +4,17 @@
 \alias{ptms_to_cfn}
 \title{Extracts co-clustered PTM and gene network from a cluster filtered network object.}
 \usage{
-ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+ptms_to_cfn(ptms, cfn, ptm.cccn.edges, ptmtable, pepsep = ";")
 }
 \arguments{
 \item{ptms}{Character vector of PTM site strings (e.g., \"TP53 p S15\")}
 
 \item{cfn}{List or data frame representing the cluster filtered network (default: global cfn.merged)}
+
+\item{ptm.cccn.edges}{A data frame of PTM co-expression correlation network
+edges with PTM identifiers as node names}
+
+\item{ptmtable}{A data frame containing PTM identifiers as row names and numeric condition columns}
 
 \item{pepsep}{Character used to split ambiguous PTM entries (default: \";\")}
 }
@@ -31,7 +36,8 @@ cfn.merged <- data.frame(source = c("TP53", "BRCA1", "BRCA1", "MDM2"),
 # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
 # The following returns the gene/PTM subnetwork
 \dontrun{
-res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+res <- ptms_to_cfn(ptms, cfn = cfn.merged,
+  ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 print(res)
 }
 }

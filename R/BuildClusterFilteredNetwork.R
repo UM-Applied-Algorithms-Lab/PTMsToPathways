@@ -18,7 +18,8 @@
 #'
 #' @export
 #' @examples
-#' Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges, ex_stringdb_edges, ex_genemania_edges)
+#' Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges,
+#'   ex_stringdb_edges, ex_genemania_edges)
 #' utils::head(Example_Output[[2]])
 BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, genemania.edges = NULL, kinsub.edges = NULL, db.filepaths = c(NULL)) {
     # Combine PPIs from different databases

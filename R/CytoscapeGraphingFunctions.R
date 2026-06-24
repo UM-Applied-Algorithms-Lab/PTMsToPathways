@@ -1,10 +1,7 @@
 # @title Graphing and Manipulating Cluster Filtered Network
 #
-# @description Creates a cytoscape graph of the cluster filtered network. Ensure that you have the Cytoscape app open and the RCy3 package downloaded.
-# The package RCy3 is required for many of the functions in this script. To download, run:
-# - if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
-# - BiocManager::install("RCy3")
-# It is also recommended (but not required) that users load RCy3 with library(RCy3) to access its functions directly.
+# @description Creates a cytoscape graph of the cluster filtered network. Ensure
+# that you have the Cytoscape app open and the RCy3 package downloaded.
 #
 # @details Graph Key
 # - Node Size
@@ -312,7 +309,7 @@ strip.cy.goo <- function(test) {
 #'
 #' @return Called for its side effects; creates a network in Cytoscape.
 #' @export
-cytoscape.graph.PCN.pathways <- function(PCN = pathway.crosstalk.network, net.name, Jaccard.edges=TRUE) {
+cytoscape.graph.PCN.pathways <- function(PCN, net.name, Jaccard.edges=TRUE) {
   PCN.df <- data.frame(id=unique(c(PCN$source, PCN$target)))
   if (Jaccard.edges== FALSE) {PCN = PCN[-which (PCN$interaction=="pathway Jaccard similarity"),]}
   # Get rid of zero weight edges
@@ -352,7 +349,7 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
   gene.data <- subset.ptmtable |>
     dplyr::group_by(.data$Gene.Name) |>
     dplyr::summarise(
-      dplyr::across(where(is.numeric), ~sum(.x, na.rm = TRUE)),
+      dplyr::across(dplyr::where(is.numeric), ~sum(.x, na.rm = TRUE)),
       .groups = "drop"
     )
 
@@ -374,11 +371,13 @@ make.gene.data.from.ptmtable <- function(genes, ptmtable) {
 #'   summarised PTM values to the node table. Defaults to \code{FALSE}.
 #' @param include.coclustered.PTMs Logical; if \code{TRUE}, add co-clustered
 #'   PTM nodes and their edges to the output. Defaults to \code{FALSE}.
+#' @param ptm.cccn.edges A data frame of PTM co-expression correlation network
+#'  edges with PTM identifiers as node names, required if \code{include.coclustered.PTMs = TRUE}.
 #'
 #' @return A data frame of node attributes with an \code{id} column suitable
 #'   for \code{RCy3::createNetworkFromDataFrames}.
 #' @export
-make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE) {
+make.cytoscape.node.file <- function(edge.file, funckey = PTMsToPathways::function_key, ptmtable, include.gene.data = FALSE, include.coclustered.PTMs = FALSE, ptm.cccn.edges = NULL) {
   # Step 1: get unique nodes from edge file
   edge_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   # check if there are PTMs in edgefile
@@ -416,7 +415,7 @@ make.cytoscape.node.file <- function(edge.file, funckey, ptmtable, include.gene.
   node_file <- cbind(data.frame(id = node_file$Gene.Name), node_file)
   # Step 4: Optionally merge PTM CCCN and data
   if (include.coclustered.PTMs == TRUE) {
-    edge.file.with.ptms <- get.co.clustered.ptms(edge.file, ptm.cccn.edges)
+    edge.file.with.ptms <- get.co.clustered.ptms(edge.file, ptm.cccn.edges, ptmtable)
     if(length (peptides) > 0)  {
       edge.file.with.ptms <- unique(rbind(edge.file.with.ptms, edge.file[which(edge.file$interaction == "peptide"), ]))
     }
@@ -470,11 +469,12 @@ make.genepep.edges <- function(peptide.edgefile) {
 #' @param edge.file A data frame edge list whose nodes are gene names.
 #' @param ptm.cccn.edges A data frame of PTM co-expression correlation network
 #'   edges with PTM identifiers as node names.
+#' @param ptmtable A PTM data frame with PTM identifiers as row names and numeric condition columns.
 #'
 #' @return An edge data frame combining the original gene edges, co-clustered
 #'   PTM edges, and gene-to-peptide linking edges.
 #' @export
-get.co.clustered.ptms <- function (edge.file, ptm.cccn.edges) {
+get.co.clustered.ptms <- function (edge.file, ptm.cccn.edges, ptmtable) {
   gene_nodes <- unique(c(as.character(edge.file[, 1]), as.character(edge.file[, 2])))
   ptmtable.temp <- ptmtable
   ptmtable.temp$Gene.Name <- sapply(rownames(ptmtable.temp), function (x) strsplit(x, " ", fixed = TRUE)[[1]][1])
@@ -572,7 +572,7 @@ harmonize_cfs <- function(edge.file.with.ptms, genecf, ptmtable) {
 
   pepcf.funcs <- merge(
     pepcf,
-    funckey[, annotation_cols, drop = FALSE],
+    function_key[, annotation_cols, drop = FALSE],
     by = "Gene.Name",
     all.x = TRUE
   )
@@ -658,6 +658,9 @@ mergeEdges <- function(edgefile) {
 #'
 #' @param ptms Character vector of PTM site strings (e.g., \"TP53 p S15\")
 #' @param cfn List or data frame representing the cluster filtered network (default: global cfn.merged)
+#' @param ptm.cccn.edges A data frame of PTM co-expression correlation network
+#'  edges with PTM identifiers as node names
+#' @param ptmtable A data frame containing PTM identifiers as row names and numeric condition columns
 #' @param pepsep Character used to split ambiguous PTM entries (default: \";\")
 #'
 #' @return Subnetwork object with co-clustered PTMs and genes
@@ -673,10 +676,11 @@ mergeEdges <- function(edgefile) {
 #' # Suppose filter.edges.0 and get.co.clustered.ptms are also defined and loaded
 #' # The following returns the gene/PTM subnetwork
 #' \dontrun{
-#' res <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
+#' res <- ptms_to_cfn(ptms, cfn = cfn.merged,
+#'   ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 #' print(res)
 #' }
-ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
+ptms_to_cfn <- function(ptms, cfn, ptm.cccn.edges, ptmtable, pepsep = ";") {
   ambig.ptms <- ptms[grep(";", ptms)]
   if (length(ambig.ptms) > 0) {
 
@@ -697,8 +701,8 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
     all_genes  <- unique(sapply(ptms,  function (x) unlist(strsplit(x, " ",  fixed=TRUE))[1]))
   }
 
-  sub.cfn <- filter.edges.0(all_genes, cfn.merged)
-  sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn, ptm.cccn.edges)
+  sub.cfn <- filter.edges.0(all_genes, cfn)
+  sub.cfn.cccn <- get.co.clustered.ptms(sub.cfn, ptm.cccn.edges, ptmtable)
   return(sub.cfn.cccn)
 }
 
@@ -717,7 +721,6 @@ ptms_to_cfn <- function(ptms, cfn = cfn.merged, pepsep = ";") {
 #' @return Called for its side effects in Cytoscape.
 #' @export
 setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
-  # require(RCy3)
   RCy3::setBackgroundColorDefault("#949494") # grey 58
   RCy3::setNodeShapeDefault("ELLIPSE")
   RCy3::setNodeColorDefault("#F0FFFF") # azure1
@@ -748,7 +751,6 @@ setNodeMapping <- function(cf=RCy3::getTableColumns('node')) {
 #' @return Called for its side effects in Cytoscape.
 #' @export
 setCorrEdgeAppearance <- function() {
-  # require(RCy3)
   RCy3::setEdgeLineWidthDefault(3)
   RCy3::setEdgeColorDefault("#FFFFFF")  # white
   edgevalues <- RCy3::getTableColumns('edge',c('Weight'))
@@ -792,10 +794,9 @@ setCorrEdgeAppearance <- function() {
 #' @return Called for its side effects in Cytoscape.
 #' @export
 setNodeColorToRatios <- function(plotcol){
-  require(RCy3)
   cf <- RCy3::getTableColumns('node')
-  if(!(plotcol %in% getTableColumnNames('node'))){
-    print (getTableColumnNames('node'))
+  if(!(plotcol %in% RCy3::getTableColumnNames('node'))){
+    print (RCy3::getTableColumnNames('node'))
     cat("\n","\n","\t", "Which attribute will set node size and color?")
     plotcol <- as.character(readLines(con = stdin(), n = 1))
   }
@@ -833,9 +834,9 @@ setNodeColorToRatios <- function(plotcol){
 #' @return Called for its side effects in Cytoscape.
 #' @export
 setNodeColorToRowz <- function(plotcol){
-  cf <- getTableColumns('node')
-  if(!(plotcol %in% getTableColumnNames('node'))){
-    print (getTableColumnNames('node'))
+  cf <- RCy3::getTableColumns('node')
+  if(!(plotcol %in% RCy3::getTableColumnNames('node'))){
+    print (RCy3::getTableColumnNames('node'))
     cat("\n","\n","\t", "Which attribute will set node size and color?")
     plotcol <- as.character(readLines(con = stdin(), n = 1))
   }
@@ -981,9 +982,6 @@ setNodeSizeColorIndependently <- function(sizeplotcol, colorplotcol, ratio=FALSE
 #' @return Called for its side effects; creates a styled network in Cytoscape.
 #' @export
 GraphCfn <- function(cfn.edges, cfn.nodes,  Network.title = "CFN", Network.collection = "PTMsToPathways", visual.style.name = "PTMsToPathways.style"){
-  if(!requireNamespace("RCy3", quietly = TRUE)){
-    stop("In order to use this function, please download RCy3 as described in the vignette, the readme, and the function documentation.")
-  }
   tryCatch({
     RCy3::cytoscapePing()
   }, error = function(e){
@@ -1137,5 +1135,3 @@ NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
   RCy3::setVisualStyle(visual.style.name)
   message("Check the 'Node & Edge Key' network in Cytoscape: kinase sources PHOSPHORYLATION/pp, all edges labelled, all node-edge types illustrated.")
 }
-
-

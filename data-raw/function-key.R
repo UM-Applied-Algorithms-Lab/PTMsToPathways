@@ -9,4 +9,4 @@ function_key <- read.table(
   fill = TRUE
 )
 
-usethis::use_data(function_key, overwrite = TRUE)
+usethis::use_data(function_key, overwrite = TRUE, internal = TRUE)

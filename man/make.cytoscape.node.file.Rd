@@ -6,10 +6,11 @@
 \usage{
 make.cytoscape.node.file(
   edge.file,
-  funckey,
+  funckey = PTMsToPathways::function_key,
   ptmtable,
   include.gene.data = FALSE,
-  include.coclustered.PTMs = FALSE
+  include.coclustered.PTMs = FALSE,
+  ptm.cccn.edges = NULL
 )
 }
 \arguments{
@@ -27,6 +28,9 @@ summarised PTM values to the node table. Defaults to \code{FALSE}.}
 
 \item{include.coclustered.PTMs}{Logical; if \code{TRUE}, add co-clustered
 PTM nodes and their edges to the output. Defaults to \code{FALSE}.}
+
+\item{ptm.cccn.edges}{A data frame of PTM co-expression correlation network
+edges with PTM identifiers as node names, required if \code{include.coclustered.PTMs = TRUE}.}
 }
 \value{
 A data frame of node attributes with an \code{id} column suitable
