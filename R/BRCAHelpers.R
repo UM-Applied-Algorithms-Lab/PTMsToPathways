@@ -158,9 +158,9 @@ graph.ptm.by.cluster <- function(
         width  = max(5, 3 * ncol),
         height = max(4, 0.32 * ceiling(n / ncol) + 1))
     on.exit(grDevices::dev.off())
-    grDevices::par(mar = c(0.3, 0.3, 0.3, 0.3), xpd = NA)
-    grDevices::plot.new()
-    grDevices::legend("topleft",
+    graphics::par(mar = c(0.3, 0.3, 0.3, 0.3), xpd = NA)
+    graphics::plot.new()
+    graphics::legend("topleft",
            inset  = 0.01,
            legend = names(cluster.palette),
            fill   = cluster.palette,
@@ -183,13 +183,13 @@ graph.ptm.by.cluster <- function(
     grDevices::pdf(filename, width = 1.8, height = 4.5)
     on.exit(grDevices::dev.off())
     # left margin wide enough for the bar; right margin for axis labels
-    grDevices::par(mar = c(2, 1.0, 1.5, 2.8))
+    graphics::par(mar = c(2, 1.0, 1.5, 2.8))
     # x: 2 breakpoints = 1 column; y: n+1 breakpoints = n rows
-    grDevices::image(x = c(0, 1), y = brks, z = z,
+    graphics::image(x = c(0, 1), y = brks, z = z,
           col = cols, xaxt = "n", yaxt = "n", xlab = "", ylab = "")
-    grDevices::axis(4, at = pretty(c(-zlim, zlim)), las = 2, cex.axis = 0.85)
-    grDevices::mtext("Signal", side = 4, line = 1.8, cex = 0.85)
-    grDevices::box()
+    graphics::axis(4, at = pretty(c(-zlim, zlim)), las = 2, cex.axis = 0.85)
+    graphics::mtext("Signal", side = 4, line = 1.8, cex = 0.85)
+    graphics::box()
   }
 
   # ---- data prep -----------------------------------------------------
