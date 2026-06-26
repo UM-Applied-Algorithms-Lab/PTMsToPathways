@@ -19,13 +19,19 @@
 #' head(Example_Output[[1]])
 #' head(Example_Output[[2]])
 #'
-MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix) {
+MakeCorrelationNetwork <- function(
+    adj.consensus.matrix,
+    ptm.correlation.matrix
+    ) {
     # Two nested functions for creating the PTM and gene CCCN, respectively
     # Use the consensus adjacency matrix to filter PTM correlations, then create a graph and edge files for PTMs and genes
 
     start_time <- Sys.time()
 
-    MakePTMCCCN <- function(adj.consensus.matrix, ptm.correlation.matrix) {
+    MakePTMCCCN <- function(
+        adj.consensus.matrix,
+        ptm.correlation.matrix
+        ) {
         message("Making PTM CCCN")
         # Use only PTM pairs that co-clustered in all three methods (adj.consensus.matrix == 1)
         ptm.cccn <- ptm.correlation.matrix[sort(rownames(ptm.correlation.matrix)), sort(colnames(ptm.correlation.matrix))]
@@ -53,7 +59,12 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
         ptm.cccn0[is.na(ptm.cccn0)] <- 0
 
         # Create igraph object from correlation matrix
-        ptm.cccn.g <- igraph::graph_from_adjacency_matrix(ptm.cccn0, mode = "lower", diag = FALSE, weighted = TRUE)
+        ptm.cccn.g <- igraph::graph_from_adjacency_matrix(
+            ptm.cccn0,
+            mode = "lower",
+            diag = FALSE,
+            weighted = TRUE
+        )
 
         # Extract edge list as data.frame
         ptm.cccn.edges <- as.data.frame(igraph::as_edgelist(ptm.cccn.g))
@@ -65,7 +76,13 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
         ptm.cccn.edges$interaction[ptm.cccn.edges$Weight <= -0.5] <- "negative correlation"
         ptm.cccn.edges$interaction[ptm.cccn.edges$Weight >= 0.5] <- "positive correlation"
 
-        message("PTM CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+        message(
+            "PTM CCCN complete after ",
+            round(Sys.time() - start_time, 2),
+            " ",
+            units(Sys.time() - start_time),
+            " total."
+        )
         return(list(ptm.cccn0, ptm.cccn.g, ptm.cccn.edges))
     }
     #
@@ -76,12 +93,24 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
     # Build the Gene CCCN
     # Start from igraph object saved from MakePTMCCCN()
     # Double ddply Summing: By grouping and summing in both directions, you ensure the aggregation is performed for both genes in each pair, producing a correctly shaped and labeled gene–gene matrix.
-    MakeGeneCCCN <- function(ptm.cccn) {
+    MakeGeneCCCN <- function(
+        ptm.cccn
+        ) {
         message("Making Gene CCCN")
         # ptm.cccn  was returned above
-        gene.cccn <- data.frame(ptm.cccn, row.names = rownames(ptm.cccn), check.rows = TRUE, check.names = FALSE, fix.empty.names = FALSE)
+        gene.cccn <- data.frame(
+            ptm.cccn,
+            row.names = rownames(ptm.cccn),
+            check.rows = TRUE,
+            check.names = FALSE,
+            fix.empty.names = FALSE
+        )
         # Check: identical(rownames(gene.cccn), colnames(gene.cccn)) # TRUE
-        gene.cccn$Gene.Name <- vapply(rownames(gene.cccn), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1], FUN.VALUE = character(1))
+        gene.cccn$Gene.Name <- vapply(
+            rownames(gene.cccn),
+            function(x) unlist(strsplit(x, " ", fixed = TRUE))[1],
+            FUN.VALUE = character(1)
+        )
         # Use only upper triangle so correlations are not duplicated during the next step
         gene.cccn[lower.tri(gene.cccn)] <- NA
 
@@ -98,7 +127,11 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
         gene.cccn2 <- gene.cccn2[, 2:ncol(gene.cccn2)]
         # Transform to do the other dimension
         gene.cccn2 <- data.frame(t(gene.cccn2))
-        gene.cccn2$Gene <- vapply(rownames(gene.cccn2), function(x) unlist(strsplit(x, " ", fixed = TRUE))[1], FUN.VALUE = character(1))
+        gene.cccn2$Gene <- vapply(
+            rownames(gene.cccn2),
+            function(x) unlist(strsplit(x, " ", fixed = TRUE))[1],
+            FUN.VALUE = character(1)
+        )
         # Now sum the other dimension
         gene.cccn3 <- dplyr::summarise(
             dplyr::group_by(gene.cccn2, .data$Gene),
@@ -120,7 +153,12 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
         gene.cccn0 <- gene.cccn.matrix
         gene.cccn0[is.na(gene.cccn0)] <- 0 #  igraph doesn't like NAs
         # For Graphing and making edge lists
-        gene.cccn.g <- igraph::graph_from_adjacency_matrix(gene.cccn0, mode = "lower", diag = FALSE, weighted = TRUE)
+        gene.cccn.g <- igraph::graph_from_adjacency_matrix(
+            gene.cccn0,
+            mode = "lower",
+            diag = FALSE,
+            weighted = TRUE
+        )
         # Extract edge list as data.frame
         gene.cccn.edges <- as.data.frame(igraph::as_edgelist(gene.cccn.g))
         names(gene.cccn.edges) <- c("source", "target")
@@ -131,7 +169,13 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
         gene.cccn.edges$interaction[gene.cccn.edges$Weight <= -0.5] <- "negative correlation"
         gene.cccn.edges$interaction[gene.cccn.edges$Weight >= 0.5] <- "positive correlation"
 
-        message("Gene CCCN complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+        message(
+            "Gene CCCN complete after ",
+            round(Sys.time() - start_time, 2),
+            " ",
+            units(Sys.time() - start_time),
+            " total."
+        )
         return(list(gene.cccn.g, gene.cccn.edges, gene.cccn.matrix))
     }
 
@@ -142,7 +186,10 @@ MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix)
 
     # Make a list of nodes for gathering PPI data
     gene.cccn.nodes <- unique(c(gene.cccn.edges$source, gene.cccn.edges$target))
-    if (length(gene.cccn.nodes) == 0) stop("No genes found (gene.cccn.nodes is empty)")
+    if (
+        length(gene.cccn.nodes) == 0) {
+        stop("No genes found (gene.cccn.nodes is empty)")
+    }
 
     ### Return Final Data Structure ###
     return(list(ptm.cccn.edges, gene.cccn.edges, gene.cccn.nodes))
