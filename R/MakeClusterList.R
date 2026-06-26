@@ -28,12 +28,12 @@
 #' # Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.
 #' utils::head(Example_Output[[3]][, c(1, 2, 3, 4, 5)]) # Display data
 MakeClusterList <- function(
-      ptmtable,
-      keeplength = 2,
-      toolong = 3.5,
-      tsne_perplexity = 15,
-      tsne_max_iter = 5000
-) {
+    ptmtable,
+    keeplength = 2,
+    toolong = 3.5,
+    tsne_perplexity = 15,
+    tsne_max_iter = 5000) {
+  
     start_time <- Sys.time()
     message("Starting correlation calculations and t-SNE.")
     message("This may take a few minutes or hours for large data sets.")
