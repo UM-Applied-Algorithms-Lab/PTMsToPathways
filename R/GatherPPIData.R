@@ -26,15 +26,19 @@
 #' @examples
 #' # sym.map <- StandardizeGeneSymbols(c("EPRS", "QARS", "DDR1", "DDR2"))
 #' # unique(sym.map$standard_symbol)
-StandardizeGeneSymbols <- function(genes,
-    species = 9606,
-    string.version = "12.0",
-    keep.unmapped = TRUE) {
-    if (!requireNamespace("STRINGdb", quietly = TRUE)) {
+StandardizeGeneSymbols <- function(
+      genes,
+      species = 9606,
+      string.version = "12.0",
+      keep.unmapped = TRUE
+) {
+    if (
+        !requireNamespace("STRINGdb", quietly = TRUE)) {
         stop("Please install STRINGdb: BiocManager::install('STRINGdb')")
     }
 
-    if (!is.character(genes) || length(genes) == 0) {
+    if (
+        !is.character(genes) || length(genes) == 0) {
         stop("`genes` must be a non-empty character vector.")
     }
 
@@ -55,12 +59,20 @@ StandardizeGeneSymbols <- function(genes,
     out <- data.frame(
         input_symbol = mapped$Gene.Names,
         STRING_id = if ("STRING_id" %in% colnames(mapped)) mapped$STRING_id else NA_character_,
-        standard_symbol = if ("preferred_name" %in% colnames(mapped)) mapped$preferred_name else NA_character_,
-        mapped = !is.na(if ("STRING_id" %in% colnames(mapped)) mapped$STRING_id else NA_character_),
+        standard_symbol = if (
+            "preferred_name" %in% colnames(mapped)) {
+            mapped$preferred_name
+        } else {
+            NA_character_
+        },
+        mapped = !is.na(
+            if ("STRING_id" %in% colnames(mapped)) mapped$STRING_id else NA_character_
+        ),
         stringsAsFactors = FALSE
     )
 
-    if (keep.unmapped) {
+    if (
+        keep.unmapped) {
         out$standard_symbol[is.na(out$standard_symbol)] <- out$input_symbol[is.na(out$standard_symbol)]
     }
 
@@ -85,7 +97,8 @@ StandardizeGeneSymbols <- function(genes,
 #' @return Character vector of unique standardized node symbols.
 #'
 #' @keywords internal
-.map_nodes_with_symbol_map <- function(gene.cccn.nodes, symbol.map = NULL) {
+.map_nodes_with_symbol_map <- function(gene.cccn.nodes,
+    symbol.map = NULL) {
     nodes <- unique(as.character(gene.cccn.nodes))
 
     if (is.null(symbol.map)) {
@@ -94,7 +107,8 @@ StandardizeGeneSymbols <- function(genes,
 
     required.map.cols <- c("input_symbol", "standard_symbol")
     missing.map.cols <- setdiff(required.map.cols, colnames(symbol.map))
-    if (length(missing.map.cols) > 0) {
+    if (
+        length(missing.map.cols) > 0) {
         stop(
             "`symbol.map` is missing required columns: ",
             paste(missing.map.cols, collapse = ", ")
@@ -122,8 +136,17 @@ StandardizeGeneSymbols <- function(genes,
 #' \dontrun{
 #' # MakeDBInput(ex_gene_cccn_nodes, file.path.name = "db_nodes.txt")
 #' }
-MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
-    utils::write.table(unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
+MakeDBInput <- function(
+      gene.cccn.nodes,
+      file.path.name = "db_nodes.txt"
+) {
+    utils::write.table(
+        unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])),
+        file = file.path.name,
+        row.names = FALSE,
+        col.names = FALSE,
+        quote = FALSE
+    )
 }
 
 
@@ -167,22 +190,26 @@ MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
 #' #   include.transferred = TRUE,
 #' #   symbol.map = sym.map
 #' # )
-GetSTRINGdb.edges <- function(gene.cccn.edges,
-    gene.cccn.nodes,
-    local = FALSE,
-    string.local.path = "string_hs_hugo_full.tsv",
-    combined.score.threshold = 400,
-    include.transferred = TRUE,
-    symbol.map = NULL) {
-    if (!is.character(gene.cccn.nodes) || length(gene.cccn.nodes) == 0) {
+GetSTRINGdb.edges <- function(
+      gene.cccn.edges,
+      gene.cccn.nodes,
+      local = FALSE,
+      string.local.path = "string_hs_hugo_full.tsv",
+      combined.score.threshold = 400,
+      include.transferred = TRUE,
+      symbol.map = NULL
+) {
+    if (
+        !is.character(gene.cccn.nodes) || length(gene.cccn.nodes) == 0) {
         stop("`gene.cccn.nodes` must be a non-empty character vector.")
     }
 
-    if (!is.numeric(combined.score.threshold) ||
-        length(combined.score.threshold) != 1 ||
-        is.na(combined.score.threshold) ||
-        combined.score.threshold < 0 ||
-        combined.score.threshold > 1000) {
+    if (
+        !is.numeric(combined.score.threshold) ||
+            length(combined.score.threshold) != 1 ||
+            is.na(combined.score.threshold) ||
+            combined.score.threshold < 0 ||
+            combined.score.threshold > 1000) {
         stop("`combined.score.threshold` must be a single number between 0 and 1000.")
     }
 
@@ -208,10 +235,13 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     # --------------------------------------------------------------------------
     # Local mode: fully offline
     # --------------------------------------------------------------------------
-    if (local) {
-        if (!file.exists(string.local.path)) {
+    if (
+        local) {
+        if (
+            !file.exists(string.local.path)) {
             stop(
-                "Local STRING file not found: ", string.local.path,
+                "Local STRING file not found: ",
+                string.local.path,
                 "\nGenerate it from protein.links.full.v12.0.txt.gz first."
             )
         }
@@ -225,7 +255,8 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
             "combined_score"
         )
 
-        if (include.transferred) {
+        if (
+            include.transferred) {
             required.cols <- c(
                 required.cols,
                 "experiments_transferred",
@@ -234,7 +265,8 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
         }
 
         missing.cols <- setdiff(required.cols, colnames(dt))
-        if (length(missing.cols) > 0) {
+        if (
+            length(missing.cols) > 0) {
             stop(
                 "Local STRING file is missing required columns: ",
                 paste(missing.cols, collapse = ", ")
@@ -247,12 +279,14 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
                 dt$target %in% nodes,
         ]
 
-        if (nrow(dt) == 0) {
+        if (
+            nrow(dt) == 0) {
             warning("No local STRING edges passed the filters.")
             return(.empty_edges())
         }
 
-        if (include.transferred) {
+        if (
+            include.transferred) {
             keep <- dt$experiments > 0 |
                 dt$experiments_transferred > 0 |
                 dt$database > 0 |
@@ -263,14 +297,18 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
 
         dt <- dt[keep, ]
 
-        if (nrow(dt) == 0) {
-            warning("No local STRING edges with selected evidence types passed the filters.")
+        if (
+            nrow(dt) == 0) {
+            warning(
+                "No local STRING edges with selected evidence types passed the filters."
+            )
             return(.empty_edges())
         }
 
         dt$edgeType <- "STRINGdb"
 
-        if (include.transferred) {
+        if (
+            include.transferred) {
             dt[dt$database_transferred > 0, "edgeType"] <- "database_transferred"
             dt[dt$database > 0, "edgeType"] <- "database"
             dt[dt$experiments_transferred > 0, "edgeType"] <- "experiments_transferred"
@@ -305,7 +343,8 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     # --------------------------------------------------------------------------
     # Live mode
     # --------------------------------------------------------------------------
-    if (!requireNamespace("STRINGdb", quietly = TRUE)) {
+    if (
+        !requireNamespace("STRINGdb", quietly = TRUE)) {
         stop("Please install STRINGdb: BiocManager::install('STRINGdb')")
     }
 
@@ -320,13 +359,18 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
         input_directory = ""
     )
 
-    message("Querying STRINGdb for interactions between ", length(nodes), " genes...")
+    message(
+        "Querying STRINGdb for interactions between ",
+        length(nodes),
+        " genes..."
+    )
     string.proteins <- string.db$get_proteins()
 
     message("Mapping genes to STRING IDs...")
     mapped.genes <- string.db$map(nodenames, "Gene.Names", removeUnmappedRows = TRUE)
 
-    if (nrow(mapped.genes) == 0) {
+    if (
+        nrow(mapped.genes) == 0) {
         warning("No input genes could be mapped to STRING.")
         return(.empty_edges())
     }
@@ -334,20 +378,30 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
     message("Retrieving interactions for mapped genes...")
     interactions <- string.db$get_interactions(mapped.genes$STRING_id)
 
-    if (nrow(interactions) == 0) {
+    if (
+        nrow(interactions) == 0) {
         warning("STRINGdb returned no interactions.")
         return(.empty_edges())
     }
 
     message("Formatting...")
-    interactions$Gene.1 <- vapply(interactions$from, function(x) {
-        string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
-    }, FUN.VALUE = character(1))
-    interactions$Gene.2 <- vapply(interactions$to, function(x) {
-        string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
-    }, FUN.VALUE = character(1))
+    interactions$Gene.1 <- vapply(
+        interactions$from,
+        function(x) {
+            string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
+        },
+        FUN.VALUE = character(1)
+    )
+    interactions$Gene.2 <- vapply(
+        interactions$to,
+        function(x) {
+            string.proteins[match(x, string.proteins$protein_external_id), "preferred_name"]
+        },
+        FUN.VALUE = character(1)
+    )
 
-    if (!"combined_score" %in% colnames(interactions)) {
+    if (
+        !"combined_score" %in% colnames(interactions)) {
         stop("Live STRINGdb interactions did not include a `combined_score` column.")
     }
 
@@ -357,12 +411,14 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
             interactions$Gene.2 %in% nodes,
     ]
 
-    if (nrow(interactions) == 0) {
+    if (
+        nrow(interactions) == 0) {
         warning("No live STRING edges passed the filters.")
         return(.empty_edges())
     }
 
-    if (include.transferred) {
+    if (
+        include.transferred) {
         str.e <- interactions[interactions$experiments > 0, ]
         str.et <- interactions[interactions$experiments_transferred > 0, ]
         str.d <- interactions[interactions$database > 0, ]
@@ -374,14 +430,18 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
         combined_interactions <- unique(rbind(str.e, str.d))
     }
 
-    if (nrow(combined_interactions) == 0) {
-        warning("No live STRING edges with selected evidence types passed the filters.")
+    if (
+        nrow(combined_interactions) == 0) {
+        warning(
+            "No live STRING edges with selected evidence types passed the filters."
+        )
         return(.empty_edges())
     }
 
     combined_interactions$edgeType <- "STRINGdb"
 
-    if (include.transferred) {
+    if (
+        include.transferred) {
         combined_interactions[combined_interactions$database_transferred > 0, "edgeType"] <- "database_transferred"
         combined_interactions[combined_interactions$database > 0, "edgeType"] <- "database"
         combined_interactions[combined_interactions$experiments_transferred > 0, "edgeType"] <- "experiments_transferred"
@@ -440,18 +500,23 @@ GetSTRINGdb.edges <- function(gene.cccn.edges,
 #' #   gene.cccn.nodes = ex.gene.cccn.nodes,
 #' #   symbol.map = sym.map
 #' # )
-GetGeneMANIA.edges <- function(gm.results.path,
-    gene.cccn.nodes,
-    local = FALSE,
-    genemania.local.path = "hs_interactions_hugo.tsv",
-    gm.interaction.types = c("Pathway", "Physical Interactions"),
-    symbol.map = NULL) {
+GetGeneMANIA.edges <- function(
+      gm.results.path,
+      gene.cccn.nodes,
+      local = FALSE,
+      genemania.local.path = "hs_interactions_hugo.tsv",
+      gm.interaction.types = c("Pathway", "Physical Interactions"),
+      symbol.map = NULL
+) {
     nodes <- .map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map)
 
-    if (local) {
-        if (!file.exists(genemania.local.path)) {
+    if (
+        local) {
+        if (
+            !file.exists(genemania.local.path)) {
             stop(
-                "Local GeneMANIA file not found: ", genemania.local.path,
+                "Local GeneMANIA file not found: ",
+                genemania.local.path,
                 "\nGenerate it with scripts/genemania_hs_download.r or set local = FALSE."
             )
         }
@@ -461,7 +526,8 @@ GetGeneMANIA.edges <- function(gm.results.path,
 
         required.cols <- c("Gene1", "Gene2", "Group", "Weight")
         missing.cols <- setdiff(required.cols, colnames(dt))
-        if (length(missing.cols) > 0) {
+        if (
+            length(missing.cols) > 0) {
             stop(
                 "Local GeneMANIA file is missing required columns: ",
                 paste(missing.cols, collapse = ", ")
@@ -471,15 +537,18 @@ GetGeneMANIA.edges <- function(gm.results.path,
         dt <- dt[dt$Group %in% gm.interaction.types, ]
         dt <- dt[dt$Gene1 %in% nodes & dt$Gene2 %in% nodes, ]
 
-        if (nrow(dt) == 0) {
+        if (
+            nrow(dt) == 0) {
             warning("No local GeneMANIA edges passed the filters.")
-            return(data.frame(
-                source = character(0),
-                target = character(0),
-                interaction = character(0),
-                Weight = numeric(0),
-                stringsAsFactors = FALSE
-            ))
+            return(
+                data.frame(
+                    source = character(0),
+                    target = character(0),
+                    interaction = character(0),
+                    Weight = numeric(0),
+                    stringsAsFactors = FALSE
+                )
+            )
         }
 
         dt <- unique(dt[, c("Gene1", "Gene2", "Group", "Weight")])
@@ -517,7 +586,8 @@ GetGeneMANIA.edges <- function(gm.results.path,
     keep <- edgetable$source %in% nodes & edgetable$target %in% nodes
     genemania.edges <- unique(edgetable[keep, ])
 
-    if (nrow(genemania.edges) == 0) {
+    if (
+        nrow(genemania.edges) == 0) {
         warning("No GeneMANIA edges passed the filters.")
     }
 
@@ -547,9 +617,11 @@ GetGeneMANIA.edges <- function(gm.results.path,
 #' #   gene.cccn.nodes = ex.gene.cccn.nodes,
 #' #   symbol.map = sym.map
 #' # )
-GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
-    gene.cccn.nodes,
-    symbol.map = NULL) {
+GetKinsub.edges <- function(
+      kinasesubstrate.filename = "Kinase_Substrate_Dataset.txt",
+      gene.cccn.nodes,
+      symbol.map = NULL
+) {
     nodes <- toupper(.map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map))
 
     kinasesubstrateraw <- utils::read.table(
@@ -564,12 +636,14 @@ GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset
 
     kinsub <- kinasesubstrateraw
 
-    if (any(is.na(kinsub$GENE))) {
+    if (
+        any(is.na(kinsub$GENE))) {
         kinsub[which(is.na(kinsub$GENE)), "GENE"] <-
             as.character(kinsub[which(is.na(kinsub$GENE)), "KINASE"])
     }
 
-    if (any(is.na(kinsub$SUB_GENE))) {
+    if (
+        any(is.na(kinsub$SUB_GENE))) {
         kinsub[which(is.na(kinsub$SUB_GENE)), "SUB_GENE"] <-
             as.character(kinsub[which(is.na(kinsub$SUB_GENE)), "SUBSTRATE"])
     }
@@ -577,11 +651,13 @@ GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset
     kinase <- toupper(kinsub$GENE)
     substrate <- toupper(kinsub$SUB_GENE)
 
-    kinsub <- unique(data.frame(
-        source = kinase,
-        target = substrate,
-        stringsAsFactors = FALSE
-    ))
+    kinsub <- unique(
+        data.frame(
+            source = kinase,
+            target = substrate,
+            stringsAsFactors = FALSE
+        )
+    )
 
     kinsub.edges <- kinsub[kinsub$source %in% nodes & kinsub$target %in% nodes, ]
     kinsub.edges$interaction <- "pp"
@@ -589,7 +665,8 @@ GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset
 
     kinsub.edges <- remove.autophos(kinsub.edges)
 
-    if (nrow(kinsub.edges) == 0) {
+    if (
+        nrow(kinsub.edges) == 0) {
         warning("No kinase-substrate edges passed the filters.")
     }
 
