@@ -24,7 +24,5 @@ Converts Bioplanet pathways from (\url{https://tripod.nih.gov/bioplanet/})  into
 }
 \examples{
 Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
-Example_Output[[1]][[3,]]
-Example_Output[[3]][[1:3]]
-Example_Output[[4]][1:3, 1:3]
+head(Example_Output[[1]])
 }

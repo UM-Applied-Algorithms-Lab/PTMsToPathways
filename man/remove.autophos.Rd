@@ -2,10 +2,17 @@
 % Please edit documentation in R/CytoscapeGraphingFunctions.R
 \name{remove.autophos}
 \alias{remove.autophos}
-\title{Title}
+\title{Remove self-loop edges from an edge file}
 \usage{
 remove.autophos(edgefile)
 }
+\arguments{
+\item{edgefile}{A data frame edge list with \code{source} and \code{target}
+columns.}
+}
+\value{
+The edge file with self-loop rows removed.
+}
 \description{
-Title
+Drops any rows where the source and target node are identical.
 }

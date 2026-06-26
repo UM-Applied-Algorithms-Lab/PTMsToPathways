@@ -22,6 +22,6 @@ ex_tiny_ptm_table
 Post-translational modification data under certain environmental conditions.
 }
 \examples{
-head(ex_small_ptm_table)
+head(ex_tiny_ptm_table)
 }
 \keyword{internal}

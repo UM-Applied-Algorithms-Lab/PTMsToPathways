@@ -2,10 +2,19 @@
 % Please edit documentation in R/CytoscapeGraphingFunctions.R
 \name{make.genepep.edges}
 \alias{make.genepep.edges}
-\title{Title}
+\title{Create gene-to-peptide edges from a PTM edge file}
 \usage{
 make.genepep.edges(peptide.edgefile)
 }
+\arguments{
+\item{peptide.edgefile}{A data frame edge list whose node names follow the
+\code{"GENE site"} PTM naming convention.}
+}
+\value{
+A data frame with columns \code{source}, \code{target},
+\code{Weight}, and \code{interaction} (\code{"peptide"}).
+}
 \description{
-Title
+Generates a new edge data frame linking each PTM node (\code{"GENE site"})
+to its parent gene node, for use in combined gene/PTM Cytoscape networks.
 }

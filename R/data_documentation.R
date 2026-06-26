@@ -12,7 +12,7 @@
 #' }
 #' @source "Sub-data frame of the small PTM table"
 #' @examples
-#' head(ex_small_ptm_table)
+#' head(ex_tiny_ptm_table)
 "ex_tiny_ptm_table"
 
 #' Small PTM Table Example
@@ -234,7 +234,7 @@
 #' head("ex_combined_ppi")
 "ex_combined_ppi"
 
-#' Cfn
+#' CFN
 #'
 #' The Cluster Filtered Network is a filtered version of the Combined PPIs but only for proteins found to interact via t-SNE clusters
 #'

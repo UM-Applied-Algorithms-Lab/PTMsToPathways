@@ -442,7 +442,7 @@ And we can see some of the pathway crosstalk network edges below:
 pathway.crosstalk.network[1:5,]
 ```
 
-```{r eval = TRUE, echo = TRUE}
+```{r eval = TRUE, echo = FALSE}
 dat <- pathway.crosstalk.network[1:5,]
 knitr::kable(dat, align = 'l', digits = 2)
 ```

@@ -22,11 +22,11 @@ test_that("GetSTRINGdb.edges() gives right answer with local file", {
   stringdb_edges <- suppressMessages(GetSTRINGdb.edges(ex_gene_cccn_edges, ex_gene_cccn_nodes, local = TRUE, string.local.path = path))
   
   # Expected values
-  exp_row_100 <- data.frame(source = "PLEKHA7", target = "EPB41L2", interaction = "experimental", Weight = 292) 
+  exp_row_5 <- data.frame(source = "ACLY", target = "LDHA", interaction = "experiments_transferred", Weight = 346) 
   
   # Run tests
-  expect_equal(stringdb_edges[100, ], exp_row_100, ignore_attr = TRUE)
-  expect_equal(nrow(stringdb_edges), 166)
+  expect_equal(stringdb_edges[5, ], exp_row_5, ignore_attr = TRUE)
+  expect_equal(nrow(stringdb_edges), 9)
 })
 
 test_that("GetKinsub.edges() gives right answer", {

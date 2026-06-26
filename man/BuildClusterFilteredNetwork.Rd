@@ -36,6 +36,7 @@ If either of these conditions are not met, then it will be removed from the list
 This new, cluster filtered network is then assigned to the global namespace.
 }
 \examples{
-Example_Output <- BuildClusterFilteredNetwork(ex.gene.cccn, ex.stringdb.edges, ex.gm.edges)
-utils::head(Example_Output)
+Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges,
+  ex_stringdb_edges, ex_genemania_edges)
+utils::head(Example_Output[[2]])
 }

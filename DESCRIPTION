@@ -26,7 +26,8 @@ Imports:
     dplyr,
     tidyselect,
     gplots,
-    ggplot2
+    ggplot2,
+    rlang
 Suggests: 
     BiocManager,
     knitr,
@@ -39,6 +40,7 @@ Depends:
 URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
 BugReports: https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/issues/new
 LazyData: true
+LazyDataCompression: xz
 Config/testthat/edition: 3
 Additional_repositories: https://bioconductor.org/packages/3.21/bioc
 biocViews: Software, Proteomics, PostTranslationalModifications, Pathways, Network

@@ -69,9 +69,7 @@ ReadBioplanetFile <- function(bioplanet.file = "bioplanet.csv") {
 #'
 #' @examples
 #' Example_Output <- BuildPathwayCrosstalkNetwork(ex_common_clusters, ex_pathways_list)
-#' Example_Output[[1]][[3,]]
-#' Example_Output[[3]][[1:3]]
-#' Example_Output[[4]][1:3, 1:3]
+#' head(Example_Output[[1]])
 BuildPathwayCrosstalkNetwork <- function(common.clusters, bioplanet.file = "bioplanet.csv"){
   message("Making PCN")
   start_time <- Sys.time()

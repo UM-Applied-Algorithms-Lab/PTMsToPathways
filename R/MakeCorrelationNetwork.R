@@ -15,9 +15,9 @@
 #' @export
 #'
 #' @examples
-#' Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex.ptm.correlation.matrix)
-#' Example_Output[[1]][1:5, 1:5]
-#' Example_Output[[2]][1:5, 1:5]
+#' Example_Output <- MakeCorrelationNetwork(ex_adj_consensus, ex_ptm_correlation_matrix)
+#' head(Example_Output[[1]])
+#' head(Example_Output[[2]])
 #'
 MakeCorrelationNetwork <- function(adj.consensus.matrix, ptm.correlation.matrix) {
     # Two nested functions for creating the PTM and gene CCCN, respectively

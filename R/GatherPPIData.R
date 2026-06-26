@@ -119,17 +119,12 @@ StandardizeGeneSymbols <- function(genes,
 #' @export
 #'
 #' @examples
-#' # MakeDBInput(ex.nodenames)
-#' cat(ex.nodenames[[1]], sep = "\n")
+#' \dontrun{
+#' # MakeDBInput(ex_gene_cccn_nodes, file.path.name = "db_nodes.txt")
+#' }
 MakeDBInput <- function(gene.cccn.nodes, file.path.name = "db_nodes.txt") {
     utils::write.table(unique(c(gene.cccn.nodes[[1]], gene.cccn.nodes[[2]])), file = file.path.name, row.names = FALSE, col.names = FALSE, quote = FALSE)
 }
-# Pulls nodenames from the gene.cccn
-#
-# This helper function pulls the gene names from the gene.cccn into a list 'nodenames'
-#
-# @param gene.cccn A matrix showing strength of relationships between proteins using the common clusters between the three distance metrics (Euclidean, Spearman, and Combined (SED))
-# @return data frame of the names of the genes
 
 
 #' Get STRINGdb PPI data from full local or live source
@@ -503,7 +498,7 @@ GetGeneMANIA.edges <- function(gm.results.path,
 
     network_lines <- all_lines[start_line[1]:(end_line[1] - 1)]
 
-    edgetable <- read.table(
+    edgetable <- utils::read.table(
         text = network_lines,
         header = TRUE,
         stringsAsFactors = FALSE,
@@ -557,7 +552,7 @@ GetKinsub.edges <- function(kinasesubstrate.filename = "Kinase_Substrate_Dataset
     symbol.map = NULL) {
     nodes <- toupper(.map_nodes_with_symbol_map(gene.cccn.nodes, symbol.map))
 
-    kinasesubstrateraw <- read.table(
+    kinasesubstrateraw <- utils::read.table(
         kinasesubstrate.filename,
         header = TRUE,
         skip = 3,
