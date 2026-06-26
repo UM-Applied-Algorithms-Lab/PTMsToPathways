@@ -27,7 +27,13 @@
 #' Example_Output[[1]][1:3] # Display data
 #' # Do we want to have one for adj.consensus? Doesn't seem like it'd be very helpful to view.
 #' utils::head(Example_Output[[3]][, c(1, 2, 3, 4, 5)]) # Display data
-MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perplexity = 15, tsne_max_iter = 5000) {
+MakeClusterList <- function(
+      ptmtable,
+      keeplength = 2,
+      toolong = 3.5,
+      tsne_perplexity = 15,
+      tsne_max_iter = 5000
+) {
     start_time <- Sys.time()
     message("Starting correlation calculations and t-SNE.")
     message("This may take a few minutes or hours for large data sets.")
@@ -35,7 +41,8 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
     # Add if statement here to make sure functions are formatted correctly #
     # Ensure ptmtable is a data frame with numeric values #
     PTMnames <- rownames(ptmtable)
-    if (!all(vapply(ptmtable, is.numeric, FUN.VALUE = logical(1)))) {
+    if (
+        !all(vapply(ptmtable, is.numeric, FUN.VALUE = logical(1)))) {
         stop("All columns in 'ptmtable' must be numeric.")
     }
 
@@ -58,12 +65,32 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
 
     # Set NA values to 100 * the max distance
     sp.diss.matrix[is.na(sp.diss.matrix)] <- 100 * max.dist.sp
-    message("Spearman correlation calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "Spearman correlation calculation complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
 
     # Run t-SNE #
-    tsne.results <- Rtsne::Rtsne(sp.diss.matrix, dims = 3, perplexity = tsne_perplexity, theta = 0.25, max_iter = tsne_max_iter, check_duplicates = FALSE, pca = FALSE)
+    tsne.results <- Rtsne::Rtsne(
+        sp.diss.matrix,
+        dims = 3,
+        perplexity = tsne_perplexity,
+        theta = 0.25,
+        max_iter = tsne_max_iter,
+        check_duplicates = FALSE,
+        pca = FALSE
+    )
     spearman.coords <- tsne.results$Y
-    message("Spearman t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "Spearman t-SNE calculation complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
 
     # EUCLIDEAN CALCULATION
 
@@ -79,12 +106,32 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
     # Normalize the distance matrix by scaling it to a range from 0 to 100. This becomes the distance matrix for euclidian distance which we will run Rtsne on#
     eu.dist.calc <- 100 * ptmtable.dist / max(ptmtable.dist, na.rm = TRUE)
     eu.dist.calc <- as.matrix(eu.dist.calc) # Fix eu.dist.calc RQ
-    message("Euclidean distance calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "Euclidean distance calculation complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
 
     # Run t-SNE #
-    eu.ptms.tsne.list <- Rtsne::Rtsne(eu.dist.calc, dims = 3, perplexity = tsne_perplexity, theta = 0.25, max_iter = tsne_max_iter, check_duplicates = FALSE, pca = FALSE)
+    eu.ptms.tsne.list <- Rtsne::Rtsne(
+        eu.dist.calc,
+        dims = 3,
+        perplexity = tsne_perplexity,
+        theta = 0.25,
+        max_iter = tsne_max_iter,
+        check_duplicates = FALSE,
+        pca = FALSE
+    )
     euclidean.coords <- eu.ptms.tsne.list$Y
-    message("Euclidean t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "Euclidean t-SNE calculation complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
 
     # COMBINED CALCULATION
 
@@ -96,23 +143,50 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
 
     # find average
     combined.distance <- (sp.diss.calc + eu.dist.calc) / 2
-    message("Combined distance calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "Combined distance calculation complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
     # Perform t-SNE on the combined distances #
-    tsne.result <- Rtsne::Rtsne(combined.distance, dims = 3, perplexity = tsne_perplexity, theta = 0.25, max_iter = tsne_max_iter, check_duplicates = FALSE, pca = FALSE)
+    tsne.result <- Rtsne::Rtsne(
+        combined.distance,
+        dims = 3,
+        perplexity = tsne_perplexity,
+        theta = 0.25,
+        max_iter = tsne_max_iter,
+        check_duplicates = FALSE,
+        pca = FALSE
+    )
     sed.coords <- tsne.result$Y
-    message("SED t-SNE calculation complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "SED t-SNE calculation complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
 
 
     # Nested function to analyze result
     group <- NULL # Gets rid of check note
-    clustercreate <- function(tsne_coords, distance_name) {
+    clustercreate <- function(
+      tsne_coords,
+      distance_name
+    ) {
         # Find clusters that are connected
         # this returns a vector with cluster assignment for each PTM
         result.disc2 <- vegan::distconnected(stats::dist(tsne_coords), toolong = toolong, trace = FALSE)
 
         # Create a plot of the clusters, with convex hulll around each cluster
         # note that tsne_coords is a matrix with 3 columns (the t-SNE dimensions), but only first two will get plotted
-        vegan::ordiplot(tsne_coords, display = c(), main = paste("t-SNE Cluster Plot", distance_name))
+        vegan::ordiplot(
+            tsne_coords,
+            display = c(),
+            main = paste("t-SNE Cluster Plot", distance_name)
+        )
         vegan::ordihull(tsne_coords, result.disc2, col = "red", lwd = 2)
 
         # make a dataframe with one column for PTMs and another for group assignment
@@ -123,7 +197,15 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
 
         end_time <- Sys.time()
         total_time <- end_time - start_time
-        message("Clustering for ", distance_name, " complete after ", round(total_time, 2), " ", units(total_time), " total.")
+        message(
+            "Clustering for ",
+            distance_name,
+            " complete after ",
+            round(total_time, 2),
+            " ",
+            units(total_time),
+            " total."
+        )
         return(result.span.list)
     } # END of nested function
 
@@ -132,22 +214,30 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
     names(all.tsne.coords) <- c("Euclidean", "Spearman", "SED")
     clusters.list <- mapply(clustercreate, all.tsne.coords, names(all.tsne.coords))
 
-    FindCommonClusters <- function(clusters.list, keeplength = 3) { # >>>> NEW method
+    FindCommonClusters <- function(
+      clusters.list,
+      keeplength = 3
+    ) { # >>>> NEW method
         # For each distance metric's clusters:
         #  1.	Create a square matrix of all PTMs.
         #  2.	For each cluster, set all PTM–PTM pairs in the cluster to 1 (indicating co-membership).
         #  3.	The final matrix for a method has 1 for PTM pairs co-clustered in that method; 0 otherwise.
 
-        co_membership_matrix <- function(clusters) {
+        co_membership_matrix <- function(
+      clusters
+        ) {
             # 1. square matrix of all PTMs
-            mat <- matrix(0,
-                nrow = length(PTMnames), ncol = length(PTMnames),
+            mat <- matrix(
+                0,
+                nrow = length(PTMnames),
+                ncol = length(PTMnames),
                 dimnames = list(PTMnames, PTMnames)
             )
             # 2. For each cluster, set all PTM–PTM pairs in the cluster to 1 (indicating co-membership).
             for (cluster in clusters) {
                 ptms <- cluster$PTMnames
-                if (length(ptms) > 1) {
+                if (
+                    length(ptms) > 1) {
                     mat[ptms, ptms] <- 1
                 }
             }
@@ -163,7 +253,11 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
         # Step 3: Build a Consensus Network (for Co-Clustering in All 3 Embeddings)
         # 	Edges: Only keep edges where `adj.sum == 3` (meaning the PTM pair is in the same cluster in all three methods).
         adj.consensus.matrix <- (adj.sum == 3) * 1 # This is a neat R trick to convert a logical matrix (`TRUE`/`FALSE`) to a numeric matrix (`1`/`0`) via multiplication.
-        g <- igraph::graph_from_adjacency_matrix(adj.consensus.matrix, mode = "undirected", diag = FALSE)
+        g <- igraph::graph_from_adjacency_matrix(
+            adj.consensus.matrix,
+            mode = "undirected",
+            diag = FALSE
+        )
 
         # Step 4: Extract Cliques (Consensus Clusters): since clusters partitioned the graph, every clique is a connected component
         components <- igraph::components(g)
@@ -176,14 +270,21 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
                 igraph::V(g)$name[components$membership == id]
             }
         )
-        if (length(clusters_in_all_three) > 0) {
+        if (
+            length(clusters_in_all_three) > 0) {
             names(clusters_in_all_three) <- paste0("ConsensusCluster", seq_along(clusters_in_all_three))
         } else {
             warning("No cliques remain after filtering with keeplength = ", keeplength)
         }
 
         end_time <- Sys.time()
-        message("Consensus clustering complete after ", round(end_time - start_time, 2), " ", units(end_time - start_time), " total.")
+        message(
+            "Consensus clustering complete after ",
+            round(end_time - start_time, 2),
+            " ",
+            units(end_time - start_time),
+            " total."
+        )
         return(list(adj.consensus.matrix, clusters_in_all_three))
     }
 
@@ -192,7 +293,13 @@ MakeClusterList <- function(ptmtable, keeplength = 2, toolong = 3.5, tsne_perple
     adj.consensus.matrix <- clusters.common.list[[1]]
     common.clusters <- clusters.common.list[[2]]
 
-    message("MakeClusterList complete after ", round(Sys.time() - start_time, 2), " ", units(Sys.time() - start_time), " total.")
+    message(
+        "MakeClusterList complete after ",
+        round(Sys.time() - start_time, 2),
+        " ",
+        units(Sys.time() - start_time),
+        " total."
+    )
 
 
     return(list(common.clusters, adj.consensus.matrix, ptm.correlation.matrix))
