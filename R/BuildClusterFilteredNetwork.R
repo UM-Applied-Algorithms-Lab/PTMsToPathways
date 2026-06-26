@@ -18,16 +18,27 @@
 #'
 #' @export
 #' @examples
-#' Example_Output <- BuildClusterFilteredNetwork(ex_gene_cccn_edges,
-#'   ex_stringdb_edges, ex_genemania_edges)
+#' Example_Output <- BuildClusterFilteredNetwork(
+#'     ex_gene_cccn_edges,
+#'     ex_stringdb_edges,
+#'     ex_genemania_edges
+#' )
 #' utils::head(Example_Output[[2]])
-BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, genemania.edges = NULL, kinsub.edges = NULL, db.filepaths = c(NULL)) {
+BuildClusterFilteredNetwork <- function(
+      gene.cccn.edges,
+      stringdb.edges = NULL,
+      genemania.edges = NULL,
+      kinsub.edges = NULL,
+      db.filepaths = c(NULL)
+) {
     # Combine PPIs from different databases
     # First Normalize Weights
-    if (!is.null(stringdb.edges)) {
+    if (
+        !is.null(stringdb.edges)) {
         stringdb.edges$Weight <- 100 * stringdb.edges$Weight / max(stringdb.edges$Weight, na.rm = TRUE)
     } #  this returns a range of 0 to 100
-    if (!is.null(genemania.edges)) {
+    if (
+        !is.null(genemania.edges)) {
         genemania.edges$Weight <- 100 * genemania.edges$Weight / max(genemania.edges$Weight, na.rm = TRUE)
     } #  this returns a range of 0 to 100
 
@@ -37,7 +48,8 @@ BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, 
     # Combine gathered PPI edges into one data frame
     combined.PPIs <- rbind(stringdb.edges, genemania.edges, kinsub.edges)
 
-    if (!is.null(db.filepaths)) {
+    if (
+        !is.null(db.filepaths)) {
         for (path in db.filepaths) {
             db.edges <- utils::read.table(path)
             db.edges$Weight <- 100 * db.edges$Weight / max(db.edges$Weight, na.rm = TRUE) # return a range of 0 to 100
@@ -45,7 +57,11 @@ BuildClusterFilteredNetwork <- function(gene.cccn.edges, stringdb.edges = NULL, 
         }
     }
 
-    cfn1 <- merge(gene.cccn.edges[, c("source", "target")], combined.PPIs, by = c("source", "target"))
+    cfn1 <- merge(
+        gene.cccn.edges[, c("source", "target")],
+        combined.PPIs,
+        by = c("source", "target")
+    )
 
     # Undirected edges may be reversed in their order so merge the other way around.
     reversed <- combined.PPIs
