@@ -259,7 +259,9 @@ also be downloaded and added to the PPI network. All three external
 databases have different interfaces for downloading data, so we show how
 to retrieve data from each of them below.
 
-For this tutorial, we query STRINGdb and GeneMANIA directly. We also provide the option (using the switch local = TRUE) to retrive edges from human PPIs from these sources in pre-assembled files; the [BRCANetworks vignette](BCRANetworks.html) demonstrates how to get the STRING-db and GeneMANIA edges from the static downloaded networks.
+For this tutorial, we use the local STRING option so the vignette can
+build offline. We also provide the option (using the switch `local = FALSAE`) to
+retrieve edges from STRINGdb online. 
 
 ### 1. STRINGdb
 
@@ -271,8 +273,16 @@ in previous steps, and filters the returned by interaction type so only
 `database_transferred` are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.
 
+Alternatively, as shown below, the user can download a pre-processed STRINGdb
+file that can be used in place of the live online query.
+The data can be found on [Zenodo](https://zenodo.org/records/20631767).
+Here, we use a small subset of the data downloadable from Zenodo.
+
 ```{r eval = TRUE, echo = TRUE}
-stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes)
+path <- system.file("extdata", "small_string_hs_hugo.tsv",
+                    package = "PTMsToPathways")
+stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes, local=TRUE,
+    string.local.path = path)
 stringdb.edges[1:5,]
 ```
 
