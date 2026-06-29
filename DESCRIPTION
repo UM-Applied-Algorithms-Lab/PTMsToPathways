@@ -10,13 +10,14 @@ Authors@R: c(
     person("Lucia", "Williams", email = "lucia.williams@umt.edu", role = c("aut", "cre"), comment=c(ORCID = "0000-0003-3785-0247"))
            )
 Description: A collection of functions to integrate PTM proteomic data with
-protein-protein interactions and cell signaling pathways.
-These functions can be used to cluster PTMs to reveal patterns
-in their expression under different experimental conditions. These clustering
-patterns can then used to filter protein-protein interactions from external PPI
-databases and pathway-pathway interactions. The resulting networks are navigable data structures that reveal
-data-supported interactions among both individual proteins and groups of
-proteins representing well-defined cell signaling pathways.
+ protein-protein interactions and cell signaling pathways.
+ These functions can be used to cluster PTMs to reveal patterns
+ in their expression under different experimental conditions. These clustering
+ patterns can then used to filter protein-protein interactions from external PPI
+ databases and pathway-pathway interactions. The resulting networks are
+ navigable data structures that reveal data-supported interactions among both
+ individual proteins and groups of proteins representing well-defined cell
+ signaling pathways.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
