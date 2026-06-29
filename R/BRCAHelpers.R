@@ -59,9 +59,6 @@
 #' )
 #' }
 #'
-#' @importFrom gplots heatmap.2
-#' @importFrom grDevices hcl colorRampPalette
-#'
 graph.ptm.by.cluster <- function(
     ptmtable,
     common.clusters,
@@ -174,8 +171,8 @@ graph.ptm.by.cluster <- function(
   ## image() requires: nrow(z) == length(x)-1, ncol(z) == length(y)-1
   write_heat_key <- function(filename, zlim = 3) {
     n     <- 256L                                     # number of colour cells
-    cols  <- colorRampPalette(c("#3333FF","#E6E6E6","#FFFF00"),
-                               space = "rgb", interpolate = "linear")(n)
+    cols  <- grDevices::colorRampPalette(c("#3333FF", "#E6E6E6", "#FFFF00"),
+                                         space = "rgb", interpolate = "linear")(n)
     # breakpoints: length n+1 so the z matrix is (1 x n)
     brks  <- seq(-zlim, zlim, length.out = n + 1L)
     z     <- matrix(seq_len(n), nrow = 1L, ncol = n)  # 1 x n
@@ -240,8 +237,8 @@ graph.ptm.by.cluster <- function(
 
   # ---- colour setup --------------------------------------------------
 
-  heatcols        <- colorRampPalette(c("#3333FF","#E6E6E6","#FFFF00"),
-                                      space="rgb", interpolate="linear")(255)
+  heatcols        <- grDevices::colorRampPalette(c("#3333FF", "#E6E6E6", "#FFFF00"),
+                                                 space = "rgb", interpolate = "linear")(255)
   breaks          <- seq(-zlim, zlim, length.out = 256)
 
   cluster.palette <- make_cluster_colors(length(ordered.blocks))
