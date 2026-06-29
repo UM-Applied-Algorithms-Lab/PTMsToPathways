@@ -10,7 +10,7 @@ prepared.
 - `data-raw/ex-pathways-list.R` reads the BioPlanet pathway table and writes
   `data/ex_pathways_list.rda`.
 - `data-raw/ex-creating-networks-data.R` derives the example clustering and
-  CCCN objects used in the CreatingNetworks vignette.
+  CCCN objects used in the Getting Started vignette.
 - `data-raw/full-PCN-edgelist.R` documents the larger example PCN workflow.
 - `data-raw/processed-brca.R` derives the BRCA example objects from the BRCA
   phosphoproteomics table and local STRING/GeneMANIA/BioPlanet inputs.
@@ -18,7 +18,7 @@ prepared.
 ## Bundled extdata sources
 
 - `inst/extdata/AlldataPTMs.txt` is the larger PTM example used in the
-  CreatingNetworks vignette. The source URL is documented in the vignette and
+  Getting Started vignette. The source URL is documented in the vignette and
   points to the package repository copy of the file.
 - `inst/extdata/pathway.csv` is a BioPlanet pathway table used by
   `ReadBioplanetFile()`; the public source is

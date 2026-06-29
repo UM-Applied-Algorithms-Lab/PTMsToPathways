@@ -265,7 +265,7 @@ Log base 2 transformation improves clustering.
 log2phosdata <- log2(phosdata.merged)
 ```
 
-The [Creating Networks vignette](vignettes/CreatingNetworks.html) show how to use the functions provided in PTMsToPathways to analyze
+The [Creating Networks vignette](vignettes/GettingStarted.html) show how to use the functions provided in PTMsToPathways to analyze
 data stored in a variable called `ptmtable`.
 ```{r eval = FALSE}
 ptmtable <- log2phosdata

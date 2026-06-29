@@ -1,5 +1,5 @@
 ---
-title: 'Using the P2P Package: A Step-by-Step Tutorial'
+title: 'Getting Started with PTMsToPathways'
 author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
   Williams, Mark Grimes
 output:
@@ -16,7 +16,7 @@ output:
     toc: true
     toc_depth: '4'
 vignette: >
-  %\VignetteIndexEntry{PTMsToPathways}
+  %\VignetteIndexEntry{Getting Started with PTMsToPathways}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 editor_options:

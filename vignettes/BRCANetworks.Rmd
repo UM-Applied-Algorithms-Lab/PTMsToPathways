@@ -129,7 +129,7 @@ head(ptmtable[, 1:5])
 ### Create Clusters and Co-Cluster Correlation Networks (CCCNs)
 
 Next, we create clusters and networks from those clusters as in the
-[Creating Networks vignette](CreatingNetworks.html). This takes about 10
+[Creating Networks vignette](GettingStarted.html). This takes about 10
 minutes on a laptop, so we provide both the code and the pre-computed
 results for this step. To re-run the analysis, run, the following:
 
@@ -240,7 +240,7 @@ eval_brca[1:10, ]
 For PPI edges, the code below demonstrates how to get the STRING-db and
 GeneMANIA edges from the static human PPI data downloaded as local files. [todo: instructions
 to download once these are available.] Alternatively, the PPI data
-can be obtained from STRINGdb and GeneMANIA websites as demonstrated in the [Creating Networks vignette](CreatingNetworks.html).
+can be obtained from STRINGdb and GeneMANIA websites as demonstrated in the [Creating Networks vignette](GettingStarted.html).
 
 ```{r eval = FALSE}
 string_db_filepath <- "your/filepath/here.tsv"
@@ -291,7 +291,7 @@ genemania.edges <- BRCA_genemania.edges
 head(genemania.edges)
 ```
 
-Next, we retrieve kinase-substrate edges, then obain the cluster filtered network, retaining PPIs only for proteins whose PTMs co-cluster, as demonstrated in the [Creating Networks vignette](CreatingNetworks.html).
+Next, we retrieve kinase-substrate edges, then obain the cluster filtered network, retaining PPIs only for proteins whose PTMs co-cluster, as demonstrated in the [Creating Networks vignette](GettingStarted.html).
 
 ```{r eval = TRUE}
 file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")

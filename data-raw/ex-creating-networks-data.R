@@ -1,4 +1,4 @@
-# create the full example data as in the vignette CreatingNetworks.
+# create the full example data as in the getting started vignette/
 # The randomness inherent in the clustering procedure, and the MakeClusterList parameters keep length
 # and toolong, make it so that the data generated here may be slightly different than the existing example
 # data, which would break tests. So we don't overwrite the existing data, but provide the code for reference.
