@@ -19,6 +19,7 @@ vignette: >
   %\VignetteIndexEntry{Cytoscape Graphing}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEncoding{UTF-8}
 editor_options:
   markdown:
     wrap: 72
