@@ -8,6 +8,11 @@ PTMsToPathways*.tar.gz
 
 README.html
 
+vignettes/*.html
+vignettes/*.txt
+vignettes/*.Rout
+vignettes/plots/
+
 docs/
 /Meta/
 inst/doc
