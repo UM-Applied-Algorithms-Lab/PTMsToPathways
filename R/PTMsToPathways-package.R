@@ -11,11 +11,9 @@
 #' [BuildClusterFilteredNetwork()], [BuildPathwayCrosstalkNetwork()], and the
 #' Cytoscape helpers in [GraphCfn()] and related functions.
 #'
-#' Example data objects are documented in [data_documentation.R].
+#' The package comes with many example datasets that can be seen in the vignettes. 
 #'
-#' @docType package
 #' @name PTMsToPathways
-#' @aliases PTMsToPathways-package
 #' @keywords package
-#' @seealso [browseVignettes("PTMsToPathways")]
-NULL
+#' @seealso [utils::browseVignettes()]
+"_PACKAGE"
