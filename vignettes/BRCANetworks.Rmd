@@ -129,7 +129,7 @@ head(ptmtable[, 1:5])
 ### Create Clusters and Co-Cluster Correlation Networks (CCCNs)
 
 Next, we create clusters and networks from those clusters as in the
-[Creating Networks vignette](CreatingNetworks.html). This takes about 10
+[Creating Networks vignette](GettingStarted.html). This takes about 10
 minutes on a laptop, so we provide both the code and the pre-computed
 results for this step. To re-run the analysis, run, the following:
 
@@ -156,7 +156,7 @@ adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
-These are required for the next step.
+These are required to create the PTM and Gene co-cluster correlation networks.
 
 ```{r eval = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
@@ -238,9 +238,10 @@ eval_brca[1:10, ]
 ### Build Cluster Filtered Networks (CFNs) and Pathway Crosstalk Networks (PCNs)
 
 For PPI edges, the code below demonstrates how to get the STRING-db and
-GeneMANIA edges from the static human PPI data downloaded as local files. [todo: instructions
-to download once these are available.] Alternatively, the PPI data
-can be obtained from STRINGdb and GeneMANIA websites as demonstrated in the [Creating Networks vignette](CreatingNetworks.html).
+GeneMANIA edges from the static human PPI data downloaded as local files. These
+files are available on [Zenodo](https://zenodo.org/records/20631767).
+Alternatively, the PPI data
+can be obtained from STRINGdb and GeneMANIA websites as demonstrated in the [getting started with P2P vignette](GettingStarted.html).
 
 ```{r eval = FALSE}
 string_db_filepath <- "your/filepath/here.tsv"
@@ -271,7 +272,7 @@ head(stringdb.edges)
 The GeneMANIA human PPI edge file contains the following types of interactions: 
 "Genetic Interactions", "Pathway", "Physical Interactions", and "Predicted."
 
-We choose all but "Genetic Interactions" to include using gm.interaction.types in the following function. 
+We choose all but "Genetic Interactions" to include using the `gm.interaction.types` parameter in the following function. 
 
 ```{r eval = FALSE}
 genemania_db_filepath <- "your/filepath/here.tsv"
@@ -291,13 +292,17 @@ genemania.edges <- BRCA_genemania.edges
 head(genemania.edges)
 ```
 
-Next, we retrieve kinase-substrate edges, then obain the cluster filtered network, retaining PPIs only for proteins whose PTMs co-cluster, as demonstrated in the [Creating Networks vignette](CreatingNetworks.html).
+Next, we retrieve kinase-substrate edges, then obain the cluster filtered
+network, retaining PPIs only for proteins whose PTMs co-cluster, as demonstrated
+in the [getting started vignette](GettingStarted.html).
 
 ```{r eval = TRUE}
 file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
 kinsub.edges <- GetKinsub.edges(file_path, gene.cccn.nodes)
+```
 
-# Now we can build the CFN.
+Now we can build the CFN.
+```{r eval = TRUE}
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
                                             stringdb.edges,
                                             genemania.edges,
@@ -350,7 +355,8 @@ dim(PD_module.df) # should be 1017 rows
 head(PD_module.df)
 ```
 
-We note that there are differences from the PTM table imported above. We will work with those sites that match between ptmtable and PD_module.df
+We note that there are differences from the PTM table imported above. We will
+work with those sites that match between `ptmtable` and `PD_module.df`.
 
 ```{r eval = TRUE}
 length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
@@ -413,10 +419,11 @@ length(mod63.clust.ptms)
 ```
 
 P2P provides functions to prepare visualizations of these PTMs in
-Cytoscape. This code graphs the CFN/CCCN from all these PTMs:
+[Cytoscape](https://cytoscape.org/). First, we create a dataframe of
+node information that can be used with `RCy3` functions to create a network in Cytoscape.
 
 ```{r eval = TRUE}
- funckey <- function_key
+funckey <- function_key
 cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
@@ -424,7 +431,7 @@ cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            ptm.cccn.edges = ptm.cccn.edges)
 ```
 
-To graph in Cytoscape:
+To graph in Cytoscape, use the P2P function `GraphCfn`:
 
 ```{r eval = FALSE}
 g1 <- GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
@@ -459,13 +466,12 @@ cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.subs
 ```
 
 Two ways to select for CDK1 substrates are presented. Method 1: Using
-RCy3.
+`RCy3`.
 
 ```{r eval = FALSE}
-library(RCy3)
-selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
-selectEdgesConnectingSelectedNodes()
-createSubnetwork(nodes = getSelectedNodes(), edges = getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
+RCy3::selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
+Cy3::selectEdgesConnectingSelectedNodes()
+RCy3::createSubnetwork(nodes = RCy3::getSelectedNodes(), edges = RCy3::getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
 ```
 
 Method 2: Using P2P functions.
@@ -510,7 +516,6 @@ mutant); X21BR010 (PIK3CA missense mutant); and X05BR045 (TP53 nonsense
 and MLLT4 frameshift mutants).
 
 ```{r eval = FALSE}
-library(RCy3)
 setNodeColorToRatios(plotcol="X03BR011")
 setNodeColorToRowz(plotcol="X03BR011")  # This exaggerates the node size and shape somewhat. 
 setNodeColorToRatios(plotcol="X21BR010")
@@ -522,3 +527,9 @@ setNodeColorToRowz(plotcol="X05BR045")
 Note that different samples have dramatically different differences in
 PTMs that are up or down, which is reflected also in total in gene
 nodes.
+
+### Session Info
+
+```{r eval = TRUE}
+sessionInfo()
+```

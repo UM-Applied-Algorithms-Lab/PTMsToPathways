@@ -16,7 +16,7 @@ navbar:
         - text: "Raw Data Processing"
           href: articles/RawDataProcessing.html
         - text: "Creating Networks"
-          href: articles/CreatingNetworks.html
+          href: articles/GettingStarted.html
         - text: "Cytoscape Graphing"
           href: articles/CytoscapeGraphing.html
         - text: "BRCA Networks"
@@ -27,6 +27,6 @@ articles:
   navbar: ~
   contents:
   - RawDataProcessing
-  - CreatingNetworks
+  - GettingStarted
   - CytoscapeGraphing
   - BRCANetworks

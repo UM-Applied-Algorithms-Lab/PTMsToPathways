@@ -1,5 +1,5 @@
 ---
-title: 'Using the P2P Package: A Step-by-Step Tutorial'
+title: 'Getting Started with PTMsToPathways'
 author: Nagashree Avabhrath, Mikhail Ukrainetz, Madison Moffett, Grant Smith, Lucia
   Williams, Mark Grimes
 output:
@@ -16,7 +16,7 @@ output:
     toc: true
     toc_depth: '4'
 vignette: >
-  %\VignetteIndexEntry{PTMsToPathways}
+  %\VignetteIndexEntry{Getting Started with PTMsToPathways}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 editor_options:
@@ -39,35 +39,16 @@ knitr::opts_chunk$set(
 ```
 
 This tutorial is intended to be a step-by-step guide to walk users
-through the process of using the P2P package. It includes descriptions
+through the main functions of the P2P package. It includes descriptions
 of each function and must be run in order as subsequent steps require
-the data produced in previous steps. Example code and example outputs as
-well as estimated run-times are included with each description and are
-based on a preliminary dataset of \~9000 PTMs and 69 experimental
-conditions processed with a 12th Gen i7 processor and 16GB of RAM.
+the data produced in previous steps. For large datasets, it may be useful to
+save the output of each step to a file for later use.
 
-**An important note:** The returned outputs from the functions are data
-that may be saved in an RData object so that the user may reload the
-data, which may take a while to generate, and pick up where they left
-off later. See the bottom of this document for code to save your data
-efficiently.
+# Installation
 
-# Installing the Package
+Installation instructions for the P2P package can be found on the [main package page](https://ptmstopathways.umaal.org/index.html#installation).
 
-You will need to install the devtools package, which can be installed
-with:
-
-```{r eval = FALSE, echo = TRUE}
-install.packages("devtools")
-```
-
-Next, install the package with:
-
-```{r eval = FALSE, echo = TRUE}
-devtools::install_github("UM-Applied-Algorithms-Lab/PTMsToPathways")
-```
-
-And load the package:
+Then load the package:
 
 ```{r eval = TRUE, echo = TRUE}
 library(PTMsToPathways)
@@ -194,10 +175,6 @@ be NA.
 ptm.correlation.matrix[38:43, 1:2]
 ```
 
-#### Estimated run-time (for large dataset)
-
-\~60min
-
 # Step 2: Make Co-Cluster Correlation Networks (PTM and Gene)
 
 The data generated in the previous step is next used to create a new
@@ -244,10 +221,6 @@ save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
 ```
 
-#### Estimated run-time (for large dataset)
-
-\~10min
-
 # Step 3: Retrieve Database Edgefiles
 
 The third step of the P2P package is to gather data from multiple
@@ -259,7 +232,9 @@ also be downloaded and added to the PPI network. All three external
 databases have different interfaces for downloading data, so we show how
 to retrieve data from each of them below.
 
-For this tutorial, we query STRINGdb and GeneMANIA directly. We also provide the option (using the switch local = TRUE) to retrive edges from human PPIs from these sources in pre-assembled files; the [BRCANetworks vignette](BCRANetworks.html) demonstrates how to get the STRING-db and GeneMANIA edges from the static downloaded networks.
+For this tutorial, we use the local STRING option so the vignette can
+build offline. We also provide the option (using the switch `local = FALSE`) to
+retrieve edges from STRINGdb online. 
 
 ### 1. STRINGdb
 
@@ -271,8 +246,16 @@ in previous steps, and filters the returned by interaction type so only
 `database_transferred` are retained. This ensures that only interactions
 with more substantial evidence are used in this analysis.
 
+Alternatively, as shown below, the user can download a pre-processed STRINGdb
+file that can be used in place of the live online query.
+The data can be found on [Zenodo](https://zenodo.org/records/20631767).
+Here, we use a small subset of the data downloadable from Zenodo.
+
 ```{r eval = TRUE, echo = TRUE}
-stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes)
+path <- system.file("extdata", "small_string_hs_hugo.tsv",
+                    package = "PTMsToPathways")
+stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes, local=TRUE,
+    string.local.path = path)
 stringdb.edges[1:5,]
 ```
 
@@ -447,7 +430,6 @@ dat <- pathway.crosstalk.network[1:5,]
 knitr::kable(dat, align = 'l', digits = 2)
 ```
 
-
 To understand the edge weights calculations, let's consider a pair of pathways, `Axon Guidance` and
 `ERBB signaling pathway`. We'll look at the `PCNedgelist` dataframe this time.
 
@@ -584,4 +566,10 @@ save.image function as shown below:
 ```{r eval = FALSE, echo = TRUE}
 save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
+```
+
+### Session Info
+
+```{r eval = TRUE}
+sessionInfo()
 ```

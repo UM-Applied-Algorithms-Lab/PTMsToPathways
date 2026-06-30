@@ -1,15 +1,23 @@
 Package: PTMsToPathways
-Title: Filtered CoCluster Correlation Network Guide
+Title: Post-Translational Modification Network and Pathway Analysis
 Version: 0.99.0
 Authors@R: c(
-    person("Mark", "Grimes", email = "first.last@example.com", role = c("aut", "cre")),
-    person("Mikhail", "Ukrainetz", email = "first.last@example.com", role = c("aut")),
-    person("Grant", "Smith", email = "first.last@example.com", role = c("aut")),
-    person("Madison", "Moffett", email = "first.last@example.com", role = c("aut")),
-    person("Nagashree", "Avabhrath", email = "first.last@example.com", role = c("aut")),
-    person("Lucia", "Williams", email = "first.last@example.com", role = c("aut"))
+    person("Mark", "Grimes", role = c("aut"), comment=c(ORCID = "0000-0003-2673-5892")),
+    person("Mikhail", "Ukrainetz", role = c("aut")),
+    person("Grant", "Smith",  role = c("aut")),
+    person("Madison", "Moffett", role = c("aut")),
+    person("Nagashree", "Avabhrath", role = c("aut")),
+    person("Lucia", "Williams", email = "lucia.williams@umt.edu", role = c("aut", "cre"), comment=c(ORCID = "0000-0003-3785-0247"))
            )
-Description: A collection of functions in order to process mass spectrometry data of post-translational modifications into possible pathways.
+Description: A collection of functions to integrate PTM proteomic data with
+ protein-protein interactions and cell signaling pathways.
+ These functions can be used to cluster PTMs to reveal patterns
+ in their expression under different experimental conditions. These clustering
+ patterns can then used to filter protein-protein interactions from external PPI
+ databases and pathway-pathway interactions. The resulting networks are
+ navigable data structures that reveal data-supported interactions among both
+ individual proteins and groups of proteins representing well-defined cell
+ signaling pathways.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -29,7 +37,6 @@ Imports:
     ggplot2,
     rlang
 Suggests: 
-    BiocManager,
     knitr,
     rmarkdown,
     testthat (>= 3.0.0)
@@ -37,10 +44,9 @@ VignetteBuilder:
     knitr
 Depends: 
     R (>= 4.5.0)
-URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/
+URL: https://um-applied-algorithms-lab.github.io/PTMsToPathways/, https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways
 BugReports: https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/issues/new
 LazyData: true
 LazyDataCompression: xz
 Config/testthat/edition: 3
-Additional_repositories: https://bioconductor.org/packages/3.21/bioc
 biocViews: Software, Proteomics, PostTranslationalModifications, Pathways, Network

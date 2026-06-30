@@ -1,14 +1,20 @@
-.Rbuildignore
 .Rproj.user
 .Rhistory
 .RData
 .temp
 *.DS_Store
 /PTMsToPathways_0.0.0.9000/
-PTMsToPathways_0.0.0.9000.tar.gz
+PTMsToPathways*.tar.gz
 
 README.html
+
+vignettes/*.html
+vignettes/*.txt
+vignettes/*.Rout
+vignettes/plots/
 
 docs/
 /Meta/
 inst/doc
+
+*.Rcheck
