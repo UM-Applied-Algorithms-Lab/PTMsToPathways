@@ -79,6 +79,9 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
   : Make Database Input File
 - [`NodeEdgeKey()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/NodeEdgeKey.md)
   : Create a node and edge legend network in Cytoscape
+- [`PTMsToPathways-package`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/PTMsToPathways.md)
+  [`PTMsToPathways`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/PTMsToPathways.md)
+  : PTMsToPathways: Filtered CoCluster Correlation Network Guide
 - [`ReadBioplanetFile()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ReadBioplanetFile.md)
   : Read Bioplanet File
 - [`StandardizeGeneSymbols()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.md)
@@ -148,8 +151,8 @@ wiki](https://github.com/UM-Applied-Algorithms-Lab/PTMsToPathways/wiki)
 
 - [Processing Raw Data for
   PTMsToPathways](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/RawDataProcessing.md):
-- [Using the P2P Package: A Step-by-Step
-  Tutorial](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md):
+- [Getting Started with
+  PTMsToPathways](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/GettingStarted.md):
 - [Cytoscape
   Graphing](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CytoscapeGraphing.md):
 - [BRCA

@@ -1,8 +1,8 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/404.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/BRCANetworks.html</loc></url>
-<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CytoscapeGraphing.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/GettingStarted.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/RawDataProcessing.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/index.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/authors.html</loc></url>
@@ -22,6 +22,7 @@
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeCorrelationNetwork.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/MakeDBInput.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/NodeEdgeKey.html</loc></url>
+<url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/PTMsToPathways.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ReadBioplanetFile.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.html</loc></url>
 <url><loc>https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/brca_CCCN_data.html</loc></url>

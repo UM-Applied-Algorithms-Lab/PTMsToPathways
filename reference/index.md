@@ -24,6 +24,9 @@
   : Make Database Input File
 - [`NodeEdgeKey()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/NodeEdgeKey.md)
   : Create a node and edge legend network in Cytoscape
+- [`PTMsToPathways-package`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/PTMsToPathways.md)
+  [`PTMsToPathways`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/PTMsToPathways.md)
+  : PTMsToPathways: Filtered CoCluster Correlation Network Guide
 - [`ReadBioplanetFile()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/ReadBioplanetFile.md)
   : Read Bioplanet File
 - [`StandardizeGeneSymbols()`](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/StandardizeGeneSymbols.md)

@@ -115,7 +115,7 @@ head(ptmtable[, 1:5])
 
 Next, we create clusters and networks from those clusters as in the
 [Creating Networks
-vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md).
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/GettingStarted.md).
 This takes about 10 minutes on a laptop, so we provide both the code and
 the pre-computed results for this step. To re-run the analysis, run, the
 following:
@@ -145,15 +145,16 @@ adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
 ```
 
-These are required for the next step.
+These are required to create the PTM and Gene co-cluster correlation
+networks.
 
 ``` r
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.86 secs total.
+>> PTM CCCN complete after 0.87 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 17.67 secs total.
+>> Gene CCCN complete after 18.35 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -254,10 +255,11 @@ eval_brca[1:10, ]
 
 For PPI edges, the code below demonstrates how to get the STRING-db and
 GeneMANIA edges from the static human PPI data downloaded as local
-files. \[todo: instructions to download once these are available.\]
-Alternatively, the PPI data can be obtained from STRINGdb and GeneMANIA
-websites as demonstrated in the [Creating Networks
-vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md).
+files. These files are available on
+[Zenodo](https://zenodo.org/records/20631767). Alternatively, the PPI
+data can be obtained from STRINGdb and GeneMANIA websites as
+demonstrated in the [getting started with P2P
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/GettingStarted.md).
 
 ``` r
 
@@ -297,8 +299,8 @@ The GeneMANIA human PPI edge file contains the following types of
 interactions: “Genetic Interactions”, “Pathway”, “Physical
 Interactions”, and “Predicted.”
 
-We choose all but “Genetic Interactions” to include using
-gm.interaction.types in the following function.
+We choose all but “Genetic Interactions” to include using the
+`gm.interaction.types` parameter in the following function.
 
 ``` r
 
@@ -328,14 +330,18 @@ head(genemania.edges)
 
 Next, we retrieve kinase-substrate edges, then obain the cluster
 filtered network, retaining PPIs only for proteins whose PTMs
-co-cluster, as demonstrated in the [Creating Networks
-vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md).
+co-cluster, as demonstrated in the [getting started
+vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/GettingStarted.md).
 
 ``` r
+
 file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
 kinsub.edges <- GetKinsub.edges(file_path, gene.cccn.nodes)
+```
 
-# Now we can build the CFN.
+Now we can build the CFN.
+
+``` r
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
                                             stringdb.edges,
                                             genemania.edges,
@@ -401,7 +407,8 @@ head(PD_module.df)
 ```
 
 We note that there are differences from the PTM table imported above. We
-will work with those sites that match between ptmtable and PD_module.df
+will work with those sites that match between `ptmtable` and
+`PD_module.df`.
 
 ``` r
 length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
@@ -536,11 +543,13 @@ length(mod63.clust.ptms)
 ```
 
 P2P provides functions to prepare visualizations of these PTMs in
-Cytoscape. This code graphs the CFN/CCCN from all these PTMs:
+[Cytoscape](https://cytoscape.org/). First, we create a dataframe of
+node information that can be used with `RCy3` functions to create a
+network in Cytoscape.
 
 ``` r
 
- funckey <- function_key
+funckey <- function_key
 cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
@@ -548,7 +557,7 @@ cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            ptm.cccn.edges = ptm.cccn.edges)
 ```
 
-To graph in Cytoscape:
+To graph in Cytoscape, use the P2P function `GraphCfn`:
 
 ``` r
 
@@ -590,14 +599,13 @@ cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.subs
 ```
 
 Two ways to select for CDK1 substrates are presented. Method 1: Using
-RCy3.
+`RCy3`.
 
 ``` r
 
-library(RCy3)
-selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
-selectEdgesConnectingSelectedNodes()
-createSubnetwork(nodes = getSelectedNodes(), edges = getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
+RCy3::selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
+Cy3::selectEdgesConnectingSelectedNodes()
+RCy3::createSubnetwork(nodes = RCy3::getSelectedNodes(), edges = RCy3::getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
 ```
 
 Method 2: Using P2P functions.
@@ -641,7 +649,6 @@ and MLLT4 frameshift mutants).
 
 ``` r
 
-library(RCy3)
 setNodeColorToRatios(plotcol="X03BR011")
 setNodeColorToRowz(plotcol="X03BR011")  # This exaggerates the node size and shape somewhat. 
 setNodeColorToRatios(plotcol="X21BR010")
@@ -653,3 +660,44 @@ setNodeColorToRowz(plotcol="X05BR045")
 Note that different samples have dramatically different differences in
 PTMs that are up or down, which is reflected also in total in gene
 nodes.
+
+### Session Info
+
+``` r
+sessionInfo()
+>> R version 4.6.1 (2026-06-24)
+>> Platform: x86_64-pc-linux-gnu
+>> Running under: Ubuntu 24.04.4 LTS
+>> 
+>> Matrix products: default
+>> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
+>> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+>> 
+>> locale:
+>>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
+>>  [4] LC_COLLATE=C.UTF-8     LC_MONETARY=C.UTF-8    LC_MESSAGES=C.UTF-8   
+>>  [7] LC_PAPER=C.UTF-8       LC_NAME=C              LC_ADDRESS=C          
+>> [10] LC_TELEPHONE=C         LC_MEASUREMENT=C.UTF-8 LC_IDENTIFICATION=C   
+>> 
+>> time zone: UTC
+>> tzcode source: system (glibc)
+>> 
+>> attached base packages:
+>> [1] stats     graphics  grDevices utils     datasets  methods   base     
+>> 
+>> other attached packages:
+>> [1] PTMsToPathways_0.99.0
+>> 
+>> loaded via a namespace (and not attached):
+>>  [1] jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.1     gtools_3.9.5      
+>>  [5] Rcpp_1.1.1-1.1     tidyselect_1.2.1   bitops_1.0-9       jquerylib_0.1.4   
+>>  [9] systemfonts_1.3.2  textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
+>> [13] plyr_1.8.9         R6_2.6.1           generics_0.1.4     igraph_2.3.3      
+>> [17] knitr_1.51         tibble_3.3.1       desc_1.4.3         bslib_0.11.0      
+>> [21] pillar_1.11.1      rlang_1.2.0        cachem_1.1.0       xfun_0.59         
+>> [25] fs_2.1.0           caTools_1.18.3     sass_0.4.10        otel_0.2.0        
+>> [29] cli_3.6.6          pkgdown_2.2.0      withr_3.0.3        magrittr_2.0.5    
+>> [33] digest_0.6.39      lifecycle_1.0.5    vctrs_0.7.3        KernSmooth_2.23-26
+>> [37] evaluate_1.0.5     glue_1.8.1         ragg_1.5.2         rmarkdown_2.31    
+>> [41] tools_4.6.1        pkgconfig_2.0.3    htmltools_0.5.9    gplots_3.3.0
+```

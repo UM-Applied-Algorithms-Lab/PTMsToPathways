@@ -4,8 +4,8 @@
 
 - [Processing Raw Data for
   PTMsToPathways](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/RawDataProcessing.md):
-- [Using the P2P Package: A Step-by-Step
-  Tutorial](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CreatingNetworks.md):
+- [Getting Started with
+  PTMsToPathways](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/GettingStarted.md):
 - [Cytoscape
   Graphing](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/CytoscapeGraphing.md):
 - [BRCA

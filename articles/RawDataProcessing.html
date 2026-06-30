@@ -39,7 +39,7 @@
   <button class="nav-link dropdown-toggle" type="button" id="dropdown-vignettes" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Vignettes</button>
   <ul class="dropdown-menu" aria-labelledby="dropdown-vignettes">
 <li><a class="dropdown-item" href="../articles/RawDataProcessing.html">Raw Data Processing</a></li>
-    <li><a class="dropdown-item" href="../articles/CreatingNetworks.html">Creating Networks</a></li>
+    <li><a class="dropdown-item" href="../articles/GettingStarted.html">Creating Networks</a></li>
     <li><a class="dropdown-item" href="../articles/CytoscapeGraphing.html">Cytoscape Graphing</a></li>
     <li><a class="dropdown-item" href="../articles/BRCANetworks.html">BRCA Networks</a></li>
   </ul>
@@ -318,7 +318,7 @@ column:</p>
 <p>Log base 2 transformation improves clustering.</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">log2phosdata</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">log2</a></span><span class="op">(</span><span class="va">phosdata.merged</span><span class="op">)</span></span></code></pre></div>
-<p>The <a href="vignettes/CreatingNetworks.html">Creating Networks
+<p>The <a href="vignettes/GettingStarted.html">Creating Networks
 vignette</a> show how to use the functions provided in PTMsToPathways to
 analyze data stored in a variable called <code>ptmtable</code>.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
@@ -449,6 +449,42 @@ them as follows.</p>
 <code>ptmtable</code> for the P2P functions.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># ptmtable &lt;- log2ptmdata</span></span></code></pre></div>
+<div class="section level3">
+<h3 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
+</h3>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span>
+<span id="cb40-2"><a href="#cb40-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> R version <span class="dv">4</span>.<span class="fl">6.1</span> (<span class="dv">2026-06-24</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Platform<span class="sc">:</span> x86_64<span class="sc">-</span>pc<span class="sc">-</span>linux<span class="sc">-</span>gnu</span>
+<span id="cb40-4"><a href="#cb40-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Running under<span class="sc">:</span> Ubuntu <span class="dv">24</span>.<span class="fl">04.4</span> LTS</span>
+<span id="cb40-5"><a href="#cb40-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb40-6"><a href="#cb40-6" tabindex="-1"></a><span class="er">&gt;&gt;</span> Matrix products<span class="sc">:</span> default</span>
+<span id="cb40-7"><a href="#cb40-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> BLAS<span class="sc">:</span>   <span class="er">/</span>usr<span class="sc">/</span>lib<span class="sc">/</span>x86_64<span class="sc">-</span>linux<span class="sc">-</span>gnu<span class="sc">/</span>openblas<span class="sc">-</span>pthread<span class="sc">/</span>libblas.so<span class="fl">.3</span> </span>
+<span id="cb40-8"><a href="#cb40-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> LAPACK<span class="sc">:</span> <span class="er">/</span>usr<span class="sc">/</span>lib<span class="sc">/</span>x86_64<span class="sc">-</span>linux<span class="sc">-</span>gnu<span class="sc">/</span>openblas<span class="sc">-</span>pthread<span class="sc">/</span>libopenblasp<span class="sc">-</span>r0.<span class="dv">3</span>.<span class="fl">26.</span>so;  LAPACK version <span class="dv">3</span>.<span class="fl">12.0</span></span>
+<span id="cb40-9"><a href="#cb40-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb40-10"><a href="#cb40-10" tabindex="-1"></a><span class="er">&gt;&gt;</span> locale<span class="sc">:</span></span>
+<span id="cb40-11"><a href="#cb40-11" tabindex="-1"></a><span class="er">&gt;&gt;</span>  [<span class="dv">1</span>] LC_CTYPE<span class="ot">=</span>C.UTF<span class="dv">-8</span>       LC_NUMERIC<span class="ot">=</span>C           LC_TIME<span class="ot">=</span>C.UTF<span class="dv">-8</span>       </span>
+<span id="cb40-12"><a href="#cb40-12" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">4</span>] LC_COLLATE<span class="ot">=</span>C.UTF<span class="dv">-8</span>     LC_MONETARY<span class="ot">=</span>C.UTF<span class="dv">-8</span>    LC_MESSAGES<span class="ot">=</span>C.UTF<span class="dv">-8</span>   </span>
+<span id="cb40-13"><a href="#cb40-13" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">7</span>] LC_PAPER<span class="ot">=</span>C.UTF<span class="dv">-8</span>       LC_NAME<span class="ot">=</span>C              LC_ADDRESS<span class="ot">=</span>C          </span>
+<span id="cb40-14"><a href="#cb40-14" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">10</span>] LC_TELEPHONE<span class="ot">=</span>C         LC_MEASUREMENT<span class="ot">=</span>C.UTF<span class="dv">-8</span> LC_IDENTIFICATION<span class="ot">=</span>C   </span>
+<span id="cb40-15"><a href="#cb40-15" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb40-16"><a href="#cb40-16" tabindex="-1"></a><span class="er">&gt;&gt;</span> time zone<span class="sc">:</span> UTC</span>
+<span id="cb40-17"><a href="#cb40-17" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> tzcode source<span class="sc">:</span> <span class="fu">system</span> (glibc)</span>
+<span id="cb40-18"><a href="#cb40-18" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb40-19"><a href="#cb40-19" tabindex="-1"></a><span class="er">&gt;&gt;</span> attached base packages<span class="sc">:</span></span>
+<span id="cb40-20"><a href="#cb40-20" tabindex="-1"></a><span class="er">&gt;&gt;</span> [<span class="dv">1</span>] stats     graphics  grDevices utils     datasets  methods   base     </span>
+<span id="cb40-21"><a href="#cb40-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb40-22"><a href="#cb40-22" tabindex="-1"></a><span class="er">&gt;&gt;</span> other attached packages<span class="sc">:</span></span>
+<span id="cb40-23"><a href="#cb40-23" tabindex="-1"></a><span class="er">&gt;&gt;</span> [<span class="dv">1</span>] PTMsToPathways_0.<span class="fl">99.0</span></span>
+<span id="cb40-24"><a href="#cb40-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
+<span id="cb40-25"><a href="#cb40-25" tabindex="-1"></a><span class="er">&gt;&gt;</span> loaded via a <span class="fu">namespace</span> (and not attached)<span class="sc">:</span></span>
+<span id="cb40-26"><a href="#cb40-26" tabindex="-1"></a><span class="er">&gt;&gt;</span>  [<span class="dv">1</span>] digest_0.<span class="fl">6.39</span>     desc_1.<span class="fl">4.3</span>        R6_2.<span class="fl">6.1</span>          fastmap_1.<span class="fl">2.0</span>    </span>
+<span id="cb40-27"><a href="#cb40-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">5</span>] xfun_0<span class="fl">.59</span>         cachem_1.<span class="fl">1.0</span>      knitr_1<span class="fl">.51</span>        htmltools_0.<span class="fl">5.9</span>  </span>
+<span id="cb40-28"><a href="#cb40-28" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">9</span>] rmarkdown_2<span class="fl">.31</span>    lifecycle_1.<span class="fl">0.5</span>   cli_3.<span class="fl">6.6</span>         sass_0.<span class="fl">4.10</span>      </span>
+<span id="cb40-29"><a href="#cb40-29" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">13</span>] pkgdown_2.<span class="fl">2.0</span>     textshaping_1.<span class="fl">0.5</span> jquerylib_0.<span class="fl">1.4</span>   systemfonts_1.<span class="fl">3.2</span></span>
+<span id="cb40-30"><a href="#cb40-30" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">17</span>] compiler_4.<span class="fl">6.1</span>    tools_4.<span class="fl">6.1</span>       ragg_1.<span class="fl">5.2</span>        bslib_0.<span class="fl">11.0</span>     </span>
+<span id="cb40-31"><a href="#cb40-31" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">21</span>] evaluate_1.<span class="fl">0.5</span>    yaml_2.<span class="fl">3.12</span>       otel_0.<span class="fl">2.0</span>        jsonlite_2.<span class="fl">0.0</span>   </span>
+<span id="cb40-32"><a href="#cb40-32" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">25</span>] rlang_1.<span class="fl">2.0</span>       fs_2.<span class="fl">1.0</span></span></code></pre></div>
+</div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
