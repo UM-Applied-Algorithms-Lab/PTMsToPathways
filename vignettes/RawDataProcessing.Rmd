@@ -419,3 +419,9 @@ Finally, this dataframe could be used as the example `ptmtable` for the P2P func
 ```{r  eval = FALSE}
 # ptmtable <- log2ptmdata
 ```
+
+### Session info
+
+```{r eval = TRUE}
+sessionInfo()
+```
