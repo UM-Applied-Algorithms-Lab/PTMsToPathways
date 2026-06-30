@@ -18,8 +18,7 @@ Typical entry points are \code{\link[=MakeClusterList]{MakeClusterList()}}, \cod
 \code{\link[=BuildClusterFilteredNetwork]{BuildClusterFilteredNetwork()}}, \code{\link[=BuildPathwayCrosstalkNetwork]{BuildPathwayCrosstalkNetwork()}}, and the
 Cytoscape helpers in \code{\link[=GraphCfn]{GraphCfn()}} and related functions.
 
-Example data objects include \link{ex_tiny_ptm_table}, \link{ex_small_ptm_table},
-and \link{ex_pathways_list}.
+The package comes with many example datasets that can be seen in the vignettes.
 }
 \seealso{
 \code{\link[utils:browseVignettes]{utils::browseVignettes()}}
