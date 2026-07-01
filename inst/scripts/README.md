@@ -12,9 +12,6 @@ prepared.
 - `data-raw/ex-creating-networks-data.R` derives the example clustering and
   CCCN objects used in the Getting Started vignette.
 - `data-raw/full-PCN-edgelist.R` documents the larger example PCN workflow.
-- `data-raw/processed-brca.R` derives the BRCA example objects from the BRCA
-  phosphoproteomics table and local STRING/GeneMANIA/BioPlanet inputs.
-
 ## Bundled extdata sources
 
 - `inst/extdata/AlldataPTMs.txt` is the larger PTM example used in the
@@ -25,8 +22,6 @@ prepared.
   https://tripod.nih.gov/bioplanet/download/pathway.csv.
 - `inst/extdata/bioplanet_pathway_June2025.csv` is a package-local BioPlanet
   snapshot used for vignette and data generation workflows.
-- `inst/extdata/PhosphoDiscoData_mmc9.txt` is the BRCA phosphoproteomics input
-  table used in the BRCA vignette and `data-raw/processed-brca.R`.
 - `inst/extdata/PhosDiscoModules_mmc11.txt` is the associated module annotation
   table used in the BRCA vignette.
 - `inst/extdata/FunctionKey.txt` is the annotation key used to generate
