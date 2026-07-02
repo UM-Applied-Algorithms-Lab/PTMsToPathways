@@ -15,7 +15,7 @@ navbar:
       menu:
         - text: "Raw Data Processing"
           href: articles/RawDataProcessing.html
-        - text: "Creating Networks"
+        - text: "Getting Started"
           href: articles/GettingStarted.html
         - text: "Cytoscape Graphing"
           href: articles/CytoscapeGraphing.html
