@@ -31,13 +31,13 @@ test_that("GetSTRINGdb.edges() gives right answer with local file", {
 
 test_that("GetKinsub.edges() gives right answer", {
 
-  path <- system.file('extdata/Kinase_Substrate_Dataset.txt', package='PTMsToPathways')
+  path <- system.file('extdata/small_kinase_substrate_dataset.txt', package='PTMsToPathways')
   kinsub_edges <- GetKinsub.edges(path, ex_gene_cccn_nodes)
   
   # Expected values
-  exp_row_1 <- data.frame(source = "EGFR", target = "PLCG1", interaction = "pp", Weight = 1) 
+  exp_row_1 <- data.frame(source = "PRKCD", target = "PTPRA", interaction = "pp", Weight = 1) 
   
   # Run tests
-  expect_equal(kinsub_edges[311, ], exp_row_1, ignore_attr = TRUE)
-  expect_equal(nrow(kinsub_edges), 334)
+  expect_equal(kinsub_edges[1, ], exp_row_1, ignore_attr = TRUE)
+  expect_equal(nrow(kinsub_edges), 18)
 })

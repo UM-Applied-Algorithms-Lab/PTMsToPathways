@@ -32,45 +32,6 @@
 #' head(ex_small_ptm_table)
 "ex_small_ptm_table"
 
-#' Full PTM Table Example
-#'
-#' Post-translational modification data under certain environmental conditions.
-#'
-#' @keywords internal
-#'
-#' @format Dataframe of 9215 rows and 70 columns:
-#' \describe{
-#'   \item{row}{Number of PTMs}
-#'   \item{columns}{Names of drugs that were used on PTMs}
-#'   \item{values}{Expression as found by mass spectrometry}
-#' }
-#' @source "Mass Spectrometry Data"
-#' @examples
-#' head(ex_full_ptm_table)
-"ex_full_ptm_table"
-
-
-#' Function Key Example
-#'
-#' Gene-level annotation data used to build Cytoscape node metadata.
-#'
-#' @format Data frame with 24339 rows and 8 columns:
-#' \describe{
-#'   \item{Gene.Name}{HGNC gene symbol.}
-#'   \item{Approved.Name}{Approved gene name.}
-#'   \item{Hugo.Gene.Family}{Gene family annotation.}
-#'   \item{HPRD.Function}{Functional annotation from HPRD.}
-#'   \item{nodeType}{Node classification used for Cytoscape styling.}
-#'   \item{Domains}{Protein domain annotations.}
-#'   \item{Compartment}{Subcellular compartment labels.}
-#'   \item{Compartment.Overview}{Simplified compartment grouping.}
-#' }
-#' @source `FunctionKey.txt` processed into a package data object.
-#' @examples
-#' head(function_key)
-"function_key"
-
-
 
 #' Common Clusters
 #'
@@ -173,9 +134,6 @@
 #' ex_gene_cccn_nodes[0:5]
 "ex_gene_cccn_nodes"
 
-
-
-
 #' STRINGdb Edges
 #'
 #' List of edges between genes in dataset.
@@ -194,7 +152,6 @@
 #' head(ex_stringdb_edges)
 "ex_stringdb_edges"
 
-
 #' Genemania Edges
 #'
 #' Edges from gene_cccn_nodes that are also found within the Genemania database
@@ -212,9 +169,6 @@
 #' @examples
 #' head(ex_genemania_edges)
 "ex_genemania_edges"
-
-# DO KINSUB EDGES
-
 
 #' Combined PPIs
 #'
@@ -251,8 +205,6 @@
 #' @examples
 #' head("ex_cfn")
 "ex_cfn"
-
-
 
 #' Bioplanet
 #'
