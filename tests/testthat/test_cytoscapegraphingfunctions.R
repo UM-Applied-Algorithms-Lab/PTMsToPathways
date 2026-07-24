@@ -27,3 +27,19 @@ test_that("filter.edges.1 function gives right answer", {
   expect_equal(filtered[10,3], -0.294117647)
   
 })
+
+test_that("filter.edges.between function gives right answer", {
+  
+  nodes1 <- c('KIRREL1', 'EPHA2', 'CTTN')  
+  nodes2 <- c('EGFR', 'LCK', 'ERBIN')  
+  filtered <- filter.edges.between(nodes1, nodes2, ex_cfn)
+  dim_filtered <- dim(filtered)
+  
+  # Are dimensions correct?
+  expect_equal(dim_filtered, c(4, 4))
+  # Is a random weight correct?
+  expect_equal(filtered[2, 4], 2.5)
+  expect_equal(filtered[4, 4], -0.3)
+  
+})
+
