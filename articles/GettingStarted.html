@@ -304,20 +304,20 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
 <span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning <span class="cf">in</span> stats<span class="sc">::</span><span class="fu">cor</span>(<span class="fu">t</span>(ptmtable), <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>, <span class="at">method =</span></span>
 <span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.67</span> secs total.</span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">43.18</span> secs total.</span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">43.22</span> secs total.</span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.18</span> mins total.</span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.18</span> mins total.</span>
-<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.64</span> mins total.</span></code></pre></div>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.01</span> secs total.</span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">42.25</span> secs total.</span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">42.29</span> secs total.</span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.16</span> mins total.</span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.16</span> mins total.</span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.62</span> mins total.</span></code></pre></div>
 <p><img src="plots/unnamed-chunk-7-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.65 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.63 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-7-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.66 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.63 mins total.</code></pre>
 <p><img src="plots/unnamed-chunk-7-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for SED complete after 1.66 mins total.
-&gt;&gt; Consensus clustering complete after 1.67 mins total.
-&gt;&gt; MakeClusterList complete after 1.67 mins total.</code></pre>
+<pre><code>&gt;&gt; Clustering for SED complete after 1.64 mins total.
+&gt;&gt; Consensus clustering complete after 1.64 mins total.
+&gt;&gt; MakeClusterList complete after 1.64 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -371,9 +371,9 @@ with sum of the PTM correlations serving as edge weights.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.17</span> secs total.</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.18</span> secs total.</span>
 <span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.84</span> secs total.</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.76</span> secs total.</span>
 <span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -570,9 +570,9 @@ used for the PTM cluster weight calculations. The function can be run as
 follows:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file)</span>
 <span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PCN</span>
-<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-30</span> <span class="dv">17</span><span class="sc">:</span><span class="dv">55</span><span class="sc">:</span><span class="fl">15.836161</span></span>
-<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-06-30</span> <span class="dv">17</span><span class="sc">:</span><span class="dv">55</span><span class="sc">:</span><span class="fl">15.98453</span></span>
-<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.148369073867798</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-07-24</span> <span class="dv">22</span><span class="sc">:</span><span class="dv">01</span><span class="sc">:</span><span class="fl">35.080635</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-07-24</span> <span class="dv">22</span><span class="sc">:</span><span class="dv">01</span><span class="sc">:</span><span class="fl">35.225911</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.145276308059692</span></span>
 <span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
@@ -1023,15 +1023,15 @@ save.image function as shown below:</p>
 <span id="cb48-24"><a href="#cb48-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
 <span id="cb48-25"><a href="#cb48-25" tabindex="-1"></a><span class="er">&gt;&gt;</span> loaded via a <span class="fu">namespace</span> (and not attached)<span class="sc">:</span></span>
 <span id="cb48-26"><a href="#cb48-26" tabindex="-1"></a><span class="er">&gt;&gt;</span>  [<span class="dv">1</span>] Matrix_1<span class="fl">.7</span><span class="dv">-5</span>      jsonlite_2.<span class="fl">0.0</span>    dplyr_1.<span class="fl">2.1</span>       vegan_2<span class="fl">.7</span><span class="dv">-5</span>      </span>
-<span id="cb48-27"><a href="#cb48-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">5</span>] compiler_4.<span class="fl">6.1</span>    tidyselect_1.<span class="fl">2.1</span>  Rcpp_1.<span class="fl">1.1-1.1</span>    parallel_4.<span class="fl">6.1</span>   </span>
+<span id="cb48-27"><a href="#cb48-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">5</span>] compiler_4.<span class="fl">6.1</span>    tidyselect_1.<span class="fl">2.1</span>  Rcpp_1.<span class="fl">1.2</span>        parallel_4.<span class="fl">6.1</span>   </span>
 <span id="cb48-28"><a href="#cb48-28" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">9</span>] cluster_2.<span class="dv">1</span>.<span class="fl">8.2</span>   jquerylib_0.<span class="fl">1.4</span>   splines_4.<span class="fl">6.1</span>     systemfonts_1.<span class="fl">3.2</span></span>
 <span id="cb48-29"><a href="#cb48-29" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">13</span>] textshaping_1.<span class="fl">0.5</span> yaml_2.<span class="fl">3.12</span>       fastmap_1.<span class="fl">2.0</span>     lattice_0<span class="fl">.22</span><span class="dv">-9</span>   </span>
 <span id="cb48-30"><a href="#cb48-30" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">17</span>] R6_2.<span class="fl">6.1</span>          plyr_1.<span class="fl">8.9</span>        generics_0.<span class="fl">1.4</span>    igraph_2.<span class="fl">3.3</span>     </span>
 <span id="cb48-31"><a href="#cb48-31" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">21</span>] knitr_1<span class="fl">.51</span>        MASS_7<span class="fl">.3</span><span class="dv">-65</span>       tibble_3.<span class="fl">3.1</span>      Rtsne_0<span class="fl">.17</span>       </span>
-<span id="cb48-32"><a href="#cb48-32" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">25</span>] desc_1.<span class="fl">4.3</span>        pillar_1.<span class="fl">11.1</span>     bslib_0.<span class="fl">11.0</span>      rlang_1.<span class="fl">2.0</span>      </span>
-<span id="cb48-33"><a href="#cb48-33" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">29</span>] cachem_1.<span class="fl">1.0</span>      xfun_0<span class="fl">.59</span>         fs_2.<span class="fl">1.0</span>          sass_0.<span class="fl">4.10</span>      </span>
+<span id="cb48-32"><a href="#cb48-32" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">25</span>] desc_1.<span class="fl">4.3</span>        pillar_1.<span class="fl">11.1</span>     bslib_0.<span class="fl">11.0</span>      rlang_1.<span class="fl">3.0</span>      </span>
+<span id="cb48-33"><a href="#cb48-33" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">29</span>] cachem_1.<span class="fl">1.0</span>      xfun_0<span class="fl">.60</span>         fs_2.<span class="fl">1.0</span>          sass_0.<span class="fl">4.10</span>      </span>
 <span id="cb48-34"><a href="#cb48-34" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">33</span>] otel_0.<span class="fl">2.0</span>        cli_3.<span class="fl">6.6</span>         withr_3.<span class="fl">0.3</span>       magrittr_2.<span class="fl">0.5</span>   </span>
-<span id="cb48-35"><a href="#cb48-35" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">37</span>] pkgdown_2.<span class="fl">2.0</span>     mgcv_1<span class="fl">.9</span><span class="dv">-4</span>        digest_0.<span class="fl">6.39</span>     grid_4.<span class="fl">6.1</span>       </span>
+<span id="cb48-35"><a href="#cb48-35" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">37</span>] pkgdown_2.<span class="fl">2.1</span>     mgcv_1<span class="fl">.9</span><span class="dv">-4</span>        digest_0.<span class="fl">6.39</span>     grid_4.<span class="fl">6.1</span>       </span>
 <span id="cb48-36"><a href="#cb48-36" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">41</span>] permute_0<span class="fl">.9</span><span class="dv">-10</span>    lifecycle_1.<span class="fl">0.5</span>   nlme_3<span class="fl">.1</span><span class="dv">-169</span>      vctrs_0.<span class="fl">7.3</span>      </span>
 <span id="cb48-37"><a href="#cb48-37" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">45</span>] glue_1.<span class="fl">8.1</span>        evaluate_1.<span class="fl">0.5</span>    ragg_1.<span class="fl">5.2</span>        rmarkdown_2<span class="fl">.31</span>   </span>
 <span id="cb48-38"><a href="#cb48-38" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">49</span>] purrr_1.<span class="fl">2.2</span>       pkgconfig_2.<span class="fl">0.3</span>   tools_4.<span class="fl">6.1</span>       htmltools_0.<span class="fl">5.9</span></span></code></pre></div>
@@ -1048,7 +1048,7 @@ save.image function as shown below:</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

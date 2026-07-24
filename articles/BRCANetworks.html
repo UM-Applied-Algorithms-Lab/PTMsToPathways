@@ -191,9 +191,9 @@ networks.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.87</span> secs total.</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.86</span> secs total.</span>
 <span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">18.35</span> secs total.</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">18.12</span> secs total.</span>
 <span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -622,13 +622,13 @@ nodes.</p>
 <span id="cb40-24"><a href="#cb40-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> </span>
 <span id="cb40-25"><a href="#cb40-25" tabindex="-1"></a><span class="er">&gt;&gt;</span> loaded via a <span class="fu">namespace</span> (and not attached)<span class="sc">:</span></span>
 <span id="cb40-26"><a href="#cb40-26" tabindex="-1"></a><span class="er">&gt;&gt;</span>  [<span class="dv">1</span>] jsonlite_2.<span class="fl">0.0</span>     dplyr_1.<span class="fl">2.1</span>        compiler_4.<span class="fl">6.1</span>     gtools_3.<span class="fl">9.5</span>      </span>
-<span id="cb40-27"><a href="#cb40-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">5</span>] Rcpp_1.<span class="fl">1.1-1.1</span>     tidyselect_1.<span class="fl">2.1</span>   bitops_1<span class="fl">.0</span><span class="dv">-9</span>       jquerylib_0.<span class="fl">1.4</span>   </span>
+<span id="cb40-27"><a href="#cb40-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">5</span>] Rcpp_1.<span class="fl">1.2</span>         tidyselect_1.<span class="fl">2.1</span>   bitops_1<span class="fl">.0</span><span class="dv">-9</span>       jquerylib_0.<span class="fl">1.4</span>   </span>
 <span id="cb40-28"><a href="#cb40-28" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>  [<span class="dv">9</span>] systemfonts_1.<span class="fl">3.2</span>  textshaping_1.<span class="fl">0.5</span>  yaml_2.<span class="fl">3.12</span>        fastmap_1.<span class="fl">2.0</span>     </span>
 <span id="cb40-29"><a href="#cb40-29" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">13</span>] plyr_1.<span class="fl">8.9</span>         R6_2.<span class="fl">6.1</span>           generics_0.<span class="fl">1.4</span>     igraph_2.<span class="fl">3.3</span>      </span>
 <span id="cb40-30"><a href="#cb40-30" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">17</span>] knitr_1<span class="fl">.51</span>         tibble_3.<span class="fl">3.1</span>       desc_1.<span class="fl">4.3</span>         bslib_0.<span class="fl">11.0</span>      </span>
-<span id="cb40-31"><a href="#cb40-31" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">21</span>] pillar_1.<span class="fl">11.1</span>      rlang_1.<span class="fl">2.0</span>        cachem_1.<span class="fl">1.0</span>       xfun_0<span class="fl">.59</span>         </span>
-<span id="cb40-32"><a href="#cb40-32" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">25</span>] fs_2.<span class="fl">1.0</span>           caTools_1.<span class="fl">18.3</span>     sass_0.<span class="fl">4.10</span>        otel_0.<span class="fl">2.0</span>        </span>
-<span id="cb40-33"><a href="#cb40-33" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">29</span>] cli_3.<span class="fl">6.6</span>          pkgdown_2.<span class="fl">2.0</span>      withr_3.<span class="fl">0.3</span>        magrittr_2.<span class="fl">0.5</span>    </span>
+<span id="cb40-31"><a href="#cb40-31" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">21</span>] pillar_1.<span class="fl">11.1</span>      rlang_1.<span class="fl">3.0</span>        cachem_1.<span class="fl">1.0</span>       xfun_0<span class="fl">.60</span>         </span>
+<span id="cb40-32"><a href="#cb40-32" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">25</span>] fs_2.<span class="fl">1.0</span>           caTools_1.<span class="fl">18.4</span>     sass_0.<span class="fl">4.10</span>        otel_0.<span class="fl">2.0</span>        </span>
+<span id="cb40-33"><a href="#cb40-33" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">29</span>] cli_3.<span class="fl">6.6</span>          pkgdown_2.<span class="fl">2.1</span>      withr_3.<span class="fl">0.3</span>        magrittr_2.<span class="fl">0.5</span>    </span>
 <span id="cb40-34"><a href="#cb40-34" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">33</span>] digest_0.<span class="fl">6.39</span>      lifecycle_1.<span class="fl">0.5</span>    vctrs_0.<span class="fl">7.3</span>        KernSmooth_2<span class="fl">.23</span><span class="dv">-26</span></span>
 <span id="cb40-35"><a href="#cb40-35" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">37</span>] evaluate_1.<span class="fl">0.5</span>     glue_1.<span class="fl">8.1</span>         ragg_1.<span class="fl">5.2</span>         rmarkdown_2<span class="fl">.31</span>    </span>
 <span id="cb40-36"><a href="#cb40-36" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">41</span>] tools_4.<span class="fl">6.1</span>        pkgconfig_2.<span class="fl">0.3</span>    htmltools_0.<span class="fl">5.9</span>    gplots_3.<span class="fl">3.0</span></span></code></pre></div>
@@ -644,7 +644,7 @@ nodes.</p>
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>

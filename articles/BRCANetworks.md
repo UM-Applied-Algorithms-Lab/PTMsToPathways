@@ -152,9 +152,9 @@ networks.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.87 secs total.
+>> PTM CCCN complete after 0.86 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 18.35 secs total.
+>> Gene CCCN complete after 18.12 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -690,13 +690,13 @@ sessionInfo()
 >> 
 >> loaded via a namespace (and not attached):
 >>  [1] jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.1     gtools_3.9.5      
->>  [5] Rcpp_1.1.1-1.1     tidyselect_1.2.1   bitops_1.0-9       jquerylib_0.1.4   
+>>  [5] Rcpp_1.1.2         tidyselect_1.2.1   bitops_1.0-9       jquerylib_0.1.4   
 >>  [9] systemfonts_1.3.2  textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
 >> [13] plyr_1.8.9         R6_2.6.1           generics_0.1.4     igraph_2.3.3      
 >> [17] knitr_1.51         tibble_3.3.1       desc_1.4.3         bslib_0.11.0      
->> [21] pillar_1.11.1      rlang_1.2.0        cachem_1.1.0       xfun_0.59         
->> [25] fs_2.1.0           caTools_1.18.3     sass_0.4.10        otel_0.2.0        
->> [29] cli_3.6.6          pkgdown_2.2.0      withr_3.0.3        magrittr_2.0.5    
+>> [21] pillar_1.11.1      rlang_1.3.0        cachem_1.1.0       xfun_0.60         
+>> [25] fs_2.1.0           caTools_1.18.4     sass_0.4.10        otel_0.2.0        
+>> [29] cli_3.6.6          pkgdown_2.2.1      withr_3.0.3        magrittr_2.0.5    
 >> [33] digest_0.6.39      lifecycle_1.0.5    vctrs_0.7.3        KernSmooth_2.23-26
 >> [37] evaluate_1.0.5     glue_1.8.1         ragg_1.5.2         rmarkdown_2.31    
 >> [41] tools_4.6.1        pkgconfig_2.0.3    htmltools_0.5.9    gplots_3.3.0
