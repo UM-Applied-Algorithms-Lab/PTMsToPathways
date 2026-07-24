@@ -38,8 +38,24 @@ test_that("filter.edges.between function gives right answer", {
   # Are dimensions correct?
   expect_equal(dim_filtered, c(4, 4))
   # Is a random weight correct?
-  expect_equal(filtered[2, 4], 2.5)
-  expect_equal(filtered[4, 4], -0.3)
+  expect_equal(filtered[2, 4], 24.54212, tolerance = 1e-6)
+  expect_equal(filtered[4, 4], 2.4542125, tolerance = 1e-6)
   
 })
+
+test_that("connectNodes.all function gives right answer", {
+  
+  nodes <- c('LCK', 'ERBIN')  
+  filtered <- connectNodes.all(nodes, ig.graph=NULL, edgefile=ex_cfn, newgraph=TRUE)
+  dim_filtered <- dim(filtered)
+  
+  # Are dimensions correct?
+  expect_equal(dim_filtered, c(2, 4))
+  # Is a random weight correct?
+  expect_equal(filtered[1, 4], 13.260073, tolerance = 1e-6)
+  expect_equal(filtered[2, 4], 13.992674, tolerance = 1e-6)
+  
+})
+
+
 
