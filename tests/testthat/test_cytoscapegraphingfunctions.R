@@ -57,5 +57,16 @@ test_that("connectNodes.all function gives right answer", {
   
 })
 
+test_that("getCyEdgeNames function gives right answer", {
+  
+  filtered <- getCyEdgeNames(ex_pathway_crosstalk_network)
+
+  # Is a random edge name string correct?
+  expect_equal(filtered[[16]], 'RXR/VDR pathway (PTM_cluster_evidence) Validated nuclear estrogen receptor alpha network')
+  expect_equal(filtered[[30]], 'Lipid and lipoprotein metabolism (pathway_Jaccard_similarity) Vitamin B12 metabolism')
+  
+})
+
+
 
 
