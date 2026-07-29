@@ -152,9 +152,9 @@ networks.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.86 secs total.
+>> PTM CCCN complete after 0.9 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 18.12 secs total.
+>> Gene CCCN complete after 18.13 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
