@@ -67,6 +67,87 @@ test_that("getCyEdgeNames function gives right answer", {
   
 })
 
+test_that( "strip.cy.goo function gives right answer", {
+  # TO DO
+})
 
+test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
+  # TO DO			
+})
 
+test_that( "make.gene.data.from.ptmtable function gives right answer", {
+  # TO DO			
+})
+
+test_that( "make.cytoscape.node.file function gives right answer", {
+  # TO DO			
+})
+
+test_that( "remove.autophos function gives right answer", {
+  # TO DO			
+}
+)
+test_that( "make.genepep.edges function gives right answer", {
+  # TO DO			
+})
+
+test_that( "get.co.clustered.ptms function gives right answer", {
+  # TO DO			
+})
+
+test_that( "%w/o% function gives right answer", {
+  # TO DO			
+})
+
+test_that( "outersect function gives right answer", {
+  # TO DO			
+})
+
+test_that( "harmonize_cfs function gives right answer", {
+  # TO DO			
+})
+
+test_that( "mergeEdges function gives right answer", {
+  # TO DO			
+})
+
+test_that( "ptms_to_cfn function gives right answer", {
+  # TO DO			
+})
+
+test_that( "setNodeMapping function gives right answer", {
+  # TO DO			
+})
+
+test_that( "setCorrEdgeAppearance function gives right answer", {
+  # TO DO			
+})
+
+test_that( "setNodeColorToRatios function gives right answer", {
+  # TO DO			
+})
+
+test_that( "setNodeColorToRowz function gives right answer", {
+  # TO DO			
+})
+
+test_that( "setNodeSizeColorIndependently function gives right answer", {
+  # TO DO			
+})
+
+test_that( "GraphCfn function gives right answer", {
+  # TO DO			
+})
+
+test_that( "setEdgeWidths function gives right answer", {
+  # TO DO			
+})
+
+test_that( "SetStandards function gives right answer", {
+  # TO DO			
+})
+
+test_that( "NodeEdgeKey function gives right answer", {
+  # TO DO		
+})
 
