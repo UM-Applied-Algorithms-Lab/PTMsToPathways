@@ -1,3 +1,6 @@
+# Cytoscape connection check
+# tryCatch(RCy3::cytoscapePing(), error=function() message("Cannot connect to Cytoscape"))
+
 test_that("filter.edges.0 function gives right answer", {
   
   nodenames <- c('Axon Guidance', 'Lipid and lipoprotein metabolism', 'Validated nuclear estrogen receptor alpha network', 'Vitamin B12 metabolism')
@@ -68,7 +71,11 @@ test_that("getCyEdgeNames function gives right answer", {
 })
 
 test_that( "strip.cy.goo function gives right answer", {
-  # TO DO
+  
+  # THANK YOU MARK FOR PROVIDING THIS!!!
+  cytoscape_metadata_string <- "ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
+  expect_equal(cytoscape_metadata_string, "ERBB3")
+  
 })
 
 test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
