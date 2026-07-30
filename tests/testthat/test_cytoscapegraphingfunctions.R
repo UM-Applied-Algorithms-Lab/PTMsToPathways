@@ -84,7 +84,32 @@ test_that( "strip.cy.goo function gives right answer", {
 })
 
 test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
-  # NOT SURE HOW TO DO THIS -> EXPORT FILE FROM CYTOSCAPE?			
+  
+  # Conditional. Skip this test if cytoscapePing() errors -> Conclude cytoscape is not open. 
+  tryCatch(suppressMessages(
+    RCy3::cytoscapePing()), 
+    error=function(s) skip('cytoscapePing() produced an error. This is likely because cytoscape is not open.')
+  )
+  
+  # Takes a VERY long time
+  suppressMessages(cytoscape.graph.PCN.pathways(ex_pathway_crosstalk_network, "EXAMPLE DATA PCN"))
+  
+  # Does the Selenium pathway node exist?
+  RCy3::selectNodes('Selenium pathway','name')
+  node <- RCy3::getSelectedNodes()
+  expect_equal(node, c("Selenium pathway"))
+  
+  # Get the neighbors of the node
+  RCy3::selectFirstNeighbors()
+  neighbor_names <- RCy3::getSelectedNodes()
+  
+  # Does the Selenium pathway node have the correct amount of neighbors?
+  expect_true(length(neighbor_names) == 5)
+  
+  # Does the Selenium pathway node have specific neighbors?
+  exp_neighbors <-  c("Vitamin B12 metabolism", "RXR/VDR pathway")
+  expect_all_true(exp_neighbors %in% neighbor_names)
+  
 })
 
 test_that( "make.gene.data.from.ptmtable function gives right answer", {
