@@ -88,7 +88,7 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
   # Conditional. Skip this test if cytoscapePing() errors -> Conclude cytoscape is not open. 
   tryCatch(suppressMessages(
     RCy3::cytoscapePing()), 
-    error=function(s) skip('cytoscapePing() produced an error. This is likely because cytoscape is not open.')
+    error=function(s) skip('cytoscapePing() failed to locate cytoscape. This is likely because the cytoscape application is not open.')
   )
   
   # Takes a VERY long time
@@ -113,7 +113,20 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
 })
 
 test_that( "make.gene.data.from.ptmtable function gives right answer", {
-  # DOESN'T WORK?   			
+  
+  # Since the tiny ptm table is already a subset, get genes from there. 
+  genes <- rownames(ex_tiny_ptm_table)
+  genes <- sapply(genes, function(x) strsplit(x, " ")[[1]][[1]])
+  
+  gene_data <- make.gene.data.from.ptmtable(genes, ex_small_ptm_table)
+
+  # Are dimensions correct?
+  expect_equal(dim(gene_data), c(104, 19))
+  
+  # Is a random gene-level sum correct?
+  expect_equal(gene_data[56,2], 7924800)
+  expect_equal(gene_data[103,5], 592825)
+  
 })
 
 test_that( "make.cytoscape.node.file function gives right answer", {
