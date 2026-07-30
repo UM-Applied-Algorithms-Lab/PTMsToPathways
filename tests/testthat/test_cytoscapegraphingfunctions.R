@@ -78,20 +78,32 @@ test_that( "strip.cy.goo function gives right answer", {
   
   # THANK YOU MARK FOR PROVIDING THIS!!!
   cytoscape_metadata_string <- "ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
-  expect_equal(cytoscape_metadata_string, "ERBB3")
+  stripped_string <- strip.cy.goo(cytoscape_metadata_string)
+  expect_equal(stripped_string, "ERBB3")
   
 })
 
 test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
-  # TO DO			
+  # NOT SURE HOW TO DO THIS -> EXPORT FILE FROM CYTOSCAPE?			
 })
 
 test_that( "make.gene.data.from.ptmtable function gives right answer", {
-  # TO DO			
+  # DOESN'T WORK?   			
 })
 
 test_that( "make.cytoscape.node.file function gives right answer", {
-  # TO DO			
+ 
+   node_file <- make.cytoscape.node.file(ex_ptm_cccn_edges, funckey=PTMsToPathways::function_key, ptmtable=ex_tiny_ptm_table)	
+   sampled_node_file <- node_file[c(340,700),]$`Gene.Name`
+   dim_node_file <- dim(node_file)
+   
+   # Are the dimensions correct?
+   expect_equal(dim_node_file, c(740, 9))
+   
+   # Are two random genes correct?
+   expect_equal(sampled_node_file[1], "HSP90AA1 p Y627")
+   expect_equal(sampled_node_file[2], "TNK2 p T517")
+   
 })
 
 test_that( "remove.autophos function gives right answer", {
