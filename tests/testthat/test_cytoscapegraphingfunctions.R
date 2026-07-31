@@ -196,10 +196,13 @@ test_that( "get.co.clustered.ptms function gives right answer", {
   # Are rows 1, 195, 200 & 280 correct?
   row1 <- data.frame(source="ABL1", target="IRS2", interaction="experimental_transferred", Weight=3.589744, row.names="1")
   expect_equal(coclustered_ptms[1,], row1, tolerance = 1e-6)
+  
   row195 <- data.frame(source="EPHA2", target="ACP1", interaction="Physical Interactions", Weight=18.30485, row.names=197)
   expect_equal(coclustered_ptms[195,], row195, tolerance = 1e-6)
+  
   row200 <- data.frame(source="G6PD p Y202", target="PIK3R1 p Y467", interaction="positive correlation", Weight=0.8101135, row.names=680)
   expect_equal(coclustered_ptms[200,], row200, tolerance = 1e-6)
+  
   row280 <- data.frame(source="TJP2", target="TJP2 p Y261", interaction="peptide", Weight=0.25, row.names="TJP2 p Y261")
   expect_equal(coclustered_ptms[280,], row280, tolerance = 1e-6)
   
@@ -241,7 +244,6 @@ test_that( "mergeEdges function gives right answer", {
   data <- rbind(cfn_sample, gene_cccn_sample, fake_directed)
   
   merged <- mergeEdges(data)
-  rownames(merged) <- str(1:9)
   
   # Where parallel edges removed?
   expect_equal(dim(merged), c(9,4))
