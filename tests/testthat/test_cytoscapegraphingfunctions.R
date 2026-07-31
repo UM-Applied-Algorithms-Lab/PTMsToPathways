@@ -92,7 +92,7 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
   )
   
   # Takes a VERY long time
-  suppressMessages(cytoscape.graph.PCN.pathways(ex_pathway_crosstalk_network, "EXAMPLE DATA PCN"))
+  cytoscape.graph.PCN.pathways(ex_pathway_crosstalk_network, "EXAMPLE DATA PCN")
   
   # Does the Selenium pathway node exist?
   RCy3::selectNodes('Selenium pathway','name')
@@ -109,6 +109,7 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
   # Does the Selenium pathway node have specific neighbors?
   exp_neighbors <-  c("Vitamin B12 metabolism", "RXR/VDR pathway")
   expect_all_true(exp_neighbors %in% neighbor_names)
+  
   
 })
 
@@ -146,9 +147,28 @@ test_that( "make.cytoscape.node.file function gives right answer", {
 })
 
 test_that( "remove.autophos function gives right answer", {
-  # TO DO			
-}
-)
+  
+  # Example data does not contain self loops. Need custom
+  source <- c("EPHA2", "CBL", "CBL", "PIK3C2B", "DDX5")            
+  target <- c("AHNAK", "SYTL1", "CBL", "KRT7", "EPS8")
+  # Does not affect remove.autophos but copying ex_cfn
+  interaction <- c("database_transferred", "database_transferred", "database", "database_transferred", "experimental_transferred") 
+  Weight <- c(0.1090909, 0.2340426, 2.4615385, 0.4166667, 1.5333333)
+  
+  custom_data <- data.frame(source=source, target=target, interaction=interaction, Weight=Weight)
+  
+  removed_data <- remove.autophos(custom_data)
+  
+  # Are the dimensions correct?
+  dim_data <- dim(removed_data)
+  expect_equal(dim_data, c(4, 4))
+  
+  # Is there exactly 1 row containing the "CBL" gene?
+  count <- length(which(removed_data$source == "CBL" | removed_data$target == "CBL"))
+  expect_equal(count, 1)
+  
+})
+
 test_that( "make.genepep.edges function gives right answer", {
   # TO DO			
 })
