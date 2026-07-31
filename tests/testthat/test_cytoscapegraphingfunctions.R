@@ -206,11 +206,21 @@ test_that( "get.co.clustered.ptms function gives right answer", {
 })
 
 test_that( "%w/o% function gives right answer", {
-  # TO DO			
+  # Functionality test
+  genes <- c("SLC25A5", "EPS8", "EPHA2", "AHNAK", "PTK2")
+  peptide <- c("EPS8")
+  expect_false("EPS8" %in% (ptms %w/o% peptide))
 })
 
 test_that( "outersect function gives right answer", {
-  # TO DO			
+  # Functionality test
+  genes <- c("SLC25A5", "EPS8", "EPHA2", "AHNAK", "PTK2")
+  peptides <- c("EPS8", "ANKS1A")
+  
+  outer <- outersect(genes, peptides)
+  
+  expect_false("EPS8" %in% outer)
+  expect_true("ANKS1A" %in% outer)
 })
 
 test_that( "harmonize_cfs function gives right answer", {
