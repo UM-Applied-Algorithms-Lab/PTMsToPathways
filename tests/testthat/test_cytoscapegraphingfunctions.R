@@ -209,7 +209,7 @@ test_that( "%w/o% function gives right answer", {
   # Functionality test
   genes <- c("SLC25A5", "EPS8", "EPHA2", "AHNAK", "PTK2")
   peptide <- c("EPS8")
-  expect_false("EPS8" %in% (ptms %w/o% peptide))
+  expect_false("EPS8" %in% (genes %w/o% peptide))
 })
 
 test_that( "outersect function gives right answer", {
@@ -224,11 +224,40 @@ test_that( "outersect function gives right answer", {
 })
 
 test_that( "harmonize_cfs function gives right answer", {
-  # TO DO			
+  # TO DO. SUGGESTS A DEPENDANCY FUNCTION NODE.FILE WHICH IS NOT FULLY UNDERSTOOD
 })
 
 test_that( "mergeEdges function gives right answer", {
-  # TO DO			
+  
+  # Stack edgefiles and fake data to create "parallel edges"
+  cfn_sample <- ex_cfn[c(2, 119, 110, 112, 113),]
+  gene_cccn_sample <- ex_gene_cccn_edges[c(4, 5, 710, 687, 2203), ]
+  fake_directed <- data.frame(
+    source=rep("GAREM1",2),
+    target=rep("NECTIN4",2),
+    Weight=c(0.1, -0.2),
+    interaction=c("PHOSPHORYLATION", "catalysis-precedes")
+  ) 
+  data <- rbind(cfn_sample, gene_cccn_sample, fake_directed)
+  
+  merged <- mergeEdges(data)
+  rownames(merged) <- str(1:9)
+  
+  # Where parallel edges removed?
+  expect_equal(dim(merged), c(9,4))
+  
+  # Test merging directed, undirected, and unmerged edges
+  directed <- c("GAREM1", "NECTIN4", "0.1", "PHOSPHORYLATION [PHOSPHORYLATION | catalysis-precedes]")
+  row1 <- unlist(merged[1,], use.names=FALSE)
+  expect_equal(row1, directed)
+  
+  undirected <- c("ADAM10", "ANXA2", "2.6007326007326", "correlation | experimental_transferred")
+  row3 <- unlist(merged[3,], use.names=FALSE)
+  expect_equal(row3, undirected)
+  
+  unmerged <- c("FYN", "IRS2", "3.58974358974359", "experimental_transferred")
+  row5 <- unlist(merged[5,], use.names=FALSE)
+  expect_equal(row5, unmerged)
 })
 
 test_that( "ptms_to_cfn function gives right answer", {
