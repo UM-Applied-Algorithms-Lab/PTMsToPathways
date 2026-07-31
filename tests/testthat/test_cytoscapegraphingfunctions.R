@@ -170,7 +170,20 @@ test_that( "remove.autophos function gives right answer", {
 })
 
 test_that( "make.genepep.edges function gives right answer", {
-  # TO DO			
+  
+  genepep <- make.genepep.edges(ex_ptm_cccn_edges)
+  
+  # Are dimensions correct?
+  expect_equal(dim(genepep), c(740, 4))
+  
+  # Does CTTN have proper representation?
+  CTTN_subset <- genepep[genepep$source == "CTTN",]
+  expect_equal(dim(CTTN_subset), c(16, 4))
+  
+  # Is row 200 correct?
+  row <- data.frame(source="MET", target="MET p S1236", Weight=0.25, interaction="peptide", row.names="MET p S1236")
+  expect_true(identical(genepep[200,], row))
+  
 })
 
 test_that( "get.co.clustered.ptms function gives right answer", {
