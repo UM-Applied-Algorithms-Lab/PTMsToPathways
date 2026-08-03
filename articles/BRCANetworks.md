@@ -152,9 +152,9 @@ networks.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 1.06 secs total.
+>> PTM CCCN complete after 1.02 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 13.53 secs total.
+>> Gene CCCN complete after 13.02 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -690,7 +690,7 @@ sessionInfo()
 >> 
 >> loaded via a namespace (and not attached):
 >>  [1] jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.1     gtools_3.9.5      
->>  [5] Rcpp_1.1.2         tidyselect_1.2.1   bitops_1.0-9       jquerylib_0.1.4   
+>>  [5] Rcpp_1.1.2         tidyselect_1.2.1   bitops_1.1-0       jquerylib_0.1.4   
 >>  [9] systemfonts_1.3.2  textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
 >> [13] plyr_1.8.9         R6_2.6.1           generics_0.1.4     igraph_2.3.3      
 >> [17] knitr_1.51         tibble_3.3.1       desc_1.4.3         bslib_0.11.0      
