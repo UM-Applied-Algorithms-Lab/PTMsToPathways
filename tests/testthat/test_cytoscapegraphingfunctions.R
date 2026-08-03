@@ -263,7 +263,26 @@ test_that( "mergeEdges function gives right answer", {
 })
 
 test_that( "ptms_to_cfn function gives right answer", {
-  # TO DO			
+  
+  ptms <- rownames(ex_tiny_ptm_table) # is it okay that the ptms is all of the ptms in the ptm table?
+  ptm_cfn <- ptms_to_cfn(ptms, ex_cfn, ex_ptm_cccn_edges, ex_tiny_ptm_table)
+  
+  # Are dimensions correct? 
+  expect_equal(dim(ptm_cfn), c(68, 4))
+  
+  # Test gene to gene, ptm to gene, and ptm to ptm respectively
+  gene_to_gene <- c("CBL", "CLTC", "database", "18.3150183150183")
+  row5 <- unlist(ptm_cfn[5,], use.names=FALSE)
+  expect_equal(row5, gene_to_gene)
+  
+  ptm_to_ptm <- c("MAPK13 p T180", "EPHA2 p Y588", "correlation", "-0.4")
+  row30 <- unlist(ptm_cfn[30,], use.names=FALSE)
+  expect_equal(row30, ptm_to_ptm)
+  
+  ptm_to_gene <- c("PKP4", "PKP4 p Y275", "peptide", "0.25")
+  row67 <- unlist(ptm_cfn[67,], use.names=FALSE)
+  expect_equal(row67, ptm_to_gene)
+  
 })
 
 test_that( "setNodeMapping function gives right answer", {
