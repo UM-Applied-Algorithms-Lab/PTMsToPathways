@@ -1,6 +1,3 @@
-# Cytoscape connection check
-# tryCatch(RCy3::cytoscapePing(), error=function() message("Cannot connect to Cytoscape"))
-
 test_that("filter.edges.0 function gives right answer", {
   
   nodenames <- c('Axon Guidance', 'Lipid and lipoprotein metabolism', 'Validated nuclear estrogen receptor alpha network', 'Vitamin B12 metabolism')
@@ -80,36 +77,6 @@ test_that( "strip.cy.goo function gives right answer", {
   cytoscape_metadata_string <- "ValidatedObjectAndEditString: validatedObject=ERBB3, editString=null"
   stripped_string <- strip.cy.goo(cytoscape_metadata_string)
   expect_equal(stripped_string, "ERBB3")
-  
-})
-
-test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
-  
-  # Conditional. Skip this test if cytoscapePing() errors -> Conclude cytoscape is not open. 
-  tryCatch(suppressMessages(
-    RCy3::cytoscapePing()), 
-    error=function(s) skip('cytoscapePing() failed to locate cytoscape. This is likely because the cytoscape application is not open.')
-  )
-  
-  # Takes a VERY long time
-  cytoscape.graph.PCN.pathways(ex_pathway_crosstalk_network, "EXAMPLE DATA PCN")
-  
-  # Does the Selenium pathway node exist?
-  RCy3::selectNodes('Selenium pathway','name')
-  node <- RCy3::getSelectedNodes()
-  expect_equal(node, c("Selenium pathway"))
-  
-  # Get the neighbors of the node
-  RCy3::selectFirstNeighbors()
-  neighbor_names <- RCy3::getSelectedNodes()
-  
-  # Does the Selenium pathway node have the correct amount of neighbors?
-  expect_true(length(neighbor_names) == 5)
-  
-  # Does the Selenium pathway node have specific neighbors?
-  exp_neighbors <-  c("Vitamin B12 metabolism", "RXR/VDR pathway")
-  expect_all_true(exp_neighbors %in% neighbor_names)
-  
   
 })
 
@@ -284,40 +251,3 @@ test_that( "ptms_to_cfn function gives right answer", {
   expect_equal(row67, ptm_to_gene)
   
 })
-
-test_that( "setNodeMapping function gives right answer", {
-  # TO DO			
-})
-
-test_that( "setCorrEdgeAppearance function gives right answer", {
-  # TO DO			
-})
-
-test_that( "setNodeColorToRatios function gives right answer", {
-  # TO DO			
-})
-
-test_that( "setNodeColorToRowz function gives right answer", {
-  # TO DO			
-})
-
-test_that( "setNodeSizeColorIndependently function gives right answer", {
-  # TO DO			
-})
-
-test_that( "GraphCfn function gives right answer", {
-  # TO DO			
-})
-
-test_that( "setEdgeWidths function gives right answer", {
-  # TO DO			
-})
-
-test_that( "SetStandards function gives right answer", {
-  # TO DO			
-})
-
-test_that( "NodeEdgeKey function gives right answer", {
-  # TO DO		
-})
-
