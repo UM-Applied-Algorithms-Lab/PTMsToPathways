@@ -32,13 +32,13 @@ test_that( "setNodeMapping function gives right answer", {
   
 })
 
-# See if the following functions run w/out error
 test_that( "setCorrEdgeAppearance function gives right answer", {
   
+  # TO DO 
   
-  		
 })
 
+# See if the following functions run w/out error
 test_that( "setNodeColorToRatios function gives right answer", {
   
   suppressMessages(setNodeColorToRatios("SUID"))
@@ -51,7 +51,9 @@ test_that( "setNodeColorToRowz function gives right answer", {
 })
 
 test_that( "setNodeSizeColorIndependently function gives right answer", {
-  # TO DO			
+  
+  suppressMessages(setNodeSizeColorIndependently(sizeplotcol="SUID", colorplotcol="SUID", ratio=FALSE))	
+  
 })
 
 test_that( "GraphCfn function gives right answer", {
