@@ -28,13 +28,14 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
 
 test_that( "setNodeMapping function gives right answer", {
   
-  # Replace with a faster example? 
-  cytoscape.graph.PCN.pathways(ex_pathway_crosstalk_network, "EXAMPLE DATA PCN")
+  # RELIANT ON cytoscape.graph.PCN.pathways
   
 })
 
 test_that( "setCorrEdgeAppearance function gives right answer", {
-  # TO DO			
+  
+  suppressMessages(setNodeColorToRatios("SUID"))
+  		
 })
 
 test_that( "setNodeColorToRatios function gives right answer", {
@@ -50,7 +51,7 @@ test_that( "setNodeSizeColorIndependently function gives right answer", {
 })
 
 test_that( "GraphCfn function gives right answer", {
-  # TO DO			
+  
 })
 
 test_that( "setEdgeWidths function gives right answer", {
