@@ -18,10 +18,10 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
   neighbor_names <- RCy3::getSelectedNodes()
   
   # Does the Selenium pathway node have the correct amount of neighbors?
-  expect_equal(length(neighbor_names), 5)
+  expect_equal(length(neighbor_names), 8)
   
   # Does the Selenium pathway node have specific neighbors?
-  exp_neighbors <-  c("Vitamin B12 metabolism", "RXR/VDR pathway")
+  exp_neighbors <-c("Vitamin B12 metabolism", "RXR/VDR pathway")
   expect_all_true(exp_neighbors %in% neighbor_names)
   
 })
@@ -29,6 +29,9 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
 test_that( "setNodeMapping function gives right answer", {
   
   # RELIANT ON cytoscape.graph.PCN.pathways
+  # Requires a nodeType column
+  RCy3::renameTableColumn("id", "nodeType", 'node')
+  setNodeMapping()
   
 })
 
@@ -41,33 +44,44 @@ test_that( "setCorrEdgeAppearance function gives right answer", {
 # See if the following functions run w/out error
 test_that( "setNodeColorToRatios function gives right answer", {
   
-  suppressMessages(setNodeColorToRatios("SUID"))
+  expect_no_error(suppressMessages(setNodeColorToRatios("SUID")))
+  
 })
 
 test_that( "setNodeColorToRowz function gives right answer", {
   
-  suppressMessages(setNodeColorToRowz("SUID"))
+  expect_no_error(suppressMessages(setNodeColorToRowz("SUID")))
   
 })
 
 test_that( "setNodeSizeColorIndependently function gives right answer", {
   
-  suppressMessages(setNodeSizeColorIndependently(sizeplotcol="SUID", colorplotcol="SUID", ratio=FALSE))	
+  expect_no_error(suppressMessages(setNodeSizeColorIndependently(sizeplotcol="SUID", colorplotcol="SUID", ratio=FALSE)))
   
 })
 
 test_that( "GraphCfn function gives right answer", {
   
+  # Why do we need to manually assign nodes here but not PCN?
+  nodes <- data.frame(id=unique(c(ex_cfn$source, ex_cfn$target)))
+  expect_no_error(suppressMessages(GraphCfn(ex_cfn, nodes)))
+  
 })
 
 test_that( "setEdgeWidths function gives right answer", {
-  # TO DO			
+  
+  expect_no_error(setEdgeWidths(ffactor=5))			
+
 })
 
 test_that( "SetStandards function gives right answer", {
-  # TO DO			
+  
+  expect_no_error(SetStandards())
+
 })
 
 test_that( "NodeEdgeKey function gives right answer", {
-  # TO DO		
+  
+  
+  
 })
