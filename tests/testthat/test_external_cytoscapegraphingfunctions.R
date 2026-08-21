@@ -32,7 +32,7 @@ test_that( "setNodeMapping function gives right answer", {
   # RELIANT ON cytoscape.graph.PCN.pathways
   # Requires a nodeType column
   RCy3::renameTableColumn("id", "nodeType", 'node')
-  expect_no_error(setNodeMapping())
+  expect_no_error(suppressMessages(setNodeMapping())) 
   
 })
 
@@ -80,7 +80,7 @@ test_that( "setEdgeWidths function gives right answer", {
 
 test_that( "SetStandards function gives right answer", {
   
-  expect_no_error(SetStandards())
+  expect_no_error(SetStandards("default"))
 
 })
 
