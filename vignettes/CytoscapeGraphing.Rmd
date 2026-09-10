@@ -66,7 +66,6 @@ functions used below are in CytoscapeGraphing.R
 
 ```{r eval = TRUE, echo = FALSE}
 library(PTMsToPathways)
-funckey <- function_key
 ```
 
 ```{r eval = TRUE}
@@ -113,7 +112,7 @@ egfr_transporter.cfn <- filter.edges.0(c(
   pathways_list[["Transmembrane transport of small molecules"]]), cfn)
 
 egfr_transporter.nodes <- make.cytoscape.node.file(
-  egfr_transporter.cfn, funckey, ptmtable, include.gene.data = TRUE) 
+  egfr_transporter.cfn, function_key, ptmtable, include.gene.data = TRUE) 
 
 ```
 
@@ -161,7 +160,7 @@ sp1 <- connectNodes.all(c("FYN", 'MET'), ig.graph=NULL,
 
 # To include co-clustered PTMs in the network an extra step is necessary:
 sp1_plus <- get.co.clustered.ptms(sp1)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, funckey, ptmtable,
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 
@@ -204,7 +203,7 @@ ptms = rownames(pt.sub.fa.topz)
 
 # Employ a helper function to derive a CFN starting with a list of PTMs
 cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
-cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE)
 
@@ -222,7 +221,15 @@ setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
 
 #### Node and Edge Key
 
-We adopt the following standards for visualizing nodes and edges in Cytoscape. The border and shape of the node represent the type of protein this gene is, based on the function key (funckey).
+We adopt the following standards for visualizing nodes and edges in Cytoscape. The border and shape of the node represent the type of protein this gene is, based on a function key that maps gene names to a table of information regarding the gene. This may be provided by the user or PTMsToPathways provides an example dataset as [function_key](reference/function_key.html).
+
+```{r visible-table eval = FALSE, echo = TRUE}
+head(function_key)
+```
+
+```{r table-run eval = TRUE, echo = FALSE}
+knitr::kable(head(function_key))
+```
 
 Edges represent different types of interactions from PPI databases, correlations, or links between proteins and their PTMs. The thicker the edge is, the stronger the interaction weight. 
 
