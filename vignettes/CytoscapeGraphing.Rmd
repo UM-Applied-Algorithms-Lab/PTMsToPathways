@@ -41,11 +41,47 @@ knitr::opts_chunk$set(
 
 ```
 
-## 
+The PTMsToPathways Package provides functions to aid in exploration of the resulting networks using the Cytoscape interface. We first describe some visualization choices and then give examples of using Cytoscape to explore data using a top down approach and a bottom up approach.
 
-## Graphing Networks in Cytoscape
+If you have not already libraried the package, do so now.
 
-### Top-down approach starting with pathways
+```{r eval = TRUE, echo = TRUE}
+library(PTMsToPathways)
+```
+
+# Visualization Options
+
+Cytoscape allows us to encode information in the visual network attributes node size, color, shape, and border and edge color, size, and arrow type. In this vignette, we use node attributes to represent the type of protein this gene is and edge attributes to represent different types of interactions from PPI databases, correlations, or links between proteins and their PTMs. Further details can be found by clicking to expand the following table.
+
+<details>
+<summary> Show Detailed Network Attribute Table </summary>
+| Attribute | Options |
+| --- | --- |
+| Node Size | Greater the node size, larger the absolute value of the amount or ratio |
+| Node Color | Blue: Negative ratio <br> Yellow: Positive ratio <br> Green: Approximately zero ratio |
+| Node Shape | ELLIPSE: unknown <br> ROUND_RECTANGLE: Receptor Tyrosine Kinase <br> VEE: SH2 Protein or SH2-SH3 Protein <br> TRIANGLE: SH3 Protein <br> HEXAGON: Tyrosine Kinase <br> DIAMOND: SRC-family Kinase <br> OCTAGON: Kinase or Phosphatase <br> PARALLELOGRAM: Transcription Factor <br> RECTANGLE: RNA Binding Protein |
+| Node Border Colors | Orange: Deacetylase or Acetyltransferase <br> Blue: Demethylase or Methyltransferase <br> Royal Purple: Membrane Protein <br> Red: Kinase, Tyrosine Kinase, or SRC-family Kinase <br> Yellow: Phosphatase or Tyrosine Phosphatase <br> Lilac: G Protein-Coupled Receptor or Receptor Tyrosine Kinase <br> Grey: Default |
+| Edge Colors | Red: Phosphorylation, pp, or Controls-Phosphorylation-of <br> Bright Magenta: Controls-Expression-of <br> Dull Magenta: Controls-Transport-of <br> Purple: Controls-state-change-of <br> Blood Orange: Acetylation <br> Lime Green: Physical Interactions <br> Green: BioPlex <br> Dull Green: In-Complex-With <br> Seafoam Green: Experiments or Experiments_Transferred <br> Cyan: Database or Database_Transferred <br> Teal: Pathway or Predicted <br> Dark Turquoise: Genetic Interactions <br> Yellow-Orange: Correlation <br> Royal Blue: Negative Correlation <br> Bright Yellow: Positive Correlation <br> Grey: Combined_Amount or Ratio <br> Dark Grey: Merged <br> Light Grey: Intersect <br> Black: Peptide <br> Orange: Homology <br> Dull Orange: Shared Protein Domains <br> White: Default |
+| Arrow Types | Arrow: Phosphorylation, pp, Controls-Phosphorylation-of, Controls-Expression-of, Controls-Transport-of, Controls-State-Change-of, Acetylation <br> No Arrow: Default |
+</details>  
+<br>
+To visualize the information in this table, [NodeEdgeKey](reference/NodeEdgeKey.html) function generates an example network in Cytoscape like the one shown below.
+
+```{r NodeEdgeKeyOutput, eval = TRUE, echo = FALSE}
+knitr::include_graphics("vig_figs/NodeEdgeKeyOutput.png")
+```
+
+Node information is based on a function key that maps gene names to a table of information regarding the gene. This may be provided by the user or PTMsToPathways provides an example dataset as [function_key](reference/function_key.html).
+
+```{r, label=visible-table, eval = FALSE, echo = TRUE}
+head(function_key)
+```
+
+```{r, label=table-run, eval = TRUE, echo = FALSE}
+knitr::kable(head(function_key))
+```
+
+# Top-Down Approach
 
 It is possible to graph the entire PCN, CFN, and CCCNs in their entirety, though
 very large graphs take a long time to graph. One approach to navigating these
@@ -61,12 +97,7 @@ For example, we will find names of all pathways in Bioplanet that contain EGFR.
 The data object `pathways.list` is a list, where the name of the list element is
 the name of a Bioplanet pathway and each element is a character vector of the
 genes in that pathway. Then we want to find interactions between the pathway
-"Transmembrane transport of small molecules" and those pathways. The utility
-functions used below are in CytoscapeGraphing.R
-
-```{r eval = TRUE, echo = FALSE}
-library(PTMsToPathways)
-```
+"Transmembrane transport of small molecules" and those pathways.
 
 ```{r eval = TRUE}
 egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
@@ -174,7 +205,9 @@ setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
 head(sp1_plus)
 ```
 
-#### Bottom-up approach to investigate how dasatinib affects proteins invovled in focal adhesion
+# Bottom-Up Approach
+
+### Example - Investigating how dasatinib affects proteins involved in focal adhesion
 
 Dasatinib exhibits strong binding and inhibitory effects on multiple focal adhesion-associated genes from the BioPlanet list:
 
@@ -217,157 +250,4 @@ setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
 
 # Note that within Cytoscape you can change the column for node size and color
 # (two separate things) in the "Styles" tab
-```
-
-#### Node and Edge Key
-
-We adopt the following standards for visualizing nodes and edges in Cytoscape. The border and shape of the node represent the type of protein this gene is, based on a function key that maps gene names to a table of information regarding the gene. This may be provided by the user or PTMsToPathways provides an example dataset as [function_key](reference/function_key.html).
-
-```{r visible-table eval = FALSE, echo = TRUE}
-head(function_key)
-```
-
-```{r table-run eval = TRUE, echo = FALSE}
-knitr::kable(head(function_key))
-```
-
-Edges represent different types of interactions from PPI databases, correlations, or links between proteins and their PTMs. The thicker the edge is, the stronger the interaction weight. 
-
-Node Size:
-
--   Greater the node size, larger the absolute value of the amount or ratio
-
-Node Color:
-
--   Blue Node
-    -   Negative amount or ratio\
--   Yellow Node
-    -   Positive amount or ratio\
--   Green Node
-    -   Approximately zero amount or ratio
-
-Node Shapes:
-
--   "ELLIPSE"
-    -   unknown\
--   "ROUND_RECTANGLE"
-    -   receptor tyrosine kinase\
--   "VEE"
-    -   SH2 protein\
-    -   SH2-SH3 protein\
--   "TRIANGLE"
-    -   SH3 protein\
--   "HEXAGON"
-    -   tyrosine kinase\
--   "DIAMOND"
-    -   SRC-family kinase\
--   "OCTAGON"
-    -   kinase\
-    -   phosphatase\
--   "PARALLELOGRAM"
-    -   transcription factor\
--   "RECTANGLE"
-    -   RNA binding protein
-
-Node Border Colors:
-
--   Orange
-    -   deacetylase\
-    -   acetyltransferase\
--   Blue
-    -   demethylase\
-    -   methyltransferase\
--   Royal Purple
-    -   membrane protein\
--   Red
-    -   kinase\
-    -   tyrosine kinase\
-    -   SRC-family kinase\
--   Yellow
-    -   phosphatase\
-    -   tyrosine phosphatase\
--   Lilac
-    -   G protein-coupled receptor\
-    -   receptor tyrosine kinase\
--   Grey
-    -   default
-
-Edge Colors:
-
--   Red
-    -   Phosphorylation\
-    -   pp\
-    -   controls-phosphorylation-of\
--   Bright Magenta
-    -   controls-expression-of\
--   Dull Magenta
-    -   controls-transport-of\
--   Purple
-    -   controls-state-change-of\
--   Blood Orange
-    -   Acetylation\
--   Lime Green
-    -   Physical interactions\
--   Green
-    -   BioPlex\
--   Dull Green
-    -   in-complex-with\
--   Seafoam Green
-    -   experiments\
-    -   experiments_transferred\
--   Cyan
-    -   database\
-    -   database_transferred\
--   Teal
-    -   Pathway\
-    -   Predicted\
--   Dark Turquoise
-    -   Genetic interactions\
--   Yellow-Orange
-    -   correlation\
--   Royal Blue
-    -   negative correlation\
--   Bright Yellow
-    -   positive correlation\
--   Grey
-    -   combined_amount or ratio\
--   Dark Grey
-    -   merged\
--   Light Grey
-    -   intersect\
--   Black
-    -   peptide\
--   Orange
-    -   homology\
--   Dull Orange
-    -   Shared protein domains\
--   White
-    -   Default
-
-Arrow Types:
-
--   Arrow
-    -   Phosphorylation\
-    -   pp\
-    -   controls-phosphorylation-of\
-    -   controls-expression-of\
-    -   controls-transport-of\
-    -   controls-state-change-of\
-    -   Acetylation\
-
--   No Arrow
-    -   Default
-
-    These properties can be visualized in Cytoscape using the NodeEdgeKey() function:
-
-```{r eval = FALSE}
-NodeEdgeKey()
-
-setEdgeLineWidthMapping('Weight')
-
-# The edges have different weights, large weights can be too thick and
-# smaller weights can result in very thin lines.
-# Edge widths can be adjusted using the following function.
-
-setEdgeWidths(ffactor = 6, log= FALSE)
 ```

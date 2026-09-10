@@ -889,7 +889,7 @@ SetStandards <- function(visual.style.name,
 
 }
 
-# NodeEdgeKey function: Cytoscape legend for styles
+#' NodeEdgeKey function: Cytoscape legend for styles
 #' Create a node and edge legend network in Cytoscape
 #'
 #' Builds a demo network in Cytoscape that illustrates all node shapes, border
@@ -902,7 +902,6 @@ SetStandards <- function(visual.style.name,
 #' @return Called for its side effects; creates a legend network in Cytoscape.
 #' @export
 NodeEdgeKey <- function(visual.style.name = "PTMsToPathways.style") {
-  # require(RCy3)
   node_types <- c(
     "acetyltransferase", "deacetylase", "demethylase", "G protein-coupled receptor", "kinase", "membrane protein",
     "methyltransferase", "phosphatase", "receptor tyrosine kinase", "RNA binding and processing protein",
