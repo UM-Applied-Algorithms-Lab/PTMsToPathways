@@ -73,15 +73,180 @@ Grimes</h4>
 
     
     
+<p>The PTMsToPathways Package provides functions to aid in exploration
+of the resulting networks using the Cytoscape interface. We first
+describe some visualization choices and then give examples of using
+Cytoscape to explore data using a top down approach and a bottom up
+approach.</p>
+<p>If you have not already libraried the package, do so now.</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://um-applied-algorithms-lab.github.io/PTMsToPathways/">PTMsToPathways</a></span><span class="op">)</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="section"></h2>
+<h2 id="visualization-options">Visualization Options<a class="anchor" aria-label="anchor" href="#visualization-options"></a>
+</h2>
+<p>Cytoscape allows us to encode information in the visual network
+attributes node size, color, shape, and border and edge color, size, and
+arrow type. In this vignette, we use node attributes to represent the
+type of protein this gene is and edge attributes to represent different
+types of interactions from PPI databases, correlations, or links between
+proteins and their PTMs. Further details can be found by clicking to
+expand the following table.</p>
+<details><summary>
+Show Detailed Network Attribute Table
+</summary><table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Attribute</th>
+<th>Options</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Node Size</td>
+<td>Greater the node size, larger the absolute value of the amount or
+ratio</td>
+</tr>
+<tr class="even">
+<td>Node Color</td>
+<td>Blue: Negative ratio <br> Yellow: Positive ratio <br> Green:
+Approximately zero ratio</td>
+</tr>
+<tr class="odd">
+<td>Node Shape</td>
+<td>ELLIPSE: unknown <br> ROUND_RECTANGLE: Receptor Tyrosine Kinase <br>
+VEE: SH2 Protein or SH2-SH3 Protein <br> TRIANGLE: SH3 Protein <br>
+HEXAGON: Tyrosine Kinase <br> DIAMOND: SRC-family Kinase <br> OCTAGON:
+Kinase or Phosphatase <br> PARALLELOGRAM: Transcription Factor <br>
+RECTANGLE: RNA Binding Protein</td>
+</tr>
+<tr class="even">
+<td>Node Border Colors</td>
+<td>Orange: Deacetylase or Acetyltransferase <br> Blue: Demethylase or
+Methyltransferase <br> Royal Purple: Membrane Protein <br> Red: Kinase,
+Tyrosine Kinase, or SRC-family Kinase <br> Yellow: Phosphatase or
+Tyrosine Phosphatase <br> Lilac: G Protein-Coupled Receptor or Receptor
+Tyrosine Kinase <br> Grey: Default</td>
+</tr>
+<tr class="odd">
+<td>Edge Colors</td>
+<td>Red: Phosphorylation, pp, or Controls-Phosphorylation-of <br> Bright
+Magenta: Controls-Expression-of <br> Dull Magenta: Controls-Transport-of
+<br> Purple: Controls-state-change-of <br> Blood Orange: Acetylation
+<br> Lime Green: Physical Interactions <br> Green: BioPlex <br> Dull
+Green: In-Complex-With <br> Seafoam Green: Experiments or
+Experiments_Transferred <br> Cyan: Database or Database_Transferred <br>
+Teal: Pathway or Predicted <br> Dark Turquoise: Genetic Interactions
+<br> Yellow-Orange: Correlation <br> Royal Blue: Negative Correlation
+<br> Bright Yellow: Positive Correlation <br> Grey: Combined_Amount or
+Ratio <br> Dark Grey: Merged <br> Light Grey: Intersect <br> Black:
+Peptide <br> Orange: Homology <br> Dull Orange: Shared Protein Domains
+<br> White: Default</td>
+</tr>
+<tr class="even">
+<td>Arrow Types</td>
+<td>Arrow: Phosphorylation, pp, Controls-Phosphorylation-of,
+Controls-Expression-of, Controls-Transport-of, Controls-State-Change-of,
+Acetylation <br> No Arrow: Default</td>
+</tr>
+</tbody>
+</table></details><p><br> To visualize the information in this table, <a href="reference/NodeEdgeKey.html">NodeEdgeKey</a> function generates an
+example network in Cytoscape like the one shown below.</p>
+<p><img src="vig_figs/NodeEdgeKeyOutput.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p>Node information is based on a function key that maps gene names to a
+table of information regarding the gene. This may be provided by the
+user or PTMsToPathways provides an example dataset as <a href="reference/function_key.html">function_key</a>.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">function_key</span><span class="op">)</span></span></code></pre></div>
+<table style="width:100%;" class="table">
+<colgroup>
+<col width="4%">
+<col width="15%">
+<col width="17%">
+<col width="20%">
+<col width="16%">
+<col width="4%">
+<col width="11%">
+<col width="9%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Gene.Name</th>
+<th align="left">Approved.Name</th>
+<th align="left">Hugo.Gene.Family</th>
+<th align="left">HPRD.Function</th>
+<th align="left">nodeType</th>
+<th align="left">Domains</th>
+<th align="left">Compartment</th>
+<th align="left">Compartment.Overview</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">A1BG</td>
+<td align="left">alpha-1-B glycoprotein</td>
+<td align="left">Immunoglobulin-like domain containing</td>
+<td align="left">Molecular function unknown (<a href="GO:0005554" class="uri">GO:0005554</a>)</td>
+<td align="left">undefined</td>
+<td align="left">IGC2</td>
+<td align="left">undefined</td>
+<td align="left">plasma.membrane</td>
+</tr>
+<tr class="even">
+<td align="left">A1CF</td>
+<td align="left">APOBEC1 complementation factor</td>
+<td align="left">RNA binding motif containing</td>
+<td align="left">RNA binding (<a href="GO:0003723" class="uri">GO:0003723</a>)</td>
+<td align="left">RNA binding and processing protein</td>
+<td align="left">RRM</td>
+<td align="left">RNA-associated; nucleus</td>
+<td align="left">RNA.associated</td>
+</tr>
+<tr class="odd">
+<td align="left">A2LD1</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+<td align="left">Molecular function unknown (<a href="GO:0005554" class="uri">GO:0005554</a>)</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+</tr>
+<tr class="even">
+<td align="left">A2M</td>
+<td align="left">alpha-2-macroglobulin</td>
+<td align="left">undefined</td>
+<td align="left">Protease inhibitor activity (<a href="GO:0030414" class="uri">GO:0030414</a>)</td>
+<td align="left">undefined</td>
+<td align="left">A2M</td>
+<td align="left">cytosol; secretion</td>
+<td align="left">plasma.membrane</td>
+</tr>
+<tr class="odd">
+<td align="left">A2ML1</td>
+<td align="left">alpha-2-macroglobulin-like 1</td>
+<td align="left">undefined</td>
+<td align="left">Protease inhibitor activity (<a href="GO:0030414" class="uri">GO:0030414</a>)</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+<td align="left">plasma.membrane</td>
+</tr>
+<tr class="even">
+<td align="left">A3GALT2</td>
+<td align="left">alpha 1,3-galactosyltransferase 2</td>
+<td align="left">Glycosyltransferase family 6</td>
+<td align="left">Galactosyltransferase activity (<a href="GO:0008378" class="uri">GO:0008378</a>)</td>
+<td align="left">undefined</td>
+<td align="left">TM</td>
+<td align="left">undefined</td>
+<td align="left">undefined</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
-<h2 id="graphing-networks-in-cytoscape">Graphing Networks in Cytoscape<a class="anchor" aria-label="anchor" href="#graphing-networks-in-cytoscape"></a>
+<h2 id="top-down-approach">Top-Down Approach<a class="anchor" aria-label="anchor" href="#top-down-approach"></a>
 </h2>
-<div class="section level3">
-<h3 id="top-down-approach-starting-with-pathways">Top-down approach starting with pathways<a class="anchor" aria-label="anchor" href="#top-down-approach-starting-with-pathways"></a>
-</h3>
 <p>It is possible to graph the entire PCN, CFN, and CCCNs in their
 entirety, though very large graphs take a long time to graph. One
 approach to navigating these data structures is to select nodes from the
@@ -97,19 +262,18 @@ contain EGFR. The data object <code>pathways.list</code> is a list,
 where the name of the list element is the name of a Bioplanet pathway
 and each element is a character vector of the genes in that pathway.
 Then we want to find interactions between the pathway “Transmembrane
-transport of small molecules” and those pathways. The utility functions
-used below are in CytoscapeGraphing.R</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+transport of small molecules” and those pathways.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_pathways</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">ex_pathways_list</span><span class="op">)</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">ex_pathways_list</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
 <span>  <span class="op">{</span><span class="st">"EGFR"</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">ex_pathways_list</span><span class="op">[[</span><span class="va">x</span><span class="op">]</span><span class="op">]</span><span class="op">}</span><span class="op">)</span><span class="op">]</span></span></code></pre></div>
 <p>We expect 83 pathways that contain EGFR, so let’s check:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">length</span>(egfr_pathways)</span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">length</span>(egfr_pathways)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">2</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_transporter.pcn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.between.html">filter.edges.between</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Transmembrane transport of small molecules"</span>,</span>
 <span>  <span class="va">egfr_pathways</span>, <span class="va">ex_PCNedgelist</span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_transporter_pcn.cy</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.between.html">filter.edges.between</a></span><span class="op">(</span></span>
 <span>  <span class="st">"Transmembrane transport of small molecules"</span>,</span>
 <span>  <span class="va">egfr_pathways</span>, <span class="va">pathway.crosstalk.network</span><span class="op">)</span></span>
@@ -118,7 +282,7 @@ used below are in CytoscapeGraphing.R</p>
 <p>These two versions of the PCN show cluster evidence and Jaccard
 smilarity in adjacent columns (the first case) or as distinct edges (the
 second case, which can be used to plot this network in cytoscape).</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Graph PCN</span></span>
 <span><span class="va">pcn.graph.1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cytoscape.graph.PCN.pathways.html">cytoscape.graph.PCN.pathways</a></span><span class="op">(</span></span>
 <span>  PCN <span class="op">=</span> <span class="va">egfr_transporter_pcn.cy</span>,</span>
@@ -132,22 +296,22 @@ interactions between the genes in the two pathways. Then we generate a
 node file for cytoscape. In the following case we include the data
 extracted from the ptmtable. This is optional, useful if node size and
 color is used later to indicate values in data.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_transporter.cfn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.0.html">filter.edges.0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
 <span>  <span class="va">pathways_list</span><span class="op">[[</span><span class="st">"EGF/EGFR signaling pathway"</span><span class="op">]</span><span class="op">]</span>,</span>
 <span>  <span class="va">pathways_list</span><span class="op">[[</span><span class="st">"Transmembrane transport of small molecules"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="va">cfn</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">egfr_transporter.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span></span>
-<span>  <span class="va">egfr_transporter.cfn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<span>  <span class="va">egfr_transporter.cfn</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
 <p>The function GraphCfn creates a graph using the cluster filtered
 network in the Cytoscape app. When graphed, Cytoscape provides an
 interactive interface to view the data. This function requires the edge
 list file (egfr_transporter.cfn in the example), and node data file
 (egfr_transporter.nodes).</p>
-<div class="section level4">
-<h4 id="generating-the-graph-and-setting-node-size-and-color">Generating the graph and setting node size and color<a class="anchor" aria-label="anchor" href="#generating-the-graph-and-setting-node-size-and-color"></a>
-</h4>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="section level5">
+<h5 id="generating-the-graph-and-setting-node-size-and-color">Generating the graph and setting node size and color<a class="anchor" aria-label="anchor" href="#generating-the-graph-and-setting-node-size-and-color"></a>
+</h5>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_transporter.cfn</span>, cfn.nodes <span class="op">=</span> <span class="va">egfr_transporter.nodes</span>,</span>
 <span>         Network.title <span class="op">=</span> <span class="st">"CFN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span></span>
@@ -174,22 +338,22 @@ list file (egfr_transporter.cfn in the example), and node data file
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">egfr_transporter.cfn.merged</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div class="section level4">
-<h4 id="asking-questions-about-signaling-pathways-that-connect-proteins">Asking questions about signaling pathways that connect proteins<a class="anchor" aria-label="anchor" href="#asking-questions-about-signaling-pathways-that-connect-proteins"></a>
-</h4>
+<div class="section level5">
+<h5 id="asking-questions-about-signaling-pathways-that-connect-proteins">Asking questions about signaling pathways that connect proteins<a class="anchor" aria-label="anchor" href="#asking-questions-about-signaling-pathways-that-connect-proteins"></a>
+</h5>
 <p>Another example of how to use the network is to ask, what are the
 paths between two nodes (two proteins)?. We use the function
 connectNodes.all() to identify all shortest paths between two nodes.</p>
 <p>Having identified the pathways, let’s also zoom in further on PTMs to
 examine which PTMs co-cluster, as indicated by yellow edges between
 them.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">sp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectNodes.all.html">connectNodes.all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FYN"</span>, <span class="st">'MET'</span><span class="op">)</span>, ig.graph<span class="op">=</span><span class="cn">NULL</span>,</span>
 <span>                        edgefile <span class="op">=</span> <span class="va">cfn.merged</span>, newgraph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co">#. ***</span></span>
 <span></span>
 <span><span class="co"># To include co-clustered PTMs in the network an extra step is necessary:</span></span>
 <span><span class="va">sp1_plus</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get.co.clustered.ptms.html">get.co.clustered.ptms</a></span><span class="op">(</span><span class="va">sp1</span><span class="op">)</span></span>
-<span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
+<span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
 <span></span>
@@ -202,9 +366,13 @@ them.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sp1_plus</span><span class="op">)</span></span></code></pre></div>
 </div>
+</div>
+<div class="section level2">
+<h2 id="bottom-up-approach">Bottom-Up Approach<a class="anchor" aria-label="anchor" href="#bottom-up-approach"></a>
+</h2>
 <div class="section level4">
-<h4 id="bottom-up-approach-to-investigate-how-dasatinib-affects-proteins-invovled-in-focal-adhesion">Bottom-up approach to investigate how dasatinib affects proteins
-invovled in focal adhesion<a class="anchor" aria-label="anchor" href="#bottom-up-approach-to-investigate-how-dasatinib-affects-proteins-invovled-in-focal-adhesion"></a>
+<h4 id="example---investigating-how-dasatinib-affects-proteins-involved-in-focal-adhesion">Example - Investigating how dasatinib affects proteins involved in
+focal adhesion<a class="anchor" aria-label="anchor" href="#example---investigating-how-dasatinib-affects-proteins-involved-in-focal-adhesion"></a>
 </h4>
 <p>Dasatinib exhibits strong binding and inhibitory effects on multiple
 focal adhesion-associated genes from the BioPlanet list:</p>
@@ -215,7 +383,7 @@ focal adhesion-associated genes from the BioPlanet list:</p>
 <p>All these genes are directly implicated in focal adhesion signaling
 regulation. We hypothesize that ptms on proteins involved in focal
 adhesion will be downregulated by dasatinib.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pt.sub</span> <span class="op">&lt;-</span> <span class="va">ptmtable</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"DasatinibRatio"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span> <span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
 <span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">pt.sub</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">pt.sub</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Sum.Dasat</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, <span class="op">]</span></span>
@@ -230,7 +398,7 @@ adhesion will be downregulated by dasatinib.</p>
 <span></span>
 <span><span class="co"># Employ a helper function to derive a CFN starting with a list of PTMs</span></span>
 <span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
-<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">funckey</span>, <span class="va">ptmtable</span>,</span>
+<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
@@ -244,339 +412,6 @@ adhesion will be downregulated by dasatinib.</p>
 <span></span>
 <span><span class="co"># Note that within Cytoscape you can change the column for node size and color</span></span>
 <span><span class="co"># (two separate things) in the "Styles" tab</span></span></code></pre></div>
-</div>
-<div class="section level4">
-<h4 id="node-and-edge-key">Node and Edge Key<a class="anchor" aria-label="anchor" href="#node-and-edge-key"></a>
-</h4>
-<p>We adopt the following standards for visualizing nodes and edges in
-Cytoscape. The border and shape of the node represent the type of
-protein this gene is, based on the function key (funckey).</p>
-<p>Edges represent different types of interactions from PPI databases,
-correlations, or links between proteins and their PTMs. The thicker the
-edge is, the stronger the interaction weight.</p>
-<p>Node Size:</p>
-<ul>
-<li>Greater the node size, larger the absolute value of the amount or
-ratio</li>
-</ul>
-<p>Node Color:</p>
-<ul>
-<li>Blue Node
-<ul>
-<li>Negative amount or ratio<br>
-</li>
-</ul>
-</li>
-<li>Yellow Node
-<ul>
-<li>Positive amount or ratio<br>
-</li>
-</ul>
-</li>
-<li>Green Node
-<ul>
-<li>Approximately zero amount or ratio</li>
-</ul>
-</li>
-</ul>
-<p>Node Shapes:</p>
-<ul>
-<li>“ELLIPSE”
-<ul>
-<li>unknown<br>
-</li>
-</ul>
-</li>
-<li>“ROUND_RECTANGLE”
-<ul>
-<li>receptor tyrosine kinase<br>
-</li>
-</ul>
-</li>
-<li>“VEE”
-<ul>
-<li>SH2 protein<br>
-</li>
-<li>SH2-SH3 protein<br>
-</li>
-</ul>
-</li>
-<li>“TRIANGLE”
-<ul>
-<li>SH3 protein<br>
-</li>
-</ul>
-</li>
-<li>“HEXAGON”
-<ul>
-<li>tyrosine kinase<br>
-</li>
-</ul>
-</li>
-<li>“DIAMOND”
-<ul>
-<li>SRC-family kinase<br>
-</li>
-</ul>
-</li>
-<li>“OCTAGON”
-<ul>
-<li>kinase<br>
-</li>
-<li>phosphatase<br>
-</li>
-</ul>
-</li>
-<li>“PARALLELOGRAM”
-<ul>
-<li>transcription factor<br>
-</li>
-</ul>
-</li>
-<li>“RECTANGLE”
-<ul>
-<li>RNA binding protein</li>
-</ul>
-</li>
-</ul>
-<p>Node Border Colors:</p>
-<ul>
-<li>Orange
-<ul>
-<li>deacetylase<br>
-</li>
-<li>acetyltransferase<br>
-</li>
-</ul>
-</li>
-<li>Blue
-<ul>
-<li>demethylase<br>
-</li>
-<li>methyltransferase<br>
-</li>
-</ul>
-</li>
-<li>Royal Purple
-<ul>
-<li>membrane protein<br>
-</li>
-</ul>
-</li>
-<li>Red
-<ul>
-<li>kinase<br>
-</li>
-<li>tyrosine kinase<br>
-</li>
-<li>SRC-family kinase<br>
-</li>
-</ul>
-</li>
-<li>Yellow
-<ul>
-<li>phosphatase<br>
-</li>
-<li>tyrosine phosphatase<br>
-</li>
-</ul>
-</li>
-<li>Lilac
-<ul>
-<li>G protein-coupled receptor<br>
-</li>
-<li>receptor tyrosine kinase<br>
-</li>
-</ul>
-</li>
-<li>Grey
-<ul>
-<li>default</li>
-</ul>
-</li>
-</ul>
-<p>Edge Colors:</p>
-<ul>
-<li>Red
-<ul>
-<li>Phosphorylation<br>
-</li>
-<li>pp<br>
-</li>
-<li>controls-phosphorylation-of<br>
-</li>
-</ul>
-</li>
-<li>Bright Magenta
-<ul>
-<li>controls-expression-of<br>
-</li>
-</ul>
-</li>
-<li>Dull Magenta
-<ul>
-<li>controls-transport-of<br>
-</li>
-</ul>
-</li>
-<li>Purple
-<ul>
-<li>controls-state-change-of<br>
-</li>
-</ul>
-</li>
-<li>Blood Orange
-<ul>
-<li>Acetylation<br>
-</li>
-</ul>
-</li>
-<li>Lime Green
-<ul>
-<li>Physical interactions<br>
-</li>
-</ul>
-</li>
-<li>Green
-<ul>
-<li>BioPlex<br>
-</li>
-</ul>
-</li>
-<li>Dull Green
-<ul>
-<li>in-complex-with<br>
-</li>
-</ul>
-</li>
-<li>Seafoam Green
-<ul>
-<li>experiments<br>
-</li>
-<li>experiments_transferred<br>
-</li>
-</ul>
-</li>
-<li>Cyan
-<ul>
-<li>database<br>
-</li>
-<li>database_transferred<br>
-</li>
-</ul>
-</li>
-<li>Teal
-<ul>
-<li>Pathway<br>
-</li>
-<li>Predicted<br>
-</li>
-</ul>
-</li>
-<li>Dark Turquoise
-<ul>
-<li>Genetic interactions<br>
-</li>
-</ul>
-</li>
-<li>Yellow-Orange
-<ul>
-<li>correlation<br>
-</li>
-</ul>
-</li>
-<li>Royal Blue
-<ul>
-<li>negative correlation<br>
-</li>
-</ul>
-</li>
-<li>Bright Yellow
-<ul>
-<li>positive correlation<br>
-</li>
-</ul>
-</li>
-<li>Grey
-<ul>
-<li>combined_amount or ratio<br>
-</li>
-</ul>
-</li>
-<li>Dark Grey
-<ul>
-<li>merged<br>
-</li>
-</ul>
-</li>
-<li>Light Grey
-<ul>
-<li>intersect<br>
-</li>
-</ul>
-</li>
-<li>Black
-<ul>
-<li>peptide<br>
-</li>
-</ul>
-</li>
-<li>Orange
-<ul>
-<li>homology<br>
-</li>
-</ul>
-</li>
-<li>Dull Orange
-<ul>
-<li>Shared protein domains<br>
-</li>
-</ul>
-</li>
-<li>White
-<ul>
-<li>Default</li>
-</ul>
-</li>
-</ul>
-<p>Arrow Types:</p>
-<ul>
-<li>Arrow
-<ul>
-<li>Phosphorylation<br>
-</li>
-<li>pp<br>
-</li>
-<li>controls-phosphorylation-of<br>
-</li>
-<li>controls-expression-of<br>
-</li>
-<li>controls-transport-of<br>
-</li>
-<li>controls-state-change-of<br>
-</li>
-<li>Acetylation<br>
-</li>
-</ul>
-</li>
-<li>No Arrow
-<ul>
-<li>Default</li>
-</ul>
-These properties can be visualized in Cytoscape using the NodeEdgeKey()
-function:</li>
-</ul>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="../reference/NodeEdgeKey.html">NodeEdgeKey</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu">setEdgeLineWidthMapping</span><span class="op">(</span><span class="st">'Weight'</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># The edges have different weights, large weights can be too thick and</span></span>
-<span><span class="co"># smaller weights can result in very thin lines.</span></span>
-<span><span class="co"># Edge widths can be adjusted using the following function.</span></span>
-<span></span>
-<span><span class="fu"><a href="../reference/setEdgeWidths.html">setEdgeWidths</a></span><span class="op">(</span>ffactor <span class="op">=</span> <span class="fl">6</span>, log<span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div>
-</div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

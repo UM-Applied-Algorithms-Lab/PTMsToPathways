@@ -1,10 +1,59 @@
 # Cytoscape Graphing
 
-## 
+The PTMsToPathways Package provides functions to aid in exploration of
+the resulting networks using the Cytoscape interface. We first describe
+some visualization choices and then give examples of using Cytoscape to
+explore data using a top down approach and a bottom up approach.
 
-## Graphing Networks in Cytoscape
+If you have not already libraried the package, do so now.
 
-### Top-down approach starting with pathways
+``` r
+
+library(PTMsToPathways)
+```
+
+## Visualization Options
+
+Cytoscape allows us to encode information in the visual network
+attributes node size, color, shape, and border and edge color, size, and
+arrow type. In this vignette, we use node attributes to represent the
+type of protein this gene is and edge attributes to represent different
+types of interactions from PPI databases, correlations, or links between
+proteins and their PTMs. Further details can be found by clicking to
+expand the following table.
+
+Show Detailed Network Attribute Table
+
+[TABLE]
+
+  
+To visualize the information in this table,
+[NodeEdgeKey](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/NodeEdgeKey.md)
+function generates an example network in Cytoscape like the one shown
+below.
+
+![](vig_figs/NodeEdgeKeyOutput.png)
+
+Node information is based on a function key that maps gene names to a
+table of information regarding the gene. This may be provided by the
+user or PTMsToPathways provides an example dataset as
+[function_key](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/function_key.md).
+
+``` r
+
+head(function_key)
+```
+
+| Gene.Name | Approved.Name | Hugo.Gene.Family | HPRD.Function | nodeType | Domains | Compartment | Compartment.Overview |
+|:---|:---|:---|:---|:---|:---|:---|:---|
+| A1BG | alpha-1-B glycoprotein | Immunoglobulin-like domain containing | Molecular function unknown (<GO:0005554>) | undefined | IGC2 | undefined | plasma.membrane |
+| A1CF | APOBEC1 complementation factor | RNA binding motif containing | RNA binding (<GO:0003723>) | RNA binding and processing protein | RRM | RNA-associated; nucleus | RNA.associated |
+| A2LD1 | undefined | undefined | Molecular function unknown (<GO:0005554>) | undefined | undefined | undefined | undefined |
+| A2M | alpha-2-macroglobulin | undefined | Protease inhibitor activity (<GO:0030414>) | undefined | A2M | cytosol; secretion | plasma.membrane |
+| A2ML1 | alpha-2-macroglobulin-like 1 | undefined | Protease inhibitor activity (<GO:0030414>) | undefined | undefined | undefined | plasma.membrane |
+| A3GALT2 | alpha 1,3-galactosyltransferase 2 | Glycosyltransferase family 6 | Galactosyltransferase activity (<GO:0008378>) | undefined | TM | undefined | undefined |
+
+## Top-Down Approach
 
 It is possible to graph the entire PCN, CFN, and CCCNs in their
 entirety, though very large graphs take a long time to graph. One
@@ -24,8 +73,7 @@ contain EGFR. The data object `pathways.list` is a list, where the name
 of the list element is the name of a Bioplanet pathway and each element
 is a character vector of the genes in that pathway. Then we want to find
 interactions between the pathway “Transmembrane transport of small
-molecules” and those pathways. The utility functions used below are in
-CytoscapeGraphing.R
+molecules” and those pathways.
 
 ``` r
 
@@ -85,7 +133,7 @@ egfr_transporter.cfn <- filter.edges.0(c(
   pathways_list[["Transmembrane transport of small molecules"]]), cfn)
 
 egfr_transporter.nodes <- make.cytoscape.node.file(
-  egfr_transporter.cfn, funckey, ptmtable, include.gene.data = TRUE) 
+  egfr_transporter.cfn, function_key, ptmtable, include.gene.data = TRUE) 
 ```
 
 The function GraphCfn creates a graph using the cluster filtered network
@@ -94,7 +142,7 @@ interface to view the data. This function requires the edge list file
 (egfr_transporter.cfn in the example), and node data file
 (egfr_transporter.nodes).
 
-#### Generating the graph and setting node size and color
+##### Generating the graph and setting node size and color
 
 ``` r
 
@@ -125,7 +173,7 @@ setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 head(egfr_transporter.cfn.merged)
 ```
 
-#### Asking questions about signaling pathways that connect proteins
+##### Asking questions about signaling pathways that connect proteins
 
 Another example of how to use the network is to ask, what are the paths
 between two nodes (two proteins)?. We use the function
@@ -142,7 +190,7 @@ sp1 <- connectNodes.all(c("FYN", 'MET'), ig.graph=NULL,
 
 # To include co-clustered PTMs in the network an extra step is necessary:
 sp1_plus <- get.co.clustered.ptms(sp1)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, funckey, ptmtable,
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 
@@ -156,7 +204,9 @@ setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
 head(sp1_plus)
 ```
 
-#### Bottom-up approach to investigate how dasatinib affects proteins invovled in focal adhesion
+## Bottom-Up Approach
+
+#### Example - Investigating how dasatinib affects proteins involved in focal adhesion
 
 Dasatinib exhibits strong binding and inhibitory effects on multiple
 focal adhesion-associated genes from the BioPlanet list:
@@ -189,7 +239,7 @@ ptms = rownames(pt.sub.fa.topz)
 
 # Employ a helper function to derive a CFN starting with a list of PTMs
 cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, pepsep = ";")
-cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE)
 
@@ -203,155 +253,4 @@ setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
 
 # Note that within Cytoscape you can change the column for node size and color
 # (two separate things) in the "Styles" tab
-```
-
-#### Node and Edge Key
-
-We adopt the following standards for visualizing nodes and edges in
-Cytoscape. The border and shape of the node represent the type of
-protein this gene is, based on the function key (funckey).
-
-Edges represent different types of interactions from PPI databases,
-correlations, or links between proteins and their PTMs. The thicker the
-edge is, the stronger the interaction weight.
-
-Node Size:
-
-- Greater the node size, larger the absolute value of the amount or
-  ratio
-
-Node Color:
-
-- Blue Node
-  - Negative amount or ratio  
-- Yellow Node
-  - Positive amount or ratio  
-- Green Node
-  - Approximately zero amount or ratio
-
-Node Shapes:
-
-- “ELLIPSE”
-  - unknown  
-- “ROUND_RECTANGLE”
-  - receptor tyrosine kinase  
-- “VEE”
-  - SH2 protein  
-  - SH2-SH3 protein  
-- “TRIANGLE”
-  - SH3 protein  
-- “HEXAGON”
-  - tyrosine kinase  
-- “DIAMOND”
-  - SRC-family kinase  
-- “OCTAGON”
-  - kinase  
-  - phosphatase  
-- “PARALLELOGRAM”
-  - transcription factor  
-- “RECTANGLE”
-  - RNA binding protein
-
-Node Border Colors:
-
-- Orange
-  - deacetylase  
-  - acetyltransferase  
-- Blue
-  - demethylase  
-  - methyltransferase  
-- Royal Purple
-  - membrane protein  
-- Red
-  - kinase  
-  - tyrosine kinase  
-  - SRC-family kinase  
-- Yellow
-  - phosphatase  
-  - tyrosine phosphatase  
-- Lilac
-  - G protein-coupled receptor  
-  - receptor tyrosine kinase  
-- Grey
-  - default
-
-Edge Colors:
-
-- Red
-  - Phosphorylation  
-  - pp  
-  - controls-phosphorylation-of  
-- Bright Magenta
-  - controls-expression-of  
-- Dull Magenta
-  - controls-transport-of  
-- Purple
-  - controls-state-change-of  
-- Blood Orange
-  - Acetylation  
-- Lime Green
-  - Physical interactions  
-- Green
-  - BioPlex  
-- Dull Green
-  - in-complex-with  
-- Seafoam Green
-  - experiments  
-  - experiments_transferred  
-- Cyan
-  - database  
-  - database_transferred  
-- Teal
-  - Pathway  
-  - Predicted  
-- Dark Turquoise
-  - Genetic interactions  
-- Yellow-Orange
-  - correlation  
-- Royal Blue
-  - negative correlation  
-- Bright Yellow
-  - positive correlation  
-- Grey
-  - combined_amount or ratio  
-- Dark Grey
-  - merged  
-- Light Grey
-  - intersect  
-- Black
-  - peptide  
-- Orange
-  - homology  
-- Dull Orange
-  - Shared protein domains  
-- White
-  - Default
-
-Arrow Types:
-
-- Arrow
-  - Phosphorylation  
-  - pp  
-  - controls-phosphorylation-of  
-  - controls-expression-of  
-  - controls-transport-of  
-  - controls-state-change-of  
-  - Acetylation  
-- No Arrow
-  - Default
-
-  These properties can be visualized in Cytoscape using the
-  NodeEdgeKey() function:
-
-``` r
-
-NodeEdgeKey()
-
-setEdgeLineWidthMapping('Weight')
-
-# The edges have different weights, large weights can be too thick and
-# smaller weights can result in very thin lines.
-# Edge widths can be adjusted using the following function.
-
-setEdgeWidths(ffactor = 6, log= FALSE)
 ```
