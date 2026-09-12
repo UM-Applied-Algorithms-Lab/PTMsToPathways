@@ -175,9 +175,9 @@ head(egfr_transporter.cfn.merged)
 
 ##### Asking questions about signaling pathways that connect proteins
 
-Another example of how to use the network is to ask, what are the paths
-between two nodes (two proteins)?. We use the function
-connectNodes.all() to identify all shortest paths between two nodes.
+Another example of how to use the network is to ask: What are the paths
+between two nodes (two proteins)? We use the function connectNodes.all()
+to identify all shortest paths between two nodes.
 
 Having identified the pathways, let’s also zoom in further on PTMs to
 examine which PTMs co-cluster, as indicated by yellow edges between
