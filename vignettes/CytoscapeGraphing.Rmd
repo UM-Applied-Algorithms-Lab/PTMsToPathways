@@ -60,7 +60,7 @@ Cytoscape allows us to encode information in the visual network attributes node 
 | Node Size | Greater the node size, larger the absolute value of the amount or ratio |
 | Node Color | Blue: Negative ratio <br> Yellow: Positive ratio <br> Green: Approximately zero ratio |
 | Node Shape | ELLIPSE: unknown <br> ROUND_RECTANGLE: Receptor Tyrosine Kinase <br> VEE: SH2 Protein or SH2-SH3 Protein <br> TRIANGLE: SH3 Protein <br> HEXAGON: Tyrosine Kinase <br> DIAMOND: SRC-family Kinase <br> OCTAGON: Kinase or Phosphatase <br> PARALLELOGRAM: Transcription Factor <br> RECTANGLE: RNA Binding Protein |
-| Node Border Colors | Orange: Deacetylase or Acetyltransferase <br> Blue: Demethylase or Methyltransferase <br> Royal Purple: Membrane Protein <br> Red: Kinase, Tyrosine Kinase, or SRC-family Kinase <br> Yellow: Phosphatase or Tyrosine Phosphatase <br> Lilac: G Protein-Coupled Receptor or Receptor Tyrosine Kinase <br> Grey: Default |
+| Node Border Colors | Orange: Deacetylase or Acetyltransferase <br> Blue: Demethylase or Methyltransferase <br> Royal Purple: Membrane Protein <br> Red: Kinase, Tyrosine Kinase, or SRC-family Kinase <br> Yellow: Phosphatase or Tyrosine Phosphatase <br> Lilac: G Protein-Coupled Receptor <br> Grey: Default |
 | Edge Colors | Red: Phosphorylation, pp, or Controls-Phosphorylation-of <br> Bright Magenta: Controls-Expression-of <br> Dull Magenta: Controls-Transport-of <br> Purple: Controls-state-change-of <br> Blood Orange: Acetylation <br> Lime Green: Physical Interactions <br> Green: BioPlex <br> Dull Green: In-Complex-With <br> Seafoam Green: Experiments or Experiments_Transferred <br> Cyan: Database or Database_Transferred <br> Teal: Pathway or Predicted <br> Dark Turquoise: Genetic Interactions <br> Yellow-Orange: Correlation <br> Royal Blue: Negative Correlation <br> Bright Yellow: Positive Correlation <br> Grey: Combined_Amount or Ratio <br> Dark Grey: Merged <br> Light Grey: Intersect <br> Black: Peptide <br> Orange: Homology <br> Dull Orange: Shared Protein Domains <br> White: Default |
 | Arrow Types | Arrow: Phosphorylation, pp, Controls-Phosphorylation-of, Controls-Expression-of, Controls-Transport-of, Controls-State-Change-of, Acetylation <br> No Arrow: Default |
 </details>  
@@ -181,7 +181,7 @@ head(egfr_transporter.cfn.merged)
 
 #### Asking questions about signaling pathways that connect proteins
 
-Another example of how to use the network is to ask, what are the paths between two nodes (two proteins)?. We use the function connectNodes.all() to identify all shortest paths between two nodes.
+Another example of how to use the network is to ask: What are the paths between two nodes (two proteins)? We use the function connectNodes.all() to identify all shortest paths between two nodes.
 
 Having identified the pathways, let's also zoom in further on PTMs to examine which PTMs co-cluster, as indicated by yellow edges between them.
 
