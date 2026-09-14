@@ -33,7 +33,8 @@ test_that( "cytoscape.graph.PCN.pathways function gives right answer", {
   
 })
 
-# Must go here so tests are repeatable, Cytoscape will select the last graph made
+# Tests after this one require some graph to be in cytoscape. 
+# For test repeatability, ensure that last graph is the CFN
 test_that( "GraphCfn function gives right answer", {
   
   # Crop this dataset?
@@ -41,7 +42,7 @@ test_that( "GraphCfn function gives right answer", {
   nodes <- data.frame(id=unique(c(ex_cfn$source, ex_cfn$target)))
   # Mark's code wants a nodetype column - Why?
   # nodeType magically makes everything work 
-  nodes["nodeType"] <- "gene"
+  # nodes["nodeType"] <- "gene"
   expect_no_error(suppressMessages(GraphCfn(ex_cfn, nodes)))
   
 })
