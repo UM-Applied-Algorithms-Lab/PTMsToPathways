@@ -65,13 +65,13 @@ Cytoscape allows us to encode information in the visual network attributes node 
 | Arrow Types | Arrow: Phosphorylation, pp, Controls-Phosphorylation-of, Controls-Expression-of, Controls-Transport-of, Controls-State-Change-of, Acetylation <br> No Arrow: Default |
 </details>  
 <br>
-To visualize the information in this table, [NodeEdgeKey](reference/NodeEdgeKey.html) function generates an example network in Cytoscape like the one shown below.
+To visualize the information in this table, [NodeEdgeKey](../reference/NodeEdgeKey.html) function generates an example network in Cytoscape like the one shown below.
 
 ```{r NodeEdgeKeyOutput, eval = TRUE, echo = FALSE}
 knitr::include_graphics("vig_figs/NodeEdgeKeyOutput.png")
 ```
 
-Node information is based on a function key that maps gene names to a table of information regarding the gene. This may be provided by the user or PTMsToPathways provides an example dataset as [function_key](reference/function_key.html).
+Node information is based on a function key that maps gene names to a table of information regarding the gene. This may be provided by the user or PTMsToPathways provides an example dataset as [function_key](../reference/function_key.html).
 
 ```{r, label=visible-table, eval = FALSE, echo = TRUE}
 head(function_key)
