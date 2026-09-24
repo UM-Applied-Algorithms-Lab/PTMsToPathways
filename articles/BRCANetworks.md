@@ -152,9 +152,9 @@ networks.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 1.19 secs total.
+>> PTM CCCN complete after 1.15 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 18.64 secs total.
+>> Gene CCCN complete after 21.53 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -694,7 +694,7 @@ sessionInfo()
 >>  [9] systemfonts_1.3.2  textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
 >> [13] plyr_1.8.9         R6_2.6.1           generics_0.1.4     igraph_2.3.3      
 >> [17] knitr_1.52         tibble_3.3.1       desc_1.4.3         bslib_0.12.0      
->> [21] pillar_1.11.1      rlang_1.3.0        cachem_1.1.0       xfun_0.60         
+>> [21] pillar_1.11.1      rlang_1.3.0        cachem_1.1.0       xfun_0.61         
 >> [25] fs_2.1.0           caTools_1.18.4     sass_0.4.10        otel_0.2.0        
 >> [29] cli_3.6.6          pkgdown_2.2.1      withr_3.0.3        magrittr_2.0.5    
 >> [33] digest_0.6.39      lifecycle_1.0.5    vctrs_0.7.3        KernSmooth_2.23-26

@@ -28,7 +28,7 @@ Show Detailed Network Attribute Table
 
   
 To visualize the information in this table,
-[NodeEdgeKey](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/NodeEdgeKey.md)
+[NodeEdgeKey](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/NodeEdgeKey.md)
 function generates an example network in Cytoscape like the one shown
 below.
 
@@ -37,7 +37,7 @@ below.
 Node information is based on a function key that maps gene names to a
 table of information regarding the gene. This may be provided by the
 user or PTMsToPathways provides an example dataset as
-[function_key](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/reference/function_key.md).
+[function_key](https://um-applied-algorithms-lab.github.io/PTMsToPathways/reference/function_key.md).
 
 ``` r
 
