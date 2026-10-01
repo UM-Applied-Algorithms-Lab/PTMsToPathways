@@ -41,7 +41,7 @@ knitr::opts_chunk$set(
 
 ```
 
-The PTMsToPathways Package provides functions to aid in exploration of the resulting networks using the Cytoscape interface. We first describe some visualization choices and then give examples of using Cytoscape to explore data using a top down approach and a bottom up approach.
+The PTMsToPathways Package provides functions to aid in exploration of the resulting networks using the Cytoscape interface. If you have already run the steps in the [Creating Networks]("/GettingStarted.html"), you should already have all the data you need to visualize your networks. If not, we show how to access precomputed networks below. First, we describe some visualization choices and then give examples of using Cytoscape to explore data using a top down approach and a bottom up approach.
 
 If you have not already libraried the package, do so now.
 
@@ -74,11 +74,11 @@ knitr::include_graphics("vig_figs/NodeEdgeKeyOutput.png")
 Node information is based on a function key that maps gene names to a table of information regarding the gene. This may be provided by the user or PTMsToPathways provides an example dataset as [function_key](../reference/function_key.html).
 
 ```{r, label=visible-table, eval = FALSE, echo = TRUE}
-head(function_key)
+head(function_key[1:3])
 ```
 
 ```{r, label=table-run, eval = TRUE, echo = FALSE}
-knitr::kable(head(function_key))
+knitr::kable(head(function_key[1:3]))
 ```
 
 # Top-Down Approach
@@ -93,49 +93,60 @@ The alternative approach described below is to identify pathways, genes, and
 PTMs of interest in the R data objects, then make smaller, more interpretable
 graphs in Cytoscape using RCy3.
 
-For example, we will find names of all pathways in Bioplanet that contain EGFR.
-The data object `pathways.list` is a list, where the name of the list element is
-the name of a Bioplanet pathway and each element is a character vector of the
-genes in that pathway. Then we want to find interactions between the pathway
-"Transmembrane transport of small molecules" and those pathways.
+First, we read in Bioplanet pathways into `pathways.list` using the P2P function `ReadBioplanetFile`. Here, the name of each liist element is the name of a Bioplanet pathway that maps to a list of genes in that pathway.
+
+```{r,  label = ReadBioPlanet, eval = TRUE}
+bioplanet.path <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+pathways.list <- ReadBioplanetFile(bioplanet.file = bioplanet.path)
+```
+
+Next, we filter to the pathways that contain epidermal growth factor receptors (EGFRs).
 
 ```{r eval = TRUE}
-egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
-  {"EGFR" %in% ex_pathways_list[[x]]})]
+egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list), function(x)
+  {"EGFR" %in% pathways.list[[x]]})]
 ```
 
 We expect 83 pathways that contain EGFR, so let's check:
+
 ```{r eval = TRUE}  
 length(egfr_pathways)
 ```
 
-```{r eval = TRUE}
-egfr_transporter.pcn <- filter.edges.between(
+Then, we want to find interactions between the pathway "Transmembrane transport of small molecules" and those pathways.
+For now, we are manually adding an entry to `ex_pathway_crosstalk_network` so that the resulting filtered PCN has a row to work with.
+
+```{r label = MakeEGFRTransporterPcn, eval = TRUE}
+tempPcn = rbind(ex_pathway_crosstalk_network, data.frame(source = "Transmembrane transport of small molecules", target= "Endocytosis", Weight = 1, interaction = "PTM_cluster_evidence"))
+egfr_transporter_pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
-  egfr_pathways, ex_PCNedgelist)
+  egfr_pathways, tempPcn)
 ```
 
-```{r eval = FALSE}
-egfr_transporter_pcn.cy <- filter.edges.between(
-  "Transmembrane transport of small molecules",
-  egfr_pathways, pathway.crosstalk.network)
+This filtered PCN can be passed into the function `cytoscape.graph.PCN.pathways` to visualize the resultant network.  
+Note that this can go into Cytoscape because it has the Jaccard Similarity and Cluster Pathway Evidence (CPE) scores as distinct edges (rows). If you have Cytoscape installed and open, you can run the following code to visualize this new network.
 
-head(egfr_transporter.pcn)
-```
-
-These two versions of the PCN show cluster evidence and Jaccard smilarity in
-adjacent columns (the first case) or as distinct edges (the second case, which
-can be used to plot this network in cytoscape).
-
-```{r eval = FALSE}
+```{r label = GraphEgfrPcn, eval = FALSE}
 # Graph PCN
-pcn.graph.1 <- cytoscape.graph.PCN.pathways(
-  PCN = egfr_transporter_pcn.cy,
+pcn.graph <- cytoscape.graph.PCN.pathways(
+  PCN = egfr_transporter_pcn,
   net.name = "EGFR signaling and transmembrane transporters",
   Jaccard.edges = TRUE)
 ```
 
-Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common, yet the cluster evidence for their interaction is strong. First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data.
+```{r GraphPCNOutput, eval = TRUE, echo = FALSE}
+knitr::include_graphics("vig_figs/tempCytoscapePCN.png")
+```
+
+Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common, yet the cluster evidence for their interaction is strong.
+
+```{r label = ShowPathwayScores, eval = TRUE}
+subset(tempPcn,
+       source=="Transmembrane transport of small molecules" & target=="EGF/EGFR signaling pathway")
+# should we check other direction?
+```
+
+First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for Cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data.
 
 ```{r eval = FALSE}
 egfr_transporter.cfn <- filter.edges.0(c(
