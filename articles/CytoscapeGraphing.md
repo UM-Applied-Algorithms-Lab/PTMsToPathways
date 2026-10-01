@@ -1,9 +1,14 @@
 # Cytoscape Graphing
 
 The PTMsToPathways Package provides functions to aid in exploration of
-the resulting networks using the Cytoscape interface. We first describe
-some visualization choices and then give examples of using Cytoscape to
-explore data using a top down approach and a bottom up approach.
+the resulting networks using the Cytoscape interface. If you have
+already run the steps in the [Creating
+Networks](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/%22/GettingStarted.html%22),
+you should already have all the data you need to visualize your
+networks. If not, we show how to access precomputed networks below.
+First, we describe some visualization choices and then give examples of
+using Cytoscape to explore data using a top down approach and a bottom
+up approach.
 
 If you have not already libraried the package, do so now.
 
@@ -41,17 +46,17 @@ user or PTMsToPathways provides an example dataset as
 
 ``` r
 
-head(function_key)
+head(function_key[1:3])
 ```
 
-| Gene.Name | Approved.Name | Hugo.Gene.Family | HPRD.Function | nodeType | Domains | Compartment | Compartment.Overview |
-|:---|:---|:---|:---|:---|:---|:---|:---|
-| A1BG | alpha-1-B glycoprotein | Immunoglobulin-like domain containing | Molecular function unknown (<GO:0005554>) | undefined | IGC2 | undefined | plasma.membrane |
-| A1CF | APOBEC1 complementation factor | RNA binding motif containing | RNA binding (<GO:0003723>) | RNA binding and processing protein | RRM | RNA-associated; nucleus | RNA.associated |
-| A2LD1 | undefined | undefined | Molecular function unknown (<GO:0005554>) | undefined | undefined | undefined | undefined |
-| A2M | alpha-2-macroglobulin | undefined | Protease inhibitor activity (<GO:0030414>) | undefined | A2M | cytosol; secretion | plasma.membrane |
-| A2ML1 | alpha-2-macroglobulin-like 1 | undefined | Protease inhibitor activity (<GO:0030414>) | undefined | undefined | undefined | plasma.membrane |
-| A3GALT2 | alpha 1,3-galactosyltransferase 2 | Glycosyltransferase family 6 | Galactosyltransferase activity (<GO:0008378>) | undefined | TM | undefined | undefined |
+| Gene.Name | Approved.Name | Hugo.Gene.Family |
+|:---|:---|:---|
+| A1BG | alpha-1-B glycoprotein | Immunoglobulin-like domain containing |
+| A1CF | APOBEC1 complementation factor | RNA binding motif containing |
+| A2LD1 | undefined | undefined |
+| A2M | alpha-2-macroglobulin | undefined |
+| A2ML1 | alpha-2-macroglobulin-like 1 | undefined |
+| A3GALT2 | alpha 1,3-galactosyltransferase 2 | Glycosyltransferase family 6 |
 
 ## Top-Down Approach
 
@@ -68,63 +73,81 @@ The alternative approach described below is to identify pathways, genes,
 and PTMs of interest in the R data objects, then make smaller, more
 interpretable graphs in Cytoscape using RCy3.
 
-For example, we will find names of all pathways in Bioplanet that
-contain EGFR. The data object `pathways.list` is a list, where the name
-of the list element is the name of a Bioplanet pathway and each element
-is a character vector of the genes in that pathway. Then we want to find
-interactions between the pathway “Transmembrane transport of small
-molecules” and those pathways.
+First, we read in Bioplanet pathways into `pathways.list` using the P2P
+function `ReadBioplanetFile`. Here, the name of each liist element is
+the name of a Bioplanet pathway that maps to a list of genes in that
+pathway.
 
 ``` r
 
-egfr_pathways <- names(ex_pathways_list)[sapply(1:length(ex_pathways_list), function(x)
-  {"EGFR" %in% ex_pathways_list[[x]]})]
+bioplanet.path <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+pathways.list <- ReadBioplanetFile(bioplanet.file = bioplanet.path)
+```
+
+Next, we filter to the pathways that contain epidermal growth factor
+receptors (EGFRs).
+
+``` r
+
+egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list), function(x)
+  {"EGFR" %in% pathways.list[[x]]})]
 ```
 
 We expect 83 pathways that contain EGFR, so let’s check:
 
 ``` r
 length(egfr_pathways)
->> [1] 2
+>> [1] 83
 ```
+
+Then, we want to find interactions between the pathway “Transmembrane
+transport of small molecules” and those pathways. For now, we are
+manually adding an entry to `ex_pathway_crosstalk_network` so that the
+resulting filtered PCN has a row to work with.
 
 ``` r
 
-egfr_transporter.pcn <- filter.edges.between(
+tempPcn = rbind(ex_pathway_crosstalk_network, data.frame(source = "Transmembrane transport of small molecules", target= "Endocytosis", Weight = 1, interaction = "PTM_cluster_evidence"))
+egfr_transporter_pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
-  egfr_pathways, ex_PCNedgelist)
+  egfr_pathways, tempPcn)
 ```
 
-``` r
-
-egfr_transporter_pcn.cy <- filter.edges.between(
-  "Transmembrane transport of small molecules",
-  egfr_pathways, pathway.crosstalk.network)
-
-head(egfr_transporter.pcn)
-```
-
-These two versions of the PCN show cluster evidence and Jaccard
-smilarity in adjacent columns (the first case) or as distinct edges (the
-second case, which can be used to plot this network in cytoscape).
+This filtered PCN can be passed into the function
+`cytoscape.graph.PCN.pathways` to visualize the resultant network.  
+Note that this can go into Cytoscape because it has the Jaccard
+Similarity and Cluster Pathway Evidence (CPE) scores as distinct edges
+(rows). If you have Cytoscape installed and open, you can run the
+following code to visualize this new network.
 
 ``` r
 
 # Graph PCN
-pcn.graph.1 <- cytoscape.graph.PCN.pathways(
-  PCN = egfr_transporter_pcn.cy,
+pcn.graph <- cytoscape.graph.PCN.pathways(
+  PCN = egfr_transporter_pcn,
   net.name = "EGFR signaling and transmembrane transporters",
   Jaccard.edges = TRUE)
 ```
 
+![](vig_figs/tempCytoscapePCN.png)
+
 Let’s zero in on interactions between proteins in the two pathways
 “EGF/EGFR signaling pathway” and “Transmembrane transport of small
 molecules” because they have no genes in common, yet the cluster
-evidence for their interaction is strong. First we extract a network of
-interactions between the genes in the two pathways. Then we generate a
-node file for cytoscape. In the following case we include the data
-extracted from the ptmtable. This is optional, useful if node size and
-color is used later to indicate values in data.
+evidence for their interaction is strong.
+
+``` r
+subset(tempPcn,
+       source=="Transmembrane transport of small molecules" & target=="EGF/EGFR signaling pathway")
+# should we check other direction?
+>> [1] source      target      Weight      interaction
+>> <0 rows> (or 0-length row.names)
+```
+
+First we extract a network of interactions between the genes in the two
+pathways. Then we generate a node file for Cytoscape. In the following
+case we include the data extracted from the ptmtable. This is optional,
+useful if node size and color is used later to indicate values in data.
 
 ``` r
 
