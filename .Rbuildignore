@@ -9,3 +9,5 @@ scripts/
 ^vignettes/.*\.txt$
 ^vignettes/.*\.Rout$
 ^vignettes/plots/
+^.*\.Rproj$
+^\.Rproj\.user$
