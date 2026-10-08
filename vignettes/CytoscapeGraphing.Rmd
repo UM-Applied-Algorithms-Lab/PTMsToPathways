@@ -214,11 +214,11 @@ Another example of how to use the network is to ask: What are the paths between 
 sp1 <- connectNodes.all(c("FYN", 'MET'), edgefile = cfn.merged)
 ```
 
-Having identified the pathways, let's also zoom in further on PTMs to examine which PTMs co-cluster, as indicated by yellow edges between them. To include co-clustered PTMs in the network an extra step is necessary:
+Having identified the pathways, let's also zoom in further on PTMs to examine which PTMs co-cluster, as indicated by yellow edges between them. To include this data in the graph, first run `get.co.clustered.ptms` then use the flag `include.coclustered.PTMs` when generating the Cytoscape node file:
 
-```{r eval = FALSE}
-sp1_plus <- get.co.clustered.ptms(sp1)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ptmtable,
+```{r eval = TRUE}
+sp1_plus <- get.co.clustered.ptms(sp1, ex_ptm_cccn_edges, ex_small_ptm_table)
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_small_ptm_table,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 ```
