@@ -71,24 +71,19 @@ filter.edges.between <- function(nodes1, nodes2, edge.file, convert=FALSE) {
 #' two nodes and returns the union of edges along those paths.
 #'
 #' @param nodepair Character vector of length 2 giving the source and target node names.
-#' @param ig.graph An \code{igraph} graph object. If \code{NULL} and
-#'   \code{newgraph = TRUE}, one is built from \code{edgefile}.
-#' @param edgefile A data frame edge list used to construct the graph when
-#'   \code{newgraph = TRUE} and to extract edge attributes.
-#' @param newgraph Logical; if \code{TRUE}, build a new \code{igraph} object
-#'   from \code{edgefile} before computing paths.
+#' @param edgefile A data frame edge list used to construct the graph and extract edge attributes.
 #'
 #' @return A data frame of edges along all shortest paths between the two nodes.
 #' @export
-connectNodes.all <- function(nodepair, ig.graph=NULL, edgefile, newgraph=FALSE)	{
-  if (newgraph==TRUE) {
-    ig.graph <- igraph::graph_from_data_frame(edgefile, directed=FALSE) }
+connectNodes.all <- function(nodepair, edgefile)	{
+  ig.graph <- igraph::graph_from_data_frame(edgefile, directed=FALSE)
   sp <- igraph::all_shortest_paths(graph= ig.graph, from=nodepair[1], to=nodepair[2], mode="all")
   path.nodeslist <-  unique(lapply(sp[[1]], names))
   edges.list <- lapply(path.nodeslist, filter.edges.0, edge.file=edgefile)
   path.edges <- unique(plyr::ldply(edges.list))
   return(path.edges)
 }
+
 # This function names the edges the way Cytoscape does so they can be selected:
 #' Get Cytoscape-formatted edge names
 #'
