@@ -219,6 +219,12 @@ Manual</a>).</p>
 <p>The alternative approach described below is to identify pathways,
 genes, and PTMs of interest in the R data objects, then make smaller,
 more interpretable graphs in Cytoscape using RCy3.</p>
+<p>We’ll explore this approach using two different examples:
+investigating a pair of pathways and exploring signaling pathways that
+connect proteins.</p>
+<div class="section level3">
+<h3 id="investigate-a-pair-of-pathways">Investigate a Pair of Pathways<a class="anchor" aria-label="anchor" href="#investigate-a-pair-of-pathways"></a>
+</h3>
 <p>First, we read in Bioplanet pathways into <code>pathways.list</code>
 using the P2P function <code>ReadBioplanetFile</code>. Here, the name of
 each liist element is the name of a Bioplanet pathway that maps to a
@@ -273,82 +279,90 @@ optional, useful if node size and color is used later to indicate values
 in data.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">egfr_transporter.cfn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/filter.edges.0.html">filter.edges.0</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>  <span class="va">pathways_list</span><span class="op">[[</span><span class="st">"EGF/EGFR signaling pathway"</span><span class="op">]</span><span class="op">]</span>,</span>
-<span>  <span class="va">pathways_list</span><span class="op">[[</span><span class="st">"Transmembrane transport of small molecules"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="va">cfn</span><span class="op">)</span></span>
+<span>  <span class="va">pathways.list</span><span class="op">[[</span><span class="st">"EGF/EGFR signaling pathway"</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  <span class="va">pathways.list</span><span class="op">[[</span><span class="st">"Transmembrane transport of small molecules"</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>, <span class="va">ex_cfn</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">egfr_transporter.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span></span>
-<span>  <span class="va">egfr_transporter.cfn</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
-<p>The function GraphCfn creates a graph using the cluster filtered
-network in the Cytoscape app. When graphed, Cytoscape provides an
-interactive interface to view the data. This function requires the edge
-list file (egfr_transporter.cfn in the example), and node data file
-(egfr_transporter.nodes).</p>
-<div class="section level5">
-<h5 id="generating-the-graph-and-setting-node-size-and-color">Generating the graph and setting node size and color<a class="anchor" aria-label="anchor" href="#generating-the-graph-and-setting-node-size-and-color"></a>
-</h5>
+<span>  <span class="va">egfr_transporter.cfn</span>, <span class="va">function_key</span>, <span class="va">ex_small_ptm_table</span>, include.gene.data <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<div class="section level4">
+<h4 id="generate-the-graph-and-set-node-size-and-color">Generate the graph and set node size and color<a class="anchor" aria-label="anchor" href="#generate-the-graph-and-set-node-size-and-color"></a>
+</h4>
+<p>The function <code>GraphCfn</code> creates a graph using the cluster
+filtered network in the Cytoscape app. Cytoscape provides an interactive
+interface to view the data. This function requires the edge list file
+(<code>egfr_transporter.cfn</code> in the example), and node data file
+(<code>egfr_transporter.nodes</code>).</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_transporter.cfn</span>, cfn.nodes <span class="op">=</span> <span class="va">egfr_transporter.nodes</span>,</span>
-<span>         Network.title <span class="op">=</span> <span class="st">"CFN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a drug</span></span>
-<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># There are a lot of edges! To simplify the graph, use the mergeEdges() function.</span></span>
-<span><span class="co"># This can be done to the entire cfn:</span></span>
-<span><span class="va">cfn.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeEdges.html">mergeEdges</a></span><span class="op">(</span><span class="va">cfn</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Or just to the cfn made above:</span></span>
-<span><span class="va">egfr_transporter.cfn.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeEdges.html">mergeEdges</a></span><span class="op">(</span><span class="va">egfr_transporter.cfn</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Graph to compare:</span></span>
-<span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_transporter.cfn.merged</span>,</span>
+<span>         Network.title <span class="op">=</span> <span class="st">"CFN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
+<p>The following graph should then become visible in Cytoscape.
+<img src="vig_figs/TwoPathwayCFN.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<p>Let’s color the nodes by the intensity of their response to
+Erlotinib. In general, we choose a ratio data column to show which
+proteins reacted to your study of choice.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span></code></pre></div>
+<p>The existing cluster filtered networks retain parallel edges and
+self-loops. To consolidate these into a cleaner graph for the full cfn,
+you can run the following:</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">cfn.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeEdges.html">mergeEdges</a></span><span class="op">(</span><span class="va">ex_cfn</span><span class="op">)</span></span></code></pre></div>
+<p>Or just to the filtered cfn made above:</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">egfr_transporter.cfn.merged</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/mergeEdges.html">mergeEdges</a></span><span class="op">(</span><span class="va">egfr_transporter.cfn</span><span class="op">)</span></span></code></pre></div>
+<p>Let’s look at the filtered cfn with merged edges in Cytoscape to
+compare:</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">egfr_transporter.cfn.merged</span>,</span>
 <span>         cfn.nodes <span class="op">=</span> <span class="va">egfr_transporter.nodes</span>,  Network.title <span class="op">=</span> <span class="st">"CFN"</span>,</span>
-<span>         Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a drug</span></span>
-<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Note that within Cytoscape you can change the column for node size and color</span></span>
-<span><span class="co"># (two separate tings) in the "Styles" tab</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">egfr_transporter.cfn.merged</span><span class="op">)</span></span></code></pre></div>
+<span>         Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
+<p>We again need to adjust the colors of the nodes to a specific
+interaction type as above.</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"PC9_ErlotinibRatio"</span><span class="op">)</span></span></code></pre></div>
+<p>Note that within Cytoscape you can change the column for node size
+and color (two separate things) in the “Styles” tab.</p>
 </div>
-<div class="section level5">
-<h5 id="asking-questions-about-signaling-pathways-that-connect-proteins">Asking questions about signaling pathways that connect proteins<a class="anchor" aria-label="anchor" href="#asking-questions-about-signaling-pathways-that-connect-proteins"></a>
-</h5>
+</div>
+<div class="section level3">
+<h3 id="explore-signaling-pathways-that-connect-proteins">Explore Signaling Pathways that Connect Proteins<a class="anchor" aria-label="anchor" href="#explore-signaling-pathways-that-connect-proteins"></a>
+</h3>
 <p>Another example of how to use the network is to ask: What are the
 paths between two nodes (two proteins)? We use the function
-connectNodes.all() to identify all shortest paths between two nodes.</p>
+<code><a href="../reference/connectNodes.all.html">connectNodes.all()</a></code> to identify all shortest paths between
+two nodes.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># SHOULD RUN WITH BIGGER DATASET</span></span>
+<span><span class="va">sp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectNodes.all.html">connectNodes.all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FYN"</span>, <span class="st">'MET'</span><span class="op">)</span>, edgefile <span class="op">=</span> <span class="va">cfn.merged</span><span class="op">)</span></span></code></pre></div>
 <p>Having identified the pathways, let’s also zoom in further on PTMs to
 examine which PTMs co-cluster, as indicated by yellow edges between
-them.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">sp1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connectNodes.all.html">connectNodes.all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"FYN"</span>, <span class="st">'MET'</span><span class="op">)</span>, ig.graph<span class="op">=</span><span class="cn">NULL</span>,</span>
-<span>                        edgefile <span class="op">=</span> <span class="va">cfn.merged</span>, newgraph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="co">#. ***</span></span>
-<span></span>
-<span><span class="co"># To include co-clustered PTMs in the network an extra step is necessary:</span></span>
-<span><span class="va">sp1_plus</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get.co.clustered.ptms.html">get.co.clustered.ptms</a></span><span class="op">(</span><span class="va">sp1</span><span class="op">)</span></span>
-<span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>,</span>
+them. To include this data in the graph, first run
+<code>get.co.clustered.ptms</code> then use the flag
+<code>include.coclustered.PTMs</code> when generating the Cytoscape node
+file:</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># SHOULD RUN AFTER ABOVE CHUNK</span></span>
+<span><span class="va">sp1_plus</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get.co.clustered.ptms.html">get.co.clustered.ptms</a></span><span class="op">(</span><span class="va">sp1</span>, <span class="va">ex_ptm_cccn_edges</span>, <span class="va">ex_small_ptm_table</span><span class="op">)</span></span>
+<span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">function_key</span>, <span class="va">ex_small_ptm_table</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span>
-<span></span>
-<span><span class="co"># Now, graph in cytoscape</span></span>
-<span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">sp1_plus</span>, cfn.nodes <span class="op">=</span> <span class="va">sp1_plus.nodes</span>,</span>
+<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<p>As before, we can graph in Cytoscape and set the node color:</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">sp1_plus</span>, cfn.nodes <span class="op">=</span> <span class="va">sp1_plus.nodes</span>,</span>
 <span>         Network.title <span class="op">=</span> <span class="st">"CFN/CCCN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a drug</span></span>
-<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol <span class="op">=</span> <span class="st">"H3122CrizotinibRatio"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">sp1_plus</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol <span class="op">=</span> <span class="st">"H3122CrizotinibRatio"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
 <h2 id="bottom-up-approach">Bottom-Up Approach<a class="anchor" aria-label="anchor" href="#bottom-up-approach"></a>
 </h2>
-<div class="section level4">
-<h4 id="example---investigating-how-dasatinib-affects-proteins-involved-in-focal-adhesion">Example - Investigating how dasatinib affects proteins involved in
-focal adhesion<a class="anchor" aria-label="anchor" href="#example---investigating-how-dasatinib-affects-proteins-involved-in-focal-adhesion"></a>
-</h4>
+<p>Instead of starting with pathways, we can also start by investigating
+the PTMs directly.</p>
+<div class="section level3">
+<h3 id="investigate-how-dasatinib-affects-proteins-involved-in-focal-adhesion">Investigate how dasatinib affects proteins involved in focal
+adhesion<a class="anchor" aria-label="anchor" href="#investigate-how-dasatinib-affects-proteins-involved-in-focal-adhesion"></a>
+</h3>
 <p>Dasatinib exhibits strong binding and inhibitory effects on multiple
 focal adhesion-associated genes from the BioPlanet list:</p>
 <p>• SRC (proto-oncogene tyrosine-protein kinase Src)</p>
@@ -358,35 +372,50 @@ focal adhesion-associated genes from the BioPlanet list:</p>
 <p>All these genes are directly implicated in focal adhesion signaling
 regulation. We hypothesize that ptms on proteins involved in focal
 adhesion will be downregulated by dasatinib.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">pt.sub</span> <span class="op">&lt;-</span> <span class="va">ptmtable</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/grep.html" class="external-link">grep</a></span><span class="op">(</span><span class="st">"DasatinibRatio"</span>, <span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span> <span class="op">(</span><span class="va">ptmtable</span><span class="op">)</span><span class="op">)</span><span class="op">]</span></span>
-<span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">rowSums</a></span><span class="op">(</span><span class="va">pt.sub</span>, na.rm <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span><span class="va">pt.sub</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/order.html" class="external-link">order</a></span><span class="op">(</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Sum.Dasat</span>, decreasing <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>, <span class="op">]</span></span>
-<span></span>
-<span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<p>First, we take only the Dasatinib experiments from our dataset, find
+the sum of their reactions to Dasatinib, and order them.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>pt.sub <span class="ot">&lt;-</span> ex_full_ptm_table[, <span class="fu">grep</span>(<span class="st">"DasatinibRatio"</span>, <span class="fu">names</span> (ex_full_ptm_table))]</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>pt.sub<span class="sc">$</span>Sum.Dasat <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(pt.sub, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>pt.sub <span class="ot">&lt;-</span> pt.sub[<span class="fu">order</span>(pt.sub<span class="sc">$</span>Sum.Dasat, <span class="at">decreasing =</span> <span class="cn">FALSE</span>), ]</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a><span class="fu">head</span>(pt.sub)</span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>              H2286_DasatinibRatio H366_DasatinibRatio Sum.Dasat</span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PRKCD p Y313            <span class="sc">-</span><span class="fl">5.985065</span>           <span class="sc">-</span><span class="fl">6.409734</span> <span class="sc">-</span><span class="fl">12.39480</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> EPHA2 p T587            <span class="sc">-</span><span class="fl">6.643856</span>           <span class="sc">-</span><span class="fl">4.296287</span> <span class="sc">-</span><span class="fl">10.94014</span></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> EPHA2 p Y594            <span class="sc">-</span><span class="fl">6.643856</span>           <span class="sc">-</span><span class="fl">4.229516</span> <span class="sc">-</span><span class="fl">10.87337</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> ERBB2 p Y877            <span class="sc">-</span><span class="fl">6.643856</span>           <span class="sc">-</span><span class="fl">4.210496</span> <span class="sc">-</span><span class="fl">10.85435</span></span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PKP4 p T477             <span class="sc">-</span><span class="fl">6.006270</span>           <span class="sc">-</span><span class="fl">4.532645</span> <span class="sc">-</span><span class="fl">10.53892</span></span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> WASL p Y256             <span class="sc">-</span><span class="fl">4.470301</span>           <span class="sc">-</span><span class="fl">6.051671</span> <span class="sc">-</span><span class="fl">10.52197</span></span></code></pre></div>
+<p>Now, we filter to only PTMs related to focal adhesion genes.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">sapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/unlist.html" class="external-link">unlist</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/strsplit.html" class="external-link">strsplit</a></span><span class="op">(</span><span class="va">x</span>, <span class="st">" "</span>,  fixed<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span><span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fa.genes</span> <span class="op">&lt;-</span> <span class="va">pathways.list</span><span class="op">[[</span><span class="st">"Focal adhesion"</span><span class="op">]</span><span class="op">]</span></span>
-<span><span class="va">pt.sub.fa</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">fa.genes</span>,<span class="op">]</span></span>
-<span><span class="va">pt.sub.fa.topz</span> <span class="op">&lt;-</span> <span class="va">pt.sub.fa</span><span class="op">[</span><span class="va">pt.sub.fa</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span>,<span class="op">]</span></span>
-<span><span class="va">ptms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub.fa.topz</span><span class="op">)</span></span>
+<span><span class="va">pt.sub.fa</span> <span class="op">&lt;-</span> <span class="va">pt.sub</span><span class="op">[</span><span class="va">pt.sub</span><span class="op">$</span><span class="va">Gene.Name</span> <span class="op"><a href="https://rdrr.io/r/base/match.html" class="external-link">%in%</a></span> <span class="va">fa.genes</span>,<span class="op">]</span></span></code></pre></div>
+<p>We also retain those that are down regulate a significant amount
+(&lt;-2 decrease).</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">pt.sub.fa.topz</span> <span class="op">&lt;-</span> <span class="va">pt.sub.fa</span><span class="op">[</span><span class="va">pt.sub.fa</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span>,<span class="op">]</span></span>
+<span><span class="va">ptms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub.fa.topz</span><span class="op">)</span></span></code></pre></div>
+<p>Finally, we employ a <code>PTMsToPathways</code> functions to derive
+a cluster filtered network starting with the list of PTMs and then
+prepare the dataframe for Cytoscape visualization.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># SHOULD RUN WITH FULL DATASET</span></span>
+<span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, <span class="va">ex_ptm_cccn_edges</span>, <span class="va">ex_full_ptm_table</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Employ a helper function to derive a CFN starting with a list of PTMs</span></span>
-<span><span class="va">cfn.cccn</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ptms_to_cfn.html">ptms_to_cfn</a></span><span class="op">(</span><span class="va">ptms</span>, cfn <span class="op">=</span> <span class="va">cfn.merged</span>, pepsep <span class="op">=</span> <span class="st">";"</span><span class="op">)</span></span>
-<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">function_key</span>, <span class="va">ptmtable</span>,</span>
+<span><span class="va">cfn_cccn.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">cfn.cccn</span>, <span class="va">function_key</span>, <span class="va">ex_full_ptm_table</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Let's see what it looks like.</span></span>
-<span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>
+<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<p>If you have Cytoscape installed, you can run <code>GraphCfn</code> to
+automatically view the network just created.</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">cfn.cccn</span>, cfn.nodes <span class="op">=</span> <span class="va">cfn_cccn.nodes</span>,</span>
 <span>         Network.title <span class="op">=</span> <span class="st">"CFN/CCCN"</span>, Network.collection <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Choose a ratio data column to show which proteins' PTMs were inhibited by a dasatinib</span></span>
 <span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"H366_DasatinibRatio"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"H2286_DasatinibRatio"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Note that within Cytoscape you can change the column for node size and color</span></span>
-<span><span class="co"># (two separate things) in the "Styles" tab</span></span></code></pre></div>
+<span><span class="fu"><a href="../reference/setNodeColorToRatios.html">setNodeColorToRatios</a></span><span class="op">(</span>plotcol<span class="op">=</span><span class="st">"H2286_DasatinibRatio"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
