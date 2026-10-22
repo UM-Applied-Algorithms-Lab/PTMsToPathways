@@ -50,7 +50,7 @@ Installation instructions for the P2P package can be found on the [main package 
 
 Then load the package:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=library, eval = TRUE, echo = TRUE}
 library(PTMsToPathways)
 ```
 
@@ -68,11 +68,11 @@ to be inspected locally.
 
 To see all data that is provided with the package, run:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=showData, eval = FALSE, echo = TRUE}
 data(package = "PTMsToPathways")
 ```
 
-```{r eval = TRUE, echo = FALSE}
+```{r label=viewData, eval = TRUE, echo = FALSE}
 dat <- as.data.frame(data(package = "PTMsToPathways")$results)
 dat <- dat[, c("Item", "Title")]
 knitr::kable(dat, col.names = c("Dataset Name", "Description"), align = 'l')
@@ -81,7 +81,7 @@ knitr::kable(dat, col.names = c("Dataset Name", "Description"), align = 'l')
 If you are using the smaller dataset, use the following code to view the
 dimensions of the dataset and a small portion of it:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=dimAndShow, eval = TRUE, echo = TRUE}
 dim(ex_small_ptm_table)
 ex_small_ptm_table[38:50, 1:2]
 ```
@@ -89,7 +89,7 @@ ex_small_ptm_table[38:50, 1:2]
 If you want to use the bigger dataset, the following code shows the
 dimensions and a snippet of the dataset:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=dimAndShowBig, eval = TRUE, echo = TRUE}
 dim(ex_full_ptm_table)
 ex_full_ptm_table[38:50, 1:2]
 ```
@@ -97,7 +97,7 @@ ex_full_ptm_table[38:50, 1:2]
 If you have downloaded the larger dataset locally, you can read it into
 R using the following code:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=readData, eval = FALSE, echo = TRUE}
 allptmtable <- utils::read.table("AlldataPTMs.txt", sep = "\t", skip = 0,
                                  fill = T, quote = "\"", dec = ".",
                                  comment.char = "", stringsAsFactors = F)
@@ -138,7 +138,7 @@ considered as clustering together.
 
 `MakeClusterList` can be run like so:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=runMCL, eval = TRUE, echo = TRUE}
 set.seed(88)
 clusterlist.data <- MakeClusterList(ex_small_ptm_table,
                                     keeplength = 2, toolong = 3.5)
@@ -147,7 +147,7 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 The following unpacks the output into the separate objects discussed
 above:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=unpackMCL, eval = TRUE, echo = TRUE}
 common.clusters <- clusterlist.data[[1]]
 adj.consensus.matrix <- clusterlist.data[[2]]
 ptm.correlation.matrix <- clusterlist.data[[3]]
@@ -155,14 +155,14 @@ ptm.correlation.matrix <- clusterlist.data[[3]]
 
 Now we can view the objects. First, here is an example of a cluster:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewCC, eval = TRUE, echo = TRUE}
 common.clusters[1]
 ```
 
 Next, we look at a piece of the adjacency matrix. Ones represent a pair
 that cluster and zeroes represent a pair that doesn't:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewAdjMatrix, eval = TRUE, echo = TRUE}
 adj.consensus.matrix[7:10, 7:10]
 ```
 
@@ -171,7 +171,7 @@ are Spearman correlation coefficients ranging from -1 to 1. If two PTMs
 had no experimental conditions in common, their correlation value will
 be NA.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewPTMcorr, eval = TRUE, echo = TRUE}
 ptm.correlation.matrix[38:43, 1:2]
 ```
 
@@ -186,7 +186,7 @@ PTMs that co-cluster together to create a PTM CCCN. It then defines a
 relationship between proteins modified by PTMs and creates a gene CCCN
 with sum of the PTM correlations serving as edge weights.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=makeCCCN, eval = TRUE, echo = TRUE}
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 ptm.cccn.edges <- CCCN.data[[1]]
@@ -196,27 +196,27 @@ gene.cccn.nodes <- CCCN.data[[3]]
 
 We can view a portion of the PTM CCCN edges:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewCCCN, eval = TRUE, echo = TRUE}
 ptm.cccn.edges[18:22,]
 ```
 
 And a portion of the gene CCCN edges:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewGeneCCCN, eval = TRUE, echo = TRUE}
 gene.cccn.edges[1:5,]
 ```
 
 Finally, we can view a portion of the gene CCCN nodes, which are used to
 map to external PPI databases in the next step:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewGeneNodes, eval = TRUE, echo = TRUE}
 gene.cccn.nodes[1:5]
 ```
 
 Because this step can take a long time to run on larger datasets, the
 output may be saved as an RData object for later use.
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=saveEnv, eval = FALSE, echo = TRUE}
 save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
 ```
@@ -251,11 +251,11 @@ file that can be used in place of the live online query.
 The data can be found on [Zenodo](https://zenodo.org/records/20631767).
 Here, we use a small subset of the data downloadable from Zenodo.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=getStringDB, eval = TRUE, echo = TRUE}
 path <- system.file("extdata", "small_string_hs_hugo.tsv",
                     package = "PTMsToPathways")
-stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes, local=TRUE,
-    string.local.path = path)
+stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges, gene.cccn.nodes,
+                                    local=TRUE, string.local.path = path)
 stringdb.edges[1:5,]
 ```
 
@@ -269,7 +269,7 @@ First, create an input file for GeneMANIA using the `MakeDBInput`
 function provided within P2P (note that this creates a text file in your
 working directory):
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=getGm, eval = TRUE, echo = TRUE}
 MakeDBInput(gene.cccn.nodes, file.path.name = "db_nodes.txt")
 ```
 
@@ -293,7 +293,7 @@ produced by GeneMANIA itself. For example, we have saved
 package. The following code shows how to use this file as input to the
 function.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=saveGm, eval = TRUE, echo = TRUE}
 gm.results.path <- system.file("extdata", "ex_gm_results.txt",
                                package = "PTMsToPathways")
 genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
@@ -301,7 +301,7 @@ genemania.edges <- GetGeneMANIA.edges(gm.results.path, gene.cccn.nodes)
 
 We can see an example of the GeneMANIA edges below:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewGm, eval = TRUE, echo = TRUE}
 genemania.edges[1:5,]
 ```
 
@@ -314,14 +314,13 @@ The `GetKinsub.edges` function reads this downloaded data in and formats
 it so that all the PPI edge data frames are in the same format for the
 next step.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=getKinsub, eval = TRUE, echo = TRUE}
 input.filename <- system.file("extdata", "Kinase_Substrate_Dataset.txt",
                               package = "PTMsToPathways")
 ```
 
-```{r eval = TRUE, echo = TRUE}
-kinsub.edges <- GetKinsub.edges(input.filename,
-                                  gene.cccn.nodes)
+```{r label=kinsubEdges, eval = TRUE, echo = TRUE}
+kinsub.edges <- GetKinsub.edges(input.filename, gene.cccn.nodes)
 ```
 
 # Step 4: Build PPI Network and Cluster Filtered Network
@@ -340,7 +339,7 @@ network created in step 2.
 
 We first run the function:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=buildCfn, eval = TRUE, echo = TRUE}
 network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
                                             stringdb.edges,
                                             genemania.edges,
@@ -350,14 +349,14 @@ network.list <- BuildClusterFilteredNetwork(gene.cccn.edges,
 
 And then unpack the outputs into separate variables:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=unpackCfn, eval = TRUE, echo = TRUE}
 combined.PPIs <- network.list[[1]]
 cfn <- network.list[[2]]
 ```
 
 We can view a portion of the CFN below:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=viewCfn, eval = TRUE, echo = TRUE}
 cfn[1:5,]
 ```
 
@@ -365,7 +364,7 @@ To reduce clutter on graphs, the CFN edges can be merged. This collapses
 two or more edges between two nodes into a single edge, combining edge
 names:
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=mergeCfn, eval = TRUE, echo = TRUE}
 cfn.merged <- mergeEdges(cfn)
 ```
 
@@ -386,7 +385,7 @@ For graphing in Cytoscape, the Cluster-Pathway Evidence and Jaccard
 similarity edges are listed separately in the edgelist called
 pathway.crosstalk.network.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=getBioplanet, eval = TRUE, echo = TRUE}
 bioplanet.file <- system.file("extdata", "pathway.csv",
                               package = "PTMsToPathways")
 ```
@@ -397,7 +396,7 @@ the relationships between pathways in two forms: a dataframe of edges that can b
 and a dataframe with columns for the two edge weights (the second element of the returned list). The third element of the returned list is the list of pathways
 (in case the user provided a path to the pathway file rather than a list of pathways). The fourth element is the cluster-by-pathway
 CPE matrix used for the PTM cluster weight calculations. The function can be run as follows:
-```{r eval = TRUE, echo = TRUE}
+```{r label=buildPCN, eval = TRUE, echo = TRUE}
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
@@ -408,24 +407,24 @@ CPE.matrix <- PCN.data[[4]]
 If you want to save the Cytoscape-ready edgefile, save the returned
 `pathway.crosstalk.network` dataframe explicitly:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=saveToEdgefile, eval = FALSE, echo = TRUE}
 utils::write.csv(pathway.crosstalk.network,
                  file = "PCN_file.csv",
                  row.names = FALSE)
 ```
 
 The required columns for Cytoscape are:
-```{r eval = TRUE, echo = TRUE}
+```{r label= cytoCols, eval = TRUE, echo = TRUE}
 names(pathway.crosstalk.network)
 ```
 
 And we can see some of the pathway crosstalk network edges below:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=viewPcn, eval = FALSE, echo = TRUE}
 pathway.crosstalk.network[1:5,]
 ```
 
-```{r eval = TRUE, echo = FALSE}
+```{r label=showPcn, eval = TRUE, echo = FALSE}
 dat <- pathway.crosstalk.network[1:5,]
 knitr::kable(dat, align = 'l', digits = 2)
 ```
@@ -433,11 +432,14 @@ knitr::kable(dat, align = 'l', digits = 2)
 To understand the edge weights calculations, let's consider a pair of pathways, `Axon Guidance` and
 `ERBB signaling pathway`. We'll look at the `PCNedgelist` dataframe this time.
 
-```{r eval = FALSE, echo = TRUE}
-PCNedgelist[PCNedgelist$source == "Axon guidance" & PCNedgelist$target == "ERBB signaling pathway", ]
+```{r label=showEdgeWeights, eval = FALSE, echo = TRUE}
+PCNedgelist[PCNedgelist$source == "Axon guidance" &
+              PCNedgelist$target == "ERBB signaling pathway", ]
 ```
-```{r eval = TRUE, echo = FALSE}
-dat <- PCNedgelist[PCNedgelist$source == "Axon guidance" & PCNedgelist$target == "ERBB signaling pathway", ]
+
+```{r label=calcEdgeWeights, eval = TRUE, echo = FALSE}
+dat <- PCNedgelist[PCNedgelist$source == "Axon guidance" &
+                     PCNedgelist$target == "ERBB signaling pathway", ]
 knitr::kable(dat, align = 'l', digits = 2)
 ```
 
@@ -449,9 +451,11 @@ the intersection of the two pathways (the number of genes that are in both
 pathways) divided by the size of the union of the two pathways (the total number
 of unique genes that are in either pathway).
 
-```{r eval = TRUE, echo = TRUE}
-size_union <- length(union(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
-size_intersection <- length(intersect(pathways.list[["Axon guidance"]], pathways.list[["ERBB signaling pathway"]]))
+```{r label=getJaccard, eval = TRUE, echo = TRUE}
+size_union <- length(union(pathways.list[["Axon guidance"]],
+                           pathways.list[["ERBB signaling pathway"]]))
+size_intersection <- length(intersect(pathways.list[["Axon guidance"]],
+                                      pathways.list[["ERBB signaling pathway"]]))
 jaccard_similarity <- size_intersection / size_union
 jaccard_similarity
 ```
@@ -472,37 +476,44 @@ where $pro_k$ is a protein in pathway $j$ and $PTM_x$ is a PTM.
 
 Let's break down the CPE calculation single cluster $i$, the first cluster found, and a single pathway $j$, the `Axon guidance` pathway.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label=axonGuidancePathway, eval = TRUE, echo = TRUE}
 c_i <- common.clusters[[1]]
 p_j <- pathways.list[["Axon guidance"]]
 length(c_i)
 length(p_j)
 ```
+
 Notice that the numerator of the summands in $CPE(i,j)$ counts the number of
-PTMs that are in both the protein and the cluster. Intuitively, if a pathway contains many proteins that have PTMs in this cluster, then this sum will be larger.
-Of the 325 proteins in the `Axon guidance` pathway, only `MYH9` and `PTK2` have PTMs that occur in the first cluster, so
-out of the 325 summands in $CPE(i,j)$, only two are non-zero. And in fact, both numerators are 1, since there is only one PTM on `MYH9` in our cluster:
-```{r eval = TRUE, echo = TRUE}
+PTMs that are in both the protein and the cluster. Intuitively, if a pathway contains many proteins that have PTMs in this cluster, then this sum will be larger. Of the 325 proteins in the `Axon guidance` pathway, only `MYH9` and `PTK2` have PTMs that occur in the first cluster, so out of the 325 summands in $CPE(i,j)$, only two are non-zero. And in fact, both numerators are 1, since there is only one PTM on `MYH9` in our cluster:
+
+```{r label=getMYH, eval = TRUE, echo = TRUE}
 c_i[grepl("MYH9", c_i)]
 ```
+
 And also only one PTM on`PTK2`:
-```{r eval = TRUE, echo = TRUE}
+
+```{r label=getPTK, eval = TRUE, echo = TRUE}
 c_i[grepl("PTK2", c_i)]
 ```
-The denominators of the summands in $CPE(i,j)$ are the product of the number of pathways that the protein is in and the number of PTMs in the cluster. From
-above, there are 8 PTMs in this cluster. `MYH9` is in 1 pathway and `PTK2` is in 2 pathways, as seen below:
-```{r eval = TRUE, echo = TRUE}
+
+The denominators of the summands in $CPE(i,j)$ are the product of the number of pathways that the protein is in and the number of PTMs in the cluster. From above, there are 8 PTMs in this cluster. `MYH9` is in 1 pathway and `PTK2` is in 2 pathways, as seen below:
+
+```{r label=sums, eval = TRUE, echo = TRUE}
 sum(sapply(pathways.list, function(x) "MYH9" %in% x))
 sum(sapply(pathways.list, function(x) "PTK2" %in% x))
 ```
+
 (Note that the `pathways.list` here is a smaller version of the full BioPlanet pathways list.)
 
 So CPE for the first cluster and the `Axon guidance` pathway is:
-```{r eval = TRUE, echo = TRUE}
+
+```{r label=math, eval = TRUE, echo = TRUE}
 1/(1*8) + 1/(2*8)
 ```
+
 We can see that this is the same value as the CPE score for the first cluster and the `Axon guidance` pathway in the `CPE.matrix`:
-```{r eval = TRUE, echo = TRUE}
+
+```{r label=CPEcompare, eval = TRUE, echo = TRUE}
 CPE.matrix[1, "Axon guidance"]
 ```
 
@@ -513,12 +524,14 @@ cluster has positive CPE with both pathways, it contributes to the PTM cluster
 weight between those two pathways.
 
 For the `Axon guidance` and `ERBB signaling pathway` pair, we can see all of those clusters and their CPE scores with both pathways in the `CPE.matrix`:
-```{r eval = FALSE, echo = TRUE}
+
+```{r label=viewScores, eval = FALSE, echo = TRUE}
 cols <- c("Axon guidance", "ERBB signaling pathway")
 rows <- rowSums(!is.na(CPE.matrix[, cols])) == 2
 CPE.matrix[rows, cols]
 ```
-```{r eval = TRUE, echo = FALSE}
+
+```{r label=getColRowDat, eval = TRUE, echo = FALSE}
 cols <- c("Axon guidance", "ERBB signaling pathway")
 rows <- rowSums(!is.na(CPE.matrix[, cols])) == 2
 dat <- CPE.matrix[rows, cols]
@@ -526,7 +539,7 @@ knitr::kable(dat, align = 'l', digits = 2)
 ```
 And the total is the same as the `pathway_cluster_weight` for this pair above.
 
-```{r eval= TRUE, echo = TRUE}
+```{r label=sumAgain, eval= TRUE, echo = TRUE}
 sum(CPE.matrix[rows, cols])
 ```
 
@@ -541,7 +554,7 @@ file with the write.csv function.
 
 To save one object:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=saveOneObject, eval = FALSE, echo = TRUE}
 save(object, filename = "filepath/name.rda") # Saves object as an .rda
 load("filepath/name.rda")                    # Loads object saved to a file
 ```
@@ -549,13 +562,13 @@ load("filepath/name.rda")                    # Loads object saved to a file
 For multiple objects: Note the objects are saved as an .RData rather
 than an .rda
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=saveMultiObjects, eval = FALSE, echo = TRUE}
 save(object1, object2, object.ect, filename="NewFile.RData")
 ```
 
 To save one object as a csv:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=saveCSV, eval = FALSE, echo = TRUE}
 utils::write.csv(object, file = "filepath/name.csv") # Saves object as a .csv
 utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 ```
@@ -563,13 +576,13 @@ utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 You may also save your entire Global Environment namespace using the
 save.image function as shown below:
 
-```{r eval = FALSE, echo = TRUE}
+```{r label=saveEnv, eval = FALSE, echo = TRUE}
 save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
 ```
 
 ### Session Info
 
-```{r eval = TRUE}
+```{r label=sessionInfo, eval = TRUE}
 sessionInfo()
 ```

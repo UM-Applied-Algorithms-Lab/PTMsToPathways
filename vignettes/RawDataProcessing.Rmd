@@ -193,7 +193,7 @@ head(names(data.cols))
 Make zero into `NA`, which it is. (Note that this may not apply if you are
 confident that zero means actual zero, which is possible with certain technical
 advances like DIA.) We should have 16265 `NA` values.
-```{r label=0toNA, eval = TRUE}
+```{r label=zeroToNA, eval = TRUE}
 zer0 <- which(data.cols==0, arr.ind = TRUE)
 data.cols <- replace (data.cols, zer0, NA)
 sum(is.na(data.cols))
