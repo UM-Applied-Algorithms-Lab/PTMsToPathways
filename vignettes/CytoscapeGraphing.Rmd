@@ -45,7 +45,7 @@ The PTMsToPathways Package provides functions to aid in exploration of the resul
 
 If you have not already libraried the package, do so now.
 
-```{r eval = TRUE, echo = TRUE}
+```{r label = library, eval = TRUE, echo = TRUE}
 library(PTMsToPathways)
 ```
 
@@ -99,7 +99,7 @@ We'll explore this approach using two different examples: investigating a pair o
 
 First, we read in Bioplanet pathways into `pathways.list` using the P2P function `ReadBioplanetFile`. Here, the name of each liist element is the name of a Bioplanet pathway that maps to a list of genes in that pathway.
 
-```{r,  label = ReadBioPlanet, eval = TRUE}
+```{r label = ReadBioPlanet, eval = TRUE}
 bioplanet.path <- system.file("extdata",
                               "bioplanet_pathway_June2025.csv",
                               package = "PTMsToPathways")
@@ -108,14 +108,14 @@ pathways.list <- ReadBioplanetFile(bioplanet.file = bioplanet.path)
 
 Next, we filter to the pathways that contain epidermal growth factor receptors (EGFRs).
 
-```{r eval = TRUE}
+```{r label = create.EGFR.pathways, eval = TRUE}
 egfr_pathways <- names(pathways.list)[sapply(1:length(pathways.list), function(x)
   {"EGFR" %in% pathways.list[[x]]})]
 ```
 
 We expect 83 pathways that contain EGFR, so let's check:
 
-```{r eval = TRUE}  
+```{r label=show.egfr.length, eval = TRUE}  
 length(egfr_pathways)
 ```
 
@@ -184,31 +184,31 @@ knitr::include_graphics("vig_figs/TwoPathwayCFN.png")
 
 Let's color the nodes by the intensity of their response to Erlotinib. In general, we choose a ratio data column to show which proteins reacted to your study of choice.
 
-```{r eval = FALSE}
+```{r label=nodeColRatios, eval = FALSE}
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
 The existing cluster filtered networks retain parallel edges and self-loops. To consolidate these into a cleaner graph for the full cfn, you can run the following:
 
-```{r eval = TRUE}
+```{r label=mergeCFN, eval = TRUE}
 cfn.merged <- mergeEdges(ex_cfn)
 ```
 
 Or just to the filtered cfn made above:
 
-```{r eval = TRUE}
+```{r label=EGFRmerge, eval = TRUE}
 egfr_transporter.cfn.merged <- mergeEdges(egfr_transporter.cfn)
 ```
 
 Let's look at the filtered cfn with merged edges in Cytoscape to compare:
-```{r eval = FALSE}
+```{r label=GraphEGFR, eval = FALSE}
 GraphCfn(cfn.edges = egfr_transporter.cfn.merged,
          cfn.nodes = egfr_transporter.nodes,  Network.title = "CFN",
          Network.collection = "PTMsToPathways")
 ```
 
 We again need to adjust the colors of the nodes to a specific interaction type as above.
-```{r eval = FALSE}
+```{r, label=NodeColRatio, eval = FALSE}
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
@@ -218,14 +218,14 @@ Note that within Cytoscape you can change the column for node size and color (tw
 
 Another example of how to use the network is to ask: What are the paths between two nodes (two proteins)? We use the function `connectNodes.all()` to identify all shortest paths between two nodes.
 
-```{r eval = FALSE}
+```{r label=Connect, eval = FALSE}
 # SHOULD RUN WITH BIGGER DATASET
 sp1 <- connectNodes.all(c("FYN", 'MET'), edgefile = cfn.merged)
 ```
 
 Having identified the pathways, let's also zoom in further on PTMs to examine which PTMs co-cluster, as indicated by yellow edges between them. To include this data in the graph, first run `get.co.clustered.ptms` then use the flag `include.coclustered.PTMs` when generating the Cytoscape node file:
 
-```{r eval = FALSE}
+```{r label=SP1cccn, eval = FALSE}
 # SHOULD RUN AFTER ABOVE CHUNK
 sp1_plus <- get.co.clustered.ptms(sp1, ex_ptm_cccn_edges, ex_small_ptm_table)
 sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_small_ptm_table,
@@ -235,7 +235,7 @@ sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_small_ptm_
 
 As before, we can graph in Cytoscape and set the node color:
 
-```{r eval = FALSE}
+```{r label = SP1graph, eval = FALSE}
 GraphCfn(cfn.edges = sp1_plus, cfn.nodes = sp1_plus.nodes,
          Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
 
@@ -262,7 +262,7 @@ All these genes are directly implicated in focal adhesion signaling regulation. 
 
 First, we take only the Dasatinib experiments from our dataset, find the sum of their reactions to Dasatinib, and order them.
 
-```{r eval = TRUE}
+```{r label= pt.sub, eval = TRUE}
 pt.sub <- ex_full_ptm_table[, grep("DasatinibRatio", names (ex_full_ptm_table))]
 pt.sub$Sum.Dasat <- rowSums(pt.sub, na.rm = TRUE)
 pt.sub <- pt.sub[order(pt.sub$Sum.Dasat, decreasing = FALSE), ]
@@ -271,7 +271,7 @@ head(pt.sub)
 
 Now, we filter to only PTMs related to focal adhesion genes.
 
-```{r eval = TRUE}
+```{r label=pt.subFiltered, eval = TRUE}
 pt.sub$Gene.Name <- sapply(rownames(pt.sub), function(x){
   unlist(strsplit(x, " ",  fixed=TRUE))[1]})
 
@@ -279,16 +279,16 @@ fa.genes <- pathways.list[["Focal adhesion"]]
 pt.sub.fa <- pt.sub[pt.sub$Gene.Name %in% fa.genes,]
 ```
 
-We also retain those that are down regulate a significant amount (<-2 decrease).
+We also retain those that down regulate a significant amount (<-2 decrease).
 
-```{r eval = TRUE}
+```{r label=ptSubDownRegulate, eval = TRUE}
 pt.sub.fa.topz <- pt.sub.fa[pt.sub.fa$Sum.Dasat < -2,]
 ptms <- rownames(pt.sub.fa.topz)
 ```
 
 Finally, we employ a `PTMsToPathways` functions to derive a cluster filtered network starting with the list of PTMs and then prepare the dataframe for Cytoscape visualization.
 
-```{r eval = FALSE}
+```{r label=cfnAndVisual, eval = FALSE}
 # SHOULD RUN WITH FULL DATASET
 cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges,
                         ex_full_ptm_table, pepsep = ";")
@@ -301,7 +301,7 @@ cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
 
 If you have Cytoscape installed, you can run `GraphCfn` to automatically view the network just created.
 
-```{r eval = FALSE}
+```{r label=graphDasatinib, eval = FALSE}
 GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
          Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
 
