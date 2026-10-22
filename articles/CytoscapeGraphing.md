@@ -86,7 +86,9 @@ pathway.
 
 ``` r
 
-bioplanet.path <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+bioplanet.path <- system.file("extdata",
+                              "bioplanet_pathway_June2025.csv",
+                              package = "PTMsToPathways")
 pathways.list <- ReadBioplanetFile(bioplanet.file = bioplanet.path)
 ```
 
@@ -113,7 +115,10 @@ resulting filtered PCN has a row to work with.
 
 ``` r
 
-tempPcn = rbind(ex_pathway_crosstalk_network, data.frame(source = "Transmembrane transport of small molecules", target= "Endocytosis", Weight = 1, interaction = "PTM_cluster_evidence"))
+tempPcn = rbind(ex_pathway_crosstalk_network,
+                data.frame(source="Transmembrane transport of small molecules",
+                           target="Endocytosis", Weight = 1,
+                           interaction="PTM_cluster_evidence"))
 egfr_transporter_pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, tempPcn)
@@ -144,7 +149,8 @@ evidence for their interaction is strong.
 
 ``` r
 subset(tempPcn,
-       source=="Transmembrane transport of small molecules" & target=="EGF/EGFR signaling pathway")
+       source=="Transmembrane transport of small molecules" &
+         target=="EGF/EGFR signaling pathway")
 # should we check other direction?
 >> [1] source      target      Weight      interaction
 >> <0 rows> (or 0-length row.names)
@@ -162,7 +168,7 @@ egfr_transporter.cfn <- filter.edges.0(c(
   pathways.list[["Transmembrane transport of small molecules"]]), ex_cfn)
 
 egfr_transporter.nodes <- make.cytoscape.node.file(
-  egfr_transporter.cfn, function_key, ex_small_ptm_table, include.gene.data = TRUE) 
+  egfr_transporter.cfn, function_key, ex_small_ptm_table, include.gene.data=TRUE) 
 ```
 
 #### Generate the graph and set node size and color
@@ -316,7 +322,7 @@ fa.genes <- pathways.list[["Focal adhesion"]]
 pt.sub.fa <- pt.sub[pt.sub$Gene.Name %in% fa.genes,]
 ```
 
-We also retain those that are down regulate a significant amount (\<-2
+We also retain those that down regulate a significant amount (\<-2
 decrease).
 
 ``` r
@@ -332,9 +338,11 @@ dataframe for Cytoscape visualization.
 ``` r
 
 # SHOULD RUN WITH FULL DATASET
-cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges, ex_full_ptm_table, pepsep = ";")
+cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges,
+                        ex_full_ptm_table, pepsep = ";")
 
-cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key, ex_full_ptm_table,
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
+                                           ex_full_ptm_table,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE)
 ```
@@ -347,7 +355,7 @@ view the network just created.
 GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
          Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
 
-# Choose a ratio data column to show which proteins' PTMs were inhibited by a dasatinib
+# Choose ratio data column to show which proteins' PTMs were inhibited by a dasatinib
 setNodeColorToRatios(plotcol="H366_DasatinibRatio")
 setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
 ```
