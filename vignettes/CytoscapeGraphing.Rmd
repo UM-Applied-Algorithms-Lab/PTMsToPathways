@@ -100,7 +100,9 @@ We'll explore this approach using two different examples: investigating a pair o
 First, we read in Bioplanet pathways into `pathways.list` using the P2P function `ReadBioplanetFile`. Here, the name of each liist element is the name of a Bioplanet pathway that maps to a list of genes in that pathway.
 
 ```{r,  label = ReadBioPlanet, eval = TRUE}
-bioplanet.path <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+bioplanet.path <- system.file("extdata",
+                              "bioplanet_pathway_June2025.csv",
+                              package = "PTMsToPathways")
 pathways.list <- ReadBioplanetFile(bioplanet.file = bioplanet.path)
 ```
 
@@ -121,7 +123,10 @@ Then, we want to find interactions between the pathway "Transmembrane transport 
 For now, we are manually adding an entry to `ex_pathway_crosstalk_network` so that the resulting filtered PCN has a row to work with.
 
 ```{r label = MakeEGFRTransporterPcn, eval = TRUE}
-tempPcn = rbind(ex_pathway_crosstalk_network, data.frame(source = "Transmembrane transport of small molecules", target= "Endocytosis", Weight = 1, interaction = "PTM_cluster_evidence"))
+tempPcn = rbind(ex_pathway_crosstalk_network,
+                data.frame(source="Transmembrane transport of small molecules",
+                           target="Endocytosis", Weight = 1,
+                           interaction="PTM_cluster_evidence"))
 egfr_transporter_pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
   egfr_pathways, tempPcn)
@@ -146,7 +151,8 @@ Let's zero in on interactions between proteins in the two pathways "EGF/EGFR sig
 
 ```{r label = ShowPathwayScores, eval = TRUE}
 subset(tempPcn,
-       source=="Transmembrane transport of small molecules" & target=="EGF/EGFR signaling pathway")
+       source=="Transmembrane transport of small molecules" &
+         target=="EGF/EGFR signaling pathway")
 # should we check other direction?
 ```
 
@@ -158,7 +164,7 @@ egfr_transporter.cfn <- filter.edges.0(c(
   pathways.list[["Transmembrane transport of small molecules"]]), ex_cfn)
 
 egfr_transporter.nodes <- make.cytoscape.node.file(
-  egfr_transporter.cfn, function_key, ex_small_ptm_table, include.gene.data = TRUE) 
+  egfr_transporter.cfn, function_key, ex_small_ptm_table, include.gene.data=TRUE) 
 
 ```
 
@@ -284,9 +290,11 @@ Finally, we employ a `PTMsToPathways` functions to derive a cluster filtered net
 
 ```{r eval = FALSE}
 # SHOULD RUN WITH FULL DATASET
-cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges, ex_full_ptm_table, pepsep = ";")
+cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges,
+                        ex_full_ptm_table, pepsep = ";")
 
-cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key, ex_full_ptm_table,
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
+                                           ex_full_ptm_table,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE)
 ```
@@ -297,7 +305,7 @@ If you have Cytoscape installed, you can run `GraphCfn` to automatically view th
 GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
          Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
 
-# Choose a ratio data column to show which proteins' PTMs were inhibited by a dasatinib
+# Choose ratio data column to show which proteins' PTMs were inhibited by a dasatinib
 setNodeColorToRatios(plotcol="H366_DasatinibRatio")
 setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
 ```
