@@ -576,7 +576,7 @@ utils::read.csv(file = "filepath/name.csv")          # Loads object from .csv
 You may also save your entire Global Environment namespace using the
 save.image function as shown below:
 
-```{r label=saveEnv, eval = FALSE, echo = TRUE}
+```{r label=saveEnvAgain, eval = FALSE, echo = TRUE}
 save.image(file = "filepath/name.RData")
 # All objects in the environment are saved
 ```
