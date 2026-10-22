@@ -277,7 +277,7 @@ We also retain those that are down regulate a significant amount (<-2 decrease).
 
 ```{r eval = TRUE}
 pt.sub.fa.topz <- pt.sub.fa[pt.sub.fa$Sum.Dasat < -2,]
-ptms = rownames(pt.sub.fa.topz)
+ptms <- rownames(pt.sub.fa.topz)
 ```
 
 Finally, we employ a `PTMsToPathways` functions to derive a cluster filtered network starting with the list of PTMs and then prepare the dataframe for Cytoscape visualization.
