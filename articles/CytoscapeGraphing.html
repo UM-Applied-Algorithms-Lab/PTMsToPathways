@@ -396,7 +396,7 @@ the sum of their reactions to Dasatinib, and order them.</p>
 (&lt;-2 decrease).</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">pt.sub.fa.topz</span> <span class="op">&lt;-</span> <span class="va">pt.sub.fa</span><span class="op">[</span><span class="va">pt.sub.fa</span><span class="op">$</span><span class="va">Sum.Dasat</span> <span class="op">&lt;</span> <span class="op">-</span><span class="fl">2</span>,<span class="op">]</span></span>
-<span><span class="va">ptms</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub.fa.topz</span><span class="op">)</span></span></code></pre></div>
+<span><span class="va">ptms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">pt.sub.fa.topz</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, we employ a <code>PTMsToPathways</code> functions to derive
 a cluster filtered network starting with the list of PTMs and then
 prepare the dataframe for Cytoscape visualization.</p>

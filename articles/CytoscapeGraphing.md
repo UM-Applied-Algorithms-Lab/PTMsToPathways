@@ -322,7 +322,7 @@ decrease).
 ``` r
 
 pt.sub.fa.topz <- pt.sub.fa[pt.sub.fa$Sum.Dasat < -2,]
-ptms = rownames(pt.sub.fa.topz)
+ptms <- rownames(pt.sub.fa.topz)
 ```
 
 Finally, we employ a `PTMsToPathways` functions to derive a cluster
