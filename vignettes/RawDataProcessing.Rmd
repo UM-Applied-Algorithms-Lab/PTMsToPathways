@@ -416,7 +416,7 @@ log2ptmdata <- log2(ptmdata)
 ```
 
 Finally, this dataframe could be used as the example `ptmtable` for the P2P functions.
-```{r label=useDF eval = FALSE}
+```{r label=useDF, eval = FALSE}
 ptmtable <- log2ptmdata
 ```
 
