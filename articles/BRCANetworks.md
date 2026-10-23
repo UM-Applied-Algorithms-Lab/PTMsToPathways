@@ -31,10 +31,12 @@ package and and can be read in as follows:
 
 ``` r
 
-file_path <- system.file("extdata", "PhosphoDiscoData_mmc9.txt", package = "PTMsToPathways")
+file_path <- system.file("extdata", "PhosphoDiscoData_mmc9.txt",
+                         package = "PTMsToPathways")
 newphos <- utils::read.table(file_path, header = TRUE,
-                               stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
-                               na.strings = "", quote = "", fill = TRUE)
+                             stringsAsFactors = FALSE, sep = "\t",
+                             comment.char = "#", na.strings = "",
+                             quote = "", fill = TRUE)
 ```
 
 It has 4237 rows and 124 columns representing 4237 phosphosites and 122
@@ -70,7 +72,8 @@ PTM table. We extract the amino acid and the site number from the
 number if they exist.
 
 ``` r
- newphos$Amino.Acid <- sapply(newphos$variable_sites_names, function(x) substring (x, 1, 1))
+ newphos$Amino.Acid <- sapply(newphos$variable_sites_names,
+                              function(x) substring (x, 1, 1))
  newphos$Site <- trimws(substring(newphos$variable_sites_names, 2))
  newphos$Site <- sub("[a-z]$", "", newphos$Site)
  head(newphos[, c("gene_symbol", "variable_sites_names", "Amino.Acid", "Site")])
@@ -99,7 +102,9 @@ the next steps, and remove the columns we used to create the row names.
 ``` r
 phosdata <- newphos[, 3:ncol(newphos), ]
 rownames(phosdata) <- newphos$Peptide.Name
-phosdata <- phosdata[, !(names(phosdata) %in% c("gene_symbol", "variable_sites_names", "Amino.Acid", "Site", "Peptide.Name"))]
+phosdata <- phosdata[, !(names(phosdata) %in%
+                           c("gene_symbol", "variable_sites_names",
+                             "Amino.Acid", "Site", "Peptide.Name"))]
 ptmtable <- phosdata
 head(ptmtable[, 1:5])
 >>                 X11BR047 X11BR043 X11BR049 X11BR023 X18BR010
@@ -152,9 +157,9 @@ networks.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 1.68 secs total.
+>> PTM CCCN complete after 0.88 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 19.32 secs total.
+>> Gene CCCN complete after 18.26 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -189,8 +194,8 @@ dir.create(fig_dir, recursive = TRUE, showWarnings = FALSE)
 output <- file.path(fig_dir, "ptm_all_clusters_l4.pdf")
 res <- graph.ptm.by.cluster(
      ptmtable         = ptmtable,
-     common.clusters  = common.clusters4[1:3],          # use all clusters > 4, only first 3
-     filename         = output,
+     common.clusters  = common.clusters4[1:3], # use all clusters > 4
+     filename         = output,                # only first 3
      order.rows       = "slope",
      zlim             = 3,
      show.row.labels  = FALSE,
@@ -271,13 +276,13 @@ identical (unique(sym.map$standard_symbol), gene.cccn.nodes)
 # TRUE so no further action is required.
 # If there were differences, replace symbol.map = NULL with symbol.map = sym.map
  
-stringdb.edges <- GetSTRINGdb.edges(        gene.cccn.edges,
-                                            gene.cccn.nodes,
-                                            local = TRUE,
-                                            string.local.path = string_db_filepath,
-                                            combined.score.threshold = 400,
-                                            include.transferred = TRUE,
-                                            symbol.map = NULL)
+stringdb.edges <- GetSTRINGdb.edges(gene.cccn.edges,
+                                    gene.cccn.nodes,
+                                    local = TRUE,
+                                    string.local.path = string_db_filepath,
+                                    combined.score.threshold = 400,
+                                    include.transferred = TRUE,
+                                    symbol.map = NULL)
 ```
 
 To avoid downloading the large STRINGdb edge file, edges from the BRCA
@@ -306,11 +311,13 @@ We choose all but “Genetic Interactions” to include using the
 
 genemania_db_filepath <- "your/filepath/here.tsv"
 
-genemania.edges <- GetGeneMANIA.edges (gm.all.edges.path,
-                                gene.cccn.nodes,
-                                local                = TRUE,
-                                genemania.local.path = genemania_db_filepath,
-                                gm.interaction.types = c("Pathway", "Physical Interactions", "Predicted"))
+genemania.edges <- GetGeneMANIA.edges(gm.all.edges.path,
+                                      gene.cccn.nodes,
+                                      local=TRUE,
+                                      genemania.local.path=genemania_db_filepath,
+                                      gm.interaction.types=c("Pathway",
+                                                             "Physical Interactions",
+                                                             "Predicted"))
 ```
 
 And again, to avoid downloading the large GeneMANIA edge file, BRCA gene
@@ -335,7 +342,9 @@ vignette](https://um-applied-algorithms-lab.github.io/PTMsToPathways/articles/Ge
 
 ``` r
 
-file_path <- system.file("extdata", "Kinase_Substrate_Dataset.txt", package = "PTMsToPathways")
+file_path <- system.file("extdata",
+                         "Kinase_Substrate_Dataset.txt",
+                         package = "PTMsToPathways")
 kinsub.edges <- GetKinsub.edges(file_path, gene.cccn.nodes)
 ```
 
@@ -365,7 +374,9 @@ following:
 
 ``` r
 
-bioplanet.file <- system.file("extdata", "bioplanet_pathway_June2025.csv", package = "PTMsToPathways")
+bioplanet.file <- system.file("extdata",
+                              "bioplanet_pathway_June2025.csv",
+                              package = "PTMsToPathways")
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 ```
 
@@ -389,7 +400,9 @@ Table S4. Per their description, the `HDBSCAN;min_cluster_size-4` column
 assigns a module number to each phosphosite.
 
 ``` r
-PD_module.file <- system.file("extdata", "PhosDiscoModules_mmc11.txt", package = "PTMsToPathways")
+PD_module.file <- system.file("extdata",
+                              "PhosDiscoModules_mmc11.txt",
+                              package = "PTMsToPathways")
 
 PD_module.df <- utils::read.table(PD_module.file, header = TRUE,
                   stringsAsFactors = FALSE, sep = "\t", comment.char = "#",
@@ -411,7 +424,7 @@ will work with those sites that match between `ptmtable` and
 `PD_module.df`.
 
 ``` r
-length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) # 530
+length(intersect(newphos$variable_sites_names, PD_module.df$variableSites)) #530
 >> [1] 530
 ```
 
@@ -424,7 +437,8 @@ Make peptide names as above:
 
 ``` r
 
-PD_module.df$Amino.Acid <- sapply(PD_module.df$variableSites, function(x) substring (x, 1, 1))
+PD_module.df$Amino.Acid <- sapply(PD_module.df$variableSites,
+                                  function(x) substring (x, 1, 1))
 PD_module.df$Site <- trimws(substring(PD_module.df$variableSites, 2))
 PD_module.df$Site <- sub("[a-z]$", "", PD_module.df$Site)
 
@@ -451,7 +465,8 @@ head(PD_module.df)
 Treat modules like our clusters:
 
 ``` r
-PD.module.list <- split(PD_module.df$Peptide.Name, PD_module.df$HDBSCAN.min_cluster_size.4)
+PD.module.list <- split(PD_module.df$Peptide.Name,
+                        PD_module.df$HDBSCAN.min_cluster_size.4)
 length(PD.module.list)
 PD.module.list$`68` 
 >> [1] 69
@@ -487,7 +502,10 @@ will use this as an example to show how to explore the networks around a
 particular module of interest.
 
 ``` r
-mod63.intersect <- Filter(length, Map(intersect, common.clusters, list(PD.module.list$`63`)))
+mod63.intersect <- Filter(length,
+                          Map(intersect,
+                              common.clusters,
+                              list(PD.module.list$`63`)))
 mod63.intersect
 >> $ConsensusCluster1
 >> [1] "BRCA2 p S93"
@@ -537,7 +555,11 @@ ConsensusClusters.
 There are \>200 PTMs in the P2P clusters that intersect with module 63:
 
 ``` r
-mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1, common.clusters$ConsensusCluster3, common.clusters$ConsensusCluster4, common.clusters$ConsensusCluster5, common.clusters$ConsensusCluster6))
+mod63.clust.ptms <- unlist(c(common.clusters$ConsensusCluster1,
+                             common.clusters$ConsensusCluster3,
+                             common.clusters$ConsensusCluster4,
+                             common.clusters$ConsensusCluster5,
+                             common.clusters$ConsensusCluster6))
 length(mod63.clust.ptms)
 >> [1] 204
 ```
@@ -550,7 +572,10 @@ network in Cytoscape.
 ``` r
 
 funckey <- function_key
-cfn.cccn <- ptms_to_cfn(mod63.clust.ptms, cfn = cfn.merged, ptm.cccn.edges = ptm.cccn.edges, ptmtable = ptmtable, pepsep = ";")
+cfn.cccn <- ptms_to_cfn(mod63.clust.ptms,
+                        cfn = cfn.merged,
+                        ptm.cccn.edges = ptm.cccn.edges,
+                        ptmtable = ptmtable, pepsep = ";")
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, funckey, ptmtable,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE,
@@ -561,8 +586,10 @@ To graph in Cytoscape, use the P2P function `GraphCfn`:
 
 ``` r
 
-g1 <- GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
-               Network.title = "CFN/CCCN All PTMs 1", Network.collection = "PTMsToPathways")
+g1 <- GraphCfn(cfn.edges = cfn.cccn,
+               cfn.nodes = cfn_cccn.nodes,
+               Network.title = "CFN/CCCN All PTMs 1",
+               Network.collection = "PTMsToPathways")
  
 ```
 
@@ -595,7 +622,8 @@ Now let’s get the needed information about these edges:
 ``` r
 
 cdk1.substrates <- cdk1.kinsub [which(cdk1.kinsub$source=="CDK1"), "target"]
-cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in% cdk1.substrates, ]
+cfn_cccn.nodes.cdksubs <- cfn_cccn.nodes[cfn_cccn.nodes$Gene.Name %in%
+                                           cdk1.substrates, ]
 ```
 
 Two ways to select for CDK1 substrates are presented. Method 1: Using
@@ -605,17 +633,23 @@ Two ways to select for CDK1 substrates are presented. Method 1: Using
 
 RCy3::selectNodes(cfn_cccn.nodes.cdksubs$id, by = "id", preserve=FALSE)
 Cy3::selectEdgesConnectingSelectedNodes()
-RCy3::createSubnetwork(nodes = RCy3::getSelectedNodes(), edges = RCy3::getSelectedEdges(), nodes.by.col = "id", edges.by.col = "name")
+RCy3::createSubnetwork(nodes = RCy3::getSelectedNodes(),
+                       edges = RCy3::getSelectedEdges(),
+                       nodes.by.col = "id",
+                       edges.by.col = "name")
 ```
 
 Method 2: Using P2P functions.
 
 ``` r
 
-cfn_cccn.nodes.cdksubs.edges <- filter.edges.0(nodenames = cfn_cccn.nodes.cdksubs$id, edge.file = cfn.cccn)
+cfn_cccn.nodes.cdksubs.edges <- filter.edges.0(nodenames=cfn_cccn.nodes.cdksubs$id,
+                                               edge.file=cfn.cccn)
 
-g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges, cfn.nodes = cfn_cccn.nodes.cdksubs,
-               Network.title = "CFN/CCCN All PTMs 5", Network.collection = "PTMsToPathways")
+g2 <- GraphCfn(cfn.edges = cfn_cccn.nodes.cdksubs.edges,
+               cfn.nodes = cfn_cccn.nodes.cdksubs,
+               Network.title = "CFN/CCCN All PTMs 5",
+               Network.collection = "PTMsToPathways")
 ```
 
 Both methods give the same result, which looks like this:
@@ -628,12 +662,16 @@ Now further simplify the graph to show only CCCN PTMs.
 
 cdksubs.genes <- unique(cfn_cccn.nodes.cdksubs$id)
 cdksubs.cfn <- filter.edges.0(cdksubs.genes, cfn.merged)
-cdksubs.cfn.cccn <- get.co.clustered.ptms(cdksubs.cfn, ptm.cccn.edges=ptm.cccn.edges)
-cdksubs.cfn.cccn.nodes <- make.cytoscape.node.file(cdksubs.cfn.cccn, funckey, ptmtable,
-                                           include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE)
-g3 <- GraphCfn(cfn.edges = cdksubs.cfn.cccn, cfn.nodes = cdksubs.cfn.cccn.nodes,
-               Network.title = "CFN/CCCN All PTMs 6", Network.collection = "PTMsToPathways")
+cdksubs.cfn.cccn <- get.co.clustered.ptms(cdksubs.cfn,
+                                          ptm.cccn.edges=ptm.cccn.edges)
+cdksubs.cfn.cccn.nodes <- make.cytoscape.node.file(cdksubs.cfn.cccn,
+                                                   funckey, ptmtable,
+                                                   include.gene.data=TRUE,
+                                                   include.coclustered.PTMs=TRUE)
+g3 <- GraphCfn(cfn.edges = cdksubs.cfn.cccn,
+               cfn.nodes = cdksubs.cfn.cccn.nodes,
+               Network.title = "CFN/CCCN All PTMs 6",
+               Network.collection = "PTMsToPathways")
 ```
 
 This gives the following graph:
@@ -650,7 +688,10 @@ and MLLT4 frameshift mutants).
 ``` r
 
 setNodeColorToRatios(plotcol="X03BR011")
-setNodeColorToRowz(plotcol="X03BR011")  # This exaggerates the node size and shape somewhat. 
+
+# This exaggerates the node size and shape somewhat:
+setNodeColorToRowz(plotcol="X03BR011")
+
 setNodeColorToRatios(plotcol="X21BR010")
 setNodeColorToRowz(plotcol="X21BR010")    
 setNodeColorToRatios(plotcol="X05BR045")

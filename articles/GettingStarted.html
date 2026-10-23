@@ -304,20 +304,20 @@ between two PTMs for them to be considered as clustering together.</p>
 <span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
 <span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Warning <span class="cf">in</span> stats<span class="sc">::</span><span class="fu">cor</span>(<span class="fu">t</span>(ptmtable), <span class="at">use =</span> <span class="st">"pairwise.complete.obs"</span>, <span class="at">method =</span></span>
 <span id="cb6-21"><a href="#cb6-21" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="st">"spearman"</span>)<span class="sc">:</span> the standard deviation is zero</span>
-<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.73</span> secs total.</span>
-<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">43.43</span> secs total.</span>
-<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">43.47</span> secs total.</span>
-<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.18</span> mins total.</span>
-<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.18</span> mins total.</span>
-<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.65</span> mins total.</span></code></pre></div>
-<p><img src="plots/unnamed-chunk-7-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.66 mins total.</code></pre>
-<p><img src="plots/unnamed-chunk-7-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
-<pre><code>&gt;&gt; Clustering for Spearman complete after 1.66 mins total.</code></pre>
-<p><img src="plots/unnamed-chunk-7-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<span id="cb6-22"><a href="#cb6-22" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman correlation calculation complete after <span class="fl">13.54</span> secs total.</span>
+<span id="cb6-23"><a href="#cb6-23" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Spearman t<span class="sc">-</span>SNE calculation complete after <span class="fl">43.02</span> secs total.</span>
+<span id="cb6-24"><a href="#cb6-24" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean distance calculation complete after <span class="fl">43.06</span> secs total.</span>
+<span id="cb6-25"><a href="#cb6-25" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Euclidean t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.17</span> mins total.</span>
+<span id="cb6-26"><a href="#cb6-26" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Combined distance calculation complete after <span class="fl">1.17</span> mins total.</span>
+<span id="cb6-27"><a href="#cb6-27" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> SED t<span class="sc">-</span>SNE calculation complete after <span class="fl">1.64</span> mins total.</span></code></pre></div>
+<p><img src="plots/runMCL-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for Euclidean complete after 1.65 mins total.</code></pre>
+<p><img src="plots/runMCL-2.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
+<pre><code>&gt;&gt; Clustering for Spearman complete after 1.65 mins total.</code></pre>
+<p><img src="plots/runMCL-3.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;"></p>
 <pre><code>&gt;&gt; Clustering for SED complete after 1.66 mins total.
-&gt;&gt; Consensus clustering complete after 1.67 mins total.
-&gt;&gt; MakeClusterList complete after 1.67 mins total.</code></pre>
+&gt;&gt; Consensus clustering complete after 1.66 mins total.
+&gt;&gt; MakeClusterList complete after 1.66 mins total.</code></pre>
 <p>The following unpacks the output into the separate objects discussed
 above:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
@@ -371,9 +371,9 @@ with sum of the PTM correlations serving as edge weights.</p>
 <div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>CCCN.data <span class="ot">&lt;-</span> <span class="fu">MakeCorrelationNetwork</span>(adj.consensus.matrix,</span>
 <span id="cb14-2"><a href="#cb14-2" tabindex="-1"></a>                                    ptm.correlation.matrix)</span>
 <span id="cb14-3"><a href="#cb14-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PTM CCCN</span>
-<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.07</span> secs total.</span>
+<span id="cb14-4"><a href="#cb14-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> PTM CCCN complete after <span class="fl">0.05</span> secs total.</span>
 <span id="cb14-5"><a href="#cb14-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making Gene CCCN</span>
-<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.93</span> secs total.</span>
+<span id="cb14-6"><a href="#cb14-6" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Gene CCCN complete after <span class="fl">2.78</span> secs total.</span>
 <span id="cb14-7"><a href="#cb14-7" tabindex="-1"></a>ptm.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb14-8"><a href="#cb14-8" tabindex="-1"></a>gene.cccn.edges <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb14-9"><a href="#cb14-9" tabindex="-1"></a>gene.cccn.nodes <span class="ot">&lt;-</span> CCCN.data[[<span class="dv">3</span>]]</span></code></pre></div>
@@ -435,8 +435,8 @@ data can be found on <a href="https://zenodo.org/records/20631767" class="extern
 small subset of the data downloadable from Zenodo.</p>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a>path <span class="ot">&lt;-</span> <span class="fu">system.file</span>(<span class="st">"extdata"</span>, <span class="st">"small_string_hs_hugo.tsv"</span>,</span>
 <span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>                    <span class="at">package =</span> <span class="st">"PTMsToPathways"</span>)</span>
-<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>stringdb.edges <span class="ot">&lt;-</span> <span class="fu">GetSTRINGdb.edges</span>(gene.cccn.edges, gene.cccn.nodes, <span class="at">local=</span><span class="cn">TRUE</span>,</span>
-<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>    <span class="at">string.local.path =</span> path)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>stringdb.edges <span class="ot">&lt;-</span> <span class="fu">GetSTRINGdb.edges</span>(gene.cccn.edges, gene.cccn.nodes,</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>                                    <span class="at">local=</span><span class="cn">TRUE</span>, <span class="at">string.local.path =</span> path)</span>
 <span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Reading local STRING file<span class="sc">:</span> <span class="er">/</span>home<span class="sc">/</span>runner<span class="sc">/</span>work<span class="sc">/</span>_temp<span class="sc">/</span>Library<span class="sc">/</span>PTMsToPathways<span class="sc">/</span>extdata<span class="sc">/</span>small_string_hs_hugo.tsv</span>
 <span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a>stringdb.edges[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>,]</span>
 <span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span>   source   target             interaction Weight</span>
@@ -495,8 +495,7 @@ are in the same format for the next step.</p>
 <code class="sourceCode R"><span><span class="va">input.filename</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>, <span class="st">"Kinase_Substrate_Dataset.txt"</span>,</span>
 <span>                              package <span class="op">=</span> <span class="st">"PTMsToPathways"</span><span class="op">)</span></span></code></pre></div>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetKinsub.edges.html">GetKinsub.edges</a></span><span class="op">(</span><span class="va">input.filename</span>,</span>
-<span>                                  <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">kinsub.edges</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/GetKinsub.edges.html">GetKinsub.edges</a></span><span class="op">(</span><span class="va">input.filename</span>, <span class="va">gene.cccn.nodes</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -570,9 +569,9 @@ used for the PTM cluster weight calculations. The function can be run as
 follows:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" tabindex="-1"></a>PCN.data <span class="ot">&lt;-</span> <span class="fu">BuildPathwayCrosstalkNetwork</span>(common.clusters, bioplanet.file)</span>
 <span id="cb30-2"><a href="#cb30-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Making PCN</span>
-<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-10-22</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">35</span><span class="sc">:</span><span class="fl">24.845298</span></span>
-<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-10-22</span> <span class="dv">16</span><span class="sc">:</span><span class="dv">35</span><span class="sc">:</span><span class="fl">24.972233</span></span>
-<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.126935005187988</span></span>
+<span id="cb30-3"><a href="#cb30-3" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-10-23</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">16</span><span class="sc">:</span><span class="fl">24.653204</span></span>
+<span id="cb30-4"><a href="#cb30-4" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> <span class="dv">2026-10-23</span> <span class="dv">18</span><span class="sc">:</span><span class="dv">16</span><span class="sc">:</span><span class="fl">24.776927</span></span>
+<span id="cb30-5"><a href="#cb30-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> Total time<span class="sc">:</span> <span class="fl">0.123723268508911</span></span>
 <span id="cb30-6"><a href="#cb30-6" tabindex="-1"></a>pathway.crosstalk.network <span class="ot">&lt;-</span> PCN.data[[<span class="dv">1</span>]]</span>
 <span id="cb30-7"><a href="#cb30-7" tabindex="-1"></a>PCNedgelist <span class="ot">&lt;-</span> PCN.data[[<span class="dv">2</span>]]</span>
 <span id="cb30-8"><a href="#cb30-8" tabindex="-1"></a>pathways.list <span class="ot">&lt;-</span> PCN.data[[<span class="dv">3</span>]]</span>
@@ -647,7 +646,8 @@ pathways, <code>Axon Guidance</code> and
 <code>ERBB signaling pathway</code>. We’ll look at the
 <code>PCNedgelist</code> dataframe this time.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">PCNedgelist</span><span class="op">[</span><span class="va">PCNedgelist</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="st">"Axon guidance"</span> <span class="op">&amp;</span> <span class="va">PCNedgelist</span><span class="op">$</span><span class="va">target</span> <span class="op">==</span> <span class="st">"ERBB signaling pathway"</span>, <span class="op">]</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">PCNedgelist</span><span class="op">[</span><span class="va">PCNedgelist</span><span class="op">$</span><span class="va">source</span> <span class="op">==</span> <span class="st">"Axon guidance"</span> <span class="op">&amp;</span></span>
+<span>              <span class="va">PCNedgelist</span><span class="op">$</span><span class="va">target</span> <span class="op">==</span> <span class="st">"ERBB signaling pathway"</span>, <span class="op">]</span></span></code></pre></div>
 <table class="table">
 <colgroup>
 <col width="3%">
@@ -681,11 +681,13 @@ pathways, <code>Axon Guidance</code> and
 the two pathways (the number of genes that are in both pathways) divided
 by the size of the union of the two pathways (the total number of unique
 genes that are in either pathway).</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>size_union <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">union</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
-<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>size_intersection <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">intersect</span>(pathways.list[[<span class="st">"Axon guidance"</span>]], pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
-<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>jaccard_similarity <span class="ot">&lt;-</span> size_intersection <span class="sc">/</span> size_union</span>
-<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>jaccard_similarity</span>
-<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.07161125</span></span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" tabindex="-1"></a>size_union <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">union</span>(pathways.list[[<span class="st">"Axon guidance"</span>]],</span>
+<span id="cb35-2"><a href="#cb35-2" tabindex="-1"></a>                           pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
+<span id="cb35-3"><a href="#cb35-3" tabindex="-1"></a>size_intersection <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">intersect</span>(pathways.list[[<span class="st">"Axon guidance"</span>]],</span>
+<span id="cb35-4"><a href="#cb35-4" tabindex="-1"></a>                                      pathways.list[[<span class="st">"ERBB signaling pathway"</span>]]))</span>
+<span id="cb35-5"><a href="#cb35-5" tabindex="-1"></a>jaccard_similarity <span class="ot">&lt;-</span> size_intersection <span class="sc">/</span> size_union</span>
+<span id="cb35-6"><a href="#cb35-6" tabindex="-1"></a>jaccard_similarity</span>
+<span id="cb35-7"><a href="#cb35-7" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="fl">0.07161125</span></span></code></pre></div>
 <p>Notice that the found value is the same as the
 <code>pathway_Jaccard_similarity</code> value in the
 <code>PCNedgelist</code> dataframe.</p>

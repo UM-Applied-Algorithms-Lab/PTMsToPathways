@@ -57,8 +57,8 @@ file_path <- system.file("extdata", "phospho_cleaned_mapped.txt",
                          package = "PTMsToPathways")
 
 newphos <- utils::read.table(file_path, sep = "\t", skip = 0, header = TRUE,
-                             blank.lines.skip = T, fill = T, quote = "\"", dec = ".",
-                             comment.char = "", stringsAsFactors = F)
+                             blank.lines.skip = T, fill = T, quote = "\"",
+                             dec = ".", comment.char = "", stringsAsFactors = F)
 dim(newphos)
 >> [1] 933 170
 ```
@@ -429,7 +429,7 @@ And plot to check:
 boxplot(phosdata_plus_ratios)
 ```
 
-![](plots/unnamed-chunk-31-1.png) And do one more check:
+![](plots/plotLog2T-1.png) And do one more check:
 
 ``` r
 identical(rownames(phos_ratios.lim.log2), rownames(log2phosdata)) 
@@ -440,7 +440,7 @@ This can be used as the example ptmtable for subsequent testing.
 
 ``` r
 
-# ptmtable <- phosdata_plus_ratios
+ptmtable <- phosdata_plus_ratios
 ```
 
 ## Combining data from multiple PTM experiments
@@ -508,7 +508,7 @@ P2P functions.
 
 ``` r
 
-# ptmtable <- log2ptmdata
+ptmtable <- log2ptmdata
 ```
 
 ### Session info

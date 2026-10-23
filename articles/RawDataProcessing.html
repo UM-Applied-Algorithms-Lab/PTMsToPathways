@@ -131,8 +131,8 @@ variable with your own path to file, as in the commented line below.</p>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                         <span class="at">package =</span> <span class="st">"PTMsToPathways"</span>)</span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>newphos <span class="ot">&lt;-</span> utils<span class="sc">::</span><span class="fu">read.table</span>(file_path, <span class="at">sep =</span> <span class="st">"</span><span class="sc">\t</span><span class="st">"</span>, <span class="at">skip =</span> <span class="dv">0</span>, <span class="at">header =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                             <span class="at">blank.lines.skip =</span> T, <span class="at">fill =</span> T, <span class="at">quote =</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span>, <span class="at">dec =</span> <span class="st">"."</span>,</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                             <span class="at">comment.char =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> F)</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                             <span class="at">blank.lines.skip =</span> T, <span class="at">fill =</span> T, <span class="at">quote =</span> <span class="st">"</span><span class="sc">\"</span><span class="st">"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                             <span class="at">dec =</span> <span class="st">"."</span>, <span class="at">comment.char =</span> <span class="st">""</span>, <span class="at">stringsAsFactors =</span> F)</span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="fu">dim</span>(newphos)</span>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="dv">933</span> <span class="dv">170</span></span></code></pre></div>
 <p>As we can see, this table has 933 rows and 170 columns.</p>
@@ -393,13 +393,13 @@ functional different than a ratio of 100.</p>
 <p>And plot to check:</p>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html" class="external-link">boxplot</a></span><span class="op">(</span><span class="va">phosdata_plus_ratios</span><span class="op">)</span></span></code></pre></div>
-<p><img src="plots/unnamed-chunk-31-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;">
+<p><img src="plots/plotLog2T-1.png" class="r-plt" alt="" width="100%" style="display: block; margin: auto;">
 And do one more check:</p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" tabindex="-1"></a><span class="fu">identical</span>(<span class="fu">rownames</span>(phos_ratios.lim.log2), <span class="fu">rownames</span>(log2phosdata)) </span>
 <span id="cb33-2"><a href="#cb33-2" tabindex="-1"></a><span class="sc">&gt;</span><span class="er">&gt;</span> [<span class="dv">1</span>] <span class="cn">FALSE</span></span></code></pre></div>
 <p>This can be used as the example ptmtable for subsequent testing.</p>
 <div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># ptmtable &lt;- phosdata_plus_ratios</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="va">phosdata_plus_ratios</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="combining-data-from-multiple-ptm-experiments">Combining data from multiple PTM experiments<a class="anchor" aria-label="anchor" href="#combining-data-from-multiple-ptm-experiments"></a>
@@ -448,7 +448,7 @@ them as follows.</p>
 <p>Finally, this dataframe could be used as the example
 <code>ptmtable</code> for the P2P functions.</p>
 <div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># ptmtable &lt;- log2ptmdata</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">ptmtable</span> <span class="op">&lt;-</span> <span class="va">log2ptmdata</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="session-info">Session info<a class="anchor" aria-label="anchor" href="#session-info"></a>
 </h3>
