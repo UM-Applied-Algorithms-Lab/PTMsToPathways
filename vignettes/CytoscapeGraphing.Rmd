@@ -123,13 +123,13 @@ Then, we want to find interactions between the pathway "Transmembrane transport 
 For now, we are manually adding an entry to `ex_pathway_crosstalk_network` so that the resulting filtered PCN has a row to work with.
 
 ```{r label=makeEGFRTransporterPcn, eval = TRUE}
-tempPcn = rbind(ex_pathway_crosstalk_network,
-                data.frame(source="Transmembrane transport of small molecules",
-                           target="Endocytosis", Weight = 1,
-                           interaction="PTM_cluster_evidence"))
+pcn.path <- system.file("extdata",
+                        "full_pathway_crosstalk_network.rda",
+                        package = "PTMsToPathways")
+load(pcn.path)
 egfr_transporter_pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
-  egfr_pathways, tempPcn)
+  egfr_pathways, pathway.crosstalk.network)
 ```
 
 This filtered PCN can be passed into the function `cytoscape.graph.PCN.pathways` to visualize the resultant network.  
@@ -144,27 +144,39 @@ pcn.graph <- cytoscape.graph.PCN.pathways(
 ```
 
 ```{r graphPCNOutput, eval = TRUE, echo = FALSE}
-knitr::include_graphics("vig_figs/tempCytoscapePCN.png")
+knitr::include_graphics("vig_figs/CytoscapePCN.png")
 ```
+This is the raw output into Cytoscape, but note that further modifications can be made to ensure easier viewing within the Cytoscape interface.
 
-Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common, yet the cluster evidence for their interaction is strong.
+Let's zero in on interactions between proteins in the two pathways "EGF/EGFR signaling pathway" and "Transmembrane transport of small molecules" because they have no genes in common, yet the cluster evidence for their interaction is strong. Note that we are checking both edge directions and combining the two results.
+
+Because the Jaccard Score was zero, it was removed, leaving only the `PTM_cluster_weight`.
 
 ```{r label=showPathwayScores, eval = TRUE}
-subset(tempPcn,
-       source=="Transmembrane transport of small molecules" &
+rbind(
+  subset(pathway.crosstalk.network,
+         target=="Transmembrane transport of small molecules" &
+         source=="EGF/EGFR signaling pathway"),
+  subset(pathway.crosstalk.network,
+         source=="Transmembrane transport of small molecules" &
          target=="EGF/EGFR signaling pathway")
-# should we check other direction?
+)
 ```
 
 First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for Cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data.
 
 ```{r label=EGFRTransporter, eval = TRUE}
+cfn.path <- system.file("extdata",
+                        "full_cfn_output.rda",
+                        package = "PTMsToPathways")
+load(cfn.path)
+
 egfr_transporter.cfn <- filter.edges.0(c(
   pathways.list[["EGF/EGFR signaling pathway"]],
-  pathways.list[["Transmembrane transport of small molecules"]]), ex_cfn)
+  pathways.list[["Transmembrane transport of small molecules"]]), cfn)
 
 egfr_transporter.nodes <- make.cytoscape.node.file(
-  egfr_transporter.cfn, function_key, ex_small_ptm_table, include.gene.data=TRUE) 
+  egfr_transporter.cfn, function_key, ex_full_ptm_table, include.gene.data=TRUE) 
 
 ```
 
@@ -188,10 +200,16 @@ Let's color the nodes by the intensity of their response to Erlotinib. In genera
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
+This should modify the previous graph into the following:
+
+```{r label=show2PathGraph2, echo = FALSE, eval =TRUE}
+knitr::include_graphics("vig_figs/TwoPathwayCFN2.png")
+```
+
 The existing cluster filtered networks retain parallel edges and self-loops. To consolidate these into a cleaner graph for the full cfn, you can run the following:
 
 ```{r label=mergeCFN, eval = TRUE}
-cfn.merged <- mergeEdges(ex_cfn)
+cfn.merged <- mergeEdges(cfn)
 ```
 
 Or just to the filtered cfn made above:
@@ -212,23 +230,31 @@ We again need to adjust the colors of the nodes to a specific interaction type a
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
+```{r label=show2PathGraph3, echo = FALSE, eval =TRUE}
+knitr::include_graphics("vig_figs/TwoPathwayCFN3.png")
+```
+
 Note that within Cytoscape you can change the column for node size and color (two separate things) in the "Styles" tab.
 
 ## Explore Signaling Pathways that Connect Proteins
 
 Another example of how to use the network is to ask: What are the paths between two nodes (two proteins)? We use the function `connectNodes.all()` to identify all shortest paths between two nodes.
 
-```{r label=connect, eval = FALSE}
-# SHOULD RUN WITH BIGGER DATASET
+```{r label=connect, eval = TRUE}
 sp1 <- connectNodes.all(c("FYN", 'MET'), edgefile = cfn.merged)
 ```
 
 Having identified the pathways, let's also zoom in further on PTMs to examine which PTMs co-cluster, as indicated by yellow edges between them. To include this data in the graph, first run `get.co.clustered.ptms` then use the flag `include.coclustered.PTMs` when generating the Cytoscape node file:
 
 ```{r label=SP1cccn, eval = FALSE}
-# SHOULD RUN AFTER ABOVE CHUNK
-sp1_plus <- get.co.clustered.ptms(sp1, ex_ptm_cccn_edges, ex_small_ptm_table)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_small_ptm_table,
+# CHECK GET.CO.CLUSTERED.PTMS FUNCTION
+ptmcccn.path <- system.file("extdata",
+                            "full_ptm_cccn.rda",
+                            package = "PTMsToPathways")
+load(ptmcccn.path)
+
+sp1_plus <- get.co.clustered.ptms(sp1, ptm.cccn.edges, ex_full_ptm_table)
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_full_ptm_table,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 ```
@@ -289,8 +315,8 @@ ptms <- rownames(pt.sub.fa.topz)
 Finally, we employ a `PTMsToPathways` functions to derive a cluster filtered network starting with the list of PTMs and then prepare the dataframe for Cytoscape visualization.
 
 ```{r label=cfnAndVisual, eval = FALSE}
-# SHOULD RUN WITH FULL DATASET
-cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges,
+# CHECK PTMS_TO_CFN FUNCTION
+cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges,
                         ex_full_ptm_table, pepsep = ";")
 
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
