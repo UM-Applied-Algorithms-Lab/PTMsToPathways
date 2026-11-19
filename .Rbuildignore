@@ -11,3 +11,5 @@ scripts/
 ^vignettes/plots/
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^doc$
+^Meta$

@@ -69,7 +69,7 @@ rbind(
 
 ## ----label=EGFRTransporter, eval = TRUE---------------------------------------
 cfn.path <- system.file("extdata",
-                        "full_cfn_output.rda",
+                        "full_cfn.rda",
                         package = "PTMsToPathways")
 load(cfn.path)
 

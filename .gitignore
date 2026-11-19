@@ -18,3 +18,4 @@ docs/
 inst/doc
 
 *.Rcheck
+/doc/
