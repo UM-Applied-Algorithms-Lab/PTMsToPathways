@@ -374,7 +374,8 @@ file:</p>
 <span><span class="va">sp1_plus</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get.co.clustered.ptms.html">get.co.clustered.ptms</a></span><span class="op">(</span><span class="va">sp1</span>, <span class="va">ptm.cccn.edges</span>, <span class="va">ex_full_ptm_table</span><span class="op">)</span></span>
 <span><span class="va">sp1_plus.nodes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/make.cytoscape.node.file.html">make.cytoscape.node.file</a></span><span class="op">(</span><span class="va">sp1_plus</span>, <span class="va">function_key</span>, <span class="va">ex_full_ptm_table</span>,</span>
 <span>                                           include.gene.data <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> </span></code></pre></div>
+<span>                                           include.coclustered.PTMs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>                                           ptm.cccn.edges <span class="op">=</span> <span class="va">ptm.cccn.edges</span><span class="op">)</span></span></code></pre></div>
 <p>As before, we can graph in Cytoscape and set the node color:</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/GraphCfn.html">GraphCfn</a></span><span class="op">(</span>cfn.edges <span class="op">=</span> <span class="va">sp1_plus</span>, cfn.nodes <span class="op">=</span> <span class="va">sp1_plus.nodes</span>,</span>
