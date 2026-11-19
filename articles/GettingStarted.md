@@ -175,27 +175,27 @@ clusterlist.data <- MakeClusterList(ex_small_ptm_table,
 >> "spearman"): the standard deviation is zero
 >> Warning in stats::cor(t(ptmtable), use = "pairwise.complete.obs", method =
 >> "spearman"): the standard deviation is zero
->> Spearman correlation calculation complete after 13.54 secs total.
->> Spearman t-SNE calculation complete after 43.02 secs total.
->> Euclidean distance calculation complete after 43.06 secs total.
->> Euclidean t-SNE calculation complete after 1.17 mins total.
->> Combined distance calculation complete after 1.17 mins total.
->> SED t-SNE calculation complete after 1.64 mins total.
+>> Spearman correlation calculation complete after 10.68 secs total.
+>> Spearman t-SNE calculation complete after 31.06 secs total.
+>> Euclidean distance calculation complete after 31.1 secs total.
+>> Euclidean t-SNE calculation complete after 50.11 secs total.
+>> Combined distance calculation complete after 50.12 secs total.
+>> SED t-SNE calculation complete after 1.16 mins total.
 ```
 
 ![](plots/runMCL-1.png)
 
-    >> Clustering for Euclidean complete after 1.65 mins total.
+    >> Clustering for Euclidean complete after 1.17 mins total.
 
 ![](plots/runMCL-2.png)
 
-    >> Clustering for Spearman complete after 1.65 mins total.
+    >> Clustering for Spearman complete after 1.17 mins total.
 
 ![](plots/runMCL-3.png)
 
-    >> Clustering for SED complete after 1.66 mins total.
-    >> Consensus clustering complete after 1.66 mins total.
-    >> MakeClusterList complete after 1.66 mins total.
+    >> Clustering for SED complete after 1.17 mins total.
+    >> Consensus clustering complete after 1.18 mins total.
+    >> MakeClusterList complete after 1.18 mins total.
 
 The following unpacks the output into the separate objects discussed
 above:
@@ -265,9 +265,9 @@ with sum of the PTM correlations serving as edge weights.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.05 secs total.
+>> PTM CCCN complete after 0.06 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 2.78 secs total.
+>> Gene CCCN complete after 2.38 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -526,9 +526,9 @@ follows:
 ``` r
 PCN.data <- BuildPathwayCrosstalkNetwork(common.clusters, bioplanet.file)
 >> Making PCN
->> 2026-10-23 18:16:24.653204
->> 2026-10-23 18:16:24.776927
->> Total time: 0.123723268508911
+>> 2026-11-19 17:44:48.374108
+>> 2026-11-19 17:44:48.463647
+>> Total time: 0.0895390510559082
 pathway.crosstalk.network <- PCN.data[[1]]
 PCNedgelist <- PCN.data[[2]]
 pathways.list <- PCN.data[[3]]
@@ -791,13 +791,13 @@ save.image(file = "filepath/name.RData")
 
 ``` r
 sessionInfo()
->> R version 4.6.1 (2026-06-24)
+>> R version 4.6.2 (2026-10-29)
 >> Platform: x86_64-pc-linux-gnu
->> Running under: Ubuntu 24.04.5 LTS
+>> Running under: Ubuntu 26.04.1 LTS
 >> 
 >> Matrix products: default
 >> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
->> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+>> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 >> 
 >> locale:
 >>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -815,17 +815,17 @@ sessionInfo()
 >> [1] PTMsToPathways_0.99.0
 >> 
 >> loaded via a namespace (and not attached):
->>  [1] Matrix_1.7-5      jsonlite_2.0.0    dplyr_1.2.1       vegan_2.7-6      
->>  [5] compiler_4.6.1    tidyselect_1.2.1  Rcpp_1.1.2        parallel_4.6.1   
->>  [9] cluster_2.1.8.2   jquerylib_0.1.4   splines_4.6.1     systemfonts_1.3.2
->> [13] textshaping_1.0.5 yaml_2.3.12       fastmap_1.2.0     lattice_0.22-9   
+>>  [1] Matrix_1.7-6      jsonlite_2.0.0    dplyr_1.2.1       vegan_2.7-8      
+>>  [5] compiler_4.6.2    tidyselect_1.2.1  Rcpp_1.1.2        parallel_4.6.2   
+>>  [9] cluster_2.1.8.3   jquerylib_0.1.4   splines_4.6.2     systemfonts_1.3.3
+>> [13] textshaping_1.0.5 yaml_2.3.12       fastmap_1.2.0     lattice_0.23-1   
 >> [17] R6_2.6.1          plyr_1.8.9        generics_0.1.4    igraph_2.3.4     
->> [21] knitr_1.52        MASS_7.3-65       tibble_3.3.1      Rtsne_0.17       
+>> [21] knitr_1.52        MASS_7.3-66       tibble_3.3.1      Rtsne_0.17       
 >> [25] desc_1.4.3        pillar_1.11.1     bslib_0.12.0      rlang_1.3.0      
 >> [29] cachem_1.1.0      xfun_0.62         fs_2.1.0          sass_0.4.10      
->> [33] otel_0.2.0        cli_3.6.6         withr_3.0.3       magrittr_2.0.5   
->> [37] pkgdown_2.2.1     mgcv_1.9-4        digest_0.6.39     grid_4.6.1       
->> [41] permute_0.9-10    lifecycle_1.0.5   nlme_3.1-169      vctrs_0.7.3      
+>> [33] otel_0.3.0        cli_3.6.6         withr_3.0.3       magrittr_2.0.5   
+>> [37] pkgdown_2.2.1     mgcv_1.9-4        digest_0.6.39     grid_4.6.2       
+>> [41] permute_0.10-0    lifecycle_1.0.5   nlme_3.1-171      vctrs_0.7.3      
 >> [45] glue_1.8.1        evaluate_1.0.5    ragg_1.5.2        rmarkdown_2.32   
->> [49] purrr_1.2.2       pkgconfig_2.0.3   tools_4.6.1       htmltools_0.5.9
+>> [49] purrr_1.2.2       pkgconfig_2.0.3   tools_4.6.2       htmltools_0.5.9
 ```

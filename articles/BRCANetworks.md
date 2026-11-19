@@ -157,9 +157,9 @@ networks.
 CCCN.data <- MakeCorrelationNetwork(adj.consensus.matrix,
                                     ptm.correlation.matrix)
 >> Making PTM CCCN
->> PTM CCCN complete after 0.88 secs total.
+>> PTM CCCN complete after 1.45 secs total.
 >> Making Gene CCCN
->> Gene CCCN complete after 18.26 secs total.
+>> Gene CCCN complete after 16.12 secs total.
 ptm.cccn.edges <- CCCN.data[[1]]
 gene.cccn.edges <- CCCN.data[[2]]
 gene.cccn.nodes <- CCCN.data[[3]]
@@ -706,13 +706,13 @@ nodes.
 
 ``` r
 sessionInfo()
->> R version 4.6.1 (2026-06-24)
+>> R version 4.6.2 (2026-10-29)
 >> Platform: x86_64-pc-linux-gnu
->> Running under: Ubuntu 24.04.5 LTS
+>> Running under: Ubuntu 26.04.1 LTS
 >> 
 >> Matrix products: default
 >> BLAS:   /usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3 
->> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so;  LAPACK version 3.12.0
+>> LAPACK: /usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.32.so;  LAPACK version 3.12.0
 >> 
 >> locale:
 >>  [1] LC_CTYPE=C.UTF-8       LC_NUMERIC=C           LC_TIME=C.UTF-8       
@@ -730,15 +730,15 @@ sessionInfo()
 >> [1] PTMsToPathways_0.99.0
 >> 
 >> loaded via a namespace (and not attached):
->>  [1] jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.1     gtools_3.9.5      
+>>  [1] jsonlite_2.0.0     dplyr_1.2.1        compiler_4.6.2     gtools_3.9.5      
 >>  [5] Rcpp_1.1.2         tidyselect_1.2.1   bitops_1.1-0       jquerylib_0.1.4   
->>  [9] systemfonts_1.3.2  textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
+>>  [9] systemfonts_1.3.3  textshaping_1.0.5  yaml_2.3.12        fastmap_1.2.0     
 >> [13] plyr_1.8.9         R6_2.6.1           generics_0.1.4     igraph_2.3.4      
 >> [17] knitr_1.52         tibble_3.3.1       desc_1.4.3         bslib_0.12.0      
 >> [21] pillar_1.11.1      rlang_1.3.0        cachem_1.1.0       xfun_0.62         
->> [25] fs_2.1.0           caTools_1.18.4     sass_0.4.10        otel_0.2.0        
+>> [25] fs_2.1.0           caTools_1.18.4     sass_0.4.10        otel_0.3.0        
 >> [29] cli_3.6.6          pkgdown_2.2.1      withr_3.0.3        magrittr_2.0.5    
->> [33] digest_0.6.39      lifecycle_1.0.5    vctrs_0.7.3        KernSmooth_2.23-26
+>> [33] digest_0.6.39      lifecycle_1.0.5    vctrs_0.7.3        KernSmooth_2.23-27
 >> [37] evaluate_1.0.5     glue_1.8.1         ragg_1.5.2         rmarkdown_2.32    
->> [41] tools_4.6.1        pkgconfig_2.0.3    htmltools_0.5.9    gplots_3.3.0
+>> [41] tools_4.6.2        pkgconfig_2.0.3    htmltools_0.5.9    gplots_3.3.0
 ```

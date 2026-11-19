@@ -115,13 +115,13 @@ resulting filtered PCN has a row to work with.
 
 ``` r
 
-tempPcn = rbind(ex_pathway_crosstalk_network,
-                data.frame(source="Transmembrane transport of small molecules",
-                           target="Endocytosis", Weight = 1,
-                           interaction="PTM_cluster_evidence"))
+pcn.path <- system.file("extdata",
+                        "full_pathway_crosstalk_network.rda",
+                        package = "PTMsToPathways")
+load(pcn.path)
 egfr_transporter_pcn <- filter.edges.between(
   "Transmembrane transport of small molecules",
-  egfr_pathways, tempPcn)
+  egfr_pathways, pathway.crosstalk.network)
 ```
 
 This filtered PCN can be passed into the function
@@ -140,20 +140,32 @@ pcn.graph <- cytoscape.graph.PCN.pathways(
   Jaccard.edges = TRUE)
 ```
 
-![](vig_figs/tempCytoscapePCN.png)
+![](vig_figs/CytoscapePCN.png) This is the raw output into Cytoscape,
+but note that further modifications can be made to ensure easier viewing
+within the Cytoscape interface.
 
 Let’s zero in on interactions between proteins in the two pathways
 “EGF/EGFR signaling pathway” and “Transmembrane transport of small
 molecules” because they have no genes in common, yet the cluster
-evidence for their interaction is strong.
+evidence for their interaction is strong. Note that we are checking both
+edge directions and combining the two results.
+
+Because the Jaccard Score was zero, it was removed, leaving only the
+`PTM_cluster_weight`.
 
 ``` r
-subset(tempPcn,
-       source=="Transmembrane transport of small molecules" &
+rbind(
+  subset(pathway.crosstalk.network,
+         target=="Transmembrane transport of small molecules" &
+         source=="EGF/EGFR signaling pathway"),
+  subset(pathway.crosstalk.network,
+         source=="Transmembrane transport of small molecules" &
          target=="EGF/EGFR signaling pathway")
-# should we check other direction?
->> [1] source      target      Weight      interaction
->> <0 rows> (or 0-length row.names)
+)
+>>                            source                                     target
+>> 295049 EGF/EGFR signaling pathway Transmembrane transport of small molecules
+>>                  Weight         interaction
+>> 295049 2.04637335631707 PTM_cluster_weights
 ```
 
 First we extract a network of interactions between the genes in the two
@@ -163,12 +175,17 @@ useful if node size and color is used later to indicate values in data.
 
 ``` r
 
+cfn.path <- system.file("extdata",
+                        "full_cfn.rda",
+                        package = "PTMsToPathways")
+load(cfn.path)
+
 egfr_transporter.cfn <- filter.edges.0(c(
   pathways.list[["EGF/EGFR signaling pathway"]],
-  pathways.list[["Transmembrane transport of small molecules"]]), ex_cfn)
+  pathways.list[["Transmembrane transport of small molecules"]]), cfn)
 
 egfr_transporter.nodes <- make.cytoscape.node.file(
-  egfr_transporter.cfn, function_key, ex_small_ptm_table, include.gene.data=TRUE) 
+  egfr_transporter.cfn, function_key, ex_full_ptm_table, include.gene.data=TRUE) 
 ```
 
 #### Generate the graph and set node size and color
@@ -197,13 +214,17 @@ to your study of choice.
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
+This should modify the previous graph into the following:
+
+![](vig_figs/TwoPathwayCFN2.png)
+
 The existing cluster filtered networks retain parallel edges and
 self-loops. To consolidate these into a cleaner graph for the full cfn,
 you can run the following:
 
 ``` r
 
-cfn.merged <- mergeEdges(ex_cfn)
+cfn.merged <- mergeEdges(cfn)
 ```
 
 Or just to the filtered cfn made above:
@@ -231,6 +252,8 @@ interaction type as above.
 setNodeColorToRatios(plotcol="PC9_ErlotinibRatio")
 ```
 
+![](vig_figs/TwoPathwayCFN3.png)
+
 Note that within Cytoscape you can change the column for node size and
 color (two separate things) in the “Styles” tab.
 
@@ -243,7 +266,6 @@ to identify all shortest paths between two nodes.
 
 ``` r
 
-# SHOULD RUN WITH BIGGER DATASET
 sp1 <- connectNodes.all(c("FYN", 'MET'), edgefile = cfn.merged)
 ```
 
@@ -255,9 +277,14 @@ when generating the Cytoscape node file:
 
 ``` r
 
-# SHOULD RUN AFTER ABOVE CHUNK
-sp1_plus <- get.co.clustered.ptms(sp1, ex_ptm_cccn_edges, ex_small_ptm_table)
-sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_small_ptm_table,
+# CHECK GET.CO.CLUSTERED.PTMS FUNCTION
+ptmcccn.path <- system.file("extdata",
+                            "full_ptm_cccn.rda",
+                            package = "PTMsToPathways")
+load(ptmcccn.path)
+
+sp1_plus <- get.co.clustered.ptms(sp1, ptm.cccn.edges, ex_full_ptm_table)
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_full_ptm_table,
                                            include.gene.data = TRUE,
                                            include.coclustered.PTMs = TRUE) 
 ```
@@ -337,8 +364,8 @@ dataframe for Cytoscape visualization.
 
 ``` r
 
-# SHOULD RUN WITH FULL DATASET
-cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ex_ptm_cccn_edges,
+# CHECK PTMS_TO_CFN FUNCTION
+cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges,
                         ex_full_ptm_table, pepsep = ";")
 
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
