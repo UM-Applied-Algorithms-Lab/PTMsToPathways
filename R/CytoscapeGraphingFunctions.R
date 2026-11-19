@@ -239,6 +239,9 @@ make.cytoscape.node.file <- function(edge.file, funckey = PTMsToPathways::functi
   node_file <- cbind(data.frame(id = node_file$Gene.Name), node_file)
   # Step 4: Optionally merge PTM CCCN and data
   if (include.coclustered.PTMs == TRUE) {
+    if (is.null(ptm.cccn.edges)) {
+      stop("include.coclustered.PTMs = TRUE requires the ptm.cccn.edges argument.")
+    }
     edge.file.with.ptms <- get.co.clustered.ptms(edge.file, ptm.cccn.edges, ptmtable)
     if(length (peptides) > 0)  {
       edge.file.with.ptms <- unique(rbind(edge.file.with.ptms, edge.file[which(edge.file$interaction == "peptide"), ]))

@@ -256,7 +256,8 @@ load(ptmcccn.path)
 sp1_plus <- get.co.clustered.ptms(sp1, ptm.cccn.edges, ex_full_ptm_table)
 sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_full_ptm_table,
                                            include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE) 
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 ```
 
 As before, we can graph in Cytoscape and set the node color:
