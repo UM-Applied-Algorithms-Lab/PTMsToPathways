@@ -154,6 +154,7 @@ Because the Jaccard Score was zero, it was removed, leaving only the
 `PTM_cluster_weight`.
 
 ``` r
+
 rbind(
   subset(pathway.crosstalk.network,
          target=="Transmembrane transport of small molecules" &
@@ -162,11 +163,11 @@ rbind(
          source=="Transmembrane transport of small molecules" &
          target=="EGF/EGFR signaling pathway")
 )
->>                            source                                     target
->> 295049 EGF/EGFR signaling pathway Transmembrane transport of small molecules
->>                  Weight         interaction
->> 295049 2.04637335631707 PTM_cluster_weights
 ```
+
+|  | source | target | Weight | interaction |
+|:---|:---|:---|:---|:---|
+| 295049 | EGF/EGFR signaling pathway | Transmembrane transport of small molecules | 2.04637335631707 | PTM_cluster_weights |
 
 First we extract a network of interactions between the genes in the two
 pathways. Then we generate a node file for Cytoscape. In the following
@@ -277,7 +278,6 @@ when generating the Cytoscape node file:
 
 ``` r
 
-# CHECK GET.CO.CLUSTERED.PTMS FUNCTION
 ptmcccn.path <- system.file("extdata",
                             "full_ptm_cccn.rda",
                             package = "PTMsToPathways")
@@ -365,14 +365,14 @@ dataframe for Cytoscape visualization.
 
 ``` r
 
-# CHECK PTMS_TO_CFN FUNCTION
 cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges,
                         ex_full_ptm_table, pepsep = ";")
 
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
                                            ex_full_ptm_table,
                                            include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE)
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 ```
 
 If you have Cytoscape installed, you can run `GraphCfn` to automatically
