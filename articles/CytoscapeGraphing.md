@@ -300,6 +300,8 @@ GraphCfn(cfn.edges = sp1_plus, cfn.nodes = sp1_plus.nodes,
 setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
 ```
 
+![](vig_figs/SP1.png)
+
 ## Bottom-Up Approach
 
 Instead of starting with pathways, we can also start by investigating
@@ -387,3 +389,5 @@ GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
 setNodeColorToRatios(plotcol="H366_DasatinibRatio")
 setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
 ```
+
+![](vig_figs/Dasatinib.png)
