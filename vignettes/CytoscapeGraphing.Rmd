@@ -280,6 +280,10 @@ GraphCfn(cfn.edges = sp1_plus, cfn.nodes = sp1_plus.nodes,
 setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
 ```
 
+```{r label=showSP1PathGraph, echo = FALSE, eval =TRUE}
+knitr::include_graphics("vig_figs/SP1.png")
+```
+
 # Bottom-Up Approach
 
 Instead of starting with pathways, we can also start by investigating the PTMs directly.
@@ -346,4 +350,8 @@ GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
 # Choose ratio data column to show which proteins' PTMs were inhibited by a dasatinib
 setNodeColorToRatios(plotcol="H366_DasatinibRatio")
 setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
+```
+
+```{r label=showDasatinibGraph, echo = FALSE, eval =TRUE}
+knitr::include_graphics("vig_figs/Dasatinib.png")
 ```

@@ -152,7 +152,7 @@ Let's zero in on interactions between proteins in the two pathways "EGF/EGFR sig
 
 Because the Jaccard Score was zero, it was removed, leaving only the `PTM_cluster_weight`.
 
-```{r label=showPathwayScores, eval = TRUE}
+```{r label=showPathwayScores, eval = FALSE}
 rbind(
   subset(pathway.crosstalk.network,
          target=="Transmembrane transport of small molecules" &
@@ -161,6 +161,18 @@ rbind(
          source=="Transmembrane transport of small molecules" &
          target=="EGF/EGFR signaling pathway")
 )
+```
+```{r, label=showPathwayScoresNiceOutput, eval = TRUE, echo = FALSE}
+knitr::kable(head(
+rbind(
+  subset(pathway.crosstalk.network,
+         target=="Transmembrane transport of small molecules" &
+         source=="EGF/EGFR signaling pathway"),
+  subset(pathway.crosstalk.network,
+         source=="Transmembrane transport of small molecules" &
+         target=="EGF/EGFR signaling pathway")
+)
+))
 ```
 
 First we extract a network of interactions between the genes in the two pathways. Then we generate a node file for Cytoscape. In the following case we include the data extracted from the ptmtable. This is optional, useful if node size and color is used later to indicate values in data.
@@ -246,8 +258,7 @@ sp1 <- connectNodes.all(c("FYN", 'MET'), edgefile = cfn.merged)
 
 Having identified the pathways, let's also zoom in further on PTMs to examine which PTMs co-cluster, as indicated by yellow edges between them. To include this data in the graph, first run `get.co.clustered.ptms` then use the flag `include.coclustered.PTMs` when generating the Cytoscape node file:
 
-```{r label=SP1cccn, eval = FALSE}
-# CHECK GET.CO.CLUSTERED.PTMS FUNCTION
+```{r label=SP1cccn, eval = TRUE}
 ptmcccn.path <- system.file("extdata",
                             "full_ptm_cccn.rda",
                             package = "PTMsToPathways")
@@ -256,7 +267,8 @@ load(ptmcccn.path)
 sp1_plus <- get.co.clustered.ptms(sp1, ptm.cccn.edges, ex_full_ptm_table)
 sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_full_ptm_table,
                                            include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE) 
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 ```
 
 As before, we can graph in Cytoscape and set the node color:
@@ -266,6 +278,10 @@ GraphCfn(cfn.edges = sp1_plus, cfn.nodes = sp1_plus.nodes,
          Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
 
 setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
+```
+
+```{r label=showSP1PathGraph, echo = FALSE, eval =TRUE}
+knitr::include_graphics("vig_figs/SP1.png")
 ```
 
 # Bottom-Up Approach
@@ -314,15 +330,15 @@ ptms <- rownames(pt.sub.fa.topz)
 
 Finally, we employ a `PTMsToPathways` functions to derive a cluster filtered network starting with the list of PTMs and then prepare the dataframe for Cytoscape visualization.
 
-```{r label=cfnAndVisual, eval = FALSE}
-# CHECK PTMS_TO_CFN FUNCTION
+```{r label=cfnAndVisual, eval = TRUE}
 cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges,
                         ex_full_ptm_table, pepsep = ";")
 
 cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
                                            ex_full_ptm_table,
                                            include.gene.data = TRUE,
-                                           include.coclustered.PTMs = TRUE)
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 ```
 
 If you have Cytoscape installed, you can run `GraphCfn` to automatically view the network just created.
@@ -334,4 +350,8 @@ GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
 # Choose ratio data column to show which proteins' PTMs were inhibited by a dasatinib
 setNodeColorToRatios(plotcol="H366_DasatinibRatio")
 setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
+```
+
+```{r label=showDasatinibGraph, echo = FALSE, eval =TRUE}
+knitr::include_graphics("vig_figs/Dasatinib.png")
 ```

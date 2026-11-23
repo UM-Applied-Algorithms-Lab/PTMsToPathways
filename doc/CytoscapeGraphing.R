@@ -57,7 +57,18 @@ egfr_transporter_pcn <- filter.edges.between(
 ## ----graphPCNOutput, eval = TRUE, echo = FALSE--------------------------------
 knitr::include_graphics("vig_figs/CytoscapePCN.png")
 
-## ----label=showPathwayScores, eval = TRUE-------------------------------------
+## ----label=showPathwayScores, eval = FALSE------------------------------------
+# rbind(
+#   subset(pathway.crosstalk.network,
+#          target=="Transmembrane transport of small molecules" &
+#          source=="EGF/EGFR signaling pathway"),
+#   subset(pathway.crosstalk.network,
+#          source=="Transmembrane transport of small molecules" &
+#          target=="EGF/EGFR signaling pathway")
+# )
+
+## ----label=showPathwayScoresNiceOutput, eval = TRUE, echo = FALSE-------------
+knitr::kable(head(
 rbind(
   subset(pathway.crosstalk.network,
          target=="Transmembrane transport of small molecules" &
@@ -66,6 +77,7 @@ rbind(
          source=="Transmembrane transport of small molecules" &
          target=="EGF/EGFR signaling pathway")
 )
+))
 
 ## ----label=EGFRTransporter, eval = TRUE---------------------------------------
 cfn.path <- system.file("extdata",
@@ -114,23 +126,26 @@ knitr::include_graphics("vig_figs/TwoPathwayCFN3.png")
 ## ----label=connect, eval = TRUE-----------------------------------------------
 sp1 <- connectNodes.all(c("FYN", 'MET'), edgefile = cfn.merged)
 
-## ----label=SP1cccn, eval = FALSE----------------------------------------------
-# # CHECK GET.CO.CLUSTERED.PTMS FUNCTION
-# ptmcccn.path <- system.file("extdata",
-#                             "full_ptm_cccn.rda",
-#                             package = "PTMsToPathways")
-# load(ptmcccn.path)
-# 
-# sp1_plus <- get.co.clustered.ptms(sp1, ptm.cccn.edges, ex_full_ptm_table)
-# sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_full_ptm_table,
-#                                            include.gene.data = TRUE,
-#                                            include.coclustered.PTMs = TRUE)
+## ----label=SP1cccn, eval = TRUE-----------------------------------------------
+ptmcccn.path <- system.file("extdata",
+                            "full_ptm_cccn.rda",
+                            package = "PTMsToPathways")
+load(ptmcccn.path)
+
+sp1_plus <- get.co.clustered.ptms(sp1, ptm.cccn.edges, ex_full_ptm_table)
+sp1_plus.nodes <- make.cytoscape.node.file(sp1_plus, function_key, ex_full_ptm_table,
+                                           include.gene.data = TRUE,
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 
 ## ----label = SP1graph, eval = FALSE-------------------------------------------
 # GraphCfn(cfn.edges = sp1_plus, cfn.nodes = sp1_plus.nodes,
 #          Network.title = "CFN/CCCN", Network.collection = "PTMsToPathways")
 # 
 # setNodeColorToRatios(plotcol = "H3122CrizotinibRatio")
+
+## ----label=showSP1PathGraph, echo = FALSE, eval =TRUE-------------------------
+knitr::include_graphics("vig_figs/SP1.png")
 
 ## ----label= pt.sub, eval = TRUE-----------------------------------------------
 pt.sub <- ex_full_ptm_table[, grep("DasatinibRatio", names (ex_full_ptm_table))]
@@ -149,15 +164,15 @@ pt.sub.fa <- pt.sub[pt.sub$Gene.Name %in% fa.genes,]
 pt.sub.fa.topz <- pt.sub.fa[pt.sub.fa$Sum.Dasat < -2,]
 ptms <- rownames(pt.sub.fa.topz)
 
-## ----label=cfnAndVisual, eval = FALSE-----------------------------------------
-# # CHECK PTMS_TO_CFN FUNCTION
-# cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges,
-#                         ex_full_ptm_table, pepsep = ";")
-# 
-# cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
-#                                            ex_full_ptm_table,
-#                                            include.gene.data = TRUE,
-#                                            include.coclustered.PTMs = TRUE)
+## ----label=cfnAndVisual, eval = TRUE------------------------------------------
+cfn.cccn <- ptms_to_cfn(ptms, cfn = cfn.merged, ptm.cccn.edges,
+                        ex_full_ptm_table, pepsep = ";")
+
+cfn_cccn.nodes <- make.cytoscape.node.file(cfn.cccn, function_key,
+                                           ex_full_ptm_table,
+                                           include.gene.data = TRUE,
+                                           include.coclustered.PTMs = TRUE,
+                                           ptm.cccn.edges = ptm.cccn.edges)
 
 ## ----label=graphDasatinib, eval = FALSE---------------------------------------
 # GraphCfn(cfn.edges = cfn.cccn, cfn.nodes = cfn_cccn.nodes,
@@ -166,4 +181,7 @@ ptms <- rownames(pt.sub.fa.topz)
 # # Choose ratio data column to show which proteins' PTMs were inhibited by a dasatinib
 # setNodeColorToRatios(plotcol="H366_DasatinibRatio")
 # setNodeColorToRatios(plotcol="H2286_DasatinibRatio")
+
+## ----label=showDasatinibGraph, echo = FALSE, eval =TRUE-----------------------
+knitr::include_graphics("vig_figs/Dasatinib.png")
 
